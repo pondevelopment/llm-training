@@ -7,7 +7,7 @@ class LLMQuestionApp {
         this.questionLoader = new QuestionLoader();
         this.currentQuestionIndex = 0;
         // Only show questions that actually exist
-        this.availableQuestions = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+        this.availableQuestions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
         this.totalQuestions = this.availableQuestions.length;
         this.isLoading = false;
         
@@ -104,7 +104,8 @@ class LLMQuestionApp {
             6: "What is temperature in text generation and how does it affect output?",
             7: "What are embeddings and how do they enable LLMs to understand semantic meaning?",
             8: "What is RLHF and how does it improve LLM alignment with human preferences?",
-            9: "How do autoregressive and masked models differ in LLM training?"
+            9: "How do autoregressive and masked models differ in LLM training?",
+            10: "What are embeddings, and how are they initialized in LLMs?"
         };
         
         this.availableQuestions.forEach((questionNum, index) => {

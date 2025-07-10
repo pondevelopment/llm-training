@@ -74,9 +74,18 @@ const question = {
             <div class="space-y-6">
                 <!-- Input Section -->
                 <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200">
-                    <label for="q10-word-input" class="block text-sm font-medium text-gray-700 mb-2">📝 Enter Words to Explore</label>
-                    <input type="text" id="q10-word-input" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" value="dog cat animal pet">
-                    <p class="text-xs text-gray-600 mt-1">Enter words separated by spaces to see how their embeddings might evolve</p>
+                    <label for="q10-word-select" class="block text-sm font-medium text-gray-700 mb-2">📝 Select Words to Explore</label>
+                    <select id="q10-word-select" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        <option value="dog cat animal pet">Animals & Pets (dog cat animal pet)</option>
+                        <option value="king queen royal monarch">Royalty & Hierarchy (king queen royal monarch)</option>
+                        <option value="happy sad joyful depressed">Emotions (happy sad joyful depressed)</option>
+                        <option value="heart brain medicine doctor">Medical Terms (heart brain medicine doctor)</option>
+                        <option value="therapy treatment diagnosis prescription">Medical Procedures (therapy treatment diagnosis prescription)</option>
+                        <option value="computer software algorithm data">Technology (computer software algorithm data)</option>
+                        <option value="book read write author">Literature (book read write author)</option>
+                        <option value="car drive road traffic">Transportation (car drive road traffic)</option>
+                    </select>
+                    <p class="text-xs text-gray-600 mt-1">Choose a word set to see how their embeddings might evolve during training</p>
                 </div>
                 
                 <!-- Initialization Strategy Selection -->
@@ -131,13 +140,13 @@ const question = {
                             </div>
                         </label>
                         <label class="relative cursor-pointer">
-                            <input type="radio" name="q10-context" value="medical" class="sr-only">
-                            <div class="border-2 border-red-200 rounded-lg p-3 hover:bg-red-50 transition-colors">
+                            <input type="radio" name="q10-context" value="specialized" class="sr-only">
+                            <div class="border-2 border-purple-200 rounded-lg p-3 hover:bg-purple-50 transition-colors">
                                 <div class="flex items-center justify-between mb-2">
-                                    <span class="font-medium text-red-700">Medical Domain</span>
-                                    <span class="text-xs bg-red-100 text-red-700 px-2 py-1 rounded">Specialized</span>
+                                    <span class="font-medium text-purple-700" id="q10-specialized-name">Specialized Domain</span>
+                                    <span class="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded">Focused</span>
                                 </div>
-                                <p class="text-xs text-red-600">Medical texts and terminology</p>
+                                <p class="text-xs text-purple-600" id="q10-specialized-desc">Domain-specific training with specialized terminology</p>
                             </div>
                         </label>
                     </div>
@@ -146,7 +155,7 @@ const question = {
                 <!-- Quick Examples -->
                 <div class="flex flex-wrap gap-2">
                     <span class="text-sm font-medium text-gray-700">💡 Quick Examples:</span>
-                    <button id="q10-example-btn" class="text-xs bg-indigo-100 text-indigo-700 px-2 py-1 rounded hover:bg-indigo-200 transition-colors">Try: "dog cat animal pet"</button>
+                    <button id="q10-example-btn" class="text-xs bg-indigo-100 text-indigo-700 px-2 py-1 rounded hover:bg-indigo-200 transition-colors">Try: "heart brain..."</button>
                 </div>
                 
                 <!-- Results -->
@@ -156,7 +165,7 @@ const question = {
                         <div id="q10-strategy-indicator" class="text-xs bg-gray-100 px-2 py-1 rounded font-medium">Random Initialization</div>
                     </div>
                     <div id="q10-output" class="min-h-[200px] p-3 bg-gray-50 rounded border-2 border-dashed border-gray-300">
-                        <div class="text-gray-500 text-center py-8">Enter words above to see how their embeddings evolve</div>
+                        <div class="text-gray-500 text-center py-8">Select words above to see how their embeddings evolve</div>
                     </div>
                     <div id="q10-legend" class="mt-3 text-xs"></div>
                 </div>
@@ -172,7 +181,7 @@ const question = {
         `,
         script: () => {
             // Get DOM elements with error checking
-            const input = document.getElementById('q10-word-input');
+            const wordSelect = document.getElementById('q10-word-select');
             const output = document.getElementById('q10-output');
             const strategyRadios = document.querySelectorAll('input[name="q10-strategy"]');
             const contextRadios = document.querySelectorAll('input[name="q10-context"]');
@@ -181,7 +190,7 @@ const question = {
             const legend = document.getElementById('q10-legend');
             const explanation = document.getElementById('q10-explanation');
 
-            if (!input || !output) {
+            if (!wordSelect || !output) {
                 console.error('Required DOM elements not found for Question 10');
                 return;
             }
@@ -223,18 +232,123 @@ const question = {
                     pet: ['companion', 'friend', 'animal', 'dog'],
                     king: ['queen', 'royal', 'monarch', 'ruler'],
                     queen: ['king', 'royal', 'monarch', 'ruler'],
+                    royal: ['nobility', 'crown', 'palace', 'kingdom'],
+                    monarch: ['sovereign', 'ruler', 'throne', 'empire'],
                     happy: ['joyful', 'glad', 'content', 'pleased'],
-                    sad: ['unhappy', 'depressed', 'sorrowful', 'blue']
+                    sad: ['unhappy', 'depressed', 'sorrowful', 'blue'],
+                    joyful: ['happy', 'elated', 'cheerful', 'delighted'],
+                    depressed: ['sad', 'down', 'melancholy', 'dejected'],
+                    computer: ['technology', 'machine', 'digital', 'electronic'],
+                    software: ['program', 'application', 'code', 'system'],
+                    algorithm: ['method', 'procedure', 'logic', 'process'],
+                    data: ['information', 'facts', 'statistics', 'records'],
+                    book: ['literature', 'novel', 'text', 'publication'],
+                    read: ['study', 'peruse', 'examine', 'comprehend'],
+                    write: ['compose', 'author', 'create', 'draft'],
+                    author: ['writer', 'creator', 'novelist', 'poet'],
+                    car: ['vehicle', 'automobile', 'transportation', 'motor'],
+                    drive: ['operate', 'steer', 'navigate', 'pilot'],
+                    road: ['street', 'highway', 'path', 'route'],
+                    traffic: ['vehicles', 'congestion', 'flow', 'circulation'],
+                    heart: ['organ', 'body', 'health', 'pulse'],
+                    brain: ['mind', 'organ', 'thought', 'intelligence'],
+                    medicine: ['drug', 'treatment', 'healing', 'remedy'],
+                    doctor: ['physician', 'professional', 'healer', 'expert'],
+                    therapy: ['treatment', 'healing', 'recovery', 'care'],
+                    treatment: ['therapy', 'care', 'healing', 'procedure'],
+                    diagnosis: ['identification', 'assessment', 'analysis', 'evaluation'],
+                    prescription: ['medicine', 'order', 'instruction', 'treatment']
                 },
-                medical: {
-                    dog: ['canine', 'animal', 'therapy', 'service'],
-                    cat: ['feline', 'animal', 'therapy', 'allergen'],
-                    animal: ['specimen', 'model', 'subject', 'organism'],
-                    pet: ['therapy', 'companion', 'emotional', 'support'],
+                specialized: {
+                    // Political Science Domain (Royalty & Hierarchy)
+                    king: ['sovereignty', 'governance', 'legitimacy', 'authority'],
+                    queen: ['monarchy', 'regency', 'succession', 'dynasty'],
+                    royal: ['aristocracy', 'peerage', 'nobility', 'court'],
+                    monarch: ['absolutism', 'constitutional', 'divine right', 'succession'],
+                    
+                    // Psychology Domain (Emotions)
+                    happy: ['positive affect', 'wellbeing', 'dopamine', 'euphoria'],
+                    sad: ['depression', 'melancholia', 'dysthymia', 'grief'],
+                    joyful: ['elation', 'bliss', 'exuberance', 'jubilation'],
+                    depressed: ['clinical depression', 'major depressive', 'anhedonia', 'dysphoria'],
+                    
+                    // Medical Domain (Medical Terms)
                     heart: ['cardiac', 'coronary', 'myocardial', 'valve'],
                     brain: ['neural', 'cerebral', 'cognitive', 'cortex'],
-                    pain: ['discomfort', 'ache', 'chronic', 'acute'],
-                    medicine: ['drug', 'treatment', 'therapy', 'pharmaceutical']
+                    medicine: ['pharmacology', 'therapeutics', 'pharmaceutical', 'dosage'],
+                    doctor: ['physician', 'clinician', 'practitioner', 'specialist'],
+                    therapy: ['rehabilitation', 'intervention', 'protocol', 'modality'],
+                    treatment: ['therapeutic', 'intervention', 'protocol', 'regimen'],
+                    diagnosis: ['differential', 'pathology', 'clinical assessment', 'nosology'],
+                    prescription: ['medication', 'pharmaceutical', 'dosage', 'contraindication'],
+                    
+                    // Computer Science Domain (Technology)
+                    computer: ['computational', 'processor', 'architecture', 'algorithm'],
+                    software: ['programming', 'codebase', 'framework', 'library'],
+                    algorithm: ['complexity', 'optimization', 'recursion', 'efficiency'],
+                    data: ['database', 'dataset', 'metadata', 'schema'],
+                    
+                    // Literary Studies Domain (Literature)
+                    book: ['manuscript', 'narrative', 'genre', 'canon'],
+                    read: ['interpretation', 'hermeneutics', 'close reading', 'analysis'],
+                    write: ['composition', 'rhetoric', 'discourse', 'authorship'],
+                    author: ['authorial intent', 'voice', 'persona', 'biography'],
+                    
+                    // Transportation Systems Domain (Transportation)
+                    car: ['vehicle', 'automotive', 'transportation', 'mobility'],
+                    drive: ['navigation', 'traffic flow', 'route optimization', 'logistics'],
+                    road: ['infrastructure', 'transportation network', 'traffic engineering', 'corridor'],
+                    traffic: ['flow dynamics', 'congestion management', 'capacity', 'throughput'],
+                    
+                    // Veterinary/Animal Science Domain (Animals & Pets)
+                    dog: ['canine', 'domestication', 'breeding', 'behavior'],
+                    cat: ['feline', 'domestication', 'territorial', 'predatory'],
+                    animal: ['zoology', 'ethology', 'taxonomy', 'habitat'],
+                    pet: ['companion animal', 'domestication', 'human-animal bond', 'welfare']
+                }
+            };
+
+            // Word set to specialized domain mapping
+            const wordSetDomains = {
+                'dog cat animal pet': {
+                    name: 'Veterinary Science',
+                    description: 'Animal health, behavior, and companion animal studies',
+                    color: '#059669' // Green
+                },
+                'king queen royal monarch': {
+                    name: 'Political Science',
+                    description: 'Governance, monarchy, and political structures',
+                    color: '#7c3aed' // Purple
+                },
+                'happy sad joyful depressed': {
+                    name: 'Psychology',
+                    description: 'Emotional states, mental health, and cognitive science',
+                    color: '#dc2626' // Red
+                },
+                'heart brain medicine doctor': {
+                    name: 'Medical Science',
+                    description: 'Healthcare, anatomy, and medical terminology',
+                    color: '#dc2626' // Red
+                },
+                'therapy treatment diagnosis prescription': {
+                    name: 'Clinical Medicine',
+                    description: 'Medical procedures, treatment protocols, and clinical practice',
+                    color: '#dc2626' // Red
+                },
+                'computer software algorithm data': {
+                    name: 'Computer Science',
+                    description: 'Computing, programming, and information technology',
+                    color: '#0891b2' // Cyan
+                },
+                'book read write author': {
+                    name: 'Literary Studies',
+                    description: 'Literature, authorship, and textual analysis',
+                    color: '#ea580c' // Orange
+                },
+                'car drive road traffic': {
+                    name: 'Transportation Systems',
+                    description: 'Traffic engineering, logistics, and transportation planning',
+                    color: '#65a30d' // Lime
                 }
             };
 
@@ -250,34 +364,90 @@ const question = {
                 return selectedRadio ? selectedRadio.value : 'general';
             }
 
+            // Simple hash function for consistent randomness
+            function hashCode(str) {
+                let hash = 0;
+                for (let i = 0; i < str.length; i++) {
+                    const char = str.charCodeAt(i);
+                    hash = ((hash << 5) - hash) + char;
+                    hash = hash & hash;
+                }
+                return Math.abs(hash);
+            }
+
+            // Deterministic pseudo-random based on seed
+            function seededRandom(seed) {
+                const x = Math.sin(seed) * 10000;
+                return x - Math.floor(x);
+            }
+
+            // Helper function to determine appropriate context and update specialized domain display
+            function getRecommendedContext(selectedValue) {
+                // Check if the selected word set has a specialized domain
+                if (wordSetDomains[selectedValue]) {
+                    // Update the specialized domain display
+                    const specializedName = document.getElementById('q10-specialized-name');
+                    const specializedDesc = document.getElementById('q10-specialized-desc');
+                    
+                    if (specializedName && specializedDesc) {
+                        const domain = wordSetDomains[selectedValue];
+                        specializedName.textContent = domain.name;
+                        specializedDesc.textContent = domain.description;
+                    }
+                    
+                    return 'specialized';
+                }
+                return 'general';
+            }
+
             // Simulate embedding evolution
             function simulateEmbeddingEvolution(words, strategy, context) {
                 const results = [];
                 const similarities = contextSimilarities[context];
                 
-                words.forEach((word, index) => {
+                words.forEach((word) => {
                     const wordLower = word.toLowerCase();
                     const relatedWords = similarities[wordLower] || ['similar', 'related', 'associated', 'connected'];
                     
-                    // Simulate initial values based on strategy
+                    // Include context in seed calculation for different results
+                    const baseWordSeed = hashCode(wordLower + strategy);
+                    const contextMultiplier = context === 'specialized' ? 1000 : 1; // Big difference for context
+                    const wordSeed = baseWordSeed + contextMultiplier;
+                    const dimensionSeed = hashCode(wordLower + strategy + context + 'dimensions');
+                    
+                    const rand1 = seededRandom(wordSeed);
+                    const rand2 = seededRandom(wordSeed + 1);
+                    const rand3 = seededRandom(wordSeed + 2);
+                    
                     let initialSimilarity, finalSimilarity, convergenceSpeed;
                     
                     switch(strategy) {
                         case 'random':
-                            initialSimilarity = Math.random() * 0.3; // Low initial similarity
-                            finalSimilarity = Math.random() * 0.4 + 0.6; // High final similarity
+                            initialSimilarity = rand1 * 0.3;
+                            finalSimilarity = rand2 * 0.4 + 0.6;
                             convergenceSpeed = 'Slow';
                             break;
                         case 'pretrained':
-                            initialSimilarity = Math.random() * 0.3 + 0.4; // Medium-high initial
-                            finalSimilarity = Math.random() * 0.2 + 0.8; // Very high final
+                            initialSimilarity = rand1 * 0.3 + 0.4;
+                            finalSimilarity = rand2 * 0.2 + 0.8;
                             convergenceSpeed = 'Fast';
                             break;
                         case 'hybrid':
-                            initialSimilarity = Math.random() * 0.3 + 0.3; // Medium initial
-                            finalSimilarity = Math.random() * 0.25 + 0.75; // High final
+                            initialSimilarity = rand1 * 0.3 + 0.3;
+                            finalSimilarity = rand2 * 0.25 + 0.75;
                             convergenceSpeed = 'Medium';
                             break;
+                    }
+
+                    // Context adjustments - make the difference much more noticeable
+                    if (context === 'specialized' && similarities[wordLower]) {
+                        // Specialized context shows much higher similarity and faster convergence
+                        finalSimilarity = Math.min(0.98, finalSimilarity + 0.2);
+                        initialSimilarity = Math.min(0.85, initialSimilarity + 0.15);
+                    } else if (context === 'general') {
+                        // General context shows more moderate similarities
+                        finalSimilarity = Math.max(0.4, finalSimilarity - 0.1);
+                        initialSimilarity = Math.max(0.05, initialSimilarity - 0.05);
                     }
 
                     results.push({
@@ -286,7 +456,7 @@ const question = {
                         finalSimilarity: finalSimilarity,
                         convergenceSpeed: convergenceSpeed,
                         relatedWords: relatedWords.slice(0, 3),
-                        dimensions: Math.floor(Math.random() * 512) + 256 // 256-768 dimensions
+                        dimensions: Math.floor(seededRandom(dimensionSeed) * 512) + 256
                     });
                 });
 
@@ -295,23 +465,44 @@ const question = {
 
             // Process and display embeddings
             function processAndDisplay() {
-                const text = input.value.trim();
-                if (!text) {
-                    output.innerHTML = '<div class="text-gray-500 text-center py-8">Enter words above to see how their embeddings evolve</div>';
+                const selectedValue = wordSelect.value.trim();
+                if (!selectedValue) {
+                    output.innerHTML = '<div class="text-gray-500 text-center py-8">Select words above to see how their embeddings evolve</div>';
                     return;
                 }
 
-                const words = text.split(/\s+/).filter(word => word.length > 0);
+                const words = selectedValue.split(/\s+/).filter(word => word.length > 0);
                 const strategy = getCurrentStrategy();
-                const context = getCurrentContext();
+                let context = getCurrentContext();
+                
+                // Don't auto-switch context if user manually selected it recently
+                if (!window.q10ManualContextSelection) {
+                    // Auto-switch context based on word selection and update specialized domain display
+                    const recommendedContext = getRecommendedContext(selectedValue);
+                    if (recommendedContext !== context) {
+                        const targetRadio = document.querySelector(`input[name="q10-context"][value="${recommendedContext}"]`);
+                        if (targetRadio) {
+                            targetRadio.checked = true;
+                            context = recommendedContext;
+                            updateStrategyVisuals();
+                        }
+                    }
+                }
+
                 const config = configData[strategy];
+
+                // Get current domain info for display
+                const currentDomain = context === 'specialized' && wordSetDomains[selectedValue] ? 
+                    wordSetDomains[selectedValue] : null;
 
                 // Clear previous results
                 output.innerHTML = '';
 
                 // Update strategy indicator
                 if (strategyIndicator) {
-                    strategyIndicator.textContent = config.name;
+                    const contextLabel = context === 'general' ? 'General Context' : 
+                        (currentDomain ? `${currentDomain.name} Context` : 'Specialized Context');
+                    strategyIndicator.textContent = `${config.name} (${contextLabel})`;
                     strategyIndicator.style.backgroundColor = config.bgColor;
                     strategyIndicator.style.color = config.color;
                 }
@@ -323,7 +514,7 @@ const question = {
                 const evolutionContainer = document.createElement('div');
                 evolutionContainer.className = 'space-y-4';
 
-                results.forEach((result, index) => {
+                results.forEach((result) => {
                     const wordContainer = document.createElement('div');
                     wordContainer.className = 'border rounded-lg p-4 hover:shadow-md transition-shadow';
                     wordContainer.style.backgroundColor = config.bgColor;
@@ -332,6 +523,9 @@ const question = {
                     const initialPercentage = (result.initialSimilarity * 100).toFixed(1);
                     const finalPercentage = (result.finalSimilarity * 100).toFixed(1);
                     const improvement = (result.finalSimilarity - result.initialSimilarity) * 100;
+
+                    const contextLabel = context === 'general' ? 'general context' : 
+                        (currentDomain ? `${currentDomain.name.toLowerCase()} context` : 'specialized context');
 
                     wordContainer.innerHTML = `
                         <div class="flex items-center justify-between mb-3">
@@ -366,8 +560,8 @@ const question = {
                         </div>
 
                         <div class="text-sm">
-                            <div class="text-gray-600 mb-1">Related words in ${context} context:</div>
-                            <div class="flex flex-wrap gap-1">
+                            <div class="text-gray-600 mb-1">Related words in ${contextLabel}:</div>
+                            <div class="flex flex-wrap gap-1 p-2 bg-gray-50 rounded">
                                 ${result.relatedWords.map(word => 
                                     `<span class="px-2 py-1 text-xs rounded" style="background-color: ${config.color}20; color: ${config.color}">${word}</span>`
                                 ).join('')}
@@ -429,17 +623,11 @@ const question = {
                 }
 
                 // Update explanation
-                updateExplanation(strategy, context);
+                updateExplanation(strategy, context, selectedValue);
             }
 
             // Update strategy visuals
             function updateStrategyVisuals() {
-                const selectedStrategy = document.querySelector('input[name="q10-strategy"]:checked');
-                const selectedContext = document.querySelector('input[name="q10-context"]:checked');
-                
-                if (!selectedStrategy || !selectedContext) return;
-
-                // Update radio button containers for strategy
                 document.querySelectorAll('input[name="q10-strategy"]').forEach((radio) => {
                     const container = radio.closest('label').querySelector('div');
                     if (radio.checked) {
@@ -451,7 +639,6 @@ const question = {
                     }
                 });
 
-                // Update radio button containers for context
                 document.querySelectorAll('input[name="q10-context"]').forEach((radio) => {
                     const container = radio.closest('label').querySelector('div');
                     if (radio.checked) {
@@ -465,11 +652,14 @@ const question = {
             }
 
             // Update educational explanation
-            function updateExplanation(strategy, context) {
+            function updateExplanation(strategy, context, selectedValue = null) {
                 if (!explanation) return;
                 
                 const config = configData[strategy];
-                const contextName = context === 'general' ? 'General Language' : 'Medical Domain';
+                const currentDomain = context === 'specialized' && selectedValue && wordSetDomains[selectedValue] ? 
+                    wordSetDomains[selectedValue] : null;
+                const contextName = context === 'general' ? 'General Language' : 
+                    (currentDomain ? currentDomain.name : 'Specialized Domain');
                 
                 const explanations = {
                     'random': `
@@ -500,50 +690,36 @@ const question = {
                     <br><br>
                     <strong>Context Impact (${contextName}):</strong> ${context === 'general' ? 
                         'Words develop broad semantic relationships useful for general language understanding.' : 
-                        'Words evolve specialized meanings relevant to medical terminology and relationships.'
+                        currentDomain ? 
+                            `Words evolve specialized meanings relevant to ${currentDomain.name.toLowerCase()} terminology and relationships.` :
+                            'Words develop domain-specific semantic relationships.'
                     }
                 `;
             }
 
             // Example cycling functionality
             const examples = [
-                { 
-                    words: 'dog cat animal pet', 
-                    strategy: 'random', 
-                    context: 'general',
-                    note: 'Basic animal words with random initialization' 
-                },
-                { 
-                    words: 'heart brain medicine doctor', 
-                    strategy: 'pretrained', 
-                    context: 'medical',
-                    note: 'Medical terms with pre-trained embeddings' 
-                },
-                { 
-                    words: 'king queen royal monarch', 
-                    strategy: 'hybrid', 
-                    context: 'general',
-                    note: 'Hierarchical concepts with hybrid approach' 
-                },
-                { 
-                    words: 'happy sad joyful depressed', 
-                    strategy: 'pretrained', 
-                    context: 'general',
-                    note: 'Emotional words demonstrating semantic similarity' 
-                },
-                { 
-                    words: 'therapy treatment diagnosis prescription', 
-                    strategy: 'hybrid', 
-                    context: 'medical',
-                    note: 'Medical procedures with mixed initialization' 
-                }
+                { words: 'dog cat animal pet', strategy: 'random', context: 'general' },
+                { words: 'heart brain medicine doctor', strategy: 'pretrained', context: 'specialized' },
+                { words: 'king queen royal monarch', strategy: 'hybrid', context: 'general' },
+                { words: 'happy sad joyful depressed', strategy: 'pretrained', context: 'specialized' },
+                { words: 'therapy treatment diagnosis prescription', strategy: 'hybrid', context: 'specialized' }
             ];
             
             let exampleIndex = 0;
             if (exampleBtn) {
                 exampleBtn.addEventListener('click', () => {
                     const example = examples[exampleIndex % examples.length];
-                    input.value = example.words;
+                    
+                    // Find and select the matching option in the dropdown
+                    const options = wordSelect.querySelectorAll('option');
+                    for (let option of options) {
+                        if (option.value === example.words) {
+                            wordSelect.value = example.words;
+                            break;
+                        }
+                    }
+                    
                     document.querySelector(`input[name="q10-strategy"][value="${example.strategy}"]`).checked = true;
                     document.querySelector(`input[name="q10-context"][value="${example.context}"]`).checked = true;
                     updateStrategyVisuals();
@@ -552,13 +728,13 @@ const question = {
                     
                     // Update button text for next example
                     const nextExample = examples[exampleIndex % examples.length];
-                    exampleBtn.innerHTML = `Try: "${nextExample.words}"`;
-                    exampleBtn.title = nextExample.note;
+                    const nextWords = nextExample.words.split(' ').slice(0, 2).join(' ');
+                    exampleBtn.innerHTML = `Try: "${nextWords}..."`;
                 });
             }
 
             // Event listeners
-            input.addEventListener('input', processAndDisplay);
+            wordSelect.addEventListener('change', processAndDisplay);
             
             strategyRadios.forEach(radio => {
                 radio.addEventListener('change', () => {
@@ -569,9 +745,32 @@ const question = {
 
             contextRadios.forEach(radio => {
                 radio.addEventListener('change', () => {
+                    window.q10ManualContextSelection = true; // Mark as manual selection
                     updateStrategyVisuals();
                     processAndDisplay();
+                    
+                    // Clear the manual selection flag after 2 seconds
+                    setTimeout(() => {
+                        window.q10ManualContextSelection = false;
+                    }, 2000);
                 });
+            });
+
+            // Additional click handlers for context labels to ensure they work
+            document.querySelectorAll('input[name="q10-context"]').forEach(radio => {
+                const label = radio.closest('label');
+                if (label) {
+                    label.addEventListener('click', (e) => {
+                        // Prevent double firing if radio button was clicked directly
+                        if (e.target === radio) return;
+                        
+                        radio.checked = true;
+                        window.q10ManualContextSelection = true; // Mark as manual selection
+                        
+                        // Trigger change event
+                        radio.dispatchEvent(new Event('change'));
+                    });
+                }
             });
 
             // Initial setup

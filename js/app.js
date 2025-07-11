@@ -7,7 +7,7 @@ class LLMQuestionApp {
         this.questionLoader = new QuestionLoader();
         this.currentQuestionIndex = 0;
         // Only show questions that actually exist
-        this.availableQuestions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+        this.availableQuestions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
         this.totalQuestions = this.availableQuestions.length;
         this.isLoading = false;
         
@@ -110,7 +110,8 @@ class LLMQuestionApp {
             12: "How do top-k and top-p sampling differ in text generation?",
             13: "Why is prompt engineering crucial for LLM performance?",
             14: "How can LLMs avoid catastrophic forgetting during fine-tuning?",
-            15: "What is model distillation, and how does it benefit LLMs?"
+            15: "What is model distillation, and how does it benefit LLMs?",
+            16: "How do LLMs manage out-of-vocabulary (OOV) words?"
         };
         
         this.availableQuestions.forEach((questionNum, index) => {

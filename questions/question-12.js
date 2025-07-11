@@ -84,9 +84,16 @@ const question = {
         html: `<div class="space-y-6">
             <!-- Context Input Section -->
             <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200">
-                <label for="q12-context-input" class="block text-sm font-medium text-gray-700 mb-2">📝 Enter Context for Text Generation</label>
-                <input type="text" id="q12-context-input" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" value="The mysterious door opened to reveal">
-                <p class="text-xs text-gray-600 mt-1">Enter text context to see how different sampling methods affect next token selection!</p>
+                <label for="q12-context-input" class="block text-sm font-medium text-gray-700 mb-2">📝 Select Context for Text Generation</label>
+                <select id="q12-context-input" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    <option value="0" selected>The mysterious door opened to reveal</option>
+                    <option value="1">The cat sat on the</option>
+                    <option value="2">In the future, artificial intelligence will</option>
+                    <option value="3">The scientist made a groundbreaking</option>
+                    <option value="4">Once upon a time, in a distant</option>
+                    <option value="5">The weather forecast predicted</option>
+                </select>
+                <p class="text-xs text-gray-600 mt-1">Select different contexts to see how sampling methods adapt to various probability distributions!</p>
             </div>
             
             <!-- Sampling Method Selection -->
@@ -160,13 +167,6 @@ const question = {
                 </div>
             </div>
 
-            <!-- Quick Examples -->
-            <div class="flex flex-wrap gap-2">
-                <span class="text-sm font-medium text-gray-700">💡 Quick Examples:</span>
-                <button id="q12-example-btn" class="text-xs bg-indigo-100 text-indigo-700 px-2 py-1 rounded hover:bg-indigo-200 transition-colors">Try: "Creative Context"</button>
-                <div class="text-xs text-gray-500 ml-2">Click to cycle through different generation scenarios</div>
-            </div>
-            
             <!-- Results Section -->
             <div class="bg-white border border-gray-200 rounded-lg p-4">
                 <div class="flex items-center justify-between mb-3">
@@ -188,9 +188,19 @@ const question = {
             </div>
         </div>`,
         script: () => {
-            // Simulated vocabulary with realistic word probabilities
+            // Predefined contexts for the dropdown
+            const contexts = [
+                "The mysterious door opened to reveal",
+                "The cat sat on the", 
+                "In the future, artificial intelligence will",
+                "The scientist made a groundbreaking",
+                "Once upon a time, in a distant",
+                "The weather forecast predicted"
+            ];
+
+            // Expanded vocabulary database with realistic word probabilities
             const vocabularyDatabase = {
-                "The mysterious door opened to reveal": [
+                0: [ // "The mysterious door opened to reveal"
                     { token: "a", probability: 0.25 },
                     { token: "an", probability: 0.15 },
                     { token: "the", probability: 0.12 },
@@ -212,7 +222,7 @@ const question = {
                     { token: "wonderful", probability: 0.008 },
                     { token: "frightening", probability: 0.008 }
                 ],
-                "The cat sat on the": [
+                1: [ // "The cat sat on the"
                     { token: "mat", probability: 0.35 },
                     { token: "chair", probability: 0.20 },
                     { token: "table", probability: 0.15 },
@@ -224,7 +234,7 @@ const question = {
                     { token: "roof", probability: 0.015 },
                     { token: "fence", probability: 0.005 }
                 ],
-                "In the future, artificial intelligence will": [
+                2: [ // "In the future, artificial intelligence will"
                     { token: "revolutionize", probability: 0.18 },
                     { token: "transform", probability: 0.15 },
                     { token: "help", probability: 0.12 },
@@ -242,7 +252,7 @@ const question = {
                     { token: "dominate", probability: 0.015 },
                     { token: "eliminate", probability: 0.01 }
                 ],
-                "The scientist made a groundbreaking": [
+                3: [ // "The scientist made a groundbreaking"
                     { token: "discovery", probability: 0.40 },
                     { token: "breakthrough", probability: 0.25 },
                     { token: "finding", probability: 0.15 },
@@ -251,6 +261,29 @@ const question = {
                     { token: "theory", probability: 0.03 },
                     { token: "hypothesis", probability: 0.015 },
                     { token: "experiment", probability: 0.005 }
+                ],
+                4: [ // "Once upon a time, in a distant"
+                    { token: "land", probability: 0.30 },
+                    { token: "kingdom", probability: 0.25 },
+                    { token: "galaxy", probability: 0.15 },
+                    { token: "world", probability: 0.12 },
+                    { token: "planet", probability: 0.08 },
+                    { token: "place", probability: 0.05 },
+                    { token: "realm", probability: 0.025 },
+                    { token: "universe", probability: 0.02 },
+                    { token: "dimension", probability: 0.015 },
+                    { token: "future", probability: 0.01 }
+                ],
+                5: [ // "The weather forecast predicted"
+                    { token: "rain", probability: 0.35 },
+                    { token: "snow", probability: 0.20 },
+                    { token: "storms", probability: 0.15 },
+                    { token: "sunshine", probability: 0.12 },
+                    { token: "clouds", probability: 0.08 },
+                    { token: "wind", probability: 0.05 },
+                    { token: "fog", probability: 0.03 },
+                    { token: "hail", probability: 0.015 },
+                    { token: "thunder", probability: 0.005 }
                 ]
             };
 
@@ -280,7 +313,6 @@ const question = {
             const contextInput = document.getElementById('q12-context-input');
             const output = document.getElementById('q12-output');
             const strategyRadios = document.querySelectorAll('input[name="q12-strategy"]');
-            const exampleBtn = document.getElementById('q12-example-btn');
             const strategyIndicator = document.getElementById('q12-strategy-indicator');
             const legend = document.getElementById('q12-legend');
             const explanation = document.getElementById('q12-explanation');
@@ -302,40 +334,13 @@ const question = {
                 return selectedRadio ? selectedRadio.value : 'topk';
             }
 
-            // Get vocabulary for context (with fallback)
+            // Get vocabulary for context
             function getVocabularyForContext(context) {
-                // Try exact match first
-                if (vocabularyDatabase[context]) {
-                    return vocabularyDatabase[context];
+                const contextIndex = contexts.indexOf(context);
+                if (contextIndex !== -1) {
+                    return vocabularyDatabase[contextIndex] || [];
                 }
-                
-                // Find similar context
-                const contexts = Object.keys(vocabularyDatabase);
-                for (const key of contexts) {
-                    if (context.toLowerCase().includes(key.toLowerCase().substring(0, 10))) {
-                        return vocabularyDatabase[key];
-                    }
-                }
-                
-                // Default vocabulary for unknown contexts
-                return [
-                    { token: "something", probability: 0.20 },
-                    { token: "a", probability: 0.15 },
-                    { token: "the", probability: 0.12 },
-                    { token: "nothing", probability: 0.10 },
-                    { token: "everything", probability: 0.08 },
-                    { token: "anything", probability: 0.07 },
-                    { token: "someone", probability: 0.06 },
-                    { token: "somewhere", probability: 0.05 },
-                    { token: "somehow", probability: 0.04 },
-                    { token: "sometimes", probability: 0.03 },
-                    { token: "interesting", probability: 0.025 },
-                    { token: "important", probability: 0.025 },
-                    { token: "wonderful", probability: 0.02 },
-                    { token: "strange", probability: 0.015 },
-                    { token: "unusual", probability: 0.01 },
-                    { token: "unexpected", probability: 0.005 }
-                ];
+                return vocabularyDatabase[0]; // Default to first context
             }
 
             // Apply sampling strategy
@@ -380,7 +385,9 @@ const question = {
 
             // Main processing function
             const processAndDisplay = () => {
-                const context = contextInput.value.trim();
+                // Get the selected context text, not the index
+                const selectedOption = contextInput.options[contextInput.selectedIndex];
+                const context = selectedOption ? selectedOption.text : '';
                 const strategy = getCurrentStrategy();
                 const k = parseInt(kValue.value);
                 const p = parseFloat(pValue.value);
@@ -589,51 +596,8 @@ const question = {
                 explanation.innerHTML = explanations[strategy] || '';
             }
 
-            // Example contexts for demonstration
-            const examples = [
-                { 
-                    context: "The mysterious door opened to reveal", 
-                    strategy: 'topp', 
-                    note: 'Creative writing context with varied possibilities'
-                },
-                { 
-                    context: "The cat sat on the", 
-                    strategy: 'topk', 
-                    note: 'Simple, predictable context perfect for top-k'
-                },
-                { 
-                    context: "In the future, artificial intelligence will", 
-                    strategy: 'topp', 
-                    note: 'Technical context with many possibilities'
-                },
-                { 
-                    context: "The scientist made a groundbreaking", 
-                    strategy: 'greedy', 
-                    note: 'Context with one highly probable continuation'
-                }
-            ];
-            
-            let exampleIndex = 0;
-            if (exampleBtn) {
-                exampleBtn.addEventListener('click', () => {
-                    const example = examples[exampleIndex % examples.length];
-                    
-                    contextInput.value = example.context;
-                    document.querySelector(`input[name="q12-strategy"][value="${example.strategy}"]`).checked = true;
-                    
-                    updateStrategyVisuals();
-                    processAndDisplay();
-                    exampleIndex++;
-                    
-                    // Update button text for next example
-                    const nextExample = examples[exampleIndex % examples.length];
-                    exampleBtn.innerHTML = `Try: "${nextExample.context.substring(0, 20)}..."`;
-                    exampleBtn.title = nextExample.note;
-                });
-            }
-
             // Event listeners
-            contextInput.addEventListener('input', processAndDisplay);
+            contextInput.addEventListener('change', processAndDisplay);
             
             strategyRadios.forEach(radio => {
                 radio.addEventListener('change', () => {

@@ -321,29 +321,29 @@ const question = {
                     name: "Naive Fine-tuning",
                     color: "text-red-700",
                     bgColor: "bg-red-100",
-                    efficiency: 85,
+                    efficiency: 95,
                     explanation: "No protection against forgetting. The model rapidly adapts to new data but loses previous knowledge. Fast and simple but catastrophic for knowledge retention."
                 },
                 rehearsal: {
                     name: "Rehearsal",
                     color: "text-yellow-700",
                     bgColor: "bg-yellow-100",
-                    efficiency: 65,
-                    explanation: "Mixes old and new data during training. Helps retain knowledge but requires storing old data and increases training time. Good balance for most scenarios."
+                    efficiency: 45,
+                    explanation: "Mixes old and new data during training. Helps retain knowledge but requires storing old data and significantly increases training time and memory usage."
                 },
                 ewc: {
                     name: "Elastic Weight Consolidation",
                     color: "text-blue-700",
                     bgColor: "bg-blue-100",
-                    efficiency: 70,
-                    explanation: "Uses Fisher Information Matrix to identify important weights and prevent large changes. Smart approach but requires computing importance scores."
+                    efficiency: 60,
+                    explanation: "Uses Fisher Information Matrix to identify important weights and prevent large changes. Smart approach but requires computing importance scores and additional regularization computations."
                 },
                 lora: {
                     name: "LoRA (Modular)",
                     color: "text-green-700",
                     bgColor: "bg-green-100",
-                    efficiency: 90,
-                    explanation: "Adds small trainable modules while keeping base model frozen. Excellent retention with minimal overhead. Best approach for most use cases."
+                    efficiency: 85,
+                    explanation: "Adds small trainable modules while keeping base model frozen. Excellent retention with good efficiency since only a small portion of parameters are trained."
                 }
             };
 
@@ -465,9 +465,16 @@ const question = {
                 // Update performance displays
                 if (newTaskElement) newTaskElement.textContent = `${newTaskPerf}%`;
                 if (retentionElement) retentionElement.textContent = `${baseRetention}%`;
+                
+                // Calculate efficiency (affected by parameters)
+                let efficiency = config.efficiency;
+                if (strategy === 'rehearsal') {
+                    // Higher rehearsal ratio decreases efficiency due to more data processing
+                    efficiency = Math.max(25, config.efficiency - Math.floor(ratio * 0.8));
+                }
+                
                 if (efficiencyElement) {
-                    const efficiency = config.efficiency;
-                    efficiencyElement.textContent = efficiency >= 80 ? 'High' : efficiency >= 60 ? 'Medium' : 'Low';
+                    efficiencyElement.textContent = efficiency >= 75 ? 'High' : efficiency >= 50 ? 'Medium' : 'Low';
                 }
 
                 // Update progress bars
@@ -480,7 +487,7 @@ const question = {
                         baseRetention >= 40 ? 'bg-orange-500' : 'bg-red-500'
                     }`;
                 }
-                if (efficiencyBar) efficiencyBar.style.width = `${config.efficiency}%`;
+                if (efficiencyBar) efficiencyBar.style.width = `${efficiency}%`;
 
                 // Update forgetting visualization
                 updateForgettingVisualization(strategy, scenario);

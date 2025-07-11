@@ -7,7 +7,7 @@ class LLMQuestionApp {
         this.questionLoader = new QuestionLoader();
         this.currentQuestionIndex = 0;
         // Only show questions that actually exist
-        this.availableQuestions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+        this.availableQuestions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
         this.totalQuestions = this.availableQuestions.length;
         this.isLoading = false;
         
@@ -107,7 +107,8 @@ class LLMQuestionApp {
             9: "How do autoregressive and masked models differ in LLM training?",
             10: "What are embeddings, and how are they initialized in LLMs?",
             11: "What is next sentence prediction, and how does it enhance LLMs?",
-            12: "How do top-k and top-p sampling differ in text generation?"
+            12: "How do top-k and top-p sampling differ in text generation?",
+            13: "Why is prompt engineering crucial for LLM performance?"
         };
         
         this.availableQuestions.forEach((questionNum, index) => {

@@ -295,8 +295,17 @@ const question = {
             </div>
         `,
         script: () => {
-            // Tokenization strategy configurations
-            const strategyConfig = {
+            // Ensure DOM is ready before initializing
+            setTimeout(() => {
+                initializeQuestion16();
+            }, 100);
+        }
+    }
+};
+
+function initializeQuestion16() {
+    // Tokenization strategy configurations
+    const strategyConfig = {
                 bpe: {
                     name: "Byte-Pair Encoding (BPE)",
                     color: "text-green-700",
@@ -425,10 +434,15 @@ const question = {
                 const vocabSize = parseInt(vocabSizeSlider.value);
                 const minFreq = parseInt(minFreqSlider.value);
                 
-                vocabDisplay.textContent = `${Math.floor(vocabSize / 1000)}K`;
-                freqDisplay.textContent = minFreq.toString();
+                // Format vocabulary size display
+                if (vocabSize >= 1000) {
+                    const kValue = Math.round(vocabSize / 1000);
+                    vocabDisplay.textContent = `${kValue}K`;
+                } else {
+                    vocabDisplay.textContent = vocabSize.toString();
+                }
                 
-                console.log('Parameters updated:', { vocabSize, minFreq }); // Debug log
+                freqDisplay.textContent = minFreq.toString();
             }
 
             // Simulate subword tokenization
@@ -451,7 +465,7 @@ const question = {
                     } else {
                         // OOV word - break into subwords
                         oovWords.push(word);
-                        const subwords = simulateSubwordSplit(word, strategy, vocabSize);
+                        const subwords = simulateSubwordSplit(word, strategy, vocabSize, minFreq);
                         
                         subwords.forEach((subword, index) => {
                             let displayText = subword;
@@ -498,30 +512,36 @@ const question = {
             }
 
             // Simulate how different strategies would split words
-            function simulateSubwordSplit(word, strategy, vocabSize) {
+            function simulateSubwordSplit(word, strategy, vocabSize, minFreq) {
                 const length = word.length;
                 
                 if (length <= 3) {
                     return [word];
                 }
                 
+                // Vocabulary size affects aggressiveness of splitting
+                const aggressiveness = Math.max(0.3, Math.min(1.0, (100000 - vocabSize) / 90000));
+                
+                // Min frequency affects minimum subword length
+                const minSubwordLength = Math.max(2, Math.floor(minFreq / 20) + 2);
+                
                 // Simulate different splitting strategies
                 switch (strategy) {
                     case 'bpe':
                         // BPE tends to split at morphological boundaries
-                        return simulateBPESplit(word);
+                        return simulateBPESplit(word, aggressiveness, minSubwordLength);
                     case 'sentencepiece':
                         // SentencePiece can be more aggressive
-                        return simulateSentencePieceSplit(word);
+                        return simulateSentencePieceSplit(word, aggressiveness, minSubwordLength);
                     case 'wordpiece':
                         // WordPiece optimizes for likelihood
-                        return simulateWordPieceSplit(word);
+                        return simulateWordPieceSplit(word, aggressiveness, minSubwordLength);
                     default:
                         return [word];
                 }
             }
 
-            function simulateBPESplit(word) {
+            function simulateBPESplit(word, aggressiveness, minSubwordLength) {
                 // Common prefixes and suffixes
                 const prefixes = ['un', 're', 'pre', 'dis', 'over', 'under', 'anti', 'bio', 'cyber', 'crypto'];
                 const suffixes = ['ing', 'ed', 'er', 'est', 'ly', 'tion', 'able', 'ness', 'ment', 'ology', 'graphy'];
@@ -542,7 +562,7 @@ const question = {
                 for (const suffix of suffixes) {
                     if (remaining.endsWith(suffix) && remaining.length > suffix.length) {
                         const root = remaining.slice(0, -suffix.length);
-                        if (root.length >= 2) {
+                        if (root.length >= minSubwordLength) {
                             parts.push(root);
                             parts.push(suffix);
                             return parts;
@@ -553,11 +573,18 @@ const question = {
                 // If no prefix/suffix found, add remaining
                 if (remaining.length > 0) {
                     if (parts.length === 0) {
-                        // Split into reasonable chunks
-                        if (remaining.length > 6) {
-                            const mid = Math.floor(remaining.length / 2);
-                            parts.push(remaining.slice(0, mid));
-                            parts.push(remaining.slice(mid));
+                        // Split into reasonable chunks based on aggressiveness
+                        if (remaining.length > 6 && aggressiveness > 0.5) {
+                            const splitPoint = Math.floor(remaining.length * (0.4 + aggressiveness * 0.2));
+                            const firstPart = remaining.slice(0, splitPoint);
+                            const secondPart = remaining.slice(splitPoint);
+                            
+                            if (firstPart.length >= minSubwordLength && secondPart.length >= minSubwordLength) {
+                                parts.push(firstPart);
+                                parts.push(secondPart);
+                            } else {
+                                parts.push(remaining);
+                            }
                         } else {
                             parts.push(remaining);
                         }
@@ -569,21 +596,24 @@ const question = {
                 return parts.filter(p => p.length > 0);
             }
 
-            function simulateSentencePieceSplit(word) {
+            function simulateSentencePieceSplit(word, aggressiveness, minSubwordLength) {
                 // SentencePiece can be more aggressive with shorter segments
-                if (word.length <= 4) return [word];
+                if (word.length <= minSubwordLength + 1) return [word];
                 
                 const segments = [];
                 let remaining = word;
                 
                 while (remaining.length > 0) {
-                    if (remaining.length <= 3) {
+                    if (remaining.length <= minSubwordLength) {
                         segments.push(remaining);
                         break;
                     }
                     
-                    // Favor 2-4 character segments
-                    const segmentLength = Math.min(4, Math.max(2, Math.floor(Math.random() * 3) + 2));
+                    // Aggressiveness affects segment length - higher aggressiveness = smaller segments
+                    const baseLength = minSubwordLength;
+                    const variableLength = Math.floor((1 - aggressiveness) * 3); // 0-3 extra chars
+                    const segmentLength = Math.min(remaining.length, baseLength + variableLength);
+                    
                     segments.push(remaining.slice(0, segmentLength));
                     remaining = remaining.slice(segmentLength);
                 }
@@ -591,14 +621,14 @@ const question = {
                 return segments;
             }
 
-            function simulateWordPieceSplit(word) {
+            function simulateWordPieceSplit(word, aggressiveness, minSubwordLength) {
                 // WordPiece tries to maximize likelihood, often similar to BPE but with continuation markers
-                const bpeResult = simulateBPESplit(word);
+                const bpeResult = simulateBPESplit(word, aggressiveness, minSubwordLength);
                 
-                // WordPiece might merge some segments differently
-                if (bpeResult.length > 2) {
-                    // Sometimes merge first two segments if they're short
-                    if (bpeResult[0].length <= 2 && bpeResult[1].length <= 3) {
+                // WordPiece might merge some segments differently based on likelihood
+                if (bpeResult.length > 2 && aggressiveness < 0.7) {
+                    // Sometimes merge first two segments if they're short and aggressiveness is low
+                    if (bpeResult[0].length <= minSubwordLength && bpeResult[1].length <= minSubwordLength + 1) {
                         return [bpeResult[0] + bpeResult[1], ...bpeResult.slice(2)];
                     }
                 }
@@ -659,13 +689,6 @@ const question = {
                         .join('');
                 }
 
-                if (oovList) {
-                    oovList.innerHTML = result.oovWords
-                        .slice(0, 5) // Show first 5
-                        .map(word => `<li>"${word}" handled via subword splitting</li>`)
-                        .join('');
-                }
-
                 // Update explanation
                 const efficiencyLevel = result.metrics.compressionRatio >= 1.3 ? 'excellent' :
                                        result.metrics.compressionRatio >= 1.1 ? 'good' : 'moderate';
@@ -673,9 +696,22 @@ const question = {
                 const coverageLevel = result.metrics.coverage >= 90 ? 'excellent' :
                                      result.metrics.coverage >= 70 ? 'good' : 'limited';
 
+                // Calculate parameter effects
+                const aggressiveness = Math.max(0.3, Math.min(1.0, (100000 - vocabSize) / 90000));
+                const minSubwordLength = Math.max(2, Math.floor(minFreq / 20) + 2);
+
                 explanation.innerHTML = `
                     <p><strong>${config.name}:</strong></p>
                     <p class="mt-2">${config.description}</p>
+                    <p class="mt-2"><strong>Current Parameters:</strong> Vocabulary size: ${vocabSize.toLocaleString()}, Min frequency: ${minFreq}. 
+                    This creates ${aggressiveness > 0.7 ? 'aggressive' : aggressiveness > 0.4 ? 'moderate' : 'conservative'} splitting with min subword length of ${minSubwordLength} characters.</p>
+                    <p class="mt-2"><strong>Results:</strong> Processed ${result.metrics.tokenCount} tokens with ${result.metrics.oovCount} OOV words handled. 
+                    Compression efficiency is ${efficiencyLevel} (${result.metrics.compressionRatio.toFixed(1)}x), vocabulary coverage is ${coverageLevel} (${result.metrics.coverage.toFixed(0)}%).</p>
+                    <p class="mt-2"><strong>Strategy Analysis:</strong> ${strategy === 'bpe' ? 
+                        'BPE effectively handles morphological patterns and produces intuitive splits for compound words.' :
+                        strategy === 'sentencepiece' ? 
+                        'SentencePiece provides consistent handling across languages and handles Unicode characters well.' :
+                        'WordPiece optimizes for training likelihood and works well with transformer architectures.'}</p>
                     <p class="mt-2"><strong>Results:</strong> Processed ${result.metrics.tokenCount} tokens with ${result.metrics.oovCount} OOV words handled. 
                     Compression efficiency is ${efficiencyLevel} (${result.metrics.compressionRatio.toFixed(1)}x), vocabulary coverage is ${coverageLevel} (${result.metrics.coverage.toFixed(0)}%).</p>
                     <p class="mt-2"><strong>Strategy Analysis:</strong> ${strategy === 'bpe' ? 
@@ -713,7 +749,6 @@ const question = {
             if (vocabSizeSlider && minFreqSlider) {
                 [vocabSizeSlider, minFreqSlider].forEach(slider => {
                     slider.addEventListener('input', () => {
-                        console.log('Slider input detected:', slider.id, slider.value); // Debug log
                         updateParameterDisplays();
                         updateDisplay();
                     });
@@ -727,6 +762,4 @@ const question = {
             // Initial setup
             updateParameterDisplays();
             updateDisplay();
-        }
-    }
-};
+}

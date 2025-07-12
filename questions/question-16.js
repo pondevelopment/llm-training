@@ -389,6 +389,24 @@ const question = {
                 return;
             }
 
+            // Additional validation for slider elements
+            if (!vocabSizeSlider || !minFreqSlider) {
+                console.error('Slider elements not found for Question 16:', {
+                    vocabSizeSlider: !!vocabSizeSlider,
+                    minFreqSlider: !!minFreqSlider
+                });
+                return;
+            }
+
+            // Additional validation for display elements
+            if (!vocabDisplay || !freqDisplay) {
+                console.error('Display elements not found for Question 16:', {
+                    vocabDisplay: !!vocabDisplay,
+                    freqDisplay: !!freqDisplay
+                });
+                return;
+            }
+
             let currentExampleIndex = 0;
 
             // Get current strategy
@@ -399,11 +417,18 @@ const question = {
 
             // Update parameter displays
             function updateParameterDisplays() {
+                if (!vocabSizeSlider || !minFreqSlider || !vocabDisplay || !freqDisplay) {
+                    console.error('Slider or display elements missing in updateParameterDisplays');
+                    return;
+                }
+
                 const vocabSize = parseInt(vocabSizeSlider.value);
                 const minFreq = parseInt(minFreqSlider.value);
                 
                 vocabDisplay.textContent = `${Math.floor(vocabSize / 1000)}K`;
                 freqDisplay.textContent = minFreq.toString();
+                
+                console.log('Parameters updated:', { vocabSize, minFreq }); // Debug log
             }
 
             // Simulate subword tokenization
@@ -683,12 +708,20 @@ const question = {
             strategyRadios.forEach(radio => {
                 radio.addEventListener('change', updateDisplay);
             });
-            [vocabSizeSlider, minFreqSlider].forEach(slider => {
-                slider.addEventListener('input', () => {
-                    updateParameterDisplays();
-                    updateDisplay();
+            
+            // Add event listeners for sliders with validation
+            if (vocabSizeSlider && minFreqSlider) {
+                [vocabSizeSlider, minFreqSlider].forEach(slider => {
+                    slider.addEventListener('input', () => {
+                        console.log('Slider input detected:', slider.id, slider.value); // Debug log
+                        updateParameterDisplays();
+                        updateDisplay();
+                    });
                 });
-            });
+            } else {
+                console.error('Cannot add event listeners - sliders not found');
+            }
+            
             exampleBtn.addEventListener('click', cycleExample);
 
             // Initial setup

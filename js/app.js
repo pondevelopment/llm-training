@@ -7,7 +7,7 @@ class LLMQuestionApp {
         this.questionLoader = new QuestionLoader();
         this.currentQuestionIndex = 0;
         // Only show questions that actually exist
-        this.availableQuestions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25];
+        this.availableQuestions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26];
         this.totalQuestions = this.availableQuestions.length;
         this.isLoading = false;
         
@@ -120,7 +120,8 @@ class LLMQuestionApp {
             22: "What is multi-head attention, and how does it enhance LLMs?",
             23: "How is the softmax function applied in attention mechanisms?",
             24: "How does the dot product contribute to self-attention?",
-            25: "Why is cross-entropy loss used in language modeling?"
+            25: "Why is cross-entropy loss used in language modeling?",
+            26: "How are gradients computed for embeddings in LLMs?"
         };
         
         this.availableQuestions.forEach((questionNum, index) => {

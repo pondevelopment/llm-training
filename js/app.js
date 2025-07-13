@@ -7,7 +7,7 @@ class LLMQuestionApp {
         this.questionLoader = new QuestionLoader();
         this.currentQuestionIndex = 0;
         // Only show questions that actually exist
-        this.availableQuestions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22];
+        this.availableQuestions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
         this.totalQuestions = this.availableQuestions.length;
         this.isLoading = false;
         
@@ -117,7 +117,8 @@ class LLMQuestionApp {
             19: "What are generative versus discriminative models in NLP?",
             20: "How does GPT-4 differ from GPT-3 in features and applications?",
             21: "What are positional encodings, and why are they used?",
-            22: "What is multi-head attention, and how does it enhance LLMs?"
+            22: "What is multi-head attention, and how does it enhance LLMs?",
+            23: "How is the softmax function applied in attention mechanisms?"
         };
         
         this.availableQuestions.forEach((questionNum, index) => {

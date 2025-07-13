@@ -7,7 +7,7 @@ class LLMQuestionApp {
         this.questionLoader = new QuestionLoader();
         this.currentQuestionIndex = 0;
         // Only show questions that actually exist
-        this.availableQuestions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
+        this.availableQuestions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
         this.totalQuestions = this.availableQuestions.length;
         this.isLoading = false;
         
@@ -114,7 +114,8 @@ class LLMQuestionApp {
             16: "How do LLMs manage out-of-vocabulary (OOV) words?",
             17: "How do transformers improve on traditional Seq2Seq models?",
             18: "What is overfitting, and how can it be mitigated in LLMs?",
-            19: "What are generative versus discriminative models in NLP?"
+            19: "What are generative versus discriminative models in NLP?",
+            20: "How does GPT-4 differ from GPT-3 in features and applications?"
         };
         
         this.availableQuestions.forEach((questionNum, index) => {

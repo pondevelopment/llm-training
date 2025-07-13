@@ -7,7 +7,7 @@ class LLMQuestionApp {
         this.questionLoader = new QuestionLoader();
         this.currentQuestionIndex = 0;
         // Only show questions that actually exist
-        this.availableQuestions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
+        this.availableQuestions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24];
         this.totalQuestions = this.availableQuestions.length;
         this.isLoading = false;
         
@@ -118,7 +118,8 @@ class LLMQuestionApp {
             20: "How does GPT-4 differ from GPT-3 in features and applications?",
             21: "What are positional encodings, and why are they used?",
             22: "What is multi-head attention, and how does it enhance LLMs?",
-            23: "How is the softmax function applied in attention mechanisms?"
+            23: "How is the softmax function applied in attention mechanisms?",
+            24: "How does the dot product contribute to self-attention?"
         };
         
         this.availableQuestions.forEach((questionNum, index) => {

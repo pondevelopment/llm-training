@@ -1,6 +1,6 @@
 /**
  * Main Application Logic
- * Handles UI interactions, question navigation, and dynamic loading
+ * Handles UI interactions, question navigation, dynamic loading, and deep linking
  */
 class LLMQuestionApp {
     constructor() {
@@ -14,7 +14,66 @@ class LLMQuestionApp {
         this.initializeDOM();
         this.setupEventListeners();
         this.populateQuestionDropdown();
+        
+        // Initialize with deep link or default to first question
+        this.initializeFromURL();
+    }
+    
+    /**
+     * Initialize the app based on URL hash for deep linking
+     */
+    initializeFromURL() {
+        const hash = window.location.hash;
+        
+        if (hash) {
+            // Support multiple hash formats:
+            // #question-27, #q27, #27, #Question-27, #Q27
+            const questionMatch = hash.match(/#(?:question-?|q)?(\d+)/i);
+            
+            if (questionMatch) {
+                const questionNumber = parseInt(questionMatch[1]);
+                const questionIndex = this.availableQuestions.indexOf(questionNumber);
+                
+                if (questionIndex !== -1) {
+                    this.currentQuestionIndex = questionIndex;
+                    this.displayQuestion(questionIndex);
+                    console.log(`Deep link: Navigated to Question ${questionNumber} (index ${questionIndex})`);
+                    return;
+                } else {
+                    console.warn(`Deep link: Question ${questionNumber} not found. Available questions:`, this.availableQuestions);
+                    // Show a notification about invalid question number
+                    setTimeout(() => {
+                        this.showShareNotification(`Question ${questionNumber} not found. Showing Question 1 instead.`, 'error');
+                    }, 1000);
+                }
+            } else {
+                console.warn(`Deep link: Invalid hash format: ${hash}`);
+            }
+        }
+        
+        // Default to first question if no valid hash
         this.displayQuestion(0);
+    }
+    
+    /**
+     * Update URL hash when question changes
+     */
+    updateURL(questionIndex) {
+        const questionNumber = this.availableQuestions[questionIndex];
+        const newHash = `#question-${questionNumber}`;
+        
+        // Update URL without triggering page reload
+        if (window.location.hash !== newHash) {
+            history.pushState(null, null, newHash);
+        }
+    }
+    
+    /**
+     * Get shareable URL for current question
+     */
+    getShareableURL() {
+        const questionNumber = this.availableQuestions[this.currentQuestionIndex];
+        return `${window.location.origin}${window.location.pathname}#question-${questionNumber}`;
     }
 
     /**
@@ -27,6 +86,7 @@ class LLMQuestionApp {
             progressIndicator: document.getElementById('progress-indicator'),
             prevBtn: document.getElementById('prev-btn'),
             nextBtn: document.getElementById('next-btn'),
+            shareBtn: document.getElementById('share-btn'),
             questionViewer: document.getElementById('question-viewer'),
             questionNavDropdown: document.getElementById('question-nav-dropdown'),
             loadingIndicator: this.createLoadingIndicator()
@@ -56,7 +116,13 @@ class LLMQuestionApp {
     setupEventListeners() {
         this.elements.nextBtn.addEventListener('click', () => this.showNextQuestion());
         this.elements.prevBtn.addEventListener('click', () => this.showPrevQuestion());
+        this.elements.shareBtn.addEventListener('click', () => this.copyShareableLink());
         this.elements.questionNavDropdown.addEventListener('change', () => this.jumpToQuestion());
+        
+        // Handle browser back/forward for deep linking
+        window.addEventListener('popstate', () => {
+            this.initializeFromURL();
+        });
         
         // Keyboard navigation
         document.addEventListener('keydown', (e) => {
@@ -70,6 +136,12 @@ class LLMQuestionApp {
                 case 'ArrowRight':
                     e.preventDefault();
                     this.showNextQuestion();
+                    break;
+                case 'KeyS':
+                case 's':
+                    if (e.ctrlKey || e.metaKey) return; // Don't interfere with save
+                    e.preventDefault();
+                    this.copyShareableLink();
                     break;
             }
         });
@@ -181,6 +253,9 @@ class LLMQuestionApp {
             
             // Scroll to top
             window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Update URL hash
+            this.updateURL(index);
             
         } catch (error) {
             console.error(`Failed to display question ${this.availableQuestions[index]}:`, error);
@@ -391,6 +466,74 @@ class LLMQuestionApp {
     }
 
     /**
+     * Copy shareable link to clipboard
+     */
+    async copyShareableLink() {
+        const url = this.getShareableURL();
+        
+        try {
+            await navigator.clipboard.writeText(url);
+            this.showShareNotification('Link copied to clipboard!');
+        } catch (error) {
+            console.error('Failed to copy to clipboard:', error);
+            // Fallback for older browsers
+            this.fallbackCopyToClipboard(url);
+        }
+    }
+    
+    /**
+     * Fallback method for copying to clipboard in older browsers
+     */
+    fallbackCopyToClipboard(text) {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-999999px';
+        textArea.style.top = '-999999px';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        
+        try {
+            document.execCommand('copy');
+            this.showShareNotification('Link copied to clipboard!');
+        } catch (error) {
+            console.error('Fallback copy failed:', error);
+            this.showShareNotification('Failed to copy link. Please copy manually from the address bar.', 'error');
+        }
+        
+        document.body.removeChild(textArea);
+    }
+    
+    /**
+     * Show share notification
+     */
+    showShareNotification(message, type = 'success') {
+        const notification = document.createElement('div');
+        notification.className = `fixed top-4 right-4 px-4 py-2 rounded-lg shadow-lg z-50 transition-all duration-300 transform translate-x-full ${
+            type === 'success' ? 'bg-green-600 text-white' : 'bg-red-600 text-white'
+        }`;
+        notification.textContent = message;
+        
+        document.body.appendChild(notification);
+        
+        // Animate in
+        setTimeout(() => {
+            notification.style.transform = 'translateX(0)';
+        }, 10);
+        
+        // Animate out and remove
+        setTimeout(() => {
+            notification.style.transform = 'translateX(full)';
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 300);
+        }, 3000);
+    }
+
+    /**
      * Get application statistics
      */
     getStats() {
@@ -399,7 +542,8 @@ class LLMQuestionApp {
             currentIndex: this.currentQuestionIndex + 1,
             totalQuestions: this.totalQuestions,
             availableQuestions: this.availableQuestions,
-            cacheStats: this.questionLoader.getCacheStats()
+            cacheStats: this.questionLoader.getCacheStats(),
+            currentURL: this.getShareableURL()
         };
     }
 }

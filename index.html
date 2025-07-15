@@ -5,6 +5,216 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Top 50 LLM Interview Questions - Interactive Learning Experience</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Enhanced MathJax Configuration -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                processEnvironments: true,
+                processRefs: true,
+                digits: /^(?:[0-9]+(?:\{,\}[0-9]{3})*(?:\.[0-9]*)?|\.[0-9]+)/,
+                tags: 'none',
+                tagSide: 'right',
+                tagIndent: '0.8em',
+                useLabelIds: true,
+                maxMacros: 1000,
+                maxBuffer: 5 * 1024,
+                packages: {
+                    '[+]': ['base', 'ams', 'newcommand', 'configmacros', 'action', 'unicode']
+                },
+                macros: {
+                    R: '{\\mathbb{R}}',
+                    C: '{\\mathbb{C}}',
+                    N: '{\\mathbb{N}}',
+                    Z: '{\\mathbb{Z}}',
+                    Q: '{\\mathbb{Q}}',
+                    grad: '{\\nabla}',                    
+                    diff: '{\\mathrm{d}}',
+                    argmax: '{\\operatorname{argmax}}',
+                    argmin: '{\\operatorname{argmin}}',
+                    softmax: '{\\text{softmax}}',
+                    relu: '{\\text{ReLU}}',
+                    tanh: '{\\text{tanh}}',
+                    sigmoid: '{\\text{sigmoid}}',
+                    norm: ['{\\left\\|#1\\right\\|}', 1],
+                    abs: ['{\\left|#1\\right|}', 1],
+                    set: ['{\\left\\{#1\\right\\}}', 1],
+                    paren: ['{\\left(#1\\right)}', 1],
+                    bracket: ['{\\left[#1\\right]}', 1],
+                    bmatrix: ['{\\begin{bmatrix}#1\\end{bmatrix}}', 1],
+                    pmatrix: ['{\\begin{pmatrix}#1\\end{pmatrix}}', 1],
+                    vmatrix: ['{\\begin{vmatrix}#1\\end{vmatrix}}', 1]
+                }
+            },
+            svg: {
+                fontCache: 'global',
+                scale: 1.0,
+                minScale: 0.5,
+                mtextInheritFont: false,
+                merrorInheritFont: true,
+                mathmlSpacing: false,
+                skipAttributes: {},
+                exFactor: 0.5,
+                displayAlign: 'center',
+                displayIndent: '0',
+                fontURL: 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/output/svg/fonts/tex'
+            },
+            options: {
+                enableMenu: false,
+                menuOptions: {
+                    settings: {
+                        assistiveMml: false,
+                        collapsible: false,
+                        explorer: false
+                    }
+                },
+                renderActions: {
+                    addMenu: [0, '', '']
+                },
+                skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+                includeHtmlTags: {
+                    br: '\n', wbr: '', '#comment': ''
+                },
+                processHtmlClass: 'tex2jax_process',
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processEscapes: true,
+                processEnvironments: true,
+                processRefs: true
+            },
+            loader: {
+                load: ['[tex]/ams', '[tex]/newcommand', '[tex]/configmacros', '[tex]/action', '[tex]/unicode']
+            },
+            startup: {
+                ready: () => {
+                    console.log('MathJax configuration loaded');
+                    MathJax.startup.defaultReady();
+                    MathJax.startup.promise.then(() => {
+                        console.log('MathJax initialization complete');
+                        // Force re-render any existing math
+                        if (document.querySelector('.MathJax')) {
+                            MathJax.typesetPromise().catch((err) => {
+                                console.warn('MathJax typeset warning:', err);
+                            });
+                        }
+                    }).catch((err) => {
+                        console.error('MathJax startup error:', err);
+                    });
+                }
+            }
+        };
+    </script>
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+    
+    <!-- MathJax Error Recovery and Retry Script -->
+    <script>
+        // Global MathJax error recovery and retry mechanism
+        window.mathJaxRetryCount = 0;
+        window.maxMathJaxRetries = 3;
+        
+        function retryMathJax() {
+            if (window.MathJax && window.MathJax.typesetPromise && window.mathJaxRetryCount < window.maxMathJaxRetries) {
+                window.mathJaxRetryCount++;
+                console.log(`Retrying MathJax typesetting (attempt ${window.mathJaxRetryCount})`);
+                
+                return window.MathJax.typesetPromise().then(() => {
+                    console.log('MathJax retry successful');
+                    window.mathJaxRetryCount = 0; // Reset on success
+                }).catch((err) => {
+                    console.warn(`MathJax retry ${window.mathJaxRetryCount} failed:`, err);
+                    if (window.mathJaxRetryCount < window.maxMathJaxRetries) {
+                        setTimeout(retryMathJax, 1000 * window.mathJaxRetryCount); // Exponential backoff
+                    } else {
+                        console.error('MathJax rendering failed after all retries');
+                        // Fallback: Try to fix common LaTeX errors
+                        fixCommonLatexErrors();
+                    }
+                });
+            }
+        }
+        
+        function fixCommonLatexErrors() {
+            // Find all elements with "Math input error" and try to fix them
+            const errorElements = document.querySelectorAll('[title*="Math input error"], .MathJax_Error');
+            errorElements.forEach(element => {
+                const parent = element.closest('[id*="output"], [class*="math"], .bg-blue-50');
+                if (parent) {
+                    // Replace common problematic patterns
+                    let content = parent.innerHTML;
+                    
+                    // Fix double backslashes that might have been missed
+                    content = content.replace(/\\\\/g, '\\');
+                    
+                    // Fix mathbf issues
+                    content = content.replace(/\\mathbf\{([^}]+)\}/g, '\\mathbf{$1}');
+                    
+                    // Fix common fraction issues
+                    content = content.replace(/\\frac\{([^}]+)\}\{([^}]+)\}/g, '\\frac{$1}{$2}');
+                    
+                    // Update content if changes were made
+                    if (content !== parent.innerHTML) {
+                        parent.innerHTML = content;
+                        console.log('Applied LaTeX fixes to element');
+                        
+                        // Retry MathJax on this element
+                        if (window.MathJax && window.MathJax.typesetPromise) {
+                            window.MathJax.typesetPromise([parent]).catch(() => {
+                                console.warn('Failed to re-render fixed LaTeX');
+                            });
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Auto-retry mechanism with observer
+        function setupMathJaxObserver() {
+            const observer = new MutationObserver((mutations) => {
+                mutations.forEach((mutation) => {
+                    if (mutation.type === 'childList') {
+                        const hasNewMath = Array.from(mutation.addedNodes).some(node => 
+                            node.nodeType === 1 && (
+                                node.textContent.includes('$$') || 
+                                node.textContent.includes('\\(') ||
+                                node.querySelector && node.querySelector('[class*="math"], .bg-blue-50')
+                            )
+                        );
+                        
+                        if (hasNewMath) {
+                            setTimeout(() => {
+                                if (window.MathJax && window.MathJax.typesetPromise) {
+                                    window.MathJax.typesetPromise().catch((err) => {
+                                        console.warn('MathJax auto-retry failed:', err);
+                                        retryMathJax();
+                                    });
+                                }
+                            }, 100);
+                        }
+                    }
+                });
+            });
+            
+            observer.observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+        }
+        
+        // Initialize when DOM is ready
+        document.addEventListener('DOMContentLoaded', () => {
+            setupMathJaxObserver();
+            
+            // Initial check for math errors after page load
+            setTimeout(() => {
+                const errors = document.querySelectorAll('.MathJax_Error, [title*="Math input error"]');
+                if (errors.length > 0) {
+                    console.log(`Found ${errors.length} MathJax errors, attempting fixes...`);
+                    retryMathJax();
+                }
+            }, 2000);
+        });
+    </script>
     <script>
         tailwind.config = {
             theme: {
@@ -68,6 +278,204 @@
         /* Loading animation for dynamic content */
         .loading-skeleton {
             @apply animate-pulse bg-gray-200 rounded;
+        }
+
+        /* Enhanced Mathematical notation styles */
+        .math-display {
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 24px;
+            margin: 24px 0;
+            text-align: center;
+            font-size: 1.125rem;
+            overflow-x: auto;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .math-inline {
+            background: rgba(99, 102, 241, 0.1);
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+        }
+
+        .math-matrix {
+            background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 16px;
+            font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            text-align: center;
+            letter-spacing: 0.05em;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06);
+        }
+
+        .math-equation {
+            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+            border-left: 4px solid #3b82f6;
+            padding: 20px;
+            margin: 16px 0;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 2px 4px rgba(59, 130, 246, 0.1);
+        }
+
+        .math-fraction {
+            display: inline-block;
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        .math-fraction .numerator {
+            display: block;
+            border-bottom: 1px solid currentColor;
+            padding-bottom: 2px;
+        }
+
+        .math-fraction .denominator {
+            display: block;
+            padding-top: 2px;
+        }
+
+        /* Superscript and subscript improvements */
+        .math-sup {
+            font-size: 0.75em;
+            vertical-align: super;
+            line-height: 0;
+        }
+
+        .math-sub {
+            font-size: 0.75em;
+            vertical-align: sub;
+            line-height: 0;
+        }
+
+        /* Enhanced mathematical symbols and typography */
+        .math-symbol {
+            display: inline-block;
+            margin: 0 4px;
+            font-weight: 500;
+        }
+
+        /* Advanced fraction rendering */
+        .math-fraction {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            vertical-align: middle;
+            margin: 0 4px;
+            font-size: 0.95em;
+        }
+
+        .math-fraction .numerator {
+            display: block;
+            border-bottom: 2px solid currentColor;
+            padding: 2px 8px;
+            margin-bottom: 2px;
+            font-weight: 500;
+        }
+
+        .math-fraction .denominator {
+            display: block;
+            padding: 2px 8px;
+            margin-top: 2px;
+            font-weight: 500;
+        }
+
+        /* Enhanced superscript and subscript */
+        .math-sup {
+            font-size: 0.7em;
+            vertical-align: super;
+            line-height: 0;
+            font-weight: 600;
+            color: #1e40af;
+        }
+
+        .math-sub {
+            font-size: 0.7em;
+            vertical-align: sub;
+            line-height: 0;
+            font-weight: 600;
+            color: #dc2626;
+        }
+
+        /* Matrix bracket styling with better scaling */
+        .matrix-bracket {
+            font-size: 2.2em;
+            line-height: 0.8;
+            vertical-align: middle;
+            font-weight: 300;
+            color: #374151;
+        }
+
+        /* MathJax integration styles */
+        .MathJax {
+            outline: none;
+        }
+
+        .MathJax_Display {
+            margin: 1em 0 !important;
+        }
+
+        mjx-container[jax="SVG"] {
+            direction: ltr;
+        }
+
+        mjx-container[jax="SVG"] > svg {
+            overflow: visible;
+            min-height: 1px;
+            min-width: 1px;
+        }
+
+        /* Mathematical expression highlighting */
+        .math-highlight {
+            background: linear-gradient(120deg, rgba(99, 102, 241, 0.1) 0%, rgba(167, 243, 208, 0.1) 100%);
+            border-radius: 4px;
+            padding: 2px 4px;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        /* Vector and matrix notation improvements */
+        .math-vector {
+            font-weight: bold;
+            color: #059669;
+        }
+
+        .math-matrix-symbol {
+            font-weight: bold;
+            font-style: italic;
+            color: #7c3aed;
+        }
+
+        /* Gradient and derivative notation */
+        .math-gradient {
+            font-size: 1.2em;
+            color: #dc2626;
+            font-weight: bold;
+        }
+
+        .math-partial {
+            font-style: italic;
+            color: #0891b2;
+            font-weight: 500;
+        }
+
+        /* Matrix bracket styling */
+        .matrix-bracket {
+            font-size: 2em;
+            line-height: 1;
+            vertical-align: middle;
+        }
+
+        /* Force MathJax containers to display inline to fix sentence flow */
+        mjx-container {
+            display: inline-block !important;
+            vertical-align: middle;
         }
     </style>
 </head>

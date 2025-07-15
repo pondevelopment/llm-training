@@ -7,7 +7,7 @@ class LLMQuestionApp {
         this.questionLoader = new QuestionLoader();
         this.currentQuestionIndex = 0;
         // Only show questions that actually exist
-        this.availableQuestions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26];
+        this.availableQuestions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27];
         this.totalQuestions = this.availableQuestions.length;
         this.isLoading = false;
         
@@ -121,7 +121,8 @@ class LLMQuestionApp {
             23: "How is the softmax function applied in attention mechanisms?",
             24: "How does the dot product contribute to self-attention?",
             25: "Why is cross-entropy loss used in language modeling?",
-            26: "How are gradients computed for embeddings in LLMs?"
+            26: "How are gradients computed for embeddings in LLMs?",
+            27: "What is the Jacobian matrix's role in transformer backpropagation?"
         };
         
         this.availableQuestions.forEach((questionNum, index) => {
@@ -156,7 +157,7 @@ class LLMQuestionApp {
             await this.delay(200);
             
             // Update content
-            this.updateQuestionContent(question);
+            this.updateQuestionContent(question, index);
             this.updateNavigationState(index);
             
             // Execute interactive script if present
@@ -168,6 +169,9 @@ class LLMQuestionApp {
                     this.showInteractiveError();
                 }
             }
+
+            // Render MathJax content
+            await this.renderMathJax();
             
             // Fade in new content
             this.elements.questionViewer.style.opacity = '1';
@@ -190,7 +194,7 @@ class LLMQuestionApp {
     /**
      * Update question content in DOM
      */
-    updateQuestionContent(question) {
+    updateQuestionContent(question, questionIndex = null) {
         this.elements.questionTitle.textContent = question.title;
         
         let answerHtml = question.answer;
@@ -205,6 +209,28 @@ class LLMQuestionApp {
         }
         
         this.elements.questionAnswer.innerHTML = answerHtml;
+        
+        // Use the passed questionIndex or fall back to current index
+        const displayIndex = questionIndex !== null ? questionIndex : this.currentQuestionIndex;
+        
+        // Re-render MathJax after content is loaded with a delay to ensure all content is ready
+        setTimeout(() => {
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                window.MathJax.typesetPromise([this.elements.questionAnswer]).then(() => {
+                    console.log(`Question ${displayIndex + 1}: MathJax rendering complete`);
+                }).catch((err) => {
+                    console.error(`Question ${displayIndex + 1}: MathJax rendering error:`, err);
+                    // Try to find specific error elements
+                    const mathErrors = this.elements.questionAnswer.querySelectorAll('.MathJax_Error');
+                    if (mathErrors.length > 0) {
+                        console.error('Math errors found:', mathErrors);
+                        mathErrors.forEach((error, errorIndex) => {
+                            console.error(`Error ${errorIndex + 1}:`, error.textContent, error);
+                        });
+                    }
+                });
+            }
+        }, 50);
     }
 
     /**
@@ -329,6 +355,39 @@ class LLMQuestionApp {
      */
     delay(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    /**
+     * Render MathJax content with error handling and retry
+     */
+    async renderMathJax() {
+        if (typeof window.MathJax === 'undefined' || !window.MathJax.typesetPromise) {
+            console.warn('MathJax not available, skipping math rendering');
+            return;
+        }
+
+        try {
+            console.log('Rendering MathJax content...');
+            await window.MathJax.typesetPromise();
+            console.log('MathJax rendering completed successfully');
+        } catch (error) {
+            console.warn('MathJax rendering failed:', error);
+            
+            // Try the global retry mechanism
+            if (typeof window.retryMathJax === 'function') {
+                await window.retryMathJax();
+            } else {
+                // Fallback retry
+                setTimeout(async () => {
+                    try {
+                        await window.MathJax.typesetPromise();
+                        console.log('MathJax retry successful');
+                    } catch (retryError) {
+                        console.error('MathJax retry failed:', retryError);
+                    }
+                }, 500);
+            }
+        }
     }
 
     /**

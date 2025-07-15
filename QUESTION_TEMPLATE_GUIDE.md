@@ -9,7 +9,62 @@ Each question should be in its own file in the `/questions` directory:
 questions/
 ├── question-01.js  (Template reference)
 ├── question-02.js
-├── question-XX.js
+├## 5. Testing Checklist
+
+Before submitting a new question:
+
+### Functionality
+- [ ] Question loads## 10. Best Practices Summary
+
+1. **Start simple** - Focus on one core concept per question
+2. **Make it interactive** - Always include hands-on exploration
+3. **Explain why it matters** - Connect to practical applications
+4. **Use consistent styling** - Follow the established design patterns
+5. **Test thoroughly** - Ensure reliability across different inputs
+6. **Keep it educational** - Every element should teach something
+7. **Progressive complexity** - Start simple, allow deeper exploration
+8. **Visual feedback** - Use colors, animations, and hover effects thoughtfully
+9. **Mathematical accuracy** - Use proper LaTeX syntax for all math expressions
+10. **Verify rendering** - Test MathJax rendering on all mathematical content
+
+---
+
+## Mathematical Expression Quick Reference
+
+### Basic LaTeX Syntax
+- **Inline math**: `$x + y$` 
+- **Display math**: `$$f(x) = ax + b$$`
+- **Bold vectors**: `$\mathbf{x}$, $\mathbf{W}$`
+- **Fractions**: `$\frac{a}{b}$`
+- **Subscripts**: `$x_i$, $W_{ij}$`
+- **Superscripts**: `$x^2$, `$e^{-x}$`
+- **Greek letters**: `$\alpha$, $\beta$, $\theta$`
+- **Functions**: `$\sin(x)$, $\log(x)$, $\exp(x)$`
+
+### Advanced Mathematical Notation
+- **Matrices**: `$\begin{bmatrix} a & b \\ c & d \end{bmatrix}$`
+- **Partial derivatives**: `$\frac{\partial f}{\partial x}$`
+- **Gradients**: `$\nabla f$`
+- **Number sets**: `$\mathbb{R}$, $\mathbb{C}$`
+- **Text in math**: `$\text{softmax}(x)$`
+- **Summations**: `$\sum_{i=1}^{n} x_i$`
+- **Integrals**: `$\int_{a}^{b} f(x) dx$`
+
+## Quick Reference: Question 1 Featurescript errors
+- [ ] All interactive elements respond correctly
+- [ ] Default values are sensible and educational
+- [ ] Examples cycle through different scenarios
+- [ ] Visual feedback works (hover, selection, etc.)
+- [ ] Mathematical expressions render correctly (if applicable)
+
+### Content Quality
+- [ ] Title is clear and specific
+- [ ] Answer explains the concept thoroughly
+- [ ] Examples are realistic and educational
+- [ ] Color coding is consistent with the system
+- [ ] Educational explanations update correctly
+- [ ] Mathematical notation follows LaTeX standards
+- [ ] All formulas display without MathJax errors
 └── ...
 ```
 
@@ -88,6 +143,8 @@ Use this proven structure from Question 1:
 5. **Keep paragraphs short** (2-3 sentences max)
 6. **Use bullet points** for lists
 7. **Include code examples** where relevant
+8. **Use proper LaTeX syntax** for mathematical expressions
+9. **Test mathematical rendering** with MathJax before finalizing
 
 ### Color Coding System
 - **Blue**: Main concepts and definitions
@@ -198,7 +255,344 @@ script: () => {
 }
 ```
 
-## 4. Styling Guidelines
+### MathJax Integration & Coding Guidelines
+
+The application uses an enhanced MathJax 3.x configuration optimized for educational content. Follow these comprehensive guidelines for proper mathematical notation.
+
+#### Mathematical Delimiters
+
+The delimiters tell MathJax where your math begins and ends. Using the correct type is essential for proper rendering.
+
+**Displayed Mathematics:** For equations that should be centered on their own line, use `$$...$$ ` or `\[...\]`.
+
+```html
+<!-- Centered equation on its own line -->
+<div class="text-center">
+    $$x = \frac{-b \pm \sqrt{b^2-4ac}}{2a}$$
+</div>
+
+<!-- Alternative display math syntax -->
+<div class="math-display">
+    \[J_{ij} = \frac{\partial f_i}{\partial x_j}\]
+</div>
+```
+
+**Inline Mathematics:** For math that appears within the flow of a sentence, use `\(...\)`.
+
+```html
+<!-- Math within text flow -->
+<p>The Jacobian matrix \(J\) captures how each output \(f_i\) changes with respect to input \(x_j\).</p>
+```
+
+**Important Note on Single Dollar Signs:** While the application supports single dollar signs (`$...$`) for backward compatibility, it's best practice to use `\(...\)` delimiters for inline math to prevent conflicts with regular text (like prices $20).
+
+#### TeX/LaTeX Input Format
+
+MathJax uses TeX/LaTeX as its primary input format. Always generate standard LaTeX commands for mathematical notation:
+
+```latex
+<!-- Recommended LaTeX patterns -->
+\mathbf{W}           <!-- Bold vectors/matrices -->
+\frac{\partial f}{\partial x}   <!-- Fractions and derivatives -->
+\mathbb{R}           <!-- Number sets -->
+\text{softmax}       <!-- Text within math -->
+\sum_{i=1}^{n}       <!-- Summations -->
+\begin{bmatrix} a & b \\ c & d \end{bmatrix}  <!-- Matrices -->
+```
+
+#### Integration with HTML and JavaScript
+
+When embedding MathJax into web content, be mindful of characters that have special meaning in HTML and JavaScript.
+
+**HTML Special Characters:** The less-than symbol (`<`) starts an HTML tag. Ensure proper spacing around inequality symbols:
+
+```html
+<!-- Correct: spaces around inequality -->
+<p>For all \( x > 0 \) and \( y < 1 \), we have...</p>
+
+<!-- Avoid: no spaces might cause HTML parsing issues -->
+<p>For all \(x>0\) and \(y<1\), we have...</p>
+```
+
+**JavaScript String Escaping:** When generating MathJax code inside JavaScript strings, escape every backslash (`\`) with another backslash (`\\`):
+
+```javascript
+// Correct JavaScript string escaping
+const mathExpression = '\\(E = mc^2\\)';
+const displayMath = '$$\\frac{\\partial f}{\\partial x}$$';
+
+// Incorrect - will not render properly
+const wrongExpression = '\(E = mc^2\)';
+```
+
+**Markdown Conflicts:** In systems using Markdown, escape special characters:
+
+```latex
+<!-- In Markdown environments, escape underscores -->
+x\_i    <!-- Instead of x_i -->
+y\_j    <!-- Instead of y_j -->
+```
+
+#### Controlling Layout: `<div>` vs `<span>`
+
+How you wrap MathJax code in HTML tags affects its placement on the page.
+
+**Use `<span>` for inline math** if you need styling wrapper:
+
+```html
+<!-- Inline math with styling -->
+<span class="math-highlight">\(f(x) = ax + b\)</span>
+
+<!-- Math within a paragraph -->
+<p>The function <span class="math-inline">\(\sigma(x)\)</span> is the sigmoid activation.</p>
+```
+
+**Use `<div>` for displayed math** to create proper line breaks:
+
+```html
+<!-- Block-level displayed math -->
+<div class="math-equation">
+    $$\mathbf{J} = \begin{bmatrix}
+    \frac{\partial f_1}{\partial x_1} & \frac{\partial f_1}{\partial x_2} \\
+    \frac{\partial f_2}{\partial x_1} & \frac{\partial f_2}{\partial x_2}
+    \end{bmatrix}$$
+</div>
+
+<!-- Centered display math -->
+<div class="text-center bg-blue-50 p-4 rounded">
+    $$\text{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \text{softmax}\left(\frac{\mathbf{Q}\mathbf{K}^T}{\sqrt{d_k}}\right)\mathbf{V}$$
+</div>
+```
+
+#### MathJax Configuration Features
+
+The application uses this enhanced configuration:
+
+```javascript
+window.MathJax = {
+    tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true,
+        processEnvironments: true,
+        processRefs: true,
+        packages: {
+            '[+]': ['base', 'ams', 'newcommand', 'configmacros', 'action', 'unicode']
+        },
+        macros: {
+            R: '{\\mathbb{R}}',
+            grad: '{\\nabla}',
+            partial: '{\\partial}',
+            // ... additional helpful macros
+        }
+    },
+    svg: {
+        fontCache: 'global',
+        scale: 1.0,
+        minScale: 0.5
+    },
+    options: {
+        enableMenu: false,
+        processEscapes: true,
+        processEnvironments: true
+    }
+};
+```
+
+**Key features:**
+- **Enhanced error recovery** with automatic retry mechanisms
+- **SVG rendering** for crisp mathematical display
+- **Standard LaTeX packages** with additional mathematical symbols
+- **Helpful macros** for common mathematical notation
+- **Automatic re-rendering** when content changes dynamically
+
+#### Best Practices for Question Development
+
+1. **Test mathematical expressions** using the provided `test-math.html` file
+2. **Use semantic CSS classes** for mathematical content styling
+3. **Provide context** for complex equations with explanatory text
+4. **Escape properly** when generating math in JavaScript strings
+5. **Use appropriate delimiters** based on whether math is inline or displayed
+6. **Validate rendering** before finalizing questions
+7. **Follow accessibility** guidelines for mathematical content
+
+## 4. Mathematical Content Guidelines
+
+### LaTeX Syntax Requirements
+When including mathematical expressions in your questions, use proper LaTeX syntax with MathJax. **See the comprehensive [MathJax Integration & Coding Guidelines](#mathjax-integration--coding-guidelines) section below for detailed delimiter usage, JavaScript escaping, and HTML integration.**
+
+#### Quick Reference - Essential LaTeX Commands
+- **Bold vectors/matrices**: `\mathbf{J}`, `\mathbf{x}`, `\mathbf{W}`
+- **Fractions**: `\frac{\partial f}{\partial x}` (not HTML subscripts/superscripts)
+- **Number sets**: `\mathbb{R}`, `\mathbb{C}`, `\mathbb{Z}`
+- **Text in math**: `\text{ReLU}`, `\text{softmax}`
+- **Greek letters**: `\alpha`, `\beta`, `\theta`, `\sigma`
+- **Subscripts/superscripts**: `x_i`, `x^2`, `f_{ij}`
+- **Matrices**: `\begin{bmatrix} a & b \\ c & d \end{bmatrix}`
+- **Functions**: `\sin`, `\cos`, `\log`, `\exp`
+
+#### Quick Examples
+
+**Inline Math (within text):**
+```html
+<p>The gradient \(\frac{\partial L}{\partial x}\) represents the rate of change.</p>
+```
+
+**Display Math (centered equations):**
+```html
+<div class="bg-white p-3 rounded border text-center">
+    $$\mathbf{J}_{ij} = \frac{\partial f_i}{\partial x_j}$$
+</div>
+```
+
+#### Mathematical Structure Examples
+
+**Simple equation with explanation:**
+```html
+<div class="math-equation mt-3">
+    <div class="text-center">
+        <p class="text-sm text-blue-700 mb-2">Chain rule for composed functions:</p>
+        <div class="bg-white p-3 rounded border">
+            $$\frac{\partial z}{\partial x} = \frac{\partial z}{\partial y} \cdot \frac{\partial y}{\partial x}$$
+        </div>
+        <p class="text-xs text-blue-600 mt-2">This enables efficient gradient computation.</p>
+    </div>
+</div>
+```
+
+**Matrix definition with structure:**
+```html
+<div class="math-matrix">
+    $$\mathbf{J} = \begin{bmatrix}
+    \frac{\partial f_1}{\partial x_1} & \frac{\partial f_1}{\partial x_2} & \cdots \\
+    \frac{\partial f_2}{\partial x_1} & \frac{\partial f_2}{\partial x_2} & \cdots \\
+    \vdots & \vdots & \ddots
+    \end{bmatrix}$$
+</div>
+```
+
+**Step-by-step mathematical process:**
+```html
+<div class="space-y-4">
+    <div class="text-center">
+        <p class="text-sm font-medium text-purple-700">Step 1: Function composition</p>
+        <div class="bg-white p-3 rounded border">$$z = h(g(f(x)))$$</div>
+    </div>
+    <div class="text-center">
+        <p class="text-sm font-medium text-purple-700">Step 2: Apply chain rule</p>
+        <div class="bg-white p-3 rounded border">
+            $$\frac{\partial z}{\partial x} = \frac{\partial z}{\partial h} \cdot \frac{\partial h}{\partial g} \cdot \frac{\partial g}{\partial f} \cdot \frac{\partial f}{\partial x}$$
+        </div>
+    </div>
+</div>
+```
+
+### Mathematical Content Best Practices
+
+1. **Always use LaTeX syntax** - Avoid HTML subscripts/superscripts like `x<sub>i</sub>`
+2. **Be consistent with notation** - Use `\mathbf{}` for all vectors and matrices
+3. **Include context** - Explain what each symbol represents
+4. **Test rendering** - Verify all expressions display correctly
+5. **Use semantic markup** - Wrap math in appropriate CSS classes
+6. **Provide intuition** - Follow complex equations with plain English explanations
+
+### Common Mathematical Patterns
+
+#### Gradient/Derivative Expressions
+```html
+<!-- Partial derivative -->
+$$\frac{\partial L}{\partial W_{ij}}$$
+
+<!-- Gradient vector -->
+$$\nabla_{\mathbf{x}} f = \left[\frac{\partial f}{\partial x_1}, \frac{\partial f}{\partial x_2}, \ldots\right]^T$$
+
+<!-- Chain rule -->
+$$\frac{\partial L}{\partial \mathbf{x}} = \frac{\partial L}{\partial \mathbf{y}} \frac{\partial \mathbf{y}}{\partial \mathbf{x}}$$
+```
+
+#### Attention Mechanism Math
+```html
+<!-- Attention weights -->
+$$\text{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \text{softmax}\left(\frac{\mathbf{Q}\mathbf{K}^T}{\sqrt{d_k}}\right)\mathbf{V}$$
+
+<!-- Multi-head attention -->
+$$\text{MultiHead}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \text{Concat}(\text{head}_1, \ldots, \text{head}_h)\mathbf{W}^O$$
+```
+
+#### Loss Functions
+```html
+<!-- Cross-entropy loss -->
+$$L = -\sum_{i=1}^{n} y_i \log(\hat{y}_i)$$
+
+<!-- Mean squared error -->
+$$\text{MSE} = \frac{1}{n}\sum_{i=1}^{n}(y_i - \hat{y}_i)^2$$
+```
+
+### Avoiding Common LaTeX Errors
+
+**See the comprehensive [MathJax Integration & Coding Guidelines](#mathjax-integration--coding-guidelines) section for detailed best practices.**
+
+❌ **Don't use HTML math notation:**
+```html
+<p>x<sub>i</sub><sup>2</sup> + y<sub>j</sub></p>
+```
+
+✅ **Use proper LaTeX:**
+```html
+<p>\(x_i^2 + y_j\)</p>
+```
+
+❌ **Don't forget JavaScript escaping:**
+```javascript
+// Wrong - backslashes not escaped
+const formula = '\(E = mc^2\)';
+```
+
+✅ **Escape backslashes in JavaScript strings:**
+```javascript
+// Correct - backslashes properly escaped
+const formula = '\\(E = mc^2\\)';
+const display = '$$\\frac{\\partial f}{\\partial x}$$';
+```
+
+❌ **Don't use undefined macros:**
+```latex
+$$\grad f$$  <!-- Custom macro that might not be defined -->
+```
+
+✅ **Use standard LaTeX commands:**
+```latex
+$$\nabla f$$  <!-- Standard gradient symbol -->
+```
+
+❌ **Don't mix HTML and LaTeX:**
+```html
+$$\mathbf{J}<sub>ij</sub> = \frac{\partial f_i}{\partial x_j}$$
+```
+
+✅ **Use consistent LaTeX:**
+```latex
+$$\mathbf{J}_{ij} = \frac{\partial f_i}{\partial x_j}$$
+```
+
+❌ **Don't use wrong delimiters for context:**
+```html
+<!-- Wrong: using display math inline breaks text flow -->
+<p>The function $$f(x) = ax + b$$ is linear.</p>
+```
+
+✅ **Use appropriate delimiters:**
+```html
+<!-- Correct: inline math within text -->
+<p>The function \(f(x) = ax + b\) is linear.</p>
+
+<!-- Correct: display math on its own line -->
+<div class="text-center">
+    $$f(x) = ax + b$$
+</div>
+```
+
+## 5. Styling Guidelines
 
 ### CSS Classes to Use
 - **Containers**: `space-y-4`, `space-y-6`, `grid`, `flex`
@@ -214,7 +608,7 @@ script: () => {
 - **Warning Orange**: `bg-orange-50`, `text-orange-900`, `border-orange-400`
 - **Accent Yellow**: `bg-yellow-50`, `text-yellow-900`, `border-yellow-200`
 
-## 5. Testing Checklist
+## 6. Testing Checklist
 
 Before submitting a new question:
 
@@ -245,7 +639,7 @@ Before submitting a new question:
 - [ ] Text contrast meets accessibility standards
 - [ ] Labels are properly associated with form elements
 
-## 6. Common Patterns by Question Type
+## 7. Common Patterns by Question Type
 
 ### Comparison Questions
 Use the grid layout to compare different approaches, algorithms, or techniques.
@@ -259,7 +653,7 @@ Include code examples, mathematical representations, or detailed diagrams.
 ### Conceptual Explanations
 Focus on analogies, real-world examples, and practical implications.
 
-## 7. File Naming and Organization
+## 8. File Naming and Organization
 
 ### File Names
 - Use zero-padded numbers: `question-01.js`, `question-02.js`, ..., `question-50.js`
@@ -274,7 +668,7 @@ Focus on analogies, real-world examples, and practical implications.
 // Educational Focus: [Key learning objectives]
 ```
 
-## 8. Integration Steps
+## 9. Integration Steps
 
 After creating a new question:
 
@@ -284,7 +678,7 @@ After creating a new question:
 4. **Check navigation** (Previous/Next buttons work correctly)
 5. **Test on different devices** and screen sizes
 
-## 9. Example Question Types
+## 10. Example Question Types
 
 ### Data Structure: Simple Interactive
 Focus on one main concept with 2-3 options to explore.
@@ -298,7 +692,7 @@ Input parameters and see how they affect mathematical formulas or models.
 ### Architecture Overview: Component Builder
 Build or explore system architectures step by step.
 
-## 10. Best Practices Summary
+## 11. Best Practices Summary
 
 1. **Start simple** - Focus on one core concept per question
 2. **Make it interactive** - Always include hands-on exploration

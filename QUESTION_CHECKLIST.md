@@ -1,4 +1,28 @@
-# Question Creation Checklist
+# Question Creat### Content Development
+
+### Title & Basic Info
+- [ ] Write clear, specific question title (under 80 characters)
+- [ ] Start title with question number: "X. "
+- [ ] End with question mark if it's a question
+
+### Answer Section
+- [ ] Write main concept explanation in blue box
+- [ ] Include helpful analogy or real-world comparison
+- [ ] Create 2-3 option comparison cards with different colors
+- [ ] Add practical code examples in `<code>` tags
+- [ ] Write "Why This Matters" section with 3-4 bullet points
+- [ ] Use emojis appropriately (🔤 🎯 📝 etc.)
+- [ ] Use LaTeX syntax for mathematical expressions ($$...$$, $...$)
+- [ ] Test mathematical rendering with MathJax
+
+### Mathematical Content (if applicable)
+- [ ] Use proper LaTeX syntax: `$$\\mathbf{J} = \\frac{\\partial f}{\\partial x}$$`
+- [ ] Use `\\mathbf{}` for bold matrices and vectors
+- [ ] Use `\\frac{}{}` for fractions instead of HTML
+- [ ] Use `\\mathbb{R}` for real number sets
+- [ ] Use `\\text{}` for text within math expressions
+- [ ] Test all mathematical expressions render correctly
+- [ ] Avoid custom MathJax macros (use standard LaTeX)
 
 Use this checklist when creating new questions for the LLM Questions app.
 
@@ -77,6 +101,8 @@ Use this checklist when creating new questions for the LLM Questions app.
 - [ ] Examples are realistic and demonstrate key concepts
 - [ ] Color coding is consistent and meaningful
 - [ ] Tooltips provide helpful additional information
+- [ ] Mathematical expressions use proper LaTeX syntax
+- [ ] All math formulas render correctly without errors
 
 ### User Experience
 - [ ] Interface is intuitive without instructions
@@ -98,6 +124,8 @@ Use this checklist when creating new questions for the LLM Questions app.
 - [ ] All DOM element queries succeed (no null references)
 - [ ] Event listeners are properly attached
 - [ ] Memory leaks avoided (no global variables)
+- [ ] MathJax rendering completes without errors
+- [ ] Mathematical expressions display correctly
 
 ### Content
 - [ ] No [placeholder text] remains in final version
@@ -154,3 +182,34 @@ Replace `X` with your question number:
 **Borders:** `border border-gray-200 rounded-lg`, `border-l-4 border-blue-400`
 **Text:** `text-sm font-medium text-gray-700`, `font-semibold text-blue-900`
 **Interactive:** `hover:bg-gray-50 transition-colors cursor-pointer`
+
+## MathJax Integration Requirements
+
+### LaTeX Syntax Standards
+- [ ] Use `$$...$$` for display math (centered equations)
+- [ ] Use `$...$` for inline math expressions
+- [ ] Use `\mathbf{}` for bold vectors and matrices
+- [ ] Use `\frac{}{}` for fractions instead of HTML
+- [ ] Use `\text{}` for text within mathematical expressions
+- [ ] Use standard LaTeX commands only (no custom macros)
+
+### Mathematical Expression Testing
+- [ ] All equations render without "Math input error" messages
+- [ ] Mathematical expressions display with proper fonts and sizing
+- [ ] Complex equations with matrices render correctly
+- [ ] Inline math integrates well with surrounding text
+- [ ] Display math is properly centered and formatted
+
+### Common LaTeX Patterns to Use
+- [ ] Partial derivatives: `\frac{\partial f}{\partial x}`
+- [ ] Matrices: `\begin{bmatrix} a & b \\ c & d \end{bmatrix}`
+- [ ] Vectors: `\mathbf{x}`, `\mathbf{W}`
+- [ ] Number sets: `\mathbb{R}`, `\mathbb{C}`
+- [ ] Functions: `\text{softmax}`, `\text{ReLU}`
+- [ ] Greek letters: `\alpha`, `\beta`, `\theta`
+
+### Mathematical Content Structure
+- [ ] Wrap display math in appropriate containers (`.math-equation`, etc.)
+- [ ] Include explanatory text before and after complex equations
+- [ ] Use consistent mathematical notation throughout the question
+- [ ] Provide context for all mathematical symbols used

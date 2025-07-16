@@ -1,6 +1,22 @@
 # Question Template Guide
 
-This guide explains how to create new questions for the Top 50 LLM Questions interactive app, using Question 1 (Tokenization) as the template and reference.
+Th6. **Test thoroughly** - Ensure reliability across different inputs
+7. **Keep it educational** - Every element should teach something
+8. **Progressive complexity** - Start simple, allow deeper exploration
+9. **Visual feedback** - Use colors, animations, and hover effects thoughtfully
+10. **Mathematical accuracy** - Use proper LaTeX syntax for all math expressions
+11. **Verify rendering** - Test MathJax rendering on all mathematical content
+12. **Multi-line formulas** - Use align* environment for long equations to prevent overflow
+13. **Responsive design** - Ensure formulas and layouts work on different screen sizesde exp### Advanced Mathematical Notation
+- **Matrices**: `$\begin{bmatrix} a & b \\ c & d \end{bmatrix}$`
+- **Partial derivatives**: `$\frac{\partial f}{\partial x}$`
+- **Gradients**: `$\nabla f$`
+- **Number sets**: `$\mathbb{R}$, `$\mathbb{C}$`
+- **Text in math**: `$\text{softmax}(x)$`
+- **Summations**: `$\sum_{i=1}^{n} x_i$`
+- **Integrals**: `$\int_{a}^{b} f(x) dx$`
+- **Multi-line formulas**: `$$\begin{align*} ... \end{align*}$$`
+- **Alignment**: Use `&` for alignment points, `\\\\` for line breaksw to create new questions for the Top 50 LLM Questions interactive app, using Question 1 (Tokenization) as the template and reference.
 
 ## File Structure
 
@@ -430,6 +446,7 @@ When including mathematical expressions in your questions, use proper LaTeX synt
 - **Subscripts/superscripts**: `x_i`, `x^2`, `f_{ij}`
 - **Matrices**: `\begin{bmatrix} a & b \\ c & d \end{bmatrix}`
 - **Functions**: `\sin`, `\cos`, `\log`, `\exp`
+- **Multi-line equations**: `\begin{align*} ... \end{align*}` with `&` alignment and `\\\\` line breaks
 
 #### Quick Examples
 
@@ -487,6 +504,30 @@ When including mathematical expressions in your questions, use proper LaTeX synt
 </div>
 ```
 
+**Multi-line aligned equations:**
+```html
+<div class="bg-white p-3 rounded border text-center">
+    $$
+    \\begin{align*}
+    \\mathcal{L} = & \\mathbb{E}[r(x,y)] \\\\
+                   & - \\beta D_{KL}(\\pi||\\pi_{ref})
+    \\end{align*}
+    $$
+</div>
+```
+
+**Complex formulas with line breaks:**
+```html
+<div class="text-sm bg-blue-50 p-3 rounded">
+    $$
+    \\begin{align*}
+    JS(P,Q) = & \\frac{1}{2}D_{KL}(P||M) \\\\
+              & + \\frac{1}{2}D_{KL}(Q||M)
+    \\end{align*}
+    $$
+</div>
+```
+
 ### Mathematical Content Best Practices
 
 1. **Always use LaTeX syntax** - Avoid HTML subscripts/superscripts like `x<sub>i</sub>`
@@ -526,6 +567,31 @@ $$L = -\sum_{i=1}^{n} y_i \log(\hat{y}_i)$$
 
 <!-- Mean squared error -->
 $$\text{MSE} = \frac{1}{n}\sum_{i=1}^{n}(y_i - \hat{y}_i)^2$$
+
+<!-- KL divergence for LLM training -->
+$$
+\\begin{align*}
+\\mathcal{L}_{RLHF} = & \\mathbb{E}[r(x,y)] \\\\
+                      & - \\beta D_{KL}(\\pi||\\pi_{ref})
+\\end{align*}
+$$
+```
+
+#### Information Theory & Divergences
+```html
+<!-- KL divergence -->
+$$D_{KL}(P||Q) = \\sum_{x} P(x) \\log \\frac{P(x)}{Q(x)}$$
+
+<!-- Jensen-Shannon divergence -->
+$$
+\\begin{align*}
+JS(P,Q) = & \\frac{1}{2}D_{KL}(P||M) \\\\
+          & + \\frac{1}{2}D_{KL}(Q||M)
+\\end{align*}
+$$
+
+<!-- Wasserstein distance -->
+$$W(P,Q) = \\inf_{\\gamma} \\mathbb{E}[d(x,y)]$$
 ```
 
 ### Avoiding Common LaTeX Errors
@@ -553,6 +619,7 @@ const formula = '\(E = mc^2\)';
 // Correct - backslashes properly escaped
 const formula = '\\(E = mc^2\\)';
 const display = '$$\\frac{\\partial f}{\\partial x}$$';
+const multiline = '$$\\\\begin{align*}...\\\\end{align*}$$';
 ```
 
 ❌ **Don't use undefined macros:**
@@ -590,6 +657,22 @@ $$\mathbf{J}_{ij} = \frac{\partial f_i}{\partial x_j}$$
 <div class="text-center">
     $$f(x) = ax + b$$
 </div>
+```
+
+❌ **Long formulas without line breaks:**
+```latex
+$$\mathcal{L} = \mathbb{E}[r(x,y)] - \beta D_{KL}(\pi||\pi_{ref}) + \lambda \text{reg}(\theta)$$
+```
+
+✅ **Use align* environment for long formulas:**
+```latex
+$$
+\\begin{align*}
+\\mathcal{L} = & \\mathbb{E}[r(x,y)] \\\\
+               & - \\beta D_{KL}(\\pi||\\pi_{ref}) \\\\
+               & + \\lambda \\text{reg}(\\theta)
+\\end{align*}
+$$
 ```
 
 ## 5. Styling Guidelines
@@ -692,6 +775,25 @@ Input parameters and see how they affect mathematical formulas or models.
 ### Architecture Overview: Component Builder
 Build or explore system architectures step by step.
 
+### Advanced Interactive Patterns (New)
+Based on recent question implementations:
+
+**Distribution Visualizer**
+- Real-time parameter adjustment with sliders
+- Interactive bar chart visualization 
+- Multiple analysis modes (forward/reverse/symmetric)
+- Scenario-based learning with presets
+
+**Mathematical Expression Explorer**  
+- Multi-line formula rendering with align* environment
+- Dynamic mathematical insight explanations
+- Professional mathematical notation with proper escaping
+
+**Mode-Based Analysis Tools**
+- Radio button selection for different analysis modes
+- Dynamic visual indicators and explanations
+- Cycling through predefined educational scenarios
+
 ## 11. Best Practices Summary
 
 1. **Start simple** - Focus on one core concept per question
@@ -703,9 +805,215 @@ Build or explore system architectures step by step.
 7. **Progressive complexity** - Start simple, allow deeper exploration
 8. **Visual feedback** - Use colors, animations, and hover effects thoughtfully
 
+## 12. Advanced Interactive Patterns
+
+Based on recent question implementations, here are sophisticated interactive patterns that enhance educational value:
+
+### Distribution and Parameter Exploration
+
+**Pattern**: Real-time parameter adjustment with immediate visual feedback
+
+```html
+<!-- Parameter Control Section -->
+<div class="grid md:grid-cols-2 gap-4">
+    <div class="bg-white border border-gray-200 rounded-lg p-4">
+        <label class="block text-sm font-medium text-gray-700 mb-2">🎯 Target Distribution P</label>
+        <div class="space-y-2">
+            <div class="flex items-center space-x-2">
+                <label class="text-xs w-16">Peak:</label>
+                <input type="range" id="qX-p-peak" min="0" max="10" value="5" step="0.1" class="flex-1">
+                <span id="qX-p-peak-val" class="text-xs w-8">5.0</span>
+            </div>
+        </div>
+    </div>
+</div>
+```
+
+**Key Features**:
+- Immediate visual updates on parameter change
+- Value display next to sliders
+- Scenario-based presets for educational contexts
+- Professional bar chart or visualization output
+
+### Mode-Based Analysis Tools
+
+**Pattern**: Radio button selection with dynamic explanations
+
+```html
+<!-- Analysis Mode Selection -->
+<div class="bg-white border border-gray-200 rounded-lg p-4">
+    <label class="block text-sm font-medium text-gray-700 mb-3">🔬 Analysis Mode</label>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <label class="relative border border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors">
+            <input type="radio" name="qX-mode" value="forward" checked class="absolute top-2 right-2">
+            <div>
+                <div class="flex items-center justify-between mb-2">
+                    <span class="font-medium text-gray-900">Forward Analysis</span>
+                    <span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">Mode 1</span>
+                </div>
+                <p class="text-xs text-gray-600">Description of what this mode does</p>
+            </div>
+        </label>
+    </div>
+</div>
+```
+
+**Key Features**:
+- Visual mode indicators that update with selection
+- Color-coded tags for different modes
+- Detailed explanations that change based on selection
+- Professional visual feedback on hover and selection
+
+### Multi-line Mathematical Formula Rendering
+
+**Pattern**: Professional mathematical notation with proper alignment
+
+```html
+<!-- Complex Formula Display -->
+<div class="text-sm bg-blue-50 p-3 rounded mb-3">
+    $$
+    \\begin{align*}
+    JS(P,Q) = & \\frac{1}{2}D_{KL}(P||M) \\\\
+              & + \\frac{1}{2}D_{KL}(Q||M)
+    \\end{align*}
+    $$
+</div>
+```
+
+**Best Practices**:
+- Use `align*` environment for long formulas
+- Escape backslashes properly in JavaScript: `\\\\begin{align*}`
+- Include `&` for alignment points
+- Use `\\\\\\\\` for line breaks in JavaScript strings
+- Test formula rendering thoroughly
+
+### Educational Scenario Cycling
+
+**Pattern**: Quick scenario button with educational presets
+
+```html
+<!-- Quick Scenarios -->
+<div class="flex flex-wrap gap-2">
+    <span class="text-sm font-medium text-gray-700">💡 Quick Scenarios:</span>
+    <button id="qX-scenario-btn" class="text-xs bg-indigo-100 text-indigo-700 px-2 py-1 rounded hover:bg-indigo-200 transition-colors">Perfect Match</button>
+</div>
+```
+
+**Implementation**:
+```javascript
+const quickScenarios = [
+    { params: {...}, mode: 'forward', note: 'Perfect Match' },
+    { params: {...}, mode: 'reverse', note: 'Student Underfits' },
+    // ... more scenarios
+];
+
+scenarioBtn.addEventListener('click', () => {
+    const scenario = quickScenarios[scenarioIndex];
+    // Apply scenario parameters
+    // Update displays
+    scenarioIndex = (scenarioIndex + 1) % quickScenarios.length;
+});
+```
+
+### Professional Visualization Components
+
+**Pattern**: Interactive bar charts and visual displays
+
+```html
+<!-- Distribution Visualization -->
+<div class="relative h-32 bg-gradient-to-b from-gray-50 to-gray-100 rounded border p-2">
+    <div class="flex items-end justify-between h-full space-x-1">
+        <!-- Dynamically generated bars -->
+    </div>
+</div>
+```
+
+**Features**:
+- Tooltips with detailed information
+- Color-coded data representation
+- Responsive scaling and layout
+- Legend with clear labeling
+
+### Dynamic Educational Explanations
+
+**Pattern**: Context-aware educational content
+
+```html
+<!-- Mathematical Insight -->
+<div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+    <h4 class="font-medium text-yellow-900 mb-2">🧮 Mathematical Insight</h4>
+    <div id="qX-explanation" class="text-sm text-yellow-800"></div>
+</div>
+```
+
+**Implementation**:
+```javascript
+function updateExplanation(mode, values) {
+    const explanations = {
+        'forward': `Forward analysis shows...`,
+        'reverse': `Reverse analysis reveals...`,
+        'symmetric': `Symmetric approach provides...`
+    };
+    
+    let explText = explanations[mode];
+    explText += ` Current values: ${formatValues(values)}`;
+    
+    explanation.innerHTML = explText;
+}
+```
+
+### Enhanced Error Handling and User Experience
+
+**Pattern**: Robust DOM element checking and fallbacks
+
+```javascript
+script: () => {
+    // Get DOM elements with error checking
+    const element = document.getElementById('qX-element');
+    if (!element) {
+        console.error('Required element not found');
+        return;
+    }
+    
+    // Add comprehensive try-catch blocks
+    try {
+        // Main functionality
+    } catch (error) {
+        console.error('Error in processing:', error);
+        if (output) {
+            output.innerHTML = '<div class="text-red-500 p-4">Error processing data. Please try again.</div>';
+        }
+    }
+}
+```
+
 ---
 
 ## Quick Reference: Question 1 Features
+
+The tokenization question demonstrates these key features:
+- ✅ Clear concept explanation with analogy
+- ✅ Three-option comparison grid
+- ✅ Interactive tokenizer with real-time updates
+- ✅ Color-coded token visualization
+- ✅ Statistical feedback (token count, compression ratio)
+- ✅ Educational explanations that update based on selection
+- ✅ Cycling examples with explanatory tooltips
+- ✅ Professional, accessible design
+
+## Quick Reference: Question 29 Advanced Features
+
+The KL divergence question demonstrates advanced patterns:
+- ✅ Multi-line mathematical formulas with align* environment
+- ✅ Real-time parameter adjustment with visual feedback
+- ✅ Mode-based analysis with professional radio button selection
+- ✅ Interactive distribution visualization with bar charts
+- ✅ Scenario-based learning with educational presets
+- ✅ Dynamic mathematical insights that update with parameters
+- ✅ Professional mathematical notation with proper escaping
+- ✅ Responsive design that prevents formula overflow
+
+Use both questions as reference templates for creating comprehensive interactive educational content!
 
 The tokenization question demonstrates these key features:
 - ✅ Clear concept explanation with analogy

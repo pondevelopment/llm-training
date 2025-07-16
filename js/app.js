@@ -7,7 +7,7 @@ class LLMQuestionApp {
         this.questionLoader = new QuestionLoader();
         this.currentQuestionIndex = 0;
         // Only show questions that actually exist
-        this.availableQuestions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31];
+        this.availableQuestions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32];
         this.totalQuestions = this.availableQuestions.length;
         this.isLoading = false;
         
@@ -198,7 +198,8 @@ class LLMQuestionApp {
             28: "How do eigenvalues and eigenvectors relate to dimensionality reduction?",
             29: "What is KL divergence, and how is it used in LLMs?",
             30: "What is the derivative of the ReLU function, and why is it significant?",
-            31: "How does backpropagation work, and why is the chain rule critical?"
+            31: "How does backpropagation work, and why is the chain rule critical?",
+            32: "How are attention scores calculated in transformers?"
         };
         
         this.availableQuestions.forEach((questionNum, index) => {

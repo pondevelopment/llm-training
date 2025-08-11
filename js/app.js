@@ -7,7 +7,7 @@ class LLMQuestionApp {
         this.questionLoader = new QuestionLoader();
         this.currentQuestionIndex = 0;
         // Only show questions that actually exist
-    this.availableQuestions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34];
+    this.availableQuestions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35];
         this.totalQuestions = this.availableQuestions.length;
         this.isLoading = false;
         
@@ -201,7 +201,8 @@ class LLMQuestionApp {
             31: "How does backpropagation work, and why is the chain rule critical?",
             32: "How are attention scores calculated in transformers?",
             33: "How does Gemini optimize multimodal LLM training?",
-            34: "What types of foundation models exist?"
+            34: "What types of foundation models exist?",
+            35: "How does PEFT mitigate catastrophic forgetting?"
         };
         
         this.availableQuestions.forEach((questionNum, index) => {
@@ -558,4 +559,9 @@ class LLMQuestionApp {
 // Initialize app when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     window.app = new LLMQuestionApp();
+    // Update footer question count dynamically
+    const footerCount = document.getElementById('footer-total-count');
+    if (footerCount && window.app) {
+        footerCount.textContent = window.app.totalQuestions;
+    }
 });

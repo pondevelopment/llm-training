@@ -7,7 +7,7 @@ class LLMQuestionApp {
         this.questionLoader = new QuestionLoader();
         this.currentQuestionIndex = 0;
         // Only show questions that actually exist
-    this.availableQuestions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41];
+    this.availableQuestions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42];
         this.totalQuestions = this.availableQuestions.length;
         this.isLoading = false;
         
@@ -208,7 +208,8 @@ class LLMQuestionApp {
             38: "What is Chain-of-Thought (CoT) prompting, and how does it aid reasoning?",
             39: "How do discriminative and generative AI models differ?",
             40: "How does knowledge graph integration improve LLMs?",
-            41: "What is zero-shot learning, and how do LLMs implement it?"
+            41: "What is zero-shot learning, and how do LLMs implement it?",
+            42: "How does Adaptive Softmax optimize LLMs?"
         };
         
         this.availableQuestions.forEach((questionNum, index) => {

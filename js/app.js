@@ -7,7 +7,7 @@ class LLMQuestionApp {
         this.questionLoader = new QuestionLoader();
         this.currentQuestionIndex = 0;
         // Only show questions that actually exist
-    this.availableQuestions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49];
+    this.availableQuestions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50];
         this.totalQuestions = this.availableQuestions.length;
         this.isLoading = false;
         
@@ -217,6 +217,7 @@ class LLMQuestionApp {
             ,47: "How do LLMs differ from traditional statistical language models?"
             ,48: "What is a hyperparameter, and why is it important?"
             ,49: "What defines a Large Language Model (LLM)?"
+            ,50: "What challenges do LLMs face in deployment?"
         };
         
         this.availableQuestions.forEach((questionNum, index) => {

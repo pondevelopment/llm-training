@@ -13,7 +13,7 @@ const question = {
         <div class="text-xs mt-3 text-blue-800">
           Intuition model for residual risk after applying strategies:
           <div class="math-display mt-1">$$
-          r_\text{after} \\approx r_0\,\prod_i \bigl(1 - e_i\bigr),\quad e_i\in[0,1]
+          r_{after} \approx r_0\,\prod_{i} (1 - e_i),\quad e_i\in[0,1]
           $$</div>
           where \(r_0\) is base risk, and \(e_i\) are strategy-specific effectiveness terms (diminishing when tasks are severe or data is weak).
         </div>

@@ -13,9 +13,9 @@ const question = {
         <div class="text-xs mt-3 text-blue-800">
           Intuition model for residual risk after applying strategies:
           <div class="math-display mt-1">$$
-          r_{after} \approx r_0\,\prod_{i} (1 - e_i),\quad e_i\in[0,1]
+          r_{after} = r_0 \\cdot \\prod_{i} (1 - e_i),\\quad 0 \\le e_i \\le 1
           $$</div>
-          where \(r_0\) is base risk, and \(e_i\) are strategy-specific effectiveness terms (diminishing when tasks are severe or data is weak).
+          where \\(r_0\\) is base risk, and \\(e_i\\) are strategy-specific effectiveness terms (diminishing when tasks are severe or data is weak).
         </div>
       </div>
 
@@ -69,9 +69,9 @@ const question = {
               <label class=\"font-semibold text-gray-700\">Failure type</label>
               <select id=\"q45-type\" class=\"w-full border rounded p-1 text-xs\">
                 <option value=\"bias\" selected>Bias (stereotypes, unfair treatment)</option>
-              <div class="math-display mt-1">$$
-              r_\\text{after} \\approx r_0\\,\\prod_i \\bigl(1 - e_i\\bigr),\\quad e_i\\in[0,1]
-              $$</div>
+                <option value=\"factual\">Incorrect facts/hallucinations</option>
+                <option value=\"toxicity\">Toxic/unsafe content</option>
+              </select>
             </div>
             <div>
               <label class=\"font-semibold text-gray-700\">Severity</label>

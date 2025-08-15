@@ -72,6 +72,16 @@ const question = {
                 <li><strong>Multilingual/Multimodal:</strong> Cohere embed-v4.0 is multilingual and supports text+image fusion; Google offers separate multimodal embedding APIs.</li>
                 <li><strong>Limits (typical):</strong> Google: up to ~250 inputs/request and 2048 tokens/input; Cohere: up to ~96 inputs; Voyage: up to ~1000 texts (model limits vary). Always check current docs.</li>
             </ul>
+            <div class="mt-3">
+                <div class="text-xs font-semibold text-indigo-900 uppercase tracking-wide">Provider models</div>
+                <ul class="text-sm text-indigo-900 list-disc pl-5 mt-1 space-y-0.5">
+                    <li><strong>OpenAI:</strong> text-embedding-3 family</li>
+                    <li><strong>Google:</strong> gemini-embedding-001</li>
+                    <li><strong>Cohere:</strong> embed-v4.0</li>
+                    <li><strong>Mistral:</strong> mistral-embed</li>
+                    <li><strong>Voyage:</strong> 3.x (e.g., voyage-3-large, voyage-3.5, voyage-3.5-lite)</li>
+                </ul>
+            </div>
             <p class="text-xs text-indigo-700 mt-2">Note: Linear analogy tricks (e.g., king − man + woman ≈ queen) are illustrative; modern sentence embeddings don’t guarantee such relationships.</p>
         </div>
     </div>`,

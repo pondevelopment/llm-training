@@ -4,122 +4,104 @@ An interactive learning experience with hands-on examples for the most important
 
 ## 🎯 Overview
 
-This project provides an interactive web application that covers essential LLM concepts through 9 comprehensive questions. Each question includes detailed explanations, practical examples, and interactive simulators to help you understand the concepts deeply.
+This project is a single‑page, static web app covering 50 essential LLM questions. Every question includes a clear explanation and most include interactive mini‑simulators. There’s also a searchable Glossary with deep links into the questions.
 
-## 📚 Questions Covered
+## � Features
 
-1. **Tokenization** - Understanding how text is broken down for LLM processing
-2. **Attention Mechanism** - How transformers focus on relevant parts of input
-3. **Context Window** - The limitations and importance of sequence length
-4. **LoRA vs QLoRA** - Efficient fine-tuning techniques comparison
-5. **Beam Search vs Greedy Decoding** - Text generation strategies
-6. **Temperature in Text Generation** - Controlling randomness and creativity
-7. **Embeddings** - How models understand semantic meaning
-8. **RLHF (Reinforcement Learning from Human Feedback)** - Aligning models with human preferences
-9. **Autoregressive vs Masked Models** - Different training paradigms (GPT vs BERT)
+- 50 curated questions with explanations and interactive widgets
+- Searchable in‑app Glossary with “Learn more: Question N →” cross‑links
+- Shareable deep links per question (Share button or press “S”)
+- Keyboard navigation (← / →), and a top dropdown to jump anywhere
+- Math rendering via MathJax (inline and display equations)
+- Lightweight: pure HTML/JS/CSS; no build step needed; mobile-friendly
 
-## 🚀 Features
+## 📚 Topics covered (selection)
 
-- **Interactive Simulators**: Hands-on examples for each concept
-- **Progressive Learning**: Navigate between questions with ease
-- **Visual Demonstrations**: Charts, graphs, and interactive elements
-- **Comprehensive Explanations**: Theory combined with practical insights
-- **Mobile Responsive**: Works on all devices
+- Tokenization, embeddings, attention and multi‑head attention
+- Context window, KV cache, decoding (greedy, beam, top‑k/top‑p, temperature)
+- LoRA/QLoRA and PEFT, RLHF and alignment
+- MoE, RAG, few/zero‑shot prompting, CoT
+- Math foundations: softmax, cross‑entropy, gradients, Jacobians, eigenvalues
+- Deployment trade‑offs: latency, cost, safety, privacy, quantization, distillation
 
-## 🛠️ Technologies Used
+## 🛠️ Technologies
 
-- **Frontend**: HTML5, CSS3 (Tailwind CSS), Vanilla JavaScript
-- **Architecture**: Modular question loading system
-- **Styling**: Modern, responsive design with interactive components
+- HTML + Tailwind CSS (CDN)
+- Vanilla JavaScript
+- MathJax v3 (tex-svg)
 
-## 📁 Project Structure
+## 📁 Project structure
 
 ```
 top-50-llm-questions/
-├── index.html                 # Main application entry point
+├── index.html                 # App shell (header, viewer, glossary modal, footer)
 ├── js/
-│   ├── app.js                # Main application logic and navigation
-│   └── questionLoader.js     # Dynamic question loading system
+│   ├── app.js                # SPA navigation, deep links, caching, MathJax hooks
+│   ├── questionLoader.js     # Safe dynamic loader for question modules
+│   └── glossary.js           # Searchable glossary with in‑app navigation
 ├── questions/
-│   ├── question-01.js        # Tokenization
-│   ├── question-02.js        # Attention Mechanism
-│   ├── question-03.js        # Context Window
-│   ├── question-04.js        # LoRA vs QLoRA
-│   ├── question-05.js        # Beam Search vs Greedy
-│   ├── question-06.js        # Temperature
-│   ├── question-07.js        # Embeddings
-│   ├── question-08.js        # RLHF
-│   ├── question-09.js        # Autoregressive vs Masked
-│   └── question-template.js  # Template for new questions
-├── docs/
-│   ├── QUESTION_TEMPLATE_GUIDE.md
-│   └── QUESTION_CHECKLIST.md
+│   ├── question-01.js … question-50.js   # Individual questions
+│   └── question-template.js              # Template for new questions
+├── QUESTION_TEMPLATE_GUIDE.md            # Authoring guidance
+├── QUESTION_CHECKLIST.md                 # Review & test checklist
+├── LICENSE                               # MIT License
 └── README.md
 ```
 
-## 🎮 How to Use
+## 🎮 How to run
 
-1. **Clone or Download**: Get the project files
-2. **Open**: Launch `index.html` in your web browser
-3. **Navigate**: Use the dropdown menu or arrow keys to move between questions
-4. **Interact**: Try the interactive simulators and examples
-5. **Learn**: Read the explanations and experiment with different parameters
+1) Download or clone the repo
+2) Open `index.html` in a modern browser (no server needed)
+
+Tips inside the app:
+- Use the dropdown or ← / → to navigate
+- Press “S” to copy a shareable deep link to the current question
+- Click “Glossary” in the header to browse definitions and jump to questions
 
 ## 🔧 Development
 
-### Adding New Questions
+### Adding a new question
 
-1. Copy `questions/question-template.js` to create a new question file
-2. Follow the guidelines in `docs/QUESTION_TEMPLATE_GUIDE.md`
-3. Update the `availableQuestions` array in `js/app.js`
-4. Add the question title to the `questionTitles` object in `js/app.js`
-5. Test the new question thoroughly using `docs/QUESTION_CHECKLIST.md`
+1. Copy `questions/question-template.js` to a new file (e.g., `question-51.js`)
+2. Export your question using CommonJS: `module.exports = question;`
+3. Add the number to `availableQuestions` and the title to `questionTitles` in `js/app.js`
+4. Follow `QUESTION_TEMPLATE_GUIDE.md` and verify with `QUESTION_CHECKLIST.md`
 
-### Key Features
+Question contract:
+- question = { title, answer (HTML string), interactive?: { title, html, script() } }
+- MathJax: escape backslashes and “<” inside JS strings (use `\\` and `&lt;`)
 
-- **Modular Architecture**: Each question is self-contained
-- **Dynamic Loading**: Questions load on-demand for better performance
-- **Caching System**: Visited questions are cached for smooth navigation
-- **Error Handling**: Graceful fallbacks for loading issues
-- **Keyboard Navigation**: Arrow keys for quick question switching
+### Notable implementation details
 
-## 📖 Educational Approach
+- Custom loader executes question files in an isolated context and returns either a global `question` symbol or `module.exports`
+- Adjacent questions are opportunistically preloaded to reduce perceived latency
+- MathJax rendering is retried on transient errors; see `index.html` startup config
 
-Each question follows a structured format:
-- **Concept Introduction**: Clear explanation of the topic
-- **Practical Examples**: Real-world applications and use cases
-- **Interactive Simulator**: Hands-on experience with the concept
-- **Visual Aids**: Charts, diagrams, and interactive elements
-- **Key Takeaways**: Summary of important points
+## 📎 Attribution
+
+Questions are based on the overview here:
+Top 50 LinkedIn LLM interview questions (LinkedIn):
+https://www.linkedin.com/posts/hoang-van-hao_top-50-linkedin-llm-interview-questions-activity-7332959385280778240-lyU0/
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please:
-1. Fork the repository
-2. Create a feature branch
-3. Follow the existing code style and documentation standards
-4. Test your changes thoroughly
-5. Submit a pull request
+Contributions are welcome. Please:
+1) Fork the repo and create a feature branch
+2) Follow the question contract and style conventions
+3) Test thoroughly (try multiple browsers)
+4) Open a PR with a concise description and screenshots/GIFs if UI changes
 
 ## 📝 License
 
-This project is open source and available under the [MIT License](LICENSE).
+This project is open source under the [MIT License](LICENSE).
 
-## 🎓 Perfect For
+## 🔄 Recent updates
 
-- **Job Interview Preparation**: Comprehensive coverage of LLM interview topics
-- **Learning LLM Concepts**: Interactive way to understand complex topics
-- **Teaching**: Use as a resource for courses or workshops
-- **Reference**: Quick lookup for LLM concepts and implementations
+- Added questions 46–50 with interactive explorers
+- Added searchable Glossary with cross‑links to questions
+- Improved deployment trade‑offs explorer (Q50) and math rendering resilience
+- Footer attribution and MIT LICENSE added
 
-## 🔄 Recent Updates
+—
 
-- Added Question 9: Autoregressive vs Masked Models comparison
-- Enhanced RLHF simulator with 5 training examples and in-site notifications
-- Improved navigation with dropdown menu showing all questions
-- Fixed UI issues and enhanced educational content
-- Added comprehensive documentation and templates
-
----
-
-**Built with ❤️ for the LLM community**
+Built for the LLM community.

@@ -42,9 +42,15 @@ const question = {
         html: `<div class="space-y-6">
             <!-- Input Section -->
             <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200">
-                <label for="q1-text-input" class="block text-sm font-medium text-gray-700 mb-2">📝 Enter Text to Tokenize</label>
-                <input type="text" id="q1-text-input" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" value="The unbelievable transformation is happening!">
-                <p class="text-xs text-gray-600 mt-1">Try different text to see how tokenization changes!</p>
+                <label for="q1-text-select" class="block text-sm font-medium text-gray-700 mb-2">📝 Select Text to Tokenize</label>
+                <select id="q1-text-select" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white">
+                    <option value="The unbelievable transformation is happening!">The unbelievable transformation is happening!</option>
+                    <option value="cryptocurrency blockchain technology">cryptocurrency blockchain technology</option>
+                    <option value="Hello, world! How are you today?">Hello, world! How are you today?</option>
+                    <option value="AI revolutionizes everything continuously.">AI revolutionizes everything continuously.</option>
+                    <option value="tokenization">tokenization</option>
+                </select>
+                <p class="text-xs text-gray-600 mt-1">Pick a phrase to explore how tokenization differs by strategy.</p>
             </div>
             
             <!-- Strategy Selection -->
@@ -118,7 +124,7 @@ const question = {
             </div>
         </div>`,
         script: () => {
-            const input = document.getElementById('q1-text-input');
+            const input = document.getElementById('q1-text-select');
             const output = document.getElementById('q1-output');
             const strategyRadios = document.querySelectorAll('input[name="q1-strategy"]');
             const oovBtn = document.getElementById('q1-oov-btn');
@@ -423,7 +429,7 @@ Text: "${token}"`;
             });
 
             // Event listeners
-            input.addEventListener('input', tokenize);
+            input.addEventListener('change', tokenize);
             strategyRadios.forEach(radio => {
                 radio.addEventListener('change', () => {
                     updateStrategyVisuals();

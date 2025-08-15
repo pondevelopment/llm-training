@@ -12,21 +12,21 @@ const question = {
         
         <div class="grid md:grid-cols-3 gap-4">
             <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
-                <h5 class="font-medium text-green-900">Small Window (512-2K tokens)</h5>
-                <p class="text-sm text-green-700">Fast processing, lower costs, but limited context</p>
-                <code class="text-xs bg-green-100 px-1 rounded">Good for: Short responses, simple tasks</code>
+                <h5 class="font-medium text-green-900">Small Window (4K–16K tokens)</h5>
+                <p class="text-sm text-green-700">Fast processing, lower costs; fine for short tasks</p>
+                <code class="text-xs bg-green-100 px-1 rounded">Good for: Short chats, utility prompts</code>
             </div>
             
             <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
-                <h5 class="font-medium text-purple-900">Medium Window (4K-8K tokens)</h5>
-                <p class="text-sm text-purple-700">Balanced performance and context retention</p>
-                <code class="text-xs bg-purple-100 px-1 rounded">Good for: Most conversations, code analysis</code>
+                <h5 class="font-medium text-purple-900">Medium Window (32K–128K tokens)</h5>
+                <p class="text-sm text-purple-700">Mainstream production range with solid context</p>
+                <code class="text-xs bg-purple-100 px-1 rounded">Good for: Multi-turn chats, code, docs</code>
             </div>
             
             <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
-                <h5 class="font-medium text-orange-900">Large Window (32K-128K+ tokens)</h5>
-                <p class="text-sm text-orange-700">Excellent context but computationally expensive</p>
-                <code class="text-xs bg-orange-100 px-1 rounded">Good for: Document analysis, long conversations</code>
+                <h5 class="font-medium text-orange-900">Large Window (200K–1M+ tokens)</h5>
+                <p class="text-sm text-orange-700">Longest contexts; expensive, requires careful UX</p>
+                <code class="text-xs bg-orange-100 px-1 rounded">Good for: Long documents, complex Q&A</code>
             </div>
         </div>
         
@@ -35,9 +35,20 @@ const question = {
             <ul class="text-sm text-yellow-800 space-y-1">
                 <li>• <strong>Memory Continuity:</strong> Larger windows maintain conversation context across many exchanges</li>
                 <li>• <strong>Document Understanding:</strong> Can process entire articles, books, or codebases at once</li>
-                <li>• <strong>Cost vs Performance:</strong> Computational cost grows quadratically with window size</li>
+                <li>• <strong>Cost vs Performance:</strong> Prefill cost grows ~quadratically with window size (decode benefits from KV caching)</li>
                 <li>• <strong>Real-world Applications:</strong> Critical for tasks like summarization, analysis, and long-form content</li>
             </ul>
+        </div>
+
+        <div class="bg-white border border-gray-200 rounded-lg p-4">
+            <h4 class="font-semibold text-gray-900 mb-2">📌 Current model snapshots (verify before use)</h4>
+            <ul class="text-sm text-gray-700 list-disc pl-5 space-y-1">
+                <li><strong>Anthropic Claude:</strong> 200K; Sonnet 4 <em>1M</em> (beta header). <a class="text-blue-700 underline" href="https://docs.anthropic.com/en/docs/models-overview" target="_blank" rel="noopener">Docs</a></li>
+                <li><strong>Google Gemini:</strong> “Many models with <em>1M+</em> tokens.” <a class="text-blue-700 underline" href="https://ai.google.dev/gemini-api/docs/long-context" target="_blank" rel="noopener">Long context</a></li>
+                <li><strong>Mistral:</strong> 32K–128K typical; Codestral up to 256K. <a class="text-blue-700 underline" href="https://docs.mistral.ai/getting-started/models/" target="_blank" rel="noopener">Models</a></li>
+                <li><strong>OpenAI / Llama / DeepSeek:</strong> Commonly 128K–200K+; confirm on model cards before use.</li>
+            </ul>
+            <p class="text-xs text-gray-500 mt-2">Estimates only; providers change quickly. Last reviewed: 2025‑08.</p>
         </div>
     </div>`,
     interactive: {
@@ -50,10 +61,24 @@ const question = {
                 <p class="text-xs text-blue-700 font-medium mt-2 bg-blue-100 px-2 py-1 rounded">👆 Edit the text to see how different context windows affect understanding!</p>
             </div>
             
+            <!-- Mode Selection -->
+            <div class="bg-white border border-gray-200 rounded-lg p-4">
+                <label class="block text-sm font-medium text-gray-700 mb-3">🧭 Mode</label>
+                <div class="inline-flex rounded-md shadow-sm overflow-hidden border">
+                    <label class="px-3 py-1 text-sm cursor-pointer bg-indigo-50 border-r">
+                        <input type="radio" name="q3-mode" value="demo" class="mr-2" checked> Demo (50/100/200)
+                    </label>
+                    <label class="px-3 py-1 text-sm cursor-pointer">
+                        <input type="radio" name="q3-mode" value="real" class="mr-2"> Real-world presets
+                    </label>
+                </div>
+            </div>
+
             <!-- Window Size Selection -->
             <div class="bg-white border border-gray-200 rounded-lg p-4">
                 <label class="block text-sm font-medium text-gray-700 mb-3">🎯 Choose Context Window Size</label>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <!-- Demo presets -->
+                <div id="q3-demo-section" class="grid grid-cols-1 md:grid-cols-3 gap-3">
                     <label class="cursor-pointer">
                         <input type="radio" name="q3-window-size" value="small" class="sr-only">
                         <div class="border-2 border-green-200 rounded-lg p-3 hover:border-green-400 hover:bg-green-50 transition-colors">
@@ -81,12 +106,60 @@ const question = {
                         </div>
                     </label>
                 </div>
+
+                <!-- Real-world presets -->
+                <div id="q3-real-section" class="grid grid-cols-1 md:grid-cols-5 gap-3 hidden mt-3">
+                    <label class="cursor-pointer">
+                        <input type="radio" name="q3-real-window" value="4k" class="sr-only" checked>
+                        <div class="border-2 border-blue-200 rounded-lg p-3 hover:border-blue-400 hover:bg-blue-50 transition-colors">
+                            <div class="font-medium text-blue-900">4K</div>
+                            <div class="text-xs text-blue-700">Legacy small</div>
+                        </div>
+                    </label>
+                    <label class="cursor-pointer">
+                        <input type="radio" name="q3-real-window" value="32k" class="sr-only">
+                        <div class="border-2 border-blue-200 rounded-lg p-3 hover:border-blue-400 hover:bg-blue-50 transition-colors">
+                            <div class="font-medium text-blue-900">32K</div>
+                            <div class="text-xs text-blue-700">Common baseline</div>
+                        </div>
+                    </label>
+                    <label class="cursor-pointer">
+                        <input type="radio" name="q3-real-window" value="128k" class="sr-only">
+                        <div class="border-2 border-blue-200 rounded-lg p-3 hover:border-blue-400 hover:bg-blue-50 transition-colors">
+                            <div class="font-medium text-blue-900">128K</div>
+                            <div class="text-xs text-blue-700">Mainstream</div>
+                        </div>
+                    </label>
+                    <label class="cursor-pointer">
+                        <input type="radio" name="q3-real-window" value="200k" class="sr-only">
+                        <div class="border-2 border-blue-200 rounded-lg p-3 hover:border-blue-400 hover:bg-blue-50 transition-colors">
+                            <div class="font-medium text-blue-900">200K</div>
+                            <div class="text-xs text-blue-700">Claude</div>
+                        </div>
+                    </label>
+                    <label class="cursor-pointer">
+                        <input type="radio" name="q3-real-window" value="1m" class="sr-only">
+                        <div class="border-2 border-blue-200 rounded-lg p-3 hover:border-blue-400 hover:bg-blue-50 transition-colors">
+                            <div class="font-medium text-blue-900">1M</div>
+                            <div class="text-xs text-blue-700">Gemini / Claude (beta)</div>
+                        </div>
+                    </label>
+                </div>
             </div>
 
-            <!-- Quick Examples -->
-            <div class="flex flex-wrap gap-2">
+            <!-- Quick Examples + Lorem Generator -->
+            <div class="flex flex-wrap items-center gap-2">
                 <span class="text-sm font-medium text-gray-700">💡 Quick Examples:</span>
                 <button id="q3-example-btn" class="text-xs bg-indigo-100 text-indigo-700 px-2 py-1 rounded hover:bg-indigo-200 transition-colors">Try: Long research paper excerpt</button>
+                <span class="mx-2 text-sm text-gray-500">or</span>
+                <label for="q3-lorem-size" class="text-sm text-gray-700">Generate lorem:</label>
+                <select id="q3-lorem-size" class="text-xs px-2 py-1 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <option value="1000">~1k tokens</option>
+                    <option value="3000" selected>~3k tokens</option>
+                    <option value="5000">~5k tokens</option>
+                    <option value="10000">~10k tokens</option>
+                </select>
+                <button id="q3-lorem-btn" class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded border border-gray-200 hover:bg-gray-200 transition-colors">Generate</button>
             </div>
             
             <!-- Results -->
@@ -96,6 +169,7 @@ const question = {
                     <div id="q3-window-indicator" class="text-xs bg-gray-100 px-2 py-1 rounded font-medium">Medium Window</div>
                 </div>
                 <div id="q3-output" class="min-h-[120px] p-3 bg-gray-50 rounded border-2 border-dashed border-gray-300 text-sm leading-relaxed overflow-auto max-h-60">Enter or edit text above to begin...</div>
+                <div id="q3-token-summary" class="mt-2 text-xs text-gray-700"></div>
                 <div id="q3-legend" class="mt-3 text-xs bg-blue-50 p-2 rounded">
                     <div class="flex flex-wrap gap-4">
                         <span class="inline-flex items-center gap-1">
@@ -173,11 +247,17 @@ const question = {
             const demoOutput = document.getElementById('q3-demo-output');
             const explanationContent = document.getElementById('q3-explanation-content');
             const exampleBtn = document.getElementById('q3-example-btn');
+            const tokenSummary = document.getElementById('q3-token-summary');
+            const modeRadios = document.querySelectorAll('input[name="q3-mode"]');
+            const demoSection = document.getElementById('q3-demo-section');
+            const realSection = document.getElementById('q3-real-section');
+            const loremBtn = document.getElementById('q3-lorem-btn');
+            const loremSize = document.getElementById('q3-lorem-size');
             
             if (!input || !output) return;
 
-            // Configuration data for different window sizes
-            const windowConfig = {
+            // Configuration data for demo window sizes
+            const demoWindowConfig = {
                 small: {
                     name: 'Small Window (50 tokens)',
                     tokens: 50,
@@ -216,18 +296,94 @@ const question = {
                 }
             };
 
-            // Get current window size selection
-            function getCurrentWindowSize() {
+            // Real-world presets (approximate)
+            const realWindowConfig = {
+                '4k': {
+                    name: 'Real-world (4K tokens)',
+                    tokens: 4000,
+                    coherence: 55,
+                    cost: 35,
+                    usecase: 60,
+                    coherenceText: 'Decent for short docs',
+                    costText: 'Low to moderate cost',
+                    usecaseText: 'Good for utilities',
+                    color: 'blue',
+                    description: 'Legacy small context typical of earlier LLMs and compact models.'
+                },
+                '32k': {
+                    name: 'Real-world (32K tokens)',
+                    tokens: 32000,
+                    coherence: 75,
+                    cost: 50,
+                    usecase: 80,
+                    coherenceText: 'Solid retention',
+                    costText: 'Moderate cost',
+                    usecaseText: 'Common production baseline',
+                    color: 'blue',
+                    description: 'Common baseline on many providers; handles long chats and larger files.'
+                },
+                '128k': {
+                    name: 'Real-world (128K tokens)',
+                    tokens: 128000,
+                    coherence: 85,
+                    cost: 70,
+                    usecase: 90,
+                    coherenceText: 'High retention',
+                    costText: 'Higher cost',
+                    usecaseText: 'Great for complex tasks',
+                    color: 'blue',
+                    description: 'Mainstream large context across many models; enables broader in-context learning.'
+                },
+                '200k': {
+                    name: 'Real-world (200K tokens)',
+                    tokens: 200000,
+                    coherence: 90,
+                    cost: 80,
+                    usecase: 95,
+                    coherenceText: 'Very high retention',
+                    costText: 'High cost',
+                    usecaseText: 'Excellent for long docs',
+                    color: 'blue',
+                    description: 'Offered by Claude family; excellent for large documents.'
+                },
+                '1m': {
+                    name: 'Real-world (1M tokens)',
+                    tokens: 1000000,
+                    coherence: 95,
+                    cost: 95,
+                    usecase: 98,
+                    coherenceText: 'Extremely high retention',
+                    costText: 'Very high cost',
+                    usecaseText: 'Specialized long-context tasks',
+                    color: 'blue',
+                    description: 'Gemini and some Claude beta configurations; consider caching and retrieval strategies.'
+                }
+            };
+
+            // Helpers
+            const estimateTokens = (text) => Math.max(1, Math.ceil(text.length / 4)); // ~4 chars per token
+            const getCurrentMode = () => {
+                const selected = document.querySelector('input[name="q3-mode"]:checked');
+                return selected ? selected.value : 'demo';
+            };
+            function getCurrentWindowSelection() {
+                const mode = getCurrentMode();
+                if (mode === 'real') {
+                    const sel = document.querySelector('input[name="q3-real-window"]:checked');
+                    const key = sel ? sel.value : '32k';
+                    return realWindowConfig[key];
+                }
                 const selected = document.querySelector('input[name="q3-window-size"]:checked');
-                return selected ? selected.value : 'medium';
+                const key = selected ? selected.value : 'medium';
+                return demoWindowConfig[key];
             }
 
             // Main processing function
             const processInput = () => {
                 const text = input.value;
                 const words = text.split(/\s+/).filter(w => w.length > 0);
-                const windowSize = getCurrentWindowSize();
-                const config = windowConfig[windowSize];
+                const config = getCurrentWindowSelection();
+                const approxTokens = estimateTokens(text);
                 
                 if (words.length === 0) {
                     output.innerHTML = '<div class="text-center text-gray-500 py-8"><p class="text-lg mb-2">📝 Enter text above to begin</p><p class="text-sm">Try pasting a long article or document</p></div>';
@@ -237,33 +393,42 @@ const question = {
                 // Clear previous content
                 output.innerHTML = '';
                 
-                // Create word elements with context window highlighting
+                // Create word elements with approximate token-based highlighting
+                const avgTokensPerWord = Math.max(1, approxTokens / words.length);
+                const wordsWithin = Math.floor(config.tokens / avgTokensPerWord);
                 words.forEach((word, index) => {
                     const span = document.createElement('span');
                     span.textContent = word + ' ';
-                    
-                    if (index < config.tokens) {
+                    const within = index < wordsWithin;
+                    if (within) {
                         span.className = `inline bg-blue-200 text-blue-900 px-1 rounded-sm mr-1 transition-all duration-300`;
-                        span.title = `Token ${index + 1}: Within context window`;
+                        span.title = `≈ Token group ${index + 1}: Within context window`;
                     } else {
                         span.className = `inline bg-gray-200 text-gray-600 px-1 rounded-sm mr-1 opacity-60 transition-all duration-300`;
-                        span.title = `Token ${index + 1}: Outside context window (forgotten)`;
+                        span.title = `≈ Token group ${index + 1}: Outside context window (forgotten)`;
                     }
                     
                     output.appendChild(span);
                 });
 
-                // Add truncation indicator if text exceeds window
-                if (words.length > config.tokens) {
+                // Token summary and truncation indicator
+                const tokensInWindow = Math.min(approxTokens, config.tokens);
+                const tokensMissed = Math.max(0, approxTokens - config.tokens);
+                const pct = Math.round((tokensInWindow / Math.max(1, approxTokens)) * 100);
+                if (tokenSummary) {
+                    tokenSummary.innerHTML = `Approx tokens in input: <strong>${approxTokens.toLocaleString()}</strong> • Window: <strong>${config.tokens.toLocaleString()}</strong> • Fit: <strong>${pct}%</strong>`;
+                }
+
+                if (tokensMissed > 0) {
                     const indicator = document.createElement('div');
                     indicator.className = 'mt-2 text-xs text-gray-500 italic border-t pt-2';
-                    indicator.innerHTML = `⚠️ ${words.length - config.tokens} tokens truncated (model cannot see this content)`;
+                    indicator.innerHTML = `⚠️ ${tokensMissed.toLocaleString()} tokens truncated (model cannot see this content)`;
                     output.appendChild(indicator);
                 }
 
                 // Update metrics
                 updateMetrics(config);
-                updateExplanation(config, words.length);
+                updateExplanation(config, approxTokens);
                 
                 // Hide demo output when input changes
                 demoOutput.classList.add('hidden');
@@ -284,17 +449,18 @@ const question = {
             }
 
             // Update educational explanation
-            function updateExplanation(config, wordCount) {
-                const tokensInWindow = Math.min(wordCount, config.tokens);
-                const tokensMissed = Math.max(0, wordCount - config.tokens);
+            function updateExplanation(config, tokenCount) {
+                const tokensInWindow = Math.min(tokenCount, config.tokens);
+                const tokensMissed = Math.max(0, tokenCount - config.tokens);
                 
                 explanationContent.innerHTML = `
                     <strong>${config.name}:</strong> ${config.description}
                     <br><br>
                     <strong>Current Analysis:</strong>
-                    <br>• Processing ${tokensInWindow} of ${wordCount} tokens (${Math.round((tokensInWindow/wordCount)*100)}% of document)
+                    <br>• Processing ${tokensInWindow.toLocaleString()} of ${tokenCount.toLocaleString()} tokens (${Math.round((tokensInWindow/Math.max(1, tokenCount))*100)}% of input)
                     ${tokensMissed > 0 ? `<br>• <span class="text-red-600">${tokensMissed} tokens are outside the context window and will be ignored</span>` : '<br>• ✅ Entire document fits within context window'}
-                    <br>• Computational complexity: O(n²) where n = ${config.tokens}
+                    <br>• Complexity: Prefill ~O(n²), Decode with KV caching ~O(n) per new token
+                    <br><small class="text-gray-600">Token estimate uses ~4 chars per token guideline.</small>
                 `;
             }
 
@@ -325,11 +491,30 @@ const question = {
                 });
             }
 
+            // Lorem ipsum generator
+            if (loremBtn) {
+                loremBtn.addEventListener('click', () => {
+                    const targetTokens = parseInt(loremSize?.value || '3000', 10) || 3000;
+                    const base = [
+                        'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+                        'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+                        'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+                        'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.',
+                        'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+                    ].join(' ');
+                    const targetChars = Math.max(1, targetTokens * 4); // ~4 chars/token
+                    let text = base;
+                    while (text.length < targetChars) text += ' ' + base;
+                    text = text.slice(0, targetChars);
+                    input.value = text;
+                    input.dispatchEvent(new Event('input', { bubbles: true }));
+                });
+            }
+
             // Demo simulation buttons
             if (summarizeBtn) {
                 summarizeBtn.addEventListener('click', () => {
-                    const windowSize = getCurrentWindowSize();
-                    const config = windowConfig[windowSize];
+                    const config = getCurrentWindowSelection();
                     const words = input.value.split(/\s+/).filter(w => w.length > 0);
                     
                     demoOutput.classList.remove('hidden');
@@ -356,8 +541,7 @@ const question = {
 
             if (qaBtn) {
                 qaBtn.addEventListener('click', () => {
-                    const windowSize = getCurrentWindowSize();
-                    const config = windowConfig[windowSize];
+                    const config = getCurrentWindowSelection();
                     const words = input.value.split(/\s+/).filter(w => w.length > 0);
                     
                     demoOutput.classList.remove('hidden');
@@ -384,6 +568,20 @@ const question = {
 
             // Event listeners
             input.addEventListener('input', processInput);
+            // Mode switching
+            modeRadios.forEach(r => {
+                r.addEventListener('change', () => {
+                    const mode = getCurrentMode();
+                    if (mode === 'real') {
+                        demoSection.classList.add('hidden');
+                        realSection.classList.remove('hidden');
+                    } else {
+                        realSection.classList.add('hidden');
+                        demoSection.classList.remove('hidden');
+                    }
+                    processInput();
+                });
+            });
             document.querySelectorAll('input[name="q3-window-size"]').forEach(radio => {
                 radio.addEventListener('change', () => {
                     // Update visual selection
@@ -406,6 +604,11 @@ const question = {
                             else card.classList.add('border-orange-200');
                         }
                     });
+                    processInput();
+                });
+            });
+            document.querySelectorAll('input[name="q3-real-window"]').forEach(radio => {
+                radio.addEventListener('change', () => {
                     processInput();
                 });
             });

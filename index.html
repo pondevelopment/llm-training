@@ -13,7 +13,7 @@
                 displayMath: [['$$', '$$'], ['\\[', '\\]']],
                 processEscapes: true,
                 processEnvironments: true,
-                processRefs: true,
+                
                 digits: /^(?:[0-9]+(?:\{,\}[0-9]{3})*(?:\.[0-9]*)?|\.[0-9]+)/,
                 tags: 'none',
                 tagSide: 'right',
@@ -81,7 +81,7 @@
                 ignoreHtmlClass: 'tex2jax_ignore',
                 processEscapes: true,
                 processEnvironments: true,
-                processRefs: true
+                
             },
             loader: {
                 load: ['[tex]/ams', '[tex]/newcommand', '[tex]/configmacros', '[tex]/action', '[tex]/unicode']
@@ -239,19 +239,47 @@
         }
 
         .interactive-btn {
-            @apply px-4 py-2 bg-indigo-600 text-white text-sm rounded-lg hover:bg-indigo-700 transition-colors duration-200 font-medium;
+            padding: 0.5rem 1rem; /* px-4 py-2 */
+            background-color: #4f46e5; /* indigo-600 */
+            color: #ffffff; /* text-white */
+            font-size: 0.875rem; /* text-sm */
+            border-radius: 0.5rem; /* rounded-lg */
+            transition: background-color 200ms ease-in-out, color 200ms ease-in-out; /* transition-colors duration-200 */
+            font-weight: 500; /* font-medium */
+        }
+
+        .interactive-btn:hover {
+            background-color: #4338ca; /* hover:bg-indigo-700 */
         }
 
         .token {
-            @apply inline-block px-2 py-1 mx-1 my-0.5 bg-indigo-100 text-indigo-800 rounded text-sm font-mono border border-indigo-200 cursor-pointer hover:bg-indigo-200 transition-colors;
+            display: inline-block; /* inline-block */
+            padding: 0.25rem 0.5rem; /* px-2 py-1 */
+            margin: 0.125rem 0.25rem; /* my-0.5 mx-1 */
+            background-color: #e0e7ff; /* bg-indigo-100 */
+            color: #3730a3; /* text-indigo-800 */
+            border-radius: 0.25rem; /* rounded */
+            font-size: 0.875rem; /* text-sm */
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; /* font-mono */
+            border: 1px solid #c7d2fe; /* border-indigo-200 */
+            cursor: pointer; /* cursor-pointer */
+            transition: background-color 150ms ease-in-out, color 150ms ease-in-out; /* transition-colors */
+        }
+
+        .token:hover {
+            background-color: #c7d2fe; /* hover:bg-indigo-200 */
         }
 
         .param-block {
-            @apply w-full h-4 bg-gray-300 rounded transition-all duration-300;
+            width: 100%; /* w-full */
+            height: 1rem; /* h-4 */
+            background-color: #d1d5db; /* bg-gray-300 */
+            border-radius: 0.25rem; /* rounded */
+            transition: all 300ms ease-in-out; /* transition-all duration-300 */
         }
 
         .param-block.frozen {
-            @apply bg-gray-500;
+            background-color: #6b7280; /* bg-gray-500 */
         }
 
         .param-block.quantized {
@@ -260,15 +288,21 @@
         }
 
         .param-block.adapter {
-            @apply bg-green-500;
+            background-color: #22c55e; /* bg-green-500 */
         }
 
         .legend-item {
-            @apply flex items-center space-x-2 text-xs;
+            display: flex; /* flex */
+            align-items: center; /* items-center */
+            gap: 0.5rem; /* approximate space-x-2 */
+            font-size: 0.75rem; /* text-xs */
         }
 
         .legend-swatch {
-            @apply w-4 h-4 rounded border border-gray-300;
+            width: 1rem; /* w-4 */
+            height: 1rem; /* h-4 */
+            border-radius: 0.25rem; /* rounded */
+            border: 1px solid #d1d5db; /* border-gray-300 */
         }
 
         #question-viewer {
@@ -277,7 +311,18 @@
 
         /* Loading animation for dynamic content */
         .loading-skeleton {
-            @apply animate-pulse bg-gray-200 rounded;
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; /* animate-pulse */
+            background-color: #e5e7eb; /* bg-gray-200 */
+            border-radius: 0.25rem; /* rounded */
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
         }
 
         /* Enhanced Mathematical notation styles */

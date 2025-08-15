@@ -64,6 +64,38 @@ const question = {
             <!-- In-site notifications container -->
             <div id="q8-notifications" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 space-y-2 max-w-md"></div>
             
+            <!-- How it works panel -->
+            <div class="bg-sky-50 border border-sky-200 rounded-lg p-4">
+                <div class="flex items-start justify-between gap-2">
+                    <div>
+                        <h4 class="font-semibold text-sky-900 mb-1">🎓 How this simulator works</h4>
+                        <p class="text-sm text-sky-800">A quick overview so you know what will happen before you start.</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button id="q8-tour-btn" class="text-xs bg-sky-600 text-white px-2 py-1 rounded hover:bg-sky-700 transition-colors">▶ Start guided tour</button>
+                        <button id="q8-how-toggle" class="text-xs bg-sky-100 text-sky-800 px-2 py-1 rounded hover:bg-sky-200 transition-colors" aria-expanded="true">Hide</button>
+                    </div>
+                </div>
+                <div id="q8-how-body" class="mt-3 space-y-3">
+                    <ol class="list-decimal list-inside text-sm text-sky-900 space-y-1">
+                        <li><strong>Stage 1 – Data Collection:</strong> Compare Response A vs B and click “Prefer This” five times. The progress bar shows 0/5 → 5/5. When you reach 5, we auto‑advance to the Reward Model stage.</li>
+                        <li><strong>Stage 2 – Reward Model:</strong> Click “🧠 Train Reward Model” to simulate learning a preference predictor. When training finishes, we auto‑advance to RL Optimization.</li>
+                        <li><strong>Stage 3 – RL Optimization (PPO):</strong> Click “🚀 Run PPO Training” to improve metrics over episodes, then “📊 Evaluate Model” to see the overall alignment score.</li>
+                    </ol>
+                    <div class="text-xs text-sky-800 bg-white/60 border border-sky-200 rounded p-2">
+                        <div class="font-semibold mb-1">Controls</div>
+                        <ul class="list-disc list-inside space-y-0.5">
+                            <li><strong>💡 Try Training Examples:</strong> Loads example prompts and simulates one feedback step.</li>
+                            <li><strong>🔄 Reset Progress:</strong> Clears all state and returns to Stage 1.</li>
+                            <li><strong>Stage cards:</strong> You can switch stages manually at any time to explore.</li>
+                        </ul>
+                    </div>
+                    <div class="text-xs text-sky-700">
+                        Note: This is a learning simulator. Numbers are illustrative and run entirely in your browser; no data is sent anywhere.
+                    </div>
+                </div>
+            </div>
+            
             <!-- Training Stage Selection -->
             <div class="bg-gradient-to-r from-blue-50 to-purple-50 p-4 rounded-lg border border-blue-200">
                 <label class="block text-sm font-medium text-gray-700 mb-2">🔄 Select RLHF Training Stage</label>
@@ -199,29 +231,59 @@ const question = {
                 <div class="space-y-4">
                     <div class="grid md:grid-cols-3 gap-4">
                         <div class="bg-orange-50 border border-orange-200 rounded-lg p-3">
-                            <h6 class="font-medium text-orange-900 mb-2">Policy Updates</h6>
+                            <div class="flex items-start justify-between gap-2 mb-2">
+                                <h6 class="font-medium text-orange-900">Policy Updates</h6>
+                                <button id="q8-policy-help" class="text-[10px] bg-orange-100 text-orange-800 px-2 py-0.5 rounded hover:bg-orange-200">What do these mean?</button>
+                            </div>
                             <div class="text-sm text-gray-700">
                                 <div>Episodes: <span id="q8-episodes">0</span></div>
                                 <div>Avg Reward: <span id="q8-avg-reward">0.00</span></div>
                                 <div>Learning Rate: <span class="font-mono">1e-5</span></div>
                             </div>
+                            <div id="q8-policy-help-body" class="mt-2 text-xs text-orange-900 bg-white/60 border border-orange-200 rounded p-2 hidden">
+                                <ul class="list-disc list-inside space-y-0.5">
+                                    <li><strong>Episodes:</strong> How many RL training iterations have run.</li>
+                                    <li><strong>Avg Reward:</strong> The reward model’s average score for recent outputs (0–1, higher is better).</li>
+                                    <li><strong>Learning Rate:</strong> Step size for policy updates; too high is unstable, too low learns slowly.</li>
+                                </ul>
+                            </div>
                         </div>
                         
                         <div class="bg-blue-50 border border-blue-200 rounded-lg p-3">
-                            <h6 class="font-medium text-blue-900 mb-2">Performance</h6>
+                            <div class="flex items-start justify-between gap-2 mb-2">
+                                <h6 class="font-medium text-blue-900">Performance</h6>
+                                <button id="q8-performance-help" class="text-[10px] bg-blue-100 text-blue-800 px-2 py-0.5 rounded hover:bg-blue-200">What do these mean?</button>
+                            </div>
                             <div class="text-sm text-gray-700">
                                 <div>Helpfulness: <span id="q8-helpfulness">65%</span></div>
                                 <div>Safety: <span id="q8-safety">78%</span></div>
                                 <div>Coherence: <span id="q8-coherence">82%</span></div>
                             </div>
+                            <div id="q8-performance-help-body" class="mt-2 text-xs text-blue-900 bg-white/60 border border-blue-200 rounded p-2 hidden">
+                                <ul class="list-disc list-inside space-y-0.5">
+                                    <li><strong>Helpfulness:</strong> How well responses solve the user’s task.</li>
+                                    <li><strong>Safety:</strong> Avoidance of harmful or policy‑violating content.</li>
+                                    <li><strong>Coherence:</strong> Logical, on‑topic, and consistent responses.</li>
+                                </ul>
+                            </div>
                         </div>
                         
                         <div class="bg-green-50 border border-green-200 rounded-lg p-3">
-                            <h6 class="font-medium text-green-900 mb-2">Alignment</h6>
+                            <div class="flex items-start justify-between gap-2 mb-2">
+                                <h6 class="font-medium text-green-900">Alignment</h6>
+                                <button id="q8-alignment-help" class="text-[10px] bg-green-100 text-green-800 px-2 py-0.5 rounded hover:bg-green-200">What do these mean?</button>
+                            </div>
                             <div class="text-sm text-gray-700">
                                 <div>Human Preference: <span id="q8-preference">71%</span></div>
                                 <div>Value Alignment: <span id="q8-alignment">68%</span></div>
                                 <div>Robustness: <span id="q8-robustness">75%</span></div>
+                            </div>
+                            <div id="q8-alignment-help-body" class="mt-2 text-xs text-green-900 bg-white/60 border border-green-200 rounded p-2 hidden">
+                                <ul class="list-disc list-inside space-y-0.5">
+                                    <li><strong>Human Preference:</strong> Agreement with human‑ranked choices.</li>
+                                    <li><strong>Value Alignment:</strong> Adherence to explicit guidelines and policies.</li>
+                                    <li><strong>Robustness:</strong> Stable behavior under prompt changes or adversarial inputs.</li>
+                                </ul>
                             </div>
                         </div>
                     </div>
@@ -249,7 +311,7 @@ const question = {
                 
                 <div class="grid md:grid-cols-3 gap-4">
                     <div class="text-center">
-                        <div class="w-16 h-16 mx-auto bg-green-100 rounded-full flex items-center justify-center mb-2">
+                        <div id="q8-stage1-icon" class="w-16 h-16 mx-auto bg-green-100 rounded-full flex items-center justify-center mb-2">
                             <span class="text-2xl">📝</span>
                         </div>
                         <div class="text-sm font-medium">Data Collection</div>
@@ -257,7 +319,7 @@ const question = {
                     </div>
                     
                     <div class="text-center">
-                        <div class="w-16 h-16 mx-auto bg-gray-100 rounded-full flex items-center justify-center mb-2">
+                        <div id="q8-stage2-icon" class="w-16 h-16 mx-auto bg-gray-100 rounded-full flex items-center justify-center mb-2">
                             <span class="text-2xl">🧠</span>
                         </div>
                         <div class="text-sm font-medium">Reward Model</div>
@@ -265,7 +327,7 @@ const question = {
                     </div>
                     
                     <div class="text-center">
-                        <div class="w-16 h-16 mx-auto bg-gray-100 rounded-full flex items-center justify-center mb-2">
+                        <div id="q8-stage3-icon" class="w-16 h-16 mx-auto bg-gray-100 rounded-full flex items-center justify-center mb-2">
                             <span class="text-2xl">🎯</span>
                         </div>
                         <div class="text-sm font-medium">RL Training</div>
@@ -290,6 +352,10 @@ const question = {
             const rewardPanel = document.getElementById('q8-reward-panel');
             const optimizePanel = document.getElementById('q8-optimize-panel');
             const explanation = document.getElementById('q8-explanation');
+            // How it works elements
+            const howToggle = document.getElementById('q8-how-toggle');
+            const howBody = document.getElementById('q8-how-body');
+            const tourBtn = document.getElementById('q8-tour-btn');
             
             // Common controls
             const exampleBtn = document.getElementById('q8-example-btn');
@@ -346,6 +412,34 @@ const question = {
                     setTimeout(() => notification.remove(), 300);
                 }, duration);
             }
+
+            // Simple guided tour using notifications and stage switches
+            function startGuidedTour() {
+                // Ensure we start at Stage 1
+                document.querySelector('input[name="q8-stage"][value="collection"]').checked = true;
+                switchStage('collection');
+                // Step 1
+                showNotification('Step 1: Compare Response A vs B and click “Prefer This” (5 times).', 'info', 4500);
+                setTimeout(() => {
+                    showNotification('Watch the progress: 0/5 → 5/5. We’ll auto-move to Reward Model when ready.', 'info', 4500);
+                }, 1600);
+                // Step 2
+                setTimeout(() => {
+                    document.querySelector('input[name="q8-stage"][value="reward"]').checked = true;
+                    switchStage('reward');
+                    showNotification('Step 2: Click “Train Reward Model” to simulate learning a preference predictor.', 'info', 5000);
+                }, 3600);
+                // Step 3
+                setTimeout(() => {
+                    document.querySelector('input[name="q8-stage"][value="optimize"]').checked = true;
+                    switchStage('optimize');
+                    showNotification('Step 3: Run PPO training, then Evaluate to see the alignment score.', 'info', 5000);
+                }, 6200);
+                // Tip
+                setTimeout(() => {
+                    showNotification('Tip: Use “Try Training Examples” to preload a scenario, or “Reset Progress” to start over.', 'success', 6000);
+                }, 9000);
+            }
             
             // Dynamic example elements
             const currentPrompt = document.getElementById('q8-current-prompt');
@@ -382,6 +476,16 @@ const question = {
             const stage1Status = document.getElementById('q8-stage1-status');
             const stage2Status = document.getElementById('q8-stage2-status');
             const stage3Status = document.getElementById('q8-stage3-status');
+            const stage1Icon = document.getElementById('q8-stage1-icon');
+            const stage2Icon = document.getElementById('q8-stage2-icon');
+            const stage3Icon = document.getElementById('q8-stage3-icon');
+            // Help toggles
+            const policyHelpBtn = document.getElementById('q8-policy-help');
+            const policyHelpBody = document.getElementById('q8-policy-help-body');
+            const perfHelpBtn = document.getElementById('q8-performance-help');
+            const perfHelpBody = document.getElementById('q8-performance-help-body');
+            const alignHelpBtn = document.getElementById('q8-alignment-help');
+            const alignHelpBody = document.getElementById('q8-alignment-help-body');
 
             let currentStage = 'collection';
             let gameState = {
@@ -515,33 +619,45 @@ const question = {
                     el.textContent = 'Waiting';
                     el.className = 'text-xs text-gray-500';
                 });
+                // Reset icon styles
+                [stage1Icon, stage2Icon, stage3Icon].forEach((icon) => {
+                    if (!icon) return;
+                    icon.className = 'w-16 h-16 mx-auto bg-gray-100 rounded-full flex items-center justify-center mb-2';
+                });
                 
                 // Update based on progress
                 if (gameState.feedbackCollected >= 5) {
                     stage1Status.textContent = 'Complete';
                     stage1Status.className = 'text-xs text-green-600';
+                    if (stage1Icon) stage1Icon.className = 'w-16 h-16 mx-auto bg-green-100 ring-2 ring-green-400 rounded-full flex items-center justify-center mb-2';
                 } else if (currentStage === 'collection') {
                     stage1Status.textContent = 'In Progress';
                     stage1Status.className = 'text-xs text-blue-600';
+                    if (stage1Icon) stage1Icon.className = 'w-16 h-16 mx-auto bg-blue-100 ring-2 ring-blue-400 rounded-full flex items-center justify-center mb-2';
                 }
                 
                 if (gameState.rewardModelTrained) {
                     stage2Status.textContent = 'Complete';
                     stage2Status.className = 'text-xs text-green-600';
+                    if (stage2Icon) stage2Icon.className = 'w-16 h-16 mx-auto bg-green-100 ring-2 ring-green-400 rounded-full flex items-center justify-center mb-2';
                 } else if (currentStage === 'reward') {
                     stage2Status.textContent = 'In Progress';
                     stage2Status.className = 'text-xs text-blue-600';
+                    if (stage2Icon) stage2Icon.className = 'w-16 h-16 mx-auto bg-purple-100 ring-2 ring-purple-400 rounded-full flex items-center justify-center mb-2';
                 }
                 
                 if (gameState.rlTrainingCompleted) {
                     stage3Status.textContent = 'Complete';
                     stage3Status.className = 'text-xs text-green-600';
+                    if (stage3Icon) stage3Icon.className = 'w-16 h-16 mx-auto bg-green-100 ring-2 ring-green-400 rounded-full flex items-center justify-center mb-2';
                 } else if (gameState.rlTrainingStarted) {
                     stage3Status.textContent = 'In Progress';
                     stage3Status.className = 'text-xs text-blue-600';
+                    if (stage3Icon) stage3Icon.className = 'w-16 h-16 mx-auto bg-orange-100 ring-2 ring-orange-400 rounded-full flex items-center justify-center mb-2';
                 } else if (currentStage === 'optimize') {
                     stage3Status.textContent = 'Ready';
                     stage3Status.className = 'text-xs text-orange-600';
+                    if (stage3Icon) stage3Icon.className = 'w-16 h-16 mx-auto bg-orange-50 ring-2 ring-orange-300 rounded-full flex items-center justify-center mb-2';
                 }
             }
 
@@ -577,9 +693,11 @@ const question = {
                 
                 // Show next example if more feedback is needed
                 if (gameState.feedbackCollected < 5) {
+                    // Capture next step and index now to avoid drift if user clicks quickly
+                    const scheduledStep = Math.min(5, gameState.feedbackCollected + 1);
+                    const nextExampleIndex = (currentExampleIndex + 1) % examples.length;
                     setTimeout(() => {
-                        const nextExampleIndex = gameState.feedbackCollected % examples.length;
-                        updateExampleDisplay(nextExampleIndex, gameState.feedbackCollected + 1);
+                        updateExampleDisplay(nextExampleIndex, scheduledStep);
                     }, 2000); // Wait 2 seconds after showing feedback result
                 }
                 
@@ -721,8 +839,9 @@ const question = {
                     styleB.textContent = `(${example.responseB.style})`;
                     descA.textContent = example.responseA.description;
                     descB.textContent = example.responseB.description;
-                    // Show current feedback step
-                    exampleCounter.textContent = `${feedbackStep} of 5`;
+                    // Show current feedback step (clamped to 5)
+                    const safeStep = Math.min(5, Math.max(1, feedbackStep || 1));
+                    exampleCounter.textContent = `${safeStep} of 5`;
                 }
             }
 
@@ -813,6 +932,18 @@ const question = {
                     switchStage(e.target.value);
                 });
             });
+            // How it works interactions
+            howToggle?.addEventListener('click', () => {
+                if (!howBody) return;
+                const isHidden = howBody.classList.toggle('hidden');
+                if (howToggle) howToggle.setAttribute('aria-expanded', (!isHidden).toString());
+                if (howToggle) howToggle.textContent = isHidden ? 'Show' : 'Hide';
+            });
+            tourBtn?.addEventListener('click', startGuidedTour);
+            // Toggle definitions in RL Optimization boxes
+            policyHelpBtn?.addEventListener('click', () => policyHelpBody?.classList.toggle('hidden'));
+            perfHelpBtn?.addEventListener('click', () => perfHelpBody?.classList.toggle('hidden'));
+            alignHelpBtn?.addEventListener('click', () => alignHelpBody?.classList.toggle('hidden'));
             
             // Initialize after a small delay to ensure DOM is ready
             setTimeout(() => {

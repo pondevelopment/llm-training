@@ -128,7 +128,10 @@ const question = {
             <div class="bg-white border border-gray-200 rounded-lg p-4">
                 <div class="flex items-center justify-between mb-3">
                     <h4 class="font-medium text-gray-900">📊 Token Probability Distribution</h4>
-                    <div id="q6-entropy-value" class="text-xs bg-gray-100 px-2 py-1 rounded font-medium">Entropy: 2.45</div>
+                    <div class="flex items-center gap-2">
+                        <div id="q6-entropy-value" class="text-xs bg-gray-100 px-2 py-1 rounded font-medium">Entropy: 2.45</div>
+                        <div id="q6-eff-vocab" class="text-xs bg-gray-100 px-2 py-1 rounded font-medium">Eff. vocab: 5.5</div>
+                    </div>
                 </div>
                 <div class="grid md:grid-cols-2 gap-6">
                     <!-- Probability Chart -->
@@ -195,18 +198,20 @@ const question = {
                 
                 <div class="mt-4 p-3 bg-yellow-100 border border-yellow-300 rounded-lg">
                     <h6 class="font-medium text-yellow-900 mb-2">📈 Generation Metrics</h6>
-                    <div class="grid grid-cols-3 gap-4 text-sm">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
                         <div>
-                            <span class="text-yellow-700">Diversity Score:</span>
-                            <span id="q6-diversity-score" class="font-mono ml-2">0.0</span>
+                            <div class="text-yellow-700">Diversity (Comparisons): <span id="q6-diversity-score" class="font-mono ml-1">0.0</span></div>
+                            <div class="text-yellow-700">Avg Token Prob (Comparisons): <span id="q6-avg-prob" class="font-mono ml-1">0.0%</span></div>
+                            <div class="text-yellow-700">Generations: <span id="q6-generation-count" class="font-mono ml-1">0</span></div>
                         </div>
                         <div>
-                            <span class="text-yellow-700">Avg Token Prob:</span>
-                            <span id="q6-avg-prob" class="font-mono ml-2">0.0%</span>
+                            <div class="text-yellow-700">Diversity (Samples): <span id="q6-sample-diversity" class="font-mono ml-1">0.0</span></div>
+                            <div class="text-yellow-700">Avg Token Prob (Samples): <span id="q6-sample-avg-prob" class="font-mono ml-1">0.0%</span></div>
+                            <div class="text-yellow-700">Samples: <span id="q6-sample-count" class="font-mono ml-1">0</span></div>
                         </div>
-                        <div>
-                            <span class="text-yellow-700">Generations:</span>
-                            <span id="q6-generation-count" class="font-mono ml-2">0</span>
+                        <div class="flex items-start gap-2">
+                            <button id="q6-reset-metrics" class="text-xs px-3 py-1 bg-white border border-yellow-300 rounded hover:bg-yellow-50">Reset metrics</button>
+                            <p class="text-[11px] text-yellow-800">Comparisons update on "Generate & Compare". Sampling updates sample metrics.</p>
                         </div>
                     </div>
                 </div>
@@ -239,6 +244,10 @@ const question = {
             const diversityScore = document.getElementById('q6-diversity-score');
             const avgProb = document.getElementById('q6-avg-prob');
             const generationCount = document.getElementById('q6-generation-count');
+            const sampleDiversityEl = document.getElementById('q6-sample-diversity');
+            const sampleAvgProbEl = document.getElementById('q6-sample-avg-prob');
+            const sampleCountEl = document.getElementById('q6-sample-count');
+            const resetMetricsBtn = document.getElementById('q6-reset-metrics');
             const explanationEl = document.getElementById('q6-explanation');
             const exampleBtn = document.getElementById('q6-example-btn');
             const contextInput = document.getElementById('q6-context-input');
@@ -277,6 +286,7 @@ const question = {
             // State management
             let sampleCount = 0;
             let generationHistory = [];
+            let samplingHistory = []; // { word, prob }
             let currentContext = 'weather';
 
             // Example temperature settings
@@ -344,7 +354,17 @@ const question = {
                 entropyValue.textContent = `Entropy: ${entropy.toFixed(2)}`;
                 
                 // Update temperature indicator
-                tempIndicator.className = `mt-2 text-xs font-medium px-2 py-1 rounded bg-${description.color}-100 text-${description.color}-800`;
+                // Use inline styles to avoid dynamic Tailwind class issues with CDN
+                tempIndicator.className = 'mt-2 text-xs font-medium px-2 py-1 rounded';
+                const colorMap = {
+                    blue: { bg: '#DBEAFE', fg: '#1E40AF' },
+                    purple: { bg: '#EDE9FE', fg: '#5B21B6' },
+                    orange: { bg: '#FFEDD5', fg: '#9A3412' },
+                    red: { bg: '#FEE2E2', fg: '#7F1D1D' }
+                };
+                const c = colorMap[description.color] || colorMap.purple;
+                tempIndicator.style.backgroundColor = c.bg;
+                tempIndicator.style.color = c.fg;
                 tempIndicator.textContent = description.text;
                 
                 // Update probability chart
@@ -387,6 +407,10 @@ const question = {
                     container.title = `${item.word}: ${(item.tempProb * 100).toFixed(2)}% chance of selection`;
                 });
                 
+                // Update effective vocabulary size display (2^entropy)
+                const effVocabEl = document.getElementById('q6-eff-vocab');
+                if (effVocabEl) effVocabEl.textContent = `Eff. vocab: ${Math.pow(2, entropy).toFixed(2)}`;
+
                 updateExplanation(temp, entropy);
             }
 
@@ -431,7 +455,13 @@ const question = {
                     sampleResult.style.transform = 'scale(1)';
                     sampleResult.style.backgroundColor = '#faf5ff';
                 }, 200);
-                
+
+                // Update sampling history and sampling metrics
+                samplingHistory.push({ word: selected.word, prob: selected.tempProb });
+                if (samplingHistory.length > 100) samplingHistory.shift();
+
+                updateSampleMetrics();
+
                 return selected.word;
             }
 
@@ -494,6 +524,36 @@ const question = {
                 generationCount.textContent = generationHistory.length;
             }
 
+            // Update sampling-only metrics
+            function updateSampleMetrics() {
+                if (!sampleDiversityEl || !sampleAvgProbEl || !sampleCountEl) return;
+                const count = samplingHistory.length;
+                if (count === 0) {
+                    sampleDiversityEl.textContent = '0.0';
+                    sampleAvgProbEl.textContent = '0.0%';
+                    sampleCountEl.textContent = '0';
+                    return;
+                }
+                const words = samplingHistory.map(s => s.word);
+                const unique = new Set(words).size;
+                const diversity = unique / count;
+                const avgP = samplingHistory.reduce((s, r) => s + r.prob, 0) / count;
+                sampleDiversityEl.textContent = diversity.toFixed(2);
+                sampleAvgProbEl.textContent = `${(avgP * 100).toFixed(1)}%`;
+                sampleCountEl.textContent = String(sampleCount);
+            }
+
+            function resetAllMetrics() {
+                generationHistory = [];
+                samplingHistory = [];
+                sampleCount = 0;
+                if (diversityScore) diversityScore.textContent = '0.0';
+                if (avgProb) avgProb.textContent = '0.0%';
+                if (generationCount) generationCount.textContent = '0';
+                updateSampleMetrics();
+                if (sampleStats) sampleStats.textContent = 'Samples taken: 0';
+            }
+
             // Update educational explanation
             function updateExplanation(temp, entropy) {
                 let explanation = '';
@@ -551,6 +611,7 @@ const question = {
             if (tempSlider) tempSlider.addEventListener('input', updateProbabilityChart);
             if (sampleBtn) sampleBtn.addEventListener('click', sampleToken);
             if (compareBtn) compareBtn.addEventListener('click', generateComparison);
+            if (resetMetricsBtn) resetMetricsBtn.addEventListener('click', resetAllMetrics);
             
             // Context selection listeners
             document.querySelectorAll('input[name="q6-context"]').forEach(radio => {
@@ -560,6 +621,8 @@ const question = {
             if (contextInput) {
                 contextInput.addEventListener('input', () => {
                     if (getCurrentContext() === 'custom') {
+                        // Reset metrics when context changes to avoid mixing distributions
+                        resetAllMetrics();
                         updateProbabilityChart();
                     }
                 });
@@ -579,6 +642,7 @@ const question = {
             // Initialize
             updateContextSelection();
             updateProbabilityChart();
+            updateSampleMetrics();
         }
     }
 };

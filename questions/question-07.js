@@ -52,10 +52,27 @@ const question = {
             <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why Embeddings Matter</h4>
             <ul class="text-sm text-yellow-800 space-y-1">
                 <li>• <strong>Semantic Understanding:</strong> Enable machines to grasp meaning, not just match symbols</li>
-                <li>• <strong>Mathematical Operations:</strong> Allow vector arithmetic to discover relationships (king - man + woman = queen)</li>
+                <li>• <strong>Mathematical Operations:</strong> Allow vector arithmetic to explore relationships (e.g., king − man + woman ≈ queen)</li>
                 <li>• <strong>Transfer Learning:</strong> Pre-trained embeddings can be reused across different tasks and domains</li>
                 <li>• <strong>Foundation of AI:</strong> Critical component in search engines, recommendation systems, and all modern NLP</li>
             </ul>
+        </div>
+        
+        <div class="bg-indigo-50 p-4 rounded-lg border border-indigo-200">
+            <h4 class="font-semibold text-indigo-900 mb-2">🧭 Provider quick reference (2025)</h4>
+            <ul class="text-sm text-indigo-900 space-y-1 list-disc pl-5">
+                <li><strong>Similarity:</strong> Prefer cosine similarity on L2-normalized vectors. When vectors are normalized, cosine, dot, and Euclidean rank similarly.</li>
+                <li><strong>Retrieval task hints:</strong> Use provider-specific flags so queries and documents embed optimally:
+                    <span class="block text-indigo-800 mt-1">Cohere <code class="bg-indigo-100 px-1 rounded">input_type</code> (search_query vs search_document), Voyage <code class="bg-indigo-100 px-1 rounded">input_type</code> (query vs document), Google <code class="bg-indigo-100 px-1 rounded">task_type</code> in config.</span>
+                </li>
+                <li><strong>Dimensions:</strong> Adjustable for storage/speed trade-offs:
+                    <span class="block text-indigo-800 mt-1">Cohere <code>256/512/1024/1536</code>, Google Gemini up to <code>3072</code> via <code>output_dimensionality</code>, Voyage <code>256–2048</code> (model-dependent), Mistral fixed <code>1024</code>.</span>
+                </li>
+                <li><strong>Quantization:</strong> Some providers return <code>int8</code>/<code>uint8</code>/<code>binary</code>/<code>ubinary</code> to save space. Binary is bit-packed (length = dim/8) and may need unpacking for some vector DBs.</li>
+                <li><strong>Multilingual/Multimodal:</strong> Cohere embed-v4.0 is multilingual and supports text+image fusion; Google offers separate multimodal embedding APIs.</li>
+                <li><strong>Limits (typical):</strong> Google: up to ~250 inputs/request and 2048 tokens/input; Cohere: up to ~96 inputs; Voyage: up to ~1000 texts (model limits vary). Always check current docs.</li>
+            </ul>
+            <p class="text-xs text-indigo-700 mt-2">Note: Linear analogy tricks (e.g., king − man + woman ≈ queen) are illustrative; modern sentence embeddings don’t guarantee such relationships.</p>
         </div>
     </div>`,
     interactive: {
@@ -128,6 +145,9 @@ const question = {
                             </button>
                         </div>
                         <p class="text-xs text-gray-600 mt-1">Select any word from our vocabulary to find semantic neighbors</p>
+                        <div class="mt-2 text-[11px] text-gray-600 bg-gray-50 border border-dashed border-gray-300 rounded p-2">
+                            Tip for real systems: embed <em>documents</em> and <em>queries</em> with retrieval hints (e.g., Cohere/Voyage <code>input_type</code>, Google <code>task_type</code>) and prefer cosine similarity on normalized vectors.
+                        </div>
                     </div>
                     
                     <!-- Results -->
@@ -505,7 +525,7 @@ const question = {
                         break;
                     case 'arithmetic':
                         arithmeticPanel.classList.remove('hidden');
-                        explanation.textContent = "Vector arithmetic lets us explore word relationships mathematically. Famous example: 'king' - 'man' + 'woman' ≈ 'queen'";
+                        explanation.textContent = "Vector arithmetic lets us explore word relationships mathematically (illustrative only; modern sentence embeddings don't guarantee analogies).";
                         break;
                     case 'context':
                         contextPanel.classList.remove('hidden');

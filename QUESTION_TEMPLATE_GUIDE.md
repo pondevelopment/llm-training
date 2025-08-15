@@ -1,88 +1,161 @@
 # Question Template Guide
 
-Th6. **Test thoroughly** - Ensure reliability across different inputs
-7. **Keep it educational** - Every element should teach something
-8. **Progressive complexity** - Start simple, allow deeper exploration
-9. **Visual feedback** - Use colors, animations, and hover effects thoughtfully
-10. **Mathematical accuracy** - Use proper LaTeX syntax for all math expressions
-11. **Verify rendering** - Test MathJax rendering on all mathematical content
-12. **Multi-line formulas** - Use align* environment for long equations to prevent overflow
-13. **Responsive design** - Ensure formulas and layouts work on different screen sizesde exp### Advanced Mathematical Notation
-- **Matrices**: `$\begin{bmatrix} a & b \\ c & d \end{bmatrix}$`
-- **Partial derivatives**: `$\frac{\partial f}{\partial x}$`
-- **Gradients**: `$\nabla f$`
-- **Number sets**: `$\mathbb{R}$, `$\mathbb{C}$`
-- **Text in math**: `$\text{softmax}(x)$`
-- **Summations**: `$\sum_{i=1}^{n} x_i$`
-- **Integrals**: `$\int_{a}^{b} f(x) dx$`
-- **Multi-line formulas**: `$$\begin{align*} ... \end{align*}$$`
-- **Alignment**: Use `&` for alignment points, `\\\\` for line breaksw to create new questions for the Top 50 LLM Questions interactive app, using Question 1 (Tokenization) as the template and reference.
+This guide explains how to create new questions and keep them consistent with the app’s conventions, including interactivity, MathJax usage, and share/unfurl behavior.
 
-## File Structure
+## File structure
 
-Each question should be in its own file in the `/questions` directory:
+Each question lives in `/questions` as its own file:
+
 ```
 questions/
-├── question-01.js  (Template reference)
+├── question-01.js
 ├── question-02.js
-├## 5. Testing Checklist
-
-Before submitting a new question:
-
-### Functionality
-- [ ] Question loads## 10. Best Practices Summary
-
-1. **Start simple** - Focus on one core concept per question
-2. **Make it interactive** - Always include hands-on exploration
-3. **Explain why it matters** - Connect to practical applications
-4. **Use consistent styling** - Follow the established design patterns
-5. **Test thoroughly** - Ensure reliability across different inputs
-6. **Keep it educational** - Every element should teach something
-7. **Progressive complexity** - Start simple, allow deeper exploration
-8. **Visual feedback** - Use colors, animations, and hover effects thoughtfully
-9. **Mathematical accuracy** - Use proper LaTeX syntax for all math expressions
-10. **Verify rendering** - Test MathJax rendering on all mathematical content
-
----
-
-## Mathematical Expression Quick Reference
-
-### Basic LaTeX Syntax
-- **Inline math**: `$x + y$` 
-- **Display math**: `$$f(x) = ax + b$$`
-- **Bold vectors**: `$\mathbf{x}$, $\mathbf{W}$`
-- **Fractions**: `$\frac{a}{b}$`
-- **Subscripts**: `$x_i$, $W_{ij}$`
-- **Superscripts**: `$x^2$, `$e^{-x}$`
-- **Greek letters**: `$\alpha$, $\beta$, $\theta$`
-- **Functions**: `$\sin(x)$, $\log(x)$, $\exp(x)$`
-
-### Advanced Mathematical Notation
-- **Matrices**: `$\begin{bmatrix} a & b \\ c & d \end{bmatrix}$`
-- **Partial derivatives**: `$\frac{\partial f}{\partial x}$`
-- **Gradients**: `$\nabla f$`
-- **Number sets**: `$\mathbb{R}$, $\mathbb{C}$`
-- **Text in math**: `$\text{softmax}(x)$`
-- **Summations**: `$\sum_{i=1}^{n} x_i$`
-- **Integrals**: `$\int_{a}^{b} f(x) dx$`
-
-## Quick Reference: Question 1 Featurescript errors
-- [ ] All interactive elements respond correctly
-- [ ] Default values are sensible and educational
-- [ ] Examples cycle through different scenarios
-- [ ] Visual feedback works (hover, selection, etc.)
-- [ ] Mathematical expressions render correctly (if applicable)
-
-### Content Quality
-- [ ] Title is clear and specific
-- [ ] Answer explains the concept thoroughly
-- [ ] Examples are realistic and educational
-- [ ] Color coding is consistent with the system
-- [ ] Educational explanations update correctly
-- [ ] Mathematical notation follows LaTeX standards
-- [ ] All formulas display without MathJax errors
 └── ...
 ```
+
+Static per-question share pages live in `/q` and are named `N.html` (1–50). Use `_template.html` as a reference when adding new ones.
+
+## Export format (CommonJS)
+
+The loader expects CommonJS, not ESM. Export a plain object:
+
+```javascript
+// questions/question-XX.js
+module.exports = {
+    title: "XX. Your concise question title?",
+    answer: `...HTML content...`,
+    interactive: {
+        title: "[Interactive title]",
+        html: `...interactive HTML...`,
+        script: () => {
+            // Attach listeners, compute results, update DOM
+        }
+    }
+};
+```
+
+## Answer content structure
+
+Use the established layout from earlier questions:
+
+1) Main concept box (blue) with definition + analogy
+2) Comparison/option cards (2–3) for approaches/trade-offs
+3) “Why this matters” with 3–4 bullets
+4) Optional: code examples using `<code>`
+
+Color system: Blue (concept), Green/Purple/Orange (options), Yellow (importance/tips).
+
+## Interactive component
+
+Include inputs, option selection (cards), quick examples, results, and an explanation area that updates as users interact. Prefer clear labels, sensible defaults, and visible selection states. For trade-off topics, consider an impact meter or pros/cons list.
+
+### HTML skeleton
+
+```html
+<div class="space-y-6">
+    <!-- Inputs -->
+    <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200">
+        <label class="block text-sm font-medium text-gray-700 mb-2">📝 [Input Label]</label>
+        <!-- Your input(s) here -->
+    </div>
+
+    <!-- Options -->
+    <div class="bg-white border border-gray-200 rounded-lg p-4">
+        <label class="block text-sm font-medium text-gray-700 mb-3">🎯 [Choose a strategy]</label>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+            <!-- Option cards -->
+        </div>
+    </div>
+
+    <!-- Results -->
+    <div class="bg-white border border-gray-200 rounded-lg p-4">
+        <div class="flex items-center justify-between mb-3">
+            <h4 class="font-medium text-gray-900">🎨 [Results]</h4>
+            <div id="qX-indicator" class="text-xs bg-gray-100 px-2 py-1 rounded font-medium"></div>
+        </div>
+        <div id="qX-output" class="min-h-[80px] p-3 bg-gray-50 rounded border-2 border-dashed border-gray-300"></div>
+        <div id="qX-legend" class="mt-3 text-xs"></div>
+    </div>
+
+    <!-- Explanation -->
+    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+        <h4 class="font-medium text-yellow-900 mb-2">📊 [Explanation]</h4>
+        <div id="qX-explanation" class="text-sm text-yellow-800"></div>
+    </div>
+</div>
+```
+
+### JavaScript patterns
+
+```javascript
+script: () => {
+    const input = document.getElementById('qX-input');
+    const output = document.getElementById('qX-output');
+    if (!input || !output) return; // Defensive check
+
+    const update = () => {
+        // Read inputs, compute results, update DOM
+    };
+
+    input.addEventListener('input', update);
+    document.querySelectorAll('input[name="qX-option"]').forEach(r => r.addEventListener('change', update));
+    update(); // initial
+}
+```
+
+## MathJax guidelines
+
+- Use `\(...\)` for inline math and `$$...$$` for display math.
+- In JS strings, escape backslashes: `\\frac{\\partial f}{\\partial x}`.
+- Add spaces around `<`/`>` in inline math to avoid HTML parsing issues.
+- Stick to standard LaTeX; avoid custom macros.
+- Test in the app; the loader retries typeset if needed.
+
+Common patterns:
+
+- Partial derivatives: `\frac{\partial f}{\partial x}`
+- Matrices: `\begin{bmatrix} a & b \\ c & d \end{bmatrix}`
+- Vectors: `\mathbf{x}`, `\mathbf{W}`
+- Number sets: `\mathbb{R}`, `\mathbb{C}`
+- Functions: `\text{softmax}`, `\text{ReLU}`
+
+## Deep links and navigation
+
+- Questions deep link like: `index.html#question-XX`
+- Keyboard: Left/Right to navigate; press `S` to copy a share link
+- Ensure the question is listed in `availableQuestions` in `js/app.js`
+
+## Static share pages (OG/Twitter unfurls)
+
+Each question has a static page at `/q/XX.html` used for rich link previews.
+
+Checklist per page:
+- `og:title` and `twitter:title` mirror the question title
+- `og:description` and `twitter:description` summarize the interactive angle
+- `og:image` uses the `...QXX.png` pattern
+- Include an “Open in app” button to `../index.html#question-XX`
+
+When you add or update questions, create/update the corresponding `/q/XX.html` file. Use `/q/_template.html` as a reference.
+
+## Best practices
+
+1. Start simple; focus on one core idea
+2. Teach by interaction; defaults should be insightful
+3. Explain why it matters; connect to real scenarios
+4. Keep styling consistent; reuse established classes
+5. Test thoroughly; verify on mobile and with MathJax
+
+## Quick references
+
+IDs (replace `X`): `qX-input`, `qX-output`, `qX-explanation`, `qX-example-btn`, `qX-indicator`, `qX-legend`, `name="qX-option"`
+
+Classes:
+- Containers: `space-y-4`, `space-y-6`, `grid md:grid-cols-3 gap-4`
+- Backgrounds: `bg-blue-50`, `bg-white`, `from-blue-50 to-indigo-50`
+- Borders: `border border-gray-200 rounded-lg`, `border-l-4 border-blue-400`
+- Text: `text-sm font-medium text-gray-700`, `font-semibold text-blue-900`
+- Interactive: `hover:bg-gray-50 transition-colors cursor-pointer`
+
 
 ## Basic Question Structure
 

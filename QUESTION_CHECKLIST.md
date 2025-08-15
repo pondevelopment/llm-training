@@ -1,215 +1,105 @@
-# Question Creat### Content Development
+# Question Checklist
 
-### Title & Basic Info
-- [ ] Write clear, specific question title (under 80 characters)
-- [ ] Start title with question number: "X. "
-- [ ] End with question mark if it's a question
+Use this checklist when creating or updating questions for the LLM Questions app.
 
-### Answer Section
-- [ ] Write main concept explanation in blue box
-- [ ] Include helpful analogy or real-world comparison
-- [ ] Create 2-3 option comparison cards with different colors
-- [ ] Add practical code examples in `<code>` tags
-- [ ] Write "Why This Matters" section with 3-4 bullet points
-- [ ] Use emojis appropriately (🔤 🎯 📝 etc.)
-- [ ] Use LaTeX syntax for mathematical expressions ($$...$$, $...$)
-- [ ] Test mathematical rendering with MathJax
+## Before you start
+- [ ] Review `QUESTION_TEMPLATE_GUIDE.md` for conventions and examples
+- [ ] Copy an existing question file (e.g., `/questions/question-01.js`) as a starting point
+- [ ] Identify the key concept and the 2–3 approaches you’ll compare
+- [ ] Confirm CommonJS export is required (the loader does not support ESM)
 
-### Mathematical Content (if applicable)
-- [ ] Use proper LaTeX syntax: `$$\\mathbf{J} = \\frac{\\partial f}{\\partial x}$$`
-- [ ] Use `\\mathbf{}` for bold matrices and vectors
-- [ ] Use `\\frac{}{}` for fractions instead of HTML
-- [ ] Use `\\mathbb{R}` for real number sets
-- [ ] Use `\\text{}` for text within math expressions
-- [ ] Test all mathematical expressions render correctly
-- [ ] Avoid custom MathJax macros (use standard LaTeX)
+## File setup
+- [ ] Name file `questions/question-XX.js` (two digits where applicable)
+- [ ] Replace all `qX-` prefixes with your question number (e.g., `q12-`)
+- [ ] Remove placeholders and update the comment header (topic + date)
+- [ ] Export with CommonJS: `module.exports = { title, answer, interactive }`
 
-Use this checklist when creating new questions for the LLM Questions app.
+## Content development
 
-## Before You Start
-- [ ] Review the `QUESTION_TEMPLATE_GUIDE.md` for detailed instructions
-- [ ] Copy `questions/question-template.js` as your starting point
-- [ ] Identify the key concept you want to teach
-- [ ] Plan 2-3 different approaches/options to compare
+### Title & basics
+- [ ] Clear, specific title under ~80 chars
+- [ ] Starts with the number: `X. ` and ends with `?` if appropriate
 
-## File Setup
-- [ ] Rename file to `question-XX.js` (with correct number)
-- [ ] Update the comment header with topic and creation date
-- [ ] Replace all `qX-` prefixes with your question number (e.g., `q5-`)
-- [ ] Replace all `[placeholder text]` with actual content
+### Answer section
+- [ ] Blue “what is it” box with a clear definition and analogy
+- [ ] 2–3 comparison/option cards (consistent color scheme)
+- [ ] “Why this matters” section with 3–4 bullets
+- [ ] Practical mini examples (use `<code>` where helpful)
+- [ ] Use tasteful emojis (🔤 🎯 📝) where they improve scannability
 
-## Content Development
+### Interactive component
+- [ ] `interactive.title`, `interactive.html`, and `interactive.script()` implemented
+- [ ] Inputs have sensible defaults; selection cards are descriptive
+- [ ] Visual feedback (hover/selected) and concise explanations per option
+- [ ] If trade-offs are involved, consider an impact meter or pros/cons
 
-### Title & Basic Info
-- [ ] Write clear, specific question title (under 80 characters)
-- [ ] Start title with question number: "X. "
-- [ ] End with question mark if it's a question
+## JavaScript implementation
+- [ ] Defensive DOM lookups; no null dereferences
+- [ ] No globals leaked; keep state local to `script()`
+- [ ] Update explanations dynamically on input/selection
+- [ ] Add short tooltips where non-obvious
 
-### Answer Section
-- [ ] Write main concept explanation in blue box
-- [ ] Include helpful analogy or real-world comparison
-- [ ] Create 2-3 option comparison cards with different colors
-- [ ] Add practical code examples in `<code>` tags
-- [ ] Write "Why This Matters" section with 3-4 bullet points
-- [ ] Use emojis appropriately (🔤 🎯 📝 etc.)
+## MathJax (if applicable)
+- [ ] Use `\(...\)` for inline math and `$$...$$` for display math
+- [ ] In JS strings, escape backslashes: `\\frac{\\partial f}{\\partial x}`
+- [ ] Space around `<` or `>` inside inline math to avoid HTML parsing issues
+- [ ] Stick to standard LaTeX (no custom macros); verify render in the app
 
-### Interactive Component
-- [ ] Update interactive title with appropriate emoji
-- [ ] Set meaningful default input value
-- [ ] Create 2-3 strategy option cards
-- [ ] Add descriptive labels and tags (Simple/Smart/Detailed)
-- [ ] Include mini-examples in each option card
+## Integration
+- [ ] Ensure the question number is included in `availableQuestions` in `js/app.js`
+- [ ] Deep link works: `index.html#question-XX`
+- [ ] Appears in the dropdown and prev/next navigation functions
 
-## JavaScript Implementation
-
-### Core Functionality
-- [ ] Replace `processInput()` with your actual logic
-- [ ] Update `configData` object with option-specific information
-- [ ] Implement proper error handling for missing DOM elements
-- [ ] Add meaningful tooltips with detailed information
-
-### Visual Elements
-- [ ] Customize result display styling and colors
-- [ ] Update statistics to be relevant to your concept
-- [ ] Create appropriate legend/color coding if needed
-- [ ] Implement visual feedback (hover effects, selection indicators)
-
-### Educational Content
-- [ ] Write explanations for each strategy option
-- [ ] Include pros/cons for each approach
-- [ ] Specify when each option is best used
-- [ ] Update explanations to be concept-specific
-
-### Examples
-- [ ] Create 3-5 realistic, educational examples
-- [ ] Ensure examples demonstrate different aspects of the concept
-- [ ] Add explanatory notes for each example
-- [ ] Test example cycling functionality
+## Share and unfurls (new)
+- [ ] Create/update static share page: `/q/XX.html`
+	- [ ] `og:title` and `twitter:title` match your question title
+	- [ ] `og:description` summarizes the interactive angle
+	- [ ] `og:image` follows the `...QXX.png` convention
+	- [ ] “Open in app” points to `../index.html#question-XX`
+- [ ] In the app, press `S` to copy and verify the share link to `/q/XX.html`
 
 ## Testing
 
-### Functionality Testing
-- [ ] Question loads without JavaScript errors
-- [ ] All radio buttons work correctly
-- [ ] Input changes trigger updates immediately
-- [ ] Example button cycles through all examples
-- [ ] Statistics update correctly
-- [ ] Visual indicators respond to selection changes
+### Functionality
+- [ ] Loads without console errors
+- [ ] All inputs and radios work and update results immediately
+- [ ] Examples (if provided) cycle correctly; indicators update
+- [ ] MathJax renders with no errors or fallback retries
 
-### Content Quality
-- [ ] All explanations are accurate and educational
-- [ ] Examples are realistic and demonstrate key concepts
-- [ ] Color coding is consistent and meaningful
-- [ ] Tooltips provide helpful additional information
-- [ ] Mathematical expressions use proper LaTeX syntax
-- [ ] All math formulas render correctly without errors
+### Content quality
+- [ ] Explanations are accurate and concise; examples are realistic
+- [ ] Color coding and typography match the established pattern
+- [ ] Tooltips and labels are clear and helpful
 
-### User Experience
-- [ ] Interface is intuitive without instructions
-- [ ] Default values provide immediate educational value
-- [ ] Hover effects work smoothly
-- [ ] Selection states are clearly visible
-- [ ] Mobile responsiveness works well
+### User experience
+- [ ] Defaults provide immediate insight; interactions feel responsive
+- [ ] Works on mobile (spacing, wrapping, touch targets)
 
-### Integration
-- [ ] Question appears in navigation dropdown
-- [ ] Previous/Next navigation works correctly
-- [ ] Question title displays properly
-- [ ] Progress indicator updates correctly
+### Integration check
+- [ ] Title appears correctly; progress indicator updates
+- [ ] Deep link navigation returns to the same question
+- [ ] Share link unfurls (Slack/LinkedIn/Teams) with the right meta
 
-## Common Issues to Check
+## File locations
+- [ ] Question file at `/questions/question-XX.js`
+- [ ] App entry is `index.html` (not `index-new.html`)
+- [ ] Share page at `/q/XX.html` exists and opens in-app correctly
 
-### Technical
-- [ ] No console errors when loading the question
-- [ ] All DOM element queries succeed (no null references)
-- [ ] Event listeners are properly attached
-- [ ] Memory leaks avoided (no global variables)
-- [ ] MathJax rendering completes without errors
-- [ ] Mathematical expressions display correctly
+## Pre-submission review
+- [ ] Code follows patterns; no dead/commented-out blocks left behind
+- [ ] Educational value is clear; interactivity adds understanding
+- [ ] Performance is acceptable (renders quickly)
 
-### Content
-- [ ] No [placeholder text] remains in final version
-- [ ] All links and references are accurate
-- [ ] Spelling and grammar are correct
-- [ ] Technical terms are properly explained
+## Quick references
 
-### Design
-- [ ] Colors follow the established scheme
-- [ ] Typography is consistent with other questions
-- [ ] Spacing and layout match the template
-- [ ] Icons and emojis are appropriate and consistent
+IDs (replace `X`):
+- `qX-input`, `qX-output`, `qX-explanation`, `qX-example-btn`
+- `qX-option`/`name="qX-option"` for radio groups, `qX-indicator`, `qX-legend`
 
-## File Locations
+Useful utility classes:
+- Containers: `space-y-4`, `space-y-6`, `grid md:grid-cols-3 gap-4`
+- Backgrounds: `bg-blue-50`, `bg-white`, `from-blue-50 to-indigo-50`
+- Borders: `border border-gray-200 rounded-lg`, `border-l-4 border-blue-400`
+- Text: `text-sm font-medium text-gray-700`, `font-semibold text-blue-900`
+- Interactive: `hover:bg-gray-50 transition-colors cursor-pointer`
 
-After creating your question:
-- [ ] Question file is in `/questions/question-XX.js`
-- [ ] Question loads when accessing `index-new.html`
-- [ ] Question appears in dropdown navigation
-- [ ] Question is accessible via direct URL
-
-## Pre-Submission Review
-
-- [ ] Code follows the established patterns
-- [ ] Educational value is clear and significant
-- [ ] Interactive elements enhance understanding
-- [ ] Content is accurate and well-researched
-- [ ] Design is polished and professional
-- [ ] Performance is acceptable (loads quickly)
-
-## Submission
-- [ ] Test final version thoroughly
-- [ ] Document any special features or requirements
-- [ ] Ensure code is clean and well-commented
-- [ ] Verify compatibility with existing questions
-
----
-
-## Quick Reference: Element IDs Pattern
-
-Replace `X` with your question number:
-- `qX-text-input` - Main input field
-- `qX-strategy` - Radio button group name
-- `qX-output` - Results display area
-- `qX-legend` - Legend/key display
-- `qX-explanation` - Educational explanation
-- `qX-strategy-indicator` - Current strategy display
-- `qX-example-btn` - Example cycling button
-
-## Quick Reference: CSS Classes
-
-**Containers:** `space-y-4`, `space-y-6`, `grid md:grid-cols-3 gap-4`
-**Backgrounds:** `bg-blue-50`, `bg-white`, `bg-gradient-to-r from-blue-50 to-indigo-50`
-**Borders:** `border border-gray-200 rounded-lg`, `border-l-4 border-blue-400`
-**Text:** `text-sm font-medium text-gray-700`, `font-semibold text-blue-900`
-**Interactive:** `hover:bg-gray-50 transition-colors cursor-pointer`
-
-## MathJax Integration Requirements
-
-### LaTeX Syntax Standards
-- [ ] Use `$$...$$` for display math (centered equations)
-- [ ] Use `$...$` for inline math expressions
-- [ ] Use `\mathbf{}` for bold vectors and matrices
-- [ ] Use `\frac{}{}` for fractions instead of HTML
-- [ ] Use `\text{}` for text within mathematical expressions
-- [ ] Use standard LaTeX commands only (no custom macros)
-
-### Mathematical Expression Testing
-- [ ] All equations render without "Math input error" messages
-- [ ] Mathematical expressions display with proper fonts and sizing
-- [ ] Complex equations with matrices render correctly
-- [ ] Inline math integrates well with surrounding text
-- [ ] Display math is properly centered and formatted
-
-### Common LaTeX Patterns to Use
-- [ ] Partial derivatives: `\frac{\partial f}{\partial x}`
-- [ ] Matrices: `\begin{bmatrix} a & b \\ c & d \end{bmatrix}`
-- [ ] Vectors: `\mathbf{x}`, `\mathbf{W}`
-- [ ] Number sets: `\mathbb{R}`, `\mathbb{C}`
-- [ ] Functions: `\text{softmax}`, `\text{ReLU}`
-- [ ] Greek letters: `\alpha`, `\beta`, `\theta`
-
-### Mathematical Content Structure
-- [ ] Wrap display math in appropriate containers (`.math-equation`, etc.)
-- [ ] Include explanatory text before and after complex equations
-- [ ] Use consistent mathematical notation throughout the question
-- [ ] Provide context for all mathematical symbols used

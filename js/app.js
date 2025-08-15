@@ -213,11 +213,11 @@ class LLMQuestionApp {
             43: "How do transformers address the vanishing gradient problem?",
             44: "What is few-shot learning, and what are its benefits?",
             45: "How would you fix an LLM generating biased or incorrect outputs?",
-            46: "How do encoders and decoders differ in transformers?"
-            ,47: "How do LLMs differ from traditional statistical language models?"
-            ,48: "What is a hyperparameter, and why is it important?"
-            ,49: "What defines a Large Language Model (LLM)?"
-            ,50: "What challenges do LLMs face in deployment?"
+            46: "How do encoders and decoders differ in transformers?",
+            47: "How do LLMs differ from traditional statistical language models?",
+            48: "What is a hyperparameter, and why is it important?",
+            49: "What defines a Large Language Model (LLM)?",
+            50: "What challenges do LLMs face in deployment?",
         };
         
         this.availableQuestions.forEach((questionNum, index) => {

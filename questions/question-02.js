@@ -168,7 +168,28 @@ const question = {
                             'red': ['car', 'color', 'bright'],
                             'traffic': ['light', 'car', 'stopped', 'road'],
                             'light': ['traffic', 'bright', 'stopped'],
-                            'stopped': ['car', 'traffic', 'light']
+                            'stopped': ['car', 'traffic', 'light'],
+
+                            // Curated examples vocabulary
+                            'machine': ['learning', 'models', 'process'],
+                            'learning': ['machine', 'models', 'process'],
+                            'models': ['machine', 'learning', 'process', 'language', 'text'],
+                            'process': ['models', 'text', 'language'],
+                            'natural': ['language', 'text'],
+                            'language': ['natural', 'text', 'models'],
+                            'text': ['language', 'process'],
+
+                            'intelligent': ['student', 'solved'],
+                            'student': ['intelligent', 'solved', 'problem'],
+                            'difficult': ['problem'],
+                            'problem': ['difficult', 'solved'],
+                            'quickly': ['solved'],
+
+                            'beautiful': ['flowers', 'garden'],
+                            'flowers': ['beautiful', 'bloom', 'spring', 'garden'],
+                            'bloom': ['flowers', 'spring', 'garden'],
+                            'spring': ['garden', 'flowers', 'bloom'],
+                            'garden': ['flowers', 'spring', 'bloom']
                         };
                         
                         if (semanticPairs[q] && semanticPairs[q].includes(k)) {
@@ -176,8 +197,20 @@ const question = {
                         }
                         
                         // Articles with nouns
-                        if ((q === 'the' || q === 'a') && ['cat', 'mouse', 'car', 'garden', 'traffic', 'light'].includes(k)) {
+                        if ((q === 'the' || q === 'a') && ['cat', 'mouse', 'car', 'garden', 'traffic', 'light', 'student', 'problem', 'flowers', 'models', 'language', 'text'].includes(k)) {
                             return 0.4 + Math.random() * 0.2;
+                        }
+
+                        // Common adjective-noun pairs in curated sentences
+                        const adjNounPairs = [
+                            ['red', 'car'],
+                            ['intelligent', 'student'],
+                            ['difficult', 'problem'],
+                            ['beautiful', 'flowers'],
+                            ['natural', 'language']
+                        ];
+                        if (adjNounPairs.some(([a, n]) => (q === a && k === n) || (q === n && k === a))) {
+                            return 0.75 + Math.random() * 0.15;
                         }
                         
                         return 0.05 + Math.random() * 0.1;
@@ -198,12 +231,23 @@ const question = {
                         if ((q === 'cat' || q === 'mouse') && k === 'chased') {
                             return 0.7;
                         }
+
+                        // Curated SVO patterns
+                        if ((q === 'models' && k === 'process') || (q === 'process' && (k === 'models' || k === 'text' || k === 'language'))) {
+                            return q === 'models' ? 0.85 : 0.8;
+                        }
+                        if ((q === 'student' && k === 'solved') || (q === 'solved' && (k === 'student' || k === 'problem'))) {
+                            return q === 'student' ? 0.85 : 0.8;
+                        }
+                        if ((q === 'flowers' && k === 'bloom') || (q === 'bloom' && (k === 'flowers' || k === 'spring' || k === 'garden'))) {
+                            return q === 'flowers' ? 0.85 : 0.8;
+                        }
                         
                         // Determiner-noun relationships
                         if (q === 'the' && distance === 1) {
                             return 0.8;
                         }
-                        if (['cat', 'mouse', 'car', 'garden', 'light'].includes(q) && k === 'the' && distance === 1) {
+                        if (['cat', 'mouse', 'car', 'garden', 'light', 'student', 'problem', 'flowers', 'models', 'language', 'text'].includes(q) && k === 'the' && distance === 1) {
                             return 0.6;
                         }
                         
@@ -214,9 +258,24 @@ const question = {
                         if (q === 'traffic' && k === 'light' && distance === 1) {
                             return 0.85;
                         }
+                        if (q === 'intelligent' && k === 'student' && distance === 1) {
+                            return 0.85;
+                        }
+                        if (q === 'difficult' && k === 'problem' && distance === 1) {
+                            return 0.85;
+                        }
+                        if (q === 'beautiful' && k === 'flowers' && distance === 1) {
+                            return 0.85;
+                        }
+                        if (q === 'natural' && k === 'language' && distance === 1) {
+                            return 0.85;
+                        }
                         
                         // Preposition relationships
                         if (q === 'through' && (k === 'chased' || k === 'garden')) {
+                            return 0.6;
+                        }
+                        if (q === 'in' && (k === 'bloom' || k === 'spring' || k === 'garden')) {
                             return 0.6;
                         }
                         
@@ -362,6 +421,13 @@ const question = {
                 const attentionType = getCurrentAttentionType();
                 const pattern = attentionPatterns[attentionType];
 
+                // Reset non-query word highlights before applying new ones
+                wordElements.forEach((el, idx) => {
+                    if (idx === queryIndex) return;
+                    el.classList.remove('bg-blue-100', 'border-blue-300');
+                    el.classList.add('border-blue-200', 'bg-white', 'text-gray-800');
+                });
+
                 const attentionScores = [];
 
                 wordElements.forEach((keyWordEl, keyIndex) => {
@@ -430,10 +496,13 @@ const question = {
                         ctx.stroke();
                     }
 
-                    // Highlight key words with high attention
+                    // Highlight key words with attention
                     if (attentionScore > 0.5) {
                         keyWordEl.classList.remove('border-blue-200', 'bg-white');
                         keyWordEl.classList.add('bg-blue-100', 'border-blue-300');
+                    } else if (attentionScore > 0.3) {
+                        keyWordEl.classList.remove('border-blue-200', 'bg-white');
+                        keyWordEl.classList.add('bg-blue-50', 'border-blue-300');
                     }
                 });
 
@@ -443,8 +512,13 @@ const question = {
                 // Update attention indicator
                 if (attentionIndicator) {
                     const strongConnections = attentionScores.filter(s => s.score > 0.5).length;
-                    attentionIndicator.innerHTML = `🎯 "${queryWord}" → ${strongConnections} strong connections`;
-                    attentionIndicator.className = 'text-xs bg-green-100 text-green-700 px-3 py-1 rounded font-medium border border-green-200';
+                    const mediumConnections = attentionScores.filter(s => s.score > 0.3 && s.score <= 0.5).length;
+                    attentionIndicator.innerHTML = `🎯 "${queryWord}" — ${strongConnections} strong, ${mediumConnections} medium`;
+                    attentionIndicator.className = strongConnections > 0
+                        ? 'text-xs bg-green-100 text-green-700 px-3 py-1 rounded font-medium border border-green-200'
+                        : mediumConnections > 0
+                            ? 'text-xs bg-blue-100 text-blue-700 px-3 py-1 rounded font-medium border border-blue-200'
+                            : 'text-xs bg-gray-100 text-gray-700 px-3 py-1 rounded font-medium border border-gray-200';
                 }
                 
                 // Update explanation
@@ -538,8 +612,10 @@ const question = {
                         if (currentQueryIndex < words.length) {
                             visualizeAttention(currentQueryIndex, words);
                         }
+                    } else {
+                        // No word selected yet; keep the generic explanation
+                        updateExplanation();
                     }
-                    updateExplanation();
                 });
             });
             

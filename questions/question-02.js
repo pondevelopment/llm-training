@@ -45,8 +45,14 @@ const question = {
         html: `<div class="space-y-6">
             <!-- Input Section -->
             <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200">
-                <label for="q2-text-input" class="block text-sm font-medium text-gray-700 mb-2">📝 Enter a Sentence to Analyze</label>
-                <input type="text" id="q2-text-input" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" value="The cat chased the mouse through the garden">
+                <label for="q2-text-select" class="block text-sm font-medium text-gray-700 mb-2">📝 Select a Sentence to Analyze</label>
+                <select id="q2-text-select" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white">
+                    <option value="The cat chased the mouse through the garden">The cat chased the mouse through the garden</option>
+                    <option value="The red car stopped at the traffic light">The red car stopped at the traffic light</option>
+                    <option value="The intelligent student solved the difficult problem quickly">The intelligent student solved the difficult problem quickly</option>
+                    <option value="Machine learning models process natural language text">Machine learning models process natural language text</option>
+                    <option value="Beautiful flowers bloom in the spring garden">Beautiful flowers bloom in the spring garden</option>
+                </select>
                 <p class="text-xs text-blue-700 font-medium mt-2 bg-blue-100 px-2 py-1 rounded">👆 Click on any word below to see what it pays attention to!</p>
             </div>
             
@@ -127,7 +133,7 @@ const question = {
         </div>`,
         script: () => {
             // Get DOM elements with error checking
-            const input = document.getElementById('q2-text-input');
+            const input = document.getElementById('q2-text-select');
             const sentenceDisplay = document.getElementById('q2-sentence-display');
             const attentionRadios = document.querySelectorAll('input[name="q2-attention-type"]');
             const exampleBtn = document.getElementById('q2-example-btn');
@@ -523,7 +529,7 @@ const question = {
             }
 
             // Event listeners
-            input.addEventListener('input', renderSentence);
+            input.addEventListener('change', renderSentence);
             attentionRadios.forEach(radio => {
                 radio.addEventListener('change', () => {
                     updateAttentionTypeVisuals();

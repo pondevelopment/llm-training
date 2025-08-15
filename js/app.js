@@ -72,8 +72,10 @@ class LLMQuestionApp {
      * Get shareable URL for current question
      */
     getShareableURL() {
-        const questionNumber = this.availableQuestions[this.currentQuestionIndex];
-        return `${window.location.origin}${window.location.pathname}#question-${questionNumber}`;
+    const questionNumber = this.availableQuestions[this.currentQuestionIndex];
+    // Point to a static per-question page with OG/Twitter meta for rich unfurls
+    const base = `${window.location.origin}${window.location.pathname}`.replace(/[^/]+$/, '');
+    return `${base}q/${questionNumber}.html`;
     }
 
     /**

@@ -16,6 +16,20 @@ const question = {
                 </p>
             </div>
 
+            <!-- 2025 Updates -->
+            <div class="bg-white p-4 rounded-lg border">
+                <h4 class="font-semibold text-gray-900 mb-2">✨ What's new in 2025 prompt engineering</h4>
+                <ul class="text-sm text-gray-700 space-y-1">
+                    <li>• <strong>Structured outputs</strong>: Ask for strict JSON (or XML/Markdown) with a defined schema to improve reliability and parsing.</li>
+                    <li>• <strong>Grounded answers</strong>: Provide context and require citations; instruct the model to answer with "NOT FOUND" when info is missing.</li>
+                    <li>• <strong>System/developer prompts</strong>: Separate role-level instructions from user content for stability.</li>
+                    <li>• <strong>Affordances</strong> (tools/functions): Prefer tool use/search/calculators instead of recalling facts from memory.</li>
+                    <li>• <strong>Clear delimiters</strong>: Use XML/Markdown sections and repeat key instructions at the end to offset recency bias.</li>
+                    <li>• <strong>Evaluate and iterate</strong>: Keep a small eval set; A/B prompts; measure format adherence and accuracy, not just style.</li>
+                    <li>• <strong>Long-context tips</strong>: Chunk, summarize, and reference anchors; avoid gratuitous verbosity.</li>
+                </ul>
+            </div>
+
             <!-- Prompt Types Comparison -->
             <div class="grid md:grid-cols-3 gap-4">
                 <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
@@ -131,7 +145,7 @@ const question = {
                 <!-- Prompt Strategy Selection -->
                 <div class="bg-white border border-gray-200 rounded-lg p-4">
                     <label class="block text-sm font-medium text-gray-700 mb-3">🎯 Prompt Engineering Strategy</label>
-                    <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
                         <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer">
                             <input type="radio" name="q13-strategy" value="basic" class="mr-3" checked>
                             <div>
@@ -165,6 +179,24 @@ const question = {
                                 <div class="font-medium text-sm">CoT</div>
                                 <div class="text-xs text-gray-500">Step-by-step</div>
                                 <div class="text-xs bg-green-100 text-green-700 px-1 rounded mt-1">Best reasoning</div>
+                            </div>
+                        </label>
+
+                        <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer">
+                            <input type="radio" name="q13-strategy" value="structured-json" class="mr-3">
+                            <div>
+                                <div class="font-medium text-sm">Structured JSON</div>
+                                <div class="text-xs text-gray-500">Schema-constrained</div>
+                                <div class="text-xs bg-indigo-100 text-indigo-700 px-1 rounded mt-1">Parsable</div>
+                            </div>
+                        </label>
+
+                        <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer">
+                            <input type="radio" name="q13-strategy" value="grounded" class="mr-3">
+                            <div>
+                                <div class="font-medium text-sm">Grounded</div>
+                                <div class="text-xs text-gray-500">Use provided context</div>
+                                <div class="text-xs bg-purple-100 text-purple-700 px-1 rounded mt-1">Citations</div>
                             </div>
                         </label>
                     </div>
@@ -234,9 +266,11 @@ const question = {
                         basic: "Classify this email:",
                         "zero-shot": "Classify the following email as either 'SPAM' or 'LEGITIMATE'. Consider factors like urgency tactics, suspicious links, poor grammar, and unrealistic offers.\n\nEmail:",
                         "few-shot": "Classify emails as 'SPAM' or 'LEGITIMATE' based on these examples:\n\nEmail: 'URGENT! Claim your $1000 prize NOW! Click here immediately!'\nClassification: SPAM\n\nEmail: 'Hi John, here's the quarterly report you requested. Best regards, Sarah'\nClassification: LEGITIMATE\n\nEmail: 'You've won the lottery! Send your bank details to claim $50,000!'\nClassification: SPAM\n\nNow classify this email:",
-                        "chain-of-thought": "Classify this email as 'SPAM' or 'LEGITIMATE' by thinking step by step:\n\n1. Check for urgency tactics (ALL CAPS, 'URGENT', 'LIMITED TIME')\n2. Look for suspicious requests (money, personal info, clicking links)\n3. Assess the sender and writing quality\n4. Consider if the offer seems too good to be true\n5. Make final classification with reasoning\n\nEmail:"
+                        "chain-of-thought": "Classify this email as 'SPAM' or 'LEGITIMATE' by thinking step by step:\n\n1. Check for urgency tactics (ALL CAPS, 'URGENT', 'LIMITED TIME')\n2. Look for suspicious requests (money, personal info, clicking links)\n3. Assess the sender and writing quality\n4. Consider if the offer seems too good to be true\n5. Make final classification with reasoning\n\nEmail:",
+                        "structured-json": "You are an email classifier. Return a strict JSON object only. Schema: {\"label\": \"SPAM|LEGITIMATE|UNKNOWN\", \"confidence\": number, \"reasons\": string[]}\nRules: No extra keys. confidence in [0,1]. If insufficient evidence, set label='UNKNOWN'.\nEmail:",
+                        "grounded": "Using ONLY the provided CONTEXT, classify the email as 'SPAM' or 'LEGITIMATE'. If the answer cannot be determined from the CONTEXT, reply exactly 'NOT FOUND'. Include citations as [1], [2] that support the decision.\n\nCONTEXT:\n<docs>...paste signals or policy snippets here...</docs>\n\nEMAIL:"
                     },
-                    performance: { basic: 45, "zero-shot": 72, "few-shot": 85, "chain-of-thought": 89 }
+                    performance: { basic: 45, "zero-shot": 72, "few-shot": 85, "chain-of-thought": 89, "structured-json": 87, grounded: 88 }
                 },
                 {
                     name: "Sentiment Analysis",
@@ -245,9 +279,11 @@ const question = {
                         basic: "What's the sentiment?",
                         "zero-shot": "Analyze the sentiment of this product review and classify it as POSITIVE, NEGATIVE, or NEUTRAL. Consider the overall tone, specific complaints or praise, and the reviewer's satisfaction level.\n\nReview:",
                         "few-shot": "Classify the sentiment of product reviews as POSITIVE, NEGATIVE, or NEUTRAL:\n\nReview: 'This product exceeded my expectations! Great quality and fast shipping.'\nSentiment: POSITIVE\n\nReview: 'Product broke after 2 days. Waste of money. Poor customer service.'\nSentiment: NEGATIVE\n\nReview: 'It's okay, does what it's supposed to do. Nothing special but works fine.'\nSentiment: NEUTRAL\n\nNow classify this review:",
-                        "chain-of-thought": "Analyze this product review's sentiment step by step:\n\n1. Identify positive words/phrases (excellent, great, love, recommend, etc.)\n2. Identify negative words/phrases (terrible, broken, waste, disappointed, etc.)\n3. Look for neutral/balanced language\n4. Consider the overall context and conclusion\n5. Classify as POSITIVE, NEGATIVE, or NEUTRAL with explanation\n\nReview:"
+                        "chain-of-thought": "Analyze this product review's sentiment step by step:\n\n1. Identify positive words/phrases (excellent, great, love, recommend, etc.)\n2. Identify negative words/phrases (terrible, broken, waste, disappointed, etc.)\n3. Look for neutral/balanced language\n4. Consider the overall context and conclusion\n5. Classify as POSITIVE, NEGATIVE, or NEUTRAL with explanation\n\nReview:",
+                        "structured-json": "Return JSON only with schema: {\"label\": \"POSITIVE|NEGATIVE|NEUTRAL\", \"confidence\": number, \"evidence\": string[]}\nRules: No prose. confidence in [0,1].\nReview:",
+                        "grounded": "Answer using ONLY the supplied CONTEXT. If the CONTEXT does not contain the sentiment, reply 'NOT FOUND'. Provide a one-sentence quote as citation in [1] that supports the label.\n\nCONTEXT:\n<review>...paste the review text or snippets here...</review>\n\nTASK: Classify as POSITIVE, NEGATIVE, or NEUTRAL with citation."
                     },
-                    performance: { basic: 40, "zero-shot": 68, "few-shot": 82, "chain-of-thought": 86 }
+                    performance: { basic: 40, "zero-shot": 68, "few-shot": 82, "chain-of-thought": 86, "structured-json": 85, grounded: 84 }
                 },
                 {
                     name: "Code Documentation",
@@ -256,9 +292,11 @@ const question = {
                         basic: "Explain this code:",
                         "zero-shot": "Provide clear documentation for this code function including: purpose, parameters, return value, and usage example. Write in a professional style suitable for API documentation.\n\nCode:",
                         "few-shot": "Document code functions following this format:\n\nCode: def add(a, b): return a + b\nDocumentation:\n**Purpose:** Adds two numbers together\n**Parameters:** a (number), b (number)\n**Returns:** Sum of a and b\n**Example:** add(3, 5) returns 8\n\nCode: def find_max(arr): return max(arr)\nDocumentation:\n**Purpose:** Finds the maximum value in an array\n**Parameters:** arr (list of numbers)\n**Returns:** The largest number in the array\n**Example:** find_max([1, 5, 3]) returns 5\n\nNow document this code:",
-                        "chain-of-thought": "Document this code by analyzing it step by step:\n\n1. Read through the code and understand its logic\n2. Identify the main purpose/functionality\n3. List all parameters and their types\n4. Determine what the function returns\n5. Think of practical use cases\n6. Write clear documentation with examples\n\nCode:"
+                        "chain-of-thought": "Document this code by analyzing it step by step:\n\n1. Read through the code and understand its logic\n2. Identify the main purpose/functionality\n3. List all parameters and their types\n4. Determine what the function returns\n5. Think of practical use cases\n6. Write clear documentation with examples\n\nCode:",
+                        "structured-json": "Return JSON only with schema: {\"purpose\": string, \"parameters\": [{\"name\": string, \"type\": string, \"desc\": string}], \"returns\": {\"type\": string, \"desc\": string}, \"example\": string}\nNo extra keys.\nCode:",
+                        "grounded": "Document the code using ONLY the inline docstrings/comments in the provided CONTEXT. If the CONTEXT is missing details, respond 'NOT FOUND' for unknown fields. Output JSON: {purpose, parameters[], returns, example}.\n\nCONTEXT:\n<code>...paste code with comments here...</code>"
                     },
-                    performance: { basic: 35, "zero-shot": 65, "few-shot": 88, "chain-of-thought": 92 }
+                    performance: { basic: 35, "zero-shot": 65, "few-shot": 88, "chain-of-thought": 92, "structured-json": 90, grounded: 80 }
                 },
                 {
                     name: "Creative Writing",
@@ -267,9 +305,11 @@ const question = {
                         basic: "Write a story:",
                         "zero-shot": "Write a creative short story (200-300 words) with engaging characters, a clear plot, and vivid descriptions. Include dialogue and create a satisfying conclusion.\n\nTopic:",
                         "few-shot": "Write creative short stories following these examples:\n\nTopic: A mysterious door\nStory: Sarah hesitated at the ornate door. Its bronze handle felt warm despite the cold hallway. 'Just open it,' she whispered. Inside, a garden bloomed impossibly, defying the building's concrete reality. An old man smiled from a bench. 'Welcome,' he said, 'to where lost dreams take root.'\n\nTopic: Time travel mishap\nStory: The machine sparked violently. Jake found himself in 1985, but something was wrong—dinosaurs roamed the streets. His calculations were off by 65 million years, not 40. A T-Rex looked curiously at his lab coat. 'Well,' Jake sighed, pulling out his emergency flare, 'this complicates things.'\n\nNow write a story for this topic:",
-                        "chain-of-thought": "Create a compelling short story by following these steps:\n\n1. Establish the setting and main character\n2. Introduce a conflict or interesting situation\n3. Develop the plot with rising action\n4. Include realistic dialogue and vivid descriptions\n5. Build to a climax\n6. Provide a satisfying resolution\n7. Keep it engaging and well-paced\n\nTopic:"
+                        "chain-of-thought": "Create a compelling short story by following these steps:\n\n1. Establish the setting and main character\n2. Introduce a conflict or interesting situation\n3. Develop the plot with rising action\n4. Include realistic dialogue and vivid descriptions\n5. Build to a climax\n6. Provide a satisfying resolution\n7. Keep it engaging and well-paced\n\nTopic:",
+                        "structured-json": "Create a story outline as JSON only: {\"title\": string, \"characters\": string[], \"setting\": string, \"conflict\": string, \"resolution\": string}. No prose.",
+                        "grounded": "Write a summary using ONLY the provided lore bible in CONTEXT. If details are missing, reply 'NOT FOUND'. Include bracket citations [1] next to claims.\n\nCONTEXT:\n<lore>...paste canon snippets here...</lore>\n\nTOPIC:"
                     },
-                    performance: { basic: 50, "zero-shot": 70, "few-shot": 85, "chain-of-thought": 88 }
+                    performance: { basic: 50, "zero-shot": 70, "few-shot": 85, "chain-of-thought": 88, "structured-json": 78, grounded: 72 }
                 },
                 {
                     name: "Data Extraction",
@@ -278,9 +318,11 @@ const question = {
                         basic: "Extract the data:",
                         "zero-shot": "Extract structured information from the following text and format it as JSON with fields: name, date, amount, category. Only include explicitly mentioned information.\n\nText:",
                         "few-shot": "Extract data from text and format as JSON:\n\nText: 'John Smith purchased office supplies on March 15th for $127.50'\nJSON: {\"name\": \"John Smith\", \"date\": \"March 15th\", \"amount\": \"$127.50\", \"category\": \"office supplies\"}\n\nText: 'Sarah bought groceries yesterday, spent $85 at the supermarket'\nJSON: {\"name\": \"Sarah\", \"date\": \"yesterday\", \"amount\": \"$85\", \"category\": \"groceries\"}\n\nNow extract data from this text:",
-                        "chain-of-thought": "Extract structured data step by step:\n\n1. Read the text carefully\n2. Identify person names (look for proper nouns)\n3. Find dates (specific dates, relative terms like 'yesterday')\n4. Locate monetary amounts ($ symbols, numbers + currency)\n5. Determine categories (what was purchased/the transaction type)\n6. Format as clean JSON with consistent field names\n7. Only include information explicitly stated\n\nText:"
+                        "chain-of-thought": "Extract structured data step by step:\n\n1. Read the text carefully\n2. Identify person names (look for proper nouns)\n3. Find dates (specific dates, relative terms like 'yesterday')\n4. Locate monetary amounts ($ symbols, numbers + currency)\n5. Determine categories (what was purchased/the transaction type)\n6. Format as clean JSON with consistent field names\n7. Only include information explicitly stated\n\nText:",
+                        "structured-json": "Return JSON only with schema: {\"name\": string|null, \"date\": string|null, \"amount\": string|null, \"category\": string|null}. If missing, use null. No prose.\nText:",
+                        "grounded": "Extract ONLY facts present in CONTEXT and output JSON {name,date,amount,category}. If any field is absent, use null. If none present, reply 'NOT FOUND'. Include citations array with the exact supporting span.\n\nCONTEXT:\n<text>...paste source text here...</text>"
                     },
-                    performance: { basic: 30, "zero-shot": 75, "few-shot": 90, "chain-of-thought": 93 }
+                    performance: { basic: 30, "zero-shot": 75, "few-shot": 90, "chain-of-thought": 93, "structured-json": 95, grounded: 96 }
                 },
                 {
                     name: "Language Translation",
@@ -289,9 +331,11 @@ const question = {
                         basic: "Translate this:",
                         "zero-shot": "Translate the following text from English to French. Maintain the original meaning, tone, and formality level. Provide only the translation.\n\nText:",
                         "few-shot": "Translate English to French following these examples:\n\nEnglish: 'Good morning, how are you today?'\nFrench: 'Bonjour, comment allez-vous aujourd'hui ?'\n\nEnglish: 'The weather is beautiful outside.'\nFrench: 'Il fait beau dehors.'\n\nEnglish: 'I would like to book a table for two people.'\nFrench: 'Je voudrais réserver une table pour deux personnes.'\n\nNow translate this text:",
-                        "chain-of-thought": "Translate from English to French step by step:\n\n1. Analyze the text structure and identify key phrases\n2. Consider the formality level (formal/informal)\n3. Translate word by word, considering context\n4. Adjust for French grammar rules (gender, verb conjugation)\n5. Review for natural flow and cultural appropriateness\n6. Provide the final polished translation\n\nText:"
+                        "chain-of-thought": "Translate from English to French step by step:\n\n1. Analyze the text structure and identify key phrases\n2. Consider the formality level (formal/informal)\n3. Translate word by word, considering context\n4. Adjust for French grammar rules (gender, verb conjugation)\n5. Review for natural flow and cultural appropriateness\n6. Provide the final polished translation\n\nText:",
+                        "structured-json": "Return JSON only: {\"translation\": string, \"register\": \"formal|informal|neutral\"}. No additional text.\nText:",
+                        "grounded": "Translate using ONLY the provided glossary/context. If a term is not in the glossary, keep it in source language and reply with 'NOT FOUND' for unknown terms. Output JSON: {translation, unresolved_terms: string[]}.\n\nCONTEXT:\n<glossary>...paste terminology/glossary here...</glossary>\n\nText:"
                     },
-                    performance: { basic: 55, "zero-shot": 78, "few-shot": 87, "chain-of-thought": 85 }
+                    performance: { basic: 55, "zero-shot": 78, "few-shot": 87, "chain-of-thought": 85, "structured-json": 88, grounded: 90 }
                 }
             ];
 
@@ -320,6 +364,18 @@ const question = {
                     color: "text-green-700",
                     bgColor: "bg-green-100",
                     explanation: "Chain-of-thought prompting guides the model to show its reasoning process. This improves accuracy on complex tasks by breaking them into logical steps, though it uses more tokens."
+                },
+                "structured-json": {
+                    name: "Structured JSON",
+                    color: "text-indigo-700",
+                    bgColor: "bg-indigo-100",
+                    explanation: "Schema-constrained prompting requests strict JSON so outputs are machine-parseable. Define fields, types, and allowed values; forbid extra keys. Great for integrations and evaluation."
+                },
+                grounded: {
+                    name: "Grounded",
+                    color: "text-purple-700",
+                    bgColor: "bg-purple-100",
+                    explanation: "Grounded prompting restricts answers to supplied context and requires citations or 'NOT FOUND' when information is missing. This reduces hallucinations and improves trust."
                 }
             };
 

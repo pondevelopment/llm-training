@@ -11,6 +11,14 @@ const question = {
             <p class="text-blue-800">Sampling methods control how language models choose the next token during text generation. Instead of always picking the most probable word (greedy decoding), sampling introduces controlled randomness to create more diverse and creative outputs. Think of it like a creative writer choosing between several good word options rather than always using the most obvious one.</p>
         </div>
         
+        <!-- Terminology: Tokens vs Words (moved up) -->
+        <div class="bg-white p-4 rounded-lg border">
+            <h4 class="font-semibold text-gray-900 mb-2">🔤 Terminology: tokens vs. words</h4>
+            <p class="text-sm text-gray-700">
+                Sampling operates over <strong>tokens</strong>, which are usually <em>subword pieces</em> (not whole words). A word can be split into multiple tokens (e.g., "unbelievable" → "un", "believ", "able"). In this demo we visualize whole words as tokens for clarity, but the same principles apply at the token level.
+            </p>
+        </div>
+        
         <!-- Sampling Methods Comparison -->
         <div class="grid md:grid-cols-3 gap-4">
             <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
@@ -75,6 +83,7 @@ const question = {
                 <li>• <strong>Task Adaptation:</strong> Different tasks benefit from different sampling approaches</li>
                 <li>• <strong>Quality vs. Diversity:</strong> Balance between creative output and meaningful content</li>
                 <li>• <strong>User Experience:</strong> Sampling affects how natural and engaging AI text feels</li>
+                <li>• <strong>Common practice:</strong> Combine <em>top-p</em> with <em>temperature</em> (e.g., τ≈0.7–1.0) for stable, creative outputs</li>
             </ul>
         </div>
     </div>`,
@@ -145,7 +154,7 @@ const question = {
             </div>
 
             <!-- Parameter Controls -->
-            <div class="grid md:grid-cols-2 gap-4">
+            <div class="grid md:grid-cols-3 gap-4">
                 <div id="q12-topk-controls" class="bg-white border border-gray-200 rounded-lg p-4">
                     <label for="q12-k-value" class="block text-sm font-medium text-gray-700 mb-2">🔢 Top-k Value (k)</label>
                     <input type="range" id="q12-k-value" min="1" max="50" value="20" class="w-full">
@@ -164,6 +173,17 @@ const question = {
                         <span id="q12-p-display" class="font-medium">0.9</span>
                         <span>1.0</span>
                     </div>
+                </div>
+
+                <div id="q12-temp-controls" class="bg-white border border-gray-200 rounded-lg p-4">
+                    <label for="q12-temp-value" class="block text-sm font-medium text-gray-700 mb-2">🌡️ Temperature (τ)</label>
+                    <input type="range" id="q12-temp-value" min="0.5" max="2.0" step="0.1" value="1.0" class="w-full">
+                    <div class="flex justify-between text-xs text-gray-500 mt-1">
+                        <span>0.5</span>
+                        <span id="q12-temp-display" class="font-medium">1.0</span>
+                        <span>2.0</span>
+                    </div>
+                    <p class="text-[11px] text-gray-500 mt-2">Lower τ sharpens (more deterministic); higher τ flattens (more diverse).</p>
                 </div>
             </div>
 
@@ -320,6 +340,8 @@ const question = {
             const pValue = document.getElementById('q12-p-value');
             const kDisplay = document.getElementById('q12-k-display');
             const pDisplay = document.getElementById('q12-p-display');
+            const tempValue = document.getElementById('q12-temp-value');
+            const tempDisplay = document.getElementById('q12-temp-display');
             const topkControls = document.getElementById('q12-topk-controls');
             const toppControls = document.getElementById('q12-topp-controls');
 
@@ -343,10 +365,17 @@ const question = {
                 return vocabularyDatabase[0]; // Default to first context
             }
 
-            // Apply sampling strategy
-            function applySampling(vocabulary, strategy, k, p) {
-                // Sort by probability (descending)
-                const sorted = [...vocabulary].sort((a, b) => b.probability - a.probability);
+            // Apply temperature to probabilities and sample
+            function applySampling(vocabulary, strategy, k, p, tau) {
+                // Temperature-adjusted probabilities: p_i' ∝ p_i^(1/τ); always renormalize
+                const safe = vocabulary.map(t => ({ token: t.token, probability: Math.max(t.probability, 1e-12) }));
+                const pow = (!tau || Math.abs(tau - 1.0) < 1e-6) ? 1.0 : (1.0 / tau);
+                const powered = safe.map(t => ({ token: t.token, probability: t.probability ** pow }));
+                const Z = powered.reduce((s, t) => s + t.probability, 0) || 1;
+                const adjusted = powered.map(t => ({ token: t.token, probability: t.probability / Z }));
+
+                // Sort by adjusted probability (descending)
+                const sorted = adjusted.sort((a, b) => b.probability - a.probability);
                 
                 switch (strategy) {
                     case 'topk':
@@ -381,6 +410,7 @@ const question = {
             function updateParameterDisplays() {
                 if (kDisplay) kDisplay.textContent = kValue.value;
                 if (pDisplay) pDisplay.textContent = parseFloat(pValue.value).toFixed(2);
+                if (tempDisplay) tempDisplay.textContent = parseFloat(tempValue.value).toFixed(1);
             }
 
             // Main processing function
@@ -391,6 +421,7 @@ const question = {
                 const strategy = getCurrentStrategy();
                 const k = parseInt(kValue.value);
                 const p = parseFloat(pValue.value);
+                const tau = parseFloat(tempValue.value || '1.0');
                 const config = configData[strategy];
                 
                 if (!context) {
@@ -407,7 +438,7 @@ const question = {
 
                 // Get vocabulary and apply sampling
                 const fullVocabulary = getVocabularyForContext(context);
-                const sampledTokens = applySampling(fullVocabulary, strategy, k, p);
+                const sampledTokens = applySampling(fullVocabulary, strategy, k, p, tau);
 
                 // Clear previous results
                 output.innerHTML = '';
@@ -421,6 +452,12 @@ const question = {
                 `;
                 output.appendChild(contextEl);
 
+                // Token terminology note (clarify token vs word)
+                const tokenNote = document.createElement('div');
+                tokenNote.className = 'mb-3 text-xs text-gray-600 italic';
+                tokenNote.innerHTML = 'Note: In real LLMs, a <strong>token</strong> is usually a subword piece. One word can map to multiple tokens. This demo shows whole words for teaching clarity.';
+                output.appendChild(tokenNote);
+
                 // Create tokens display
                 const tokensContainer = document.createElement('div');
                 tokensContainer.className = 'space-y-3';
@@ -429,17 +466,17 @@ const question = {
                 const headerEl = document.createElement('div');
                 headerEl.className = 'flex items-center justify-between text-sm font-medium text-gray-700';
                 
-                let headerText = '';
+        let headerText = '';
                 switch (strategy) {
                     case 'topk':
-                        headerText = `Top-${k} tokens selected for sampling:`;
+            headerText = `Top-${k} tokens selected for sampling (τ=${tau.toFixed(1)}):`;
                         break;
                     case 'topp':
                         const totalProb = sampledTokens.reduce((sum, token) => sum + token.probability, 0);
-                        headerText = `Tokens covering ${(totalProb * 100).toFixed(1)}% probability mass (p=${p}):`;
+            headerText = `Tokens covering ${(totalProb * 100).toFixed(1)}% probability mass (p=${p}, τ=${tau.toFixed(1)}):`;
                         break;
                     case 'greedy':
-                        headerText = 'Most probable token selected:';
+            headerText = `Most probable token selected (τ=${tau.toFixed(1)}):`;
                         break;
                 }
                 
@@ -516,6 +553,7 @@ const question = {
                 // Update legend
                 if (legend) {
                     legend.innerHTML = `
+                        <div class="text-center text-[11px] text-gray-600 mb-1">Token ≈ subword piece (demo uses whole words for clarity)</div>
                         <div class="flex items-center justify-center space-x-4 text-xs">
                             <div class="flex items-center space-x-1">
                                 <div class="w-3 h-3 rounded" style="background-color: #dcfce7"></div>
@@ -622,6 +660,13 @@ const question = {
                     if (getCurrentStrategy() === 'topp') {
                         processAndDisplay();
                     }
+                });
+            }
+
+            if (tempValue) {
+                tempValue.addEventListener('input', () => {
+                    updateParameterDisplays();
+                    processAndDisplay();
                 });
             }
             

@@ -66,6 +66,17 @@ const question = {
             </div>
         </div>
         
+        <!-- Caveats & Modern Practice -->
+        <div class="bg-white p-4 rounded-lg border">
+            <h4 class="font-semibold text-gray-900 mb-2">⚠️ Caveats and modern practice</h4>
+            <ul class="text-sm text-gray-700 space-y-1">
+                <li>• While NSP was used in BERT pretraining, follow-ups like <strong>RoBERTa</strong> removed NSP and matched or improved results.</li>
+                <li>• <strong>ALBERT</strong> introduced <em>Sentence Order Prediction (SOP)</em>, using swapped segments as harder negatives instead of random pairs.</li>
+                <li>• Many decoder-only LLMs (GPT-style) don’t use NSP; they learn discourse coherence from next-token prediction over long contexts.</li>
+                <li>• Include NSP/SOP only if it helps your data/task: validate via downstream tasks that require sentence-level coherence.</li>
+            </ul>
+        </div>
+
         <!-- Why This Matters -->
         <div class="bg-yellow-50 p-4 rounded-lg">
             <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why NSP Enhances LLMs</h4>
@@ -139,6 +150,9 @@ const question = {
                             </div>
                         </label>
                     </div>
+                    <p class="mt-3 text-xs text-gray-600">
+                        Tip: Models apply different confidence thresholds to decide IsNext vs NotNext — Strict 80%, Balanced 60%, Lenient 40%. The result compares the model’s confidence to its threshold.
+                    </p>
                 </div>
 
                 <!-- Quick Examples -->
@@ -152,9 +166,9 @@ const question = {
                 <div class="bg-white border border-gray-200 rounded-lg p-4">
                     <div class="flex items-center justify-between mb-3">
                         <h4 class="font-medium text-gray-900">🎯 NSP Classification Results</h4>
-                        <div id="q11-model-indicator" class="text-xs bg-gray-100 px-2 py-1 rounded font-medium">Strict Model</div>
+                        <div id="q11-model-indicator" class="text-xs bg-gray-100 px-2 py-1 rounded font-medium" aria-live="polite">Strict Model</div>
                     </div>
-                    <div id="q11-output" class="min-h-[200px] p-3 bg-gray-50 rounded border-2 border-dashed border-gray-300">
+                    <div id="q11-output" class="min-h-[200px] p-3 bg-gray-50 rounded border-2 border-dashed border-gray-300" role="region" aria-live="polite" aria-atomic="true" aria-label="NSP classification results">
                         <div class="text-gray-500 text-center py-8">Enter sentence pairs above to see NSP classification</div>
                     </div>
                     <div id="q11-legend" class="mt-3 text-xs"></div>
@@ -163,7 +177,7 @@ const question = {
                 <!-- Educational Explanation -->
                 <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
                     <h4 class="font-medium text-yellow-900 mb-2">📊 Understanding the Classification</h4>
-                    <div id="q11-explanation" class="text-sm text-yellow-800">
+                    <div id="q11-explanation" class="text-sm text-yellow-800" aria-live="polite" aria-atomic="true">
                         Choose a model type above to see how different NSP models classify sentence pairs.
                     </div>
                 </div>
@@ -186,78 +200,32 @@ const question = {
                 ]
             };
 
-            // Predefined correct classifications for all combinations (A_index, B_index)
-            // Based on semantic similarity and contextual flow
-            const correctClassifications = {
-                strict: {
-                    // Sentence A0 (butterfly discovery) combinations
-                    "0,0": { isNext: true, confidence: 85 },   // butterfly -> colorful wings (COHERENT)
-                    "0,1": { isNext: false, confidence: 15 },  // butterfly -> ML algorithms (RANDOM)
-                    "0,2": { isNext: false, confidence: 25 },  // butterfly -> waiter (RANDOM)
-                    "0,3": { isNext: false, confidence: 10 },  // butterfly -> therefore umbrellas (RANDOM)
-                    
-                    // Sentence A1 (company profits) combinations
-                    "1,0": { isNext: false, confidence: 20 },  // profits -> colorful wings (RANDOM)
-                    "1,1": { isNext: false, confidence: 35 },  // profits -> ML algorithms (WEAK BUSINESS-TECH)
-                    "1,2": { isNext: false, confidence: 25 },  // profits -> waiter (RANDOM)
-                    "1,3": { isNext: false, confidence: 10 },  // profits -> therefore umbrellas (RANDOM)
-                    
-                    // Sentence A2 (restaurant) combinations
-                    "2,0": { isNext: false, confidence: 15 },  // restaurant -> colorful wings (RANDOM)
-                    "2,1": { isNext: false, confidence: 20 },  // restaurant -> ML algorithms (RANDOM)
-                    "2,2": { isNext: true, confidence: 90 },   // restaurant -> waiter (COHERENT)
-                    "2,3": { isNext: false, confidence: 10 },  // restaurant -> therefore umbrellas (RANDOM)
-                    
-                    // Sentence A3 (weather forecast) combinations
-                    "3,0": { isNext: false, confidence: 15 },  // weather -> colorful wings (RANDOM)
-                    "3,1": { isNext: false, confidence: 20 },  // weather -> ML algorithms (RANDOM)
-                    "3,2": { isNext: false, confidence: 25 },  // weather -> waiter (RANDOM)
-                    "3,3": { isNext: true, confidence: 95 }    // weather -> therefore umbrellas (COHERENT + LOGICAL)
-                },
-                balanced: {
-                    // More lenient thresholds for balanced model
-                    "0,0": { isNext: true, confidence: 85 },
-                    "0,1": { isNext: false, confidence: 15 },
-                    "0,2": { isNext: false, confidence: 25 },
-                    "0,3": { isNext: false, confidence: 10 },
-                    
-                    "1,0": { isNext: false, confidence: 20 },
-                    "1,1": { isNext: false, confidence: 45 },  // Slightly higher for business-tech connection
-                    "1,2": { isNext: false, confidence: 25 },
-                    "1,3": { isNext: false, confidence: 10 },
-                    
-                    "2,0": { isNext: false, confidence: 15 },
-                    "2,1": { isNext: false, confidence: 20 },
-                    "2,2": { isNext: true, confidence: 90 },
-                    "2,3": { isNext: false, confidence: 10 },
-                    
-                    "3,0": { isNext: false, confidence: 15 },
-                    "3,1": { isNext: false, confidence: 20 },
-                    "3,2": { isNext: false, confidence: 25 },
-                    "3,3": { isNext: true, confidence: 95 }
-                },
-                lenient: {
-                    // Most lenient thresholds
-                    "0,0": { isNext: true, confidence: 85 },
-                    "0,1": { isNext: false, confidence: 15 },
-                    "0,2": { isNext: false, confidence: 35 },  // Restaurant could be nature-related
-                    "0,3": { isNext: false, confidence: 10 },
-                    
-                    "1,0": { isNext: false, confidence: 25 },
-                    "1,1": { isNext: true, confidence: 55 },   // Business-tech connection accepted
-                    "1,2": { isNext: false, confidence: 30 },  // Business-service connection
-                    "1,3": { isNext: false, confidence: 10 },
-                    
-                    "2,0": { isNext: false, confidence: 20 },
-                    "2,1": { isNext: false, confidence: 25 },
-                    "2,2": { isNext: true, confidence: 90 },
-                    "2,3": { isNext: false, confidence: 10 },
-                    
-                    "3,0": { isNext: false, confidence: 15 },
-                    "3,1": { isNext: false, confidence: 20 },
-                    "3,2": { isNext: false, confidence: 30 },
-                    "3,3": { isNext: true, confidence: 95 }
-                }
+            // Base coherence scores for all combinations (A_index, B_index)
+            // One score per pair; model-specific thresholds decide IsNext vs NotNext
+            const basePairConfidence = {
+                // Sentence A0 (butterfly discovery)
+                "0,0": 85,  // Strong coherent
+                "0,1": 15,  // Unrelated (nature vs ML)
+                "0,2": 25,  // Unrelated (nature vs restaurant)
+                "0,3": 10,  // Unrelated (nature vs weather decision)
+
+                // Sentence A1 (company profits)
+                "1,0": 20,  // Unrelated (business vs nature)
+                "1,1": 55,  // Weak thematic (business/tech) — borderline
+                "1,2": 45,  // Weak thematic (business/service) — borderline
+                "1,3": 10,  // Unrelated (business vs weather decision)
+
+                // Sentence A2 (restaurant)
+                "2,0": 15,  // Unrelated (restaurant vs nature)
+                "2,1": 20,  // Unrelated (restaurant vs ML)
+                "2,2": 90,  // Strong narrative flow
+                "2,3": 10,  // Unrelated (restaurant vs weather decision)
+
+                // Sentence A3 (weather forecast)
+                "3,0": 15,  // Unrelated (weather vs nature details)
+                "3,1": 20,  // Unrelated (weather vs ML)
+                "3,2": 25,  // Unrelated (weather vs restaurant service)
+                "3,3": 95   // Strong logical connection
             };
 
             // Configuration data for different model types
@@ -321,12 +289,33 @@ const question = {
 
             // Get classification result for the selected combination
             function getClassificationResult(modelType, key) {
-                const classification = correctClassifications[modelType][key];
-                return {
-                    isNext: classification.isNext,
-                    confidence: classification.confidence,
-                    score: classification.confidence / 100
-                };
+                const score = basePairConfidence[key];
+                const config = configData[modelType] || configData['balanced'];
+                if (typeof score !== 'number') {
+                    // Safe fallback if a new option is added without mapping
+                    return { isNext: false, confidence: 50, score: 0.5 };
+                }
+                const isNext = score >= config.threshold;
+                return { isNext, confidence: score, score: score / 100 };
+            }
+
+            // Compute comparison across all models for a given pair
+            function getAllModelComparisons(key) {
+                const score = basePairConfidence[key];
+                const models = ['strict', 'balanced', 'lenient'];
+                return models.map((m) => {
+                    const cfg = configData[m];
+                    const isNext = typeof score === 'number' && score >= cfg.threshold;
+                    return {
+                        model: m,
+                        name: cfg.name.replace(' NSP Model', ''),
+                        threshold: cfg.threshold,
+                        color: cfg.color,
+                        bgColor: cfg.bgColor,
+                        isNext,
+                        confidence: typeof score === 'number' ? score : 50
+                    };
+                });
             }
 
             // Calculate detailed analysis for display
@@ -458,6 +447,28 @@ const question = {
 
                 resultContainer.appendChild(classificationEl);
 
+                // Model comparisons (strict vs balanced vs lenient)
+                const comparisons = getAllModelComparisons(selection.key);
+                const comparisonEl = document.createElement('div');
+                comparisonEl.className = 'bg-white p-3 rounded border';
+                comparisonEl.innerHTML = `
+                    <div class="text-sm font-medium text-gray-700 mb-2">📊 Model labels for this pair</div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        ${comparisons.map(c => `
+                            <div class="rounded border p-2" style="background:${c.bgColor};border-color:${c.color}">
+                                <div class="flex items-center justify-between mb-1">
+                                    <span class="text-xs font-semibold" style="color:${c.color}">${c.name}</span>
+                                    <span class="text-[10px] px-1.5 py-0.5 rounded" style="background:${c.isNext ? '#d1fae5' : '#fee2e2'};color:${c.isNext ? '#065f46' : '#7f1d1d'}">
+                                        ${c.isNext ? 'IsNext' : 'NotNext'}
+                                    </span>
+                                </div>
+                                <div class="text-[11px] text-gray-700">${c.confidence}% ${c.isNext ? '≥' : '<'} ${c.threshold}%</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                resultContainer.appendChild(comparisonEl);
+
                 // Sentence pair display
                 const sentencePairEl = document.createElement('div');
                 sentencePairEl.className = 'space-y-3';
@@ -541,12 +552,19 @@ const question = {
 
                 // Update explanation
                 updateExplanation(modelType, result, analysis);
+
+                // Optional: re-typeset MathJax if present (safe no-op otherwise)
+                if (window.MathJax && window.MathJax.typesetPromise) {
+                    window.MathJax.typesetPromise([output, legend, explanation]).catch(() => {});
+                }
             }
 
             // Update visual indicators
             function updateModelVisuals() {
                 document.querySelectorAll('input[name="q11-model"]').forEach((radio) => {
-                    const container = radio.closest('label').querySelector('div');
+                    const label = radio.closest('label');
+                    const container = label ? label.querySelector('div') : null;
+                    if (!container) return;
                     if (radio.checked) {
                         container.style.borderColor = configData[radio.value].color;
                         container.style.backgroundColor = configData[radio.value].bgColor;
@@ -582,9 +600,11 @@ const question = {
                 { a: 0, b: 0, model: 'balanced', note: 'Perfect Coherent Pair (Butterfly → Wings)' },
                 { a: 2, b: 2, model: 'balanced', note: 'Strong Narrative Flow (Restaurant → Waiter)' },
                 { a: 3, b: 3, model: 'balanced', note: 'Logical Connection (Rain → Umbrellas)' },
-                { a: 1, b: 1, model: 'lenient', note: 'Weak Thematic Link (Business → Tech)' },
-                { a: 0, b: 1, model: 'strict', note: 'Complete Mismatch (Nature → Tech)' },
-                { a: 1, b: 3, model: 'strict', note: 'Random Pair (Business → Weather)' }
+                // Teaching examples where lenient accepts but strict rejects
+                { a: 1, b: 1, model: 'lenient', note: 'Lenient accepts; strict rejects (Business → Tech)' },
+                { a: 1, b: 2, model: 'lenient', note: 'Lenient accepts; strict rejects (Business → Service)' },
+                // Clear mismatches
+                { a: 0, b: 1, model: 'strict', note: 'Complete Mismatch (Nature → Tech)' }
             ];
             
             let exampleIndex = 0;

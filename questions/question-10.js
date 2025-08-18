@@ -94,7 +94,7 @@ const question = {
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
                         <label class="relative cursor-pointer">
                             <input type="radio" name="q10-strategy" value="random" class="sr-only" checked>
-                            <div class="border-2 border-green-200 rounded-lg p-3 hover:bg-green-50 transition-colors">
+                            <div class="q10-card border-2 border-green-200 rounded-lg p-3 hover:bg-green-50 transition-colors">
                                 <div class="flex items-center justify-between mb-2">
                                     <span class="font-medium text-green-700">Random Init</span>
                                     <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded">Fresh Start</span>
@@ -104,7 +104,7 @@ const question = {
                         </label>
                         <label class="relative cursor-pointer">
                             <input type="radio" name="q10-strategy" value="pretrained" class="sr-only">
-                            <div class="border-2 border-purple-200 rounded-lg p-3 hover:bg-purple-50 transition-colors">
+                            <div class="q10-card border-2 border-purple-200 rounded-lg p-3 hover:bg-purple-50 transition-colors">
                                 <div class="flex items-center justify-between mb-2">
                                     <span class="font-medium text-purple-700">Pre-trained</span>
                                     <span class="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded">Knowledge Transfer</span>
@@ -114,7 +114,7 @@ const question = {
                         </label>
                         <label class="relative cursor-pointer">
                             <input type="radio" name="q10-strategy" value="hybrid" class="sr-only">
-                            <div class="border-2 border-orange-200 rounded-lg p-3 hover:bg-orange-50 transition-colors">
+                            <div class="q10-card border-2 border-orange-200 rounded-lg p-3 hover:bg-orange-50 transition-colors">
                                 <div class="flex items-center justify-between mb-2">
                                     <span class="font-medium text-orange-700">Hybrid</span>
                                     <span class="text-xs bg-orange-100 text-orange-700 px-2 py-1 rounded">Best of Both</span>
@@ -131,7 +131,7 @@ const question = {
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                         <label class="relative cursor-pointer">
                             <input type="radio" name="q10-context" value="general" class="sr-only" checked>
-                            <div class="border-2 border-blue-200 rounded-lg p-3 hover:bg-blue-50 transition-colors">
+                            <div class="q10-card border-2 border-blue-200 rounded-lg p-3 hover:bg-blue-50 transition-colors">
                                 <div class="flex items-center justify-between mb-2">
                                     <span class="font-medium text-blue-700">General Language</span>
                                     <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">Broad</span>
@@ -141,7 +141,7 @@ const question = {
                         </label>
                         <label class="relative cursor-pointer">
                             <input type="radio" name="q10-context" value="specialized" class="sr-only">
-                            <div class="border-2 border-purple-200 rounded-lg p-3 hover:bg-purple-50 transition-colors">
+                            <div class="q10-card border-2 border-purple-200 rounded-lg p-3 hover:bg-purple-50 transition-colors">
                                 <div class="flex items-center justify-between mb-2">
                                     <span class="font-medium text-purple-700" id="q10-specialized-name">Specialized Domain</span>
                                     <span class="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded">Focused</span>
@@ -157,6 +157,34 @@ const question = {
                     <span class="text-sm font-medium text-gray-700">💡 Quick Examples:</span>
                     <button id="q10-example-btn" class="text-xs bg-indigo-100 text-indigo-700 px-2 py-1 rounded hover:bg-indigo-200 transition-colors">Try: "heart brain..."</button>
                 </div>
+
+                <!-- Controls: Sort and Compare -->
+                <div class="bg-white border border-gray-200 rounded-lg p-4">
+                    <div class="grid md:grid-cols-3 gap-3 items-start">
+                            <label class="block text-sm font-medium text-gray-700">🔎 Sort results
+                                <select id="q10-sort-select" class="mt-1 w-full h-10 px-3 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                    <option value="final" selected>Final similarity (high → low)</option>
+                                    <option value="improvement">Improvement (high → low)</option>
+                                    <option value="alpha">Alphabetical (A → Z)</option>
+                                </select>
+                            </label>
+                            <div>
+                                <label class="flex items-center gap-2 text-sm font-medium text-gray-700">
+                                    <input type="checkbox" id="q10-compare-toggle" class="h-4 w-4">
+                                    Compare two strategies
+                                </label>
+                                <select id="q10-compare-strategy" class="mt-2 md:mt-0 md:w-56 h-10 px-3 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                    <option value="pretrained" selected>Pre-trained</option>
+                                    <option value="random">Random</option>
+                                    <option value="hybrid">Hybrid</option>
+                                </select>
+                                <div class="text-[11px] text-gray-500 mt-1">Compares with currently selected strategy</div>
+                            </div>
+                            <div class="lg:justify-self-end">
+                                <button id="q10-reset-btn" class="px-3 py-2 h-10 text-sm bg-gray-100 border border-gray-300 rounded hover:bg-gray-200">Reset</button>
+                            </div>
+                        </div>
+                    </div>
                 
                 <!-- Results -->
                 <div class="bg-white border border-gray-200 rounded-lg p-4">
@@ -166,6 +194,16 @@ const question = {
                     </div>
                     <div id="q10-output" class="min-h-[200px] p-3 bg-gray-50 rounded border-2 border-dashed border-gray-300">
                         <div class="text-gray-500 text-center py-8">Select words above to see how their embeddings evolve</div>
+                    </div>
+                    <div id="q10-compare-grid" class="hidden mt-3 grid md:grid-cols-2 gap-4">
+                        <div>
+                            <div id="q10-compare-title-a" class="text-xs font-medium text-gray-700 mb-1">Strategy A</div>
+                            <div id="q10-output-a" class="min-h-[180px] p-3 bg-gray-50 rounded border-2 border-dashed border-gray-300"></div>
+                        </div>
+                        <div>
+                            <div id="q10-compare-title-b" class="text-xs font-medium text-gray-700 mb-1">Strategy B</div>
+                            <div id="q10-output-b" class="min-h-[180px] p-3 bg-gray-50 rounded border-2 border-dashed border-gray-300"></div>
+                        </div>
                     </div>
                     <div id="q10-legend" class="mt-3 text-xs"></div>
                 </div>
@@ -183,12 +221,21 @@ const question = {
             // Get DOM elements with error checking
             const wordSelect = document.getElementById('q10-word-select');
             const output = document.getElementById('q10-output');
+            const compareGrid = document.getElementById('q10-compare-grid');
+            const outputA = document.getElementById('q10-output-a');
+            const outputB = document.getElementById('q10-output-b');
+            const titleA = document.getElementById('q10-compare-title-a');
+            const titleB = document.getElementById('q10-compare-title-b');
             const strategyRadios = document.querySelectorAll('input[name="q10-strategy"]');
             const contextRadios = document.querySelectorAll('input[name="q10-context"]');
             const exampleBtn = document.getElementById('q10-example-btn');
             const strategyIndicator = document.getElementById('q10-strategy-indicator');
             const legend = document.getElementById('q10-legend');
             const explanation = document.getElementById('q10-explanation');
+            const sortSelect = document.getElementById('q10-sort-select');
+            const compareToggle = document.getElementById('q10-compare-toggle');
+            const compareStrategySelect = document.getElementById('q10-compare-strategy');
+            const resetBtn = document.getElementById('q10-reset-btn');
 
             if (!wordSelect || !output) {
                 console.error('Required DOM elements not found for Question 10');
@@ -463,6 +510,77 @@ const question = {
                 return results;
             }
 
+            function sortResults(results, by){
+                const arr=[...results];
+                if(by==='alpha') return arr.sort((a,b)=>a.word.localeCompare(b.word));
+                if(by==='improvement') return arr.sort((a,b)=>((b.finalSimilarity-b.initialSimilarity)-(a.finalSimilarity-a.initialSimilarity)));
+                return arr.sort((a,b)=>b.finalSimilarity-a.finalSimilarity);
+            }
+
+            function renderResultsInto(container, results, config, context, currentDomain, sortBy){
+                container.innerHTML='';
+                const sorted = sortResults(results, sortBy);
+                const evolutionContainer = document.createElement('div');
+                evolutionContainer.className='space-y-4';
+                sorted.forEach((result) => {
+                    const wordContainer = document.createElement('div');
+                    wordContainer.className = 'border rounded-lg p-4 hover:shadow-md transition-shadow';
+                    wordContainer.style.backgroundColor = config.bgColor;
+                    wordContainer.style.borderColor = config.color + '40';
+                    const initialPercentage = (result.initialSimilarity * 100).toFixed(1);
+                    const finalPercentage = (result.finalSimilarity * 100).toFixed(1);
+                    const improvement = (result.finalSimilarity - result.initialSimilarity) * 100;
+                    const contextLabel = context === 'general' ? 'general context' : (currentDomain ? `${currentDomain.name.toLowerCase()} context` : 'specialized context');
+                    wordContainer.innerHTML = `
+                        <div class="flex items-center justify-between mb-3">
+                            <h5 class="font-semibold text-lg" style="color: ${config.color}">${result.word}</h5>
+                            <span class="text-xs px-2 py-1 rounded" style="background-color: ${config.color}20; color: ${config.color}">
+                                ${result.dimensions}D vector
+                            </span>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4 mb-3">
+                            <div class="text-center p-2 bg-white rounded border">
+                                <div class="text-sm text-gray-600">Initial Similarity</div>
+                                <div class="text-lg font-bold text-red-600">${initialPercentage}%</div>
+                                <div class="text-xs text-gray-500">To related words</div>
+                            </div>
+                            <div class="text-center p-2 bg-white rounded border">
+                                <div class="text-sm text-gray-600">Final Similarity</div>
+                                <div class="text-lg font-bold text-green-600">${finalPercentage}%</div>
+                                <div class="text-xs text-gray-500">After training</div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <div class="text-sm text-gray-600 mb-1">Training Progress</div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-gradient-to-r from-red-400 to-green-500 h-2 rounded-full transition-all duration-500" style="width: ${finalPercentage}%"></div>
+                            </div>
+                            <div class="text-xs text-gray-500 mt-1">Improvement: +${improvement.toFixed(1)}% | Speed: ${result.convergenceSpeed}</div>
+                        </div>
+                        <div class="text-sm">
+                            <div class="text-gray-600 mb-1">Related words in ${contextLabel}:</div>
+                            <div class="flex flex-wrap gap-1 p-2 bg-gray-50 rounded">
+                                ${result.relatedWords.map(word => `<span class="px-2 py-1 text-xs rounded" style="background-color: ${config.color}20; color: ${config.color}">${word}</span>`).join('')}
+                            </div>
+                        </div>`;
+                    evolutionContainer.appendChild(wordContainer);
+                });
+                container.appendChild(evolutionContainer);
+
+                // Stats summary
+                const statsEl = document.createElement('div');
+                statsEl.className = 'grid grid-cols-2 md:grid-cols-4 gap-3 p-3 bg-white rounded border mt-4 text-sm';
+                const avgInitial = sorted.reduce((sum, r) => sum + r.initialSimilarity, 0) / sorted.length;
+                const avgFinal = sorted.reduce((sum, r) => sum + r.finalSimilarity, 0) / sorted.length;
+                const avgImprovement = ((avgFinal - avgInitial) * 100);
+                statsEl.innerHTML = `
+                    <div class="text-center"><div class="text-lg font-bold" style="color: ${config.color}">${sorted.length}</div><div class="text-gray-600 text-xs">Words Analyzed</div></div>
+                    <div class="text-center"><div class="text-lg font-bold text-blue-600">${config.convergenceTime}</div><div class="text-gray-600 text-xs">Training Time</div></div>
+                    <div class="text-center"><div class="text-lg font-bold text-green-600">${avgImprovement.toFixed(1)}%</div><div class="text-gray-600 text-xs">Avg Improvement</div></div>
+                    <div class="text-center"><div class="text-lg font-bold text-purple-600">${config.dataNeeds}</div><div class="text-gray-600 text-xs">Data Needs</div></div>`;
+                container.appendChild(statsEl);
+            }
+
             // Process and display embeddings
             function processAndDisplay() {
                 const selectedValue = wordSelect.value.trim();
@@ -476,7 +594,7 @@ const question = {
                 let context = getCurrentContext();
                 
                 // Don't auto-switch context if user manually selected it recently
-                if (!window.q10ManualContextSelection) {
+                if (!q10ManualContextSelection) {
                     // Auto-switch context based on word selection and update specialized domain display
                     const recommendedContext = getRecommendedContext(selectedValue);
                     if (recommendedContext !== context) {
@@ -495,9 +613,6 @@ const question = {
                 const currentDomain = context === 'specialized' && wordSetDomains[selectedValue] ? 
                     wordSetDomains[selectedValue] : null;
 
-                // Clear previous results
-                output.innerHTML = '';
-
                 // Update strategy indicator
                 if (strategyIndicator) {
                     const contextLabel = context === 'general' ? 'General Context' : 
@@ -509,98 +624,21 @@ const question = {
 
                 // Simulate embedding evolution
                 const results = simulateEmbeddingEvolution(words, strategy, context);
-
-                // Create evolution visualization
-                const evolutionContainer = document.createElement('div');
-                evolutionContainer.className = 'space-y-4';
-
-                results.forEach((result) => {
-                    const wordContainer = document.createElement('div');
-                    wordContainer.className = 'border rounded-lg p-4 hover:shadow-md transition-shadow';
-                    wordContainer.style.backgroundColor = config.bgColor;
-                    wordContainer.style.borderColor = config.color + '40';
-
-                    const initialPercentage = (result.initialSimilarity * 100).toFixed(1);
-                    const finalPercentage = (result.finalSimilarity * 100).toFixed(1);
-                    const improvement = (result.finalSimilarity - result.initialSimilarity) * 100;
-
-                    const contextLabel = context === 'general' ? 'general context' : 
-                        (currentDomain ? `${currentDomain.name.toLowerCase()} context` : 'specialized context');
-
-                    wordContainer.innerHTML = `
-                        <div class="flex items-center justify-between mb-3">
-                            <h5 class="font-semibold text-lg" style="color: ${config.color}">${result.word}</h5>
-                            <span class="text-xs px-2 py-1 rounded" style="background-color: ${config.color}20; color: ${config.color}">
-                                ${result.dimensions}D vector
-                            </span>
-                        </div>
-                        
-                        <div class="grid grid-cols-2 gap-4 mb-3">
-                            <div class="text-center p-2 bg-white rounded border">
-                                <div class="text-sm text-gray-600">Initial Similarity</div>
-                                <div class="text-lg font-bold text-red-600">${initialPercentage}%</div>
-                                <div class="text-xs text-gray-500">To related words</div>
-                            </div>
-                            <div class="text-center p-2 bg-white rounded border">
-                                <div class="text-sm text-gray-600">Final Similarity</div>
-                                <div class="text-lg font-bold text-green-600">${finalPercentage}%</div>
-                                <div class="text-xs text-gray-500">After training</div>
-                            </div>
-                        </div>
-
-                        <div class="mb-3">
-                            <div class="text-sm text-gray-600 mb-1">Training Progress</div>
-                            <div class="w-full bg-gray-200 rounded-full h-2">
-                                <div class="bg-gradient-to-r from-red-400 to-green-500 h-2 rounded-full transition-all duration-500" 
-                                     style="width: ${finalPercentage}%"></div>
-                            </div>
-                            <div class="text-xs text-gray-500 mt-1">
-                                Improvement: +${improvement.toFixed(1)}% | Speed: ${result.convergenceSpeed}
-                            </div>
-                        </div>
-
-                        <div class="text-sm">
-                            <div class="text-gray-600 mb-1">Related words in ${contextLabel}:</div>
-                            <div class="flex flex-wrap gap-1 p-2 bg-gray-50 rounded">
-                                ${result.relatedWords.map(word => 
-                                    `<span class="px-2 py-1 text-xs rounded" style="background-color: ${config.color}20; color: ${config.color}">${word}</span>`
-                                ).join('')}
-                            </div>
-                        </div>
-                    `;
-
-                    evolutionContainer.appendChild(wordContainer);
-                });
-
-                output.appendChild(evolutionContainer);
-
-                // Add statistics summary
-                const statsEl = document.createElement('div');
-                statsEl.className = 'grid grid-cols-2 md:grid-cols-4 gap-3 p-3 bg-white rounded border mt-4 text-sm';
-                
-                const avgInitial = results.reduce((sum, r) => sum + r.initialSimilarity, 0) / results.length;
-                const avgFinal = results.reduce((sum, r) => sum + r.finalSimilarity, 0) / results.length;
-                const avgImprovement = ((avgFinal - avgInitial) * 100);
-
-                statsEl.innerHTML = `
-                    <div class="text-center">
-                        <div class="text-lg font-bold" style="color: ${config.color}">${words.length}</div>
-                        <div class="text-gray-600 text-xs">Words Analyzed</div>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-lg font-bold text-blue-600">${config.convergenceTime}</div>
-                        <div class="text-gray-600 text-xs">Training Time</div>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-lg font-bold text-green-600">${avgImprovement.toFixed(1)}%</div>
-                        <div class="text-gray-600 text-xs">Avg Improvement</div>
-                    </div>
-                    <div class="text-center">
-                        <div class="text-lg font-bold text-purple-600">${config.dataNeeds}</div>
-                        <div class="text-gray-600 text-xs">Data Needs</div>
-                    </div>
-                `;
-                output.appendChild(statsEl);
+                const sortBy = sortSelect?.value || 'final';
+                const otherStrategy = compareStrategySelect?.value || 'pretrained';
+                if(compareToggle?.checked){
+                    output.classList.add('hidden');
+                    compareGrid?.classList.remove('hidden');
+                    if(titleA) titleA.textContent = `${configData[strategy].name}`;
+                    if(titleB) titleB.textContent = `${configData[otherStrategy].name}`;
+                    const resultsB = simulateEmbeddingEvolution(words, otherStrategy, context);
+                    renderResultsInto(outputA, results, configData[strategy], context, currentDomain, sortBy);
+                    renderResultsInto(outputB, resultsB, configData[otherStrategy], context, currentDomain, sortBy);
+                } else {
+                    compareGrid?.classList.add('hidden');
+                    output.classList.remove('hidden');
+                    renderResultsInto(output, results, config, context, currentDomain, sortBy);
+                }
 
                 // Update legend
                 if (legend) {
@@ -629,7 +667,8 @@ const question = {
             // Update strategy visuals
             function updateStrategyVisuals() {
                 document.querySelectorAll('input[name="q10-strategy"]').forEach((radio) => {
-                    const container = radio.closest('label').querySelector('div');
+                    const container = radio.closest('label')?.querySelector('.q10-card');
+                    if(!container) return;
                     if (radio.checked) {
                         container.style.borderColor = configData[radio.value].color;
                         container.style.backgroundColor = configData[radio.value].bgColor;
@@ -640,7 +679,8 @@ const question = {
                 });
 
                 document.querySelectorAll('input[name="q10-context"]').forEach((radio) => {
-                    const container = radio.closest('label').querySelector('div');
+                    const container = radio.closest('label')?.querySelector('.q10-card');
+                    if(!container) return;
                     if (radio.checked) {
                         container.style.borderColor = radio.value === 'general' ? '#3b82f6' : '#ef4444';
                         container.style.backgroundColor = radio.value === 'general' ? '#eff6ff' : '#fef2f2';
@@ -734,25 +774,46 @@ const question = {
             }
 
             // Event listeners
-            wordSelect.addEventListener('change', processAndDisplay);
+            // Persistence helpers
+            function saveState(){
+                try{
+                    const state={
+                        words: wordSelect.value,
+                        strategy: getCurrentStrategy(),
+                        context: getCurrentContext(),
+                        sort: sortSelect?.value,
+                        compare: !!compareToggle?.checked,
+                        compareWith: compareStrategySelect?.value
+                    };
+                    localStorage.setItem('q10_state', JSON.stringify(state));
+                }catch{}
+            }
+            function loadState(){
+                try{
+                    const raw=localStorage.getItem('q10_state'); if(!raw) return;
+                    const state=JSON.parse(raw);
+                    if(state.words){ wordSelect.value=state.words; }
+                    if(state.strategy){ const r=document.querySelector(`input[name="q10-strategy"][value="${state.strategy}"]`); if(r) r.checked=true; }
+                    if(state.context){ const r=document.querySelector(`input[name="q10-context"][value="${state.context}"]`); if(r) r.checked=true; }
+                    if(state.sort && sortSelect){ sortSelect.value=state.sort; }
+                    if(compareToggle){ compareToggle.checked=!!state.compare; }
+                    if(state.compareWith && compareStrategySelect){ compareStrategySelect.value=state.compareWith; }
+                }catch{}
+            }
+
+            wordSelect.addEventListener('change', ()=>{ processAndDisplay(); saveState(); });
             
             strategyRadios.forEach(radio => {
-                radio.addEventListener('change', () => {
-                    updateStrategyVisuals();
-                    processAndDisplay();
-                });
+                radio.addEventListener('change', () => { updateStrategyVisuals(); processAndDisplay(); saveState(); });
             });
 
             contextRadios.forEach(radio => {
                 radio.addEventListener('change', () => {
-                    window.q10ManualContextSelection = true; // Mark as manual selection
+                    q10ManualContextSelection = true; // Mark as manual selection
                     updateStrategyVisuals();
                     processAndDisplay();
-                    
-                    // Clear the manual selection flag after 2 seconds
-                    setTimeout(() => {
-                        window.q10ManualContextSelection = false;
-                    }, 2000);
+                    saveState();
+                    setTimeout(() => { q10ManualContextSelection = false; }, 2000);
                 });
             });
 
@@ -765,7 +826,7 @@ const question = {
                         if (e.target === radio) return;
                         
                         radio.checked = true;
-                        window.q10ManualContextSelection = true; // Mark as manual selection
+                        q10ManualContextSelection = true; // Mark as manual selection
                         
                         // Trigger change event
                         radio.dispatchEvent(new Event('change'));
@@ -773,9 +834,38 @@ const question = {
                 }
             });
 
+            function updateCompareUIState(){
+                if(!compareStrategySelect) return;
+                const on = !!compareToggle?.checked;
+                compareStrategySelect.disabled = !on;
+                compareStrategySelect.classList.toggle('opacity-50', !on);
+                compareStrategySelect.classList.toggle('cursor-not-allowed', !on);
+            }
+
+            sortSelect?.addEventListener('change', ()=>{ processAndDisplay(); saveState(); });
+            compareToggle?.addEventListener('change', ()=>{ updateCompareUIState(); processAndDisplay(); saveState(); });
+            compareStrategySelect?.addEventListener('change', ()=>{ processAndDisplay(); saveState(); });
+            resetBtn?.addEventListener('click', ()=>{
+                localStorage.removeItem('q10_state');
+                // Defaults
+                wordSelect.selectedIndex=0;
+                document.querySelector('input[name="q10-strategy"][value="random"]').checked=true;
+                document.querySelector('input[name="q10-context"][value="general"]').checked=true;
+                if(sortSelect) sortSelect.value='final';
+                if(compareToggle) compareToggle.checked=false;
+                if(compareStrategySelect) compareStrategySelect.value='pretrained';
+                updateStrategyVisuals();
+                updateCompareUIState();
+                processAndDisplay();
+            });
+
             // Initial setup
+            let q10ManualContextSelection = false;
+            loadState();
             updateStrategyVisuals();
+            updateCompareUIState();
             processAndDisplay();
+            saveState();
         }
     }
 };

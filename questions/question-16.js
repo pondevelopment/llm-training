@@ -6,6 +6,15 @@ const question = {
     title: "16. How do LLMs manage out-of-vocabulary (OOV) words?",
     answer: `
         <div class="space-y-4">
+            <!-- Recommended Reading -->
+            <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+                <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (if these terms are new)</h4>
+                <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+                    <li><a href="#question-1" class="text-indigo-700 underline hover:text-indigo-900">Question 1: What is tokenization and why does it matter?</a></li>
+                    <li><a href="#question-12" class="text-indigo-700 underline hover:text-indigo-900">Question 12: Tokens vs. words — how are they different?</a></li>
+                </ul>
+            </div>
+
             <!-- Main Concept -->
             <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
                 <h4 class="font-semibold text-blue-900 mb-2">🔤 What are Out-of-Vocabulary (OOV) Words?</h4>
@@ -448,7 +457,13 @@ function initializeQuestion16() {
             // Simulate subword tokenization
             function tokenizeText(text, strategy, vocabSize, minFreq) {
                 const config = strategyConfig[strategy];
-                const words = text.toLowerCase().replace(/[^\w\s]/g, ' ').split(/\s+/).filter(w => w.length > 0);
+                // Keep Unicode letters, marks, numbers, spaces, apostrophes, and hyphens; replace others with spaces
+                const words = text
+                    .toLowerCase()
+                    .replace(/[^\p{L}\p{M}\p{N}\s'\-]/gu, ' ')
+                    .trim()
+                    .split(/\s+/)
+                    .filter(w => w.length > 0);
                 
                 let tokens = [];
                 let oovWords = [];
@@ -712,13 +727,6 @@ function initializeQuestion16() {
                         strategy === 'sentencepiece' ? 
                         'SentencePiece provides consistent handling across languages and handles Unicode characters well.' :
                         'WordPiece optimizes for training likelihood and works well with transformer architectures.'}</p>
-                    <p class="mt-2"><strong>Results:</strong> Processed ${result.metrics.tokenCount} tokens with ${result.metrics.oovCount} OOV words handled. 
-                    Compression efficiency is ${efficiencyLevel} (${result.metrics.compressionRatio.toFixed(1)}x), vocabulary coverage is ${coverageLevel} (${result.metrics.coverage.toFixed(0)}%).</p>
-                    <p class="mt-2"><strong>Strategy Analysis:</strong> ${strategy === 'bpe' ? 
-                        'BPE effectively handles morphological patterns and produces intuitive splits for compound words.' :
-                        strategy === 'sentencepiece' ? 
-                        'SentencePiece provides consistent handling across languages and handles Unicode characters well.' :
-                        'WordPiece optimizes for training likelihood and works well with transformer architectures.'}</p>
                     <p class="mt-2"><strong>OOV Handling:</strong> ${result.metrics.oovCount === 0 ? 
                         'All words were in vocabulary - excellent coverage!' :
                         `Successfully decomposed ${result.metrics.oovCount} unknown words into meaningful subword units, maintaining semantic information.`}</p>
@@ -763,3 +771,6 @@ function initializeQuestion16() {
             updateParameterDisplays();
             updateDisplay();
 }
+
+// Optional (safe) export for Node-based tooling/tests
+if (typeof module !== 'undefined') { module.exports = question; }

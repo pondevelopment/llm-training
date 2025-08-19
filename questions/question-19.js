@@ -5,6 +5,14 @@
 const question = {
     title: "19. What are generative versus discriminative models in NLP?",
     answer: `<div class="space-y-4">
+        <!-- Recommended Reading -->
+        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related topics)</h4>
+            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+                <li><a href="#question-02" class="text-indigo-700 underline hover:text-indigo-900">Question 2: Attention mechanisms</a></li>
+                <li><a href="#question-17" class="text-indigo-700 underline hover:text-indigo-900">Question 17: Seq2Seq vs Transformers</a></li>
+            </ul>
+        </div>
         <!-- Main Concept Box -->
         <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
             <h4 class="font-semibold text-blue-900 mb-2">🤖 Generative vs Discriminative Models</h4>
@@ -18,7 +26,7 @@ const question = {
                 <p class="text-sm text-green-700 mb-2">Model joint probability P(X,Y) to create new data</p>
                 <div class="space-y-2">
                     <div class="text-xs bg-green-100 p-2 rounded">
-                        <strong>Examples:</strong> GPT-4, GPT-3, T5, BART
+                        <strong>Examples:</strong> OpenAI: GPT-4.1/4o, o1/o3; Anthropic: Claude 3.7/4; Google: Gemini 2.5 Pro/Flash; Meta: Llama 3.1/4; Mistral: Large 2, Mixtral
                     </div>
                     <div class="text-xs bg-green-100 p-2 rounded">
                         <strong>Tasks:</strong> Text generation, translation, summarization, creative writing
@@ -52,12 +60,16 @@ const question = {
             <div class="grid md:grid-cols-2 gap-4 text-sm">
                 <div>
                     <strong class="text-green-700">Generative Models:</strong>
-                    <code class="block bg-white p-2 rounded mt-1 text-xs">P(X, Y) = P(X|Y) × P(Y)</code>
+                    <div class="text-xs bg-white p-2 rounded mt-1 text-center overflow-x-auto whitespace-nowrap">
+                        $$ P(X, Y) = P(X\mid Y) \\times P(Y) $$
+                    </div>
                     <p class="text-indigo-700 text-xs mt-1">Learn the full data distribution to generate new samples</p>
                 </div>
                 <div>
                     <strong class="text-purple-700">Discriminative Models:</strong>
-                    <code class="block bg-white p-2 rounded mt-1 text-xs">P(Y|X)</code>
+                    <div class="text-xs bg-white p-2 rounded mt-1 text-center overflow-x-auto whitespace-nowrap">
+                        $$ P(Y\mid X) $$
+                    </div>
                     <p class="text-indigo-700 text-xs mt-1">Learn decision boundaries to classify given inputs</p>
                 </div>
             </div>
@@ -165,9 +177,9 @@ const question = {
             <div class="bg-white border border-gray-200 rounded-lg p-4">
                 <div class="flex items-center justify-between mb-3">
                     <h4 class="font-medium text-gray-900">🎭 Model Output</h4>
-                    <div id="q19-model-indicator" class="text-xs bg-gray-100 px-2 py-1 rounded font-medium"></div>
+                    <div id="q19-model-indicator" class="text-xs bg-gray-100 px-2 py-1 rounded font-medium" aria-live="polite"></div>
                 </div>
-                <div id="q19-output" class="min-h-[120px] p-4 bg-gray-50 rounded border-2 border-dashed border-gray-300"></div>
+                <div id="q19-output" class="min-h-[120px] p-4 bg-gray-50 rounded border-2 border-dashed border-gray-300" aria-live="polite"></div>
                 <div id="q19-legend" class="mt-3 text-xs"></div>
             </div>
             
@@ -371,7 +383,11 @@ const question = {
                 // Update model indicator
                 if (modelIndicator) {
                     modelIndicator.textContent = modelData[selectedModelType].name;
-                    modelIndicator.className = `text-xs bg-${modelData[selectedModelType].color}-100 text-${modelData[selectedModelType].color}-800 px-2 py-1 rounded font-medium`;
+                    const map = {
+                        green: 'bg-green-100 text-green-800',
+                        purple: 'bg-purple-100 text-purple-800'
+                    };
+                    modelIndicator.className = `text-xs ${map[modelData[selectedModelType].color] || 'bg-gray-100 text-gray-800'} px-2 py-1 rounded font-medium`;
                 }
             }
 
@@ -470,17 +486,29 @@ const question = {
                     
                     // Classification section
                     const classificationSection = document.createElement('div');
+                    const colorMap = {
+                        gray:  { label: 'text-gray-600',   badgeBg: 'bg-gray-100',   badgeText: 'text-gray-800',   bar: 'bg-gray-500' },
+                        red:   { label: 'text-red-600',    badgeBg: 'bg-red-100',    badgeText: 'text-red-800',    bar: 'bg-red-500' },
+                        green: { label: 'text-green-600',  badgeBg: 'bg-green-100',  badgeText: 'text-green-800',  bar: 'bg-green-500' },
+                        yellow:{ label: 'text-yellow-600', badgeBg: 'bg-yellow-100', badgeText: 'text-yellow-800', bar: 'bg-yellow-500' },
+                        orange:{ label: 'text-orange-600', badgeBg: 'bg-orange-100', badgeText: 'text-orange-800', bar: 'bg-orange-500' },
+                        blue:  { label: 'text-blue-600',   badgeBg: 'bg-blue-100',   badgeText: 'text-blue-800',   bar: 'bg-blue-500' },
+                        teal:  { label: 'text-teal-600',   badgeBg: 'bg-teal-100',   badgeText: 'text-teal-800',   bar: 'bg-teal-500' },
+                        indigo:{ label: 'text-indigo-600', badgeBg: 'bg-indigo-100', badgeText: 'text-indigo-800', bar: 'bg-indigo-500' },
+                        purple:{ label: 'text-purple-600', badgeBg: 'bg-purple-100', badgeText: 'text-purple-800', bar: 'bg-purple-500' }
+                    };
+                    const c = colorMap[classification.color] || colorMap.gray;
                     classificationSection.innerHTML = `
                         <div class="text-sm font-medium text-purple-700 mb-2">🎯 ${task.charAt(0).toUpperCase() + task.slice(1)} Classification:</div>
                         <div class="p-4 bg-purple-50 border border-purple-200 rounded">
                             <div class="flex items-center justify-between mb-2">
-                                <span class="text-lg font-bold text-${classification.color}-600">${classification.label}</span>
-                                <span class="text-xs bg-${classification.color}-100 text-${classification.color}-800 px-2 py-1 rounded">
+                                <span class="text-lg font-bold ${c.label}">${classification.label}</span>
+                                <span class="text-xs ${c.badgeBg} ${c.badgeText} px-2 py-1 rounded">
                                     ${(classification.confidence * 100).toFixed(1)}% confident
                                 </span>
                             </div>
                             <div class="w-full bg-gray-200 rounded-full h-2">
-                                <div class="bg-${classification.color}-500 h-2 rounded-full transition-all duration-500" style="width: ${classification.confidence * 100}%"></div>
+                                <div class="${c.bar} h-2 rounded-full transition-all duration-500" style="width: ${classification.confidence * 100}%"></div>
                             </div>
                         </div>
                     `;
@@ -534,7 +562,8 @@ const question = {
                         <br>• <strong>Training:</strong> Learns from massive text corpora to understand language patterns and continue text naturally
                         <br>• <strong>Strength:</strong> Can create entirely new, coherent content that didn't exist in training data
                         <br>• <strong>Use cases:</strong> Content generation, creative writing, translation, summarization, conversation
-                        <br>• <strong>Example models:</strong> GPT-4, GPT-3, T5, BART, ChatGPT
+                        <br>• <strong>Example models:</strong> OpenAI: GPT-4.1/4o, o1/o3; Anthropic: Claude 3.7/4; Google: Gemini 2.5 Pro/Flash; Meta: Llama 3.1/4; Mistral: Large 2, Mixtral, Magistral
+                        <br>• <strong>Note:</strong> ChatGPT is an application using GPT models; cite the underlying model when possible
                     `,
                     'discriminative': `
                         <strong>🎯 Discriminative Model (like BERT)</strong> works by learning conditional probability P(Y|X) to classify inputs.

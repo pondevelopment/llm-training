@@ -20,7 +20,7 @@ const question = {
                     <div><strong>Training:</strong> "The cat sat on" → predict "the"</div>
                     <div><strong>Strengths:</strong> Text generation, completion, creative writing</div>
                     <div><strong>Direction:</strong> Left-to-right (causal)</div>
-                    <div><strong>Examples:</strong> GPT-3/4, ChatGPT, Claude</div>
+                    <div><strong>Examples:</strong> OpenAI (GPT‑4.1/4o, o1/o3), Anthropic (Claude 3.7/4), Google (Gemini 2.5 Pro/Flash), Meta (Llama 3.1/4), Mistral (Large 2/Mixtral)</div>
                 </div>
                 <code class="text-xs bg-green-100 px-2 py-1 rounded block mt-2">P(token | previous_tokens)</code>
             </div>

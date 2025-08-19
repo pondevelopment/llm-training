@@ -44,6 +44,7 @@ top-50-llm-questions/
 │   └── question-template.js              # Template for new questions
 ├── QUESTION_TEMPLATE_GUIDE.md            # Authoring guidance
 ├── QUESTION_CHECKLIST.md                 # Review & test checklist
+├── COPILOT_SYSTEM_PROMPT.md              # AI-assisted coding system prompt
 ├── LICENSE                               # MIT License
 └── README.md
 ```
@@ -54,9 +55,11 @@ top-50-llm-questions/
 2) Open `index.html` in a modern browser (no server needed)
 
 Tips inside the app:
+
 - Use the dropdown or ← / → to navigate
 - Press “S” to copy a shareable deep link to the current question
 - Click “Glossary” in the header to browse definitions and jump to questions
+
 
 ## 🔧 Development
 
@@ -68,8 +71,10 @@ Tips inside the app:
 4. Follow `QUESTION_TEMPLATE_GUIDE.md` and verify with `QUESTION_CHECKLIST.md`
 
 Question contract:
+
 - question = { title, answer (HTML string), interactive?: { title, html, script() } }
 - MathJax: escape backslashes and “<” inside JS strings (use `\\` and `&lt;`)
+
 
 ### Notable implementation details
 
@@ -77,19 +82,29 @@ Question contract:
 - Adjacent questions are opportunistically preloaded to reduce perceived latency
 - MathJax rendering is retried on transient errors; see `index.html` startup config
 
+### AI-assisted coding prompt
+
+See `COPILOT_SYSTEM_PROMPT.md` for repository-wide rules when using AI assistants.
+
+- Commit/push only on explicit user request
+- Assume a local test server at <http://127.0.0.1:5501> for smoke checks
+
+
 ## 📎 Attribution
 
 Questions are based on the overview here:
 Top 50 LinkedIn LLM interview questions (LinkedIn):
-https://www.linkedin.com/posts/hoang-van-hao_top-50-linkedin-llm-interview-questions-activity-7332959385280778240-lyU0/
+<https://www.linkedin.com/posts/hoang-van-hao_top-50-linkedin-llm-interview-questions-activity-7332959385280778240-lyU0/>
 
 ## 🤝 Contributing
 
 Contributions are welcome. Please:
+
 1) Fork the repo and create a feature branch
 2) Follow the question contract and style conventions
 3) Test thoroughly (try multiple browsers)
 4) Open a PR with a concise description and screenshots/GIFs if UI changes
+
 
 ## 📝 License
 

@@ -6,6 +6,13 @@ const question = {
     title: "17. How do transformers improve on traditional Seq2Seq models?",
     answer: `
         <div class="space-y-4">
+            <!-- Recommended Reading -->
+            <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+                <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (if these terms are new)</h4>
+                <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+                    <li><a href="#question-2" class="text-indigo-700 underline hover:text-indigo-900">Question 2: Attention mechanisms</a></li>
+                </ul>
+            </div>
             <!-- Main Concept Box -->
             <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
                 <h4 class="font-semibold text-blue-900 mb-2">🔄 Transformer vs Seq2Seq Evolution</h4>
@@ -35,19 +42,30 @@ const question = {
                 <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
                     <h5 class="font-medium text-green-900">🚀 Parallel Processing</h5>
                     <p class="text-sm text-green-700 mb-2">Self-attention processes all tokens simultaneously</p>
-                    <code class="text-xs bg-green-100 px-1 rounded block">RNN: O(n) sequential → Transformer: O(1) parallel</code>
+                    <code class="text-xs bg-green-100 px-1 rounded block">RNN: n sequential steps → Transformer: 1 parallel round (per layer)</code>
                 </div>
                 
                 <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
                     <h5 class="font-medium text-purple-900">🎯 Long-Range Dependencies</h5>
                     <p class="text-sm text-purple-700 mb-2">Direct attention to any position in the sequence</p>
-                    <code class="text-xs bg-purple-100 px-1 rounded block">Attention(Q,K,V) = softmax(QK^T/√d)V</code>
+                    <div class="text-xs bg-purple-100 px-1 py-1 rounded text-center overflow-x-auto whitespace-nowrap">
+                        $$
+                        \\mathrm{Attention}(Q,K,V) = \\mathrm{softmax}\\!\\left( \\frac{QK^{T}}{\\sqrt{d_k}} \\right) V
+                        $$
+                    </div>
                 </div>
                 
                 <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
                     <h5 class="font-medium text-orange-900">📍 Positional Encoding</h5>
                     <p class="text-sm text-orange-700 mb-2">Preserves sequence order without sequential processing</p>
-                    <code class="text-xs bg-orange-100 px-1 rounded block">PE(pos,2i) = sin(pos/10000^(2i/d))</code>
+                    <div class="text-xs bg-orange-100 px-1 py-1 rounded text-center overflow-x-auto whitespace-nowrap">
+                        $$
+                        \\begin{align*}
+                        \\mathrm{PE}(pos,2i) &= \\sin\\!\\left( pos / 10000^{\\frac{2i}{d_{model}}} \\right) \\\\
+                        \\mathrm{PE}(pos,2i+1) &= \\cos\\!\\left( pos / 10000^{\\frac{2i}{d_{model}}} \\right)
+                        \\end{align*}
+                        $$
+                    </div>
                 </div>
             </div>
             
@@ -79,11 +97,11 @@ const question = {
         title: "🔄 Seq2Seq vs Transformer Architecture Comparison",
         html: `
             <div class="space-y-6">
-                <!-- Input Section -->
+                <!-- Input Section (Dropdown-controlled) -->
                 <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200">
-                    <label for="q17-text-input" class="block text-sm font-medium text-gray-700 mb-2">📝 Input Sequence (for translation/processing)</label>
-                    <input type="text" id="q17-text-input" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" value="The quick brown fox jumps over the lazy dog">
-                    <p class="text-xs text-gray-600 mt-1">Enter a sentence to see how different architectures process it</p>
+                    <label for="q17-example-select" class="block text-sm font-medium text-gray-700 mb-2">📝 Choose an example sequence</label>
+                    <select id="q17-example-select" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"></select>
+                    <p class="text-xs text-gray-600 mt-1">Pick a built-in example to see how each architecture processes it</p>
                 </div>
                 
                 <!-- Architecture Selection -->
@@ -119,11 +137,7 @@ const question = {
                     </div>
                 </div>
 
-                <!-- Quick Examples -->
-                <div class="flex flex-wrap gap-2">
-                    <span class="text-sm font-medium text-gray-700">💡 Quick Examples:</span>
-                    <button id="q17-example-btn" class="text-xs bg-indigo-100 text-indigo-700 px-2 py-1 rounded hover:bg-indigo-200 transition-colors">Long sentence with complex dependencies</button>
-                </div>
+                <!-- Quick Examples removed: controlled via dropdown above -->
                 
                 <!-- Processing Visualization -->
                 <div class="bg-white border border-gray-200 rounded-lg p-4">
@@ -158,25 +172,32 @@ const question = {
         `,
         script: () => {
             // Get DOM elements
-            const textInput = document.getElementById('q17-text-input');
+            const exampleSelect = document.getElementById('q17-example-select');
             const output = document.getElementById('q17-output');
             const legend = document.getElementById('q17-legend');
             const explanation = document.getElementById('q17-explanation');
             const metrics = document.getElementById('q17-metrics');
             const indicator = document.getElementById('q17-architecture-indicator');
-            const exampleBtn = document.getElementById('q17-example-btn');
-
-            if (!textInput || !output || !explanation) return;
+            
+            if (!exampleSelect || !output || !explanation) return;
 
             // Example sentences
             const examples = [
-                "The quick brown fox jumps over the lazy dog",
-                "Machine translation has revolutionized how we communicate across language barriers in the modern digital world",
-                "When I was young, my grandmother told me stories that shaped my worldview",
-                "The research paper demonstrates significant improvements in neural network architectures",
-                "Despite the challenges, the team successfully completed the project on time"
+                { label: 'Pangram (short)', text: "The quick brown fox jumps over the lazy dog" },
+                { label: 'Long sentence (dependencies)', text: "Machine translation has revolutionized how we communicate across language barriers in the modern digital world" },
+                { label: 'Story fragment', text: "When I was young, my grandmother told me stories that shaped my worldview" },
+                { label: 'Research phrase', text: "The research paper demonstrates significant improvements in neural network architectures" },
+                { label: 'Project outcome', text: "Despite the challenges, the team successfully completed the project on time" }
             ];
-            let currentExample = 0;
+
+            // Populate dropdown
+            examples.forEach((ex, idx) => {
+                const opt = document.createElement('option');
+                opt.value = String(idx);
+                opt.textContent = `${ex.label}: ${ex.text}`;
+                exampleSelect.appendChild(opt);
+            });
+            exampleSelect.value = '0';
 
             // Architecture configurations
             const architectureConfig = {
@@ -199,7 +220,8 @@ const question = {
 
             // Process input and visualize
             const processInput = () => {
-                const text = textInput.value.trim();
+                const idx = parseInt(exampleSelect.value, 10) || 0;
+                const text = examples[idx].text.trim();
                 if (!text) return;
 
                 const selectedArch = document.querySelector('input[name="q17-architecture"]:checked');
@@ -243,7 +265,7 @@ const question = {
                     <div class="mb-3 text-xs text-red-700">
                         <strong>RNN Process:</strong> Each word updates the hidden state sequentially: h₀ → h₁ → h₂ → h₃...
                     </div>
-                    <div class="flex items-center space-x-2 mb-2">
+            <div class="flex flex-wrap items-center gap-2 mb-2">
                         ${tokens.map((token, i) => `
                             <div class="relative">
                                 <div class="bg-red-100 border border-red-300 px-2 py-1 rounded text-xs">${token}</div>
@@ -252,7 +274,7 @@ const question = {
                                     <div class="text-[10px]">step ${i + 1}</div>
                                 </div>
                             </div>
-                            ${i < tokens.length - 1 ? '<div class="text-red-400 text-xs">→</div>' : ''}
+                ${i < tokens.length - 1 ? '<div class="text-red-400 text-xs">→</div>' : ''}
                         `).join('')}
                     </div>
                     <div class="bg-red-200 p-2 rounded text-xs text-red-800">
@@ -268,7 +290,7 @@ const question = {
                     <div class="mb-2 text-xs text-red-700">
                         <strong>RNN Limitation:</strong> Decoder can only use the fixed context vector + its own hidden state
                     </div>
-                    <div class="flex items-center space-x-2">
+                    <div class="flex flex-wrap items-center gap-2">
                         <div class="bg-red-200 px-2 py-1 rounded text-xs">
                             <div>Context h${tokens.length}</div>
                             <div class="text-[10px]">Fixed!</div>
@@ -366,9 +388,9 @@ const question = {
                     <div class="grid grid-cols-2 gap-4">
                         <div class="bg-red-50 p-3 rounded border">
                             <div class="font-medium text-red-800 mb-2">❌ RNN: Sequential (${tokens.length} steps)</div>
-                            <div class="space-y-1">
+                <div class="flex flex-wrap gap-2">
                                 ${tokens.map((token, i) => `
-                                    <div class="flex items-center space-x-2 text-xs">
+                    <div class="flex items-center gap-2 text-xs">
                                         <div class="w-4 h-4 bg-red-200 rounded flex items-center justify-center font-bold">${i+1}</div>
                                         <div class="bg-red-100 px-2 py-1 rounded">${token}</div>
                                         <div class="text-red-600">→ h${i+1}</div>
@@ -380,7 +402,7 @@ const question = {
                         
                         <div class="bg-green-50 p-3 rounded border">
                             <div class="font-medium text-green-800 mb-2">✅ Transformer: Parallel (1 step)</div>
-                            <div class="flex flex-wrap gap-1">
+                            <div class="flex flex-wrap gap-2">
                                 ${tokens.map((token, i) => `
                                     <div class="flex items-center space-x-1 text-xs">
                                         <div class="w-4 h-4 bg-green-500 rounded flex items-center justify-center font-bold text-white">∀</div>
@@ -471,7 +493,7 @@ const question = {
                         <div class="text-xs text-red-700">
                             <strong>Processing:</strong> Sequential (${tokens.length} steps)
                         </div>
-                        <div class="flex items-center space-x-1">
+                        <div class="flex flex-wrap items-center gap-1">
                             ${tokens.map((token, i) => `
                                 <div class="bg-red-100 px-1 py-1 rounded text-xs">${token.slice(0, 3)}${token.length > 3 ? '...' : ''}</div>
                                 ${i < tokens.length - 1 ? '<div class="text-red-400 text-xs">→</div>' : ''}
@@ -536,56 +558,62 @@ const question = {
             // Update performance metrics
             const updateMetrics = (tokens, architecture) => {
                 const seqLength = tokens.length;
-                const transformerComplexity = seqLength * seqLength;
-                const seq2seqComplexity = seqLength;
+                const transformerComplexity = seqLength * seqLength; // O(n^2) compute & memory for full attention
+                const seq2seqComplexity = seqLength; // O(n)
 
                 if (architecture === 'seq2seq') {
                     metrics.innerHTML = `
                         <div class="grid md:grid-cols-2 gap-4">
                             <div>
-                                <div class="font-medium text-red-900">Time Complexity</div>
-                                <div class="text-red-700">O(${seqLength}) - Sequential</div>
+                                <div class="font-medium text-red-900">Parallel rounds</div>
+                                <div class="text-red-700">${seqLength} (sequential steps)</div>
                             </div>
                             <div>
-                                <div class="font-medium text-red-900">Memory</div>
-                                <div class="text-red-700">O(${seqLength}) - Linear</div>
+                                <div class="font-medium text-red-900">Compute complexity</div>
+                                <div class="text-red-700">O(${seq2seqComplexity})</div>
                             </div>
                         </div>
-                        <div class="mt-2 text-red-600 text-xs">
-                            Processing time increases linearly with sequence length
+                        <div class="grid md:grid-cols-2 gap-4 mt-2">
+                            <div>
+                                <div class="font-medium text-red-900">Memory</div>
+                                <div class="text-red-700">O(${seq2seqComplexity})</div>
+                            </div>
                         </div>
+                        <div class="mt-2 text-red-600 text-xs">Processing is inherently sequential; limited parallelism.</div>
                     `;
                 } else if (architecture === 'transformer') {
                     metrics.innerHTML = `
                         <div class="grid md:grid-cols-2 gap-4">
                             <div>
-                                <div class="font-medium text-green-900">Time Complexity</div>
-                                <div class="text-green-700">O(1) - Parallel</div>
+                                <div class="font-medium text-green-900">Parallel rounds</div>
+                                <div class="text-green-700">1 (idealized, per layer)</div>
                             </div>
                             <div>
-                                <div class="font-medium text-green-900">Memory</div>
-                                <div class="text-green-700">O(${seqLength}²) - Quadratic</div>
+                                <div class="font-medium text-green-900">Compute complexity</div>
+                                <div class="text-green-700">O(${transformerComplexity})</div>
                             </div>
                         </div>
-                        <div class="mt-2 text-green-600 text-xs">
-                            Constant time processing with quadratic memory trade-off
+                        <div class="grid md:grid-cols-2 gap-4 mt-2">
+                            <div>
+                                <div class="font-medium text-green-900">Memory</div>
+                                <div class="text-green-700">O(${transformerComplexity})</div>
+                            </div>
                         </div>
+                        <div class="mt-2 text-green-600 text-xs">Highly parallelizable with quadratic compute/memory for full attention.</div>
                     `;
                 } else {
                     metrics.innerHTML = `
                         <div class="grid md:grid-cols-2 gap-4">
                             <div class="bg-red-100 p-2 rounded">
                                 <div class="font-medium text-red-900">Seq2Seq</div>
-                                <div class="text-red-700 text-xs">Time: O(${seqLength}), Memory: O(${seqLength})</div>
+                                <div class="text-red-700 text-xs">Parallel rounds: ${seqLength}; Compute: O(${seq2seqComplexity}); Memory: O(${seq2seqComplexity})</div>
                             </div>
                             <div class="bg-green-100 p-2 rounded">
                                 <div class="font-medium text-green-900">Transformer</div>
-                                <div class="text-green-700 text-xs">Time: O(1), Memory: O(${seqLength}²)</div>
+                                <div class="text-green-700 text-xs">Parallel rounds: 1; Compute: O(${transformerComplexity}); Memory: O(${transformerComplexity})</div>
                             </div>
                         </div>
-                        <div class="mt-2 text-purple-600 text-xs">
-                            Transformer trades memory for massive parallelization gains
-                        </div>
+                        <div class="mt-2 text-purple-600 text-xs">Transformer trades memory/compute for massive parallelization gains.</div>
                     `;
                 }
             };
@@ -638,20 +666,11 @@ const question = {
             };
 
             // Example cycling
-            const cycleExample = () => {
-                currentExample = (currentExample + 1) % examples.length;
-                textInput.value = examples[currentExample];
-                processInput();
-            };
-
             // Event listeners
-            textInput.addEventListener('input', processInput);
+            exampleSelect.addEventListener('change', processInput);
             document.querySelectorAll('input[name="q17-architecture"]').forEach(radio => {
                 radio.addEventListener('change', processInput);
             });
-            if (exampleBtn) {
-                exampleBtn.addEventListener('click', cycleExample);
-            }
 
             // Initial processing
             processInput();

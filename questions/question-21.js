@@ -5,6 +5,17 @@
 const question = {
     title: "21. What are positional encodings, and why are they used?",
     answer: `<div class="space-y-4">
+        <!-- Recommended Reading -->
+        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related topics)</h4>
+            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+                <li><a href="#question-07" class="text-indigo-700 underline hover:text-indigo-900">Question 7: Embeddings and semantic meaning</a></li>
+                <li><a href="#question-10" class="text-indigo-700 underline hover:text-indigo-900">Question 10: Embeddings and initialization in LLMs</a></li>
+                <li><a href="#question-22" class="text-indigo-700 underline hover:text-indigo-900">Question 22: Multi-head attention</a></li>
+                <li><a href="#question-32" class="text-indigo-700 underline hover:text-indigo-900">Question 32: Attention score calculation</a></li>
+                <li><a href="#question-46" class="text-indigo-700 underline hover:text-indigo-900">Question 46: Encoders vs decoders in transformers</a></li>
+            </ul>
+        </div>
         <!-- Main Concept Box -->
         <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
             <h4 class="font-semibold text-blue-900 mb-2">📍 What are Positional Encodings?</h4>
@@ -16,19 +27,19 @@ const question = {
             <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
                 <h5 class="font-medium text-green-900">Sinusoidal (Fixed)</h5>
                 <p class="text-sm text-green-700">Uses sine and cosine functions with different frequencies to create unique patterns for each position.</p>
-                <code class="text-xs bg-green-100 px-1 rounded">PE(pos,2i) = sin(pos/10000^(2i/d))</code>
+                <div class="text-xs bg-green-100 px-2 py-1 rounded border text-center overflow-x-auto whitespace-nowrap">$$PE_{(pos, 2i)} = \\sin\\left(\\frac{pos}{10000^{\\frac{2i}{d_{\\text{model}}}}}\\right),\\; PE_{(pos, 2i+1)} = \\cos\\left(\\frac{pos}{10000^{\\frac{2i}{d_{\\text{model}}}}}\\right)$$</div>
             </div>
             
             <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
                 <h5 class="font-medium text-purple-900">Learned Embeddings</h5>
                 <p class="text-sm text-purple-700">Trainable position vectors that the model learns during training, similar to word embeddings.</p>
-                <code class="text-xs bg-purple-100 px-1 rounded">pos_emb = Embedding(max_len, d_model)</code>
+                <div class="text-xs bg-purple-100 px-2 py-1 rounded border text-center overflow-x-auto whitespace-nowrap">$$ pos_{emb} = \\mathrm{Embedding}(max_{len},\ d_{model}) $$</div>
             </div>
             
             <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
                 <h5 class="font-medium text-orange-900">Relative Encodings</h5>
-                <p class="text-sm text-orange-700">Focus on relative distances between tokens rather than absolute positions.</p>
-                <code class="text-xs bg-orange-100 px-1 rounded">attention(qi, kj) += r(i-j)</code>
+                <p class="text-sm text-orange-700">Focus on relative distances between tokens rather than absolute positions. Examples include RoPE (rotary) and ALiBi (additive bias).</p>
+                <div class="text-xs bg-orange-100 px-2 py-1 rounded border text-center overflow-x-auto whitespace-nowrap">$$\\text{Attn}(q_i, k_j) \\mathrel{+}= b(i-j)$$</div>
             </div>
         </div>
         
@@ -76,9 +87,7 @@ const question = {
                                 <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">Original</span>
                             </div>
                             <p class="text-xs text-gray-600">Fixed mathematical patterns using sine and cosine waves</p>
-                            <div class="text-xs mt-2 font-mono bg-gray-100 px-2 py-1 rounded">
-                                sin(pos/10000^(2i/d))
-                            </div>
+                            <div class="text-xs mt-2 bg-gray-100 px-2 py-1 rounded overflow-x-auto whitespace-nowrap">$$ \\sin\\!\\left( \\frac{pos}{10000^{2i/d}} \\right) $$</div>
                         </div>
                     </label>
                     
@@ -90,9 +99,7 @@ const question = {
                                 <span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">Trainable</span>
                             </div>
                             <p class="text-xs text-gray-600">Position embeddings learned during training</p>
-                            <div class="text-xs mt-2 font-mono bg-gray-100 px-2 py-1 rounded">
-                                Embedding(max_len, d_model)
-                            </div>
+                            <div class="text-xs mt-2 bg-gray-100 px-2 py-1 rounded overflow-x-auto whitespace-nowrap">$$ \\mathrm{Embedding}(max_{len},\ d_{model}) $$</div>
                         </div>
                     </label>
                     
@@ -104,9 +111,7 @@ const question = {
                                 <span class="text-xs bg-orange-100 text-orange-800 px-2 py-1 rounded">Distance</span>
                             </div>
                             <p class="text-xs text-gray-600">Based on relative distances between tokens</p>
-                            <div class="text-xs mt-2 font-mono bg-gray-100 px-2 py-1 rounded">
-                                r(i-j) distance bias
-                            </div>
+                            <div class="text-xs mt-2 bg-gray-100 px-2 py-1 rounded overflow-x-auto whitespace-nowrap">\( r(i{-}j) \)</div>
                         </div>
                     </label>
                 </div>
@@ -120,18 +125,28 @@ const question = {
             
             <!-- Results Section -->
             <div class="bg-white border border-gray-200 rounded-lg p-4">
-                <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center justify-between mb-3 gap-2 flex-wrap">
                     <h4 class="font-medium text-gray-900">🎨 Positional Encoding Visualization</h4>
-                    <div id="q21-encoding-indicator" class="text-xs bg-gray-100 px-2 py-1 rounded font-medium"></div>
+                    <div class="flex items-center gap-3">
+                        <div class="flex items-center gap-2 text-xs">
+                            <label for="q21-viz-mode" class="text-gray-500">View</label>
+                            <select id="q21-viz-mode" class="px-2 py-1 border border-gray-300 rounded bg-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="bars" selected>Bars</option>
+                                <option value="heatmap">Heatmap</option>
+                                <option value="wave">Wave</option>
+                            </select>
+                        </div>
+                        <div id="q21-encoding-indicator" class="text-xs bg-gray-100 px-2 py-1 rounded font-medium"></div>
+                    </div>
                 </div>
-                <div id="q21-output" class="min-h-[200px] p-3 bg-gray-50 rounded border-2 border-dashed border-gray-300"></div>
+                <div id="q21-output" class="min-h-[200px] p-3 bg-gray-50 rounded border-2 border-dashed border-gray-300" aria-live="polite"></div>
                 <div id="q21-legend" class="mt-3 text-xs"></div>
             </div>
             
             <!-- Educational Comparison -->
             <div id="q21-comparison" class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
                 <h4 class="font-medium text-yellow-900 mb-2">📊 Why This Encoding Type?</h4>
-                <div id="q21-explanation" class="text-sm text-yellow-800"></div>
+                <div id="q21-explanation" class="text-sm text-yellow-800" aria-live="polite"></div>
             </div>
         </div>`,
         script: () => {
@@ -142,6 +157,8 @@ const question = {
             const encodingIndicator = document.getElementById('q21-encoding-indicator');
             const legend = document.getElementById('q21-legend');
             const explanation = document.getElementById('q21-explanation');
+            const answerRoot = document.getElementById('question-answer');
+            const vizModeSelect = document.getElementById('q21-viz-mode');
 
             // Check if required elements exist
             if (!input || !output) {
@@ -241,8 +258,8 @@ const question = {
                 }
             }
 
-            // Create visual representation of encoding
-            function createEncodingVisualization(tokens, encodingType) {
+            // Visualization helpers
+            function createBarVisualization(tokens, encodingType) {
                 const container = document.createElement('div');
                 container.className = 'space-y-4';
 
@@ -274,15 +291,39 @@ const question = {
                     
                     normalizedEncoding.forEach((value, i) => {
                         const bar = document.createElement('div');
-                        bar.className = 'flex-1 relative';
+                        bar.className = 'flex-1 relative bg-gray-100 rounded overflow-hidden';
                         bar.style.height = '40px';
-                        
+
+                        // Create a center baseline (optional visual aid)
+                        const baseline = document.createElement('div');
+                        baseline.className = 'absolute left-0 right-0';
+                        baseline.style.top = '50%';
+                        baseline.style.height = '1px';
+                        baseline.style.background = 'rgba(0,0,0,0.06)';
+                        bar.appendChild(baseline);
+
                         const fill = document.createElement('div');
-                        fill.style.height = `${Math.abs(value) * 100}%`;
-                        fill.style.backgroundColor = encodingTypes[encodingType].color;
-                        fill.style.opacity = Math.abs(value);
-                        fill.className = `rounded transition-all duration-300 ${value >= 0 ? 'self-end' : 'self-start'}`;
-                        
+                        const magnitude = Math.abs(value);
+                        fill.style.backgroundColor = value >= 0 ? '#ef4444' /* red-500 */ : '#3b82f6' /* blue-500 */;
+                        fill.style.opacity = Math.max(0.2, magnitude);
+                        // Height relative to half container (center baseline)
+                        const halfHeightPct = magnitude * 50;
+                        fill.style.height = `${halfHeightPct}%`;
+                        fill.className = 'absolute left-0 right-0 transition-all duration-300';
+                        // Anchor to bottom for positive, top for negative
+                        if (value >= 0) {
+                            fill.style.bottom = '50%';
+                            fill.style.borderTopLeftRadius = '4px';
+                            fill.style.borderTopRightRadius = '4px';
+                        } else {
+                            fill.style.top = '0';
+                            // Position from top toward center baseline
+                            fill.style.bottom = '50%';
+                            fill.style.transform = `translateY(${50 - halfHeightPct}%)`;
+                            fill.style.borderBottomLeftRadius = '4px';
+                            fill.style.borderBottomRightRadius = '4px';
+                        }
+
                         bar.appendChild(fill);
                         bar.title = `Dim ${i}: ${value.toFixed(3)}`;
                         encodingViz.appendChild(bar);
@@ -336,6 +377,143 @@ const question = {
                 return container;
             }
 
+            function valueToHeatColor(v) {
+                // v in [-1, 1]; blue for negative, white near 0, red for positive
+                const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
+                const t = clamp((v + 1) / 2, 0, 1); // 0..1
+                // Interpolate from blue (#3b82f6) -> white (#ffffff) -> red (#ef4444)
+                const lerp = (a, b, t) => Math.round(a + (b - a) * t);
+                let r, g, bch;
+                if (t < 0.5) {
+                    // blue to white
+                    const k = t / 0.5;
+                    r = lerp(59, 255, k);
+                    g = lerp(130, 255, k);
+                    bch = lerp(246, 255, k);
+                } else {
+                    // white to red
+                    const k = (t - 0.5) / 0.5;
+                    r = lerp(255, 239, k);
+                    g = lerp(255, 68, k);
+                    bch = lerp(255, 68, k);
+                }
+                return `rgb(${r}, ${g}, ${bch})`;
+            }
+
+            function createHeatmapVisualization(tokens, encodingType) {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'overflow-x-auto';
+
+                const grid = document.createElement('div');
+                grid.className = 'inline-grid gap-px bg-gray-200 rounded';
+                const cols = 1 + 8; // token label + 8 dims
+                grid.style.gridTemplateColumns = `200px repeat(8, 28px)`;
+
+                // Header
+                const headerToken = document.createElement('div');
+                headerToken.className = 'text-xs font-medium text-gray-600 bg-gray-50 px-2 py-1';
+                headerToken.textContent = 'Token / Dim';
+                grid.appendChild(headerToken);
+                for (let d = 0; d < 8; d++) {
+                    const h = document.createElement('div');
+                    h.className = 'text-[10px] text-center text-gray-600 bg-gray-50 px-1 py-1';
+                    h.textContent = d;
+                    grid.appendChild(h);
+                }
+
+                // Rows
+                tokens.forEach((token, position) => {
+                    const encoding = encodingTypes[encodingType].generateEncoding(position, 8, tokens.length);
+                    const norm = normalizeEncoding(encoding);
+
+                    const label = document.createElement('div');
+                    label.className = 'text-xs bg-white px-2 py-1 truncate max-w-[200px]';
+                    label.textContent = `"${token}" (pos ${position})`;
+                    grid.appendChild(label);
+
+                    norm.forEach((v, i) => {
+                        const cell = document.createElement('div');
+                        cell.className = 'w-7 h-7';
+                        cell.style.backgroundColor = valueToHeatColor(v);
+                        cell.title = `Dim ${i}: ${encoding[i].toFixed(3)}`;
+                        grid.appendChild(cell);
+                    });
+                });
+
+                wrapper.appendChild(grid);
+                return wrapper;
+            }
+
+            function createWaveVisualization(tokens, encodingType) {
+                const container = document.createElement('div');
+                container.className = 'space-y-3';
+
+                tokens.forEach((token, position) => {
+                    const encoding = encodingTypes[encodingType].generateEncoding(position, 8, tokens.length);
+                    const norm = normalizeEncoding(encoding);
+
+                    const card = document.createElement('div');
+                    card.className = 'bg-white border border-gray-200 rounded-lg p-3';
+
+                    const header = document.createElement('div');
+                    header.className = 'flex items-center justify-between mb-2';
+                    header.innerHTML = `
+                        <div class="flex items-center gap-2">
+                            <span class="font-medium text-gray-900">"${token}"</span>
+                            <span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">Position ${position}</span>
+                        </div>
+                        <span class="text-xs text-gray-500">8D Wave</span>
+                    `;
+
+                    const svgNS = 'http://www.w3.org/2000/svg';
+                    const svg = document.createElementNS(svgNS, 'svg');
+                    svg.setAttribute('viewBox', '0 0 320 80');
+                    svg.setAttribute('class', 'w-full h-20');
+
+                    // Zero line
+                    const zero = document.createElementNS(svgNS, 'line');
+                    zero.setAttribute('x1', '0');
+                    zero.setAttribute('x2', '320');
+                    zero.setAttribute('y1', '40');
+                    zero.setAttribute('y2', '40');
+                    zero.setAttribute('stroke', 'rgba(0,0,0,0.08)');
+                    svg.appendChild(zero);
+
+                    // Polyline across dims
+                    const points = norm.map((v, i) => {
+                        const x = 20 + i * ((320 - 40) / 7);
+                        const y = 40 - v * 35; // scale
+                        return `${x},${y}`;
+                    }).join(' ');
+                    const poly = document.createElementNS(svgNS, 'polyline');
+                    poly.setAttribute('points', points);
+                    poly.setAttribute('fill', 'none');
+                    poly.setAttribute('stroke', encodingTypes[encodingType].color);
+                    poly.setAttribute('stroke-width', '2');
+                    svg.appendChild(poly);
+
+                    // Points
+                    norm.forEach((v, i) => {
+                        const cx = 20 + i * ((320 - 40) / 7);
+                        const cy = 40 - v * 35;
+                        const circle = document.createElementNS(svgNS, 'circle');
+                        circle.setAttribute('cx', String(cx));
+                        circle.setAttribute('cy', String(cy));
+                        circle.setAttribute('r', '3');
+                        circle.setAttribute('fill', '#111827');
+                        circle.setAttribute('opacity', '0.6');
+                        circle.setAttribute('title', `Dim ${i}: ${encoding[i].toFixed(3)}`);
+                        svg.appendChild(circle);
+                    });
+
+                    card.appendChild(header);
+                    card.appendChild(svg);
+                    container.appendChild(card);
+                });
+
+                return container;
+            }
+
             // Add statistics display
             function createStatistics(tokens, encodingType) {
                 const stats = document.createElement('div');
@@ -363,10 +541,20 @@ const question = {
                 return stats;
             }
 
+            // Helper: re-typeset MathJax for dynamic and static snippets
+            const typesetMath = () => {
+                if (window.MathJax && typeof window.MathJax.typesetPromise === 'function') {
+                    const scope = answerRoot || document.body;
+                    // Defer to ensure DOM is updated
+                    setTimeout(() => window.MathJax.typesetPromise([scope]).catch(() => {}), 0);
+                }
+            };
+
             // Main processing function
             const processAndDisplay = () => {
                 const text = input.value.trim();
                 const encodingType = getCurrentEncoding();
+                const vizMode = vizModeSelect ? vizModeSelect.value : 'bars';
                 
                 // Clear previous results
                 output.innerHTML = '';
@@ -388,7 +576,14 @@ const question = {
                 }
 
                 // Create and display visualization
-                const visualization = createEncodingVisualization(tokens, encodingType);
+                let visualization;
+                if (vizMode === 'heatmap') {
+                    visualization = createHeatmapVisualization(tokens, encodingType);
+                } else if (vizMode === 'wave') {
+                    visualization = createWaveVisualization(tokens, encodingType);
+                } else {
+                    visualization = createBarVisualization(tokens, encodingType);
+                }
                 output.appendChild(visualization);
 
                 // Add statistics
@@ -397,19 +592,43 @@ const question = {
 
                 // Update legend
                 if (legend) {
-                    legend.innerHTML = `
-                        <div class="flex items-center gap-4 text-gray-600">
-                            <div class="flex items-center gap-2">
-                                <div class="w-3 h-3 rounded" style="background-color: ${encodingTypes[encodingType].color}"></div>
-                                <span>Encoding Values</span>
-                            </div>
-                            <div class="text-xs">Hover over bars for exact values</div>
-                        </div>
-                    `;
+                    if (vizMode === 'heatmap') {
+                        legend.innerHTML = `
+                            <div class="flex items-center gap-4 text-gray-600">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-3 h-3 inline-block" style="background-color:#3b82f6"></span>
+                                    <span class="text-xs">Negative</span>
+                                    <span class="w-3 h-3 inline-block ml-3" style="background-color:#ffffff;border:1px solid #e5e7eb"></span>
+                                    <span class="text-xs">Zero</span>
+                                    <span class="w-3 h-3 inline-block ml-3" style="background-color:#ef4444"></span>
+                                    <span class="text-xs">Positive</span>
+                                </div>
+                                <div class="text-xs">Hover cells for exact values</div>
+                            </div>`;
+                    } else if (vizMode === 'wave') {
+                        legend.innerHTML = `
+                            <div class="flex items-center gap-4 text-gray-600">
+                                <div class="text-xs">Line connects normalized dimension values; horizontal line marks zero.</div>
+                            </div>`;
+                    } else {
+                        legend.innerHTML = `
+                            <div class="flex items-center gap-4 text-gray-600">
+                                <div class="flex items-center gap-2">
+                                    <span class="w-3 h-3 inline-block" style="background-color:#ef4444"></span>
+                                    <span class="text-xs">Positive</span>
+                                    <span class="w-3 h-3 inline-block ml-3" style="background-color:#3b82f6"></span>
+                                    <span class="text-xs">Negative</span>
+                                </div>
+                                <div class="text-xs">Bars grow away from center baseline</div>
+                            </div>`;
+                    }
                 }
 
                 // Update educational explanation
                 updateExplanation(encodingType);
+
+                // Re-typeset any math fragments that might be present
+                typesetMath();
             };
 
             // Update the educational explanation based on selected encoding
@@ -448,10 +667,18 @@ const question = {
                     processAndDisplay();
                 });
             });
+            if (vizModeSelect) {
+                vizModeSelect.addEventListener('change', processAndDisplay);
+            }
             
             // Initial setup
             updateEncodingVisuals();
             processAndDisplay();
+            // Ensure initial static formulas are typeset (e.g., learned/relative snippets)
+            typesetMath();
         }
     }
 };
+
+// Optional (safe) export for Node-based tooling/tests
+if (typeof module !== 'undefined') { module.exports = question; }

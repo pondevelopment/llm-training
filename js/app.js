@@ -189,7 +189,7 @@ class LLMQuestionApp {
             17: "How do transformers improve on traditional Seq2Seq models?",
             18: "What is overfitting, and how can it be mitigated in LLMs?",
             19: "What are generative versus discriminative models in NLP?",
-            20: "How does GPT-4 differ from GPT-3 in features and applications?",
+            20: "How do GPT-3, GPT-4, and GPT-5 differ in features and applications?",
             21: "What are positional encodings, and why are they used?",
             22: "What is multi-head attention, and how does it enhance LLMs?",
             23: "How is the softmax function applied in attention mechanisms?",

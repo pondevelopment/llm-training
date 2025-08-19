@@ -475,6 +475,9 @@
             overflow: visible;
             min-height: 1px;
             min-width: 1px;
+            /* Ensure equations scale to their container instead of overflowing */
+            max-width: 100% !important;
+            height: auto !important;
         }
 
         /* Mathematical expression highlighting */
@@ -521,6 +524,13 @@
         mjx-container {
             display: inline-block !important;
             vertical-align: middle;
+        }
+        /* But for display equations, allow block layout and horizontal scroll if needed */
+        mjx-container[display="true"] {
+            display: block !important;
+            max-width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
         }
     </style>
 </head>

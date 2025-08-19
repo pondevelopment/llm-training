@@ -12,7 +12,8 @@ Use this checklist when creating or updating questions for the LLM Questions app
 - [ ] Name file `questions/question-XX.js` (two digits where applicable)
 - [ ] Replace all `qX-` prefixes with your question number (e.g., `q12-`)
 - [ ] Remove placeholders and update the comment header (topic + date)
-- [ ] Export with CommonJS: `module.exports = { title, answer, interactive }`
+- [ ] Define a file-scoped `const question = { title, answer, interactive }`
+- [ ] Optional: add `if (typeof module !== 'undefined') { module.exports = question; }`
 
 ## Content development
 
@@ -26,6 +27,7 @@ Use this checklist when creating or updating questions for the LLM Questions app
 - [ ] “Why this matters” section with 3–4 bullets
 - [ ] Practical mini examples (use `<code>` where helpful)
 - [ ] Use tasteful emojis (🔤 🎯 📝) where they improve scannability
+- [ ] Optional: top “Recommended reading” box linking to related questions
 
 ### Interactive component
 - [ ] `interactive.title`, `interactive.html`, and `interactive.script()` implemented
@@ -44,6 +46,7 @@ Use this checklist when creating or updating questions for the LLM Questions app
 - [ ] In JS strings, escape backslashes: `\\frac{\\partial f}{\\partial x}`
 - [ ] Space around `<` or `>` inside inline math to avoid HTML parsing issues
 - [ ] Stick to standard LaTeX (no custom macros); verify render in the app
+- [ ] For long single-line formulas in small containers, add `overflow-x-auto whitespace-nowrap` to the container to prevent clipping
 
 ## Integration
 - [ ] Ensure the question number is included in `availableQuestions` in `js/app.js`

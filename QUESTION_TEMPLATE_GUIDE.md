@@ -15,13 +15,14 @@ questions/
 
 Static per-question share pages live in `/q` and are named `N.html` (1–50). Use `_template.html` as a reference when adding new ones.
 
+
 ## Export format (CommonJS)
 
-The loader expects CommonJS, not ESM. Export a plain object:
+Define a file-scoped `question` object. The loader evaluates the file and returns `question` if present; optionally also export for Node/editor tooling.
 
 ```javascript
 // questions/question-XX.js
-module.exports = {
+const question = {
     title: "XX. Your concise question title?",
     answer: `...HTML content...`,
     interactive: {
@@ -32,6 +33,9 @@ module.exports = {
         }
     }
 };
+
+// Optional (safe) export for Node-based tooling/tests
+if (typeof module !== 'undefined') { module.exports = question; }
 ```
 
 ## Answer content structure
@@ -44,6 +48,18 @@ Use the established layout from earlier questions:
 4) Optional: code examples using `<code>`
 
 Color system: Blue (concept), Green/Purple/Orange (options), Yellow (importance/tips).
+
+Optional cross-links box (recommended for related topics):
+
+```html
+<div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+    <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading</h4>
+    <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+        <li><a href="#question-4" class="text-indigo-700 underline hover:text-indigo-900">Question 4: LoRA vs QLoRA</a></li>
+        <!-- add 1–3 targeted links relevant to this question -->
+    </ul>
+</div>
+```
 
 ## Interactive component
 
@@ -110,6 +126,22 @@ script: () => {
 - Add spaces around `<`/`>` in inline math to avoid HTML parsing issues.
 - Stick to standard LaTeX; avoid custom macros.
 - Test in the app; the loader retries typeset if needed.
+
+Layout and overflow tips:
+
+- Prefer `align*` with `\\` line breaks for long equations.
+- If a formula must stay on one line (e.g., small cards/chips), wrap its container with `overflow-x-auto whitespace-nowrap` so users can scroll horizontally on narrow screens. Consider `text-xs` for compact displays.
+- The app auto-typesets and retries MathJax; you generally do not need to call `MathJax.typeset(…)` manually.
+
+Example: single-line KD loss inside a compact container with scroll safety
+
+```html
+<div class="text-xs bg-green-100 px-2 py-1 rounded border text-center overflow-x-auto whitespace-nowrap">
+    $$
+    \\mathcal{L} = \\alpha\\, T^2\\, D_{KL}\\!\\left(p_{t}^{(T)}\\,\\big\\|\\, p_{s}^{(T)}\\right) + (1-\\alpha)\\, \\mathrm{CE}(y, p_s)
+    $$
+</div>
+```
 
 Common patterns:
 

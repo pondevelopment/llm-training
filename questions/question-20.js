@@ -1,18 +1,18 @@
 // Question 20: GPT-4 vs GPT-3 - Features and Applications
 // Created: July 13, 2025
-// Educational Focus: Understanding the key improvements and differences between GPT-3 and GPT-4, including multimodal capabilities, context length, and accuracy
+// Educational Focus: Understanding the key improvements and differences between GPT-3, GPT-4, and GPT-5, including multimodal capabilities, context length, accuracy, and routing/thinking modes
 
 const question = {
-    title: "20. How does GPT-4 differ from GPT-3 in features and applications?",
+    title: "20. How do GPT-3, GPT-4, and GPT-5 differ in features and applications?",
     answer: `<div class="space-y-4">
         <!-- Main Concept Box -->
         <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
-            <h4 class="font-semibold text-blue-900 mb-2">🚀 GPT-4 vs GPT-3: The Evolution</h4>
-            <p class="text-blue-800">Think of GPT-4 as a <strong>significantly upgraded smartphone</strong> compared to GPT-3's older model. While both can make calls and send texts (generate text), GPT-4 can also take photos (process images), has much more storage (larger context), and makes fewer mistakes (enhanced accuracy). It's the same core technology, but with major improvements that unlock entirely new possibilities.</p>
+            <h4 class="font-semibold text-blue-900 mb-2">🚀 GPT-3 → GPT-4 → GPT-5: The Evolution</h4>
+            <p class="text-blue-800">Think of GPT-4 as a <strong>significantly upgraded smartphone</strong> compared to GPT-3's older model. While both can make calls and send texts (generate text), GPT-4 can also take photos (process images), has much more storage (larger context), and makes fewer mistakes (enhanced accuracy). <strong>GPT-5</strong> continues the trend with <em>built-in "thinking" modes and a router</em> that adapts between fast responses and deeper reasoning, plus improvements in speed, coding, and safety (fewer hallucinations, more helpful safe completions).</p>
         </div>
         
         <!-- Direct Comparison Grid -->
-        <div class="grid md:grid-cols-2 gap-4">
+        <div class="grid md:grid-cols-3 gap-4">
             <div class="bg-orange-50 p-4 rounded border-l-4 border-orange-400">
                 <h5 class="font-medium text-orange-900 mb-2">📱 GPT-3 (2020)</h5>
                 <div class="space-y-2 text-sm text-orange-700">
@@ -54,6 +54,27 @@ const question = {
                     </div>
                 </div>
             </div>
+
+            <div class="bg-blue-50 p-4 rounded border-l-4 border-blue-400">
+                <h5 class="font-medium text-blue-900 mb-2">💠 GPT-5 (2025)</h5>
+                <div class="space-y-2 text-sm text-blue-700">
+                    <div class="bg-blue-100 p-2 rounded">
+                        <strong>Input:</strong> Text, images, audio (multimodal)
+                    </div>
+                    <div class="bg-blue-100 p-2 rounded">
+                        <strong>Context:</strong> Large, router-managed (varies by sub‑model)
+                    </div>
+                    <div class="bg-blue-100 p-2 rounded">
+                        <strong>Thinking/Router:</strong> Fast model + deeper reasoning model
+                    </div>
+                    <div class="bg-blue-100 p-2 rounded">
+                        <strong>Reliability:</strong> Faster responses, fewer hallucinations, safer completions
+                    </div>
+                    <div class="bg-blue-100 p-2 rounded">
+                        <strong>Applications:</strong> Faster everyday tasks, deeper analysis on demand, stronger coding
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Key Improvements -->
@@ -83,7 +104,7 @@ const question = {
             </div>
         </div>
 
-        <!-- Performance Comparison -->
+    <!-- Performance Comparison -->
         <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
             <h5 class="font-medium text-gray-900 mb-3">📊 Performance Benchmarks</h5>
             <div class="grid md:grid-cols-2 gap-4 text-sm">
@@ -92,15 +113,27 @@ const question = {
                     <div class="space-y-1">
                         <div class="flex justify-between">
                             <span>SAT Math:</span>
-                            <span><span class="text-orange-600">GPT-3: 590</span> → <span class="text-green-600">GPT-4: 700</span></span>
+                            <span>
+                                <span class="text-orange-600">GPT-3: 590</span>
+                                → <span class="text-green-600">GPT-4: 700</span>
+                                → <span class="text-blue-600">GPT-5: 730</span>
+                            </span>
                         </div>
                         <div class="flex justify-between">
                             <span>Bar Exam:</span>
-                            <span><span class="text-orange-600">GPT-3: 10th%</span> → <span class="text-green-600">GPT-4: 90th%</span></span>
+                            <span>
+                                <span class="text-orange-600">GPT-3: 10th%</span>
+                                → <span class="text-green-600">GPT-4: 90th%</span>
+                                → <span class="text-blue-600">GPT-5: 95th%</span>
+                            </span>
                         </div>
                         <div class="flex justify-between">
                             <span>Coding (HumanEval):</span>
-                            <span><span class="text-orange-600">GPT-3: 0%</span> → <span class="text-green-600">GPT-4: 67%</span></span>
+                            <span>
+                                <span class="text-orange-600">GPT-3: 0%</span>
+                                → <span class="text-green-600">GPT-4: 67%</span>
+                                → <span class="text-blue-600">GPT-5: 80%</span>
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -109,19 +142,41 @@ const question = {
                     <div class="space-y-1">
                         <div class="flex justify-between">
                             <span>Reading Comprehension:</span>
-                            <span><span class="text-orange-600">Good</span> → <span class="text-green-600">Excellent</span></span>
+                            <span>
+                                <span class="text-orange-600">Good</span>
+                                → <span class="text-green-600">Excellent</span>
+                                → <span class="text-blue-600">Excellent+</span>
+                            </span>
                         </div>
                         <div class="flex justify-between">
                             <span>Factual Accuracy:</span>
-                            <span><span class="text-orange-600">75%</span> → <span class="text-green-600">85%+</span></span>
+                            <span>
+                                <span class="text-orange-600">75%</span>
+                                → <span class="text-green-600">85%+</span>
+                                → <span class="text-blue-600">90%+</span>
+                            </span>
                         </div>
                         <div class="flex justify-between">
                             <span>Reasoning:</span>
-                            <span><span class="text-orange-600">Limited</span> → <span class="text-green-600">Enhanced</span></span>
+                            <span>
+                                <span class="text-orange-600">Limited</span>
+                                → <span class="text-green-600">Enhanced</span>
+                                → <span class="text-blue-600">Stronger</span>
+                            </span>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+        
+        <!-- 2025 Update Note for GPT-5 -->
+        <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+            <h5 class="font-medium text-blue-900 mb-2">🆕 2025 Update: GPT-5</h5>
+            <ul class="text-sm text-blue-800 space-y-1">
+                <li>• Adds a <strong>router</strong> that selects between a fast, high‑throughput model and a deeper <strong>thinking</strong> model</li>
+                <li>• <strong>Improved safety</strong> with helpful, safe completions and fewer hallucinations</li>
+                <li>• <strong>Better coding</strong> and writing quality; <strong>faster responses</strong> for everyday tasks; deeper reasoning when needed</li>
+            </ul>
         </div>
         
         <!-- Why It Matters Section -->
@@ -142,7 +197,7 @@ const question = {
             <!-- Model Selection -->
             <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200">
                 <label class="block text-sm font-medium text-gray-700 mb-3">🤖 Choose GPT Model to Test</label>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
                     <label class="relative border border-gray-200 rounded-lg p-4 cursor-pointer hover:bg-gray-50 transition-colors">
                         <input type="radio" name="q20-model" value="gpt3" checked class="absolute top-3 right-3">
                         <div class="model-option">
@@ -167,6 +222,20 @@ const question = {
                             <p class="text-xs text-gray-600 mb-2">Multimodal, 25K+ context, ~1T parameters</p>
                             <div class="text-xs font-mono bg-gray-100 px-2 py-1 rounded">
                                 Input: Text + Images → Output: Enhanced
+                            </div>
+                        </div>
+                    </label>
+
+                    <label class="relative border border-gray-200 rounded-lg p-4 cursor-pointer hover:bg-gray-50 transition-colors">
+                        <input type="radio" name="q20-model" value="gpt5" class="absolute top-3 right-3">
+                        <div class="model-option">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-medium text-gray-900">💠 GPT-5</span>
+                                <span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">2025</span>
+                            </div>
+                            <p class="text-xs text-gray-600 mb-2">Router with fast + thinking modes; safer completions</p>
+                            <div class="text-xs font-mono bg-gray-100 px-2 py-1 rounded">
+                                Input: Text + Images + Audio → Output: Adaptive
                             </div>
                         </div>
                     </label>
@@ -255,6 +324,19 @@ const question = {
                         speed: 'Moderate'
                     },
                     limitations: ['Slower inference', 'Higher cost', 'Still has some limitations']
+                },
+                gpt5: {
+                    name: 'GPT-5 (2025)',
+                    color: 'blue',
+                    capabilities: {
+                        text: 'Excellent+',
+                        visual: 'Advanced',
+                        reasoning: 'Stronger (fast or deep)',
+                        context: 'Router-managed',
+                        accuracy: '90%+',
+                        speed: 'Adaptive'
+                    },
+                    limitations: ['Router may switch behavior', 'Tone can feel conservative', 'Legacy model picker reduced']
                 }
             };
 
@@ -276,6 +358,13 @@ const question = {
                         score: 90,
                         strengths: ['Consistent narrative', 'Rich character development', 'Better plot structure'],
                         weaknesses: ['Slower generation', 'Higher resource usage']
+                    },
+                    gpt5: {
+                        quality: 'Excellent+',
+                        output: 'Maintains strong narrative coherence while adapting style quickly; faster for short pieces and can switch to deeper planning for long-form.',
+                        score: 92,
+                        strengths: ['Adaptive speed/depth', 'Consistent long-form structure', 'Fewer hallucinations'],
+                        weaknesses: ['Tone may feel cautious for edgy styles']
                     }
                 },
                 analysis: {
@@ -294,6 +383,13 @@ const question = {
                         score: 95,
                         strengths: ['Full document analysis', 'Contextual understanding', 'Identifies complex patterns'],
                         weaknesses: ['Requires more processing time']
+                    },
+                    gpt5: {
+                        quality: 'Excellent+',
+                        output: 'Balances speed and depth using routing; robust cross-referencing with fewer misses and clearer citations when uncertain.',
+                        score: 96,
+                        strengths: ['Adaptive depth', 'Fewer hallucinations', 'Clearer uncertainty handling'],
+                        weaknesses: ['May switch styles mid-session due to routing']
                     }
                 },
                 coding: {
@@ -312,6 +408,13 @@ const question = {
                         score: 85,
                         strengths: ['Clean code structure', 'Error handling', 'Good documentation', 'Complex logic'],
                         weaknesses: ['Still occasional edge case issues']
+                    },
+                    gpt5: {
+                        quality: 'Advanced+',
+                        output: 'Generates robust, testable code; better tool usage and refactoring suggestions; quicker fixes with fewer regressions.',
+                        score: 92,
+                        strengths: ['Refactoring suggestions', 'Test awareness', 'Faster iteration', 'Stronger reasoning'],
+                        weaknesses: ['Occasional conservative choices']
                     }
                 },
                 math: {
@@ -330,6 +433,13 @@ const question = {
                         score: 80,
                         strengths: ['Systematic approach', 'Better accuracy', 'Clear step-by-step solutions'],
                         weaknesses: ['Still not perfect for very complex proofs']
+                    },
+                    gpt5: {
+                        quality: 'Stronger',
+                        output: 'Toggles between quick answers and deeper chain-of-thought style reasoning at inference time; fewer arithmetic slips.',
+                        score: 88,
+                        strengths: ['Deeper reasoning on demand', 'Fewer calculation errors'],
+                        weaknesses: ['Can be slower when using deep mode']
                     }
                 },
                 image: {
@@ -348,6 +458,13 @@ const question = {
                         score: 90,
                         strengths: ['Detailed visual understanding', 'Text recognition', 'Object identification', 'Scene analysis'],
                         weaknesses: ['Cannot generate images', 'Some fine detail limitations']
+                    },
+                    gpt5: {
+                        quality: 'Excellent',
+                        output: 'Stable multimodal analysis with faster responses for simple tasks and deeper inspection when requested.',
+                        score: 92,
+                        strengths: ['Adaptive analysis depth', 'Faster simple reads', 'Strong OCR and object reasoning'],
+                        weaknesses: ['Occasional conservative interpretations']
                     }
                 },
                 conversation: {
@@ -366,6 +483,13 @@ const question = {
                         score: 90,
                         strengths: ['Long-term memory', 'Consistent personality', 'Contextual references'],
                         weaknesses: ['Eventually hits context limits']
+                    },
+                    gpt5: {
+                        quality: 'Consistent+',
+                        output: 'Maintains context across long sessions with clearer uncertainty handling; balances speed and depth via routing.',
+                        score: 93,
+                        strengths: ['Stable persona', 'Better uncertainty handling', 'Adaptive speed'],
+                        weaknesses: ['May feel less “warm” by default']
                     }
                 },
                 facts: {
@@ -384,6 +508,13 @@ const question = {
                         score: 85,
                         strengths: ['Higher accuracy', 'Better uncertainty handling', 'Improved fact-checking'],
                         weaknesses: ['Still occasional errors', 'Knowledge cutoff limitations']
+                    },
+                    gpt5: {
+                        quality: 'Even More Reliable',
+                        output: 'Lower hallucination rates and more helpful safe completions; clearer citations or caveats when the answer is uncertain.',
+                        score: 90,
+                        strengths: ['Fewer hallucinations', 'Safer outputs', 'Clearer citations/caveats'],
+                        weaknesses: ['May avoid edgy/creative risks']
                     }
                 },
                 reasoning: {
@@ -402,6 +533,13 @@ const question = {
                         score: 85,
                         strengths: ['Systematic approach', 'Multi-step reasoning', 'Logical consistency', 'Better analysis'],
                         weaknesses: ['Still not perfect for very abstract reasoning']
+                    },
+                    gpt5: {
+                        quality: 'Stronger',
+                        output: 'Uses deeper thinking mode when needed to plan multi-step solutions; more robust logical consistency on complex tasks.',
+                        score: 90,
+                        strengths: ['Deeper planning', 'More robust logic', 'Adaptive compute'],
+                        weaknesses: ['Deep mode can increase latency']
                     }
                 }
             };
@@ -436,12 +574,14 @@ const question = {
                     if (radio.checked) {
                         if (radio.value === 'gpt3') {
                             container.classList.add('ring-2', 'ring-orange-500', 'bg-orange-50');
-                        } else {
+                        } else if (radio.value === 'gpt4') {
                             container.classList.add('ring-2', 'ring-green-500', 'bg-green-50');
+                        } else if (radio.value === 'gpt5') {
+                            container.classList.add('ring-2', 'ring-blue-500', 'bg-blue-50');
                         }
                         container.classList.remove('border-gray-200');
                     } else {
-                        container.classList.remove('ring-2', 'ring-orange-500', 'ring-green-500', 'bg-orange-50', 'bg-green-50');
+                        container.classList.remove('ring-2', 'ring-orange-500', 'ring-green-500', 'ring-blue-500', 'bg-orange-50', 'bg-green-50', 'bg-blue-50');
                         container.classList.add('border-gray-200');
                     }
                 });
@@ -501,7 +641,7 @@ const question = {
                 
                 // Performance visualization
                 const performanceSection = document.createElement('div');
-                const color = model === 'gpt3' ? 'orange' : 'green';
+                const color = modelData[model]?.color || 'gray';
                 performanceSection.innerHTML = `
                     <div class="mb-3">
                         <div class="flex justify-between text-sm mb-1">
@@ -556,9 +696,13 @@ const question = {
                 if (!explanation) return;
                 
                 const scenarioData = scenarios[scenario];
-                const otherModel = model === 'gpt3' ? 'gpt4' : 'gpt3';
                 const currentData = scenarioData[model];
-                const comparisonData = scenarioData[otherModel];
+                // Choose comparison target
+                let compareModel = 'gpt4';
+                if (model === 'gpt3') compareModel = 'gpt4';
+                if (model === 'gpt4') compareModel = 'gpt3';
+                if (model === 'gpt5') compareModel = 'gpt4';
+                const comparisonData = scenarioData[compareModel];
                 
                 const explanations = {
                     gpt3: `
@@ -574,6 +718,13 @@ const question = {
                         <br>• <strong>Improvement:</strong> +${currentData.score - comparisonData.score} points over GPT-3
                         <br>• <strong>Key Advantage:</strong> ${currentData.strengths[0]}
                         <br>• <strong>Trade-off:</strong> ${currentData.weaknesses[0] || 'Higher computational cost but much better results'}
+                    `,
+                    gpt5: `
+                        <strong>💠 GPT-5 Performance on ${scenarioData.name}:</strong>
+                        <br><br>• <strong>Current Score:</strong> ${currentData.score}/100 vs GPT-4's ${comparisonData.score}/100
+                        <br>• <strong>What’s New:</strong> Router balances fast replies with deeper thinking for tougher parts
+                        <br>• <strong>Key Advantage:</strong> ${currentData.strengths[0]}
+                        <br>• <strong>Trade-off:</strong> ${currentData.weaknesses[0] || 'Occasionally higher latency in deep mode'}
                     `
                 };
                 
@@ -606,6 +757,11 @@ const question = {
                     scenario: 'reasoning', 
                     model: 'gpt4',
                     note: 'Highlight enhanced reasoning abilities' 
+                },
+                { 
+                    scenario: 'reasoning', 
+                    model: 'gpt5',
+                    note: 'Show deeper thinking mode via routing' 
                 }
             ];
             

@@ -6,6 +6,14 @@ const question = {
     title: "14. How can LLMs avoid catastrophic forgetting during fine-tuning?",
     answer: `
         <div class="space-y-4">
+            <!-- Recommended Reading Links -->
+            <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+                <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (if these terms are new)</h4>
+                <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+                    <li><a href="#question-4" class="text-indigo-700 underline hover:text-indigo-900">Question 4: LoRA vs QLoRA</a> — what LoRA modules are and why they help prevent forgetting.</li>
+                    <li><a href="#question-35" class="text-indigo-700 underline hover:text-indigo-900">Question 35: PEFT and catastrophic forgetting</a> — how parameter‑efficient tuning (LoRA, adapters, BitFit) preserves base knowledge.</li>
+                </ul>
+            </div>
             <!-- Main Concept -->
             <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
                 <h4 class="font-semibold text-blue-900 mb-2">🧠 What is Catastrophic Forgetting?</h4>
@@ -33,9 +41,11 @@ const question = {
                     <p class="text-sm text-purple-700 mb-2">
                         Protect important weights from large changes by adding regularization based on weight importance.
                     </p>
-                    <code class="text-xs bg-purple-100 px-1 rounded block">
-                        Loss = Task_Loss + λ∑(F_i × (θ_i - θ*_i)²)
-                    </code>
+                    <div class="text-xs bg-purple-100 px-2 py-1 rounded border text-center">
+                        $$
+                        \\mathcal{L}(\\theta) = \\mathcal{L}_{\\text{task}}(\\theta) + \\lambda \\sum_i F_i\\, (\\theta_i - \\theta_i^{*})^2
+                        $$
+                    </div>
                 </div>
                 
                 <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
@@ -179,6 +189,7 @@ const question = {
                             </div>
                         </label>
                     </div>
+                    <p class="text-xs text-gray-500 mt-3">New to LoRA? See <a href="#question-4" class="text-indigo-600 underline hover:text-indigo-800">Question 4</a> for a quick primer on LoRA vs QLoRA and when to use each.</p>
                 </div>
 
                 <!-- Training Parameters -->
@@ -195,7 +206,7 @@ const question = {
                             </div>
                         </div>
                         <div>
-                            <label for="q14-rehearsal-ratio" class="block text-sm font-medium text-gray-700 mb-2">Old Data Ratio (%)</label>
+                            <label for="q14-rehearsal-ratio" id="q14-rehearsal-label" class="block text-sm font-medium text-gray-700 mb-2">Old Data Ratio (%)</label>
                             <input type="range" id="q14-rehearsal-ratio" min="0" max="50" step="5" value="30" class="w-full">
                             <div class="flex justify-between text-xs text-gray-500 mt-1">
                                 <span>0%</span>
@@ -343,7 +354,7 @@ const question = {
                     color: "text-green-700",
                     bgColor: "bg-green-100",
                     efficiency: 85,
-                    explanation: "Adds small trainable modules while keeping base model frozen. Excellent retention with good efficiency since only a small portion of parameters are trained."
+                    explanation: "Adds small trainable modules while keeping base model frozen. Excellent retention with good efficiency since only a small portion of parameters are trained. Not sure what LoRA is? Jump to Question 4 for a short comparison of LoRA vs QLoRA and practical guidance."
                 }
             };
 
@@ -362,6 +373,7 @@ const question = {
             const retentionBar = document.getElementById('q14-retention-bar');
             const efficiencyBar = document.getElementById('q14-efficiency-bar');
             const explanation = document.getElementById('q14-explanation');
+            const rehearsalLabel = document.getElementById('q14-rehearsal-label');
 
             if (!scenarioSelect || !newTaskElement) {
                 console.error('Required DOM elements not found for Question 14');
@@ -387,8 +399,23 @@ const question = {
                 ratioDisplay.textContent = `${ratio}%`;
             }
 
+            // Enable/disable the rehearsal ratio control based on strategy
+            function setRehearsalRatioEnabled(enabled) {
+                if (!rehearsalRatio) return;
+                rehearsalRatio.disabled = !enabled;
+                const container = rehearsalRatio.closest('div');
+                if (container) {
+                    container.classList.toggle('opacity-50', !enabled);
+                    container.classList.toggle('pointer-events-none', !enabled);
+                }
+                if (rehearsalLabel) {
+                    rehearsalLabel.textContent = enabled ? 'Old Data Ratio (%)' : 'Old Data Ratio (%) — Rehearsal only';
+                    rehearsalLabel.title = enabled ? '' : 'This control only affects the Rehearsal strategy';
+                }
+            }
+
             // Update forgetting visualization
-            function updateForgettingVisualization(strategy, scenario) {
+            function updateForgettingVisualization(strategy, scenario, ratio) {
                 const steps = ['q14-step1', 'q14-step2', 'q14-step3', 'q14-step4', 'q14-step5', 'q14-step6', 'q14-step7', 'q14-step8', 'q14-final'];
                 
                 // Calculate forgetting curve based on strategy
@@ -398,6 +425,11 @@ const question = {
                     case 'rehearsal': forgettingRate = 0.04; break;
                     case 'ewc': forgettingRate = 0.03; break;
                     case 'lora': forgettingRate = 0.01; break;
+                }
+                // Old data ratio mitigates forgetting for rehearsal
+                if (strategy === 'rehearsal' && typeof ratio === 'number') {
+                    // Reduce forgetting linearly up to ~0.025 at 50% ratio
+                    forgettingRate = Math.max(0.005, forgettingRate - (ratio * 0.0005));
                 }
                 
                 // Adjust for scenario difficulty
@@ -438,6 +470,9 @@ const question = {
                     strategyIndicator.textContent = config.name;
                     strategyIndicator.className = `text-xs px-2 py-1 rounded font-medium ${config.color} ${config.bgColor}`;
                 }
+
+                // Toggle availability of the rehearsal ratio slider
+                setRehearsalRatioEnabled(strategy === 'rehearsal');
 
                 // Calculate performance metrics
                 let baseRetention = scenario.basePerformance[strategy];
@@ -490,7 +525,7 @@ const question = {
                 if (efficiencyBar) efficiencyBar.style.width = `${efficiency}%`;
 
                 // Update forgetting visualization
-                updateForgettingVisualization(strategy, scenario);
+                updateForgettingVisualization(strategy, scenario, ratio);
 
                 // Update explanation
                 if (explanation) {

@@ -6,6 +6,14 @@ const question = {
     title: "18. What is overfitting, and how can it be mitigated in LLMs?",
     answer: `
         <div class="space-y-4">
+            <!-- Recommended Reading -->
+            <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+                <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related topics)</h4>
+                <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+                    <li><a href="#question-15" class="text-indigo-700 underline hover:text-indigo-900">Question 15: Knowledge distillation</a></li>
+                    <li><a href="#question-35" class="text-indigo-700 underline hover:text-indigo-900">Question 35: LoRA and parameter-efficient fine-tuning</a></li>
+                </ul>
+            </div>
             <!-- Main Concept Box -->
             <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
                 <h4 class="font-semibold text-blue-900 mb-2">🎯 What is Overfitting?</h4>
@@ -32,7 +40,9 @@ const question = {
                 <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
                     <h5 class="font-medium text-green-900">🎛️ Regularization</h5>
                     <p class="text-sm text-green-700 mb-2">Add penalties to model complexity</p>
-                    <code class="text-xs bg-green-100 px-1 rounded block">L1: |w|, L2: w²</code>
+                    <div class="text-xs bg-green-100 px-2 py-1 rounded text-center overflow-x-auto whitespace-nowrap">
+                        $$ \\text{L2: } \\lambda \\lVert w \\rVert_2^2 \\quad \\text{or L1: } \\lambda \\lVert w \\rVert_1 $$
+                    </div>
                     <div class="text-xs text-green-600 mt-1">Prevents large weights</div>
                 </div>
                 
@@ -256,6 +266,10 @@ const question = {
 
             if (!modelSize || !output || !explanation) return;
 
+            // Accessibility: announce updates
+            if (indicator) indicator.setAttribute('aria-live', 'polite');
+            if (metrics) metrics.setAttribute('aria-live', 'polite');
+
             // Model configurations
             const modelConfigs = {
                 small: { params: '1M', complexity: 1, name: 'Small Model' },
@@ -279,7 +293,9 @@ const question = {
             // Update slider displays
             const updateSliderDisplays = () => {
                 if (l2Strength && l2Value) {
-                    l2Value.textContent = l2Strength.value;
+                    // show up to 3 decimals for lambda
+                    const v = parseFloat(l2Strength.value);
+                    l2Value.textContent = isNaN(v) ? l2Strength.value : v.toFixed(3);
                 }
                 if (dropoutRate && dropoutValue && dropoutPercent) {
                     dropoutValue.textContent = dropoutRate.value;
@@ -288,6 +304,17 @@ const question = {
                 if (earlyStopPatience && patienceValue) {
                     patienceValue.textContent = earlyStopPatience.value;
                 }
+            };
+
+            // Enable/disable slider helper with visual cue
+            const setSliderEnabled = (el, enabled) => {
+                if (!el) return;
+                el.disabled = !enabled;
+                el.classList.toggle('opacity-50', !enabled);
+                el.classList.toggle('cursor-not-allowed', !enabled);
+                el.classList.toggle('opacity-100', enabled);
+                el.classList.toggle('cursor-pointer', enabled);
+                el.setAttribute('aria-disabled', String(!enabled));
             };
 
             // Update checkbox visual states
@@ -310,6 +337,7 @@ const question = {
                     l2Card.querySelector('.font-medium').innerHTML = '⭕ L2 Regularization <span class="text-xs text-gray-500">(DISABLED)</span>';
                     if (l2Status) l2Status.innerHTML = '<span class="mr-2">❌</span> L2 Regularization: <strong class="text-gray-500">OFF</strong>';
                 }
+                setSliderEnabled(l2Strength, l2RegCheck.checked);
 
                 // Dropout
                 const dropoutCard = dropoutCheck.parentElement.querySelector('div');
@@ -324,6 +352,7 @@ const question = {
                     dropoutCard.querySelector('.font-medium').innerHTML = '⭕ Dropout <span class="text-xs text-gray-500">(DISABLED)</span>';
                     if (dropoutStatus) dropoutStatus.innerHTML = '<span class="mr-2">❌</span> Dropout: <strong class="text-gray-500">OFF</strong>';
                 }
+                setSliderEnabled(dropoutRate, dropoutCheck.checked);
 
                 // Early Stopping
                 const earlyStopCard = earlyStopCheck.parentElement.querySelector('div');
@@ -338,6 +367,7 @@ const question = {
                     earlyStopCard.querySelector('.font-medium').innerHTML = '⭕ Early Stopping <span class="text-xs text-gray-500">(DISABLED)</span>';
                     if (earlyStopStatus) earlyStopStatus.innerHTML = '<span class="mr-2">❌</span> Early Stopping: <strong class="text-gray-500">OFF</strong>';
                 }
+                setSliderEnabled(earlyStopPatience, earlyStopCheck.checked);
             };
 
             // Simulate training with overfitting analysis
@@ -480,7 +510,12 @@ const question = {
                                       finalGap > 0.2 ? 'yellow' : 'green';
                 
                 indicator.textContent = overfitLevel;
-                indicator.className = `text-xs bg-${indicatorColor}-100 text-${indicatorColor}-700 px-2 py-1 rounded font-medium`;
+                const colorClassMap = {
+                    red: 'bg-red-100 text-red-700',
+                    yellow: 'bg-yellow-100 text-yellow-700',
+                    green: 'bg-green-100 text-green-700'
+                };
+                indicator.className = `text-xs ${colorClassMap[indicatorColor] || 'bg-gray-100 text-gray-700'} px-2 py-1 rounded font-medium`;
 
                 // Visualize results
                 visualizeTrainingResults(actualTrainLosses, actualValLosses, earlyStopEpoch, epochs, overfittingRisk, hasL2, hasDropout, hasEarlyStop, l2Lambda, dropoutRateValue, patience);
@@ -495,10 +530,10 @@ const question = {
 
                 // Loss curves
                 const chartDiv = document.createElement('div');
-                chartDiv.innerHTML = `
+            chartDiv.innerHTML = `
                     <h5 class="font-medium text-gray-900 mb-2">📉 Training vs Validation Loss</h5>
                     <div class="relative bg-white border rounded p-4 h-48">
-                        <svg viewBox="0 0 400 150" class="w-full h-full">
+            <svg viewBox="0 0 400 150" class="w-full h-full" role="img" aria-label="Line chart showing training and validation loss across epochs">
                             <!-- Grid lines -->
                             ${[0, 1, 2, 3, 4].map(i => `
                                 <line x1="0" y1="${30 * i + 10}" x2="400" y2="${30 * i + 10}" stroke="#f3f4f6" stroke-width="1"/>
@@ -506,19 +541,19 @@ const question = {
                             `).join('')}
                             
                             <!-- Training loss line -->
-                            <polyline points="${trainLosses.map((loss, i) => `${(i / (plannedEpochs - 1)) * 380 + 10},${130 - Math.min(loss * 40, 100)}`).join(' ')}" 
+                    <polyline points="${(() => { const denom = Math.max(plannedEpochs - 1, 1); return trainLosses.map((loss, i) => `${(i / denom) * 380 + 10},${130 - Math.min(loss * 40, 100)}`).join(' '); })()}" 
                                      fill="none" stroke="#3b82f6" stroke-width="2"/>
                             
                             <!-- Validation loss line -->
-                            <polyline points="${valLosses.map((loss, i) => `${(i / (plannedEpochs - 1)) * 380 + 10},${130 - Math.min(loss * 40, 100)}`).join(' ')}" 
+                    <polyline points="${(() => { const denom = Math.max(plannedEpochs - 1, 1); return valLosses.map((loss, i) => `${(i / denom) * 380 + 10},${130 - Math.min(loss * 40, 100)}`).join(' '); })()}" 
                                      fill="none" stroke="#ef4444" stroke-width="2" stroke-dasharray="5,5"/>
                             
                             <!-- Early stopping line (only if actually stopped early) -->
                             ${hasEarlyStop && actualEpochs < plannedEpochs ? `
-                                <line x1="${((actualEpochs - 1) / (plannedEpochs - 1)) * 380 + 10}" y1="10" 
-                                      x2="${((actualEpochs - 1) / (plannedEpochs - 1)) * 380 + 10}" y2="130" 
+                      <line x1="${(() => { const denom = Math.max(plannedEpochs - 1, 1); return ((actualEpochs - 1) / denom) * 380 + 10; })()}" y1="10" 
+                          x2="${(() => { const denom = Math.max(plannedEpochs - 1, 1); return ((actualEpochs - 1) / denom) * 380 + 10; })()}" y2="130" 
                                       stroke="#f97316" stroke-width="2" stroke-dasharray="3,3"/>
-                                <text x="${((actualEpochs - 1) / (plannedEpochs - 1)) * 380 + 15}" y="25" fill="#f97316" font-size="10">
+                      <text x="${(() => { const denom = Math.max(plannedEpochs - 1, 1); return ((actualEpochs - 1) / denom) * 380 + 15; })()}" y="25" fill="#f97316" font-size="10">
                                     Early Stop (${actualEpochs})
                                 </text>
                             ` : ''}
@@ -604,6 +639,10 @@ const question = {
                 const finalTrainLoss = 0.2 + Math.random() * 0.1;
                 const finalValLoss = finalTrainLoss + generalizationGap;
 
+                const gapBg = generalizationGap > 0.5 ? 'bg-red-100' : generalizationGap > 0.2 ? 'bg-yellow-100' : 'bg-green-100';
+                const gapTitle = generalizationGap > 0.5 ? 'text-red-900' : generalizationGap > 0.2 ? 'text-yellow-900' : 'text-green-900';
+                const gapText = generalizationGap > 0.5 ? 'text-red-700' : generalizationGap > 0.2 ? 'text-yellow-700' : 'text-green-700';
+
                 metrics.innerHTML = `
                     <div class="grid md:grid-cols-2 gap-4">
                         <div>
@@ -629,9 +668,9 @@ const question = {
                             <div class="font-medium text-red-900">Final Validation Loss</div>
                             <div class="text-red-700 text-lg">${finalValLoss.toFixed(3)}</div>
                         </div>
-                        <div class="bg-${generalizationGap > 0.5 ? 'red' : generalizationGap > 0.2 ? 'yellow' : 'green'}-100 p-2 rounded">
-                            <div class="font-medium text-${generalizationGap > 0.5 ? 'red' : generalizationGap > 0.2 ? 'yellow' : 'green'}-900">Generalization Gap</div>
-                            <div class="text-${generalizationGap > 0.5 ? 'red' : generalizationGap > 0.2 ? 'yellow' : 'green'}-700 text-lg">${generalizationGap.toFixed(3)}</div>
+                        <div class="${gapBg} p-2 rounded">
+                            <div class="font-medium ${gapTitle}">Generalization Gap</div>
+                            <div class="${gapText} text-lg">${generalizationGap.toFixed(3)}</div>
                         </div>
                     </div>
                     <div class="mt-2 text-blue-600 text-xs">
@@ -705,6 +744,7 @@ const question = {
                 earlyStopCheck.checked = false;
                 updateEpochsDisplay();
                 updateCheckboxStates();
+                updateSliderDisplays();
                 simulateTraining();
             };
 
@@ -715,8 +755,12 @@ const question = {
                 l2RegCheck.checked = true;
                 dropoutCheck.checked = true;
                 earlyStopCheck.checked = true;
+                if (l2Strength) l2Strength.value = '0.020';
+                if (dropoutRate) dropoutRate.value = '0.4';
+                if (earlyStopPatience) earlyStopPatience.value = '7';
                 updateEpochsDisplay();
                 updateCheckboxStates();
+                updateSliderDisplays();
                 simulateTraining();
             };
 

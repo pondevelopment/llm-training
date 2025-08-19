@@ -175,11 +175,11 @@ const question = {
         title: "🔍 OOV Word Tokenization Explorer",
         html: `
             <div class="space-y-6">
-                <!-- Text Input -->
+                <!-- Example Selector -->
                 <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200">
-                    <label for="q16-text-input" class="block text-sm font-medium text-gray-700 mb-2">📝 Enter Text with Potential OOV Words</label>
-                    <input type="text" id="q16-text-input" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" value="The blockchain cryptocurrency enthusiast livestreamed about biodegradable packaging.">
-                    <p class="text-xs text-gray-600 mt-1">Try technical terms, neologisms, compound words, or foreign words!</p>
+                    <label for="q16-text-select" class="block text-sm font-medium text-gray-700 mb-2">📝 Choose Sample Text (controlled)</label>
+                    <select id="q16-text-select" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"></select>
+                    <p id="q16-example-desc" class="text-xs text-gray-600 mt-1"></p>
                 </div>
                 
                 <!-- Tokenization Strategy Selection -->
@@ -240,11 +240,7 @@ const question = {
                     </div>
                 </div>
 
-                <!-- Quick Examples -->
-                <div class="flex flex-wrap gap-2">
-                    <span class="text-sm font-medium text-gray-700">💡 Quick Examples:</span>
-                    <button id="q16-example-btn" class="text-xs bg-indigo-100 text-indigo-700 px-2 py-1 rounded hover:bg-indigo-200 transition-colors">Technical Terms</button>
-                </div>
+                <!-- Quick Examples removed in favor of controlled dropdown -->
 
                 <!-- Tokenization Results -->
                 <div class="bg-white border border-gray-200 rounded-lg p-4">
@@ -385,14 +381,14 @@ function initializeQuestion16() {
             ]);
 
             // DOM elements
-            const textInput = document.getElementById('q16-text-input');
+            const textSelect = document.getElementById('q16-text-select');
+            const exampleDesc = document.getElementById('q16-example-desc');
             const strategyRadios = document.querySelectorAll('input[name="q16-strategy"]');
             const strategyIndicator = document.getElementById('q16-strategy-indicator');
             const vocabSizeSlider = document.getElementById('q16-vocab-size');
             const minFreqSlider = document.getElementById('q16-min-frequency');
             const vocabDisplay = document.getElementById('q16-vocab-display');
             const freqDisplay = document.getElementById('q16-freq-display');
-            const exampleBtn = document.getElementById('q16-example-btn');
             const output = document.getElementById('q16-output');
             const explanation = document.getElementById('q16-explanation');
             const tokenCountElement = document.getElementById('q16-token-count');
@@ -402,7 +398,7 @@ function initializeQuestion16() {
             const subwordList = document.getElementById('q16-subword-list');
             const oovList = document.getElementById('q16-oov-list');
 
-            if (!textInput || !output || !explanation) {
+            if (!textSelect || !output || !explanation) {
                 console.error('Required DOM elements not found for Question 16');
                 return;
             }
@@ -426,6 +422,13 @@ function initializeQuestion16() {
             }
 
             let currentExampleIndex = 0;
+
+            // Populate the dropdown from examples
+            if (textSelect) {
+                textSelect.innerHTML = examples
+                    .map((ex, idx) => `<option value="${idx}">${ex.name}</option>`) 
+                    .join('');
+            }
 
             // Get current strategy
             function getCurrentStrategy() {
@@ -667,7 +670,7 @@ function initializeQuestion16() {
 
             // Update display
             function updateDisplay() {
-                const text = textInput.value.trim();
+                const text = examples[currentExampleIndex].text.trim();
                 const strategy = getCurrentStrategy();
                 const config = strategyConfig[strategy];
                 const vocabSize = parseInt(vocabSizeSlider.value);
@@ -733,22 +736,19 @@ function initializeQuestion16() {
                 `;
             }
 
-            // Example cycling
-            function cycleExample() {
-                const example = examples[currentExampleIndex];
-                
-                textInput.value = example.text;
-                exampleBtn.textContent = example.name;
-                exampleBtn.title = example.description;
-                
-                updateDisplay();
-                
-                // Next example
-                currentExampleIndex = (currentExampleIndex + 1) % examples.length;
-            }
-
             // Event listeners
-            textInput.addEventListener('input', updateDisplay);
+            if (textSelect) {
+                textSelect.addEventListener('change', () => {
+                    const idx = parseInt(textSelect.value);
+                    if (!Number.isNaN(idx)) {
+                        currentExampleIndex = idx;
+                        if (exampleDesc) {
+                            exampleDesc.textContent = examples[idx].description;
+                        }
+                        updateDisplay();
+                    }
+                });
+            }
             strategyRadios.forEach(radio => {
                 radio.addEventListener('change', updateDisplay);
             });
@@ -765,9 +765,13 @@ function initializeQuestion16() {
                 console.error('Cannot add event listeners - sliders not found');
             }
             
-            exampleBtn.addEventListener('click', cycleExample);
-
             // Initial setup
+            if (exampleDesc) {
+                exampleDesc.textContent = examples[currentExampleIndex].description;
+            }
+            if (textSelect) {
+                textSelect.value = String(currentExampleIndex);
+            }
             updateParameterDisplays();
             updateDisplay();
 }

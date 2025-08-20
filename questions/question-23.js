@@ -5,6 +5,17 @@
 const question = {
     title: "23. How is the softmax function applied in attention mechanisms?",
     answer: `<div class="space-y-4">
+        <!-- Recommended Reading (Top) -->
+        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading</h4>
+            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+                <li><a href="#question-2" class="text-indigo-700 underline hover:text-indigo-900">Question 2: How does the attention mechanism function in transformer models?</a></li>
+                <li><a href="#question-24" class="text-indigo-700 underline hover:text-indigo-900">Question 24: How does the dot product contribute to self-attention?</a></li>
+                <li><a href="#question-32" class="text-indigo-700 underline hover:text-indigo-900">Question 32: How are attention scores calculated in transformers?</a></li>
+                <li><a href="#question-22" class="text-indigo-700 underline hover:text-indigo-900">Question 22: What is multi-head attention, and how does it enhance LLMs?</a></li>
+            </ul>
+        </div>
+
         <!-- Main Concept Box -->
         <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
             <h4 class="font-semibold text-blue-900 mb-2">🎯 What is Softmax in Attention?</h4>
@@ -14,16 +25,17 @@ const question = {
         <!-- Mathematical Formula -->
         <div class="bg-gray-50 p-4 rounded-lg border border-gray-300">
             <h4 class="font-semibold text-gray-900 mb-2">📐 The Softmax Formula</h4>
-            <div class="font-mono text-center text-lg bg-white p-3 rounded border">
-                softmax(x<sub>i</sub>) = e<sup>x<sub>i</sub></sup> / Σ<sub>j</sub> e<sup>x<sub>j</sub></sup>
+            <div id="q23-formula" class="text-base md:text-lg text-center bg-white p-3 rounded border overflow-x-auto whitespace-nowrap">
+                    $$ p_i = \frac{e^{x_i}}{\sum_{j} e^{x_j}} $$
+                    $$ p_i(T) = \frac{e^{x_i/T}}{\sum_{j} e^{x_j/T}} $$
             </div>
-            <p class="text-sm text-gray-600 mt-2">Where x<sub>i</sub> are the raw attention scores and the result is a probability distribution.</p>
+            <p class="text-sm text-gray-600 mt-2">Here, x<sub>i</sub> are raw attention scores; softmax converts them into a probability distribution that sums to 1.</p>
         </div>
         
         <!-- Temperature Effects Grid -->
         <div class="grid md:grid-cols-3 gap-4">
             <div class="bg-blue-50 p-3 rounded border-l-4 border-blue-400">
-                <h5 class="font-medium text-blue-900">Low Temperature (< 1.0)</h5>
+                <h5 class="font-medium text-blue-900">Low Temperature (T < 1.0)</h5>
                 <p class="text-sm text-blue-700">Makes probabilities more "peaked" - emphasizes differences between scores</p>
                 <code class="text-xs bg-blue-100 px-1 rounded">[3, 2, 1] → [0.67, 0.24, 0.09]</code>
             </div>
@@ -35,7 +47,7 @@ const question = {
             </div>
             
             <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
-                <h5 class="font-medium text-orange-900">High Temperature (> 1.0)</h5>
+                <h5 class="font-medium text-orange-900">High Temperature (T > 1.0)</h5>
                 <p class="text-sm text-orange-700">Makes probabilities more "flat" - reduces differences between scores</p>
                 <code class="text-xs bg-orange-100 px-1 rounded">[3, 2, 1] → [0.42, 0.34, 0.24]</code>
             </div>
@@ -52,6 +64,7 @@ const question = {
                 <li>• <strong>Interpretability:</strong> Outputs can be interpreted as "how much to attend to each position"</li>
             </ul>
         </div>
+        
     </div>`,
     interactive: {
         title: "🎯 Interactive Softmax Attention Explorer",
@@ -59,7 +72,7 @@ const question = {
             <!-- Input Section -->
             <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200">
                 <label for="q23-scores-select" class="block text-sm font-medium text-gray-700 mb-2">📝 Select Attention Score Pattern</label>
-                <select id="q23-scores-select" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                <select id="q23-scores-select" aria-label="Attention scores pattern" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                     <option value="3.2, 1.8, 2.5, 0.9, 2.1">Mixed Scores: [3.2, 1.8, 2.5, 0.9, 2.1]</option>
                     <option value="2.0, 2.0, 2.0, 2.0">Uniform Attention: [2.0, 2.0, 2.0, 2.0]</option>
                     <option value="5.0, 1.0, 1.0, 1.0">Single Focus: [5.0, 1.0, 1.0, 1.0]</option>
@@ -77,7 +90,7 @@ const question = {
                 <label for="q23-temperature" class="block text-sm font-medium text-gray-700 mb-2">🌡️ Temperature Parameter</label>
                 <div class="flex items-center space-x-4">
                     <span class="text-sm text-gray-600 min-w-[80px]">Focused (0.1)</span>
-                    <input type="range" id="q23-temperature" min="0.1" max="3.0" step="0.1" value="1.0" class="flex-1">
+                    <input type="range" id="q23-temperature" min="0.1" max="3.0" step="0.1" value="1.0" class="flex-1" aria-label="Temperature">
                     <span class="text-sm text-gray-600 min-w-[80px]">Diffuse (3.0)</span>
                 </div>
                 <div class="text-center mt-2">
@@ -126,17 +139,37 @@ const question = {
                     <h4 class="font-medium text-gray-900">🎨 Softmax Results</h4>
                     <div id="q23-mode-indicator" class="text-xs bg-gray-100 px-2 py-1 rounded font-medium">Bar Chart</div>
                 </div>
-                <div id="q23-output" class="min-h-[200px]"></div>
-                <div id="q23-legend" class="mt-3 text-xs text-gray-600"></div>
+                <div id="q23-output" class="min-h-[200px]" aria-live="polite"></div>
+                <div id="q23-legend" class="mt-3 text-xs text-gray-600" aria-live="polite"></div>
             </div>
             
             <!-- Educational Analysis -->
             <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
                 <h4 class="font-medium text-yellow-900 mb-2">📊 Temperature Effects Analysis</h4>
-                <div id="q23-explanation" class="text-sm text-yellow-800"></div>
+                <div id="q23-explanation" class="text-sm text-yellow-800" aria-live="polite"></div>
             </div>
         </div>`,
         script: () => {
+            // Ensure math in the static answer area is typeset
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                const container = document.getElementById('question-answer');
+                const formula = document.getElementById('q23-formula');
+                const tryTypeset = () => window.MathJax.typesetPromise([formula || container]).catch(() => {});
+                if (container) {
+                    tryTypeset().then(() => {
+                        // Fallback if MathJax still shows errors
+                        if (formula && formula.querySelector('[data-mml-node="merror"], .MathJax_Error')) {
+                            formula.setAttribute('aria-label', 'Softmax formula (HTML fallback)');
+                            formula.innerHTML = `
+                                <div class="font-mono">
+                                    p<sub>i</sub> = e<sup>x<sub>i</sub></sup> / Σ<sub>j</sub> e<sup>x<sub>j</sub></sup><br/>
+                                    p<sub>i</sub>(T) = e<sup>x<sub>i</sub>/T</sup> / Σ<sub>j</sub> e<sup>x<sub>j</sub>/T</sup>
+                                </div>
+                            `;
+                        }
+                    });
+                }
+            }
             // Get DOM elements with error checking
             const scoresSelect = document.getElementById('q23-scores-select');
             const temperatureSlider = document.getElementById('q23-temperature');
@@ -203,22 +236,26 @@ const question = {
             // Calculate softmax with temperature
             function softmax(scores, temperature = 1.0) {
                 // Apply temperature scaling
-                const scaledScores = scores.map(score => score / temperature);
-                
+                const scaledScores = scores.map(score => score / Math.max(temperature, 1e-6));
+
+                // Numerical stability: subtract max before exponentiation
+                const maxScore = Math.max(...scaledScores);
+                const shifted = scaledScores.map(s => s - maxScore);
+
                 // Calculate exp values
-                const expScores = scaledScores.map(score => Math.exp(score));
-                
+                const expScores = shifted.map(s => Math.exp(s));
+
                 // Calculate sum for normalization
                 const expSum = expScores.reduce((sum, exp) => sum + exp, 0);
-                
+
                 // Calculate final probabilities
-                const probabilities = expScores.map(exp => exp / expSum);
-                
+                const probabilities = expScores.map(exp => exp / (expSum || 1));
+
                 return {
                     original: scores,
                     scaled: scaledScores,
                     exponentials: expScores,
-                    probabilities: probabilities,
+                    probabilities,
                     sum: expSum
                 };
             }

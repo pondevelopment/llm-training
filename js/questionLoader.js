@@ -46,7 +46,9 @@ class QuestionLoader {
      */
     async _fetchQuestion(questionId) {
         try {
-            const response = await fetch(`./questions/${questionId}.js`);
+            const noCache = typeof window !== 'undefined' && window.__DEV_NO_CACHE__;
+            const url = `./questions/${questionId}.js${noCache ? `?t=${Date.now()}` : ''}`;
+            const response = await fetch(url, { cache: noCache ? 'no-store' : 'default' });
             if (!response.ok) {
                 throw new Error(`Failed to load question: ${response.status}`);
             }

@@ -121,25 +121,30 @@ script: () => {
 
 ## MathJax guidelines
 
-- Use `\(...\)` for inline math and `$$...$$` for display math.
-- In JS strings, escape backslashes: `\\frac{\\partial f}{\\partial x}`.
-- Add spaces around `<`/`>` in inline math to avoid HTML parsing issues.
-- Stick to standard LaTeX; avoid custom macros.
-- Test in the app; the loader retries typeset if needed.
+Follow these rules to avoid “Math input error” and ensure robust rendering:
+
+- Use `\(...\)` for inline math and `$$...$$` for display math. Prefer display math for anything non‑trivial.
+- In JS strings, escape backslashes: `\\frac{a}{b}` and `\\sum_{j} e^{x_j}`.
+- Avoid text-mode macros in compact areas: skip `\text{}`, `\mathrm{}`, `\mathbf{}` in chips/badges.
+- Avoid stretchy delimiters/size macros in chips: skip `\left...\right`, `\big`, etc. Use plain `( ) [ ]`.
+- Do not rely on custom macros. Use plain LaTeX or `\operatorname{...}` for named functions.
+- For function subscripts (e.g., softmax with temperature), split into separate display lines instead of one long block.
+- Add `overflow-x-auto whitespace-nowrap` to small containers to allow horizontal scrolling.
+- After dynamically inserting formulas, call the safe typeset helper shown below.
 
 Layout and overflow tips:
 
 - Prefer `align*` with `\\` line breaks for long equations.
 - If a formula must stay on one line (e.g., small cards/chips), wrap its container with `overflow-x-auto whitespace-nowrap` so users can scroll horizontally on narrow screens. Consider `text-xs` for compact displays.
-- The app auto-typesets and retries MathJax; you generally do not need to call `MathJax.typeset(…)` manually.
+- The app auto-typesets after loads. When you inject/update math in an interactive script, call `typesetMath(container)` (see helper below).
 
-Example: single-line KD loss inside a compact container with scroll safety
+Example: safe softmax forms inside a compact container with scroll safety
 
 ```html
 <div class="text-xs bg-green-100 px-2 py-1 rounded border text-center overflow-x-auto whitespace-nowrap">
-    $$
-    \\mathcal{L} = \\alpha\\, T^2\\, D_{KL}\\!\\left(p_{t}^{(T)}\\,\\big\\|\\, p_{s}^{(T)}\\right) + (1-\\alpha)\\, \\mathrm{CE}(y, p_s)
-    $$
+    $$ p_i = \frac{e^{x_i}}{\sum_j e^{x_j}} $$
+    $$ p_i(T) = \frac{e^{x_i/T}}{\sum_j e^{x_j/T}} $$
+    <!-- Avoid \text / \mathrm / \left...\right in compact areas -->
 </div>
 ```
 
@@ -147,9 +152,29 @@ Common patterns:
 
 - Partial derivatives: `\frac{\partial f}{\partial x}`
 - Matrices: `\begin{bmatrix} a & b \\ c & d \end{bmatrix}`
-- Vectors: `\mathbf{x}`, `\mathbf{W}`
+- Vectors: use plain symbols or `\boldsymbol{x}` if absolutely needed in larger blocks
 - Number sets: `\mathbb{R}`, `\mathbb{C}`
-- Functions: `\text{softmax}`, `\text{ReLU}`
+- Functions: `\operatorname{softmax}(x)` (or use plain probabilities like `p_i`)
+
+### Safe typeset helper for interactive scripts
+
+Use this when you inject or update formulas inside your `interactive.script()`:
+
+```javascript
+function typesetMath(root) {
+    try {
+        if (window.MathJax && window.MathJax.typesetPromise) {
+            const el = root || document.getElementById('question-answer');
+            if (!el) return Promise.resolve();
+            // Clear old nodes that may hold stale errors
+            el.querySelectorAll('mjx-container').forEach(n => n.remove());
+            window.MathJax.typesetClear && window.MathJax.typesetClear();
+            return window.MathJax.typesetPromise([el]);
+        }
+    } catch {}
+    return Promise.resolve();
+}
+```
 
 ## Deep links and navigation
 

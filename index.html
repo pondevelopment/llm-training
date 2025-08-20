@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Top 50 LLM Interview Questions - Interactive Learning Experience</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Disable client-side caching when running locally to ensure fresh question files
+        window.__DEV_NO_CACHE__ = (location.hostname === 'localhost' || location.hostname === '127.0.0.1');
+    </script>
     <!-- Enhanced MathJax Configuration -->
     <script>
         window.MathJax = {
@@ -13,8 +17,6 @@
                 displayMath: [['$$', '$$'], ['\\[', '\\]']],
                 processEscapes: true,
                 processEnvironments: true,
-                
-                digits: /^(?:[0-9]+(?:\{,\}[0-9]{3})*(?:\.[0-9]*)?|\.[0-9]+)/,
                 tags: 'none',
                 tagSide: 'right',
                 tagIndent: '0.8em',
@@ -34,10 +36,6 @@
                     diff: '{\\mathrm{d}}',
                     argmax: '{\\operatorname{argmax}}',
                     argmin: '{\\operatorname{argmin}}',
-                    softmax: '{\\text{softmax}}',
-                    relu: '{\\text{ReLU}}',
-                    tanh: '{\\text{tanh}}',
-                    sigmoid: '{\\text{sigmoid}}',
                     norm: ['{\\left\\|#1\\right\\|}', 1],
                     abs: ['{\\left|#1\\right|}', 1],
                     set: ['{\\left\\{#1\\right\\}}', 1],

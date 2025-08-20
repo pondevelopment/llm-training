@@ -316,17 +316,20 @@ class LLMQuestionApp {
         // Re-render MathJax after content is loaded with a delay to ensure all content is ready
         setTimeout(() => {
             if (window.MathJax && window.MathJax.typesetPromise) {
+                // Remove any previous MathJax containers before re-typesetting to avoid stale error nodes
+                this.elements.questionAnswer.querySelectorAll('mjx-container').forEach(n => n.remove());
+                window.MathJax.typesetClear && window.MathJax.typesetClear();
                 window.MathJax.typesetPromise([this.elements.questionAnswer]).then(() => {
                     console.log(`Question ${displayIndex + 1}: MathJax rendering complete`);
                 }).catch((err) => {
                     console.error(`Question ${displayIndex + 1}: MathJax rendering error:`, err);
-                    // Try to find specific error elements
-                    const mathErrors = this.elements.questionAnswer.querySelectorAll('.MathJax_Error');
+                    const mathErrors = this.elements.questionAnswer.querySelectorAll('.MathJax_Error, [data-mml-node="merror"]');
                     if (mathErrors.length > 0) {
-                        console.error('Math errors found:', mathErrors);
-                        mathErrors.forEach((error, errorIndex) => {
-                            console.error(`Error ${errorIndex + 1}:`, error.textContent, error);
-                        });
+                        console.warn(`Found ${mathErrors.length} MathJax error nodes; retrying minimal typeset`);
+                        // Attempt a minimal retry once more
+                        setTimeout(() => {
+                            window.MathJax.typesetPromise([this.elements.questionAnswer]).catch(() => {});
+                        }, 100);
                     }
                 });
             }

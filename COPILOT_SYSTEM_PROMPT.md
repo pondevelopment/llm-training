@@ -34,7 +34,8 @@ Always consult these when creating or updating any question. They are the source
 
 ## Commit & PR conventions
 
-- Only commit and push when the user explicitly requests it.
+- Only commit and push when the user explicitly requests it and after local testing passes.
+- Before committing, run Quality gates (Build/Lint/Tests/Smoke) and fix blockers.
 - Commit messages: imperative mood, succinct summary, optional bullet details.
   - Example: "Q16: Replace free text with controlled dropdown; tidy explanation; Unicode-aware split"
 - Include a brief validation note in PRs: Build/Lint/Test/Smoke (PASS/FAIL with short context).

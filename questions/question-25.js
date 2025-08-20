@@ -5,10 +5,18 @@
 const question = {
     title: "25. Why is cross-entropy loss used in language modeling?",
     answer: `<div class="space-y-4">
+        <!-- Recommended reading -->
+        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading</h4>
+            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+                <li><a href="#question-23" class="text-indigo-700 underline hover:text-indigo-900">Question 23: How is the softmax function applied in attention mechanisms?</a></li>
+                <li><a href="#question-29" class="text-indigo-700 underline hover:text-indigo-900">Question 29: What is KL divergence and how is it used?</a></li>
+            </ul>
+        </div>
         <!-- Main Concept Box -->
         <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
             <h4 class="font-semibold text-blue-900 mb-2">🎯 What is Cross-Entropy Loss?</h4>
-            <p class="text-blue-800">Cross-entropy loss measures how far the model's predicted probability distribution is from the true distribution. Think of it like a "surprise meter" - if the model predicts low probability for the actual next word, the loss is high (big surprise!). If it predicts high probability for the correct word, the loss is low (no surprise). The formula L = -Σ y<sub>i</sub> log(ŷ<sub>i</sub>) penalizes confident wrong predictions more than uncertain ones.</p>
+            <p class="text-blue-800">Cross-entropy loss measures how far the model's predicted probability distribution is from the true distribution. Think of it like a "surprise meter" — if the model predicts low probability for the actual next word, the loss is high; if it assigns high probability to the correct word, the loss is low. It penalizes confident wrong predictions much more than unsure ones.</p>
         </div>
         
         <!-- Intuitive Example -->
@@ -26,14 +34,15 @@ const question = {
         <!-- Mathematical Breakdown -->
         <div class="bg-gray-50 p-4 rounded-lg border border-gray-300">
             <h4 class="font-semibold text-gray-900 mb-2">📐 The Cross-Entropy Formula</h4>
-            <div class="font-mono text-center text-lg bg-white p-3 rounded border mb-2">
-                L = -Σ y<sub>i</sub> log(ŷ<sub>i</sub>)
+            <div id="q25-formula" class="text-center bg-white p-3 rounded border mb-2 overflow-x-auto whitespace-nowrap">
+                $$ L = -\\sum_i \\; y_i\\,\\log\\big(\\hat{p}_i\\big) $$
+                $$ \\text{(for one-hot targets)}\\;\\Rightarrow\\; L = -\\log\\big(p_{\\mathrm{correct}}\\big) $$
             </div>
             <div class="text-sm text-gray-600 space-y-1">
-                <p><strong>L</strong> = Cross-entropy loss</p>
-                <p><strong>y<sub>i</sub></strong> = True probability (1 for correct token, 0 for others)</p>
-                <p><strong>ŷ<sub>i</sub></strong> = Predicted probability from model</p>
-                <p><strong>Σ</strong> = Sum over all possible tokens in vocabulary</p>
+                <p><strong>L</strong> = cross-entropy loss</p>
+                <p><strong>y<sub>i</sub></strong> = true probability (1 for correct token, 0 for others)</p>
+                <p><strong>p̂<sub>i</sub></strong> = predicted probability from model</p>
+                <p><strong>Σ</strong> = sum over all possible tokens in the vocabulary</p>
             </div>
         </div>
         
@@ -74,7 +83,7 @@ const question = {
                 <div>
                     <h6 class="font-medium text-indigo-800 mb-2">Mathematical Properties:</h6>
                     <ul class="text-indigo-700 space-y-1">
-                        <li>• <strong>Convex:</strong> No local minima, guaranteed convergence</li>
+                        <li>• <strong>Well-behaved gradients:</strong> Strong learning signal, especially when confidently wrong</li>
                         <li>• <strong>Smooth:</strong> Continuous derivatives for gradient descent</li>
                         <li>• <strong>Unbounded:</strong> Heavily penalizes confident wrong predictions</li>
                         <li>• <strong>Probabilistic:</strong> Directly optimizes likelihood</li>
@@ -147,7 +156,7 @@ const question = {
     </div>`,
     interactive: {
         title: "🔍 Interactive Cross-Entropy Loss Calculator",
-        html: `<div class="space-y-6">
+    html: `<div class="space-y-6">
             <!-- Prediction Input Section -->
             <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200">
                 <label for="q25-context" class="block text-sm font-medium text-gray-700 mb-2">📝 Choose Context for Next Word Prediction</label>
@@ -252,19 +261,22 @@ const question = {
             <div class="bg-white border border-gray-200 rounded-lg p-4">
                 <div class="flex items-center justify-between mb-3">
                     <h4 class="font-medium text-gray-900">🎨 Cross-Entropy Loss Results</h4>
-                    <div id="q25-scenario-indicator" class="text-xs bg-gray-100 px-2 py-1 rounded font-medium">Good Prediction</div>
+                    <div id="q25-scenario-indicator" class="text-xs bg-gray-100 px-2 py-1 rounded font-medium" aria-live="polite">Good Prediction</div>
                 </div>
-                <div id="q25-output" class="min-h-[200px]"></div>
-                <div id="q25-legend" class="mt-3 text-xs text-gray-600"></div>
+                <div id="q25-output" class="min-h-[200px]" aria-live="polite"></div>
+                <div id="q25-legend" class="mt-3 text-xs text-gray-600" aria-live="polite"></div>
             </div>
             
             <!-- Educational Analysis -->
             <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
                 <h4 class="font-medium text-yellow-900 mb-2">📊 Loss Analysis</h4>
-                <div id="q25-explanation" class="text-sm text-yellow-800"></div>
+                <div id="q25-explanation" class="text-sm text-yellow-800" aria-live="polite"></div>
             </div>
         </div>`,
         script: () => {
+            // Note: Avoid per-block typeset here to prevent races with the
+            // app-level MathJax clearing/retypeset. The global renderer in
+            // js/app.js will typeset all new math after content loads.
             // Get DOM elements with error checking
             const contextInput = document.getElementById('q25-context');
             const trueWordInput = document.getElementById('q25-true-word');
@@ -605,7 +617,7 @@ const question = {
                                 <div class="text-xs text-gray-600 mt-1">Lower is better (0 is perfect)</div>
                             </div>
                             <div class="text-center">
-                                <div class="text-2xl font-bold text-purple-600">${Math.pow(2, loss).toFixed(1)}</div>
+                                <div class="text-2xl font-bold text-purple-600">${Math.exp(loss).toFixed(1)}</div>
                                 <div class="text-purple-600">Perplexity</div>
                                 <div class="text-xs text-gray-600 mt-1">Model's "surprise" level</div>
                             </div>

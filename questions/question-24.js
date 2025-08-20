@@ -5,6 +5,17 @@
 const question = {
     title: "24. How does the dot product contribute to self-attention?",
     answer: `<div class="space-y-4">
+        <!-- Recommended Reading (Top) -->
+        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading</h4>
+            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+                <li><a href="#question-2" class="text-indigo-700 underline hover:text-indigo-900">Question 2: How does the attention mechanism function in transformer models?</a></li>
+                <li><a href="#question-23" class="text-indigo-700 underline hover:text-indigo-900">Question 23: How is the softmax function applied in attention mechanisms?</a></li>
+                <li><a href="#question-32" class="text-indigo-700 underline hover:text-indigo-900">Question 32: How are attention scores calculated in transformers?</a></li>
+                <li><a href="#question-22" class="text-indigo-700 underline hover:text-indigo-900">Question 22: What is multi-head attention, and how does it enhance LLMs?</a></li>
+            </ul>
+        </div>
+
         <!-- Main Concept Box -->
         <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
             <h4 class="font-semibold text-blue-900 mb-2">🎯 What is the Dot Product in Self-Attention?</h4>
@@ -26,8 +37,8 @@ const question = {
         <!-- Mathematical Formula -->
         <div class="bg-gray-50 p-4 rounded-lg border border-gray-300">
             <h4 class="font-semibold text-gray-900 mb-2">📐 The Attention Score Formula</h4>
-            <div class="font-mono text-center text-lg bg-white p-3 rounded border">
-                Score = Q · K / √d<sub>k</sub>
+            <div id="q24-formula" class="text-base md:text-lg text-center bg-white p-3 rounded border overflow-x-auto whitespace-nowrap">
+                $$ s = \frac{Q \cdot K}{\sqrt{d_k}} $$
             </div>
             <p class="text-sm text-gray-600 mt-2">Where Q is the query vector, K is the key vector, and d<sub>k</sub> is the dimension of the key vectors (for scaling).</p>
         </div>
@@ -126,7 +137,7 @@ const question = {
             <!-- Vector Input Section -->
             <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200">
                 <label for="q24-vectors-select" class="block text-sm font-medium text-gray-700 mb-2">📝 Select Word Pairs for Attention Analysis</label>
-                <select id="q24-vectors-select" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                <select id="q24-vectors-select" aria-label="Word pair vectors for attention analysis" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                     <option value="[0.8, 0.6, 0.2, 0.9]; [0.7, 0.5, 0.3, 0.8]">"king" → "queen" (royal, similar roles)</option>
                     <option value="[0.9, 0.1, 0.8, 0.3]; [0.8, 0.2, 0.9, 0.2]">"running" → "jogging" (both physical activities)</option>
                     <option value="[0.2, 0.1, 0.1, 0.8]; [0.1, 0.2, 0.8, 0.1]">"the" → "elephant" (function word vs concrete noun)</option>
@@ -200,17 +211,24 @@ const question = {
                     <h4 class="font-medium text-gray-900">🎨 Attention Score Results</h4>
                     <div id="q24-mode-indicator" class="text-xs bg-gray-100 px-2 py-1 rounded font-medium">Step-by-Step</div>
                 </div>
-                <div id="q24-output" class="min-h-[200px]"></div>
-                <div id="q24-legend" class="mt-3 text-xs text-gray-600"></div>
+                <div id="q24-output" class="min-h-[200px]" aria-live="polite"></div>
+                <div id="q24-legend" class="mt-3 text-xs text-gray-600" aria-live="polite"></div>
             </div>
             
             <!-- Educational Analysis -->
             <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
                 <h4 class="font-medium text-yellow-900 mb-2">📊 Attention Analysis</h4>
-                <div id="q24-explanation" class="text-sm text-yellow-800"></div>
+                <div id="q24-explanation" class="text-sm text-yellow-800" aria-live="polite"></div>
             </div>
         </div>`,
         script: () => {
+            // Ensure math in the static answer area is typeset
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                const container = document.getElementById('question-answer');
+                const formula = document.getElementById('q24-formula');
+                const tryTypeset = () => window.MathJax.typesetPromise([formula || container]).catch(() => {});
+                if (container) { tryTypeset(); }
+            }
             // Get DOM elements with error checking
             const vectorsSelect = document.getElementById('q24-vectors-select');
             const applyScaling = document.getElementById('q24-apply-scaling');

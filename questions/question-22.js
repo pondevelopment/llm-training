@@ -5,30 +5,41 @@
 const question = {
     title: "22. What is multi-head attention, and how does it enhance LLMs?",
     answer: `<div class="space-y-4">
+        <!-- Recommended Reading -->
+        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related topics)</h4>
+            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+                <li><a href="#question-21" class="text-indigo-700 underline hover:text-indigo-900">Question 21: Positional encodings</a></li>
+                <li><a href="#question-23" class="text-indigo-700 underline hover:text-indigo-900">Question 23: Softmax in attention</a></li>
+                <li><a href="#question-24" class="text-indigo-700 underline hover:text-indigo-900">Question 24: Dot product in self-attention</a></li>
+                <li><a href="#question-32" class="text-indigo-700 underline hover:text-indigo-900">Question 32: Attention score calculation</a></li>
+            </ul>
+        </div>
         <!-- Main Concept Box -->
         <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
             <h4 class="font-semibold text-blue-900 mb-2">🎯 What is Multi-Head Attention?</h4>
             <p class="text-blue-800">Multi-head attention is like having multiple specialized experts examining the same text simultaneously. Instead of one attention mechanism, the model splits queries, keys, and values into multiple "heads" - each focusing on different aspects like syntax, semantics, or relationships. Think of it as having multiple translators, each specializing in different nuances of language.</p>
         </div>
         
-        <!-- How It Works -->
+    <!-- How It Works -->
         <div class="grid md:grid-cols-3 gap-4">
             <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
                 <h5 class="font-medium text-green-900">Split into Heads</h5>
                 <p class="text-sm text-green-700">Divide the embedding dimension into multiple smaller subspaces, each representing one attention head.</p>
-                <code class="text-xs bg-green-100 px-1 rounded">d_model = num_heads × d_head</code>
+    <div class="text-base md:text-lg bg-green-100 px-3 py-2 rounded border text-center overflow-x-auto whitespace-nowrap leading-tight">$$ d_{model} = h \, d_{head} $$</div>
+            <div class="mt-1 text-base md:text-lg bg-green-100 px-3 py-2 rounded border text-center overflow-x-auto whitespace-nowrap leading-tight">$$ head_i = A(Q W_i^{Q}, K W_i^{K}, V W_i^{V}) $$</div>
             </div>
             
             <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
                 <h5 class="font-medium text-purple-900">Parallel Processing</h5>
                 <p class="text-sm text-purple-700">Each head independently computes attention weights, focusing on different patterns and relationships.</p>
-                <code class="text-xs bg-purple-100 px-1 rounded">Attention(Q, K, V) per head</code>
+                <div class="text-base md:text-lg bg-purple-100 px-3 py-2 rounded border text-center overflow-x-auto whitespace-nowrap leading-tight">$$ A(Q,K,V) = softmax((QK^{T})/\sqrt{d_k})\,V $$</div>
             </div>
             
             <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
                 <h5 class="font-medium text-orange-900">Concatenate & Project</h5>
                 <p class="text-sm text-orange-700">Combine outputs from all heads and apply a final linear transformation to integrate insights.</p>
-                <code class="text-xs bg-orange-100 px-1 rounded">Concat(head₁...headₕ)W⁰</code>
+                <div class="text-base md:text-lg bg-orange-100 px-3 py-2 rounded border text-center overflow-x-auto whitespace-nowrap leading-tight">$$ MHA(Q,K,V) = Concat(head_1,\ldots,head_h)\, W^{O} $$</div>
             </div>
         </div>
         
@@ -122,14 +133,14 @@ const question = {
                     <h4 class="font-medium text-gray-900">🎨 Multi-Head Attention Visualization</h4>
                     <div id="q22-heads-indicator" class="text-xs bg-gray-100 px-2 py-1 rounded font-medium"></div>
                 </div>
-                <div id="q22-output" class="min-h-[300px] p-3 bg-gray-50 rounded border-2 border-dashed border-gray-300"></div>
+                <div id="q22-output" class="min-h-[300px] p-3 bg-gray-50 rounded border-2 border-dashed border-gray-300" aria-live="polite"></div>
                 <div id="q22-legend" class="mt-3 text-xs"></div>
             </div>
             
             <!-- Educational Analysis -->
             <div id="q22-analysis" class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
                 <h4 class="font-medium text-yellow-900 mb-2">📊 Attention Head Analysis</h4>
-                <div id="q22-explanation" class="text-sm text-yellow-800"></div>
+                <div id="q22-explanation" class="text-sm text-yellow-800" aria-live="polite"></div>
             </div>
         </div>`,
         script: () => {
@@ -140,6 +151,7 @@ const question = {
             const headsIndicator = document.getElementById('q22-heads-indicator');
             const legend = document.getElementById('q22-legend');
             const explanation = document.getElementById('q22-explanation');
+            const answerRoot = document.getElementById('question-answer');
 
             // Check if required elements exist
             if (!input || !output) {
@@ -559,6 +571,14 @@ const question = {
             }
 
             // Main processing function
+            // Helper: re-typeset MathJax for any static/dynamic fragments in scope
+            const typesetMath = () => {
+                if (window.MathJax && typeof window.MathJax.typesetPromise === 'function') {
+                    const scope = answerRoot || document.body;
+                    setTimeout(() => window.MathJax.typesetPromise([scope]).catch(() => {}), 0);
+                }
+            };
+
             const processAndDisplay = () => {
                 const text = input.value.trim();
                 const numHeads = getCurrentHeads();
@@ -594,24 +614,21 @@ const question = {
                 if (legend) {
                     legend.innerHTML = `
                         <div class="flex items-center gap-4 text-gray-600 flex-wrap">
+                            <div class="text-xs">Matrix cells are tinted by head color; opacity encodes attention strength.</div>
                             <div class="flex items-center gap-2">
-                                <div class="text-xs">Matrix cells show attention strength:</div>
+                                <span class="w-3 h-3 inline-block rounded" style="background-color:#000;opacity:0.2"></span>
+                                <span class="text-xs">Low</span>
+                                <span class="w-3 h-3 inline-block rounded ml-3" style="background-color:#000;opacity:0.8"></span>
+                                <span class="text-xs">High</span>
                             </div>
-                            <div class="flex items-center gap-2">
-                                <div class="w-3 h-3 rounded bg-gray-300"></div>
-                                <span class="text-xs">Low attention</span>
-                            </div>
-                            <div class="flex items-center gap-2">
-                                <div class="w-3 h-3 rounded bg-gray-600"></div>
-                                <span class="text-xs">High attention</span>
-                            </div>
-                            <div class="text-xs">• = Strong connection</div>
-                        </div>
-                    `;
+                            <div class="text-xs">• / ● marks strong connections</div>
+                        </div>`;
                 }
 
                 // Update educational explanation
                 updateExplanation(numHeads, tokens);
+                // Typeset any math in static chips (displayed in answer) if needed
+                typesetMath();
             };
 
             // Update the educational explanation based on selected configuration
@@ -664,6 +681,11 @@ const question = {
             // Initial setup
             updateHeadsVisuals();
             processAndDisplay();
+            // Ensure any static formulas are rendered
+            typesetMath();
         }
     }
 };
+
+// Optional (safe) export for Node-based tooling/tests
+if (typeof module !== 'undefined') { module.exports = question; }

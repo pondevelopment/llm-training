@@ -4,6 +4,16 @@
 const question = {
     title: "27. What is the Jacobian matrix's role in transformer backpropagation?",
     answer: `<div class="space-y-6">
+        <!-- Recommended Reading (Top) -->
+        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading</h4>
+            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+                <li><a href="#question-31" class="text-indigo-700 underline hover:text-indigo-900">Question 31: How does backpropagation work, and why is the chain rule critical?</a></li>
+                <li><a href="#question-26" class="text-indigo-700 underline hover:text-indigo-900">Question 26: How are gradients computed for embeddings in LLMs?</a></li>
+                <li><a href="#question-24" class="text-indigo-700 underline hover:text-indigo-900">Question 24: How does the dot product contribute to self-attention?</a></li>
+                <li><a href="#question-32" class="text-indigo-700 underline hover:text-indigo-900">Question 32: How are attention scores calculated in transformers?</a></li>
+            </ul>
+        </div>
         <!-- Hero Section with Clear Definition -->
         <div class="bg-gradient-to-br from-blue-50 via-indigo-50 to-blue-100 p-6 rounded-xl border border-blue-200 shadow-sm">
             <div class="text-center mb-4">
@@ -177,14 +187,14 @@ const question = {
             <!-- Function Type Selection -->
             <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200">
                 <label for="q27-function-type" class="block text-sm font-medium text-gray-700 mb-2">📝 Choose Function Type</label>
-                <select id="q27-function-type" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                <select id="q27-function-type" aria-describedby="q27-function-type-help" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                     <option value="linear" selected>Linear Transformation (W·x + b)</option>
                     <option value="softmax">Softmax Function</option>
                     <option value="attention">Attention Mechanism</option>
                     <option value="layer-norm">Layer Normalization</option>
                     <option value="feed-forward">Feed-Forward Network</option>
                 </select>
-                <p class="text-xs text-gray-600 mt-1">Different function types have different Jacobian structures and computational properties</p>
+                <p id="q27-function-type-help" class="text-xs text-gray-600 mt-1">Different function types have different Jacobian structures and computational properties</p>
             </div>
             
             <!-- Analysis Mode Selection -->
@@ -230,24 +240,24 @@ const question = {
             <div class="grid md:grid-cols-2 gap-4">
                 <div class="bg-white border border-gray-200 rounded-lg p-4">
                     <label for="q27-input-dim" class="block text-sm font-medium text-gray-700 mb-2">📊 Input Dimension</label>
-                    <select id="q27-input-dim" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    <select id="q27-input-dim" aria-describedby="q27-input-dim-help" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                         <option value="2">2D (for visualization)</option>
                         <option value="3" selected>3D (small example)</option>
                         <option value="4">4D (medium example)</option>
                         <option value="8">8D (larger example)</option>
                     </select>
-                    <p class="text-xs text-gray-600 mt-1">Input vector dimension (n)</p>
+                    <p id="q27-input-dim-help" class="text-xs text-gray-600 mt-1">Input vector dimension (n)</p>
                 </div>
                 
                 <div class="bg-white border border-gray-200 rounded-lg p-4">
                     <label for="q27-output-dim" class="block text-sm font-medium text-gray-700 mb-2">📈 Output Dimension</label>
-                    <select id="q27-output-dim" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                    <select id="q27-output-dim" aria-describedby="q27-output-dim-help" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                         <option value="2">2D (compressed)</option>
                         <option value="3" selected>3D (same as input)</option>
                         <option value="4">4D (expanded)</option>
                         <option value="6">6D (projection)</option>
                     </select>
-                    <p class="text-xs text-gray-600 mt-1">Output vector dimension (m)</p>
+                    <p id="q27-output-dim-help" class="text-xs text-gray-600 mt-1">Output vector dimension (m)</p>
                 </div>
             </div>
 
@@ -263,14 +273,14 @@ const question = {
                     <h4 class="font-medium text-gray-900">🎨 Jacobian Analysis Results</h4>
                     <div id="q27-mode-indicator" class="text-xs bg-gray-100 px-2 py-1 rounded font-medium">Matrix Structure</div>
                 </div>
-                <div id="q27-output" class="min-h-[300px]"></div>
-                <div id="q27-legend" class="mt-3 text-xs text-gray-600"></div>
+                <div id="q27-output" class="min-h-[300px]" aria-live="polite" aria-atomic="true" role="status"></div>
+                <div id="q27-legend" class="mt-3 text-xs text-gray-600" aria-live="polite"></div>
             </div>
             
             <!-- Educational Analysis -->
             <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
                 <h4 class="font-medium text-yellow-900 mb-2">📊 Function Analysis</h4>
-                <div id="q27-explanation" class="text-sm text-yellow-800"></div>
+                <div id="q27-explanation" class="text-sm text-yellow-800" aria-live="polite"></div>
             </div>
         </div>`,
         script: () => {
@@ -484,11 +494,11 @@ const question = {
                         <div class="bg-white border rounded p-4">
                             <h5 class="font-medium text-gray-700 mb-3">Matrix Visualization (${mode} mode)</h5>
                             <div class="overflow-x-auto">
-                                <div class="inline-block border border-gray-300">
+                                <div class="inline-block border border-gray-300" role="table" aria-label="Jacobian matrix heatmap">
                     `;
 
                     matrix.forEach((row, i) => {
-                        html += '<div class="flex">';
+                        html += '<div class="flex" role="row">';
                         row.forEach((val, j) => {
                             const absVal = Math.abs(val);
                             let colorClass, textColor;
@@ -505,11 +515,12 @@ const question = {
                                 colorClass = `bg-red-${intensity > 0.7 ? '500' : intensity > 0.4 ? '300' : '100'}`;
                                 textColor = intensity > 0.5 ? 'text-white' : 'text-red-800';
                             }
+                            const cellLabel = (mode === 'structure') ? '' : val.toFixed(2);
                             
                             html += `
                                 <div class="w-12 h-12 ${colorClass} ${textColor} border border-gray-200 flex items-center justify-center text-xs font-mono" 
-                                     title="∂f${i+1}/∂x${j+1} = ${val.toFixed(3)}">
-                                    ${val.toFixed(2)}
+                                     role="cell" title="∂f${i+1}/∂x${j+1} = ${val.toFixed(3)}">
+                                    ${cellLabel}
                                 </div>
                             `;
                         });
@@ -531,12 +542,14 @@ const question = {
                     output.innerHTML = html;
 
                     if (legend) {
+                        const modeNames = { structure: 'Matrix Structure', computation: 'Computation', backprop: 'Backprop Flow' };
                         legend.innerHTML = `
                             Function: ${jacobianData.config.name} | 
                             Dimensions: ${jacobianData.dimensions} | 
                             Sparsity: ${(jacobianData.sparsity * 100).toFixed(1)}% | 
                             Norm: ${jacobianData.norm.toFixed(3)} | 
-                            Complexity: ${jacobianData.config.complexity}
+                            Complexity: ${jacobianData.config.complexity} | 
+                            View: ${modeNames[mode]}
                         `;
                     }
 
@@ -547,6 +560,80 @@ const question = {
                                 <p><strong>Mode:</strong> ${mode} view shows how the Jacobian matrix facilitates gradient computation in transformer backpropagation.</p>
                             </div>
                         `;
+                    }
+
+                    // Mode-specific educational extras
+                    let extras = '';
+                    if (mode === 'structure') {
+                        extras += `
+                            <div class="mt-3 p-3 bg-blue-50 rounded border border-blue-200 text-xs text-blue-800">
+                                Structure view: numbers are hidden to emphasize sparsity and sign. Brightness encodes |J_{ij}|, color encodes sign (blue=positive, red=negative).
+                            </div>
+                        `;
+                    } else if (mode === 'computation') {
+                        // Add a small formula card for the selected function type
+                        const formulaByType = {
+                            'linear': '$$ J = W $$',
+                            'softmax': '$$ J_{ij} = s_i (\\delta_{ij} - s_j) $$',
+                            'attention': '$$ J = \\frac{\\partial\\,\\operatorname{Attention}(Q,K,V)}{\\partial x} $$',
+                            'layer-norm': '$$ J = \\frac{\\partial\\,\\operatorname{LayerNorm}(x)}{\\partial x} $$',
+                            'feed-forward': '$$ J = \\operatorname{diag}(\\sigma\'(Wx+b))\\,W $$'
+                        };
+                        const formula = formulaByType[functionType] || '';
+                        extras += `
+                            <div class="mt-3 p-3 bg-indigo-50 rounded border border-indigo-200">
+                                <div class="text-xs text-indigo-800 mb-1">Computation view formula</div>
+                                <div class="bg-white p-2 rounded border overflow-x-auto whitespace-nowrap text-center">${formula}</div>
+                            </div>
+                        `;
+                    } else if (mode === 'backprop') {
+                        // Simulate upstream gradient and show propagation: g_x = J^T g_y
+                        const m = parseInt(outputDim);
+                        const n = parseInt(inputDim);
+                        let gy = Array.from({length: m}, () => (Math.random() - 0.5) * 2);
+                        // normalize gy for stability
+                        const gyNorm = Math.sqrt(gy.reduce((s,v)=>s+v*v,0)) || 1;
+                        gy = gy.map(v => v/gyNorm);
+                        const gx = new Array(n).fill(0);
+                        for (let j = 0; j < n; j++) {
+                            let sum = 0;
+                            for (let i = 0; i < m; i++) {
+                                sum += matrix[i][j] * gy[i];
+                            }
+                            gx[j] = sum;
+                        }
+                        const maxAbs = Math.max(...gx.map(v => Math.abs(v))) || 1;
+                        let bars = '';
+                        gx.forEach((v, j) => {
+                            const pct = Math.min(100, Math.abs(v) / maxAbs * 100);
+                            const color = v >= 0 ? 'bg-blue-500' : 'bg-red-500';
+                            bars += `
+                                <div class="flex items-center gap-2">
+                                    <div class="w-16 text-xs font-mono">x${j+1}</div>
+                                    <div class="flex-1 bg-gray-200 rounded h-4 relative">
+                                        <div class="${color} h-full rounded" style="width: ${pct}%"></div>
+                                        <div class="absolute inset-0 flex items-center justify-center text-[10px] text-white font-mono">${v.toFixed(3)}</div>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                        extras += `
+                            <div class="mt-3 p-3 bg-purple-50 rounded border border-purple-200">
+                                <div class="text-xs text-purple-800 mb-2">Backprop view: upstream gradient flows through the Jacobian transpose</div>
+                                <div class="text-center text-xs font-mono mb-2">$$ \\frac{\\partial L}{\\partial x} = J^{\\top} \\frac{\\partial L}{\\partial y} $$</div>
+                                <div class="space-y-1">${bars}</div>
+                            </div>
+                        `;
+                    }
+                    if (extras) {
+                        const container = document.createElement('div');
+                        container.innerHTML = extras;
+                        output.appendChild(container);
+                    }
+
+                    // Future-proof MathJax rendering in case dynamic content includes TeX later
+                    if (window.MathJax && window.MathJax.typesetPromise) {
+                        window.MathJax.typesetPromise([output, legend, explanation]).catch(() => {});
                     }
                     
                 } catch (error) {

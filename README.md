@@ -1,5 +1,8 @@
 # Top 50 LLM Interview Questions
 
+[➡️ Open the latest version (GitHub Pages)](https://pondevelopment.github.io/llm-training/#question-1)
+
+
 An interactive learning experience with hands-on examples for the most important Large Language Model (LLM) interview questions.
 
 ## 🎯 Overview
@@ -32,7 +35,7 @@ This project is a single‑page, static web app covering 50 essential LLM questi
 
 ## 📁 Project structure
 
-```
+```text
 top-50-llm-questions/
 ├── index.html                 # App shell (header, viewer, glossary modal, footer)
 ├── js/

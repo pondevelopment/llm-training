@@ -5,6 +5,17 @@
 const question = {
     title: "26. How are gradients computed for embeddings in LLMs?",
     answer: `<div class="space-y-4">
+        <!-- Recommended Reading (Top) -->
+        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading</h4>
+            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+                <li><a href="#question-7" class="text-indigo-700 underline hover:text-indigo-900">Question 7: What are embeddings and how do they enable semantic meaning?</a></li>
+                <li><a href="#question-25" class="text-indigo-700 underline hover:text-indigo-900">Question 25: Why is cross-entropy loss used in language modeling?</a></li>
+                <li><a href="#question-31" class="text-indigo-700 underline hover:text-indigo-900">Question 31: How does backpropagation work, and why is the chain rule critical?</a></li>
+                <li><a href="#question-23" class="text-indigo-700 underline hover:text-indigo-900">Question 23: How is the softmax function applied in attention mechanisms?</a></li>
+            </ul>
+        </div>
+
         <!-- Main Concept Box -->
         <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
             <h4 class="font-semibold text-blue-900 mb-2">🔗 What are Embedding Gradients?</h4>
@@ -26,14 +37,15 @@ const question = {
         <!-- Mathematical Formula -->
         <div class="bg-gray-50 p-4 rounded-lg border border-gray-300">
             <h4 class="font-semibold text-gray-900 mb-2">📐 The Gradient Formula</h4>
-            <div class="font-mono text-center text-lg bg-white p-3 rounded border mb-2">
-                ∂L/∂E = (∂L/∂logits) × (∂logits/∂E)
+            <div id="q26-formula" class="text-center bg-white p-3 rounded border mb-2 overflow-x-auto whitespace-nowrap">
+                $$ \\frac{\\partial L}{\\partial E} \\;=\\; \\frac{\\partial L}{\\partial \\text{logits}} \\cdot \\frac{\\partial \\text{logits}}{\\partial E} $$
             </div>
             <div class="text-sm text-gray-600 space-y-1">
                 <p><strong>∂L/∂E</strong> = Gradient of loss with respect to embeddings</p>
                 <p><strong>∂L/∂logits</strong> = How loss changes with output predictions</p>
                 <p><strong>∂logits/∂E</strong> = How predictions change with embedding values</p>
                 <p><strong>Chain Rule</strong> = Connects final loss to initial embeddings</p>
+                <p class="mt-2">Note (softmax + cross-entropy): $$ \\frac{\\partial L}{\\partial \\text{logits}} \\;=\\; \\hat{p} - y $$</p>
             </div>
         </div>
         
@@ -172,14 +184,14 @@ const question = {
             <!-- Scenario Selection -->
             <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200">
                 <label for="q26-scenario" class="block text-sm font-medium text-gray-700 mb-2">📝 Choose Training Scenario</label>
-                <select id="q26-scenario" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                <select id="q26-scenario" aria-describedby="q26-scenario-help" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                     <option value="correct-prediction">Correct Prediction - Low gradients</option>
                     <option value="wrong-prediction" selected>Wrong Prediction - High gradients</option>
                     <option value="uncertain-prediction">Uncertain Prediction - Medium gradients</option>
                     <option value="rare-word">Rare Word Training - Sparse updates</option>
                     <option value="frequent-word">Frequent Word Training - Regular updates</option>
                 </select>
-                <p class="text-xs text-gray-600 mt-1">Different scenarios show how gradients vary based on prediction accuracy and word frequency</p>
+                <p id="q26-scenario-help" class="text-xs text-gray-600 mt-1">Different scenarios show how gradients vary based on prediction accuracy and word frequency</p>
             </div>
             
             <!-- Gradient Computation Mode -->
@@ -274,14 +286,14 @@ const question = {
                     <h4 class="font-medium text-gray-900">🎨 Gradient Computation Results</h4>
                     <div id="q26-mode-indicator" class="text-xs bg-gray-100 px-2 py-1 rounded font-medium">Step-by-Step</div>
                 </div>
-                <div id="q26-output" class="min-h-[200px]"></div>
-                <div id="q26-legend" class="mt-3 text-xs text-gray-600"></div>
+                <div id="q26-output" class="min-h-[200px]" aria-live="polite" aria-atomic="true" role="status"></div>
+                <div id="q26-legend" class="mt-3 text-xs text-gray-600" aria-live="polite"></div>
             </div>
             
             <!-- Educational Analysis -->
             <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
                 <h4 class="font-medium text-yellow-900 mb-2">📊 Gradient Analysis</h4>
-                <div id="q26-explanation" class="text-sm text-yellow-800"></div>
+                <div id="q26-explanation" class="text-sm text-yellow-800" aria-live="polite"></div>
             </div>
         </div>`,
         script: () => {
@@ -380,13 +392,10 @@ const question = {
 
             // Generate gradient values based on scenario
             function generateGradientData(scenario, targetWord, context) {
-                const config = scenarioConfig[scenario];
-                
-                // Debug and error checking
-                if (!config) {
+                // Resolve scenario config with safe fallback
+                const config = scenarioConfig[scenario] || scenarioConfig['uncertain-prediction'];
+                if (!scenarioConfig[scenario]) {
                     console.error('Scenario config not found for:', scenario, 'Available:', Object.keys(scenarioConfig));
-                    // Fallback to uncertain-prediction
-                    config = scenarioConfig['uncertain-prediction'];
                 }
                 
                 const embeddingDim = 768; // Typical embedding dimension
@@ -676,11 +685,11 @@ const question = {
                                 </div>
                             </div>
                             
-                            <div class="bg-white p-3 rounded border">
+                <div class="bg-white p-3 rounded border">
                                 <h6 class="font-semibold text-gray-700 mb-2">After Update</h6>
                                 <div class="text-sm space-y-1">
                                     <div><strong>Expected Change:</strong> ${gradientData.config.gradientMagnitude} adjustment</div>
-                                    <div><strong>New Confidence:</strong> ${Math.min(0.95, gradientData.confidence + (1 - gradientData.confidence) * 0.1).toFixed(1) * 100}%</div>
+                    <div><strong>New Confidence:</strong> ${(Math.min(0.95, gradientData.confidence + (1 - gradientData.confidence) * 0.1) * 100).toFixed(1)}%</div>
                                     <div><strong>Semantic Shift:</strong> Improved context alignment</div>
                                 </div>
                             </div>
@@ -782,6 +791,11 @@ const question = {
 
                 // Update explanation
                 updateExplanation(scenario, gradientData, mode);
+
+                // Future-proof MathJax rendering in case dynamic content includes TeX later
+                if (window.MathJax && window.MathJax.typesetPromise) {
+                    window.MathJax.typesetPromise([output, legend, explanation]).catch(() => {});
+                }
             };
 
             // Update educational explanation

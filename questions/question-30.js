@@ -5,10 +5,23 @@
 const question = {
     title: "30. What is the derivative of the ReLU function, and why is it significant?",
     answer: `<div class="space-y-4">
+        <!-- Recommended Reading -->
+        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading</h4>
+            <ul class="list-disc pl-5 text-sm space-y-1">
+                <li><a href="#question-17" class="text-indigo-700 underline hover:text-indigo-900"><strong>Q17:</strong> Vanishing gradients in sequence models</a></li>
+                <li><a href="#question-24" class="text-indigo-700 underline hover:text-indigo-900"><strong>Q24:</strong> Gradient stability & optimization dynamics</a></li>
+                <li><a href="#question-31" class="text-indigo-700 underline hover:text-indigo-900"><strong>Q31:</strong> Chain rule depth & gradient flow</a></li>
+                <li><a href="#question-32" class="text-indigo-700 underline hover:text-indigo-900"><strong>Q32:</strong> Scaling tricks to preserve gradients</a></li>
+            </ul>
+        </div>
         <!-- Main Concept Box -->
         <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
             <h4 class="font-semibold text-blue-900 mb-2">⚡ What is ReLU and Its Derivative?</h4>
-            <p class="text-blue-800">The ReLU (Rectified Linear Unit) function is defined as <strong>f(x) = max(0, x)</strong>. Its derivative is remarkably simple: <strong>1 for positive inputs, 0 for negative inputs</strong>. This simplicity is what makes ReLU so powerful in deep learning - it either passes gradients through unchanged or blocks them completely.</p>
+            <p class="text-blue-800">The ReLU (Rectified Linear Unit) function is defined as <strong>\\( f(x) = \\max(0, x) \\)</strong>. Its derivative is remarkably simple: <strong>1 for positive inputs, 0 for negative inputs</strong>. This simplicity is what makes ReLU so powerful in deep learning – it either passes gradients through unchanged or blocks them completely.</p>
+            <div class="mt-3 bg-white/60 p-3 rounded border text-center overflow-x-auto whitespace-nowrap">
+                $$ f'(x) = \\begin{cases} 1 & \\text{if } x > 0 \\\\ 0 & \\text{if } x \\le 0 \\end{cases} $$
+            </div>
         </div>
         
         <!-- Mathematical Definition -->
@@ -91,14 +104,14 @@ const question = {
             <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200">
                 <label for="q30-input-range" class="block text-sm font-medium text-gray-700 mb-2">📊 Input Value (x)</label>
                 <div class="space-y-3">
-                    <input type="range" id="q30-input-range" min="-3" max="3" step="0.1" value="1.5" class="w-full">
+                    <input type="range" id="q30-input-range" min="-3" max="3" step="0.1" value="1.5" class="w-full" aria-describedby="q30-current-value q30-range-help">
                     <div class="flex justify-between text-xs text-gray-600">
                         <span>-3</span>
                         <span id="q30-current-value" class="font-medium">1.5</span>
                         <span>3</span>
                     </div>
                 </div>
-                <p class="text-xs text-gray-600 mt-1">Drag to see how activation functions and their derivatives behave!</p>
+                <p id="q30-range-help" class="text-xs text-gray-600 mt-1">Drag to see how activation functions and their derivatives behave.</p>
             </div>
             
             <!-- Function Visualization -->
@@ -109,7 +122,7 @@ const question = {
                     <div>
                         <h5 class="text-sm font-medium text-gray-700 mb-2">Activation Function f(x)</h5>
                         <div class="relative bg-gray-50 rounded border" style="height: 200px;">
-                            <canvas id="q30-function-canvas" width="280" height="200" class="w-full h-full"></canvas>
+                            <canvas id="q30-function-canvas" width="280" height="200" class="w-full h-full" role="img" aria-label="Activation function plot"></canvas>
                         </div>
                     </div>
                     
@@ -117,7 +130,7 @@ const question = {
                     <div>
                         <h5 class="text-sm font-medium text-gray-700 mb-2">Derivative f'(x)</h5>
                         <div class="relative bg-gray-50 rounded border" style="height: 200px;">
-                            <canvas id="q30-derivative-canvas" width="280" height="200" class="w-full h-full"></canvas>
+                            <canvas id="q30-derivative-canvas" width="280" height="200" class="w-full h-full" role="img" aria-label="Derivative plot"></canvas>
                         </div>
                     </div>
                 </div>
@@ -177,26 +190,37 @@ const question = {
                     <h4 class="font-medium text-gray-900">🎯 Current Values</h4>
                     <div id="q30-function-indicator" class="text-xs bg-gray-100 px-2 py-1 rounded font-medium">ReLU</div>
                 </div>
-                <div id="q30-output" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div id="q30-output" class="grid grid-cols-2 md:grid-cols-4 gap-4" aria-live="polite" aria-atomic="false">
                     <!-- Current values will be displayed here -->
                 </div>
             </div>
             
             <!-- Quick Examples -->
             <div class="flex flex-wrap gap-2 items-center">
-                <span class="text-sm font-medium text-gray-700">� Quick Tests:</span>
+                <span class="text-sm font-medium text-gray-700">🧪 Quick Tests:</span>
                 <button id="q30-example-btn" class="text-xs bg-indigo-100 text-indigo-700 px-2 py-1 rounded hover:bg-indigo-200 transition-colors">Test: x = 2.0</button>
                 <button id="q30-negative-btn" class="text-xs bg-red-100 text-red-700 px-2 py-1 rounded hover:bg-red-200 transition-colors">Test: x = -1.5</button>
                 <button id="q30-zero-btn" class="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded hover:bg-gray-200 transition-colors">Test: x = 0</button>
             </div>
             
             <!-- Educational Explanation -->
-            <div id="q30-comparison" class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+            <div id="q30-comparison" class="bg-yellow-50 border border-yellow-200 rounded-lg p-4" aria-live="polite" aria-atomic="false">
                 <h4 class="font-medium text-yellow-900 mb-2">📊 Key Insights</h4>
                 <div id="q30-explanation" class="text-sm text-yellow-800"></div>
             </div>
         </div>`,
         script: () => {
+            // Safe MathJax typeset helper for dynamic content
+            function typesetMath(root) {
+                try {
+                    if (window.MathJax && window.MathJax.typesetPromise) {
+                        return window.MathJax.typesetPromise([root]);
+                    }
+                } catch (e) {
+                    console.warn('MathJax typeset failed (q30):', e);
+                }
+                return Promise.resolve();
+            }
             // Get DOM elements with error checking
             const inputRange = document.getElementById('q30-input-range');
             const currentValue = document.getElementById('q30-current-value');
@@ -509,9 +533,11 @@ const question = {
                 `;
 
                 output.innerHTML = resultsHTML;
+                typesetMath(output);
 
                 // Update explanation
                 updateExplanation(funcType, x, derivativeValue);
+                typesetMath(explanation);
             };
 
             // Update the educational explanation based on selected function and input
@@ -598,3 +624,6 @@ const question = {
         }
     }
 };
+
+// Optional export for tooling/tests
+if (typeof module !== 'undefined') { module.exports = question; }

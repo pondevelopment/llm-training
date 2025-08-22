@@ -5,6 +5,16 @@
 const question = {
     title: "29. What is KL divergence, and how is it used in LLMs?",
     answer: `<div class="space-y-6">
+        <!-- Recommended Reading (Top) -->
+        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading</h4>
+            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+                <li><a href="#question-25" class="text-indigo-700 underline hover:text-indigo-900">Question 25: Why is cross-entropy loss used in language modeling?</a></li>
+                <li><a href="#question-23" class="text-indigo-700 underline hover:text-indigo-900">Question 23: How is the softmax function applied in attention mechanisms?</a></li>
+                <li><a href="#question-31" class="text-indigo-700 underline hover:text-indigo-900">Question 31: How does backpropagation work, and why is the chain rule critical?</a></li>
+                <li><a href="#question-28" class="text-indigo-700 underline hover:text-indigo-900">Question 28: How do eigenvalues and eigenvectors relate to dimensionality reduction?</a></li>
+            </ul>
+        </div>
         <!-- Hero Section with Clear Definition -->
         <div class="bg-gradient-to-br from-blue-50 via-purple-50 to-indigo-100 p-6 rounded-xl border border-blue-200 shadow-sm">
             <div class="text-center mb-4">
@@ -22,7 +32,7 @@ const question = {
                         <div class="bg-blue-50 p-6 rounded-lg border border-blue-200">
                             <div class="space-y-3">
                                 <div>$$D_{KL}(P||Q) = \\sum_{x} P(x) \\log \\frac{P(x)}{Q(x)}$$</div>
-                                <div class="text-sm text-gray-600">where $P(x)$ is the true distribution and $Q(x)$ is the approximating distribution</div>
+                                <div class="text-sm text-gray-600">where \\( P(x) \\) is the true distribution and \\( Q(x) \\) is the approximating distribution</div>
                             </div>
                         </div>
                         
@@ -75,7 +85,7 @@ const question = {
                             <div class="w-3 h-3 bg-blue-500 rounded-full flex-shrink-0"></div>
                             <div>
                                 <div class="font-medium text-sm text-gray-900">Cross-entropy Connection</div>
-                                <div class="text-xs text-gray-600">$D_{KL}(P||Q) = H(P,Q) - H(P)$</div>
+                                <div class="text-xs text-gray-600">\\( D_{KL}(P||Q) = H(P,Q) - H(P) \\)</div>
                             </div>
                         </div>
                         <div class="bg-white p-3 rounded-lg border flex items-center space-x-3">
@@ -190,7 +200,7 @@ const question = {
                     <div class="space-y-3">
                         <div class="bg-red-50 p-3 rounded border border-red-200">
                             <div class="font-medium text-red-900 text-sm">Asymmetry Confusion</div>
-                            <div class="text-xs text-red-700">$D_{KL}(P||Q) ≠ D_{KL}(Q||P)$ - order matters!</div>
+                            <div class="text-xs text-red-700">\\( D_{KL}(P||Q) \neq D_{KL}(Q||P) \\) - order matters!</div>
                         </div>
                         
                         <div class="bg-yellow-50 p-3 rounded border border-yellow-200">
@@ -254,17 +264,17 @@ const question = {
     </div>`,
     interactive: {
         title: "📊 Interactive KL Divergence Explorer",
-        html: `<div class="space-y-6">
+    html: `<div class="space-y-6">
             <!-- Distribution Configuration -->
             <div class="bg-gradient-to-r from-blue-50 to-purple-50 p-4 rounded-lg border border-blue-200">
-                <label for="q29-dist-type" class="block text-sm font-medium text-gray-700 mb-2">📈 Choose Distribution Scenario</label>
-                <select id="q29-dist-type" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+        <label for="q29-dist-type" class="block text-sm font-medium text-gray-700 mb-2">📈 Choose Distribution Scenario</label>
+        <select id="q29-dist-type" aria-describedby="q29-dist-type-desc" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
                     <option value="teacher-student" selected>Teacher-Student Distillation</option>
                     <option value="rlhf-drift">RLHF Policy Drift</option>
                     <option value="fine-tuning">Fine-tuning Regularization</option>
                     <option value="custom">Custom Distributions</option>
                 </select>
-                <p class="text-xs text-gray-600 mt-1">Different scenarios show how KL divergence is used in LLM training</p>
+        <p id="q29-dist-type-desc" class="text-xs text-gray-600 mt-1">Different scenarios show how KL divergence is used in LLM training</p>
             </div>
             
             <!-- Distribution Parameters -->
@@ -355,17 +365,26 @@ const question = {
                     <h4 class="font-medium text-gray-900">📊 KL Divergence Analysis</h4>
                     <div id="q29-mode-indicator" class="text-xs bg-gray-100 px-2 py-1 rounded font-medium">Forward KL</div>
                 </div>
-                <div id="q29-output" class="min-h-[300px]"></div>
-                <div id="q29-legend" class="mt-3 text-xs text-gray-600"></div>
+                <div id="q29-output" class="min-h-[300px]" aria-live="polite" aria-atomic="true"></div>
+                <div id="q29-legend" class="mt-3 text-xs text-gray-600" aria-live="polite"></div>
             </div>
             
             <!-- Mathematical Insight -->
             <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
                 <h4 class="font-medium text-yellow-900 mb-2">🧮 Mathematical Insight</h4>
-                <div id="q29-explanation" class="text-sm text-yellow-800"></div>
+                <div id="q29-explanation" class="text-sm text-yellow-800" aria-live="polite"></div>
             </div>
         </div>`,
         script: () => {
+            // Safe MathJax typeset helper
+            function typesetMath(root) {
+                try {
+                    if (window.MathJax && MathJax.typesetPromise) {
+                        return MathJax.typesetPromise(root ? [root] : undefined).catch(() => {});
+                    }
+                } catch (_) {}
+                return Promise.resolve();
+            }
             // Get DOM elements with error checking
             const distTypeSelect = document.getElementById('q29-dist-type');
             const pPeakSlider = document.getElementById('q29-p-peak');
@@ -715,6 +734,7 @@ const question = {
 
                     html += '</div>';
                     output.innerHTML = html;
+                    typesetMath(output);
 
                     if (legend) {
                         legend.innerHTML = `
@@ -723,6 +743,7 @@ const question = {
                             Q: μ=${qPeak.toFixed(1)}, σ=${qWidth.toFixed(1)} | 
                             Mode: ${mode}
                         `;
+                        typesetMath(legend);
                     }
 
                     if (explanation) {
@@ -747,6 +768,7 @@ const question = {
                         explText += ` <strong>LLM Context:</strong> In ${scenario.name.toLowerCase()}, this measures ${scenario.context.toLowerCase()}.`;
                         
                         explanation.innerHTML = explText;
+                        typesetMath(explanation);
                     }
                     
                 } catch (error) {
@@ -811,3 +833,6 @@ const question = {
         }
     }
 };
+
+// Optional export for tooling/tests
+if (typeof module !== 'undefined') { module.exports = question; }

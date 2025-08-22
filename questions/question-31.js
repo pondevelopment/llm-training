@@ -5,6 +5,16 @@
 const question = {
     title: "31. How does backpropagation work, and why is the chain rule critical?",
     answer: `<div class="space-y-4">
+        <!-- Recommended Reading -->
+        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading</h4>
+            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+                <li><a href="#question-24" class="text-indigo-700 underline hover:text-indigo-900">Question 24: What is gradient descent and how does it optimize neural networks?</a></li>
+                <li><a href="#question-26" class="text-indigo-700 underline hover:text-indigo-900">Question 26: How are gradients computed for embeddings in LLMs?</a></li>
+                <li><a href="#question-30" class="text-indigo-700 underline hover:text-indigo-900">Question 30: Why is the ReLU derivative so important for deep learning?</a></li>
+                <li><a href="#question-32" class="text-indigo-700 underline hover:text-indigo-900">Question 32: How does SVD enable low‑rank approximations and compression?</a></li>
+            </ul>
+        </div>
         <!-- Main Concept Box -->
         <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
             <h4 class="font-semibold text-blue-900 mb-2">🔄 What is Backpropagation?</h4>
@@ -99,30 +109,30 @@ const question = {
     </div>`,
     interactive: {
         title: "🔍 Interactive Backpropagation Visualizer",
-        html: `<div class="space-y-6">
+    html: `<div class="space-y-6">
             <!-- Network Configuration -->
             <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200">
                 <label class="block text-sm font-medium text-gray-700 mb-3">🧠 Neural Network Configuration</label>
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                     <div>
-                        <label for="q31-input-value" class="text-xs text-gray-600">Input (x)</label>
-                        <input type="range" id="q31-input-value" min="-2" max="2" step="0.1" value="1.0" class="w-full">
-                        <span id="q31-input-display" class="text-xs font-medium">1.0</span>
+            <label for="q31-input-value" class="text-xs text-gray-600">Input (x)</label>
+            <input type="range" id="q31-input-value" min="-2" max="2" step="0.1" value="1.0" class="w-full" aria-describedby="q31-input-display" aria-label="Input value x">
+            <span id="q31-input-display" class="text-xs font-medium" aria-live="polite">1.0</span>
                     </div>
                     <div>
-                        <label for="q31-weight1" class="text-xs text-gray-600">Weight W₁</label>
-                        <input type="range" id="q31-weight1" min="-2" max="2" step="0.1" value="0.5" class="w-full">
-                        <span id="q31-weight1-display" class="text-xs font-medium">0.5</span>
+            <label for="q31-weight1" class="text-xs text-gray-600">Weight W₁</label>
+            <input type="range" id="q31-weight1" min="-2" max="2" step="0.1" value="0.5" class="w-full" aria-describedby="q31-weight1-display" aria-label="Weight w1">
+            <span id="q31-weight1-display" class="text-xs font-medium" aria-live="polite">0.5</span>
                     </div>
                     <div>
-                        <label for="q31-weight2" class="text-xs text-gray-600">Weight W₂</label>
-                        <input type="range" id="q31-weight2" min="-2" max="2" step="0.1" value="0.8" class="w-full">
-                        <span id="q31-weight2-display" class="text-xs font-medium">0.8</span>
+            <label for="q31-weight2" class="text-xs text-gray-600">Weight W₂</label>
+            <input type="range" id="q31-weight2" min="-2" max="2" step="0.1" value="0.8" class="w-full" aria-describedby="q31-weight2-display" aria-label="Weight w2">
+            <span id="q31-weight2-display" class="text-xs font-medium" aria-live="polite">0.8</span>
                     </div>
                     <div>
-                        <label for="q31-target" class="text-xs text-gray-600">Target (y)</label>
-                        <input type="range" id="q31-target" min="0" max="1" step="0.1" value="0.7" class="w-full">
-                        <span id="q31-target-display" class="text-xs font-medium">0.7</span>
+            <label for="q31-target" class="text-xs text-gray-600">Target (y)</label>
+            <input type="range" id="q31-target" min="0" max="1" step="0.1" value="0.7" class="w-full" aria-describedby="q31-target-display" aria-label="Target value y">
+            <span id="q31-target-display" class="text-xs font-medium" aria-live="polite">0.7</span>
                     </div>
                 </div>
                 <p class="text-xs text-gray-600 mt-2">Adjust parameters to see how gradients flow through the network!</p>
@@ -175,9 +185,10 @@ const question = {
                 <h4 class="font-medium text-gray-900 mb-4">🌐 Network Flow & Calculation</h4>
                 
                 <!-- Network Visualization -->
-                <div id="q31-network-diagram" class="relative h-48 bg-gradient-to-r from-gray-50 to-blue-50 rounded-lg overflow-hidden mb-6">
+                <div id="q31-network-diagram" class="relative h-48 bg-gradient-to-r from-gray-50 to-blue-50 rounded-lg overflow-hidden mb-6" role="img" aria-label="Neural network diagram showing forward and backward passes with gradients" aria-describedby="q31-network-diagram-desc">
                     <!-- Network diagram will be drawn here -->
                 </div>
+                <p class="sr-only" id="q31-network-diagram-desc">Diagram visually represents input, hidden, output and target nodes with animated dots for forward (blue) and backward (red) passes.</p>
                 
                 <!-- Legend -->
                 <div class="mt-3 grid grid-cols-1 md:grid-cols-3 gap-2 text-xs text-gray-600 mb-6">
@@ -201,7 +212,7 @@ const question = {
                     Forward Pass
                     <span class="ml-2 text-sm text-gray-500">(Data flows left to right)</span>
                 </h5>
-                <div id="q31-forward-pass" class="space-y-3 mb-6">
+                <div id="q31-forward-pass" class="space-y-3 mb-6" aria-live="polite" aria-atomic="false">
                     <!-- Forward pass steps will be displayed here -->
                 </div>
 
@@ -211,7 +222,7 @@ const question = {
                     Backward Pass (Chain Rule in Action)
                     <span class="ml-2 text-sm text-gray-500">(Gradients flow right to left)</span>
                 </h5>
-                <div id="q31-backward-pass" class="space-y-3">
+                <div id="q31-backward-pass" class="space-y-3" aria-live="polite" aria-atomic="false">
                     <!-- Backward pass steps will be displayed here -->
                 </div>
             </div>
@@ -219,7 +230,7 @@ const question = {
             <!-- Gradient Summary -->
             <div class="bg-white border border-gray-200 rounded-lg p-4">
                 <h4 class="font-medium text-gray-900 mb-3">📊 Gradient Summary</h4>
-                <div id="q31-gradients" class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div id="q31-gradients" class="grid grid-cols-1 md:grid-cols-3 gap-4" aria-live="polite" aria-atomic="false">
                     <!-- Gradient values will be displayed here -->
                 </div>
             </div>
@@ -235,7 +246,7 @@ const question = {
             <!-- Educational Explanation -->
             <div id="q31-explanation" class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
                 <h4 class="font-medium text-yellow-900 mb-2">🎓 Understanding the Process</h4>
-                <div id="q31-explanation-content" class="text-sm text-yellow-800"></div>
+                <div id="q31-explanation-content" class="text-sm text-yellow-800" aria-live="polite" aria-atomic="false"></div>
             </div>
         </div>`,
         script: () => {
@@ -262,6 +273,25 @@ const question = {
                 console.error('Required DOM elements not found');
                 return;
             }
+
+            // MathJax typesetting helper (idempotent & safe)
+            function typesetMath(root) {
+                if (!root) return;
+                if (window.MathJax && window.MathJax.typesetPromise) {
+                    try {
+                        // Clear previous typeset (optional, if extension present)
+                        if (window.MathJax.typesetClear) {
+                            window.MathJax.typesetClear([root]);
+                        }
+                        window.MathJax.typesetPromise([root]);
+                    } catch (e) {
+                        console.warn('MathJax typeset failed:', e);
+                    }
+                }
+            }
+
+            // Respect user motion preference
+            const prefersReducedMotion = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
             // Activation functions and their derivatives
             const activations = {
@@ -394,36 +424,35 @@ const question = {
                     gradBar.setAttribute('rx', '1.5');
                     svg.appendChild(gradBar);
                     
-                    // Enhanced animated flow dots for forward pass
-                    const forwardDot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-                    forwardDot.setAttribute('r', '5');
-                    forwardDot.setAttribute('fill', '#3b82f6');
-                    forwardDot.setAttribute('opacity', '0.9');
-                    forwardDot.setAttribute('stroke', '#1e40af');
-                    forwardDot.setAttribute('stroke-width', '1');
-                    
-                    const forwardPath = document.createElementNS('http://www.w3.org/2000/svg', 'animateMotion');
-                    forwardPath.setAttribute('dur', '2s');
-                    forwardPath.setAttribute('repeatCount', 'indefinite');
-                    forwardPath.setAttribute('path', `M ${fromNode.x + 35} ${fromNode.y} L ${toNode.x - 35} ${toNode.y}`);
-                    forwardDot.appendChild(forwardPath);
-                    svg.appendChild(forwardDot);
-                    
-                    // Enhanced animated flow dots for backward pass (gradient flow)
-                    const backwardDot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-                    backwardDot.setAttribute('r', '4');
-                    backwardDot.setAttribute('fill', '#dc2626');
-                    backwardDot.setAttribute('opacity', '0.8');
-                    backwardDot.setAttribute('stroke', '#991b1b');
-                    backwardDot.setAttribute('stroke-width', '1');
-                    
-                    const backwardPath = document.createElementNS('http://www.w3.org/2000/svg', 'animateMotion');
-                    backwardPath.setAttribute('dur', '2.5s');
-                    backwardPath.setAttribute('repeatCount', 'indefinite');
-                    backwardPath.setAttribute('begin', '1s');
-                    backwardPath.setAttribute('path', `M ${toNode.x - 35} ${toNode.y + 15} L ${fromNode.x + 35} ${fromNode.y + 15}`);
-                    backwardDot.appendChild(backwardPath);
-                    svg.appendChild(backwardDot);
+                    if (!prefersReducedMotion) {
+                        // Forward animated dot
+                        const forwardDot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                        forwardDot.setAttribute('r', '5');
+                        forwardDot.setAttribute('fill', '#3b82f6');
+                        forwardDot.setAttribute('opacity', '0.9');
+                        forwardDot.setAttribute('stroke', '#1e40af');
+                        forwardDot.setAttribute('stroke-width', '1');
+                        const forwardPath = document.createElementNS('http://www.w3.org/2000/svg', 'animateMotion');
+                        forwardPath.setAttribute('dur', '2s');
+                        forwardPath.setAttribute('repeatCount', 'indefinite');
+                        forwardPath.setAttribute('path', `M ${fromNode.x + 35} ${fromNode.y} L ${toNode.x - 35} ${toNode.y}`);
+                        forwardDot.appendChild(forwardPath);
+                        svg.appendChild(forwardDot);
+                        // Backward animated dot
+                        const backwardDot = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                        backwardDot.setAttribute('r', '4');
+                        backwardDot.setAttribute('fill', '#dc2626');
+                        backwardDot.setAttribute('opacity', '0.8');
+                        backwardDot.setAttribute('stroke', '#991b1b');
+                        backwardDot.setAttribute('stroke-width', '1');
+                        const backwardPath = document.createElementNS('http://www.w3.org/2000/svg', 'animateMotion');
+                        backwardPath.setAttribute('dur', '2.5s');
+                        backwardPath.setAttribute('repeatCount', 'indefinite');
+                        backwardPath.setAttribute('begin', '1s');
+                        backwardPath.setAttribute('path', `M ${toNode.x - 35} ${toNode.y + 15} L ${fromNode.x + 35} ${fromNode.y + 15}`);
+                        backwardDot.appendChild(backwardPath);
+                        svg.appendChild(backwardDot);
+                    }
                 });
                 
                 // Draw nodes with enhanced styling
@@ -604,7 +633,7 @@ const question = {
                             </div>
                         </div>
                         <div class="text-sm text-gray-600 mt-2">
-                            L = ½(ŷ - y)² = ½(${y_pred.toFixed(3)} - ${y_true})² 
+                            L = \\( \\tfrac{1}{2}( \\hat{y} - y )^2 \\) = \\( \\tfrac{1}{2}(${y_pred.toFixed(3)} - ${y_true})^2 \\) 
                             <span class="ml-2 text-xs">
                                 ${Math.abs(y_pred - y_true) > 0.1 ? '⚠️ Large prediction error' : '✅ Reasonable prediction'}
                             </span>
@@ -703,11 +732,16 @@ const question = {
                                     Each gradient flows backward through the network, multiplying derivatives at each step. 
                                     Earlier layers (w₁) need longer chains, which can lead to vanishing gradients in deep networks.
                                 </div>
+                                <div class="mt-3 bg-white/70 p-2 rounded text-xs font-mono">
+                                    $$\\frac{\\partial L}{\\partial w_2} = (\\hat{y}-y) f'(z_2) a_1$$<br>
+                                    $$\\frac{\\partial L}{\\partial w_1} = (\\hat{y}-y) f'(z_2) w_2 f'(z_1) x$$
+                                </div>
                             </div>
                         </div>
                     </div>
                 `;
                 backwardPass.innerHTML = backwardHTML;
+                typesetMath(backwardPass);
 
                 // Display Gradient Summary with enhanced visuals
                 const gradMagnitude = Math.sqrt(dL_dw1**2 + dL_dw2**2);
@@ -718,7 +752,7 @@ const question = {
                 const w2GradPercent = maxGrad > 0 ? Math.abs(dL_dw2) / maxGrad * 100 : 0;
                 
                 const gradientHTML = `
-                    <div class="text-center p-4 bg-blue-50 rounded border relative overflow-hidden">
+                    <div class="text-center p-4 bg-blue-50 rounded border relative overflow-hidden" role="group" aria-label="Gradient for weight w1">
                         <div class="font-medium text-blue-900 mb-2">Gradient for w₁</div>
                         <div class="text-2xl font-bold text-blue-600">${dL_dw1.toFixed(4)}</div>
                         <div class="text-xs text-blue-700 mb-2">Weight update: w₁ -= η × ${dL_dw1.toFixed(4)}</div>
@@ -727,8 +761,9 @@ const question = {
                             <div class="bg-blue-600 h-2 rounded-full transition-all duration-300" style="width: ${w1GradPercent}%"></div>
                         </div>
                         <div class="text-xs text-blue-600 mt-1">${(Math.abs(dL_dw1) / (maxGrad || 1) * 100).toFixed(1)}% of max</div>
+                        <span class="sr-only">Gradient magnitude for w1 is ${dL_dw1.toFixed(4)}</span>
                     </div>
-                    <div class="text-center p-4 bg-green-50 rounded border relative overflow-hidden">
+                    <div class="text-center p-4 bg-green-50 rounded border relative overflow-hidden" role="group" aria-label="Gradient for weight w2">
                         <div class="font-medium text-green-900 mb-2">Gradient for w₂</div>
                         <div class="text-2xl font-bold text-green-600">${dL_dw2.toFixed(4)}</div>
                         <div class="text-xs text-green-700 mb-2">Weight update: w₂ -= η × ${dL_dw2.toFixed(4)}</div>
@@ -737,8 +772,9 @@ const question = {
                             <div class="bg-green-600 h-2 rounded-full transition-all duration-300" style="width: ${w2GradPercent}%"></div>
                         </div>
                         <div class="text-xs text-green-600 mt-1">${(Math.abs(dL_dw2) / (maxGrad || 1) * 100).toFixed(1)}% of max</div>
+                        <span class="sr-only">Gradient magnitude for w2 is ${dL_dw2.toFixed(4)}</span>
                     </div>
-                    <div class="text-center p-4 bg-purple-50 rounded border">
+                    <div class="text-center p-4 bg-purple-50 rounded border" role="group" aria-label="Overall gradient magnitude">
                         <div class="font-medium text-purple-900 mb-2">Overall Learning Signal</div>
                         <div class="text-2xl font-bold text-purple-600">${gradMagnitude.toFixed(4)}</div>
                         <div class="text-xs text-purple-700 mb-2">||∇L|| = √(∇w₁² + ∇w₂²)</div>
@@ -749,9 +785,11 @@ const question = {
                                 ${gradMagnitude < 0.01 ? 'Weak' : gradMagnitude < 0.1 ? 'Moderate' : 'Strong'} Learning
                             </span>
                         </div>
+                        <span class="sr-only">Overall gradient norm is ${gradMagnitude.toFixed(4)}</span>
                     </div>
                 `;
                 gradients.innerHTML = gradientHTML;
+                typesetMath(gradients);
 
                 // Draw network diagram
                 drawNetworkDiagram({
@@ -760,6 +798,7 @@ const question = {
 
                 // Update explanation
                 updateExplanation(activationType, dL_dw1, dL_dw2, loss);
+                typesetMath(forwardPass);
             }
 
             // Update educational explanation with enhanced insights
@@ -854,7 +893,15 @@ const question = {
                     </p>
                 `;
 
+                // Dead ReLU detection: zero gradients while loss still present
+                if (activationType === 'relu' && loss > 0.05 && Math.abs(grad_w1) === 0 && Math.abs(grad_w2) === 0) {
+                    explanationText += `
+                        <p class="mt-3 p-3 bg-orange-50 rounded border-l-4 border-orange-400 text-sm">
+                            <strong>🦴 ReLU Dead Zone:</strong> Both gradients are zero while loss is ${loss.toFixed(4)}. The neuron output is stuck at 0 (inactive). Increase input or adjust weights to move pre-activations positive and restore learning.
+                        </p>`;
+                }
                 explanationContent.innerHTML = explanationText;
+                typesetMath(explanationContent);
             }
 
             // Example scenarios
@@ -904,3 +951,8 @@ const question = {
         }
     }
 };
+
+// CommonJS export for build/test environments
+if (typeof module !== 'undefined') {
+    module.exports = question;
+}

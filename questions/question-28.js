@@ -5,6 +5,16 @@
 const question = {
     title: "28. How do eigenvalues and eigenvectors relate to dimensionality reduction?",
     answer: `<div class="space-y-6">
+        <!-- Recommended Reading (Top) -->
+        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading</h4>
+            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+                <li><a href="#question-7" class="text-indigo-700 underline hover:text-indigo-900">Question 7: What are embeddings and how do they enable semantic meaning?</a></li>
+                <li><a href="#question-26" class="text-indigo-700 underline hover:text-indigo-900">Question 26: How are gradients computed for embeddings in LLMs?</a></li>
+                <li><a href="#question-31" class="text-indigo-700 underline hover:text-indigo-900">Question 31: How does backpropagation work, and why is the chain rule critical?</a></li>
+                <li><a href="#question-32" class="text-indigo-700 underline hover:text-indigo-900">Question 32: How does SVD enable low‑rank approximations and compression?</a></li>
+            </ul>
+        </div>
         <!-- Hero Section with Clear Definition -->
         <div class="bg-gradient-to-br from-purple-50 via-indigo-50 to-blue-100 p-6 rounded-xl border border-purple-200 shadow-sm">
             <div class="text-center mb-4">
@@ -22,7 +32,7 @@ const question = {
                         <div class="bg-purple-50 p-6 rounded-lg border border-purple-200">
                             <div class="space-y-3">
                                 <div>$$\\mathbf{A}\\mathbf{v} = \\lambda\\mathbf{v}$$</div>
-                                <div class="text-sm text-gray-600">where $\\mathbf{A}$ is the covariance matrix, $\\mathbf{v}$ is an eigenvector, and $\\lambda$ is the eigenvalue</div>
+                                <div class="text-sm text-gray-600">where \\( \\mathbf{A} \\) is the covariance matrix, \\( \\mathbf{v} \\) is an eigenvector, and \\( \\lambda \\) is the eigenvalue</div>
                             </div>
                         </div>
                         
@@ -49,10 +59,10 @@ const question = {
                         <div class="text-center space-y-4">
                             <div class="text-sm font-medium text-gray-700">Characteristic Equation</div>
                             
-                            <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                <div class="bg-blue-50 p-4 rounded-lg border border-blue-200 overflow-x-auto whitespace-nowrap">
                                 <div class="text-center space-y-2">
                                     <div>$$\\det(\\mathbf{A} - \\lambda\\mathbf{I}) = 0$$</div>
-                                    <div class="text-xs text-gray-600">Determines eigenvalues $\\lambda_1, \\lambda_2, \\ldots, \\lambda_n$</div>
+                    <div class="text-xs text-gray-600">Determines eigenvalues \\( \\lambda_1, \\lambda_2, \\ldots, \\lambda_n \\)</div>
                                 </div>
                             </div>
                             
@@ -71,14 +81,14 @@ const question = {
                             <div class="w-3 h-3 bg-purple-500 rounded-full flex-shrink-0"></div>
                             <div>
                                 <div class="font-medium text-sm text-gray-900">Step 1: Covariance Matrix</div>
-                                <div class="text-xs text-gray-600">$\\mathbf{C} = \\frac{1}{n-1}\\mathbf{X}^T\\mathbf{X}$</div>
+                                <div class="text-xs text-gray-600">\\( \\mathbf{C} = \\frac{1}{n-1}\\mathbf{X}^T\\mathbf{X} \\)</div>
                             </div>
                         </div>
                         <div class="bg-white p-3 rounded-lg border flex items-center space-x-3">
                             <div class="w-3 h-3 bg-blue-500 rounded-full flex-shrink-0"></div>
                             <div>
                                 <div class="font-medium text-sm text-gray-900">Step 2: Eigendecomposition</div>
-                                <div class="text-xs text-gray-600">$\\mathbf{C}\\mathbf{v}_i = \\lambda_i\\mathbf{v}_i$</div>
+                                <div class="text-xs text-gray-600">\\( \\mathbf{C}\\mathbf{v}_i = \\lambda_i\\mathbf{v}_i \\)</div>
                             </div>
                         </div>
                         <div class="bg-white p-3 rounded-lg border flex items-center space-x-3">
@@ -106,7 +116,7 @@ const question = {
                     <div class="bg-purple-50 p-4 rounded-lg border border-purple-200 h-full">
                         <div class="font-medium text-purple-900 mb-3">1. Variance Analysis</div>
                         <div class="bg-white p-3 rounded border mb-3">
-                            <div class="text-sm">$$\\text{Var}(\\mathbf{X}) = \\frac{1}{n}\\sum_{i=1}^{n}(\\mathbf{x}_i - \\bar{\\mathbf{x}})^2$$</div>
+                            <div class="text-sm overflow-x-auto whitespace-nowrap">$$\\text{Var}(\\mathbf{X}) = \\frac{1}{n}\\sum_{i=1}^{n}(\\mathbf{x}_i - \\bar{\\mathbf{x}})^2$$</div>
                         </div>
                         <div class="text-xs text-purple-700">Compute covariance matrix to understand data spread</div>
                     </div>
@@ -117,7 +127,7 @@ const question = {
                     <div class="bg-purple-50 p-4 rounded-lg border border-purple-200 h-full">
                         <div class="font-medium text-purple-900 mb-3">2. Principal Components</div>
                         <div class="bg-white p-3 rounded border mb-3">
-                            <div class="text-sm">$$\\mathbf{W} = [\\mathbf{v}_1, \\mathbf{v}_2, \\ldots, \\mathbf{v}_k]$$</div>
+                            <div class="text-sm overflow-x-auto whitespace-nowrap">$$\\mathbf{W} = [\\mathbf{v}_1, \\mathbf{v}_2, \\ldots, \\mathbf{v}_k]$$</div>
                         </div>
                         <div class="text-xs text-purple-700">Select eigenvectors with highest eigenvalues</div>
                     </div>
@@ -128,7 +138,7 @@ const question = {
                     <div class="bg-purple-50 p-4 rounded-lg border border-purple-200 h-full">
                         <div class="font-medium text-purple-900 mb-3">3. Projection</div>
                         <div class="bg-white p-3 rounded border mb-3">
-                            <div class="text-sm">$$\\mathbf{Y} = \\mathbf{X}\\mathbf{W}$$</div>
+                            <div class="text-sm overflow-x-auto whitespace-nowrap">$$\\mathbf{Y} = \\mathbf{X}\\mathbf{W}$$</div>
                         </div>
                         <div class="text-xs text-purple-700">Transform data to lower-dimensional space</div>
                     </div>
@@ -156,7 +166,7 @@ const question = {
                 <div class="bg-white p-4 rounded-lg border">
                     <h5 class="font-semibold text-gray-900 mb-3">Variance Explained</h5>
                     <div class="bg-blue-50 p-4 rounded-lg border border-blue-200 mb-3">
-                        <div class="text-center">
+                        <div class="text-center overflow-x-auto whitespace-nowrap">
                             <div>$$\\text{Variance Explained} = \\frac{\\sum_{i=1}^{k} \\lambda_i}{\\sum_{i=1}^{n} \\lambda_i}$$</div>
                             <div class="text-xs text-gray-600 mt-2">Ratio of selected eigenvalues to total eigenvalues</div>
                         </div>
@@ -169,7 +179,7 @@ const question = {
                     <h5 class="font-semibold text-gray-900 mb-3">Component Selection</h5>
                     <div class="space-y-2">
                         <div class="flex justify-between text-sm">
-                            <span>PC1 ($\\lambda_1 = 0.6$)</span>
+                            <span>PC1 (\\( \\lambda_1 = 0.6 \\))</span>
                             <span class="font-mono">60%</span>
                         </div>
                         <div class="w-full bg-gray-200 rounded-full h-2">
@@ -177,7 +187,7 @@ const question = {
                         </div>
                         
                         <div class="flex justify-between text-sm">
-                            <span>PC1-2 ($\\lambda_2 = 0.25$)</span>
+                            <span>PC1-2 (\\( \\lambda_2 = 0.25 \\))</span>
                             <span class="font-mono">85%</span>
                         </div>
                         <div class="w-full bg-gray-200 rounded-full h-2">
@@ -185,7 +195,7 @@ const question = {
                         </div>
                         
                         <div class="flex justify-between text-sm">
-                            <span>PC1-3 ($\\lambda_3 = 0.1$)</span>
+                            <span>PC1-3 (\\( \\lambda_3 = 0.1 \\))</span>
                             <span class="font-mono">95%</span>
                         </div>
                         <div class="w-full bg-gray-200 rounded-full h-2">
@@ -229,41 +239,41 @@ const question = {
     </div>`,
     interactive: {
         title: "🔍 Interactive Eigenvalue & PCA Explorer",
-        html: `<div class="space-y-6">
+    html: `<div class="space-y-6">
             <!-- Data Configuration -->
             <div class="bg-gradient-to-r from-purple-50 to-indigo-50 p-4 rounded-lg border border-purple-200">
-                <label for="q28-data-type" class="block text-sm font-medium text-gray-700 mb-2">📊 Choose Data Distribution</label>
-                <select id="q28-data-type" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500">
+        <label for="q28-data-type" class="block text-sm font-medium text-gray-700 mb-2">📊 Choose Data Distribution</label>
+        <select id="q28-data-type" aria-describedby="q28-data-type-desc" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500">
                     <option value="correlated" selected>Correlated Data (elliptical)</option>
                     <option value="diagonal">Diagonal Covariance</option>
                     <option value="circular">Circular (isotropic)</option>
                     <option value="mixed">Mixed Components</option>
                     <option value="high-dim">High Dimensional</option>
                 </select>
-                <p class="text-xs text-gray-600 mt-1">Different data types reveal different eigenvalue/eigenvector patterns</p>
+        <p id="q28-data-type-desc" class="text-xs text-gray-600 mt-1">Different data types reveal different eigenvalue/eigenvector patterns</p>
             </div>
             
             <!-- Dimension Controls -->
             <div class="grid md:grid-cols-2 gap-4">
                 <div class="bg-white border border-gray-200 rounded-lg p-4">
                     <label for="q28-original-dim" class="block text-sm font-medium text-gray-700 mb-2">📐 Original Dimensions</label>
-                    <select id="q28-original-dim" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500">
+                    <select id="q28-original-dim" aria-describedby="q28-original-dim-desc" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500">
                         <option value="2">2D (for visualization)</option>
                         <option value="3" selected>3D (moderate)</option>
                         <option value="5">5D (higher)</option>
                         <option value="10">10D (high dimensional)</option>
                     </select>
-                    <p class="text-xs text-gray-600 mt-1">Original data dimensionality</p>
+                    <p id="q28-original-dim-desc" class="text-xs text-gray-600 mt-1">Original data dimensionality</p>
                 </div>
                 
                 <div class="bg-white border border-gray-200 rounded-lg p-4">
                     <label for="q28-reduced-dim" class="block text-sm font-medium text-gray-700 mb-2">🎯 Reduced Dimensions</label>
-                    <select id="q28-reduced-dim" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500">
+                    <select id="q28-reduced-dim" aria-describedby="q28-reduced-dim-desc" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500">
                         <option value="1">1D (maximum reduction)</option>
                         <option value="2" selected>2D (common choice)</option>
                         <option value="3">3D (moderate reduction)</option>
                     </select>
-                    <p class="text-xs text-gray-600 mt-1">Target dimensionality after reduction</p>
+                    <p id="q28-reduced-dim-desc" class="text-xs text-gray-600 mt-1">Target dimensionality after reduction</p>
                 </div>
             </div>
 
@@ -318,17 +328,26 @@ const question = {
                     <h4 class="font-medium text-gray-900">📊 PCA Analysis Results</h4>
                     <div id="q28-mode-indicator" class="text-xs bg-gray-100 px-2 py-1 rounded font-medium">Eigenvalue Analysis</div>
                 </div>
-                <div id="q28-output" class="min-h-[300px]"></div>
-                <div id="q28-legend" class="mt-3 text-xs text-gray-600"></div>
+                <div id="q28-output" class="min-h-[300px]" aria-live="polite" aria-atomic="true"></div>
+                <div id="q28-legend" class="mt-3 text-xs text-gray-600" aria-live="polite"></div>
             </div>
             
             <!-- Mathematical Details -->
             <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
                 <h4 class="font-medium text-yellow-900 mb-2">🧮 Mathematical Analysis</h4>
-                <div id="q28-explanation" class="text-sm text-yellow-800"></div>
+                <div id="q28-explanation" class="text-sm text-yellow-800" aria-live="polite"></div>
             </div>
         </div>`,
         script: () => {
+            // Safe MathJax typeset helper (no-op if MathJax unavailable)
+            function typesetMath(root) {
+                try {
+                    if (window.MathJax && MathJax.typesetPromise) {
+                        return MathJax.typesetPromise(root ? [root] : undefined).catch(() => {});
+                    }
+                } catch (_) {}
+                return Promise.resolve();
+            }
             // Get DOM elements with error checking
             const dataTypeSelect = document.getElementById('q28-data-type');
             const originalDimSelect = document.getElementById('q28-original-dim');
@@ -480,7 +499,12 @@ const question = {
                 try {
                     const dataType = dataTypeSelect.value;
                     const originalDim = originalDimSelect.value;
-                    const reducedDim = reducedDimSelect.value;
+                    let reducedDim = reducedDimSelect.value;
+                    if (parseInt(reducedDim) > parseInt(originalDim)) {
+                        // Clamp and reflect selection
+                        reducedDim = originalDim;
+                        if (reducedDimSelect) reducedDimSelect.value = originalDim;
+                    }
                     const mode = getCurrentMode();
                     
                     updateModeVisuals();
@@ -635,6 +659,8 @@ const question = {
 
                     html += '</div>';
                     output.innerHTML = html;
+                    // Typeset any math that may have been injected
+                    typesetMath(output);
 
                     if (legend) {
                         legend.innerHTML = `
@@ -643,6 +669,7 @@ const question = {
                             Variance Retained: ${(analysis.varianceRetained * 100).toFixed(1)}% | 
                             Top Eigenvalue: ${analysis.eigenvalues[0].toFixed(3)}
                         `;
+                        typesetMath(legend);
                     }
 
                     if (explanation) {
@@ -652,8 +679,10 @@ const question = {
                                 <p><strong>Eigenvalue Pattern:</strong> ${analysis.config.eigenvaluePattern}</p>
                                 <p><strong>PCA Effectiveness:</strong> ${analysis.varianceRetained > 0.8 ? 'Excellent' : analysis.varianceRetained > 0.6 ? 'Good' : 'Moderate'} - retaining ${(analysis.varianceRetained * 100).toFixed(1)}% of variance with ${analysis.compressionRatio.toFixed(1)}x compression.</p>
                                 <p><strong>Practical Impact:</strong> This level of dimensionality reduction would ${'save ' + (100 * (1 - 1/analysis.compressionRatio)).toFixed(1) + '% memory'} while preserving most important patterns in the data.</p>
+                                ${parseInt(reducedDim) > parseInt(originalDim) ? '<p class="text-red-600"><strong>Note:</strong> Reduced dimension cannot exceed original; value clamped.</p>' : ''}
                             </div>
                         `;
+                        typesetMath(explanation);
                     }
                     
                 } catch (error) {
@@ -711,3 +740,6 @@ const question = {
         }
     }
 };
+
+// Optional export for tooling/tests
+if (typeof module !== 'undefined') { module.exports = question; }

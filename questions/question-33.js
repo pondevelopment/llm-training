@@ -1443,7 +1443,7 @@ const question = {
                 const paramPercent = (metrics.totalParams / baseline.totalParams) * 100; // <100 => fewer params than baseline
                 const timePercent = (metrics.trainingTime / baseline.trainingTime) * 100; // <100 => faster
                 const accPercent = (metrics.accuracy / baseline.accuracy) * 100; // >100 => higher accuracy
-                const SCALE_MAX = 300; // visualize up to 300% baseline
+                const SCALE_MAX = 200; // visualize up to 200% (sufficient for current multipliers)
 
                 const renderReductionBar = (label, valuePercent, color) => {
                     const reduction = 100 - valuePercent; // positive means reduction
@@ -1493,7 +1493,7 @@ const question = {
                     </div>
                     <p class="mt-3 text-[11px] text-gray-500 flex flex-wrap gap-x-4 gap-y-1">
                         <span>Baseline: Traditional strategy (same model & data regime).</span>
-                        <span>Scale: 0%–300% (full bar = 300%).</span>
+                        <span>Scale: 0%–200% (full bar = 200%).</span>
                         <span>Counts/Time: smaller bar → reduction vs. baseline (badge shows % saved).</span>
                         <span>Accuracy: larger bar → improvement (badge shows gain).</span>
                         <span>Striped overlay = exceeds 300% scale cap.</span>

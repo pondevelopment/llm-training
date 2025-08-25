@@ -1,9 +1,9 @@
-// Question 33: How does Gemini optimize multimodal LLM training?
+// Question 33: How do multimodal LLMs integrate multiple modalities efficiently?
 // Created: July 16, 2025
 // Educational Focus: Multimodal training, unified architecture, attention mechanisms, data efficiency
 
 const question = {
-    title: "33. How does Gemini optimize multimodal LLM training?",
+    title: "33. How do multimodal LLMs integrate multiple modalities efficiently?",
     answer: `<div class="space-y-8">
         <style>
             /* Responsive math helpers for Q33 */
@@ -30,6 +30,18 @@ const question = {
             /* Prevent long inline sequences from forcing scroll */
             .q33-break { word-break:break-word; overflow-wrap:break-word; }
         </style>
+        <!-- Recommended Reading -->
+        <div class="bg-indigo-50 p-4 rounded-lg border border-indigo-200">
+            <h4 class="font-semibold text-indigo-900 mb-2">📚 Recommended reading</h4>
+            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+                <li><a href="#question-2" class="text-indigo-700 underline hover:text-indigo-900">2. How does the attention mechanism function?</a></li>
+                <li><a href="#question-21" class="text-indigo-700 underline hover:text-indigo-900">21. What are positional encodings?</a></li>
+                <li><a href="#question-22" class="text-indigo-700 underline hover:text-indigo-900">22. What is multi-head attention?</a></li>
+                <li><a href="#question-32" class="text-indigo-700 underline hover:text-indigo-900">32. How are attention scores calculated?</a></li>
+                <li><a href="#question-37" class="text-indigo-700 underline hover:text-indigo-900">37. How does Mixture of Experts enhance scalability?</a></li>
+            </ul>
+            <p class="text-xs text-indigo-700 mt-2">These build the foundation for sequence representation, attention composition, and scaling strategies used in multimodal architectures.</p>
+        </div>
         <!-- Hero Section with Improved Visual Impact -->
         <div class="relative overflow-hidden bg-gradient-to-br from-indigo-50 via-blue-50 to-purple-100 rounded-2xl border border-indigo-200 shadow-lg">
             <!-- Background Pattern -->
@@ -40,12 +52,12 @@ const question = {
                         <span class="text-2xl">🔮</span>
                     </div>
                     <h3 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4 leading-tight">
-                        Gemini's Multimodal Training Revolution
+                        Multimodal Training Evolution
                     </h3>
                     <p class="text-lg md:text-xl text-gray-700 max-w-4xl mx-auto leading-relaxed">
-                        Gemini represents a breakthrough in multimodal AI training, seamlessly integrating 
+                        Multimodal large language models integrate
                         <span class="font-semibold text-blue-700">text, images, audio, and video</span> 
-                        processing through unified architectures and advanced optimization techniques that surpass traditional modality-specific approaches.
+                        processing through architectural choices like late fusion, early fusion, unified transformers, and adapter‑based hybrids that improve efficiency versus isolated modality pipelines.
                     </p>
                 </div>
                 
@@ -61,13 +73,13 @@ const question = {
                                 <div class="space-y-4">
                                     <div class="q33-math-block mx-auto max-w-full" aria-label="Gemini efficiency decomposition">
                                         $$\\begin{align}
-                                        \\text{Gemini Efficiency} &= \\text{Unified Architecture} \\\\
+                                        \\text{Multimodal Efficiency} &= \\text{Appropriate Fusion Strategy} \\\\
                                         &\\quad + \\text{Cross-Modal Attention} \\\\
-                                        &\\quad + \\text{Self-Supervised Learning}
+                                        &\\quad + \\text{Self / Contrastive Pretraining}
                                         \\end{align}$$
                                     </div>
                                     <div class="text-sm text-gray-600 italic border-l-4 border-blue-300 pl-4 bg-blue-50/50 py-2 rounded-r">
-                                        <strong>Key Insight:</strong> Unified processing reduces parameter redundancy by 40% while enhancing cross-modal understanding
+                                        <strong>Key Insight:</strong> Selecting the right fusion stage + shared representations reduces redundant parameters while improving alignment.
                                     </div>
                                 </div>
                             </div>
@@ -104,7 +116,7 @@ const question = {
                         </div>
                         <div>
                             <h4 class="text-xl md:text-2xl font-bold text-gray-900">Core Optimization Techniques</h4>
-                            <p class="text-sm text-gray-600 mt-1">Three pillars of Gemini's multimodal efficiency</p>
+                            <p class="text-sm text-gray-600 mt-1">Core techniques that drive multimodal efficiency</p>
                         </div>
                     </div>
                 </div>
@@ -212,7 +224,7 @@ const question = {
         </div>
         
         <!-- Training Pipeline Comparison - Enhanced Visual Design -->
-        <div class="bg-white border border-gray-200 rounded-2xl shadow-lg overflow-hidden">
+                    <div class="bg-white border border-gray-200 rounded-2xl shadow-lg overflow-hidden">
             <!-- Section Header -->
             <div class="bg-gradient-to-r from-green-50 to-blue-50 px-6 md:px-8 py-6 border-b border-gray-200">
                 <div class="flex items-center justify-center md:justify-start">
@@ -222,7 +234,7 @@ const question = {
                         </div>
                         <div>
                             <h4 class="text-xl md:text-2xl font-bold text-gray-900">Training Pipeline Evolution</h4>
-                            <p class="text-sm text-gray-600 mt-1">Traditional vs Gemini's revolutionary approach</p>
+                            <p class="text-sm text-gray-600 mt-1">Traditional late fusion vs unified / early fusion</p>
                         </div>
                     </div>
                 </div>
@@ -283,7 +295,7 @@ const question = {
                         </div>
                     </div>
                     
-                    <!-- Gemini Approach -->
+                    <!-- Unified / Early Fusion Approach -->
                     <div class="relative group">
                         <div class="absolute -inset-1 bg-gradient-to-br from-green-300 to-green-500 rounded-xl opacity-20"></div>
                         <div class="relative bg-green-50 border-2 border-green-200 rounded-xl p-6 h-full">
@@ -291,7 +303,7 @@ const question = {
                                 <div class="inline-flex items-center justify-center w-16 h-16 bg-green-500 text-white rounded-xl mb-3 text-2xl">
                                     ✅
                                 </div>
-                                <h5 class="text-xl font-bold text-green-900">Gemini's Unified Training</h5>
+                                <h5 class="text-xl font-bold text-green-900">Unified / Early Fusion Training</h5>
                                 <p class="text-sm text-green-700 mt-2">Intelligent unified approach with cross-modal learning</p>
                             </div>
                             <div class="space-y-4">
@@ -349,7 +361,7 @@ const question = {
                         </div>
                         <div>
                             <h4 class="text-xl md:text-2xl font-bold text-gray-900">Training Pipeline Evolution</h4>
-                            <p class="text-sm text-gray-600 mt-1">Traditional vs Gemini's revolutionary approach</p>
+                            <p class="text-sm text-gray-600 mt-1">Traditional late fusion vs unified / early fusion</p>
                         </div>
                     </div>
                 </div>
@@ -410,7 +422,7 @@ const question = {
                         </div>
                     </div>
                     
-                    <!-- Gemini Approach -->
+                    <!-- Unified / Early Fusion Approach -->
                     <div class="relative group">
                         <div class="absolute -inset-1 bg-gradient-to-br from-green-300 to-green-500 rounded-xl opacity-20"></div>
                         <div class="relative bg-green-50 border-2 border-green-200 rounded-xl p-6 h-full">
@@ -418,7 +430,7 @@ const question = {
                                 <div class="inline-flex items-center justify-center w-16 h-16 bg-green-500 text-white rounded-xl mb-3 text-2xl">
                                     ✅
                                 </div>
-                                <h5 class="text-xl font-bold text-green-900">Gemini's Unified Training</h5>
+                                <h5 class="text-xl font-bold text-green-900">Unified / Early Fusion Training</h5>
                                 <p class="text-sm text-green-700 mt-2">Intelligent unified approach with cross-modal learning</p>
                             </div>
                             <div class="space-y-4">
@@ -476,7 +488,7 @@ const question = {
                         </div>
                         <div>
                             <h4 class="text-xl md:text-2xl font-bold text-gray-900">Training Pipeline Evolution</h4>
-                            <p class="text-sm text-gray-600 mt-1">Traditional vs Gemini's revolutionary approach</p>
+                            <p class="text-sm text-gray-600 mt-1">Traditional late fusion vs unified / early fusion</p>
                         </div>
                     </div>
                 </div>
@@ -537,7 +549,7 @@ const question = {
                         </div>
                     </div>
                     
-                    <!-- Gemini Approach -->
+                    <!-- Unified / Early Fusion Approach -->
                     <div class="relative group">
                         <div class="absolute -inset-1 bg-gradient-to-br from-green-300 to-green-500 rounded-xl opacity-20"></div>
                         <div class="relative bg-green-50 border-2 border-green-200 rounded-xl p-6 h-full">
@@ -545,7 +557,7 @@ const question = {
                                 <div class="inline-flex items-center justify-center w-16 h-16 bg-green-500 text-white rounded-xl mb-3 text-2xl">
                                     ✅
                                 </div>
-                                <h5 class="text-xl font-bold text-green-900">Gemini's Unified Training</h5>
+                                <h5 class="text-xl font-bold text-green-900">Unified / Early Fusion Training</h5>
                                 <p class="text-sm text-green-700 mt-2">Intelligent unified approach with cross-modal learning</p>
                             </div>
                             <div class="space-y-4">
@@ -637,10 +649,10 @@ const question = {
                                     </div>
                                 </div>
                                 
-                                <!-- Gemini Unified -->
+                                <!-- Unified Transformer -->
                                 <div class="space-y-3">
                                     <div class="flex justify-between items-center">
-                                        <span class="text-sm font-medium text-gray-700">Gemini (Unified)</span>
+                                        <span class="text-sm font-medium text-gray-700">Unified Transformer</span>
                                         <div class="text-right">
                                             <div class="text-lg font-bold text-green-600">60%</div>
                                             <div class="text-xs text-gray-500">relative parameters</div>
@@ -686,10 +698,10 @@ const question = {
                                     </div>
                                 </div>
                                 
-                                <!-- Gemini Training Speed -->
+                                <!-- Unified Training Speed -->
                                 <div class="space-y-3">
                                     <div class="flex justify-between items-center">
-                                        <span class="text-sm font-medium text-gray-700">Gemini Training</span>
+                                        <span class="text-sm font-medium text-gray-700">Unified Training</span>
                                         <div class="text-right">
                                             <div class="text-lg font-bold text-green-600">65%</div>
                                             <div class="text-xs text-gray-500">relative time</div>
@@ -735,10 +747,10 @@ const question = {
                                     </div>
                                 </div>
                                 
-                                <!-- Gemini Self-Supervised -->
+                                <!-- Unified Self-Supervised -->
                                 <div class="space-y-3">
                                     <div class="flex justify-between items-center">
-                                        <span class="text-sm font-medium text-gray-700">Gemini Self-Supervised</span>
+                                        <span class="text-sm font-medium text-gray-700">Unified Self-Supervised</span>
                                         <div class="text-right">
                                             <div class="text-lg font-bold text-green-600">20M</div>
                                             <div class="text-xs text-gray-500">labeled samples</div>
@@ -772,7 +784,7 @@ const question = {
                     </div>
                     <h4 class="text-2xl md:text-3xl font-bold text-gray-900 mb-2">Technical Implementation Details</h4>
                     <p class="text-sm md:text-base text-gray-600 max-w-2xl mx-auto">
-                        Mathematical foundations and algorithmic innovations powering Gemini's efficiency
+                        Mathematical foundations and algorithmic innovations powering multimodal efficiency
                     </p>
                 </div>
                 
@@ -1066,7 +1078,7 @@ const question = {
         </div>
     </div>`,
     interactive: {
-        title: "🔮 Interactive Gemini Training Optimizer",
+    title: "🔮 Interactive Multimodal Training Optimizer",
         html: `<div class="space-y-6">
             <!-- Configuration Section -->
             <div class="bg-gradient-to-r from-purple-50 to-blue-50 p-4 rounded-lg border border-purple-200">
@@ -1105,10 +1117,10 @@ const question = {
                     </label>
                     
                     <label class="relative border border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors">
-                        <input type="radio" name="q33-strategy" value="gemini" checked class="absolute top-2 right-2">
+                        <input type="radio" name="q33-strategy" value="unified" checked class="absolute top-2 right-2">
                         <div class="strategy-option">
                             <div class="flex items-center justify-between mb-2">
-                                <span class="font-medium text-gray-900">Gemini Unified</span>
+                                <span class="font-medium text-gray-900">Unified Transformer</span>
                                 <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">Optimized</span>
                             </div>
                             <p class="text-xs text-gray-600 mb-2">Single transformer with cross-modal attention</p>
@@ -1170,7 +1182,7 @@ const question = {
             <!-- Quick Examples -->
             <div class="flex flex-wrap gap-2 items-center">
                 <span class="text-sm font-medium text-gray-700">💡 Quick Scenarios:</span>
-                <button id="q33-example-btn" class="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded hover:bg-purple-200 transition-colors">Video Analysis: Gemini vs Traditional</button>
+                <button id="q33-example-btn" class="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded hover:bg-purple-200 transition-colors">Video: Unified vs Traditional</button>
             </div>
             
             <!-- Results Section -->
@@ -1217,35 +1229,35 @@ const question = {
                     modalities: ['Text', 'Vision', 'Audio'],
                     complexity: 'High',
                     primaryChallenge: 'Temporal alignment across modalities',
-                    geminiAdvantage: 'Unified temporal attention mechanism'
+                    unifiedAdvantage: 'Temporal alignment via shared attention'
                 },
                 'document-analysis': {
                     name: 'Document Analysis',
                     modalities: ['Text', 'Vision'],
                     complexity: 'Medium',
                     primaryChallenge: 'Spatial-textual relationship understanding',
-                    geminiAdvantage: 'Shared spatial-semantic representations'
+                    unifiedAdvantage: 'Shared spatial–semantic embedding'
                 },
                 'conversational-ai': {
                     name: 'Conversational AI',
                     modalities: ['Text', 'Audio'],
                     complexity: 'Medium',
                     primaryChallenge: 'Real-time processing and context retention',
-                    geminiAdvantage: 'Low-latency unified processing'
+                    unifiedAdvantage: 'Low-latency shared processing'
                 },
                 'medical-diagnosis': {
                     name: 'Medical Diagnosis',
                     modalities: ['Text', 'Vision', 'Audio', 'Sensor Data'],
                     complexity: 'Very High',
                     primaryChallenge: 'Multi-scale feature integration',
-                    geminiAdvantage: 'Holistic patient representation'
+                    unifiedAdvantage: 'Holistic multi-source representation'
                 },
                 'creative-content': {
                     name: 'Creative Content Generation',
                     modalities: ['Text', 'Vision', 'Audio'],
                     complexity: 'High',
                     primaryChallenge: 'Cross-modal creativity and consistency',
-                    geminiAdvantage: 'Unified creative latent space'
+                    unifiedAdvantage: 'Shared creative latent space'
                 }
             };
 
@@ -1260,8 +1272,8 @@ const question = {
                     pros: ['Modality-specific optimization', 'Well-established approach'],
                     cons: ['High parameter count', 'Limited cross-modal learning', 'Sequential training bottlenecks']
                 },
-                'gemini': {
-                    name: 'Gemini Unified',
+                'unified': {
+                    name: 'Unified Transformer',
                     parameterMultiplier: 1.0,
                     trainingTimeMultiplier: 0.65,
                     accuracyModifier: 1.15,
@@ -1315,7 +1327,7 @@ const question = {
             // Helper function to get current strategy
             function getCurrentStrategy() {
                 const selectedRadio = document.querySelector('input[name="q33-strategy"]:checked');
-                return selectedRadio ? selectedRadio.value : 'gemini';
+                return selectedRadio ? selectedRadio.value : 'unified';
             }
 
             // Calculate performance metrics
@@ -1565,7 +1577,7 @@ const question = {
                                 </div>
                                 <div>
                                     <strong>Primary Challenge:</strong> ${scenario.primaryChallenge}<br/>
-                                    <strong>Gemini Advantage:</strong> ${scenario.geminiAdvantage}<br/>
+                                    <strong>Unified Advantage:</strong> ${scenario.unifiedAdvantage || ''}<br/>
                                     <strong>Modality Count:</strong> ${scenario.modalities.length} modalities
                                 </div>
                             </div>
@@ -1574,15 +1586,15 @@ const question = {
                 `;
 
                 // Add strategy-specific insights
-                if (getCurrentStrategy() === 'gemini') {
+                if (getCurrentStrategy() === 'unified') {
                     explanationText += `
                         <div class="bg-green-50 p-3 rounded border border-green-200">
-                            <h6 class="font-medium text-green-900 mb-2">🔮 Gemini's Key Innovations</h6>
+                            <h6 class="font-medium text-green-900 mb-2">🔮 Unified Transformer Key Characteristics</h6>
                             <div class="text-sm text-green-800 space-y-1">
-                                <div>• <strong>Unified Tokenization:</strong> All modalities mapped to shared token space</div>
-                                <div>• <strong>Cross-Modal Attention:</strong> Rich interactions from the first layer</div>
-                                <div>• <strong>Parameter Sharing:</strong> 40% reduction compared to traditional approaches</div>
-                                <div>• <strong>Joint Training:</strong> Simultaneous optimization across all modalities</div>
+                                <div>• <strong>Unified Tokenization:</strong> All modalities mapped to a shared token or embedding space</div>
+                                <div>• <strong>Cross-Modal Attention:</strong> Interleaved attention enables early semantic exchange</div>
+                                <div>• <strong>Parameter Sharing:</strong> Reduces redundancy versus siloed encoders</div>
+                                <div>• <strong>Joint Training:</strong> Simultaneous optimization leverages cross-modal signals</div>
                             </div>
                         </div>
                     `;
@@ -1611,7 +1623,7 @@ const question = {
                     strategy: 'gemini', 
                     modelSize: 'medium', 
                     dataRegime: 'self-supervised',
-                    note: 'Video Analysis: Gemini vs Traditional'
+                    note: 'Video: Unified vs Traditional'
                 },
                 { 
                     scenario: 'medical-diagnosis', 
@@ -1629,10 +1641,10 @@ const question = {
                 },
                 { 
                     scenario: 'creative-content', 
-                    strategy: 'gemini', 
+                    strategy: 'unified', 
                     modelSize: 'ultra', 
                     dataRegime: 'mixed',
-                    note: 'Creative AI: Gemini Ultra'
+                    note: 'Creative AI: Unified Ultra'
                 }
             ];
             

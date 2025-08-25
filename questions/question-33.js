@@ -1380,8 +1380,8 @@ const question = {
                 }
             }
 
-            // Create performance chart
-            function createPerformanceChart(metrics) {
+            // Create performance chart (now compares against dynamic traditional baseline)
+            function createPerformanceChart(metrics, baseline) {
                 const container = document.createElement('div');
                 container.className = 'space-y-6';
 
@@ -1438,12 +1438,11 @@ const question = {
                 const comparisonSection = document.createElement('div');
                 comparisonSection.className = 'bg-white p-6 rounded-lg border mt-4';
                 
-                // Redefined metrics for clarity:
-                // For parameter count & training time LOWER is better (percentage of baseline)
-                // For accuracy HIGHER is better (percentage of baseline)
-                const paramPercent = metrics.strategy.parameterMultiplier * 100; // e.g. 60 means 40% fewer
-                const timePercent = metrics.strategy.trainingTimeMultiplier * 100; // e.g. 65 means 35% faster
-                const accPercent = metrics.strategy.accuracyModifier * 100; // e.g. 115 means +15% accuracy
+                // Dynamic baseline: always the 'Traditional' strategy with same scenario/model/data regime.
+                // This makes the bars responsive to model size & data regime changes.
+                const paramPercent = (metrics.totalParams / baseline.totalParams) * 100; // <100 => fewer params than baseline
+                const timePercent = (metrics.trainingTime / baseline.trainingTime) * 100; // <100 => faster
+                const accPercent = (metrics.accuracy / baseline.accuracy) * 100; // >100 => higher accuracy
                 const SCALE_MAX = 300; // visualize up to 300% baseline
 
                 const renderReductionBar = (label, valuePercent, color) => {
@@ -1486,15 +1485,16 @@ const question = {
                 };
 
                 comparisonSection.innerHTML = `
-                    <h5 class="font-semibold text-gray-800 mb-4">📊 Performance vs. Baseline</h5>
+                    <h5 class="font-semibold text-gray-800 mb-4">📊 Performance vs. Baseline (Traditional)</h5>
                     <div class="space-y-4">
                         ${renderReductionBar('Parameter Count', paramPercent, 'blue')}
                         ${renderReductionBar('Training Time', timePercent, 'green')}
                         ${renderImprovementBar('Accuracy', accPercent, 'purple')}
                     </div>
                     <p class="mt-3 text-[11px] text-gray-500 flex flex-wrap gap-x-4 gap-y-1">
+                        <span>Baseline: Traditional strategy (same model & data regime).</span>
                         <span>Scale: 0%–300% (full bar = 300%).</span>
-                        <span>Counts/Time: smaller bar → reduction (badge shows % saved).</span>
+                        <span>Counts/Time: smaller bar → reduction vs. baseline (badge shows % saved).</span>
                         <span>Accuracy: larger bar → improvement (badge shows gain).</span>
                         <span>Striped overlay = exceeds 300% scale cap.</span>
                     </p>
@@ -1516,12 +1516,13 @@ const question = {
 
                 // Calculate metrics
                 const metrics = calculateMetrics(scenario, strategy, modelSize, dataRegime);
+                const baseline = calculateMetrics(scenario, 'traditional', modelSize, dataRegime);
                 
                 // Clear previous results
                 output.innerHTML = '';
                 
                 // Create and display results
-                const resultsChart = createPerformanceChart(metrics);
+                const resultsChart = createPerformanceChart(metrics, baseline);
                 output.appendChild(resultsChart);
 
                 // Update legend

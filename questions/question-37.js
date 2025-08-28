@@ -5,80 +5,123 @@
 const question = {
   title: "37. How does Mixture of Experts (MoE) enhance LLM scalability?",
   answer: `<div class=\"space-y-6\">
+    <!-- Recommended Reading -->
+    <div class=\"bg-indigo-50 p-4 rounded-lg border border-indigo-200\">
+      <h4 class=\"font-semibold text-indigo-900 mb-2\">📚 Recommended reading</h4>
+      <ul class=\"list-disc ml-5 text-xs text-indigo-800 space-y-1\">
+        <li><a class=\"underline hover:text-indigo-900\" href=\"#question-12\">12. How do LLMs scale with parameters?</a></li>
+        <li><a class=\"underline hover:text-indigo-900\" href=\"#question-24\">24. What is parameter-efficient fine-tuning?</a></li>
+        <li><a class=\"underline hover:text-indigo-900\" href=\"#question-32\">32. How are attention scores computed?</a></li>
+        <li><a class=\"underline hover:text-indigo-900\" href=\"#question-35\">35. What is PEFT simulation?</a></li>
+        <li><a class=\"underline hover:text-indigo-900\" href=\"#question-46\">46. Encoders vs decoders</a></li>
+      </ul>
+      <p class=\"text-[11px] text-indigo-700 mt-2\">Context: scaling laws, efficient adaptation, routing math, sparse activation, architecture roles.</p>
+    </div>
+
     <!-- Core Concept -->
     <div class=\"bg-blue-50 p-5 rounded-xl border border-blue-200\">
       <h4 class=\"font-semibold text-blue-900 mb-2\">🧩 Key Idea</h4>
-      <p class=\"text-sm text-blue-800\">Mixture of Experts (MoE) scales model <em>parameters</em> without scaling <em>per‑token compute</em> by activating only a small subset of expert sub‑networks per input. A <b>gating network</b> selects the top‑<i>k</i> experts for each token, routing it to those experts and combining their outputs.</p>
-      <div class=\"text-xs bg-white border border-blue-100 p-3 rounded font-mono text-center mt-3\">
-        \\[ S(x) = \\operatorname{TopK}(\\operatorname{softmax}(W_g x)), \\qquad
-           y = \\sum_{i \\in S(x)} p_i(x) f_i(x) \\]
+      <p class=\"text-sm text-blue-800\">Mixture of Experts (MoE) inflates <em>capacity</em> (parameters) while largely preserving <em>per‑token compute</em>: a small gating module chooses the top‑<span class=\"font-mono\">k</span> experts out of <span class=\"font-mono\">E</span> for each token and linearly combines their outputs.</p>
+      <div class=\"text-xs bg-white border border-blue-100 p-3 rounded font-mono text-center mt-3 overflow-x-auto whitespace-nowrap\">
+    $$\\begin{aligned}
+    S(x) &= \\text{TopK}(\\text{softmax}(W_g x)) \\\\
+    y &= \\sum_{i \\in S(x)} p_i(x) f_i(x)
+    \\end{aligned}$$
       </div>
-      <p class=\"text-xs text-blue-800 mt-2\">Only <span class=\"font-mono\">k/E</span> of experts are active per token → <b>sparse compute</b>. With many experts (E large) and small k (e.g., 1–2), MoE can reach billions of parameters while maintaining near‑dense quality at much lower FLOPs per token.</p>
+      <p class=\"text-xs text-blue-800 mt-2\"><b>Sparsity ratio:</b> only <span class=\"font-mono\">k/E</span> experts active → compute ∝ k, parameters ∝ E. With E≫k (e.g. 64 experts, top‑2) billions of weights sit behind a light gating decision.</p>
+    </div>
+
+    <!-- Approaches / Trade-offs -->
+    <div class=\"grid md:grid-cols-3 gap-4 text-sm\">
+      <div class=\"bg-green-50 border border-green-200 rounded-lg p-4\">
+        <h5 class=\"font-semibold text-green-800 mb-1\">Dense (Baseline)</h5>
+        <ul class=\"list-disc ml-4 text-xs text-green-700 space-y-1\">
+          <li>All weights active</li>
+          <li>Stable & simple</li>
+          <li>Compute grows with params</li>
+        </ul>
+      </div>
+      <div class=\"bg-purple-50 border border-purple-200 rounded-lg p-4\">
+        <h5 class=\"font-semibold text-purple-800 mb-1\">Sparse MoE</h5>
+        <ul class=\"list-disc ml-4 text-xs text-purple-700 space-y-1\">
+          <li>Top‑k routing</li>
+          <li>Capacity > compute</li>
+          <li>Needs balancing loss</li>
+        </ul>
+      </div>
+      <div class=\"bg-amber-50 border border-amber-200 rounded-lg p-4\">
+        <h5 class=\"font-semibold text-amber-800 mb-1\">Advanced / Hybrid</h5>
+        <ul class=\"list-disc ml-4 text-xs text-amber-700 space-y-1\">
+          <li>Routing tricks (Switch, Hash)</li>
+          <li>Expert parallel + sharding</li>
+          <li>Memory & comms overhead</li>
+        </ul>
+      </div>
     </div>
 
     <!-- Why it matters -->
     <div class=\"bg-yellow-50 p-5 rounded-xl border border-yellow-200\">
       <h4 class=\"font-semibold text-yellow-900 mb-2\">🎯 Why This Matters</h4>
       <ul class=\"text-sm text-yellow-800 space-y-1\">
-        <li>• <b>Sparse activation</b> keeps per‑token FLOPs roughly proportional to <span class=\"font-mono\">k</span>, not the total number of experts.</li>
-        <li>• <b>Capacity scaling</b> adds parameters (experts) to boost quality on diverse skills.</li>
-        <li>• <b>Routing control</b> enables specialization and conditional computation.</li>
-        <li>• <b>Load balancing losses</b> prevent expert collapse (all tokens choosing the same expert).</li>
+        <li>• <b>Sparse activation</b> keeps per‑token FLOPs ~ proportional to <span class=\"font-mono\">k</span>, not total parameters.</li>
+        <li>• <b>Specialization</b> lets experts focus on sub‑domains (code, math, dialogue).</li>
+        <li>• <b>Scaling headroom</b> adds experts instead of deeper/wider dense layers.</li>
+        <li>• <b>Balancing strategies</b> (entropy / load losses / capacity limits) avoid collapse.</li>
       </ul>
     </div>
   </div>`,
   interactive: {
     title: "🧪 MoE Routing Simulator (Experts, Top‑k, Balance)",
-    html: `<div class=\"space-y-6\">
+  html: `<div class=\"space-y-6\">
       <div class=\"bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200\">
         <div class=\"grid md:grid-cols-5 gap-4 text-xs\">
           <div>
-            <label class=\"font-semibold text-gray-700\">Experts (E)</label>
-            <input id=\"q37-E\" type=\"range\" min=\"4\" max=\"64\" step=\"1\" value=\"16\" class=\"w-full\" />
+      <label for=\"q37-E\" class=\"font-semibold text-gray-700\">Experts (E)</label>
+      <input id=\"q37-E\" type=\"range\" min=\"4\" max=\"64\" step=\"1\" value=\"16\" class=\"w-full\" aria-label=\"Number of experts slider\" />
             <div class=\"text-center mt-1\"><span id=\"q37-E-val\" class=\"font-mono\">16</span></div>
           </div>
           <div>
-            <label class=\"font-semibold text-gray-700\">Top‑k</label>
-            <input id=\"q37-k\" type=\"range\" min=\"1\" max=\"8\" step=\"1\" value=\"2\" class=\"w-full\" />
+      <label for=\"q37-k\" class=\"font-semibold text-gray-700\">Top‑k</label>
+      <input id=\"q37-k\" type=\"range\" min=\"1\" max=\"8\" step=\"1\" value=\"2\" class=\"w-full\" aria-label=\"Top k experts slider\" />
             <div class=\"text-center mt-1\"><span id=\"q37-k-val\" class=\"font-mono\">2</span></div>
           </div>
           <div>
-            <label class=\"font-semibold text-gray-700\">Batch tokens (T)</label>
-            <input id=\"q37-T\" type=\"range\" min=\"32\" max=\"2048\" step=\"32\" value=\"256\" class=\"w-full\" />
+      <label for=\"q37-T\" class=\"font-semibold text-gray-700\">Batch tokens (T)</label>
+      <input id=\"q37-T\" type=\"range\" min=\"32\" max=\"2048\" step=\"32\" value=\"256\" class=\"w-full\" aria-label=\"Batch tokens slider\" />
             <div class=\"text-center mt-1\"><span id=\"q37-T-val\" class=\"font-mono\">256</span></div>
           </div>
           <div>
-            <label class=\"font-semibold text-gray-700\">Routing entropy</label>
-            <input id=\"q37-entropy\" type=\"range\" min=\"0\" max=\"1\" step=\"0.05\" value=\"0.4\" class=\"w-full\" />
+      <label for=\"q37-entropy\" class=\"font-semibold text-gray-700\">Routing entropy</label>
+      <input id=\"q37-entropy\" type=\"range\" min=\"0\" max=\"1\" step=\"0.05\" value=\"0.4\" class=\"w-full\" aria-label=\"Routing entropy slider\" />
             <div class=\"text-center mt-1\"><span id=\"q37-entropy-val\" class=\"font-mono\">0.40</span></div>
           </div>
           <div>
-            <label class=\"font-semibold text-gray-700\">Model params (B)</label>
-            <input id=\"q37-P\" type=\"range\" min=\"5\" max=\"200\" step=\"5\" value=\"70\" class=\"w-full\" />
+      <label for=\"q37-P\" class=\"font-semibold text-gray-700\">Model params (B)</label>
+      <input id=\"q37-P\" type=\"range\" min=\"5\" max=\"200\" step=\"5\" value=\"70\" class=\"w-full\" aria-label=\"Total model parameters in billions slider\" />
             <div class=\"text-center mt-1\"><span id=\"q37-P-val\" class=\"font-mono\">70</span></div>
           </div>
         </div>
-        <p class="text-[11px] text-gray-600 mt-2">Higher routing entropy ≈ more uniform assignments; low entropy ≈ peaky gate → imbalance risk. Active parameter fraction \(k/E\).</p>
+    <p class=\"text-[11px] text-gray-600 mt-2\">Higher routing entropy ≈ more uniform assignments; low entropy ≈ peaky gate → imbalance risk. Active parameter fraction \(k/E\).</p>
       </div>
 
       <div class=\"grid md:grid-cols-3 gap-4\">
         <div class=\"bg-white border rounded-lg p-4\">
           <h5 class=\"font-semibold text-gray-800 mb-2\">📌 Metrics</h5>
-          <div id=\"q37-metrics\" class=\"text-xs space-y-2\"></div>
+          <div id=\"q37-metrics\" class=\"text-xs space-y-2\" role=\"list\" aria-label=\"MoE derived metrics\"></div>
         </div>
         <div class=\"bg-white border rounded-lg p-4\">
           <h5 class=\"font-semibold text-gray-800 mb-2\">📈 Bars</h5>
-          <div id=\"q37-bars\" class=\"text-xs space-y-2\"></div>
+          <div id=\"q37-bars\" class=\"text-xs space-y-2\" role=\"list\" aria-label=\"Visualization bars for MoE metrics\"></div>
         </div>
         <div class=\"bg-white border rounded-lg p-4\">
           <h5 class=\"font-semibold text-gray-800 mb-2\">🧠 Explanation</h5>
-          <div id=\"q37-explain\" class=\"text-xs text-gray-700 space-y-2\"></div>
+          <div id=\"q37-explain\" class=\"text-xs text-gray-700 space-y-2\" aria-live=\"polite\"></div>
         </div>
       </div>
 
       <div class=\"bg-green-50 border border-green-200 rounded-lg p-4\">
         <h5 class=\"font-semibold text-green-900 mb-1\">💡 Insight</h5>
-        <div id=\"q37-insight\" class=\"text-sm text-green-800\"></div>
+        <div id=\"q37-insight\" class=\"text-sm text-green-800\" aria-live=\"polite\"></div>
       </div>
     </div>`,
     script: () => {
@@ -97,14 +140,14 @@ const question = {
       const barsEl = document.getElementById('q37-bars');
       const explainEl = document.getElementById('q37-explain');
       const insightEl = document.getElementById('q37-insight');
-      if (!EEl) return;
+  if (!EEl || !kEl || !TEl || !HEl || !PEl || !metricsEl || !barsEl || !explainEl || !insightEl) return; // defensive
 
       function bar(label, value, color='indigo', invert=false) {
         const pct = Math.max(0, Math.min(100, value*100));
         const text = (value*100).toFixed(1) + '%';
         const bg = invert ? `bg-${color}-200` : `bg-${color}-600`;
         const fill = invert ? `bg-${color}-600` : `bg-${color}-300`;
-        return `<div>
+        return `<div role=\"group\" aria-label=\"${label} ${text}\">
           <div class=\"flex justify-between text-[11px] mb-0.5\"><span>${label}</span><span>${text}</span></div>
           <div class=\"w-full h-3 ${bg} rounded relative overflow-hidden\">
             <div class=\"h-3 ${fill}\" style=\"width:${pct}%\"></div>
@@ -199,3 +242,6 @@ const question = {
     }
   }
 };
+
+// CommonJS export for tooling/tests
+if (typeof module !== 'undefined') { module.exports = question; }

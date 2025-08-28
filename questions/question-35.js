@@ -5,6 +5,18 @@
 const question = {
   title: "35. How does PEFT mitigate catastrophic forgetting?",
   answer: `<div class="space-y-6">
+    <!-- Recommended Reading (Cross-links) -->
+    <div class="bg-indigo-50 p-4 rounded-lg border border-indigo-200">
+      <h4 class="font-semibold text-indigo-900 mb-2">📚 Recommended reading</h4>
+      <ul class="list-disc ml-5 text-xs text-indigo-800 space-y-1">
+        <li><a class="underline hover:text-indigo-900" href="#question-15">15. What is catastrophic forgetting?</a></li>
+        <li><a class="underline hover:text-indigo-900" href="#question-16">16. What is transfer learning in LLMs?</a></li>
+        <li><a class="underline hover:text-indigo-900" href="#question-24">24. What is parameter-efficient fine-tuning?</a></li>
+        <li><a class="underline hover:text-indigo-900" href="#question-31">31. How does RLHF shape model behavior?</a></li>
+        <li><a class="underline hover:text-indigo-900" href="#question-34">34. What types of foundation models exist?</a></li>
+      </ul>
+      <p class="text-[11px] text-indigo-700 mt-2">These provide grounding for continual learning pressure, transfer dynamics, and alignment signals relevant to PEFT.</p>
+    </div>
     <!-- Definition / Core Concept -->
     <div class="bg-blue-50 p-5 rounded-xl border border-blue-200">
       <h4 class="font-semibold text-blue-900 mb-2">🧠 Core Idea</h4>
@@ -20,15 +32,15 @@ const question = {
     <!-- Mechanism & Math -->
     <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
       <h4 class="font-semibold text-gray-900 mb-3">🧩 Mechanism</h4>
-      <p class="text-sm text-gray-700">Instead of updating inline parameters, we add a <em>structured delta</em> to a frozen base:</p>
+  <p class="text-sm text-gray-700">Instead of updating inline parameters, we add a <em>structured delta</em> to a frozen base (additive decomposition):</p>
       <div class="text-center bg-gradient-to-r from-indigo-50 to-indigo-100 p-4 rounded-lg border border-indigo-200 text-sm font-mono">
-  $$ f(x;\,\theta_{\\text{base}},\,\\Delta\\theta) = f\\big(x;\,\\theta_{\\text{base}} + P(\\Delta\\theta)\\big) $$
+  $$ f(x; \theta_{\\text{base}}, \\Delta\\theta) = f\\big(x; \\theta_{\\text{base}} + P(\\Delta\\theta)\\big) $$
       </div>
-      <p class="text-sm text-gray-700 mt-3">Where <code>P(\cdot)</code> injects / projects the small trainable structure (adapters, low‑rank matrices, prefixes). We model forgetting with a simple saturating hazard:</p>
-      <div class="text-center bg-yellow-50 border border-yellow-200 p-3 rounded text-xs font-mono">
-  $$ \\text{ForgettingRisk} = 1 - e^{-\\alpha s d t}\\quad\\text{with}\\quad \\text{Retention}= e^{-\\alpha s d t} $$
-      </div>
-      <p class="text-xs text-gray-600">Symbols: \(s\) trainable fraction; \(d\) domain shift factor; \(t\) sequential task count; \(\alpha\) method sensitivity (smaller \(\alpha\) = more robust PEFT).</p>
+  <p class="text-sm text-gray-700 mt-3">Where <code>P(\cdot)</code> injects / projects the small trainable structure (adapters, low‑rank matrices, prefixes). We model forgetting with a <em>qualitative</em> saturating hazard (illustrative only):</p>
+    <div class="text-center bg-yellow-50 border border-yellow-200 p-3 rounded text-xs font-mono">
+  $$ \text{ForgettingRisk} = 1 - e^{-\alpha s d t},\quad \text{Retention} = e^{-\alpha s d t} $$
+    </div>
+  <p class="text-xs text-gray-600">Symbols: \(s\)=trainable fraction; \(d\)=domain shift factor; \(t\)=sequential task count; \(\alpha\)=method sensitivity (smaller ⇒ more robust). Pedagogical curve—use empirical continual learning benchmarks for measurement.</p>
       <p class="text-sm text-gray-700 mb-2">LoRA applies a low‑rank update to each targeted weight matrix:</p>
       <div class="text-center bg-white border border-gray-200 p-3 rounded text-xs font-mono">
   $$ W' = W + B A,\; W\\in\\mathbb{R}^{d_{out}\\times d_{in}},\; A\\in\\mathbb{R}^{r\\times d_{in}},\; B\\in\\mathbb{R}^{d_{out}\\times r},\; r \\ll d_{out},d_{in} $$
@@ -117,7 +129,7 @@ const question = {
             <div class=\"text-center mt-1\"><span id=\"q35-trainable-val\" class=\"font-mono\">1.0%</span></div>
           </div>
         </div>
-        <p class=\"text-[11px] text-gray-600 mt-2\">Simulator estimates <strong>Retention Score</strong> (higher is better) & <strong>Forgetting Risk</strong> using a qualitative model.</p>
+  <p class=\"text-[11px] text-gray-600 mt-2\">Simulator estimates <strong>Retention</strong> & <strong>Forgetting Risk</strong> via a heuristic hazard; not calibrated to real benchmarks.</p>
       </div>
 
       <div class=\"grid md:grid-cols-3 gap-4\">
@@ -196,12 +208,7 @@ const question = {
         const display = (value*100).toFixed(1) + '%';
         const bg = invert ? 'bg-' + color + '-200' : 'bg-' + color + '-600';
         const fill = invert ? 'bg-' + color + '-600' : 'bg-' + color + '-300';
-        return `<div>
-          <div class=\"flex justify-between text-[11px] mb-0.5\"><span>${label}</span><span>${display}</span></div>
-          <div class=\"w-full h-3 ${bg} rounded relative overflow-hidden\">
-            <div class=\"h-3 ${fill}\" style=\"width:${pct}%\"></div>
-          </div>
-        </div>`;
+        return `<div role=\"group\" aria-label=\"${label} ${display}\">\n          <div class=\"flex justify-between text-[11px] mb-0.5\"><span>${label}</span><span>${display}</span></div>\n          <div class=\"w-full h-3 ${bg} rounded relative overflow-hidden\">\n            <div class=\"h-3 ${fill}\" style=\"width:${pct}%\" aria-hidden=\"true\"></div>\n          </div>\n        </div>`;
       }
 
       function render() {
@@ -230,11 +237,11 @@ const question = {
   explainEl.innerHTML = `<p>${r.method.explain}</p><p><strong>Interpretation:</strong> Retention declines faster with higher trainable %, greater domain shift and more tasks. Efficiency rewards high retention per unit memory. Adjust sliders to observe non‑linear saturation.</p>`;
 
         // Insight heuristics
-        let insight;
-  if (r.forgettingRisk > 0.6) insight = '⚠ High forgetting risk — reduce trainable %, add rehearsal, or regularize.';
+  let insight;
+  if (r.forgettingRisk > 0.6) insight = '⚠ High forgetting risk — reduce trainable %, add rehearsal (replay) or add regularization (EWC/L2).';
   else if (r.retention > 0.85 && r.efficiency > 8) insight = '✅ Strong retention & efficiency — configuration robust.';
-  else if (r.efficiency < 2) insight = '🛠 Low efficiency — large update relative to benefit; consider lower rank or selective layers.';
-        else insight = 'ℹ Balanced configuration — moderate retention with acceptable memory growth.';
+  else if (r.efficiency < 2) insight = '🛠 Low efficiency — large update vs benefit; lower rank or selective layer targeting may help.';
+  else insight = 'ℹ Balanced configuration — moderate retention with acceptable memory growth.';
         insightEl.textContent = insight;
 
         // MathJax refresh if needed
@@ -246,3 +253,5 @@ const question = {
     }
   }
 };
+
+if (typeof module !== 'undefined') { module.exports = question; }

@@ -6,6 +6,16 @@ const question = {
   title: "39. How do discriminative and generative AI models differ?",
   answer: `
     <div class="space-y-6">
+      <!-- Recommended Reading -->
+      <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+        <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading</h4>
+        <ul class="text-xs text-indigo-800 list-disc ml-4 space-y-0.5">
+          <li><a class="underline hover:no-underline" href="index.html#question-12">Q12: Prompt engineering basics</a></li>
+          <li><a class="underline hover:no-underline" href="index.html#question-31">Q31: Temperature & sampling</a></li>
+          <li><a class="underline hover:no-underline" href="index.html#question-36">Q36: Retrieval-Augmented Generation</a></li>
+          <li><a class="underline hover:no-underline" href="index.html#question-38">Q38: Chain-of-Thought prompting</a></li>
+        </ul>
+      </div>
       <!-- Main Concept -->
       <div class="bg-blue-50 p-5 rounded-xl border border-blue-200">
         <h4 class="font-semibold text-blue-900 mb-2">🔤 Key Idea</h4>
@@ -85,15 +95,15 @@ const question = {
         <div class=\"bg-gradient-to-r from-indigo-50 to-cyan-50 p-4 rounded-lg border border-indigo-200\">
           <div class=\"grid md:grid-cols-4 gap-4 text-xs\">
             <div>
-              <label class=\"font-semibold text-gray-700\">Mode</label>
-              <select id=\"q39-mode\" class=\"w-full border rounded p-1 text-xs\">
+              <label class=\"font-semibold text-gray-700\" for=\"q39-mode\">Mode</label>
+              <select id=\"q39-mode\" aria-label=\"Select modeling mode\" class=\"w-full border rounded p-1 text-xs\">
                 <option value=\"disc\">Discriminative: Sentiment</option>
                 <option value=\"gen\">Generative: Next‑word LM</option>
               </select>
             </div>
             <div class=\"md:col-span-2\">
-              <label class=\"font-semibold text-gray-700\">Example text</label>
-              <select id=\"q39-text\" class=\"w-full border rounded p-1 text-xs\">
+              <label class=\"font-semibold text-gray-700\" for=\"q39-text\">Example text</label>
+              <select id=\"q39-text\" aria-label=\"Select example text\" class=\"w-full border rounded p-1 text-xs\">
                 <option value=\"I love this movie\" selected>I love this movie</option>
                 <option value=\"This movie was bad\">This movie was bad</option>
                 <option value=\"The weather is nice today\">The weather is nice today</option>
@@ -103,8 +113,8 @@ const question = {
               </select>
             </div>
             <div>
-              <label class=\"font-semibold text-gray-700\">Temperature (gen)</label>
-              <input id=\"q39-temp\" type=\"range\" min=\"0.1\" max=\"1.5\" step=\"0.1\" value=\"0.8\" class=\"w-full\" />
+              <label class=\"font-semibold text-gray-700\" for=\"q39-temp\">Temperature (gen)</label>
+              <input id=\"q39-temp\" aria-label=\"Sampling temperature for generative mode\" type=\"range\" min=\"0.1\" max=\"1.5\" step=\"0.1\" value=\"0.8\" class=\"w-full\" />
               <div class=\"text-center mt-1\"><span id=\"q39-temp-val\" class=\"font-mono\">0.8</span></div>
             </div>
           </div>
@@ -114,21 +124,21 @@ const question = {
         <div class=\"grid md:grid-cols-3 gap-4\">
           <div class=\"bg-white border rounded-lg p-4\">
             <h5 class=\"font-semibold text-gray-800 mb-2\">📌 Model View</h5>
-            <div id=\"q39-model\" class=\"text-xs text-gray-700\"></div>
+            <div id=\"q39-model\" class=\"text-xs text-gray-700\" aria-live=\"polite\"></div>
           </div>
           <div class=\"bg-white border rounded-lg p-4\">
             <h5 class=\"font-semibold text-gray-800 mb-2\">📊 Metrics</h5>
-            <div id=\"q39-metrics\" class=\"text-xs text-gray-700\"></div>
+            <div id=\"q39-metrics\" class=\"text-xs text-gray-700\" aria-live=\"polite\"></div>
           </div>
           <div class=\"bg-white border rounded-lg p-4\">
             <h5 class=\"font-semibold text-gray-800 mb-2\">🗣️ Output</h5>
-            <div id=\"q39-output\" class=\"text-sm text-gray-800 whitespace-pre-wrap\"></div>
+            <div id=\"q39-output\" class=\"text-sm text-gray-800 whitespace-pre-wrap\" aria-live=\"polite\"></div>
           </div>
         </div>
 
         <div class=\"bg-indigo-50 border border-indigo-200 rounded-lg p-4\">
           <h5 class=\"font-semibold text-indigo-900 mb-1\">🔎 Explanation</h5>
-          <div id=\"q39-explain\" class=\"text-xs text-indigo-800\"></div>
+          <div id=\"q39-explain\" class=\"text-xs text-indigo-800\" aria-live=\"polite\"></div>
         </div>
       </div>
     `,
@@ -141,7 +151,7 @@ const question = {
       const metricsEl = document.getElementById('q39-metrics');
       const outputEl = document.getElementById('q39-output');
       const explainEl = document.getElementById('q39-explain');
-      if (!modeEl) return;
+  if (!modeEl || !textEl || !tempEl || !modelEl || !metricsEl || !outputEl || !explainEl) return; // defensive: abort if any critical element missing
 
       // Tiny sentiment lexicon
       const POS = ['good','great','love','nice','happy','excellent','amazing','cool','fun','win','awesome'];
@@ -196,26 +206,50 @@ const question = {
         return {words:nw, probs: np.map(p=>p/s)};
       }
 
-      function genNextWords(seed, T=0.8, maxLen=10){
+      function genNextWords(seed, T=0.8, maxLen=12){
+        // Stronger temperature effect across ALL seeds.
+        // Fallback: if the last token has only a single continuation (or only </s>) we
+        // restart from <s> to allow branching, enabling temperature to matter for every example.
         let prev = (seed?.trim().split(/\s+/).pop()||'').toLowerCase();
         if(!bigrams.has(prev)) prev = '<s>';
-        const out=[];
-        for(let t=0;t<maxLen;t++){
-          const table = bigrams.get(prev) || bigrams.get('<s>');
-          const words = Object.keys(table);
-          const counts = words.map(w=>table[w]);
-          // Temperature sensitivity: argmax when T<=0.15, and increase top-k with T
-          if (T <= 0.15) {
-            const idx = argmaxIdx(counts);
-            const w = words[idx];
-            if(w==='</s>') break; out.push(w); prev = w; continue;
+        const out=[]; const clamp01 = v=>Math.max(0,Math.min(1,v));
+        let restarts = 0;
+        for(let step=0; step<maxLen; step++){
+          let table = bigrams.get(prev) || bigrams.get('<s>');
+            let words = Object.keys(table);
+          // If no diversity (<=1 option) and we have room, restart chain to inject variability
+          if (words.length <= 1 && step < maxLen-1 && restarts < 2){
+            prev = '<s>';
+            restarts++;
+            table = bigrams.get(prev);
+            words = Object.keys(table);
           }
-          const baseProbs = softmaxTemp(counts, T);
-          const k = Math.max(1, Math.min(words.length, Math.round(1 + (T-0.1)/1.4 * 4))); // k in [1..5]
-          const {words: tw, probs: tp} = topK(words, baseProbs, k);
-          const dist = tw.map((w,i)=>({w, p: tp[i]}));
+          if(!words.length) break;
+          const rawCounts = words.map(w=>table[w]);
+          // Deterministic when extremely low temp
+          if (T <= 0.12){
+            const w = words[argmaxIdx(rawCounts)];
+            if(w==='</s>') { if(out.length < 2) { prev='<s>'; continue; } else break; }
+            out.push(w); prev = w; continue;
+          }
+          // Add temperature-proportional noise
+          const noisy = rawCounts.map(c => c + Math.random()*T*0.75);
+          const baseProbs = softmaxTemp(noisy, T);
+          const scaledT = clamp01((T - 0.1)/1.4);
+          const dynK = Math.max(1, Math.min(words.length, 1 + Math.round(scaledT * (words.length-1))));
+          const sorted = baseProbs.map((p,i)=>({w:words[i],p})).sort((a,b)=>b.p-a.p);
+          const nucleusP = 0.55 + 0.35*scaledT;
+          let acc=0; const nucleus=[];
+          for(const item of sorted){ nucleus.push(item); acc+=item.p; if(acc>=nucleusP) break; }
+          const candidate = nucleus.slice(0,dynK);
+          const norm = candidate.reduce((s,o)=>s+o.p,0) || 1;
+          const dist = candidate.map(o=>({w:o.w, p:o.p/norm}));
           const w = sampleNext(dist);
-          if(w==='</s>') break; out.push(w); prev = w;
+          if(w==='</s>'){
+            if(out.length < 2 && restarts < 2){ prev='<s>'; restarts++; continue; }
+            break;
+          }
+          out.push(w); prev = w;
         }
         return out.join(' ');
       }
@@ -234,9 +268,9 @@ const question = {
 
       function bars(label,val,color='indigo'){
         const pct = Math.max(0, Math.min(100, val*100));
-        return `<div>
+        return `<div role=\"group\" aria-label=\"${label} ${pct.toFixed(0)} percent\">
           <div class=\"flex justify-between text-[11px] mb-0.5\"><span>${label}</span><span>${pct.toFixed(0)}%</span></div>
-          <div class=\"w-full h-3 bg-${color}-200 rounded\"><div class=\"h-3 bg-${color}-600\" style=\"width:${pct}%\"></div></div>
+          <div class=\"w-full h-3 bg-${color}-200 rounded\" aria-hidden=\"true\"><div class=\"h-3 bg-${color}-600\" style=\"width:${pct}%\" role=\"progressbar\" aria-valuenow=\"${pct.toFixed(0)}\" aria-valuemin=\"0\" aria-valuemax=\"100\" aria-label=\"${label}\"></div></div>
         </div>`;
       }
 

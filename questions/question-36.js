@@ -1,100 +1,92 @@
 // Question 36: What are the steps in Retrieval-Augmented Generation (RAG)?
 // Created: August 12, 2025
+// Updated: August 28, 2025
 // Educational Focus: RAG pipeline (Retrieve → Rank → Generate) with a small interactive simulator.
+// Update: Added recommended reading, retrieval method comparison cards, accessibility (aria-*),
+// defensive DOM checks, overflow handling for math, and CommonJS export.
 
 const question = {
   title: "36. What are the steps in Retrieval-Augmented Generation (RAG)?",
   answer: `<div class="space-y-6">
-    <!-- Core concept -->
-    <div class="bg-blue-50 p-5 rounded-xl border border-blue-200">
-      <h4 class="font-semibold text-blue-900 mb-2">📚 RAG in three steps</h4>
-      <ol class="list-decimal ml-5 text-sm text-blue-800 space-y-1">
-        <li><b>Retrieval</b>: Fetch relevant documents/passages using a retriever (BM25 or vector search over embeddings).</li>
-        <li><b>Ranking</b>: Reorder candidates by relevance (e.g., cross‑encoder reranker) and keep top‑k.</li>
-        <li><b>Generation</b>: Condition the LLM on the retrieved context to produce the final answer with citations.</li>
-      </ol>
-      <p class="text-sm text-blue-800 mt-2">RAG improves factuality and grounding by pulling in external knowledge at inference time.</p>
+    <!-- Recommended Reading -->
+    <div class="bg-indigo-50 p-4 rounded-lg border border-indigo-200">
+      <h4 class="font-semibold text-indigo-900 mb-2">📚 Recommended reading</h4>
+      <ul class="list-disc ml-5 text-xs text-indigo-800 space-y-1">
+        <li><a class="underline hover:text-indigo-900" href="#question-07">7. How do embedding models differ?</a></li>
+        <li><a class="underline hover:text-indigo-900" href="#question-18">18. Why do LLMs hallucinate?</a></li>
+        <li><a class="underline hover:text-indigo-900" href="#question-20">20. What is prompt engineering?</a></li>
+        <li><a class="underline hover:text-indigo-900" href="#question-24">24. What is parameter-efficient fine-tuning?</a></li>
+        <li><a class="underline hover:text-indigo-900" href="#question-34">34. What types of foundation models exist?</a></li>
+      </ul>
+      <p class="text-[11px] text-indigo-700 mt-2">Context: similarity search, hallucination mitigation, prompt design, lightweight adaptation, taxonomy.</p>
     </div>
 
-    <!-- A little bit of math (cosine similarity) -->
+    <!-- Core concept -->
+    <div class="bg-blue-50 p-5 rounded-xl border border-blue-200">
+      <h4 class="font-semibold text-blue-900 mb-2">🧱 RAG in three stages</h4>
+      <ol class="list-decimal ml-5 text-sm text-blue-800 space-y-1">
+        <li><b>Retrieval</b>: Fetch candidate passages (lexical, dense, hybrid).</li>
+        <li><b>Ranking</b>: Re-score to sharpen top‑k precision (cross‑encoder).</li>
+        <li><b>Generation</b>: Condition answer on ranked context + citations.</li>
+      </ol>
+      <p class="text-sm text-blue-800 mt-2">Analogy: Open‑book exam → find pages → pick paragraphs → write cited answer.</p>
+    </div>
+
+    <!-- Retrieval methods -->
+    <div class="grid md:grid-cols-3 gap-4 text-sm">
+      <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+        <h5 class="font-semibold text-green-800 mb-1">Lexical (BM25)</h5>
+        <ul class="list-disc ml-4 text-xs text-green-700 space-y-1">
+          <li>Exact token match</li>
+          <li>Fast & transparent</li>
+          <li>Weak on paraphrase</li>
+        </ul>
+      </div>
+      <div class="bg-purple-50 border border-purple-200 rounded-lg p-4">
+        <h5 class="font-semibold text-purple-800 mb-1">Dense (Embeddings)</h5>
+        <ul class="list-disc ml-4 text-xs text-purple-700 space-y-1">
+          <li>Semantic similarity</li>
+          <li>Handles paraphrase</li>
+          <li>Vector index needed</li>
+        </ul>
+      </div>
+      <div class="bg-amber-50 border border-amber-200 rounded-lg p-4">
+        <h5 class="font-semibold text-amber-800 mb-1">Hybrid / Multi‑Stage</h5>
+        <ul class="list-disc ml-4 text-xs text-amber-700 space-y-1">
+          <li>High recall + precision</li>
+          <li>Lexical prefilter</li>
+          <li>More infra complexity</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Scoring example -->
     <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
       <h4 class="font-semibold text-gray-900 mb-2">🧮 Scoring example</h4>
-  <p class="text-sm text-gray-700">Vector retrievers often use cosine similarity between the query embedding \\(\\mathbf{q}\\) and a document embedding \\(\\mathbf{d}\\):</p>
-      <div class="text-center bg-gradient-to-r from-indigo-50 to-indigo-100 p-3 rounded-lg border border-indigo-200 text-sm font-mono">
-    $$ \\cos(\\theta) = \\frac{\\mathbf{q}\\cdot\\mathbf{d}}{\\lVert\\mathbf{q}\\rVert\\,\\lVert\\mathbf{d}\\rVert} $$
-      </div>
-      <p class="text-xs text-gray-600 mt-2">BM25 is a classic lexical alternative that scores token overlap with length and frequency normalization.</p>
+      <p class="text-sm text-gray-700">Cosine similarity for dense retrieval:</p>
+        <div class="text-center bg-gradient-to-r from-indigo-50 to-indigo-100 p-3 rounded-lg border border-indigo-200 text-sm font-mono overflow-x-auto whitespace-nowrap" aria-label="Cosine similarity equation">
+          $$ \\cos(\\theta) = \\frac{\\sum_i q_i d_i}{\\sqrt{\\sum_i q_i^2}\\,\\sqrt{\\sum_i d_i^2}} $$
+        </div>
+      <p class="text-xs text-gray-600 mt-2">Hybrid pattern: lexical recall → dense refine → cross‑encoder rerank → answer assembly.</p>
     </div>
 
     <!-- Why it matters -->
     <div class="bg-yellow-50 p-5 rounded-xl border border-yellow-200">
       <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why This Matters</h4>
       <ul class="text-sm text-yellow-800 space-y-1">
-        <li>• <b>Grounding</b> reduces hallucinations with cited evidence.</li>
-        <li>• <b>Freshness</b> enables up‑to‑date answers without retraining.</li>
-        <li>• <b>Control</b> lets you steer sources, domains, and guardrails.</li>
-        <li>• <b>Efficiency</b> retrieves only what the model needs.</li>
+        <li>• <b>Grounding</b> reduces hallucinations with citations.</li>
+        <li>• <b>Freshness</b> adds new knowledge without retraining.</li>
+        <li>• <b>Control</b> constrains domains & governance.</li>
+        <li>• <b>Efficiency</b> narrows context budget.</li>
       </ul>
     </div>
   </div>`,
   interactive: {
     title: "🧪 RAG Pipeline Explorer (Retrieve → Rank → Generate)",
-    html: `<div class=\"space-y-6\">
-      <div class=\"bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200\">
-        <div class=\"grid md:grid-cols-4 gap-4 text-xs\">
-          <div class=\"md:col-span-2\">
-            <label class=\"font-semibold text-gray-700\">Query</label>
-            <select id=\"q36-query\" class=\"mt-1 w-full border-gray-300 rounded p-2 text-xs\">
-              <option value=\"What are the steps in RAG?\" selected>What are the steps in RAG?</option>
-              <option value=\"When does RAG help?\">When does RAG help?</option>
-              <option value=\"Compare BM25 and embeddings\">Compare BM25 and embeddings</option>
-              <option value=\"Why add a reranker in RAG?\">Why add a reranker in RAG?</option>
-              <option value=\"How should I chunk documents for retrieval?\">How should I chunk documents for retrieval?</option>
-              <option value=\"How to add citations in answers?\">How to add citations in answers?</option>
-            </select>
-          </div>
-          <div>
-            <label class=\"font-semibold text-gray-700\">Retriever</label>
-            <select id=\"q36-retriever\" class=\"mt-1 w-full border-gray-300 rounded p-1 text-xs\">
-              <option value=\"bm25\">BM25 (lexical)</option>
-              <option value=\"vector\">Embeddings (cosine)</option>
-            </select>
-          </div>
-          <div>
-            <label class=\"font-semibold text-gray-700\">Top‑k</label>
-            <input id=\"q36-topk\" type=\"range\" min=\"1\" max=\"5\" value=\"3\" class=\"w-full\" />
-            <div class=\"text-center mt-1\"><span id=\"q36-topk-val\" class=\"font-mono\">3</span></div>
-          </div>
-        </div>
-        <div class=\"mt-3 flex items-center gap-3 text-xs\">
-          <label class=\"inline-flex items-center gap-2\"><input id=\"q36-rerank\" type=\"checkbox\" checked /><span>Use cross‑encoder reranker</span></label>
-          <label class=\"inline-flex items-center gap-2\"><input id=\"q36-cite\" type=\"checkbox\" checked /><span>Insert citations</span></label>
-        </div>
-        <p class=\"text-[11px] text-gray-600 mt-2\">This simulator uses a tiny knowledge base and simplified scoring (BM25‑like lexical vs cosine on bag‑of‑words embeddings) to illustrate the pipeline.</p>
-      </div>
-
-      <div class=\"grid md:grid-cols-3 gap-4\">
-        <div class=\"bg-white border rounded-lg p-4\">
-          <h5 class=\"font-semibold text-gray-800 mb-2\">🔎 Retrieved</h5>
-          <div id=\"q36-retrieved\" class=\"text-xs space-y-2\"></div>
-        </div>
-        <div class=\"bg-white border rounded-lg p-4\">
-          <h5 class=\"font-semibold text-gray-800 mb-2\">🏅 Ranked</h5>
-          <div id=\"q36-ranked\" class=\"text-xs space-y-2\"></div>
-        </div>
-        <div class=\"bg-white border rounded-lg p-4\">
-          <h5 class=\"font-semibold text-gray-800 mb-2\">📝 Generated Answer</h5>
-          <div id=\"q36-answer\" class=\"text-sm text-gray-800 space-y-2\"></div>
-        </div>
-      </div>
-
-      <div class=\"bg-green-50 border border-green-200 rounded-lg p-4\">
-        <h5 class=\"font-semibold text-green-900 mb-1\">💡 Tip</h5>
-        <div id=\"q36-tip\" class=\"text-sm text-green-800\"></div>
-      </div>
-    </div>`,
+    html: `<div class=\"space-y-6\">\n      <div class=\"bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200\">\n        <div class=\"grid md:grid-cols-4 gap-4 text-xs\">\n          <div class=\"md:col-span-2\">\n            <label class=\"font-semibold text-gray-700\">Query</label>\n            <select id=\"q36-query\" class=\"mt-1 w-full border-gray-300 rounded p-2 text-xs\" aria-label=\"Query selection\">\n              <option value=\"What are the steps in RAG?\" selected>What are the steps in RAG?</option>\n              <option value=\"When does RAG help?\">When does RAG help?</option>\n              <option value=\"Compare BM25 and embeddings\">Compare BM25 and embeddings</option>\n              <option value=\"Why add a reranker in RAG?\">Why add a reranker in RAG?</option>\n              <option value=\"How should I chunk documents for retrieval?\">How should I chunk documents for retrieval?</option>\n              <option value=\"How to add citations in answers?\">How to add citations in answers?</option>\n            </select>\n          </div>\n          <div>\n            <label class=\"font-semibold text-gray-700\">Retriever</label>\n            <select id=\"q36-retriever\" class=\"mt-1 w-full border-gray-300 rounded p-1 text-xs\" aria-label=\"Retriever type\">\n              <option value=\"bm25\">BM25 (lexical)</option>\n              <option value=\"vector\">Embeddings (cosine)</option>\n            </select>\n          </div>\n          <div>\n            <label class=\"font-semibold text-gray-700\">Top‑k</label>\n            <input id=\"q36-topk\" type=\"range\" min=\"1\" max=\"5\" value=\"3\" class=\"w-full\" aria-label=\"Top k documents slider\" />\n            <div class=\"text-center mt-1\"><span id=\"q36-topk-val\" class=\"font-mono\">3</span></div>\n          </div>\n        </div>\n        <div class=\"mt-3 flex items-center gap-3 text-xs\">\n          <label class=\"inline-flex items-center gap-2\"><input id=\"q36-rerank\" type=\"checkbox\" checked aria-label=\"Enable reranking\" /><span>Use cross‑encoder reranker</span></label>\n          <label class=\"inline-flex items-center gap-2\"><input id=\"q36-cite\" type=\"checkbox\" checked aria-label=\"Include citations in answer\" /><span>Insert citations</span></label>\n        </div>\n        <p class=\"text-[11px] text-gray-600 mt-2\">Heuristic simulator: lexical vs dense scoring + optional bigram rerank. Real systems add hybrid retrieval, freshness, filtering, caching.</p>\n      </div>\n\n      <div class=\"grid md:grid-cols-3 gap-4\">\n        <div class=\"bg-white border rounded-lg p-4\">\n          <h5 class=\"font-semibold text-gray-800 mb-2\">🔎 Retrieved</h5>\n          <div id=\"q36-retrieved\" class=\"text-xs space-y-2\" role=\"list\" aria-label=\"Retrieved candidate passages\"></div>\n        </div>\n        <div class=\"bg-white border rounded-lg p-4\">\n          <h5 class=\"font-semibold text-gray-800 mb-2\">🏅 Ranked</h5>\n          <div id=\"q36-ranked\" class=\"text-xs space-y-2\" role=\"list\" aria-label=\"Ranked top passages\"></div>\n        </div>\n        <div class=\"bg-white border rounded-lg p-4\">\n          <h5 class=\"font-semibold text-gray-800 mb-2\">📝 Generated Answer</h5>\n          <div id=\"q36-answer\" class=\"text-sm text-gray-800 space-y-2\" aria-live=\"polite\"></div>\n        </div>\n      </div>\n\n      <div class=\"bg-green-50 border border-green-200 rounded-lg p-4\">\n        <h5 class=\"font-semibold text-green-900 mb-1\">💡 Tip</h5>\n        <div id=\"q36-tip\" class=\"text-sm text-green-800\" aria-live=\"polite\"></div>\n      </div>\n    </div>`,
     script: () => {
-  const queryEl = document.getElementById('q36-query');
+      // Defensive DOM selection
+      const queryEl = document.getElementById('q36-query');
       const retrieverEl = document.getElementById('q36-retriever');
       const topkEl = document.getElementById('q36-topk');
       const topkVal = document.getElementById('q36-topk-val');
@@ -104,7 +96,7 @@ const question = {
       const rankedEl = document.getElementById('q36-ranked');
       const answerEl = document.getElementById('q36-answer');
       const tipEl = document.getElementById('q36-tip');
-      if(!queryEl) return;
+      if(!queryEl || !retrieverEl || !topkEl || !topkVal || !retrievedEl || !rankedEl || !answerEl || !tipEl) return;
 
       // Tiny knowledge base (6 docs)
       const KB = [
@@ -164,16 +156,12 @@ const question = {
 
       function bar(label, value, color='indigo') {
         const pct = Math.max(0, Math.min(100, Math.round(value*100)));
-        return `<div>
-          <div class=\"flex justify-between text-[11px] mb-0.5\"><span>${label}</span><span>${(value*100).toFixed(1)}%</span></div>
-          <div class=\"w-full h-3 bg-${color}-200 rounded relative overflow-hidden\">
-            <div class=\"h-3 bg-${color}-600\" style=\"width:${pct}%\"></div>
-          </div>
-        </div>`;
+        const pctLabel = (value*100).toFixed(1);
+        return `<div role=\"group\" aria-label=\"${label} ${pctLabel} percent\">\n          <div class=\"flex justify-between text-[11px] mb-0.5\"><span>${label}</span><span>${pctLabel}%</span></div>\n          <div class=\"w-full h-3 bg-${color}-200 rounded relative overflow-hidden\" aria-hidden=\"true\">\n            <div class=\"h-3 bg-${color}-600\" style=\"width:${pct}%\"></div>\n          </div>\n        </div>`;
       }
 
       function pipeline() {
-  const q = (queryEl.value || '').trim();
+        const q = (queryEl.value || '').trim();
         const qTok = tokenize(q);
         const topk = parseInt(topkEl.value, 10);
         topkVal.textContent = String(topk);
@@ -200,47 +188,29 @@ const question = {
             r.rscore = jaccard(qB, rB);
           });
           const maxR = Math.max(0.0001, ...ranked.map(r=>r.rscore||0.0001));
-          ranked.sort((a,b)=> (b.rscore - a.rscore) || (b.nscore - a.nscore));
-          ranked = ranked.slice(0, topk).map(r => ({...r, rn: (r.rscore||0)/maxR}));
+            ranked.sort((a,b)=> (b.rscore - a.rscore) || (b.nscore - a.nscore));
+            ranked = ranked.slice(0, topk).map(r => ({...r, rn: (r.rscore||0)/maxR}));
         } else {
           ranked = ranked.slice(0, topk);
         }
 
         // 3) Generation (simple template with citations)
-        const steps = ['Retrieval', 'Ranking', 'Generation'];
-        const contains = (s, kw) => s.toLowerCase().includes(kw);
-        const foundSteps = {
-          retrieval: ranked.some(r => contains(r.text,'retrieve')),
-          ranking: ranked.some(r => contains(r.text,'rerank')||contains(r.text,'rank')),
-          generation: true
-        };
         const cites = useCite ? ranked.map(r=>`[${r.id}]`).join(' ') : '';
-        const answer = `RAG typically proceeds in three stages: 1) retrieval of relevant passages, 2) ranking or reranking of candidates, and 3) generation conditioned on the selected context. ${cites}`;
+        const answer = `RAG proceeds: (1) retrieval of candidate passages, (2) ranking/reranking for precision, (3) generation conditioned on selected context. ${cites}`;
 
         // Render sections
         retrievedEl.innerHTML = retrieved.map(r => `
-          <div class=\"p-2 border rounded\">
-            <div class=\"font-medium\">#${r.id} • ${r.title}</div>
-            <div class=\"text-[11px] text-gray-600\">${r.text}</div>
-            ${bar('retriever score', r.nscore, 'indigo')}
-          </div>`).join('');
+          <div class=\"p-2 border rounded\">\n            <div class=\"font-medium\">#${r.id} • ${r.title}</div>\n            <div class=\"text-[11px] text-gray-600\">${r.text}</div>\n            ${bar('retriever score', r.nscore, 'indigo')}\n          </div>`).join('');
 
         rankedEl.innerHTML = ranked.map(r => `
-          <div class=\"p-2 border rounded\">
-            <div class=\"font-medium\">#${r.id} • ${r.title}</div>
-            ${useRerank ? bar('rerank score', r.rn||0, 'emerald') : ''}
-            ${bar('retriever score', r.nscore, 'indigo')}
-          </div>`).join('');
+          <div class=\"p-2 border rounded\">\n            <div class=\"font-medium\">#${r.id} • ${r.title}</div>\n            ${useRerank ? bar('rerank score', r.rn||0, 'emerald') : ''}\n            ${bar('retriever score', r.nscore, 'indigo')}\n          </div>`).join('');
 
         answerEl.innerHTML = `
-          <div class=\"text-gray-800\">${answer}</div>
-          <div class=\"mt-2 text-[11px] text-gray-600\">
-            Evidence used: ${ranked.map(r=>`#${r.id}`).join(', ')}
-          </div>`;
+          <div class=\"text-gray-800\">${answer}</div>\n          <div class=\"mt-2 text-[11px] text-gray-600\">Evidence used: ${ranked.map(r=>`#${r.id}`).join(', ')}</div>`;
 
         tipEl.textContent = useRerank
-          ? 'Reranking improves precision at small k; consider cross‑encoders for best results.'
-          : 'Enable reranking to refine the top‑k before handing context to the generator.';
+          ? 'Reranking improves precision at small k; cross‑encoders add semantic discrimination.'
+          : 'Enable reranking to refine top‑k before handing context to the generator.';
 
         // MathJax refresh for the cosine formula in the top section
         setTimeout(() => { if (window.MathJax?.typesetPromise) window.MathJax.typesetPromise(); }, 40);
@@ -255,3 +225,6 @@ const question = {
     }
   }
 };
+
+// CommonJS export for tooling/tests
+if (typeof module !== 'undefined') { module.exports = question; }

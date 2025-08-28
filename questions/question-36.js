@@ -182,14 +182,24 @@ const question = {
         // 2) Ranking (optional rerank by bigram Jaccard)
         let ranked = [...retrieved];
         if (useRerank) {
+          // Bigram Jaccard with fallback to unigram overlap if all bigram overlap is zero
           const qB = bigrams(qTok);
+          const qSet = new Set(qTok);
           ranked.forEach(r => {
-            const rB = bigrams(tokenize(r.text));
-            r.rscore = jaccard(qB, rB);
+            const docTokens = tokenize(r.text);
+            const rB = bigrams(docTokens);
+            let score = jaccard(qB, rB);
+            if (score === 0) { // fallback: unigram Jaccard overlap
+              const dSet = new Set(docTokens);
+              const inter = [...qSet].filter(t=>dSet.has(t)).length;
+              const uni = new Set([...qSet, ...dSet]).size;
+              score = uni ? inter/uni : 0;
+            }
+            r.rscore = score;
           });
-          const maxR = Math.max(0.0001, ...ranked.map(r=>r.rscore||0.0001));
-            ranked.sort((a,b)=> (b.rscore - a.rscore) || (b.nscore - a.nscore));
-            ranked = ranked.slice(0, topk).map(r => ({...r, rn: (r.rscore||0)/maxR}));
+          const maxR = Math.max(0.0001, ...ranked.map(r=>r.rscore||0));
+          ranked.sort((a,b)=> (b.rscore - a.rscore) || (b.nscore - a.nscore));
+          ranked = ranked.slice(0, topk).map(r => ({...r, rn: (r.rscore||0)/maxR}));
         } else {
           ranked = ranked.slice(0, topk);
         }

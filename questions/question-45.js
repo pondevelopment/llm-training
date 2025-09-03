@@ -80,6 +80,16 @@ const question = {
     html: `
       <div class=\"space-y-6\">
         <div class=\"bg-gradient-to-r from-rose-50 to-amber-50 p-4 rounded-lg border border-amber-200\">
+          <div class=\"flex flex-wrap items-center gap-2 mb-3 text-[11px]\">
+            <span class=\"font-semibold text-gray-700 mr-1\">Presets:</span>
+            <button data-q45-preset=\"guardrails\" class=\"px-2 py-0.5 rounded border border-amber-300 bg-white hover:bg-amber-100\" title=\"Prompt + filter only (fast)\">Quick guardrails</button>
+            <button data-q45-preset=\"remediation\" class=\"px-2 py-0.5 rounded border border-amber-300 bg-white hover:bg-amber-100\" title=\"Data remediation focus\">Data remediation</button>
+            <button data-q45-preset=\"factual\" class=\"px-2 py-0.5 rounded border border-amber-300 bg-white hover:bg-amber-100\" title=\"High-risk factual mitigation\">High‑risk factual</button>
+            <button data-q45-preset=\"toxicity\" class=\"px-2 py-0.5 rounded border border-amber-300 bg-white hover:bg-amber-100\" title=\"Toxicity hardening\">Toxicity hardening</button>
+            <button data-q45-preset=\"full\" class=\"px-2 py-0.5 rounded border border-amber-300 bg-white hover:bg-amber-100\" title=\"All strategies layered\">Full stack</button>
+            <button id=\"q45-copy\" class=\"px-2 py-0.5 rounded border border-amber-400 bg-white hover:bg-amber-100 text-amber-700\">Copy link</button>
+            <button id=\"q45-export\" class=\"px-2 py-0.5 rounded border border-amber-400 bg-white hover:bg-amber-100 text-amber-700\">Export</button>
+          </div>
           <div class=\"grid md:grid-cols-12 gap-4 text-xs\">
             <div class=\"md:col-span-3\">
               <label class=\"font-semibold text-gray-700\">Failure type</label>
@@ -146,10 +156,13 @@ const question = {
       const sSFT = document.getElementById('q45-s-sft');
       const sRLHF = document.getElementById('q45-s-rlhf');
 
-      const barsEl = document.getElementById('q45-bars');
-      const metricsEl = document.getElementById('q45-metrics');
-      const explainEl = document.getElementById('q45-explain');
-    const guidanceEl = document.getElementById('q45-guidance');
+  const barsEl = document.getElementById('q45-bars');
+  const metricsEl = document.getElementById('q45-metrics');
+  const explainEl = document.getElementById('q45-explain');
+  const guidanceEl = document.getElementById('q45-guidance');
+  const copyBtn = document.getElementById('q45-copy');
+  const exportBtn = document.getElementById('q45-export');
+  const presetButtons = Array.from(document.querySelectorAll('[data-q45-preset]'));
       if (!typeEl) return;
 
       function clamp01(x){ return Math.min(1, Math.max(0, x)); }
@@ -278,6 +291,73 @@ const question = {
         el.addEventListener('input', render);
         el.addEventListener('change', render);
       });
+      // Presets
+      function applyPreset(name){
+        // Reset all first
+        function setStrategies(obj){
+          sPrompt.checked = !!obj.prompt; sRAG.checked = !!obj.rag; sAug.checked = !!obj.augment; sFilter.checked = !!obj.filter; sSFT.checked = !!obj.sft; sRLHF.checked = !!obj.rlhf;
+        }
+        if(name==='guardrails'){
+          typeEl.value='bias'; sevEl.value='0.5'; dataEl.value='0.6'; setStrategies({prompt:1, filter:1});
+        } else if(name==='remediation'){
+          typeEl.value='bias'; sevEl.value='0.6'; dataEl.value='0.3'; setStrategies({prompt:1, augment:1, filter:1});
+        } else if(name==='factual'){
+          typeEl.value='factual'; sevEl.value='0.8'; dataEl.value='0.5'; setStrategies({prompt:1, rag:1, filter:1, sft:1});
+        } else if(name==='toxicity'){
+          typeEl.value='toxicity'; sevEl.value='0.7'; dataEl.value='0.6'; setStrategies({prompt:1, filter:1, rlhf:1});
+        } else if(name==='full'){
+          typeEl.value='bias'; sevEl.value='0.6'; dataEl.value='0.5'; setStrategies({prompt:1, rag:1, augment:1, filter:1, sft:1, rlhf:1});
+        }
+        render();
+      }
+      presetButtons.forEach(btn=>btn.addEventListener('click',()=>applyPreset(btn.getAttribute('data-q45-preset'))));
+
+      // Permalink copy (#question-45?type=..&sev=..&data=..&prompt=1&...)
+      copyBtn?.addEventListener('click', ()=>{
+        const params = new URLSearchParams({
+          type: typeEl.value,
+          sev: sevEl.value,
+          data: dataEl.value,
+          prompt: sPrompt.checked?1:0,
+          rag: sRAG.checked?1:0,
+          augment: sAug.checked?1:0,
+            filter: sFilter.checked?1:0,
+          sft: sSFT.checked?1:0,
+          rlhf: sRLHF.checked?1:0
+        });
+        const url = `${location.origin}${location.pathname}#question-45?${params.toString()}`;
+        navigator.clipboard?.writeText(url).then(()=>{ copyBtn.textContent='Copied!'; setTimeout(()=>copyBtn.textContent='Copy link',1500); });
+      });
+
+      // Export JSON snapshot
+      exportBtn?.addEventListener('click', ()=>{
+        // replicate calculations
+        const severity = parseFloat(sevEl.value); const dataQ = parseFloat(dataEl.value);
+        const chosen = {prompt:sPrompt.checked, rag:sRAG.checked, augment:sAug.checked, filter:sFilter.checked, sft:sSFT.checked, rlhf:sRLHF.checked};
+        const r0 = 0.7 * (0.5 + 0.5*severity);
+        const rAfter = residualRisk(r0, chosen, typeEl.value, severity, dataQ);
+        const costs = costEstimate(chosen);
+        const payload = {
+          generated: new Date().toISOString(),
+          config: { type:typeEl.value, severity:severity, dataQuality:dataQ, strategies: chosen },
+          metrics: { baseRisk:r0, residualRisk:rAfter, reduction: r0 - rAfter, costs }
+        };
+        const blob = new Blob([JSON.stringify(payload,null,2)], {type:'application/json'});
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'mitigation-scenario.json';
+        document.body.appendChild(link); link.click();
+        setTimeout(()=>{ URL.revokeObjectURL(link.href); link.remove(); }, 100);
+      });
+
+      // Hash parse
+      (function initFromHash(){
+        if(!location.hash) return; const m = location.hash.match(/question-45\?(.*)$/); if(!m) return; const p = new URLSearchParams(m[1]);
+        if(p.get('type')) typeEl.value=p.get('type');
+        if(p.get('sev')) sevEl.value=p.get('sev');
+        if(p.get('data')) dataEl.value=p.get('data');
+        ['prompt','rag','augment','filter','sft','rlhf'].forEach(k=>{ const v=p.get(k); if(v!==null){ const el = {prompt:sPrompt, rag:sRAG, augment:sAug, filter:sFilter, sft:sSFT, rlhf:sRLHF}[k]; el.checked = v==='1'; }});
+      })();
       render();
     }
   }

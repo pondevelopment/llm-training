@@ -6,6 +6,17 @@ const question = {
   title: "45. How would you fix an LLM generating biased or incorrect outputs?",
   answer: `
     <div class="space-y-6">
+      <!-- Recommended Reading (Top) -->
+      <div class="bg-white border border-indigo-200 rounded p-3 text-xs">
+        <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading</h4>
+        <ul class="list-disc ml-5 space-y-0.5">
+          <li><a class="text-indigo-700 hover:underline" href="#question-13">Q13: Prompt engineering techniques</a></li>
+            <li><a class="text-indigo-700 hover:underline" href="#question-40">Q40: Retrieval grounding & knowledge integration</a></li>
+            <li><a class="text-indigo-700 hover:underline" href="#question-41">Q41: Few-/zero-shot baselines & evaluation</a></li>
+            <li><a class="text-indigo-700 hover:underline" href="#question-17">Q17: RLHF & preference optimization</a></li>
+        </ul>
+        <p class="mt-2 text-[11px] text-indigo-800">Links frame guardrails, retrieval, baseline measurement, and alignment tuning.</p>
+      </div>
       <!-- Main Concept -->
       <div class="bg-blue-50 p-5 rounded-xl border border-blue-200">
         <h4 class="font-semibold text-blue-900 mb-2">🧠 Core idea</h4>
@@ -15,7 +26,12 @@ const question = {
           <div class="math-display mt-1">$$
           r_{after} = r_0 \\cdot \\prod_{i} (1 - e_i),\\quad 0 \\le e_i \\le 1
           $$</div>
-          where \\(r_0\\) is base risk, and \\(e_i\\) are strategy-specific effectiveness terms (diminishing when tasks are severe or data is weak).
+          <ul class="mt-2 list-disc ml-5 space-y-0.5">
+            <li><span class="font-mono">r_0</span>: base (pre‑mitigation) risk estimate</li>
+            <li><span class="font-mono">e_i</span>: effectiveness of strategy i (scaled by severity & data quality)</li>
+            <li><span class="font-mono">r_{after}</span>: residual risk after selected strategies</li>
+            <li>High severity ↓ marginal gains; better data ↑ data‑linked methods</li>
+          </ul>
         </div>
       </div>
 
@@ -64,8 +80,8 @@ const question = {
     html: `
       <div class=\"space-y-6\">
         <div class=\"bg-gradient-to-r from-rose-50 to-amber-50 p-4 rounded-lg border border-amber-200\">
-          <div class=\"grid md:grid-cols-6 gap-4 text-xs\">
-            <div class=\"md:col-span-2\">
+          <div class=\"grid md:grid-cols-12 gap-4 text-xs\">
+            <div class=\"md:col-span-3\">
               <label class=\"font-semibold text-gray-700\">Failure type</label>
               <select id=\"q45-type\" class=\"w-full border rounded p-1 text-xs\">
                 <option value=\"bias\" selected>Bias (stereotypes, unfair treatment)</option>
@@ -73,25 +89,25 @@ const question = {
                 <option value=\"toxicity\">Toxic/unsafe content</option>
               </select>
             </div>
-            <div>
+            <div class=\"md:col-span-2\">
               <label class=\"font-semibold text-gray-700\">Severity</label>
               <input id=\"q45-sev\" type=\"range\" min=\"0\" max=\"1\" step=\"0.05\" value=\"0.6\" class=\"w-full\" />
               <div class=\"text-center mt-1\"><span id=\"q45-sev-val\" class=\"font-mono\">0.60</span></div>
             </div>
-            <div>
+            <div class=\"md:col-span-2\">
               <label class=\"font-semibold text-gray-700\">Data quality</label>
               <input id=\"q45-data\" type=\"range\" min=\"0\" max=\"1\" step=\"0.05\" value=\"0.5\" class=\"w-full\" />
               <div class=\"text-center mt-1\"><span id=\"q45-data-val\" class=\"font-mono\">0.50</span></div>
             </div>
-            <div class=\"md:col-span-3\">
-              <label class=\"font-semibold text-gray-700\">Strategies</label>
-              <div class=\"grid grid-cols-3 gap-2 mt-1\">
-                <label class=\"flex items-center gap-1\"><input id=\"q45-s-prompt\" type=\"checkbox\" checked /> <span>Prompt guardrails</span></label>
-                <label class=\"flex items-center gap-1\"><input id=\"q45-s-rag\" type=\"checkbox\" /> <span>RAG grounding</span></label>
-                <label class=\"flex items-center gap-1\"><input id=\"q45-s-augment\" type=\"checkbox\" checked /> <span>Data rebal/augment</span></label>
-                <label class=\"flex items-center gap-1\"><input id=\"q45-s-filter\" type=\"checkbox\" checked /> <span>Safety filter</span></label>
-                <label class=\"flex items-center gap-1\"><input id=\"q45-s-sft\" type=\"checkbox\" /> <span>SFT fine-tune</span></label>
-                <label class=\"flex items-center gap-1\"><input id=\"q45-s-rlhf\" type=\"checkbox\" /> <span>RLHF/DPO</span></label>
+            <div class=\"md:col-span-5\">
+              <label class=\"font-semibold text-gray-700\" title=\"Layer multiple complementary methods\">Strategies</label>
+              <div class=\"grid grid-cols-3 gap-2 mt-1\" role=\"group\" aria-label=\"Mitigation strategies\">
+                <label class=\"flex items-center gap-1\" title=\"Structured prompts, refusals, self-checks\"><input id=\"q45-s-prompt\" type=\"checkbox\" checked /> <span>Prompt guardrails</span></label>
+                <label class=\"flex items-center gap-1\" title=\"Retrieve external evidence for factual grounding\"><input id=\"q45-s-rag\" type=\"checkbox\" /> <span>RAG grounding</span></label>
+                <label class=\"flex items-center gap-1\" title=\"Augment / rebalance data to counter skew\"><input id=\"q45-s-augment\" type=\"checkbox\" checked /> <span>Data rebal/augment</span></label>
+                <label class=\"flex items-center gap-1\" title=\"Toxicity & safety classifiers / regex filters\"><input id=\"q45-s-filter\" type=\"checkbox\" checked /> <span>Safety filter</span></label>
+                <label class=\"flex items-center gap-1\" title=\"Supervised finetune on curated policy examples\"><input id=\"q45-s-sft\" type=\"checkbox\" /> <span>SFT fine-tune</span></label>
+                <label class=\"flex items-center gap-1\" title=\"Align outputs to preferences / safety via feedback\"><input id=\"q45-s-rlhf\" type=\"checkbox\" /> <span>RLHF/DPO</span></label>
               </div>
             </div>
           </div>
@@ -101,15 +117,17 @@ const question = {
         <div class=\"grid md:grid-cols-3 gap-4\">
           <div class=\"bg-white border rounded-lg p-4\">
             <h5 class=\"font-semibold text-gray-800 mb-2\">📉 Risk impact</h5>
-            <div id=\"q45-bars\" class=\"text-xs text-gray-700 space-y-1\"></div>
+            <div id=\"q45-bars\" class=\"text-xs text-gray-700 space-y-1\" aria-live=\"polite\"></div>
+            <div class=\"text-[10px] text-gray-500 mt-1\">Top bar = base risk; second = residual after selected strategies.</div>
           </div>
           <div class=\"bg-white border rounded-lg p-4\">
             <h5 class=\"font-semibold text-gray-800 mb-2\">📊 Metrics</h5>
-            <div id=\"q45-metrics\" class=\"text-xs text-gray-700 space-y-2\"></div>
+            <div id=\"q45-metrics\" class=\"text-xs text-gray-700 space-y-2\" aria-live=\"polite\"></div>
+            <div id=\"q45-guidance\" class=\"mt-1 text-[11px] text-indigo-700 border-t pt-2\" aria-live=\"polite\"></div>
           </div>
           <div class=\"bg-white border rounded-lg p-4\">
             <h5 class=\"font-semibold text-gray-800 mb-2\">🧠 Recommendation</h5>
-            <div id=\"q45-explain\" class=\"text-xs text-gray-700\"></div>
+            <div id=\"q45-explain\" class=\"text-xs text-gray-700\" aria-live=\"polite\"></div>
           </div>
         </div>
       </div>
@@ -131,6 +149,7 @@ const question = {
       const barsEl = document.getElementById('q45-bars');
       const metricsEl = document.getElementById('q45-metrics');
       const explainEl = document.getElementById('q45-explain');
+    const guidanceEl = document.getElementById('q45-guidance');
       if (!typeEl) return;
 
       function clamp01(x){ return Math.min(1, Math.max(0, x)); }
@@ -194,11 +213,22 @@ const question = {
         return `<span class=\"inline-block px-2 py-0.5 rounded text-white text-[11px] bg-${color}-600\">${text}</span>`;
       }
 
-      function recommend(type, rAfter, costs){
-        if (rAfter <= 0.25) return `${badge('Good', 'emerald')} Layered plan meets quality: keep monitoring.`;
-        if (type === 'factual') return `${badge('Add RAG', 'indigo')} Ground with retrieval and add SFT if volume warrants.`;
-        if (type === 'bias') return `${badge('Data + SFT', 'purple')} Expand counterfactuals, rebalance data, then fine-tune.`;
-        return `${badge('Safety + RLHF', 'rose')} Strengthen filters and preference optimize for safe completions.`;
+      function riskBadge(r){
+        if (r <= 0.25) return badge('Low', 'emerald');
+        if (r <= 0.5) return badge('Moderate', 'amber');
+        return badge('High', 'rose');
+      }
+
+      function recommend(type, rAfter, costs, chosen){
+        if (rAfter <= 0.25) return `${badge('Stable', 'emerald')} Layered plan acceptable; continue audits.`;
+        const tips = [];
+        if (type === 'factual' && !chosen.rag) tips.push('Add RAG for grounding.');
+        if (type === 'bias' && !chosen.augment) tips.push('Augment / rebalance data.');
+        if (type === 'toxicity' && !chosen.filter) tips.push('Strengthen safety filtering.');
+        if (rAfter > 0.5 && !chosen.sft) tips.push('Add SFT with curated policy set.');
+        if (rAfter > 0.5 && !chosen.rlhf) tips.push('Introduce RLHF/DPO for preference alignment.');
+        if (!tips.length) tips.push('Refine prompts & targeted evals for remaining edge cases.');
+        return tips.join(' ');
       }
 
       function render(){
@@ -226,6 +256,7 @@ const question = {
                            bar('Residual risk', rAfter, 'emerald');
 
         metricsEl.innerHTML = `
+          <div class=\"flex items-center gap-2\"><span>Residual risk:</span> ${riskBadge(rAfter)} <span class=\"font-mono\">${(rAfter*100).toFixed(1)}%</span></div>
           <div>Type: <span class=\"font-mono\">${type}</span> | Severity: <span class=\"font-mono\">${severity.toFixed(2)}</span> | Data: <span class=\"font-mono\">${dataQ.toFixed(2)}</span></div>
           <div>Risk reduction: <span class=\"font-mono\">${((r0 - rAfter)*100).toFixed(1)}%</span></div>
           <div>Costs — token: <span class=\"font-mono\">${costs.token.toFixed(2)}</span>, train: <span class=\"font-mono\">${costs.train.toFixed(2)}</span>, time: <span class=\"font-mono\">${costs.time.toFixed(2)}</span></div>
@@ -233,12 +264,12 @@ const question = {
 
         explainEl.innerHTML = `
           <div class=\"space-y-2\">
-            <div><b>Layered controls.</b> Prompt guardrails and filters reduce unsafe completions immediately; RAG and data fixes address evidence quality; SFT/RLHF harden long-term behavior.</div>
-            <div>Residual risk model: <span class=\"font-mono\">r_after = r0 · ∏(1 - e_i)</span>, with <span class=\"font-mono\">e_i</span> scaled by severity and data quality.</div>
-            <div class=\"mt-1\">${recommend(type, rAfter, costs)}</div>
-            <div class=\"text-[11px] text-gray-600\">Heuristic planner for intuition, not a guarantee. Measure with audits and red-teaming.</div>
+            <div><b>Layered controls.</b> Prompt guardrails + filters = immediate surface reduction; RAG & data remediation improve factual / representational base; SFT/RLHF consolidate durable policy.</div>
+            <div>Model: <span class=\"font-mono\">r_after = r0 · ∏ (1 - e_i)</span>; each <span class=\"font-mono\">e_i</span> shrinks under high severity or weak data.</div>
+            <div class=\"text-[11px] text-gray-600\">Heuristic only — validate with audits, bias metrics, & red-teaming.</div>
           </div>
         `;
+        if (guidanceEl) guidanceEl.textContent = recommend(type, rAfter, costs, chosen);
 
         if (window.MathJax?.typesetPromise) window.MathJax.typesetPromise([explainEl]);
       }

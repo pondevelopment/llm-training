@@ -6,20 +6,21 @@ const question = {
   title: "37. How does Mixture of Experts (MoE) enhance LLM scalability?",
   answer: `<div class=\"space-y-6\">
     <!-- Recommended Reading -->
-    <div class=\"bg-indigo-50 p-4 rounded-lg border border-indigo-200\">
-      <h4 class=\"font-semibold text-indigo-900 mb-2\">📚 Recommended reading</h4>
-      <ul class=\"list-disc ml-5 text-xs text-indigo-800 space-y-1\">
-        <li><a class=\"underline hover:text-indigo-900\" href=\"#question-12\">12. How do LLMs scale with parameters?</a></li>
-        <li><a class=\"underline hover:text-indigo-900\" href=\"#question-24\">24. What is parameter-efficient fine-tuning?</a></li>
-        <li><a class=\"underline hover:text-indigo-900\" href=\"#question-32\">32. How are attention scores computed?</a></li>
-        <li><a class=\"underline hover:text-indigo-900\" href=\"#question-35\">35. What is PEFT simulation?</a></li>
-        <li><a class=\"underline hover:text-indigo-900\" href=\"#question-46\">46. Encoders vs decoders</a></li>
-      </ul>
-      <p class=\"text-[11px] text-indigo-700 mt-2\">Context: scaling laws, efficient adaptation, routing math, sparse activation, architecture roles.</p>
-    </div>
+  <div class=\"bg-indigo-50 p-3 rounded-lg border border-indigo-200\">
+    <h4 class=\"font-semibold text-indigo-900 mb-1\">📚 Recommended reading</h4>
+    <ul class=\"list-disc ml-5 text-xs text-indigo-800 space-y-1\">
+    <li><a class=\"text-indigo-700 underline hover:text-indigo-900\" href=\"#question-12\">Question 12: How do LLMs scale with parameters?</a></li>
+    <li><a class=\"text-indigo-700 underline hover:text-indigo-900\" href=\"#question-24\">Question 24: What is parameter-efficient fine-tuning?</a></li>
+    <li><a class=\"text-indigo-700 underline hover:text-indigo-900\" href=\"#question-32\">Question 32: How are attention scores computed?</a></li>
+    <li><a class=\"text-indigo-700 underline hover:text-indigo-900\" href=\"#question-35\">Question 35: What is PEFT simulation?</a></li>
+    <li><a class=\"text-indigo-700 underline hover:text-indigo-900\" href=\"#question-46\">Question 46: Encoders vs decoders</a></li>
+    </ul>
+    <p class=\"text-xs text-indigo-700 mt-2\">Context: scaling laws, efficient adaptation, routing math, sparse activation, architecture roles.</p>
+  </div>
 
     <!-- Core Concept -->
-    <div class=\"bg-blue-50 p-5 rounded-xl border border-blue-200\">
+  <div class=\"bg-blue-50 p-4 rounded-xl border border-blue-200\">
+    
       <h4 class=\"font-semibold text-blue-900 mb-2\">🧩 Key Idea</h4>
       <p class=\"text-sm text-blue-800\">Mixture of Experts (MoE) inflates <em>capacity</em> (parameters) while largely preserving <em>per‑token compute</em>: a small gating module chooses the top‑<span class=\"font-mono\">k</span> experts out of <span class=\"font-mono\">E</span> for each token and linearly combines their outputs.</p>
       <div class=\"text-xs bg-white border border-blue-100 p-3 rounded font-mono text-center mt-3 overflow-x-auto whitespace-nowrap\">
@@ -60,7 +61,8 @@ const question = {
     </div>
 
     <!-- Why it matters -->
-    <div class=\"bg-yellow-50 p-5 rounded-xl border border-yellow-200\">
+  <div class=\"bg-yellow-50 p-4 rounded-xl border border-yellow-200\">
+    
       <h4 class=\"font-semibold text-yellow-900 mb-2\">🎯 Why This Matters</h4>
       <ul class=\"text-sm text-yellow-800 space-y-1\">
         <li>• <b>Sparse activation</b> keeps per‑token FLOPs ~ proportional to <span class=\"font-mono\">k</span>, not total parameters.</li>

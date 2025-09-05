@@ -9,15 +9,15 @@ const question = {
       <!-- Recommended Reading -->
       <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
         <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading</h4>
-        <ul class="text-xs text-indigo-800 list-disc ml-4 space-y-0.5">
-          <li><a class="underline hover:no-underline" href="index.html#question-12">Q12: Prompt engineering basics</a></li>
-          <li><a class="underline hover:no-underline" href="index.html#question-31">Q31: Temperature & sampling</a></li>
-          <li><a class="underline hover:no-underline" href="index.html#question-36">Q36: Retrieval-Augmented Generation</a></li>
-          <li><a class="underline hover:no-underline" href="index.html#question-38">Q38: Chain-of-Thought prompting</a></li>
+        <ul class="text-xs text-indigo-800 list-disc ml-5 space-y-1">
+          <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-12">Question 12: Prompt engineering basics</a></li>
+          <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-31">Question 31: Temperature & sampling</a></li>
+          <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-36">Question 36: Retrieval-Augmented Generation</a></li>
+          <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-38">Question 38: Chain-of-Thought prompting</a></li>
         </ul>
       </div>
       <!-- Main Concept -->
-      <div class="bg-blue-50 p-5 rounded-xl border border-blue-200">
+  <div class="bg-blue-50 p-4 rounded-xl border border-blue-200">
         <h4 class="font-semibold text-blue-900 mb-2">🔤 Key Idea</h4>
         <p class="text-sm text-blue-800">
           <b>Discriminative</b> models learn the decision rule
@@ -63,7 +63,7 @@ const question = {
       </div>
 
       <!-- Why This Matters -->
-      <div class="bg-yellow-50 p-5 rounded-xl border border-yellow-200">
+  <div class="bg-yellow-50 p-4 rounded-xl border border-yellow-200">
         <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why This Matters</h4>
         <ul class="text-sm text-yellow-800 space-y-1">
           <li>• Choose the right tool: label vs. synthesize vs. reason.</li>
@@ -118,7 +118,7 @@ const question = {
               <div class=\"text-center mt-1\"><span id=\"q39-temp-val\" class=\"font-mono\">0.8</span></div>
             </div>
           </div>
-          <p class=\"text-[11px] text-gray-600 mt-2\">Discriminative estimates \\(P(y\\mid x)\\) for labeling. Generative samples from \\(P(x)\\) to continue text. <b>Temperature affects only Generative mode.</b></p>
+          <p class=\"text-xs text-gray-600 mt-2\">Discriminative estimates \\(P(y\\mid x)\\) for labeling. Generative samples from \\(P(x)\\) to continue text. <b>Temperature affects only Generative mode.</b></p>
         </div>
 
         <div class=\"grid md:grid-cols-3 gap-4\">
@@ -269,7 +269,7 @@ const question = {
       function bars(label,val,color='indigo'){
         const pct = Math.max(0, Math.min(100, val*100));
         return `<div role=\"group\" aria-label=\"${label} ${pct.toFixed(0)} percent\">
-          <div class=\"flex justify-between text-[11px] mb-0.5\"><span>${label}</span><span>${pct.toFixed(0)}%</span></div>
+          <div class=\"flex justify-between text-xs mb-0.5\"><span>${label}</span><span>${pct.toFixed(0)}%</span></div>
           <div class=\"w-full h-3 bg-${color}-200 rounded\" aria-hidden=\"true\"><div class=\"h-3 bg-${color}-600\" style=\"width:${pct}%\" role=\"progressbar\" aria-valuenow=\"${pct.toFixed(0)}\" aria-valuemin=\"0\" aria-valuemax=\"100\" aria-label=\"${label}\"></div></div>
         </div>`;
       }
@@ -291,7 +291,7 @@ const question = {
           outputEl.textContent = `Predicted label: ${label}\nConfidence: ${(r.p*100).toFixed(1)}%`;
           explainEl.innerHTML = `
             <div class="text-center bg-white border p-2 rounded font-mono text-[12px]">$$P(y=1\\mid x)=\\sigma(w\\cdot x + b)$$</div>
-            <div class="text-[11px] text-gray-600 mt-1">Boundary‑focused: learns to separate classes directly.</div>
+            <div class="text-xs text-gray-600 mt-1">Boundary‑focused: learns to separate classes directly.</div>
           `;
         } else {
             const T = parseFloat(tempEl.value);
@@ -306,7 +306,7 @@ const question = {
           outputEl.textContent = (txt.trim() + ' ' + cont).trim();
           explainEl.innerHTML = `
             <div class="text-center bg-white border p-2 rounded font-mono text-[12px]">$$P(x)=\\prod_{t} P(x_t\\mid x_{\\lt t})$$</div>
-            <div class="text-[11px] text-gray-600 mt-1">Distribution‑focused: can sample new text; higher temperature increases diversity.</div>
+            <div class="text-xs text-gray-600 mt-1">Distribution‑focused: can sample new text; higher temperature increases diversity.</div>
           `;
         }
 

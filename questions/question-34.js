@@ -4,23 +4,23 @@
 
 const question = {
   title: "34. What types of foundation models exist?",
-  answer: `<div class="space-y-6">
+  answer: `<div class="space-y-4">
     <!-- Recommended Reading (Cross-links) -->
-    <div class="bg-indigo-50 p-4 rounded-lg border border-indigo-200">
-      <h4 class="font-semibold text-indigo-900 mb-2">📚 Recommended reading</h4>
-      <ul class="list-disc ml-5 text-xs text-indigo-800 space-y-1">
-        <li><a class="underline hover:text-indigo-900" href="#question-2">2. How do attention mechanisms work?</a></li>
-        <li><a class="underline hover:text-indigo-900" href="#question-16">16. What is transfer learning in LLMs?</a></li>
-        <li><a class="underline hover:text-indigo-900" href="#question-22">22. What is multi‑head attention?</a></li>
-        <li><a class="underline hover:text-indigo-900" href="#question-32">32. How are attention scores calculated?</a></li>
-        <li><a class="underline hover:text-indigo-900" href="#question-33">33. How do multimodal training strategies differ?</a></li>
+    <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+      <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading</h4>
+      <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+        <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-2">Question 2: How do attention mechanisms work?</a></li>
+        <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-16">Question 16: What is transfer learning in LLMs?</a></li>
+        <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-22">Question 22: What is multi‑head attention?</a></li>
+        <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-32">Question 32: How are attention scores calculated?</a></li>
+        <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-33">Question 33: How do multimodal training strategies differ?</a></li>
       </ul>
-      <p class="text-[11px] text-indigo-700 mt-2">These provide prerequisites on attention, transfer, and multimodal integration that inform foundation model taxonomy.</p>
+  <p class="text-xs text-indigo-700 mt-2">These provide prerequisites on attention, transfer, and multimodal integration that inform foundation model taxonomy.</p>
     </div>
     <!-- Definition / Overview -->
-    <div class="bg-blue-50 p-5 rounded-xl border border-blue-200">
+  <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
       <h4 class="font-semibold text-blue-900 mb-2">🧱 What is a Foundation Model?</h4>
-      <p class="text-sm text-blue-800 leading-relaxed">A <strong>foundation model</strong> is a very large, broadly trained model (usually self-supervised) that learns general representations and can be <em>adapted</em> to many downstream tasks via prompting, fine‑tuning, retrieval, tools, or lightweight parameter updates (e.g., LoRA). They span multiple <strong>modalities</strong> (text, images, audio, video, 3D, code, bio, robotics) and often unify them inside Transformer or hybrid attention architectures.</p>
+    <p class="text-sm text-blue-800 leading-relaxed">A <strong>foundation model</strong> is a very large, broadly trained model (usually self-supervised) that learns general representations and can be <em>adapted</em> to many downstream tasks via prompting, fine‑tuning, retrieval, tools, or lightweight parameter updates (e.g., LoRA). They span multiple <strong>modalities</strong> (text, images, audio, video, 3D, code, bio, robotics) and often unify them inside Transformer or hybrid attention architectures.</p>
       <div class="mt-3 grid md:grid-cols-4 gap-3 text-xs">
         <div class="bg-white rounded p-3 border border-blue-100"><span class="font-semibold">Training</span><br>Massive unlabeled corpora + self / weak supervision</div>
         <div class="bg-white rounded p-3 border border-blue-100"><span class="font-semibold">Adaptation</span><br>Prompting · RAG · Fine‑tune · LoRA · Distillation</div>
@@ -30,7 +30,7 @@ const question = {
     </div>
 
     <!-- Taxonomy Summary Grid -->
-    <div class="bg-white p-5 rounded-xl border border-gray-200 shadow-sm">
+  <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
       <h4 class="font-semibold text-gray-900 mb-4 flex items-center">📚 Major Foundation Model Categories</h4>
       <div class="grid lg:grid-cols-3 md:grid-cols-2 gap-5 text-sm">
         <div class="bg-gradient-to-br from-indigo-50 to-white border rounded-lg p-4">
@@ -126,11 +126,11 @@ const question = {
           </ul>
         </div>
       </div>
-  <p class="text-[11px] text-gray-500 mt-2">Model lists are illustrative (mixed open / closed, 2023–2025). Presence ≠ endorsement; update periodically as families evolve.</p>
+  <p class="text-xs text-gray-500 mt-2">Model lists are illustrative (mixed open / closed, 2023–2025). Presence ≠ endorsement; update periodically as families evolve.</p>
   </div>
 
     <!-- Adaptation Patterns -->
-    <div class="bg-yellow-50 p-5 rounded-xl border border-yellow-200">
+  <div class="bg-yellow-50 p-4 rounded-lg">
       <h4 class="font-semibold text-yellow-900 mb-2">🔧 Common Adaptation & Extension Patterns</h4>
       <div class="grid md:grid-cols-3 gap-4 text-xs">
         <div class="bg-white rounded p-3 border border-yellow-100">
@@ -158,11 +158,11 @@ const question = {
           </ul>
         </div>
       </div>
-      <p class="text-[11px] text-yellow-700 mt-3">Other extensions: Distillation → smaller student models; Mixture‑of‑Experts for routing; Guardrails & safety filters for alignment.</p>
+  <p class="text-xs text-yellow-700 mt-3">Other extensions: Distillation → smaller student models; Mixture‑of‑Experts for routing; Guardrails & safety filters for alignment.</p>
     </div>
 
     <!-- Why It Matters -->
-    <div class="bg-green-50 p-5 rounded-xl border border-green-200">
+  <div class="bg-green-50 p-4 rounded-lg">
       <h4 class="font-semibold text-green-900 mb-2">🎯 Why This Taxonomy Matters</h4>
       <ul class="text-sm text-green-800 space-y-1">
         <li>• <strong>Strategic Alignment:</strong> Helps decide whether to prompt, retrieve, or fine‑tune for a given task.</li>
@@ -178,7 +178,7 @@ const question = {
       <div class=\"bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200\">
         <label class=\"block text-sm font-medium text-gray-700 mb-2\">🔍 Select a Category</label>
         <div class=\"grid md:grid-cols-5 gap-2\" id=\"q34-category-buttons\"></div>
-        <p class=\"text-[11px] text-gray-600 mt-2\">Compare modality focus, representative models, adaptation strategies & maturity.</p>
+  <p class=\"text-xs text-gray-600 mt-2\">Compare modality focus, representative models, adaptation strategies & maturity.</p>
       </div>
 
       <div class=\"grid md:grid-cols-3 gap-4\">
@@ -288,7 +288,7 @@ const question = {
 
       function metricBar(label, value, color) {
         const pct = (value / 5) * 100;
-        return `<div role=\"group\" aria-label=\"${label} score ${value} of 5\"><div class=\"flex justify-between text-[11px] mb-0.5\"><span>${label}</span><span>${value}/5</span></div><div class=\"w-full h-2 bg-gray-200 rounded\"><div class=\"h-2 rounded bg-${color}-500\" style=\"width:${pct}%\" aria-hidden=\"true\"></div></div></div>`;
+  return `<div role=\"group\" aria-label=\"${label} score ${value} of 5\"><div class=\"flex justify-between text-xs mb-0.5\"><span>${label}</span><span>${value}/5</span></div><div class=\"w-full h-2 bg-gray-200 rounded\"><div class=\"h-2 rounded bg-${color}-500\" style=\"width:${pct}%\" aria-hidden=\"true\"></div></div></div>`;
       }
 
       function render(cat) {

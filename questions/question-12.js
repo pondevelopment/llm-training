@@ -9,10 +9,10 @@ const question = {
         <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
             <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related)</h4>
             <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
-                <li><a href="#question-05" class="hover:underline">Q5. Beam Search vs Greedy – broader search vs local sampling</a></li>
-                <li><a href="#question-06" class="hover:underline">Q6. Temperature – how logits are reshaped before sampling</a></li>
-                <li><a href="#question-23" class="hover:underline">Q23. Softmax in Attention – same probabilistic normalization core</a></li>
-                <li><a href="#question-25" class="hover:underline">Q25. Cross-Entropy Loss – trains the token distribution you sample from</a></li>
+                <li><a href="#question-05" class="text-indigo-700 underline hover:text-indigo-900">Question 5: Beam Search vs Greedy – broader search vs local sampling</a></li>
+                <li><a href="#question-06" class="text-indigo-700 underline hover:text-indigo-900">Question 6: Temperature – how logits are reshaped before sampling</a></li>
+                <li><a href="#question-23" class="text-indigo-700 underline hover:text-indigo-900">Question 23: Softmax in Attention – same probabilistic normalization core</a></li>
+                <li><a href="#question-25" class="text-indigo-700 underline hover:text-indigo-900">Question 25: Cross-Entropy Loss – trains the token distribution you sample from</a></li>
             </ul>
         </div>
         <!-- Main Concept Box -->

@@ -9,10 +9,10 @@ const question = {
         <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
             <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related)</h4>
             <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
-                <li><a href="#question-01" class="hover:underline">Q1. Tokenization – how input is segmented before NSP pairs are formed</a></li>
-                <li><a href="#question-02" class="hover:underline">Q2. Attention – mechanism modeling cross-sentence dependencies</a></li>
-                <li><a href="#question-09" class="hover:underline">Q9. Autoregressive vs Masked – where NSP fits in pretraining objectives</a></li>
-                <li><a href="#question-25" class="hover:underline">Q25. Cross-Entropy Loss – objective used by the NSP classification head</a></li>
+                <li><a href="#question-01" class="text-indigo-700 underline hover:text-indigo-900">Question 1: Tokenization – how input is segmented before NSP pairs are formed</a></li>
+                <li><a href="#question-02" class="text-indigo-700 underline hover:text-indigo-900">Question 2: Attention – mechanism modeling cross-sentence dependencies</a></li>
+                <li><a href="#question-09" class="text-indigo-700 underline hover:text-indigo-900">Question 9: Autoregressive vs Masked – where NSP fits in pretraining objectives</a></li>
+                <li><a href="#question-25" class="text-indigo-700 underline hover:text-indigo-900">Question 25: Cross-Entropy Loss – objective used by the NSP classification head</a></li>
             </ul>
         </div>
         <!-- Main Concept Box -->

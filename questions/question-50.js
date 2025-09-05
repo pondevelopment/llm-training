@@ -5,6 +5,16 @@
 const question = {
     title: "50. What challenges do LLMs face in deployment?",
     answer: `<div class="space-y-4">
+        <!-- Recommended Reading -->
+        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related)</h4>
+            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+                <li><a href="#question-47" class="text-indigo-700 underline hover:text-indigo-900">Question 47: Context & perplexity</a></li>
+                <li><a href="#question-48" class="text-indigo-700 underline hover:text-indigo-900">Question 48: Hyperparameters</a></li>
+                <li><a href="#question-49" class="text-indigo-700 underline hover:text-indigo-900">Question 49: Defining LLM scale & capability</a></li>
+                <li><a href="#question-18" class="text-indigo-700 underline hover:text-indigo-900">Question 18: Overfitting & mitigation</a></li>
+            </ul>
+        </div>
         <!-- Main Concept Box -->
         <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
             <h4 class="font-semibold text-blue-900 mb-2">🧭 Core challenges</h4>
@@ -108,10 +118,11 @@ const question = {
                     <div>
                         <div class="text-sm font-medium text-gray-700 mb-1">Deployment readiness</div>
                         <div id="q50-impact" class="text-xs">
-                            <span id="q50-impact-badge" class="inline-block px-2 py-0.5 rounded border"></span>
+                            <span id="q50-impact-badge" class="inline-block px-2 py-0.5 rounded border" role="status" aria-live="polite"></span>
                             <div class="h-2 mt-1 rounded bg-gray-200 overflow-hidden">
                                 <div id="q50-meter" class="h-full rounded" style="width:0%"></div>
                             </div>
+                            <div id="q50-breakdown" class="mt-2 text-[11px] text-gray-600" aria-live="polite"></div>
                         </div>
                         <div class="text-[11px] text-gray-500 mt-1">Heuristic: balances latency, cost, safety, interpretability, and privacy.</div>
                     </div>
@@ -124,10 +135,71 @@ const question = {
                         <ul id="q50-cons" class="list-disc pl-5 text-xs text-gray-700 space-y-1"></ul>
                     </div>
                 </div>
+                <!-- Phase 2 additions: dimension bars, next-step guidance, micro diff -->
+                <div class="mt-4 space-y-3">
+                    <div class="grid md:grid-cols-5 gap-2" id="q50-bars" aria-label="Dimension performance bars"></div>
+                    <div id="q50-next" class="text-[11px] text-indigo-700 min-h-[16px]" aria-live="polite"></div>
+                    <div id="q50-diff" class="text-[11px] text-gray-600 h-4" aria-live="polite"></div>
+                </div>
+            </div>
+
+            <!-- Phase 3: Scenarios & Comparison -->
+            <div class="bg-white p-3 rounded-lg border space-y-4">
+                <div class="flex flex-wrap gap-2 text-[11px] items-center">
+                    <span class="text-gray-600">Presets:</span>
+                    <button class="q50-preset px-2 py-0.5 rounded border bg-gray-50 hover:bg-gray-100" data-preset="lowcost">Low-cost</button>
+                    <button class="q50-preset px-2 py-0.5 rounded border bg-gray-50 hover:bg-gray-100" data-preset="balanced">Balanced</button>
+                    <button class="q50-preset px-2 py-0.5 rounded border bg-gray-50 hover:bg-gray-100" data-preset="privacy">Privacy-first</button>
+                    <button class="q50-preset px-2 py-0.5 rounded border bg-gray-50 hover:bg-gray-100" data-preset="safety">High-safety</button>
+                </div>
+                <div class="grid md:grid-cols-3 gap-4 text-[11px]">
+                    <div class="space-y-2">
+                        <h4 class="font-medium text-gray-700 flex items-center gap-2">A/B Compare <span class="text-[10px] text-gray-400">capture</span></h4>
+                        <div class="flex flex-wrap gap-2">
+                            <button id="q50-capA" class="px-2 py-0.5 rounded bg-indigo-100 text-indigo-800 border border-indigo-300">Capture A</button>
+                            <button id="q50-capB" class="px-2 py-0.5 rounded bg-indigo-100 text-indigo-800 border border-indigo-300" disabled>Capture B</button>
+                            <button id="q50-capClear" class="px-2 py-0.5 rounded border" disabled>Clear</button>
+                        </div>
+                        <div id="q50-ab-status" class="h-4 text-indigo-600"></div>
+                        <div id="q50-ab-diff" class="text-gray-700 text-[10px] leading-snug"></div>
+                    </div>
+                    <div class="space-y-2">
+                        <h4 class="font-medium text-gray-700">Config Export</h4>
+                        <button id="q50-export" class="px-2 py-0.5 rounded border bg-green-50 hover:bg-green-100 text-green-700">Copy JSON</button>
+                        <div id="q50-export-status" class="h-4 text-green-600 text-[10px]"></div>
+                    </div>
+                    <div class="space-y-2">
+                        <h4 class="font-medium text-gray-700">Notes</h4>
+                        <div class="text-gray-600" id="q50-ab-note"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phase 4: Advanced Readiness Insights -->
+            <div class="bg-white p-3 rounded-lg border space-y-4">
+                <h4 class="font-medium text-gray-800 text-sm">Advanced Readiness Insights</h4>
+                <div class="grid md:grid-cols-3 gap-4 text-[11px]">
+                    <div class="space-y-2">
+                        <div class="font-medium text-gray-700">Readiness Ladder</div>
+                        <div id="q50-tier" class="text-gray-800"></div>
+                        <div id="q50-next-tier" class="text-gray-600"></div>
+                    </div>
+                    <div class="space-y-2 relative">
+                        <div class="font-medium text-gray-700">Capability Radar</div>
+                        <canvas id="q50-radar" width="140" height="140" class="border rounded bg-white" aria-hidden="true"></canvas>
+                        <div id="q50-radar-alt" class="sr-only" aria-live="polite"></div>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="font-medium text-gray-700">Risk Clusters</div>
+                        <div id="q50-risks" class="flex flex-wrap gap-1"></div>
+                        <div class="font-medium text-gray-700 mt-2">Intervention Planner</div>
+                        <div id="q50-interventions" class="space-y-1"></div>
+                    </div>
+                </div>
             </div>
 
             <!-- Output -->
-            <div id="q50-expl" class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-sm text-yellow-900"></div>
+            <div id="q50-expl" class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-sm text-yellow-900" aria-live="polite"></div>
         </div>`,
         script: () => {
             const pr = document.getElementById('q50-priority');
@@ -143,7 +215,32 @@ const question = {
             const prosEl = document.getElementById('q50-pros');
             const consEl = document.getElementById('q50-cons');
             const expl = document.getElementById('q50-expl');
+            const breakdownEl = document.getElementById('q50-breakdown');
+            // Phase 2 elements
+            const barsEl = document.getElementById('q50-bars');
+            const nextEl = document.getElementById('q50-next');
+            const diffEl = document.getElementById('q50-diff');
+            // Phase 3 elements
+            const presetBtns = document.querySelectorAll('.q50-preset');
+            const capA = document.getElementById('q50-capA');
+            const capB = document.getElementById('q50-capB');
+            const capClear = document.getElementById('q50-capClear');
+            const abStatus = document.getElementById('q50-ab-status');
+            const abDiff = document.getElementById('q50-ab-diff');
+            const exportBtn = document.getElementById('q50-export');
+            const exportStatus = document.getElementById('q50-export-status');
+            const abNote = document.getElementById('q50-ab-note');
+            // Phase 4 elements
+            const tierEl = document.getElementById('q50-tier');
+            const nextTierEl = document.getElementById('q50-next-tier');
+            const radarCanvas = document.getElementById('q50-radar');
+            const radarAlt = document.getElementById('q50-radar-alt');
+            const risksEl = document.getElementById('q50-risks');
+            const interventionsEl = document.getElementById('q50-interventions');
             if (!pr || !infra || !align || !data || !quant4 || !distill || !cache || !rag || !badgeEl || !meterEl || !prosEl || !consEl || !expl) return;
+
+            let prevState = { pr: pr.value, infra: infra.value, align: align.value, data: data.value, quant4: quant4.checked, distill: distill.checked, cache: cache.checked, rag: rag.checked };
+            let snapA = null, snapB = null;
 
             function setImpact(score) {
                 score = Math.max(0, Math.min(1, score));
@@ -214,6 +311,53 @@ const question = {
             function render() {
                 const s = scores();
                 setImpact(s.readiness);
+
+                // Score breakdown (Phase 1 transparency)
+                if (breakdownEl) {
+                    const dims = [
+                        { k:'Latency', v:s.latency },
+                        { k:'Cost', v:s.cost },
+                        { k:'Safety', v:s.safety },
+                        { k:'Interpret', v:s.interpret },
+                        { k:'Privacy', v:s.privacy }
+                    ];
+                    const weakest = dims.reduce((m,d)=> d.v < m.v ? d : m, dims[0]);
+                    const line = dims.map(d=>`${d.k} ${(d.v*100).toFixed(0)}%${d===weakest?'*':''}`).join(' · ');
+                    breakdownEl.textContent = line + '  (* bottleneck)';
+                }
+
+                // Dimension bars
+                if (barsEl) {
+                    const barDefs = [
+                        { id:'latency', label:'Latency', val:s.latency },
+                        { id:'cost', label:'Cost', val:s.cost },
+                        { id:'safety', label:'Safety', val:s.safety },
+                        { id:'interpret', label:'Interpret', val:s.interpret },
+                        { id:'privacy', label:'Privacy', val:s.privacy }
+                    ];
+                    barsEl.innerHTML = barDefs.map(d=>{
+                        const pct = (d.val*100).toFixed(0);
+                        let color = 'bg-gray-300';
+                        if (d.val >= 0.7) color = 'bg-green-500';
+                        else if (d.val >= 0.5) color = 'bg-yellow-400';
+                        else color = 'bg-red-500';
+                        return `<div class=\"space-y-1\"><div class=\"text-[10px] text-gray-600 text-center\">${d.label}</div><div class=\"h-2 w-full bg-gray-200 rounded overflow-hidden relative\" aria-label='${d.label} ${pct}%'><div class=\"h-full ${color}\" style=\"width:${pct}%\"></div></div><div class=\"text-[10px] text-center text-gray-700\">${pct}%</div></div>`;
+                    }).join('');
+                }
+
+                // Next-step guidance (single prioritized action)
+                if (nextEl) {
+                    const pairs = [
+                        { k:'latency', v:s.latency, msg:'Improve latency: enable caching, quantization, or GPU scaling' },
+                        { k:'cost', v:s.cost, msg:'Cut cost: increase batch size, consider smaller distilled/quantized model' },
+                        { k:'safety', v:s.safety, msg:'Boost safety: add instruction tuning, guardrail filters, eval coverage' },
+                        { k:'interpret', v:s.interpret, msg:'Increase interpretability: add tracing, prompt tests, eval dashboards' },
+                        { k:'privacy', v:s.privacy, msg:'Enhance privacy: move sensitive flows on-prem/edge, add redaction' }
+                    ];
+                    pairs.sort((a,b)=> a.v - b.v);
+                    const weakest = pairs[0];
+                    nextEl.textContent = `Next focus → ${weakest.msg}`;
+                }
 
                 const pros = [];
                 const cons = [];
@@ -301,6 +445,223 @@ const question = {
                 if (window.MathJax && window.MathJax.typesetPromise) {
                     window.MathJax.typesetPromise([expl]).catch(() => {});
                 }
+
+                // Phase 4: Ladder tiers
+                if(tierEl && nextTierEl){
+                    const tiers = [
+                        {name:'Prototype', min:0},
+                        {name:'Pilot', min:0.35},
+                        {name:'Limited Production', min:0.55},
+                        {name:'Production', min:0.70},
+                        {name:'Hardened', min:0.85}
+                    ];
+                    let current = tiers[0];
+                    for(const t of tiers){ if(s.readiness >= t.min) current = t; }
+                    const next = tiers.find(t=> t.min > current.min);
+                    tierEl.textContent = `Tier: ${current.name} (${(s.readiness*100).toFixed(0)}%)`;
+                    nextTierEl.textContent = next ? `Next: ${next.name} need +${((next.min - s.readiness)*100).toFixed(0)} pts` : 'At highest tier';
+                }
+
+                // Phase 4: Radar chart
+                if(radarCanvas){
+                    const ctx = radarCanvas.getContext('2d');
+                    const dims = [
+                        {k:'latency', v:s.latency, label:'Latency'},
+                        {k:'cost', v:s.cost, label:'Cost'},
+                        {k:'safety', v:s.safety, label:'Safety'},
+                        {k:'interpret', v:s.interpret, label:'Interpret'},
+                        {k:'privacy', v:s.privacy, label:'Privacy'}
+                    ];
+                    ctx.clearRect(0,0,radarCanvas.width, radarCanvas.height);
+                    const cx = radarCanvas.width/2, cy = radarCanvas.height/2, R = 60;
+                    ctx.strokeStyle = '#e5e7eb';
+                    ctx.lineWidth = 1;
+                    for(let ring=1; ring<=3; ring++){
+                        ctx.beginPath();
+                        dims.forEach((d,i)=>{
+                            const ang = (Math.PI*2*i/dims.length)-Math.PI/2;
+                            const r = R * (ring/3);
+                            const x = cx + Math.cos(ang)*r;
+                            const y = cy + Math.sin(ang)*r;
+                            if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+                        });
+                        ctx.closePath();
+                        ctx.stroke();
+                    }
+                    ctx.strokeStyle = '#d1d5db';
+                    dims.forEach((d,i)=>{
+                        const ang = (Math.PI*2*i/dims.length)-Math.PI/2;
+                        ctx.beginPath();
+                        ctx.moveTo(cx,cy);
+                        ctx.lineTo(cx+Math.cos(ang)*R, cy+Math.sin(ang)*R);
+                        ctx.stroke();
+                    });
+                    ctx.beginPath();
+                    dims.forEach((d,i)=>{
+                        const ang = (Math.PI*2*i/dims.length)-Math.PI/2;
+                        const r = R * d.v;
+                        const x = cx + Math.cos(ang)*r;
+                        const y = cy + Math.sin(ang)*r;
+                        if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+                    });
+                    ctx.closePath();
+                    ctx.fillStyle = 'rgba(79,70,229,0.20)';
+                    ctx.strokeStyle = '#4f46e5';
+                    ctx.lineWidth = 2;
+                    ctx.fill();
+                    ctx.stroke();
+                    if(radarAlt){ radarAlt.textContent = 'Radar ' + dims.map(d=> `${d.label} ${(d.v*100).toFixed(0)}%`).join(', '); }
+                }
+
+                // Phase 4: Risk clusters
+                if(risksEl){
+                    const riskDims = [
+                        {label:'Latency', v: s.latency},
+                        {label:'Cost', v: s.cost},
+                        {label:'Safety', v: s.safety},
+                        {label:'Interpret', v: s.interpret},
+                        {label:'Privacy', v: s.privacy}
+                    ];
+                    risksEl.innerHTML = '';
+                    riskDims.forEach(d=>{
+                        const risk = 1 - d.v;
+                        let level = 'Low';
+                        if(risk >= 0.6) level = 'High'; else if (risk >= 0.4) level = 'Med';
+                        const span = document.createElement('span');
+                        const color = level==='High' ? 'bg-red-100 text-red-700 border-red-300' : level==='Med' ? 'bg-amber-100 text-amber-700 border-amber-300' : 'bg-emerald-100 text-emerald-700 border-emerald-300';
+                        span.className = `px-1.5 py-0.5 rounded border text-[10px] ${color}`;
+                        span.textContent = `${d.label}:${level}`;
+                        risksEl.appendChild(span);
+                    });
+                }
+
+                // Phase 4: Intervention planner
+                if(interventionsEl){
+                    interventionsEl.innerHTML = '';
+                    const actions = [
+                        {key:'quant4', label:'Add 4-bit quantization', complexity:1},
+                        {key:'distill', label:'Fine-tune distillation', complexity:2},
+                        {key:'cache', label:'Enable response caching', complexity:1},
+                        {key:'rag', label:'Add RAG retrieval', complexity:3}
+                    ];
+                    const complexityLabel = c => c===1?'low': c===2? 'med':'high';
+                    const curStates = {quant4:quant4.checked, distill:distill.checked, cache:cache.checked, rag:rag.checked};
+                    const improvements = [];
+                    actions.forEach(a=>{
+                        if(curStates[a.key]) return;
+                        const original = {quant4:quant4.checked, distill:distill.checked, cache:cache.checked, rag:rag.checked};
+                        if(a.key==='quant4') quant4.checked = true;
+                        if(a.key==='distill') distill.checked = true;
+                        if(a.key==='cache') cache.checked = true;
+                        if(a.key==='rag') rag.checked = true;
+                        const after = scores().readiness;
+                        quant4.checked = original.quant4;
+                        distill.checked = original.distill;
+                        cache.checked = original.cache;
+                        rag.checked = original.rag;
+                        const delta = after - s.readiness;
+                        improvements.push({label:a.label, delta, complexity:a.complexity});
+                    });
+                    improvements.sort((a,b)=> b.delta - a.delta);
+                    improvements.slice(0,3).forEach(im => {
+                        if(im.delta < 0.01) return;
+                        const row = document.createElement('div');
+                        row.className='flex items-center justify-between gap-2';
+                        row.innerHTML = `<span class=\"text-gray-700\">${im.label}</span><span class=\"text-indigo-700\">+${(im.delta*100).toFixed(0)} pts</span><span class=\"text-gray-500\">${complexityLabel(im.complexity)}</span>`;
+                        interventionsEl.appendChild(row);
+                    });
+                    if(!interventionsEl.children.length){
+                        interventionsEl.textContent = 'No meaningful single-step gains remaining.';
+                    }
+                }
+
+                // Micro diff line
+                if (diffEl) {
+                    const curr = { pr: pr.value, infra: infra.value, align: align.value, data: data.value, quant4: quant4.checked, distill: distill.checked, cache: cache.checked, rag: rag.checked };
+                    const changes = [];
+                    for (const k of Object.keys(curr)) {
+                        if (curr[k] !== prevState[k]) {
+                            if (typeof curr[k] === 'boolean') changes.push(`${k}${curr[k]?'✓':'✗'}`); else changes.push(`${k}→${curr[k]}`);
+                        }
+                    }
+                    if (changes.length) {
+                        diffEl.textContent = 'Change: ' + changes.join('; ');
+                        setTimeout(()=>{ if (diffEl.textContent.startsWith('Change:')) diffEl.textContent=''; }, 1800);
+                    }
+                    prevState = curr;
+                }
+            }
+
+            // Presets
+            function applyPreset(name){
+                const presets = {
+                    lowcost: { pr:'Cost', infra:'Cloud CPU', align:'None', data:'Low', quant4:true, distill:true, cache:true, rag:false },
+                    balanced: { pr:'Quality', infra:'Cloud GPU', align:'Instruction-tuned', data:'Medium', quant4:true, distill:false, cache:true, rag:false },
+                    privacy: { pr:'Privacy', infra:'On-Prem GPU', align:'Instruction-tuned', data:'High', quant4:false, distill:false, cache:true, rag:false },
+                    safety: { pr:'Safety', infra:'Cloud GPU', align:'RLHF', data:'Medium', quant4:true, distill:false, cache:true, rag:true }
+                };
+                const ps = presets[name]; if(!ps) return;
+                pr.value = ps.pr; infra.value=ps.infra; align.value=ps.align; data.value=ps.data;
+                quant4.checked = ps.quant4; distill.checked = ps.distill; cache.checked = ps.cache; rag.checked = ps.rag;
+                render();
+            }
+            presetBtns.forEach(btn=> btn.addEventListener('click', ()=> applyPreset(btn.getAttribute('data-preset'))));
+
+            // Snapshot helpers
+            function snapshot(){
+                const s = scores();
+                return {
+                    priority: pr.value,
+                    infra: infra.value,
+                    alignment: align.value,
+                    dataSensitivity: data.value,
+                    quant4: quant4.checked,
+                    distill: distill.checked,
+                    cache: cache.checked,
+                    rag: rag.checked,
+                    latency: s.latency,
+                    cost: s.cost,
+                    safety: s.safety,
+                    interpret: s.interpret,
+                    privacy: s.privacy,
+                    readiness: s.readiness
+                };
+            }
+            function diff(a,b){
+                if(!a||!b) return '';
+                const parts = [];
+                function delta(label, va, vb){ if(va!==vb) parts.push(`${label}: ${formatVal(va)}→${formatVal(vb)}`); }
+                function formatVal(v){ return typeof v==='boolean' ? (v?'on':'off') : (typeof v==='number'? (v*100).toFixed(0)+'%' : v); }
+                delta('priority', a.priority, b.priority);
+                delta('infra', a.infra, b.infra);
+                delta('align', a.alignment, b.alignment);
+                delta('data', a.dataSensitivity, b.dataSensitivity);
+                ['quant4','distill','cache','rag'].forEach(k=> delta(k, a[k], b[k]));
+                ['latency','cost','safety','interpret','privacy','readiness'].forEach(k=> { if (Math.abs(a[k]-b[k])>0.02) parts.push(`${k} ${(a[k]*100).toFixed(0)}%→${(b[k]*100).toFixed(0)}%`); });
+                return parts.join('; ');
+            }
+            function updateAB(){
+                if(!capB||!capClear) return;
+                capB.disabled = !snapA;
+                capClear.disabled = !(snapA||snapB);
+                if(abDiff) abDiff.textContent = diff(snapA, snapB);
+                if(abNote){
+                    if(snapA && snapB) abNote.textContent = 'Comparison shows deltas; focus on largest % drops for bottleneck mitigation.';
+                    else if(snapA) abNote.textContent = 'Captured A; adjust settings then capture B.';
+                    else abNote.textContent='Capture A to start comparison.';
+                }
+            }
+            if(capA) capA.addEventListener('click', ()=>{ snapA = snapshot(); if(abStatus){abStatus.textContent='Captured A'; setTimeout(()=>{ if(abStatus.textContent==='Captured A') abStatus.textContent=''; },1200);} updateAB(); });
+            if(capB) capB.addEventListener('click', ()=>{ if(!snapA) return; snapB = snapshot(); if(abStatus){abStatus.textContent='Captured B'; setTimeout(()=>{ if(abStatus.textContent==='Captured B') abStatus.textContent=''; },1200);} updateAB(); });
+            if(capClear) capClear.addEventListener('click', ()=>{ snapA=null; snapB=null; updateAB(); });
+
+            // Export
+            if(exportBtn){
+                exportBtn.addEventListener('click', ()=>{
+                    const shot = snapshot();
+                    const text = JSON.stringify(shot, null, 2);
+                    navigator.clipboard.writeText(text).then(()=>{ if(exportStatus){ exportStatus.textContent='Copied'; setTimeout(()=>{ if(exportStatus.textContent==='Copied') exportStatus.textContent=''; },1200);} }).catch(()=>{ if(exportStatus){ exportStatus.textContent='Clipboard blocked'; } });
+                });
             }
 
             [pr, infra, align, data].forEach(el => el.addEventListener('change', render));

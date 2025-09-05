@@ -16,13 +16,14 @@ class LLMQuestionApp {
         // Landing + path state
         this.landingRoot = document.getElementById('landing-root');
         this.mainElement = document.querySelector('main');
-        this.activePath = null; // { key, sequence, pos }
-        this.pathMappings = {
-            foundations: [1, 2, 3, 4, 5, 6],
-            generation: [7, 8, 9, 12],
-            training: [10, 11, 13],
-            alignment: [14, 15, 16, 17, 18],
-            evaluation: [19]
+        this.activePath = null; // { key, sequence, pos, difficulty }
+        // New structured path definitions with difficulty (>=3 questions each)
+        this.pathDefinitions = {
+            foundations: { label: 'Foundations', difficulty: 'beginner', questions: [1,2,3,7,21] },
+            generation: { label: 'Generation Strategies', difficulty: 'intermediate', questions: [5,6,12,23,38] },
+            training: { label: 'Training & Optimization', difficulty: 'intermediate', questions: [24,25,26,30,31] },
+            scaling: { label: 'Scaling & Efficiency', difficulty: 'advanced', questions: [32,33,36,37,42] },
+            alignment: { label: 'Alignment & Evaluation', difficulty: 'advanced', questions: [8,13,19,41,44,45,50] }
         };
 
         this.initDOM();
@@ -85,12 +86,79 @@ class LLMQuestionApp {
     /* -------------- Landing & Paths -------------- */
     showLanding(){ if(this.landingRoot) this.landingRoot.classList.remove('hidden'); if(this.mainElement) this.mainElement.classList.add('hidden'); }
     hideLanding(){ if(this.landingRoot) this.landingRoot.classList.add('hidden'); if(this.mainElement) this.mainElement.classList.remove('hidden'); }
-    setupLandingInteractions(){ if(!this.landingRoot) return; const pathButtons=this.landingRoot.querySelectorAll('[data-path]'); const heroBtn=document.getElementById('hero-foundations-btn'); const start=(key)=>{const seq=this.pathMappings[key]; if(!seq||!seq.length) return; this.activePath={key,sequence:seq.slice(),pos:0}; window.location.hash=`#question-${seq[0]}`; this.updatePathUI();}; pathButtons.forEach(b=>b.addEventListener('click',()=>start(b.getAttribute('data-path')))); if(heroBtn) heroBtn.addEventListener('click',()=>start('foundations')); const titleEl=document.querySelector('header h1'); if(titleEl){ titleEl.style.cursor='pointer'; titleEl.title='Return to landing page'; titleEl.addEventListener('click',()=>{ history.pushState(null,'','#'); this.exitPath(); this.showLanding(); }); } }
+    setupLandingInteractions(){ if(!this.landingRoot) return; const pathButtons=this.landingRoot.querySelectorAll('[data-path]'); const heroBtn=document.getElementById('hero-foundations-btn'); const start=(key)=>{const def=this.pathDefinitions[key]; if(!def||!def.questions?.length) return; this.activePath={ key, sequence:def.questions.slice(), pos:0 }; window.location.hash=`#question-${def.questions[0]}`; this.updatePathUI();}; pathButtons.forEach(b=>b.addEventListener('click',()=>start(b.getAttribute('data-path')))); if(heroBtn) heroBtn.addEventListener('click',()=>start('foundations')); const titleEl=document.querySelector('header h1'); if(titleEl){ titleEl.style.cursor='pointer'; titleEl.title='Return to landing page'; titleEl.addEventListener('click',()=>{ history.pushState(null,'','#'); this.exitPath(); this.showLanding(); }); } }
     exitPath(){ this.activePath=null; this.updatePathUI(); }
     syncActivePath(q){ if(!this.activePath) return; const i=this.activePath.sequence.indexOf(q); if(i===-1) this.activePath=null; else this.activePath.pos=i; }
-    getPathGradient(key){ switch(key){ case 'foundations': return 'from-indigo-50 to-indigo-100 border-indigo-200'; case 'generation': return 'from-purple-50 to-purple-100 border-purple-200'; case 'training': return 'from-blue-50 to-blue-100 border-blue-200'; case 'alignment': return 'from-teal-50 to-teal-100 border-teal-200'; case 'evaluation': return 'from-gray-50 to-gray-100 border-gray-200'; default: return 'from-slate-50 to-slate-100 border-slate-200'; } }
-    buildBannerHTML(nice,pos,total){ const atStart=pos===0, atEnd=pos===total-1, pct=((pos+1)/total)*100; return `<div class="flex items-center justify-between flex-wrap gap-3"><div class="font-semibold tracking-wide uppercase text-xs">Learning Path</div><button type="button" id="path-banner-exit" class="text-xs px-2 py-1 rounded bg-white/70 hover:bg-white border">Exit Path</button></div><div class="flex items-center flex-wrap gap-3"><h3 class="text-base font-bold">${nice} Path</h3><span class="text-xs font-mono px-2 py-0.5 rounded bg-white/70 border">${pos+1} / ${total}</span><div class="h-2 flex-1 rounded bg-white/40 overflow-hidden min-w-[140px]"><div class="h-full bg-gray-800/50" style="width:${pct}%"></div></div></div><div class="flex items-center flex-wrap gap-2 pt-1"><button id="path-prev" ${atStart?'disabled':''} class="text-xs px-3 py-1 rounded border bg-white/70 hover:bg-white disabled:opacity-40">Prev</button><button id="path-next" class="text-xs px-3 py-1 rounded border bg-indigo-600 text-white hover:bg-indigo-700 disabled:opacity-60">${atEnd?'Finish':'Next'}</button>${atEnd?'<span class="text-xs text-gray-600">End of path</span>':''}</div>`; }
-    updatePathUI(){ const indicator=document.getElementById('path-indicator'); const label=document.getElementById('path-indicator-label'); const exitBtn=document.getElementById('path-exit-btn'); const banner=document.getElementById('path-banner'); if(!indicator||!label||!exitBtn) return; if(!this.activePath){ indicator.classList.add('hidden'); if(banner) banner.classList.add('hidden'); this.elements.nextBtn.title='Next question'; this.elements.prevBtn.title='Previous question'; return;} const {key,sequence,pos}=this.activePath; const total=sequence.length; const nice=key[0].toUpperCase()+key.slice(1); label.textContent=`${nice} ${pos+1}/${total}`; indicator.classList.remove('hidden'); this.elements.nextBtn.title= pos<total-1 ? `Next in ${nice} (${pos+2}/${total})` : 'End of path'; this.elements.prevBtn.title= pos>0 ? `Prev in ${nice} (${pos}/${total})` : 'Start of path'; if(banner){ banner.classList.remove('hidden'); banner.className=`mb-5 p-4 rounded-lg border text-sm flex flex-col gap-3 bg-gradient-to-r ${this.getPathGradient(key)} text-gray-800 shadow-sm`; banner.innerHTML=this.buildBannerHTML(nice,pos,total); banner.querySelector('#path-banner-exit')?.addEventListener('click',()=>this.exitPath()); banner.querySelector('#path-prev')?.addEventListener('click',()=>{ if(pos>0) this.displayQuestion(this.availableQuestions.indexOf(sequence[pos-1])); }); banner.querySelector('#path-next')?.addEventListener('click',()=>{ if(pos<total-1) this.displayQuestion(this.availableQuestions.indexOf(sequence[pos+1])); else { this.notify(`${nice} path complete!`); this.exitPath(); }}); } exitBtn.onclick=()=>this.exitPath(); }
+        getPathGradient(key){
+                const diff = this.pathDefinitions[key]?.difficulty;
+                switch(diff){
+                        case 'beginner': return 'from-indigo-50 to-indigo-100 border-indigo-200';
+                        case 'intermediate': return 'from-purple-50 to-purple-100 border-purple-200';
+                        case 'advanced': return 'from-rose-50 to-rose-100 border-rose-200';
+                        default: return 'from-slate-50 to-slate-100 border-slate-200';
+                }
+        }
+        difficultyStars(level){
+                if(level==='beginner') return '★☆☆';
+                if(level==='intermediate') return '★★☆';
+                if(level==='advanced') return '★★★';
+                return '';
+        }
+        buildBannerHTML(nice,pos,total,key){
+                const def = this.pathDefinitions[key];
+                const diff = def?.difficulty || '';
+                const stars = this.difficultyStars(diff);
+                const atStart=pos===0, atEnd=pos===total-1, pct=((pos+1)/total)*100;
+                return `<div class="flex items-center justify-between flex-wrap gap-3">
+                        <div class="flex items-center gap-2">
+                            <div class="font-semibold tracking-wide uppercase text-xs">Learning Path</div>
+                            <span class="text-[10px] px-2 py-0.5 rounded-full bg-white/70 border">${diff} ${stars}</span>
+                        </div>
+                        <button type="button" id="path-banner-exit" class="text-xs px-2 py-1 rounded bg-white/70 hover:bg-white border">Exit Path</button>
+                    </div>
+                    <div class="flex items-center flex-wrap gap-3">
+                        <h3 class="text-base font-bold">${nice} Path</h3>
+                        <span class="text-xs font-mono px-2 py-0.5 rounded bg-white/70 border">${pos+1} / ${total}</span>
+                        <div class="h-2 flex-1 rounded bg-white/40 overflow-hidden min-w-[140px]">
+                            <div class="h-full bg-gray-800/50" style="width:${pct}%"></div>
+                        </div>
+                    </div>
+                    <div class="flex items-center flex-wrap gap-2 pt-1">
+                        <button id="path-prev" ${atStart?'disabled':''} class="text-xs px-3 py-1 rounded border bg-white/70 hover:bg-white disabled:opacity-40">Prev</button>
+                        <button id="path-next" class="text-xs px-3 py-1 rounded border bg-indigo-600 text-white hover:bg-indigo-700 disabled:opacity-60">${atEnd?'Finish':'Next'}</button>
+                        ${atEnd?'<span class="text-xs text-gray-600">End of path</span>':''}
+                    </div>`;
+        }
+        updatePathUI(){
+                const indicator=document.getElementById('path-indicator');
+                const label=document.getElementById('path-indicator-label');
+                const exitBtn=document.getElementById('path-exit-btn');
+                const banner=document.getElementById('path-banner');
+                if(!indicator||!label||!exitBtn) return;
+                if(!this.activePath){
+                        indicator.classList.add('hidden');
+                        if(banner) banner.classList.add('hidden');
+                        this.elements.nextBtn.title='Next question';
+                        this.elements.prevBtn.title='Previous question';
+                        return;
+                }
+                const {key,sequence,pos}=this.activePath; const def=this.pathDefinitions[key];
+                const total=sequence.length; const nice=def?.label || (key[0].toUpperCase()+key.slice(1));
+                const diff=def?.difficulty; const stars=this.difficultyStars(diff);
+                label.textContent=`${nice} ${pos+1}/${total} ${stars}`;
+                indicator.classList.remove('hidden');
+                this.elements.nextBtn.title= pos<total-1 ? `Next in ${nice} (${pos+2}/${total})` : 'End of path';
+                this.elements.prevBtn.title= pos>0 ? `Prev in ${nice} (${pos}/${total})` : 'Start of path';
+                if(banner){
+                        banner.classList.remove('hidden');
+                        banner.className=`mb-5 p-4 rounded-lg border text-sm flex flex-col gap-3 bg-gradient-to-r ${this.getPathGradient(key)} text-gray-800 shadow-sm`;
+                        banner.innerHTML=this.buildBannerHTML(nice,pos,total,key);
+                        banner.querySelector('#path-banner-exit')?.addEventListener('click',()=>this.exitPath());
+                        banner.querySelector('#path-prev')?.addEventListener('click',()=>{ if(pos>0) this.displayQuestion(this.availableQuestions.indexOf(sequence[pos-1])); });
+                        banner.querySelector('#path-next')?.addEventListener('click',()=>{ if(pos<total-1) this.displayQuestion(this.availableQuestions.indexOf(sequence[pos+1])); else { this.notify(`${nice} path complete!`); this.exitPath(); }});
+                }
+                exitBtn.onclick=()=>this.exitPath();
+        }
 
     /* -------------- Questions -------------- */
     async displayQuestion(index){ if(this.isLoading) return; this.hideLanding(); this.isLoading=true; this.showLoading(); try{ this.elements.questionViewer.style.opacity='0'; const qNum=this.availableQuestions[index]; const question=await this.questionLoader.loadQuestion(qNum); this.updateDropdownOption(index,question.title); await this.delay(120); this.updateQuestionContent(question,index); this.updateNavState(index); if(question.interactive?.script){ try{ question.interactive.script(); }catch(e){ console.error(e); this.showInteractiveError(); }} await this.renderMath(); this.elements.questionViewer.style.opacity='1'; this.currentQuestionIndex=index; this.syncActivePath(qNum); this.updatePathUI(); window.scrollTo({top:0,behavior:'smooth'}); this.updateURL(index);} catch(e){ console.error('Display failed',e); this.showQuestionError(this.availableQuestions[index]); } finally { this.hideLoading(); this.isLoading=false; } }

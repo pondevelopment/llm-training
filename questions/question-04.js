@@ -5,6 +5,15 @@
 const question = {
     title: "4. What distinguishes LoRA from QLoRA in fine-tuning LLMs?",
     answer: `<div class="space-y-4">
+        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related)</h4>
+            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+                <li><a href="#question-14" class="text-indigo-700 underline hover:text-indigo-900">Question 14: How can LLMs avoid catastrophic forgetting during fine-tuning?</a></li>
+                <li><a href="#question-35" class="text-indigo-700 underline hover:text-indigo-900">Question 35: How does PEFT mitigate catastrophic forgetting?</a></li>
+                <li><a href="#question-15" class="text-indigo-700 underline hover:text-indigo-900">Question 15: What is model distillation, and how does it benefit LLMs?</a></li>
+                <li><a href="#question-48" class="text-indigo-700 underline hover:text-indigo-900">Question 48: What is a hyperparameter, and why is it important?</a></li>
+            </ul>
+        </div>
         <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
             <h4 class="font-semibold text-blue-900 mb-2">🎯 What is Efficient Fine-tuning?</h4>
             <p class="text-blue-800">Instead of updating all billions of parameters in an LLM (which requires massive GPU memory), efficient fine-tuning methods like LoRA and QLoRA only train a small subset of parameters. Think of it like learning a new skill by adding specialized tools to your toolkit rather than replacing everything you know.</p>

@@ -5,6 +5,15 @@
 const question = {
     title: "7. What are embeddings and how do they enable LLMs to understand semantic meaning?",
     answer: `<div class="space-y-4">
+        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related)</h4>
+            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+                <li><a href="#question-01" class="text-indigo-700 underline hover:text-indigo-900">Question 1: What does tokenization entail?</a></li>
+                <li><a href="#question-02" class="text-indigo-700 underline hover:text-indigo-900">Question 2: How does the attention mechanism function in transformer models?</a></li>
+                <li><a href="#question-09" class="text-indigo-700 underline hover:text-indigo-900">Question 9: What is a transformer architecture?</a></li>
+                <li><a href="#question-47" class="text-indigo-700 underline hover:text-indigo-900">Question 47: What is context and perplexity?</a></li>
+            </ul>
+        </div>
         <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
             <h4 class="font-semibold text-blue-900 mb-2">🧠 What are Embeddings?</h4>
             <p class="text-blue-800">Embeddings are dense numerical vectors that represent words, tokens, or concepts in high-dimensional space. Think of them as a universal translator that converts human language into mathematical coordinates that machines can understand and compute with, while preserving semantic meaning and relationships.</p>

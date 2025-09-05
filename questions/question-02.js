@@ -122,12 +122,22 @@ const question = {
             <!-- Attention Visualization -->
             <div class="bg-white border border-gray-200 rounded-lg p-4">
                 <div class="flex items-center justify-between mb-3">
-                    <h4 class="font-medium text-gray-900">🎨 Attention Visualization</h4>
-                    <div id="q2-attention-indicator" class="text-xs bg-blue-100 text-blue-700 px-3 py-1 rounded font-medium border border-blue-200">👆 Click on a word to explore!</div>
+                    <h4 class="font-medium text-gray-900 flex items-center gap-2">🎨 Attention Visualization <span class="text-[10px] font-normal uppercase tracking-wide px-2 py-0.5 rounded bg-indigo-50 text-indigo-700 border border-indigo-200">Interactive</span></h4>
+                    <div id="q2-attention-indicator" class="text-xs bg-blue-50 text-blue-700 px-3 py-1 rounded font-medium border border-blue-200 flex items-center gap-1">
+                        <span class="animate-pulse inline-block w-2 h-2 rounded-full bg-blue-500"></span>
+                        <span>Click a word below</span>
+                    </div>
                 </div>
-                <div id="q2-sentence-display" class="relative min-h-[200px] pt-8 p-4 bg-gray-50 rounded border-2 border-dashed border-gray-300 text-center text-lg leading-loose">
+                <div class="text-xs text-gray-500 mb-2 flex flex-wrap items-center gap-3">
+                    <span class="flex items-center gap-1"><span class="inline-block w-3 h-3 rounded bg-gray-300 border"></span> inactive word</span>
+                    <span class="flex items-center gap-1"><span class="inline-block w-3 h-3 rounded bg-indigo-300 border border-indigo-400"></span> selected word</span>
+                    <span class="flex items-center gap-1"><span class="inline-block w-3 h-3 rounded bg-amber-300 border border-amber-400"></span> high attention</span>
+                    <span class="ml-auto text-[10px] uppercase tracking-wide text-indigo-600">Hover highlights click targets</span>
+                </div>
+                <div id="q2-sentence-display" class="relative min-h-[220px] pt-10 p-4 bg-gray-50 rounded border-2 border-dashed border-gray-300 text-center text-lg leading-loose group">
                     <canvas id="q2-canvas" class="absolute top-0 left-0 w-full h-full pointer-events-none" style="z-index: 1;"></canvas>
-                    <!-- Words will be injected here with z-index: 2 -->
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 text-[10px] px-2 py-0.5 rounded bg-white border shadow-sm text-gray-600">Click any word – lines show attention strength</div>
+                    <!-- Words injected here (z-index:2) -->
                 </div>
                 <div id="q2-legend" class="mt-3 text-xs"></div>
             </div>
@@ -141,6 +151,18 @@ const question = {
             </div>
         </div>`,
         script: () => {
+            // Inject minimal styles once for clickable words if not present
+            if (!document.getElementById('q2-clickable-style')) {
+                const style = document.createElement('style');
+                style.id = 'q2-clickable-style';
+                style.textContent = `.q2-word{position:relative;cursor:pointer;transition:color .15s, background-color .15s, box-shadow .15s;padding:2px 4px;border-radius:4px;}
+                .q2-word:hover{background:rgba(99,102,241,0.12);color:#3730a3;box-shadow:0 0 0 1px rgba(99,102,241,0.25);} 
+                .q2-word.selected{background:rgba(99,102,241,0.25);color:#1e1b4b;font-weight:600;}
+                .q2-word.attn-high{background:linear-gradient(90deg,rgba(251,191,36,0.55),rgba(253,230,138,0.4));}
+                .q2-word.attn-med{background:linear-gradient(90deg,rgba(251,191,36,0.35),rgba(253,230,138,0.25));}
+                .q2-word.attn-low{background:linear-gradient(90deg,rgba(251,191,36,0.18),rgba(253,230,138,0.12));}`;
+                document.head.appendChild(style);
+            }
             // Get DOM elements with error checking
             const input = document.getElementById('q2-text-select');
             const sentenceDisplay = document.getElementById('q2-sentence-display');

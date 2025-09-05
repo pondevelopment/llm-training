@@ -20,7 +20,7 @@ const question = {
         </div>
         
         <div class="grid md:grid-cols-3 gap-4">
-            <div class="bg-green-50 p-4 rounded border-l-4 border-green-400">
+            <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
                 <h5 class="font-medium text-green-900 mb-2">📝 Step 1: Data Collection</h5>
                 <p class="text-sm text-green-700 mb-2">Collect human feedback on model outputs</p>
                 <div class="text-xs space-y-1">
@@ -32,7 +32,7 @@ const question = {
                 <code class="text-xs bg-green-100 px-1 rounded mt-2 block">Human annotators rate outputs</code>
             </div>
             
-            <div class="bg-purple-50 p-4 rounded border-l-4 border-purple-400">
+            <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
                 <h5 class="font-medium text-purple-900 mb-2">🧠 Step 2: Reward Model</h5>
                 <p class="text-sm text-purple-700 mb-2">Train a model to predict human preferences</p>
                 <div class="text-xs space-y-1">
@@ -44,7 +44,7 @@ const question = {
                 <code class="text-xs bg-purple-100 px-1 rounded mt-2 block">Neural network reward predictor</code>
             </div>
             
-            <div class="bg-orange-50 p-4 rounded border-l-4 border-orange-400">
+            <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
                 <h5 class="font-medium text-orange-900 mb-2">🎯 Step 3: RL Optimization</h5>
                 <p class="text-sm text-orange-700 mb-2">Fine-tune LLM using reinforcement learning</p>
                 <div class="text-xs space-y-1">

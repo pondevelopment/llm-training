@@ -20,7 +20,7 @@ const question = {
         </div>
         
         <div class="grid md:grid-cols-2 gap-4">
-            <div class="bg-green-50 p-4 rounded border-l-4 border-green-400">
+            <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
                 <h5 class="font-medium text-green-900 mb-2">🎯 Greedy Decoding</h5>
                 <p class="text-sm text-green-700 mb-2">Always picks the single highest-probability word at each step</p>
                 <div class="text-xs space-y-1">
@@ -31,7 +31,7 @@ const question = {
                 </div>
             </div>
             
-            <div class="bg-purple-50 p-4 rounded border-l-4 border-purple-400">
+            <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
                 <h5 class="font-medium text-purple-900 mb-2">🌟 Beam Search</h5>
                 <p class="text-sm text-purple-700 mb-2">Maintains multiple promising sequences (beams) and explores them in parallel</p>
                 <div class="text-xs space-y-1">

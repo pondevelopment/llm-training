@@ -22,7 +22,7 @@ const question = {
         
         <!-- Comparison Grid -->
         <div class="grid md:grid-cols-2 gap-4">
-            <div class="bg-green-50 p-4 rounded border-l-4 border-green-400">
+            <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
                 <h5 class="font-medium text-green-900 mb-2">🎯 Autoregressive Models (GPT-style)</h5>
                 <p class="text-sm text-green-700 mb-3">Predict the next token in sequence, seeing only previous context. Like writing a story word by word, never looking ahead.</p>
                 <div class="text-xs space-y-2">
@@ -34,7 +34,7 @@ const question = {
                 <code class="text-xs bg-green-100 px-2 py-1 rounded block mt-2">P(token | previous_tokens)</code>
             </div>
             
-            <div class="bg-purple-50 p-4 rounded border-l-4 border-purple-400">
+            <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
                 <h5 class="font-medium text-purple-900 mb-2">🎭 Masked Language Models (BERT-style)</h5>
                 <p class="text-sm text-purple-700 mb-3">Predict masked tokens using full bidirectional context. Like solving a crossword puzzle with clues from all directions.</p>
                 <div class="text-xs space-y-2">

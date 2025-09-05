@@ -6,6 +6,17 @@ const question = {
     title: "13. Why is prompt engineering crucial for LLM performance?",
     answer: `
         <div class="space-y-4">
+            <!-- Recommended Reading -->
+            <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+                <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related)</h4>
+                <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+                    <li><a href="#question-01" class="hover:underline">Q1. Tokenization – foundation for how prompts are chunked</a></li>
+                    <li><a href="#question-02" class="hover:underline">Q2. Attention – how the model locates relevant parts of your prompt</a></li>
+                    <li><a href="#question-06" class="hover:underline">Q6. Temperature – tuning creativity after prompt structuring</a></li>
+                    <li><a href="#question-12" class="hover:underline">Q12. Top-k vs Top-p – sampling strategies influenced by prompt clarity</a></li>
+                    <li><a href="#question-17" class="hover:underline">Q17. Preference Optimization – downstream alignment shaping prompt response style</a></li>
+                </ul>
+            </div>
             <!-- Main Concept -->
             <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
                 <h4 class="font-semibold text-blue-900 mb-2">🎯 What is Prompt Engineering?</h4>

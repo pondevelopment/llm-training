@@ -21,7 +21,7 @@ const question = {
         
         <!-- Comparison Grid -->
         <div class="grid md:grid-cols-2 gap-4">
-            <div class="bg-green-50 p-4 rounded border-l-4 border-green-400">
+            <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
                 <h5 class="font-medium text-green-900 mb-2">🎨 Generative Models</h5>
                 <p class="text-sm text-green-700 mb-2">Model joint probability P(X,Y) to create new data</p>
                 <div class="space-y-2">
@@ -37,7 +37,7 @@ const question = {
                 </div>
             </div>
             
-            <div class="bg-purple-50 p-4 rounded border-l-4 border-purple-400">
+            <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
                 <h5 class="font-medium text-purple-900 mb-2">🎯 Discriminative Models</h5>
                 <p class="text-sm text-purple-700 mb-2">Model conditional probability P(Y|X) to classify existing data</p>
                 <div class="space-y-2">

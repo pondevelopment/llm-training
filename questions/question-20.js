@@ -5,6 +5,17 @@
 const question = {
     title: "20. How do GPT-3, GPT-4, and GPT-5 differ in features and applications?",
     answer: `<div class="space-y-4">
+        <!-- Recommended Reading -->
+        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related)</h4>
+            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+                <li><a href="#question-09" class="text-indigo-700 underline hover:text-indigo-900">Question 9: How do autoregressive and masked models differ?</a></li>
+                <li><a href="#question-15" class="text-indigo-700 underline hover:text-indigo-900">Question 15: What is model distillation, and how does it benefit LLMs?</a></li>
+                <li><a href="#question-18" class="text-indigo-700 underline hover:text-indigo-900">Question 18: What is overfitting, and how can it be mitigated?</a></li>
+                <li><a href="#question-19" class="text-indigo-700 underline hover:text-indigo-900">Question 19: Generative vs discriminative models in NLP</a></li>
+                <li><a href="#question-06" class="text-indigo-700 underline hover:text-indigo-900">Question 6: How does temperature affect generation?</a></li>
+            </ul>
+        </div>
         <!-- Main Concept Box -->
         <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
             <h4 class="font-semibold text-blue-900 mb-2">🚀 GPT-3 → GPT-4 → GPT-5: The Evolution</h4>
@@ -13,7 +24,7 @@ const question = {
         
         <!-- Direct Comparison Grid -->
         <div class="grid md:grid-cols-3 gap-4">
-            <div class="bg-orange-50 p-4 rounded border-l-4 border-orange-400">
+            <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
                 <h5 class="font-medium text-orange-900 mb-2">📱 GPT-3 (2020)</h5>
                 <div class="space-y-2 text-sm text-orange-700">
                     <div class="bg-orange-100 p-2 rounded">
@@ -34,7 +45,7 @@ const question = {
                 </div>
             </div>
             
-            <div class="bg-green-50 p-4 rounded border-l-4 border-green-400">
+            <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
                 <h5 class="font-medium text-green-900 mb-2">🌟 GPT-4 (2023)</h5>
                 <div class="space-y-2 text-sm text-green-700">
                     <div class="bg-green-100 p-2 rounded">
@@ -55,7 +66,7 @@ const question = {
                 </div>
             </div>
 
-            <div class="bg-blue-50 p-4 rounded border-l-4 border-blue-400">
+            <div class="bg-blue-50 p-3 rounded border-l-4 border-blue-400">
                 <h5 class="font-medium text-blue-900 mb-2">💠 GPT-5 (2025)</h5>
                 <div class="space-y-2 text-sm text-blue-700">
                     <div class="bg-blue-100 p-2 rounded">
@@ -79,7 +90,7 @@ const question = {
 
         <!-- Key Improvements -->
         <div class="grid md:grid-cols-3 gap-4">
-            <div class="bg-purple-50 p-4 rounded border-l-4 border-purple-400">
+            <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
                 <h5 class="font-medium text-purple-900 mb-2">👁️ Multimodal Input</h5>
                 <p class="text-sm text-purple-700 mb-2">Can process both text and images</p>
                 <div class="text-xs bg-purple-100 p-2 rounded">
@@ -87,7 +98,7 @@ const question = {
                 </div>
             </div>
             
-            <div class="bg-indigo-50 p-4 rounded border-l-4 border-indigo-400">
+            <div class="bg-indigo-50 p-3 rounded border-l-4 border-indigo-400">
                 <h5 class="font-medium text-indigo-900 mb-2">📚 Larger Context</h5>
                 <p class="text-sm text-indigo-700 mb-2">6x more context window for complex tasks</p>
                 <div class="text-xs bg-indigo-100 p-2 rounded">
@@ -95,7 +106,7 @@ const question = {
                 </div>
             </div>
             
-            <div class="bg-teal-50 p-4 rounded border-l-4 border-teal-400">
+            <div class="bg-teal-50 p-3 rounded border-l-4 border-teal-400">
                 <h5 class="font-medium text-teal-900 mb-2">🎯 Enhanced Accuracy</h5>
                 <p class="text-sm text-teal-700 mb-2">Better fine-tuning reduces errors</p>
                 <div class="text-xs bg-teal-100 p-2 rounded">

@@ -614,7 +614,7 @@ const question = {
                             
                             <!-- Vector Information -->
                             <div class="grid md:grid-cols-2 gap-4 text-sm">
-                                <div class="bg-blue-50 p-3 rounded border-l-4 border-blue-500">
+                                <div class="bg-blue-50 p-3 rounded border-l-4 border-blue-400">
                                     <h6 class="font-semibold text-blue-700 mb-2">Query Vector (Q) - Blue</h6>
                                     <div class="font-mono space-y-1">
                                         <div>2D: [${Q[0].toFixed(2)}, ${Q[1].toFixed(2)}]</div>
@@ -622,7 +622,7 @@ const question = {
                                         <div class="text-xs text-blue-600 mt-1">Magnitude: ${magnitude(Q).toFixed(3)}</div>
                                     </div>
                                 </div>
-                                <div class="bg-red-50 p-3 rounded border-l-4 border-red-500">
+                                <div class="bg-red-50 p-3 rounded border-l-4 border-red-400">
                                     <h6 class="font-semibold text-red-700 mb-2">Key Vector (K) - Red</h6>
                                     <div class="font-mono space-y-1">
                                         <div>2D: [${K[0].toFixed(2)}, ${K[1].toFixed(2)}]</div>
@@ -633,7 +633,7 @@ const question = {
                             </div>
                             
                             <!-- Similarity Analysis -->
-                            <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-500">
+                            <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
                                 <h6 class="font-semibold text-purple-700 mb-2">Geometric Relationship</h6>
                                 <div class="text-sm space-y-1">
                                     <div><strong>Angle between vectors:</strong> ${angleDeg}° ${angleDeg < 30 ? '(Very similar direction)' : angleDeg < 60 ? '(Somewhat similar)' : angleDeg < 90 ? '(Different directions)' : '(Opposite-ish directions)'}</div>

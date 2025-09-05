@@ -487,7 +487,7 @@ const question = {
 
                 // Chain rule breakdown
                 html += `
-                    <div class="bg-blue-50 p-4 rounded border-l-4 border-blue-500">
+                    <div class="bg-blue-50 p-3 rounded border-l-4 border-blue-400">
                         <h5 class="font-medium text-blue-700 mb-3">Chain Rule Computation</h5>
                         <div class="space-y-3 text-sm">
                             <div class="font-mono bg-white p-2 rounded">
@@ -665,7 +665,7 @@ const question = {
                 
                 // Before/after semantic comparison
                 html += `
-                    <div class="bg-purple-50 p-4 rounded border-l-4 border-purple-500">
+                    <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
                         <h5 class="font-medium text-purple-700 mb-3">Semantic Impact Analysis</h5>
                         <div class="grid md:grid-cols-3 gap-4">
                             <div class="bg-white p-3 rounded border">

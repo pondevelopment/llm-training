@@ -5,6 +5,15 @@
 const question = {
     title: "5. How does beam search improve text generation compared to greedy decoding?",
     answer: `<div class="space-y-4">
+        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related)</h4>
+            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+                <li><a href="#question-06" class="text-indigo-700 underline hover:text-indigo-900">Question 6: What is temperature in text generation and how does it affect output?</a></li>
+                <li><a href="#question-12" class="text-indigo-700 underline hover:text-indigo-900">Question 12: How do top-k and top-p sampling differ in text generation?</a></li>
+                <li><a href="#question-23" class="text-indigo-700 underline hover:text-indigo-900">Question 23: How is the softmax function applied in attention mechanisms?</a></li>
+                <li><a href="#question-25" class="text-indigo-700 underline hover:text-indigo-900">Question 25: Why is cross-entropy loss used in language modeling?</a></li>
+            </ul>
+        </div>
         <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
             <h4 class="font-semibold text-blue-900 mb-2">🔍 What is Text Generation Strategy?</h4>
             <p class="text-blue-800">When LLMs generate text, they don't just pick random words - they use sophisticated strategies to select the most appropriate next token. These strategies balance between finding the highest probability words and maintaining diversity to avoid repetitive, boring outputs.</p>

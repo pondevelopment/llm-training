@@ -12,7 +12,7 @@ const question = {
                 <li><a href="#question-24" class="text-indigo-700 underline hover:text-indigo-900">Question 24: What is gradient descent and how does it optimize neural networks?</a></li>
                 <li><a href="#question-26" class="text-indigo-700 underline hover:text-indigo-900">Question 26: How are gradients computed for embeddings in LLMs?</a></li>
                 <li><a href="#question-30" class="text-indigo-700 underline hover:text-indigo-900">Question 30: Why is the ReLU derivative so important for deep learning?</a></li>
-                <li><a href="#question-32" class="text-indigo-700 underline hover:text-indigo-900">Question 32: How does SVD enable low‑rank approximations and compression?</a></li>
+                <li><a href="#question-32" class="text-indigo-700 underline hover:text-indigo-900">Question 32: How does SVD enable low-rank approximations and compression?</a></li>
             </ul>
         </div>
         <!-- Main Concept Box -->

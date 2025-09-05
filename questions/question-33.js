@@ -31,14 +31,14 @@ const question = {
             .q33-break { word-break:break-word; overflow-wrap:break-word; }
         </style>
         <!-- Recommended Reading -->
-        <div class="bg-indigo-50 p-4 rounded-lg border border-indigo-200">
-            <h4 class="font-semibold text-indigo-900 mb-2">📚 Recommended reading</h4>
+        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading</h4>
             <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
-                <li><a href="#question-2" class="text-indigo-700 underline hover:text-indigo-900">2. How does the attention mechanism function?</a></li>
-                <li><a href="#question-21" class="text-indigo-700 underline hover:text-indigo-900">21. What are positional encodings?</a></li>
-                <li><a href="#question-22" class="text-indigo-700 underline hover:text-indigo-900">22. What is multi-head attention?</a></li>
-                <li><a href="#question-32" class="text-indigo-700 underline hover:text-indigo-900">32. How are attention scores calculated?</a></li>
-                <li><a href="#question-37" class="text-indigo-700 underline hover:text-indigo-900">37. How does Mixture of Experts enhance scalability?</a></li>
+                <li><a href="#question-2" class="text-indigo-700 underline hover:text-indigo-900">Question 2: How does the attention mechanism function?</a></li>
+                <li><a href="#question-21" class="text-indigo-700 underline hover:text-indigo-900">Question 21: What are positional encodings?</a></li>
+                <li><a href="#question-22" class="text-indigo-700 underline hover:text-indigo-900">Question 22: What is multi-head attention?</a></li>
+                <li><a href="#question-32" class="text-indigo-700 underline hover:text-indigo-900">Question 32: How are attention scores calculated?</a></li>
+                <li><a href="#question-37" class="text-indigo-700 underline hover:text-indigo-900">Question 37: How does Mixture of Experts enhance scalability?</a></li>
             </ul>
             <p class="text-xs text-indigo-700 mt-2">These build the foundation for sequence representation, attention composition, and scaling strategies used in multimodal architectures.</p>
         </div>
@@ -86,15 +86,15 @@ const question = {
                             
                             <!-- Performance Highlight -->
                             <div class="grid md:grid-cols-3 gap-4 mt-6">
-                                <div class="bg-green-50 border border-green-200 rounded-lg p-4 text-center">
+                                <div class="bg-green-50 border border-green-200 rounded-lg p-3 text-center">
                                     <div class="text-2xl font-bold text-green-700">40%</div>
                                     <div class="text-sm text-green-600">Fewer Parameters</div>
                                 </div>
-                                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 text-center">
+                                <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 text-center">
                                     <div class="text-2xl font-bold text-blue-700">35%</div>
                                     <div class="text-sm text-blue-600">Faster Training</div>
                                 </div>
-                                <div class="bg-purple-50 border border-purple-200 rounded-lg p-4 text-center">
+                                <div class="bg-purple-50 border border-purple-200 rounded-lg p-3 text-center">
                                     <div class="text-2xl font-bold text-purple-700">80%</div>
                                     <div class="text-sm text-purple-600">Less Labeled Data</div>
                                 </div>
@@ -128,7 +128,7 @@ const question = {
                     <!-- Unified Architecture -->
                     <div class="group relative">
                         <div class="absolute -inset-1 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl opacity-20 group-hover:opacity-30 transition-opacity"></div>
-                        <div class="relative bg-blue-50 hover:bg-blue-100 p-6 rounded-xl border border-blue-200 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                        <div class="relative bg-blue-50 hover:bg-blue-100 p-4 rounded-xl border border-blue-200 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
                             <div class="text-center mb-6">
                                 <div class="inline-flex items-center justify-center w-12 h-12 bg-blue-500 text-white rounded-lg mb-3 text-xl">
                                     🏗️
@@ -136,14 +136,14 @@ const question = {
                                 <h5 class="text-lg font-bold text-blue-900">Unified Architecture</h5>
                             </div>
                             <div class="space-y-4">
-                                <div class="bg-white p-4 rounded-lg border border-blue-100 shadow-sm">
+                                <div class="bg-white p-3 rounded-lg border border-blue-100 shadow-sm">
                                     <div class="text-sm font-semibold text-gray-900 mb-2">Single Transformer Backbone</div>
                                     <div class="text-xs text-gray-600 mb-3">One model handles all modalities simultaneously</div>
                                     <div class="bg-blue-50 p-2 rounded text-xs font-mono text-center border q33-math-block">
                                         $$\\mathbf{H} = \\text{Transformer}(\\text{TokenizeMultimodal}(x_{text}, x_{image}, x_{audio}))$$
                                     </div>
                                 </div>
-                                <div class="bg-white p-4 rounded-lg border border-blue-100 shadow-sm">
+                                <div class="bg-white p-3 rounded-lg border border-blue-100 shadow-sm">
                                     <div class="text-sm font-semibold text-gray-900 mb-2">Shared Parameters</div>
                                     <div class="text-xs text-gray-600">
                                         <span class="inline-flex items-center px-2 py-1 bg-green-100 text-green-800 text-xs font-medium rounded">
@@ -152,7 +152,7 @@ const question = {
                                         in model size vs separate encoders
                                     </div>
                                 </div>
-                                <div class="bg-white p-4 rounded-lg border border-blue-100 shadow-sm">
+                                <div class="bg-white p-3 rounded-lg border border-blue-100 shadow-sm">
                                     <div class="text-sm font-semibold text-gray-900 mb-2">Universal Tokenization</div>
                                     <div class="text-xs text-gray-600">All modalities mapped to common token space</div>
                                 </div>
@@ -163,7 +163,7 @@ const question = {
                     <!-- Cross-Modal Attention -->
                     <div class="group relative">
                         <div class="absolute -inset-1 bg-gradient-to-br from-green-400 to-green-600 rounded-xl opacity-20 group-hover:opacity-30 transition-opacity"></div>
-                        <div class="relative bg-green-50 hover:bg-green-100 p-6 rounded-xl border border-green-200 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                        <div class="relative bg-green-50 hover:bg-green-100 p-4 rounded-xl border border-green-200 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
                             <div class="text-center mb-6">
                                 <div class="inline-flex items-center justify-center w-12 h-12 bg-green-500 text-white rounded-lg mb-3 text-xl">
                                     🎯
@@ -171,18 +171,18 @@ const question = {
                                 <h5 class="text-lg font-bold text-green-900">Cross-Modal Attention</h5>
                             </div>
                             <div class="space-y-4">
-                                <div class="bg-white p-4 rounded-lg border border-green-100 shadow-sm">
+                                <div class="bg-white p-3 rounded-lg border border-green-100 shadow-sm">
                                     <div class="text-sm font-semibold text-gray-900 mb-2">Interleaved Attention</div>
                                     <div class="text-xs text-gray-600 mb-3">Modalities attend to each other simultaneously</div>
                                     <div class="bg-green-50 p-2 rounded text-xs font-mono text-center border q33-math-block">
                                         $$\\text{Attention}(Q_{text}, K_{image}, V_{audio})$$
                                     </div>
                                 </div>
-                                <div class="bg-white p-4 rounded-lg border border-green-100 shadow-sm">
+                                <div class="bg-white p-3 rounded-lg border border-green-100 shadow-sm">
                                     <div class="text-sm font-semibold text-gray-900 mb-2">Modality-Aware Scaling</div>
                                     <div class="text-xs text-gray-600">Dynamic attention weights based on input complexity</div>
                                 </div>
-                                <div class="bg-white p-4 rounded-lg border border-green-100 shadow-sm">
+                                <div class="bg-white p-3 rounded-lg border border-green-100 shadow-sm">
                                     <div class="text-sm font-semibold text-gray-900 mb-2">Temporal Alignment</div>
                                     <div class="text-xs text-gray-600">Synchronizes audio-visual-text sequences</div>
                                 </div>
@@ -193,7 +193,7 @@ const question = {
                     <!-- Self-Supervised Learning -->
                     <div class="group relative">
                         <div class="absolute -inset-1 bg-gradient-to-br from-purple-400 to-purple-600 rounded-xl opacity-20 group-hover:opacity-30 transition-opacity"></div>
-                        <div class="relative bg-purple-50 hover:bg-purple-100 p-6 rounded-xl border border-purple-200 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                        <div class="relative bg-purple-50 hover:bg-purple-100 p-4 rounded-xl border border-purple-200 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
                             <div class="text-center mb-6">
                                 <div class="inline-flex items-center justify-center w-12 h-12 bg-purple-500 text-white rounded-lg mb-3 text-xl">
                                     📊
@@ -201,18 +201,18 @@ const question = {
                                 <h5 class="text-lg font-bold text-purple-900">Self-Supervised Learning</h5>
                             </div>
                             <div class="space-y-4">
-                                <div class="bg-white p-4 rounded-lg border border-purple-100 shadow-sm">
+                                <div class="bg-white p-3 rounded-lg border border-purple-100 shadow-sm">
                                     <div class="text-sm font-semibold text-gray-900 mb-2">Contrastive Learning</div>
                                     <div class="text-xs text-gray-600 mb-3">Learn representations without labels</div>
                                     <div class="bg-purple-50 p-2 rounded text-xs font-mono text-center border q33-math-block">
                                         $$\\mathcal{L} = -\\log\\frac{\\exp(\\text{sim}(z_i, z_j)/\\tau)}{\\sum_k \\exp(\\text{sim}(z_i, z_k)/\\tau)}$$
                                     </div>
                                 </div>
-                                <div class="bg-white p-4 rounded-lg border border-purple-100 shadow-sm">
+                                <div class="bg-white p-3 rounded-lg border border-purple-100 shadow-sm">
                                     <div class="text-sm font-semibold text-gray-900 mb-2">Masked Multimodal Modeling</div>
                                     <div class="text-xs text-gray-600">Predict masked tokens across all modalities</div>
                                 </div>
-                                <div class="bg-white p-4 rounded-lg border border-purple-100 shadow-sm">
+                                <div class="bg-white p-3 rounded-lg border border-purple-100 shadow-sm">
                                     <div class="text-sm font-semibold text-gray-900 mb-2">Cross-Modal Reconstruction</div>
                                     <div class="text-xs text-gray-600">Generate text from images, images from audio</div>
                                 </div>

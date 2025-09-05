@@ -7,13 +7,13 @@ const question = {
     // Core explanatory answer (interactive UI moved to `interactive.html` so the app executes its script)
     answer: `<div class="space-y-4">
         <!-- Recommended Reading (moved to top) -->
-        <div class="bg-indigo-50 p-4 rounded-lg border-l-4 border-indigo-400" id="q32-recommended-reading">
+        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200" id="q32-recommended-reading">
             <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading</h4>
-            <ul class="list-disc list-inside text-sm text-indigo-800 space-y-1">
-                <li><a href="?q=24" class="text-blue-700 underline focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">24. What is softmax and why is it used?</a></li>
-                <li><a href="?q=30" class="text-blue-700 underline focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">30. What is the ReLU activation function?</a></li>
-                <li><a href="?q=31" class="text-blue-700 underline focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">31. How does backpropagation work?</a></li>
-                <li><a href="?q=33" class="text-blue-700 underline focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">33. What is multi-head attention?</a></li>
+            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+                <li><a href="#question-24" class="text-indigo-700 underline hover:text-indigo-900">Question 24: What is softmax and why is it used?</a></li>
+                <li><a href="#question-30" class="text-indigo-700 underline hover:text-indigo-900">Question 30: What is the ReLU activation function?</a></li>
+                <li><a href="#question-31" class="text-indigo-700 underline hover:text-indigo-900">Question 31: How does backpropagation work?</a></li>
+                <li><a href="#question-33" class="text-indigo-700 underline hover:text-indigo-900">Question 33: What is multi-head attention?</a></li>
             </ul>
             <p class="text-xs text-indigo-700 mt-2">These build conceptual grounding for scaling, softmax distribution, gradient flow, and extension to multi-head attention.</p>
         </div>

@@ -8,11 +8,11 @@ const question = {
         <!-- Recommended Reading -->
         <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
             <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading</h4>
-            <ul class="list-disc pl-5 text-sm space-y-1">
-                <li><a href="#question-17" class="text-indigo-700 underline hover:text-indigo-900"><strong>Q17:</strong> Vanishing gradients in sequence models</a></li>
-                <li><a href="#question-24" class="text-indigo-700 underline hover:text-indigo-900"><strong>Q24:</strong> Gradient stability & optimization dynamics</a></li>
-                <li><a href="#question-31" class="text-indigo-700 underline hover:text-indigo-900"><strong>Q31:</strong> Chain rule depth & gradient flow</a></li>
-                <li><a href="#question-32" class="text-indigo-700 underline hover:text-indigo-900"><strong>Q32:</strong> Scaling tricks to preserve gradients</a></li>
+            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+                <li><a href="#question-17" class="text-indigo-700 underline hover:text-indigo-900">Question 17: Vanishing gradients in sequence models</a></li>
+                <li><a href="#question-24" class="text-indigo-700 underline hover:text-indigo-900">Question 24: Gradient stability & optimization dynamics</a></li>
+                <li><a href="#question-31" class="text-indigo-700 underline hover:text-indigo-900">Question 31: Chain rule depth & gradient flow</a></li>
+                <li><a href="#question-32" class="text-indigo-700 underline hover:text-indigo-900">Question 32: Scaling tricks to preserve gradients</a></li>
             </ul>
         </div>
         <!-- Main Concept Box -->

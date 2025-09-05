@@ -2,6 +2,15 @@
 const question = {
     title: "1. What does tokenization entail, and why is it critical for LLMs?",
     answer: `<div class="space-y-4">
+        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related)</h4>
+            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+                <li><a href="#question-02" class="text-indigo-700 underline hover:text-indigo-900">Question 2: How do attention mechanisms work in transformers?</a></li>
+                <li><a href="#question-09" class="text-indigo-700 underline hover:text-indigo-900">Question 9: What is a transformer architecture?</a></li>
+                <li><a href="#question-14" class="text-indigo-700 underline hover:text-indigo-900">Question 14: What are embeddings and why do they matter?</a></li>
+                <li><a href="#question-47" class="text-indigo-700 underline hover:text-indigo-900">Question 47: What is context and perplexity?</a></li>
+            </ul>
+        </div>
         <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
             <h4 class="font-semibold text-blue-900 mb-2">🔤 What is Tokenization?</h4>
             <p class="text-blue-800">Tokenization breaks down raw text into smaller units called <strong>tokens</strong> that LLMs can process. Think of it as cutting up a sentence into digestible pieces.</p>

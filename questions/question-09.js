@@ -5,6 +5,15 @@
 const question = {
     title: "9. How do autoregressive and masked models differ in LLM training?",
     answer: `<div class="space-y-4">
+        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related)</h4>
+            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+                <li><a href="#question-01" class="text-indigo-700 underline hover:text-indigo-900">Question 1: What does tokenization entail?</a></li>
+                <li><a href="#question-02" class="text-indigo-700 underline hover:text-indigo-900">Question 2: How does the attention mechanism function in transformer models?</a></li>
+                <li><a href="#question-07" class="text-indigo-700 underline hover:text-indigo-900">Question 7: What are embeddings and how do they enable semantic meaning?</a></li>
+                <li><a href="#question-14" class="text-indigo-700 underline hover:text-indigo-900">Question 14: What are embeddings and why do they matter?</a></li>
+            </ul>
+        </div>
         <!-- Main Concept Box -->
         <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
             <h4 class="font-semibold text-blue-900 mb-2">🔄 What are Training Paradigms?</h4>

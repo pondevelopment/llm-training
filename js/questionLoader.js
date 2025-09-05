@@ -72,26 +72,22 @@ class QuestionLoader {
      * @private
      */
     _executeQuestionModule(code, questionId) {
+        // Many question files contain template literals (backticks). The old approach
+        // embedded raw code inside a backtick string, causing premature termination
+        // and syntax errors. We switch to the Function constructor to avoid having to
+        // escape backticks or other delimiters.
+        const moduleContext = { exports: {}, module: { exports: {} } };
         try {
-            // Create isolated execution context
-            const moduleContext = {
-                exports: {},
-                module: { exports: {} }
-            };
-            
-            // Wrap the code in a function to isolate it
-            const wrappedCode = `
-                (function(exports, module) {
-                    ${code}
-                    return typeof question !== 'undefined' ? question : module.exports;
-                })(moduleContext.exports, moduleContext.module);
-            `;
-            
-            const result = eval(wrappedCode);
+            const factory = new Function(
+                'exports',
+                'module',
+                `${code}\n;return (typeof question !== 'undefined') ? question : module.exports;`
+            );
+            const result = factory(moduleContext.exports, moduleContext.module);
             return result || moduleContext.module.exports || moduleContext.exports;
         } catch (error) {
             console.error(`Error executing question module ${questionId}:`, error);
-            throw error;
+            throw error; // Let caller decide fallback so we can distinguish execution vs fetch errors
         }
     }
 

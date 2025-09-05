@@ -452,3 +452,10 @@ Text: "${token}"`;
         }
     }
 };
+
+// Ensure availability when executed via dynamic Function wrapper
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = question;
+} else if (typeof window !== 'undefined') {
+    window.question01 = question;
+}

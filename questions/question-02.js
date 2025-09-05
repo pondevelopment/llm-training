@@ -646,3 +646,9 @@ const question = {
         }
     }
 };
+
+if (typeof module !== 'undefined' && module.exports) {
+    module.exports = question;
+} else if (typeof window !== 'undefined') {
+    window.question02 = question;
+}

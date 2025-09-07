@@ -7,7 +7,7 @@ const question = {
     answer: `<div class="space-y-4">
         <!-- Recommended Reading -->
         <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
-            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related topics)</h4>
+            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related)</h4>
             <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
                 <li><a href="#question-18" class="text-indigo-700 underline hover:text-indigo-900">Question 18: Overfitting & mitigation</a></li>
                 <li><a href="#question-19" class="text-indigo-700 underline hover:text-indigo-900">Question 19: Generative vs discriminative models</a></li>
@@ -16,7 +16,7 @@ const question = {
         </div>
         <!-- Main Concept Box -->
         <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
-            <h4 class="font-semibold text-blue-900 mb-2">🧭 Core idea</h4>
+            <h4 class="font-semibold text-blue-900 mb-2">🧭 Core Idea</h4>
             <p class="text-blue-800">Hyperparameters are preset values that control training dynamics (learning rate, batch size, regularization strength, etc.). They are chosen before / outside training, influence <em>how</em> parameters are learned, and do <strong>not</strong> receive gradient updates.</p>
             <div class="text-center mt-3 bg-white p-3 rounded border overflow-x-auto whitespace-nowrap text-sm">
                 <span class="block text-gray-600 mb-1">Gradient update rule</span>
@@ -54,7 +54,7 @@ const question = {
 
         <!-- Why It Matters -->
         <div class="bg-yellow-50 p-4 rounded-lg">
-            <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why this matters</h4>
+            <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why This Matters</h4>
             <ul class="text-sm text-yellow-800 space-y-1">
                 <li>• <strong>Convergence:</strong> Learning rate affects whether training stabilizes.</li>
                 <li>• <strong>Generalization:</strong> Regularization hyperparameters reduce overfitting.</li>
@@ -64,9 +64,9 @@ const question = {
     </div>`,
     interactive: {
         title: "⚙️ Hyperparameter impact explorer",
-        html: `<div class="space-y-6">
+    html: `<div class="space-y-4">
             <style>
-                .q48-chip { display:inline-flex; align-items:center; font-size:11px; line-height:1; padding:4px 6px; border-radius:4px; margin:2px 4px 2px 0; font-weight:500; }
+                .q48-chip { display:inline-flex; align-items:center; font-size:0.75rem; line-height:1; padding:4px 6px; border-radius:4px; margin:2px 4px 2px 0; font-weight:500; }
                 .q48-chip.lr-high { background:#fee2e2; color:#991b1b; }
                 .q48-chip.lr-low { background:#fef9c3; color:#854d0e; }
                 .q48-chip.lr-balanced { background:#dcfce7; color:#166534; }
@@ -80,7 +80,7 @@ const question = {
                 .q48-flash-down { animation:q48FlashDown 0.6s ease-out; }
                 @keyframes q48FlashUp { 0% { box-shadow:0 0 0 0 rgba(34,197,94,0.7);} 100% { box-shadow:0 0 0 12px rgba(34,197,94,0);} }
                 @keyframes q48FlashDown { 0% { box-shadow:0 0 0 0 rgba(239,68,68,0.7);} 100% { box-shadow:0 0 0 12px rgba(239,68,68,0);} }
-                .q48-tip { cursor:help; font-size:11px; color:#6366f1; margin-left:4px; }
+                .q48-tip { cursor:help; font-size:0.75rem; color:#6366f1; margin-left:4px; }
             </style>
             <!-- Controls -->
             <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200">
@@ -122,7 +122,7 @@ const question = {
                 </div>
                 <div class="mt-4 flex flex-wrap items-center" aria-label="Detected regimes"><div id="q48-regimes" class="flex flex-wrap"></div>
                     <button id="q48-snapshot-btn" class="ml-auto text-xs bg-indigo-600 text-white px-2 py-1 rounded hover:bg-indigo-700 transition-colors" type="button">Copy snapshot</button>
-                    <span id="q48-snapshot-status" class="text-[11px] text-gray-600 ml-2"></span>
+                    <span id="q48-snapshot-status" class="text-xs text-gray-600 ml-2"></span>
                 </div>
             </div>
 
@@ -137,7 +137,7 @@ const question = {
                                 <div id="q48-meter" class="h-full rounded" style="width:0%"></div>
                             </div>
                         </div>
-                        <div class="text-[11px] text-gray-500 mt-1">Heuristic based on η, batch size, and regularization.</div>
+                        <div class="text-xs text-gray-500 mt-1">Heuristic based on η, batch size, and regularization.</div>
                     </div>
                     <div>
                         <div class="text-sm font-medium text-green-700 mb-1">Good points</div>
@@ -154,12 +154,12 @@ const question = {
             <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 space-y-4" aria-label="Synthetic training dynamics">
                 <div class="flex items-center justify-between">
                     <h4 class="text-sm font-semibold text-gray-700">Synthetic training curves (heuristic)</h4>
-                    <div class="text-[11px] text-gray-500">Not real data – shaped by current hyperparameters</div>
+                    <div class="text-xs text-gray-500">Not real data – shaped by current hyperparameters</div>
                 </div>
                 <div class="grid md:grid-cols-3 gap-4">
                     <div class="col-span-2">
                         <canvas id="q48-curve" width="460" height="140" class="w-full border bg-white rounded" aria-label="Training and validation loss curves"></canvas>
-                        <div class="flex items-center gap-3 mt-1 text-[11px]">
+                        <div class="flex items-center gap-3 mt-1 text-xs">
                             <span class="inline-flex items-center gap-1"><span style="width:10px;height:10px;background:#2563eb;display:inline-block;border-radius:2px"></span> Train loss</span>
                             <span class="inline-flex items-center gap-1"><span style="width:10px;height:10px;background:#dc2626;display:inline-block;border-radius:2px"></span> Val loss</span>
                             <span id="q48-curve-label" class="ml-auto text-gray-600"></span>
@@ -169,11 +169,11 @@ const question = {
                         <div>
                             <div class="text-xs font-medium text-gray-600 mb-1">Gradient noise</div>
                             <div class="h-2 rounded bg-gray-200 overflow-hidden"><div id="q48-noise-bar" class="h-full bg-fuchsia-600" style="width:0%"></div></div>
-                            <div id="q48-noise-text" class="text-[11px] text-gray-600 mt-1"></div>
+                            <div id="q48-noise-text" class="text-xs text-gray-600 mt-1"></div>
                         </div>
                         <div>
                             <div class="text-xs font-medium text-gray-600 mb-1">Effective step size</div>
-                            <div id="q48-effstep" class="text-[11px] bg-white border rounded px-2 py-1 font-mono"></div>
+                            <div id="q48-effstep" class="text-xs bg-white border rounded px-2 py-1 font-mono"></div>
                         </div>
                         <div>
                             <div class="text-xs font-medium text-gray-600 mb-1">Parameter norm trend</div>
@@ -198,9 +198,9 @@ const question = {
                     <button id="q48-capture-a" type="button" class="text-xs px-2 py-1 rounded bg-blue-600 text-white hover:bg-blue-700">Capture A</button>
                     <button id="q48-capture-b" type="button" class="text-xs px-2 py-1 rounded bg-gray-600 text-white hover:bg-gray-700" disabled>Capture B</button>
                     <button id="q48-clear-ab" type="button" class="text-xs px-2 py-1 rounded bg-gray-200 text-gray-700 hover:bg-gray-300" disabled>Clear</button>
-                    <span id="q48-ab-status" class="text-[11px] text-gray-600"></span>
+                    <span id="q48-ab-status" class="text-xs text-gray-600"></span>
                 </div>
-                <div id="q48-ab-panel" class="hidden text-[11px] bg-gray-50 border border-gray-200 rounded p-3 space-y-2">
+                <div id="q48-ab-panel" class="hidden text-xs bg-gray-50 border border-gray-200 rounded p-3 space-y-2">
                     <div class="font-semibold text-gray-700">A vs B Differences</div>
                     <div id="q48-ab-diff" class="font-mono whitespace-pre-wrap"></div>
                 </div>
@@ -210,12 +210,12 @@ const question = {
             <div class="bg-indigo-50 p-4 rounded-lg border border-indigo-200 space-y-4" aria-label="Sensitivity analysis">
                 <div class="flex items-center justify-between">
                     <h4 class="text-sm font-semibold text-indigo-800">Local sensitivity (score delta if nudged)</h4>
-                    <span class="text-[11px] text-indigo-700">± small perturbation around current point</span>
+                    <span class="text-xs text-indigo-700">± small perturbation around current point</span>
                 </div>
                 <div id="q48-sensitivity" class="space-y-2"></div>
                 <div>
                     <h5 class="text-xs font-semibold text-indigo-800 mb-1">Interaction insight</h5>
-                    <div id="q48-interactions" class="text-[11px] text-indigo-900 bg-white/60 rounded p-2 leading-snug"></div>
+                    <div id="q48-interactions" class="text-xs text-indigo-900 bg-white/60 rounded p-2 leading-snug"></div>
                 </div>
             </div>
 
@@ -226,32 +226,32 @@ const question = {
                     <div class="flex gap-2 flex-wrap">
                         <button id="q48-run-lr-finder" type="button" class="text-xs px-2 py-1 rounded bg-amber-600 text-white hover:bg-amber-700">Run LR finder</button>
                         <button id="q48-export-trail" type="button" class="text-xs px-2 py-1 rounded bg-slate-600 text-white hover:bg-slate-700">Export trail</button>
-                        <span id="q48-adv-status" class="text-[11px] text-gray-600"></span>
+                        <span id="q48-adv-status" class="text-xs text-gray-600"></span>
                     </div>
                 </div>
                 <div class="grid md:grid-cols-3 gap-4">
                     <div class="col-span-2 space-y-3">
                         <div>
-                            <div class="flex items-center justify-between mb-1"><span class="text-xs font-medium text-gray-700">LR finder (synthetic sweep)</span><span id="q48-lr-window" class="text-[10px] text-gray-500"></span></div>
+                            <div class="flex items-center justify-between mb-1"><span class="text-xs font-medium text-gray-700">LR finder (synthetic sweep)</span><span id="q48-lr-window" class="text-xs text-gray-500"></span></div>
                             <canvas id="q48-lr-finder" width="460" height="120" class="w-full bg-white border rounded" aria-label="Learning rate finder synthetic curve"></canvas>
                         </div>
                         <div>
-                            <div class="flex items-center justify-between mb-1"><span class="text-xs font-medium text-gray-700">Noise vs signal (gradient direction drift)</span><span id="q48-noise-ratio" class="text-[10px] text-gray-500"></span></div>
+                            <div class="flex items-center justify-between mb-1"><span class="text-xs font-medium text-gray-700">Noise vs signal (gradient direction drift)</span><span id="q48-noise-ratio" class="text-xs text-gray-500"></span></div>
                             <canvas id="q48-noise-signal" width="460" height="110" class="w-full bg-white border rounded" aria-label="Noise vs signal scatter"></canvas>
                         </div>
                     </div>
                     <div class="space-y-3">
                         <div>
                             <div class="text-xs font-medium text-gray-700 mb-1">Regularization components</div>
-                            <div id="q48-reg-break" class="text-[11px] bg-gray-50 border rounded p-2 space-y-1"></div>
+                            <div id="q48-reg-break" class="text-xs bg-gray-50 border rounded p-2 space-y-1"></div>
                         </div>
                         <div>
                             <div class="text-xs font-medium text-gray-700 mb-1">Auto-tune suggestion</div>
-                            <div id="q48-suggestion" class="text-[11px] bg-indigo-50 border border-indigo-200 rounded p-2 leading-snug"></div>
+                            <div id="q48-suggestion" class="text-xs bg-indigo-50 border border-indigo-200 rounded p-2 leading-snug"></div>
                         </div>
                         <div>
                             <div class="text-xs font-medium text-gray-700 mb-1">Session trail (recent)</div>
-                            <div id="q48-trail" class="text-[10px] font-mono bg-white border rounded p-2 h-28 overflow-y-auto"></div>
+                            <div id="q48-trail" class="text-xs font-mono bg-white border rounded p-2 h-28 overflow-y-auto"></div>
                         </div>
                     </div>
                 </div>
@@ -259,7 +259,7 @@ const question = {
 
             <!-- Output -->
             <div id="q48-expl" class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-sm text-yellow-900" aria-live="polite"></div>
-            <div id="q48-change" class="text-[11px] text-gray-600" aria-live="polite"></div>
+            <div id="q48-change" class="text-xs text-gray-600" aria-live="polite"></div>
         </div>`,
         script: () => {
             const lrEl = document.getElementById('q48-lr');
@@ -568,7 +568,7 @@ const question = {
                     const upPct = pct(up); const downPct = pct(down);
                     const upColor = up>=0? '#16a34a':'#dc2626';
                     const downColor = down>=0? '#16a34a':'#dc2626';
-                    return `<div class="text-[11px]">
+                    return `<div class="text-xs">
                         <div class="flex items-center justify-between"><span class="font-medium text-indigo-900">${label}</span><span class="text-gray-500">Δscore up/down</span></div>
                         <div class="flex items-center gap-2 mt-0.5">
                             <div class="flex-1 h-3 relative bg-white/70 rounded border overflow-hidden">
@@ -586,7 +586,7 @@ const question = {
                     bar('Weight decay', sens.up.wd, sens.down.wd),
                     bar('Dropout', sens.up.drop, sens.down.drop)
                 ].join('');
-                const plateau = mags.every(m=>m < 0.003) ? '<div class="text-[10px] text-indigo-700 mt-2">All local deltas are very small → near a plateau; try bigger moves or a different combination.</div>' : '';
+                const plateau = mags.every(m=>m < 0.003) ? '<div class="text-xs text-indigo-700 mt-2">All local deltas are very small → near a plateau; try bigger moves or a different combination.</div>' : '';
                 sensEl.innerHTML = html + plateau;
             }
 

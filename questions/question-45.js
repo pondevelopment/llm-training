@@ -5,82 +5,80 @@
 const question = {
   title: "45. How would you fix an LLM generating biased or incorrect outputs?",
   answer: `
-    <div class="space-y-6">
-      <!-- Recommended Reading (Top) -->
-      <div class="bg-white border border-indigo-200 rounded p-3 text-xs">
-        <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading</h4>
-        <ul class="list-disc ml-5 space-y-0.5">
-          <li><a class="text-indigo-700 hover:underline" href="#question-13">Q13: Prompt engineering techniques</a></li>
-            <li><a class="text-indigo-700 hover:underline" href="#question-40">Q40: Retrieval grounding & knowledge integration</a></li>
-            <li><a class="text-indigo-700 hover:underline" href="#question-41">Q41: Few-/zero-shot baselines & evaluation</a></li>
-            <li><a class="text-indigo-700 hover:underline" href="#question-17">Q17: RLHF & preference optimization</a></li>
+    <div class="space-y-4">
+      <!-- Recommended Reading (canonical) -->
+      <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+        <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related)</h4>
+        <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+          <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-13">Question 13: Prompt engineering techniques</a></li>
+          <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-40">Question 40: Retrieval grounding & knowledge integration</a></li>
+          <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-41">Question 41: Few-/zero-shot baselines & evaluation</a></li>
+          <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-17">Question 17: RLHF & preference optimization</a></li>
         </ul>
-        <p class="mt-2 text-[11px] text-indigo-800">Links frame guardrails, retrieval, baseline measurement, and alignment tuning.</p>
+        <p class="mt-2 text-xs text-indigo-700">Guardrails, retrieval, evaluation baselines, and alignment tuning context.</p>
       </div>
-      <!-- Main Concept -->
-      <div class="bg-blue-50 p-5 rounded-xl border border-blue-200">
-        <h4 class="font-semibold text-blue-900 mb-2">🧠 Core idea</h4>
-        <p class="text-sm text-blue-800">Mitigating bias and errors is a <b>layered process</b>: analyze failure modes, improve inputs and data, and apply training- or inference-time controls. Combining <b>prompt guardrails</b>, <b>data improvements</b>, and <b>fine-tuning/RLHF</b> gives the most reliable gains.</p>
-        <div class="text-xs mt-3 text-blue-800">
-          Intuition model for residual risk after applying strategies:
+      <!-- Key Idea (accent) -->
+      <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
+        <h4 class="font-semibold text-blue-900 mb-2">🧠 Core Idea</h4>
+        <p class="text-sm text-blue-800">Bias/error mitigation is <b>layered</b>: surface controls (prompts / filters), data remediation & retrieval, then model-level alignment (SFT + RLHF/DPO). Combined layers yield durable reduction.</p>
+        <div class="text-xs mt-2 text-blue-800">
+          Residual risk intuition:
           <div class="math-display mt-1">$$
-          r_{after} = r_0 \\cdot \\prod_{i} (1 - e_i),\\quad 0 \\le e_i \\le 1
+          r_{after} = r_0 \cdot \prod_{i} (1 - e_i),\quad 0 \le e_i \le 1
           $$</div>
-          <ul class="mt-2 list-disc ml-5 space-y-0.5">
-            <li><span class="font-mono">r_0</span>: base (pre‑mitigation) risk estimate</li>
-            <li><span class="font-mono">e_i</span>: effectiveness of strategy i (scaled by severity & data quality)</li>
-            <li><span class="font-mono">r_{after}</span>: residual risk after selected strategies</li>
-            <li>High severity ↓ marginal gains; better data ↑ data‑linked methods</li>
+          <ul class="mt-2 list-disc ml-5 space-y-1">
+            <li><code class="font-mono">r_0</code>: base (pre‑mitigation) risk</li>
+            <li><code class="font-mono">e_i</code>: effectiveness of strategy i</li>
+            <li><code class="font-mono">r_{after}</code>: residual post-layering</li>
+            <li>Higher severity ↓ marginal returns</li>
           </ul>
         </div>
       </div>
-
-      <!-- Comparison Cards -->
+      <!-- Comparison Cards (accentified) -->
       <div class="grid md:grid-cols-3 gap-4">
-        <div class="bg-green-50 border border-green-200 p-4 rounded-lg">
-          <h5 class="font-semibold text-green-900">🟢 Prompting & Guardrails</h5>
-          <ul class="text-sm text-green-800 mt-2 space-y-1">
-            <li>• Clear instructions and refusal policies</li>
-            <li>• Output format checks and self-critique</li>
-            <li>• Moderation filters and safety policies</li>
+        <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
+          <h5 class="font-medium text-green-900">🟢 Prompting & Guardrails</h5>
+          <ul class="text-sm text-green-700 mt-1 space-y-1">
+            <li>• Clear refusals & structure</li>
+            <li>• Self-check / critique passes</li>
+            <li>• Safety & moderation filters</li>
           </ul>
         </div>
-        <div class="bg-purple-50 border border-purple-200 p-4 rounded-lg">
-          <h5 class="font-semibold text-purple-900">🟣 Data & Retrieval</h5>
-          <ul class="text-sm text-purple-800 mt-2 space-y-1">
-            <li>• Balanced data and counterfactual augmentation</li>
-            <li>• RAG for up-to-date factual grounding</li>
-            <li>• Reweighting and debiasing during sampling</li>
+        <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
+          <h5 class="font-medium text-purple-900">🟣 Data & Retrieval</h5>
+          <ul class="text-sm text-purple-700 mt-1 space-y-1">
+            <li>• Balanced & counterfactual data</li>
+            <li>• RAG factual grounding</li>
+            <li>• Debias sampling / reweighting</li>
           </ul>
         </div>
-        <div class="bg-orange-50 border border-orange-200 p-4 rounded-lg">
-          <h5 class="font-semibold text-orange-900">🟠 Fine-tuning & RLHF</h5>
-          <ul class="text-sm text-orange-800 mt-2 space-y-1">
-            <li>• SFT with curated examples and policies</li>
-            <li>• DPO/RLHF to optimize preferences</li>
-            <li>• Adversarial training to harden edge cases</li>
+        <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
+          <h5 class="font-medium text-orange-900">🟠 Fine-tuning & RLHF</h5>
+          <ul class="text-sm text-orange-700 mt-1 space-y-1">
+            <li>• SFT curated policy data</li>
+            <li>• DPO / RLHF preference shaping</li>
+            <li>• Adversarial robustness training</li>
           </ul>
         </div>
       </div>
-
-      <!-- Why This Matters -->
-      <div class="bg-yellow-50 p-5 rounded-xl border border-yellow-200">
-        <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why this matters</h4>
+      <!-- Why This Matters (canonical) -->
+      <div class="bg-yellow-50 p-4 rounded-lg">
+        <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why This Matters</h4>
         <ul class="text-sm text-yellow-800 space-y-1">
-          <li>• <b>Fairness</b>: reduce demographic biases and harms</li>
-          <li>• <b>Reliability</b>: more correct, consistent outputs</li>
-          <li>• <b>Compliance</b>: meet safety and regulatory needs</li>
-          <li>• <b>Trust</b>: transparent, auditable mitigation plan</li>
+          <li>• <b>Fairness</b> & harm reduction</li>
+          <li>• <b>Reliability</b> & factual integrity</li>
+          <li>• <b>Compliance</b> & audit readiness</li>
+          <li>• <b>Trust</b> via transparent controls</li>
         </ul>
       </div>
     </div>
   `,
   interactive: {
     title: "🧪 Bias & Error Mitigation Planner",
-    html: `
+  html: `
       <div class=\"space-y-6\">
         <div class=\"bg-gradient-to-r from-rose-50 to-amber-50 p-4 rounded-lg border border-amber-200\">
-          <div class=\"flex flex-wrap items-center gap-2 mb-3 text-[11px]\">
+      <div class=\"flex flex-wrap items-center gap-2 mb-3 text-xs\">
             <span class=\"font-semibold text-gray-700 mr-1\">Presets:</span>
             <button data-q45-preset=\"guardrails\" class=\"px-2 py-0.5 rounded border border-amber-300 bg-white hover:bg-amber-100\" title=\"Prompt + filter only (fast)\">Quick guardrails</button>
             <button data-q45-preset=\"remediation\" class=\"px-2 py-0.5 rounded border border-amber-300 bg-white hover:bg-amber-100\" title=\"Data remediation focus\">Data remediation</button>
@@ -121,19 +119,19 @@ const question = {
               </div>
             </div>
           </div>
-          <p class=\"text-[11px] text-gray-600 mt-2\">Residual risk uses a multiplicative reduction model with diminishing returns at high severity and low data quality.</p>
+          <p class=\"text-xs text-gray-600 mt-2\">Residual risk uses a multiplicative reduction model with diminishing returns at high severity and low data quality.</p>
         </div>
 
         <div class=\"grid md:grid-cols-3 gap-4\">
           <div class=\"bg-white border rounded-lg p-4\">
             <h5 class=\"font-semibold text-gray-800 mb-2\">📉 Risk impact</h5>
             <div id=\"q45-bars\" class=\"text-xs text-gray-700 space-y-1\" aria-live=\"polite\"></div>
-            <div class=\"text-[10px] text-gray-500 mt-1\">Top bar = base risk; second = residual after selected strategies.</div>
+            <div class=\"text-xs text-gray-500 mt-1\">Top bar = base risk; second = residual after selected strategies.</div>
           </div>
           <div class=\"bg-white border rounded-lg p-4\">
             <h5 class=\"font-semibold text-gray-800 mb-2\">📊 Metrics</h5>
             <div id=\"q45-metrics\" class=\"text-xs text-gray-700 space-y-2\" aria-live=\"polite\"></div>
-            <div id=\"q45-guidance\" class=\"mt-1 text-[11px] text-indigo-700 border-t pt-2\" aria-live=\"polite\"></div>
+            <div id=\"q45-guidance\" class=\"mt-1 text-xs text-indigo-700 border-t pt-2\" aria-live=\"polite\"></div>
           </div>
           <div class=\"bg-white border rounded-lg p-4\">
             <h5 class=\"font-semibold text-gray-800 mb-2\">🧠 Recommendation</h5>
@@ -217,13 +215,13 @@ const question = {
       function bar(label, val, color){
         const pct = Math.round(val*100);
         return `<div>
-          <div class=\"flex justify-between text-[11px] mb-0.5\"><span>${label}</span><span>${pct}%</span></div>
+          <div class=\"flex justify-between text-xs mb-0.5\"><span>${label}</span><span>${pct}%</span></div>
           <div class=\"w-full h-3 bg-${color}-200 rounded\"><div class=\"h-3 bg-${color}-600 rounded\" style=\"width:${pct}%\"></div></div>
         </div>`;
       }
 
       function badge(text, color){
-        return `<span class=\"inline-block px-2 py-0.5 rounded text-white text-[11px] bg-${color}-600\">${text}</span>`;
+        return `<span class=\"inline-block px-2 py-0.5 rounded text-white text-xs bg-${color}-600\">${text}</span>`;
       }
 
       function riskBadge(r){
@@ -279,7 +277,7 @@ const question = {
           <div class=\"space-y-2\">
             <div><b>Layered controls.</b> Prompt guardrails + filters = immediate surface reduction; RAG & data remediation improve factual / representational base; SFT/RLHF consolidate durable policy.</div>
             <div>Model: <span class=\"font-mono\">r_after = r0 · ∏ (1 - e_i)</span>; each <span class=\"font-mono\">e_i</span> shrinks under high severity or weak data.</div>
-            <div class=\"text-[11px] text-gray-600\">Heuristic only — validate with audits, bias metrics, & red-teaming.</div>
+            <div class=\"text-xs text-gray-600\">Heuristic only — validate with audits, bias metrics, & red-teaming.</div>
           </div>
         `;
         if (guidanceEl) guidanceEl.textContent = recommend(type, rAfter, costs, chosen);

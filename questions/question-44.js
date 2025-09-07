@@ -5,70 +5,68 @@
 const question = {
   title: "44. What is few-shot learning, and what are its benefits?",
   answer: `
-    <div class="space-y-6">
-      <!-- Recommended Reading (Top) -->
-      <div class="bg-white border border-indigo-200 rounded p-3 text-xs">
-        <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading</h4>
-        <ul class="list-disc ml-5 space-y-0.5">
-          <li><a class="text-indigo-700 hover:underline" href="#question-41">Q41: Zero-shot learning & baseline capability</a></li>
-          <li><a class="text-indigo-700 hover:underline" href="#question-13">Q13: Prompt engineering techniques</a></li>
-          <li><a class="text-indigo-700 hover:underline" href="#question-15">Q15: Model distillation (contrast with inference-time adaptation)</a></li>
-          <li><a class="text-indigo-700 hover:underline" href="#question-05">Q05: Tokenization (shot token budgeting)</a></li>
+    <div class="space-y-4">
+      <!-- Recommended Reading (canonical) -->
+      <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+        <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related)</h4>
+        <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+          <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-41">Question 41: Zero-shot learning & baseline capability</a></li>
+          <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-13">Question 13: Prompt engineering techniques</a></li>
+          <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-15">Question 15: Model distillation (contrast with inference-time adaptation)</a></li>
+          <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-05">Question 5: Tokenization (shot token budgeting)</a></li>
         </ul>
-        <p class="mt-2 text-[11px] text-indigo-800">Links reinforce how baseline capability, prompt design, and token efficiency shape few-shot gains.</p>
+        <p class="mt-2 text-xs text-indigo-700">How baseline skill, prompt design, and token budgeting shape few-shot lift.</p>
       </div>
-      <!-- Main Concept -->
-      <div class="bg-blue-50 p-5 rounded-xl border border-blue-200">
-        <h4 class="font-semibold text-blue-900 mb-2">🧠 Core idea</h4>
-        <p class="text-sm text-blue-800">Few-shot learning lets an LLM <b>adapt at inference</b> by including a handful of <b>labeled examples</b> in the prompt. The model infers the pattern and applies it to the new query—no parameter updates required.</p>
-        <div class="text-xs mt-3 text-blue-800">
-          A simple saturating benefit model (intuition):
+      <!-- Key Idea (accent) -->
+      <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
+        <h4 class="font-semibold text-blue-900 mb-2">🧠 Core Idea</h4>
+        <p class="text-sm text-blue-800">Few-shot prompting lets an LLM <b>adapt at inference time</b> by embedding a handful of <b>labeled examples</b> in context—pattern learned on the fly, no parameter updates.</p>
+        <div class="text-xs mt-2 text-blue-800">
+          Saturating benefit intuition:
           <div class="math-display mt-1">$$
           p(K) = 1 - (1 - p_0) e^{-\\lambda s c K}
           $$</div>
-          <ul class="mt-2 list-disc ml-5 space-y-0.5">
-            <li><span class="font-mono">p_0</span>: zero-shot accuracy baseline</li>
-            <li><span class="font-mono">K</span>: number of in-context examples (shots)</li>
-            <li><span class="font-mono">s</span>: semantic similarity (0–1) between shots and query</li>
-            <li><span class="font-mono">c</span>: chain-of-thought multiplier (≥1 if enabled)</li>
-            <li><span class="font-mono">\\lambda</span>: diminishing returns constant</li>
+          <ul class="mt-2 list-disc ml-5 space-y-1">
+            <li><code class="font-mono">p_0</code>: zero-shot baseline</li>
+            <li><code class="font-mono">K</code>: example count (shots)</li>
+            <li><code class="font-mono">s</code>: similarity (0–1)</li>
+            <li><code class="font-mono">c</code>: CoT multiplier (≥1 with reasoning)</li>
+            <li><code class="font-mono">\\lambda</code>: diminishing rate</li>
           </ul>
         </div>
       </div>
-
-      <!-- Comparison Cards -->
+      <!-- Comparison Cards (accentified) -->
       <div class="grid md:grid-cols-3 gap-4">
-        <div class="bg-green-50 border border-green-200 p-4 rounded-lg">
-          <h5 class="font-semibold text-green-900">🟢 Zero-shot</h5>
-          <ul class="text-sm text-green-800 mt-2 space-y-1">
+        <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
+          <h5 class="font-medium text-green-900">🟢 Zero-shot</h5>
+          <ul class="text-sm text-green-700 mt-1 space-y-1">
             <li>• No examples, lowest token cost</li>
-            <li>• Works well for broadly aligned tasks</li>
+            <li>• Good for broadly aligned tasks</li>
           </ul>
         </div>
-        <div class="bg-purple-50 border border-purple-200 p-4 rounded-lg">
-          <h5 class="font-semibold text-purple-900">🟣 Few-shot (in-context)</h5>
-          <ul class="text-sm text-purple-800 mt-2 space-y-1">
-            <li>• Add task-specific examples at inference</li>
-            <li>• Rapid adaptation, no training needed</li>
+        <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
+          <h5 class="font-medium text-purple-900">🟣 Few-shot (in-context)</h5>
+          <ul class="text-sm text-purple-700 mt-1 space-y-1">
+            <li>• Add task examples at inference</li>
+            <li>• Rapid adaptation, no retraining</li>
           </ul>
         </div>
-        <div class="bg-orange-50 border border-orange-200 p-4 rounded-lg">
-          <h5 class="font-semibold text-orange-900">🟠 Fine-tuning</h5>
-          <ul class="text-sm text-orange-800 mt-2 space-y-1">
-            <li>• Highest upfront work, lowest per-call cost</li>
-            <li>• Best for persistent, high-volume tasks</li>
+        <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
+          <h5 class="font-medium text-orange-900">🟠 Fine-tuning</h5>
+          <ul class="text-sm text-orange-700 mt-1 space-y-1">
+            <li>• Upfront training effort</li>
+            <li>• Lowest per-call cost for scale</li>
           </ul>
         </div>
       </div>
-
-      <!-- Why This Matters -->
-      <div class="bg-yellow-50 p-5 rounded-xl border border-yellow-200">
-        <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why this matters</h4>
+      <!-- Why This Matters (canonical) -->
+      <div class="bg-yellow-50 p-4 rounded-lg">
+        <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why This Matters</h4>
         <ul class="text-sm text-yellow-800 space-y-1">
-          <li>• <b>Rapid iteration</b>: improve behavior without retraining</li>
-          <li>• <b>Data efficiency</b>: only a handful of examples needed</li>
-          <li>• <b>Cost control</b>: trade token cost for quality per call</li>
-          <li>• <b>Edge cases</b>: adapt to niche domains/tasks quickly</li>
+          <li>• <b>Rapid iteration</b> without retraining</li>
+          <li>• <b>Data efficiency</b> (handful of shots)</li>
+          <li>• <b>Cost control</b> via prompt token tradeoff</li>
+          <li>• <b>Edge cases</b> & niche domain adaptation</li>
         </ul>
       </div>
     </div>
@@ -78,7 +76,7 @@ const question = {
     html: `
       <div class=\"space-y-6\">
         <div class=\"bg-gradient-to-r from-emerald-50 to-teal-50 p-4 rounded-lg border border-emerald-200\">
-          <div class=\"flex flex-wrap items-center gap-2 mb-3 text-[11px]\">
+          <div class=\"flex flex-wrap items-center gap-2 mb-3 text-xs\">
             <span class=\"font-semibold text-gray-700 mr-1\">Presets:</span>
             <button data-q44-preset=\"starter\" class=\"px-2 py-0.5 rounded border border-emerald-300 bg-white hover:bg-emerald-100\">Starter (K=4,s=0.7,p0=0.45,CoT off)</button>
             <button data-q44-preset=\"high-sim\" class=\"px-2 py-0.5 rounded border border-emerald-300 bg-white hover:bg-emerald-100\">High similarity (K=6,s=0.9)</button>
@@ -126,19 +124,19 @@ const question = {
               </div>
             </div>
           </div>
-          <p class=\"text-[11px] text-gray-600 mt-2\">We model accuracy with diminishing returns and account for token budget. CoT increases both quality gain and token cost per shot.</p>
+          <p class=\"text-xs text-gray-600 mt-2\">We model accuracy with diminishing returns and account for token budget. CoT increases both quality gain and token cost per shot.</p>
         </div>
 
         <div class=\"grid md:grid-cols-3 gap-4\">
           <div class=\"bg-white border rounded-lg p-4\">
             <h5 class=\"font-semibold text-gray-800 mb-2\">📈 Accuracy vs baseline</h5>
             <div id=\"q44-bars\" class=\"text-xs text-gray-700 space-y-1\" aria-live=\"polite\"></div>
-            <div class=\"text-[10px] text-gray-500 mt-1\">Top bar = baseline; second = effective few-shot accuracy.</div>
+            <div class=\"text-xs text-gray-500 mt-1\">Top bar = baseline; second = effective few-shot accuracy.</div>
           </div>
           <div class=\"bg-white border rounded-lg p-4\">
             <h5 class=\"font-semibold text-gray-800 mb-2\">📊 Metrics</h5>
             <div id=\"q44-metrics\" class=\"text-xs text-gray-700 space-y-2\" aria-live=\"polite\"></div>
-            <div id=\"q44-guide\" class=\"mt-2 text-[11px] text-indigo-700 border-t pt-2\" aria-live=\"polite\"></div>
+            <div id=\"q44-guide\" class=\"mt-2 text-xs text-indigo-700 border-t pt-2\" aria-live=\"polite\"></div>
           </div>
           <div class=\"bg-white border rounded-lg p-4\">
             <h5 class=\"font-semibold text-gray-800 mb-2\">🧠 Explanation</h5>
@@ -185,7 +183,7 @@ const question = {
       function bar(label, val, color){
         const pct = Math.round(val * 100);
         return `<div>
-          <div class=\"flex justify-between text-[11px] mb-0.5\"><span>${label}</span><span>${(val*100).toFixed(1)}%</span></div>
+          <div class=\"flex justify-between text-xs mb-0.5\"><span>${label}</span><span>${(val*100).toFixed(1)}%</span></div>
           <div class=\"w-full h-3 bg-${color}-200 rounded\"><div class=\"h-3 bg-${color}-600 rounded\" style=\"width:${pct}%\"></div></div>
         </div>`;
       }
@@ -231,7 +229,7 @@ const question = {
   const delta = (pEff - pBase) * 100;
         const shotsCost = effectiveK * bud.per;
         const costPerPct = delta > 0 ? (shotsCost / delta).toFixed(1) : '—';
-        const warn = K > bud.maxK ? `<div class=\"text-[11px] text-amber-700\">Requested K exceeds budget; truncated to ${bud.maxK}.</div>` : '';
+  const warn = K > bud.maxK ? `<div class=\"text-xs text-amber-700\">Requested K exceeds budget; truncated to ${bud.maxK}.</div>` : '';
         metricsEl.innerHTML = `
           <div>Tokens used: <span class=\"font-mono\">${bud.used}</span> / <span class=\"font-mono\">${budgetTok}</span> (${cotOn?'CoT on':'CoT off'}, per-shot <span class=\"font-mono\">${bud.per}</span>)</div>
           <div>Improvement: <span class=\"font-mono\">${delta.toFixed(1)}%</span> over zero-shot</div>
@@ -244,7 +242,7 @@ const question = {
             <div><b>Diminishing returns.</b> Each extra shot helps less. Model: <span class=\"font-mono\">p(K) = 1 - (1-p0) · e^{-λ·s·c·K}</span>.</div>
             <div><b>Similarity matters.</b> Higher <span class=\"font-mono\">s</span> → bigger jumps for the same K.</div>
             <div><b>Chain-of-thought.</b> CoT can boost quality (c>1) but doubles per-shot tokens.</div>
-            <div class=\"text-[11px] text-gray-600\">Heuristic simulator for intuition; real performance depends on model, prompt style, and retrieval quality.</div>
+            <div class=\"text-xs text-gray-600\">Heuristic simulator for intuition; real performance depends on model, prompt style, and retrieval quality.</div>
           </div>
         `;
 

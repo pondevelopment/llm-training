@@ -17,7 +17,7 @@ const question = {
         </div>
         <!-- Main Concept Box -->
         <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
-            <h4 class="font-semibold text-blue-900 mb-2">🧭 Core challenges</h4>
+            <h4 class="font-semibold text-blue-900 mb-2">🧭 Core Challenges</h4>
             <p class="text-blue-800 mb-2">Deploying LLMs in production is not just about model quality. Teams must balance <b>cost</b>, <b>latency</b>, <b>fairness & safety</b>, <b>interpretability</b>, and <b>privacy</b> while meeting product goals.</p>
             <ul class="list-disc pl-5 text-blue-900 text-sm space-y-1">
                 <li><b>Resource intensity:</b> High computational demands (serving GPUs, memory, scaling).</li>
@@ -54,7 +54,7 @@ const question = {
 
         <!-- Why It Matters -->
         <div class="bg-yellow-50 p-4 rounded-lg">
-            <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why this matters</h4>
+            <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why This Matters</h4>
             <ul class="text-sm text-yellow-800 space-y-1">
                 <li>• <strong>Production readiness:</strong> Meeting SLAs without exploding costs.</li>
                 <li>• <strong>Trust & safety:</strong> Reducing bias and harmful outputs.</li>
@@ -64,7 +64,7 @@ const question = {
     </div>`,
     interactive: {
         title: "🚀 Deployment challenges explorer",
-        html: `<div class="space-y-6">
+    html: `<div class="space-y-4">
             <!-- Controls -->
             <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200">
                 <div class="grid md:grid-cols-4 gap-3">
@@ -122,9 +122,9 @@ const question = {
                             <div class="h-2 mt-1 rounded bg-gray-200 overflow-hidden">
                                 <div id="q50-meter" class="h-full rounded" style="width:0%"></div>
                             </div>
-                            <div id="q50-breakdown" class="mt-2 text-[11px] text-gray-600" aria-live="polite"></div>
+                            <div id="q50-breakdown" class="mt-2 text-xs text-gray-600" aria-live="polite"></div>
                         </div>
-                        <div class="text-[11px] text-gray-500 mt-1">Heuristic: balances latency, cost, safety, interpretability, and privacy.</div>
+                        <div class="text-xs text-gray-500 mt-1">Heuristic: balances latency, cost, safety, interpretability, and privacy.</div>
                     </div>
                     <div>
                         <div class="text-sm font-medium text-green-700 mb-1">Strengths</div>
@@ -138,35 +138,35 @@ const question = {
                 <!-- Phase 2 additions: dimension bars, next-step guidance, micro diff -->
                 <div class="mt-4 space-y-3">
                     <div class="grid md:grid-cols-5 gap-2" id="q50-bars" aria-label="Dimension performance bars"></div>
-                    <div id="q50-next" class="text-[11px] text-indigo-700 min-h-[16px]" aria-live="polite"></div>
-                    <div id="q50-diff" class="text-[11px] text-gray-600 h-4" aria-live="polite"></div>
+                    <div id="q50-next" class="text-xs text-indigo-700 min-h-[16px]" aria-live="polite"></div>
+                    <div id="q50-diff" class="text-xs text-gray-600 h-4" aria-live="polite"></div>
                 </div>
             </div>
 
             <!-- Phase 3: Scenarios & Comparison -->
             <div class="bg-white p-3 rounded-lg border space-y-4">
-                <div class="flex flex-wrap gap-2 text-[11px] items-center">
+                <div class="flex flex-wrap gap-2 text-xs items-center">
                     <span class="text-gray-600">Presets:</span>
                     <button class="q50-preset px-2 py-0.5 rounded border bg-gray-50 hover:bg-gray-100" data-preset="lowcost">Low-cost</button>
                     <button class="q50-preset px-2 py-0.5 rounded border bg-gray-50 hover:bg-gray-100" data-preset="balanced">Balanced</button>
                     <button class="q50-preset px-2 py-0.5 rounded border bg-gray-50 hover:bg-gray-100" data-preset="privacy">Privacy-first</button>
                     <button class="q50-preset px-2 py-0.5 rounded border bg-gray-50 hover:bg-gray-100" data-preset="safety">High-safety</button>
                 </div>
-                <div class="grid md:grid-cols-3 gap-4 text-[11px]">
+                <div class="grid md:grid-cols-3 gap-4 text-xs">
                     <div class="space-y-2">
-                        <h4 class="font-medium text-gray-700 flex items-center gap-2">A/B Compare <span class="text-[10px] text-gray-400">capture</span></h4>
+                        <h4 class="font-medium text-gray-700 flex items-center gap-2">A/B Compare <span class="text-xs text-gray-400">capture</span></h4>
                         <div class="flex flex-wrap gap-2">
                             <button id="q50-capA" class="px-2 py-0.5 rounded bg-indigo-100 text-indigo-800 border border-indigo-300">Capture A</button>
                             <button id="q50-capB" class="px-2 py-0.5 rounded bg-indigo-100 text-indigo-800 border border-indigo-300" disabled>Capture B</button>
                             <button id="q50-capClear" class="px-2 py-0.5 rounded border" disabled>Clear</button>
                         </div>
                         <div id="q50-ab-status" class="h-4 text-indigo-600"></div>
-                        <div id="q50-ab-diff" class="text-gray-700 text-[10px] leading-snug"></div>
+                        <div id="q50-ab-diff" class="text-gray-700 text-xs leading-snug"></div>
                     </div>
                     <div class="space-y-2">
                         <h4 class="font-medium text-gray-700">Config Export</h4>
                         <button id="q50-export" class="px-2 py-0.5 rounded border bg-green-50 hover:bg-green-100 text-green-700">Copy JSON</button>
-                        <div id="q50-export-status" class="h-4 text-green-600 text-[10px]"></div>
+                        <div id="q50-export-status" class="h-4 text-green-600 text-xs"></div>
                     </div>
                     <div class="space-y-2">
                         <h4 class="font-medium text-gray-700">Notes</h4>
@@ -178,7 +178,7 @@ const question = {
             <!-- Phase 4: Advanced Readiness Insights -->
             <div class="bg-white p-3 rounded-lg border space-y-4">
                 <h4 class="font-medium text-gray-800 text-sm">Advanced Readiness Insights</h4>
-                <div class="grid md:grid-cols-3 gap-4 text-[11px]">
+                <div class="grid md:grid-cols-3 gap-4 text-xs">
                     <div class="space-y-2">
                         <div class="font-medium text-gray-700">Readiness Ladder</div>
                         <div id="q50-tier" class="text-gray-800"></div>
@@ -341,7 +341,7 @@ const question = {
                         if (d.val >= 0.7) color = 'bg-green-500';
                         else if (d.val >= 0.5) color = 'bg-yellow-400';
                         else color = 'bg-red-500';
-                        return `<div class=\"space-y-1\"><div class=\"text-[10px] text-gray-600 text-center\">${d.label}</div><div class=\"h-2 w-full bg-gray-200 rounded overflow-hidden relative\" aria-label='${d.label} ${pct}%'><div class=\"h-full ${color}\" style=\"width:${pct}%\"></div></div><div class=\"text-[10px] text-center text-gray-700\">${pct}%</div></div>`;
+                        return `<div class=\"space-y-1\"><div class=\"text-xs text-gray-600 text-center\">${d.label}</div><div class=\"h-2 w-full bg-gray-200 rounded overflow-hidden relative\" aria-label='${d.label} ${pct}%'><div class=\"h-full ${color}\" style=\"width:${pct}%\"></div></div><div class=\"text-xs text-center text-gray-700\">${pct}%</div></div>`;
                     }).join('');
                 }
 
@@ -529,7 +529,7 @@ const question = {
                         if(risk >= 0.6) level = 'High'; else if (risk >= 0.4) level = 'Med';
                         const span = document.createElement('span');
                         const color = level==='High' ? 'bg-red-100 text-red-700 border-red-300' : level==='Med' ? 'bg-amber-100 text-amber-700 border-amber-300' : 'bg-emerald-100 text-emerald-700 border-emerald-300';
-                        span.className = `px-1.5 py-0.5 rounded border text-[10px] ${color}`;
+                        span.className = `px-1.5 py-0.5 rounded border text-xs ${color}`;
                         span.textContent = `${d.label}:${level}`;
                         risksEl.appendChild(span);
                     });

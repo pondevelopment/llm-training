@@ -5,22 +5,22 @@
 const question = {
   title: "43. How do transformers address the vanishing gradient problem?",
   answer: `
-    <div class="space-y-6">
-      <!-- Recommended Reading (Top) -->
-      <div class="bg-white border border-indigo-200 rounded p-3 text-xs">
-        <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading</h4>
-        <ul class="list-disc ml-5 space-y-0.5">
-          <li><a class="text-indigo-700 hover:underline" href="#question-38">Q38: Layer Normalization & why pre-norm stabilizes depth</a></li>
-          <li><a class="text-indigo-700 hover:underline" href="#question-40">Q40: Multi-hop reasoning & path length intuition</a></li>
-          <li><a class="text-indigo-700 hover:underline" href="#question-41">Q41: Adaptive softmax depth vs efficiency trade-offs</a></li>
-          <li><a class="text-indigo-700 hover:underline" href="#question-36">Q36: Retrieval architectures (residual signal routing analogy)</a></li>
+    <div class="space-y-4">
+      <!-- Recommended Reading (canonical) -->
+      <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+        <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related)</h4>
+        <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+          <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-38">Question 38: Layer Normalization & why pre-norm stabilizes depth</a></li>
+          <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-40">Question 40: Multi-hop reasoning & path length intuition</a></li>
+          <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-41">Question 41: Adaptive softmax depth vs efficiency trade-offs</a></li>
+          <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-36">Question 36: Retrieval architectures (residual signal routing analogy)</a></li>
         </ul>
-        <p class="mt-2 text-[11px] text-indigo-800">These reinforce how normalization, residual routing, and path shortening interplay to maintain stable gradient flow.</p>
+        <p class="mt-2 text-xs text-indigo-700">These reinforce how normalization, residual routing, and path shortening preserve gradient flow.</p>
       </div>
-      <div class="bg-blue-50 p-5 rounded-xl border border-blue-200">
-        <h4 class="font-semibold text-blue-900 mb-2">🧠 Core idea</h4>
+      <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
+        <h4 class="font-semibold text-blue-900 mb-2">🧠 Core Idea</h4>
         <p class="text-sm text-blue-800">Transformers keep gradients healthy with <b>residual connections</b>, <b>LayerNorm</b> (typically <i>pre-norm</i>), and <b>parallel attention paths</b> that shorten effective depth.</p>
-        <div class="text-xs mt-3 text-blue-800">
+  <div class="text-xs mt-2 text-blue-800">
           Gradient through a residual block with pre-norm (input \\(\mathbf{x}_\ell\\)):
           <div class="math-display mt-1">$$
           \\begin{align*}
@@ -33,23 +33,23 @@ const question = {
         </div>
       </div>
       <div class="grid md:grid-cols-3 gap-4">
-        <div class="bg-green-50 border border-green-200 p-4 rounded-lg">
-          <h5 class="font-semibold text-green-900">🟢 Plain Deep Stack</h5>
-          <ul class="text-sm text-green-800 mt-2 space-y-1">
+        <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
+          <h5 class="font-medium text-green-900">🟢 Plain Deep Stack</h5>
+          <ul class="text-sm text-green-700 mt-1 space-y-1">
             <li>• Multiplicative chain of gains</li>
             <li>• Per-layer gain \(g \\lt 1\) ⇒ decay \(g^L\)</li>
           </ul>
         </div>
-        <div class="bg-purple-50 border border-purple-200 p-4 rounded-lg">
-          <h5 class="font-semibold text-purple-900">🟣 Residual + Pre-LN</h5>
-          <ul class="text-sm text-purple-800 mt-2 space-y-1">
+        <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
+          <h5 class="font-medium text-purple-900">🟣 Residual + Pre-LN</h5>
+          <ul class="text-sm text-purple-700 mt-1 space-y-1">
             <li>• Always includes identity gradient \(\\mathbf{I}\\)</li>
             <li>• LN centers/scales → stable Jacobians</li>
           </ul>
         </div>
-        <div class="bg-orange-50 border border-orange-200 p-4 rounded-lg">
-          <h5 class="font-semibold text-orange-900">🟠 Multi-head Attention</h5>
-          <ul class="text-sm text-orange-800 mt-2 space-y-1">
+        <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
+          <h5 class="font-medium text-orange-900">🟠 Multi-head Attention</h5>
+          <ul class="text-sm text-orange-700 mt-1 space-y-1">
             <li>• Parallel, short-range paths</li>
             <li>• Less depth per dependency</li>
           </ul>
@@ -57,9 +57,9 @@ const question = {
       </div>
       </div>
 
-      <!-- Why This Matters -->
-      <div class="bg-yellow-50 p-5 rounded-xl border border-yellow-200">
-        <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why this matters</h4>
+      <!-- Why This Matters (canonical) -->
+      <div class="bg-yellow-50 p-4 rounded-lg">
+        <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why This Matters</h4>
         <ul class="text-sm text-yellow-800 space-y-1">
           <li>• Enables <b>deep stacks</b> to train efficiently</li>
           <li>• Stabilizes gradients for <b>long contexts</b></li>
@@ -68,8 +68,8 @@ const question = {
       </div>
 
       <!-- Deep dive -->
-      <div class="bg-white p-5 rounded-xl border">
-        <h4 class="font-semibold text-gray-900 mb-2">🔎 Deep dive: why gradients don’t vanish</h4>
+      <div class="bg-white p-4 rounded-lg border border-gray-200">
+        <h4 class="font-semibold text-gray-900 mb-2">🔎 Deep Dive: Why gradients don’t vanish</h4>
         <div class="text-sm text-gray-800 space-y-3">
           <div>
             <b>1) Residuals add an identity Jacobian.</b>
@@ -104,7 +104,7 @@ const question = {
     html: `
       <div class="space-y-6">
         <div class="bg-gradient-to-r from-sky-50 to-indigo-50 p-4 rounded-lg border border-sky-200">
-          <div class="flex flex-wrap items-center gap-2 mb-3 text-[11px]">
+          <div class="flex flex-wrap items-center gap-2 mb-3 text-xs">
             <span class="font-semibold text-gray-700 mr-1">Presets:</span>
             <button data-q43-preset="stable-mid" class="px-2 py-0.5 rounded border border-sky-300 bg-white hover:bg-sky-100">Stable mid (L=12,g=0.92,α=0.5,Pre,off)</button>
             <button data-q43-preset="deep" class="px-2 py-0.5 rounded border border-sky-300 bg-white hover:bg-sky-100">Deep stack (L=36,g=0.95,α=0.6,Pre,hop=4)</button>
@@ -145,8 +145,8 @@ const question = {
               </select>
             </div>
           </div>
-          <p class="text-[11px] text-gray-600 mt-2">We simulate gradient magnitude from top (layer L) to bottom (layer 1). Residual adds an identity path; Pre-LN pulls gains toward 1. Attention shortcut reduces effective hops for part of the gradient.</p>
-          <p class="text-[10px] text-gray-500">Legend: <span class="text-rose-600">rose</span> = baseline (no residual/LN/shortcut), <span class="text-emerald-600">emerald</span> = transformer-style stabilized path.</p>
+          <p class="text-xs text-gray-600 mt-2">We simulate gradient magnitude from top (layer L) to bottom (layer 1). Residual adds an identity path; Pre-LN pulls gains toward 1. Attention shortcut reduces effective hops for part of the gradient.</p>
+          <p class="text-xs text-gray-500">Legend: <span class="text-rose-600">rose</span> = baseline (no residual/LN/shortcut), <span class="text-emerald-600">emerald</span> = transformer-style stabilized path.</p>
         </div>
 
         <div class="grid md:grid-cols-3 gap-4">
@@ -157,7 +157,7 @@ const question = {
           <div class="bg-white border rounded-lg p-4">
             <h5 class="font-semibold text-gray-800 mb-2">📊 Metrics</h5>
             <div id="q43-metrics" class="text-xs text-gray-700 space-y-2" aria-live="polite"></div>
-            <div id="q43-guidance" class="mt-1 text-[11px] text-gray-700" aria-live="polite"></div>
+            <div id="q43-guidance" class="mt-1 text-xs text-gray-700" aria-live="polite"></div>
           </div>
           <div class="bg-white border rounded-lg p-4">
             <h5 class="font-semibold text-gray-800 mb-2">🧠 Explanation</h5>
@@ -226,7 +226,7 @@ const question = {
             <div class="h-2 bg-rose-200 rounded"><div class="h-2 bg-rose-600 rounded" style="width:${basePct}%"></div></div>
             <div class="h-2 bg-emerald-200 rounded mt-0.5"><div class="h-2 bg-emerald-600 rounded" style="width:${impPct}%"></div></div>
           </div>
-          <div class="w-28 text-right text-[11px] text-gray-600"><span class="text-rose-700 font-mono">${fmtShort(baseVal)}</span> <span class="mx-1">→</span> <span class="text-emerald-700 font-mono">${fmtShort(impVal)}</span></div>
+          <div class="w-28 text-right text-xs text-gray-600"><span class="text-rose-700 font-mono">${fmtShort(baseVal)}</span> <span class="mx-1">→</span> <span class="text-emerald-700 font-mono">${fmtShort(impVal)}</span></div>
         </div>`;
       }
 
@@ -235,7 +235,7 @@ const question = {
         const r = Math.max(0, Math.min(cap, ratio));
         const pct = Math.round((r/cap)*100);
         return `<div>
-          <div class="flex justify-between text-[11px] mb-0.5"><span>${label}</span><span>×${ratio.toFixed(2)}</span></div>
+          <div class="flex justify-between text-xs mb-0.5"><span>${label}</span><span>×${ratio.toFixed(2)}</span></div>
           <div class="w-full h-3 bg-${color}-200 rounded"><div class="h-3 bg-${color}-600" style="width:${pct}%"></div></div>
         </div>`;
       }
@@ -269,7 +269,7 @@ const question = {
           exploding: 'bg-rose-100 text-rose-800',
         };
         const label = status.charAt(0).toUpperCase() + status.slice(1);
-        return `<span class="text-[11px] px-2 py-0.5 rounded-full border ${map[status]}">${label}</span>`;
+  return `<span class="text-xs px-2 py-0.5 rounded-full border ${map[status]}">${label}</span>`;
       }
 
       function render(){
@@ -295,8 +295,8 @@ const question = {
         }
         const alert = (assess.status === 'healthy')
           ? ''
-          : `<div class="text-[11px] mb-1 text-${assess.color}-700">⚠ ${assess.status==='vanishing' ? 'Vanishing gradient detected' : (assess.status==='exploding' ? 'Exploding gradient risk' : 'Caution: unstable steps')}</div>`;
-        barsEl.innerHTML = alert + `<div class="text-[11px] text-gray-500 mb-1"><span class="text-rose-600">Rose</span> = baseline (no residual/LN/shortcut). <span class="text-emerald-600">Emerald</span> = transformer-style.</div>` + rows.join('');
+          : `<div class="text-xs mb-1 text-${assess.color}-700">⚠ ${assess.status==='vanishing' ? 'Vanishing gradient detected' : (assess.status==='exploding' ? 'Exploding gradient risk' : 'Caution: unstable steps')}</div>`;
+        barsEl.innerHTML = alert + `<div class="text-xs text-gray-500 mb-1"><span class="text-rose-600">Rose</span> = baseline (no residual/LN/shortcut). <span class="text-emerald-600">Emerald</span> = transformer-style.</div>` + rows.join('');
 
         function stats(arr){
           const min = Math.min(...arr); const max = Math.max(...arr); const last = arr[0];
@@ -312,7 +312,7 @@ const question = {
           <div>Transformer end-to-start factor: <span class="font-mono">${fmtShort(si.last)}</span></div>
           <div>Per-layer step ≈ <span class="font-mono">${assess.Jstep.toFixed(3)}</span> (with <span class="font-mono">g_eff ≈ ${assess.gEff.toFixed(3)}</span>)</div>
           <div class="mt-1">${ratioBar('Improvement vs baseline (end→start)', improvement, ratioColor)}</div>
-          ${assess.reasons.length ? `<ul class="list-disc ml-5 text-[11px] text-gray-700">${assess.reasons.map(r=>`<li>${r}</li>`).join('')}</ul>` : ''}
+          ${assess.reasons.length ? `<ul class="list-disc ml-5 text-xs text-gray-700">${assess.reasons.map(r=>`<li>${r}</li>`).join('')}</ul>` : ''}
           <div class="mt-1">Baseline min/max: <span class="font-mono">${fmtShort(sb.min)}</span>/<span class="font-mono">${fmtShort(sb.max)}</span></div>
           <div>Transformer min/max: <span class="font-mono">${fmtShort(si.min)}</span>/<span class="font-mono">${fmtShort(si.max)}</span></div>
         `;
@@ -350,8 +350,8 @@ const question = {
             <div>
               <b>Short paths.</b> ${hop>0?`About 30% of gradient takes a ${hop}-hop route`:'No shortcut route used'}; per-layer mixed step ≈ <span class="font-mono">${perLayerMix.toFixed(3)}</span>, boosting end→start signal compared to <span class="font-mono">g^L</span>.
             </div>
-            <div class="text-[11px]">${caution}</div>
-            <div class="text-[11px] text-gray-600">Heuristic model for intuition only; real networks have anisotropic Jacobians, cross-layer correlations, and optimizer dynamics.</div>
+            <div class="text-xs">${caution}</div>
+            <div class="text-xs text-gray-600">Heuristic model for intuition only; real networks have anisotropic Jacobians, cross-layer correlations, and optimizer dynamics.</div>
           </div>
         `;
 

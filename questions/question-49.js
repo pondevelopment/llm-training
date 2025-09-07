@@ -7,7 +7,7 @@ const question = {
     answer: `<div class="space-y-4">
         <!-- Recommended Reading -->
         <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
-            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related topics)</h4>
+            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related)</h4>
             <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
                 <li><a href="#question-01" class="text-indigo-700 underline hover:text-indigo-900">Question 1: Tokenization & why it matters</a></li>
                 <li><a href="#question-02" class="text-indigo-700 underline hover:text-indigo-900">Question 2: Attention mechanisms</a></li>
@@ -18,7 +18,7 @@ const question = {
         </div>
         <!-- Main Concept Box -->
         <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
-            <h4 class="font-semibold text-blue-900 mb-2">🧭 Core idea</h4>
+            <h4 class="font-semibold text-blue-900 mb-2">🧭 Core Idea</h4>
             <p class="text-blue-800">LLMs are transformer-based generative models trained on vast corpora to predict tokens. Scale (parameters, data), compute, and training objectives enable emergent capabilities like in-context learning and broad task generalization.</p>
             <div class="text-center mt-3 bg-white p-3 rounded border">
                 $$\\text{LM objective: } \\max_\\theta \\sum_t \\log p_\\theta(y_t \\mid y_{\\lt t})$$
@@ -55,7 +55,7 @@ const question = {
         
         <!-- Why It Matters -->
         <div class="bg-yellow-50 p-4 rounded-lg">
-            <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why this matters</h4>
+            <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why This Matters</h4>
             <ul class="text-sm text-yellow-800 space-y-1">
                 <li>• <strong>Roadmapping:</strong> Understanding scale/data trade-offs helps plan budgets.</li>
                 <li>• <strong>Performance:</strong> Larger models and longer context often improve quality within limits.</li>
@@ -66,7 +66,7 @@ const question = {
     </div>`,
     interactive: {
         title: "📈 LLM scale vs capability explorer",
-        html: `<div class="space-y-6">
+    html: `<div class="space-y-4">
             <!-- Controls -->
             <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200">
                 <div class="grid md:grid-cols-4 gap-3">
@@ -98,7 +98,7 @@ const question = {
                         </select>
                     </div>
                 </div>
-                <div class="mt-3 flex flex-wrap gap-4 items-center text-[11px]">
+                <div class="mt-3 flex flex-wrap gap-4 items-center text-xs">
                     <div class="flex items-center gap-2">
                         <label class="text-gray-700 font-medium">Lens:</label>
                         <select id="q49-lens" class="px-2 py-1 border rounded bg-white">
@@ -120,11 +120,11 @@ const question = {
                             <div class="h-2 mt-1 rounded bg-gray-200 overflow-hidden">
                                 <div id="q49-meter" class="h-full rounded" style="width:0%"></div>
                             </div>
-                            <div id="q49-breakdown" class="mt-2 text-[11px] text-gray-600" aria-live="polite"></div>
+                            <div id="q49-breakdown" class="mt-2 text-xs text-gray-600" aria-live="polite"></div>
                             <div class="mt-2 flex flex-wrap gap-1" id="q49-regimes" aria-live="polite"></div>
                             <div class="mt-2" id="q49-alignbars" aria-hidden="true"></div>
                         </div>
-                        <div class="text-[11px] text-gray-500 mt-1">Heuristic combining params, data, context, and alignment.</div>
+                        <div class="text-xs text-gray-500 mt-1">Heuristic combining params, data, context, and alignment.</div>
                     </div>
                     <div>
                         <div class="text-sm font-medium text-green-700 mb-1">Strengths</div>
@@ -135,15 +135,15 @@ const question = {
                         <ul id="q49-cons" class="list-disc pl-5 text-xs text-gray-700 space-y-1"></ul>
                     </div>
                 </div>
-                <div id="q49-diff" class="mt-2 text-[11px] text-indigo-700 h-4" aria-live="polite"></div>
+                <div id="q49-diff" class="mt-2 text-xs text-indigo-700 h-4" aria-live="polite"></div>
             </div>
 
             <!-- Phase 2: Scaling & Trade-offs -->
             <div class="bg-white p-3 rounded-lg border space-y-3">
-                <div class="flex flex-wrap items-center gap-3 text-[11px]">
+                <div class="flex flex-wrap items-center gap-3 text-xs">
                     <div id="q49-ratio" class="px-2 py-0.5 rounded border" aria-live="polite">ratio...</div>
                     <div class="flex items-center gap-1">
-                        <button id="q49-scale-toggle" class="px-2 py-0.5 rounded bg-indigo-100 text-indigo-800 border border-indigo-300 text-[11px]">Scaling law</button>
+                        <button id="q49-scale-toggle" class="px-2 py-0.5 rounded bg-indigo-100 text-indigo-800 border border-indigo-300 text-xs">Scaling law</button>
                         <span class="text-gray-500">heuristic</span>
                     </div>
                     <div class="flex items-center gap-2">
@@ -155,38 +155,38 @@ const question = {
                 <div class="flex flex-wrap gap-4 items-center">
                     <div class="flex flex-col gap-1">
                         <canvas id="q49-spark" width="160" height="50" class="border rounded bg-gray-50"></canvas>
-                        <span class="text-[10px] text-gray-500">Loss vs added params (data fixed)</span>
+                        <span class="text-xs text-gray-500">Loss vs added params (data fixed)</span>
                     </div>
-                    <div class="text-[11px] text-gray-700 hidden" id="q49-scale-box">
+                    <div class="text-xs text-gray-700 hidden" id="q49-scale-box">
                         <div class="overflow-x-auto whitespace-nowrap">$$\\text{Loss} \approx L_\\infty + a P^{-\\alpha} + b D^{-\\beta}$$</div>
                         <div id="q49-loss" class="mt-1"></div>
                     </div>
                     <div class="flex flex-col gap-1">
                         <canvas id="q49-pareto" width="130" height="80" class="border rounded bg-gray-50"></canvas>
-                        <span class="text-[10px] text-gray-500">Capability vs latency</span>
+                        <span class="text-xs text-gray-500">Capability vs latency</span>
                     </div>
                 </div>
             </div>
 
             <!-- Phase 3: Scenarios & Comparison -->
             <div class="bg-white p-3 rounded-lg border space-y-4">
-                <div class="flex flex-wrap gap-2 text-[11px] items-center">
+                <div class="flex flex-wrap gap-2 text-xs items-center">
                     <span class="text-gray-600">Presets:</span>
                     <button class="q49-preset px-2 py-0.5 rounded border bg-gray-50 hover:bg-gray-100" data-preset="edge">Edge micro-model</button>
                     <button class="q49-preset px-2 py-0.5 rounded border bg-gray-50 hover:bg-gray-100" data-preset="mid">Mid generalist</button>
                     <button class="q49-preset px-2 py-0.5 rounded border bg-gray-50 hover:bg-gray-100" data-preset="assistant">Large aligned assistant</button>
                     <button class="q49-preset px-2 py-0.5 rounded border bg-gray-50 hover:bg-gray-100" data-preset="frontier">Research-scale frontier</button>
                 </div>
-                <div class="grid md:grid-cols-3 gap-4 text-[11px]">
+                <div class="grid md:grid-cols-3 gap-4 text-xs">
                     <div class="space-y-2">
-                        <h4 class="font-medium text-gray-700 flex items-center gap-2">A/B Compare <span class="text-[10px] text-gray-400">(capture states)</span></h4>
+                        <h4 class="font-medium text-gray-700 flex items-center gap-2">A/B Compare <span class="text-xs text-gray-400">(capture states)</span></h4>
                         <div class="flex flex-wrap gap-2">
                             <button id="q49-capA" class="px-2 py-0.5 rounded bg-indigo-100 text-indigo-800 border border-indigo-300">Capture A</button>
                             <button id="q49-capB" class="px-2 py-0.5 rounded bg-indigo-100 text-indigo-800 border border-indigo-300" disabled>Capture B</button>
                             <button id="q49-capClear" class="px-2 py-0.5 rounded border" disabled>Clear</button>
                         </div>
                         <div id="q49-ab-status" class="h-4 text-indigo-600"></div>
-                        <div id="q49-ab-diff" class="text-gray-700 text-[10px] leading-snug"></div>
+                        <div id="q49-ab-diff" class="text-gray-700 text-xs leading-snug"></div>
                     </div>
                     <div class="space-y-2">
                         <h4 class="font-medium text-gray-700">Cost & Footprint</h4>
@@ -195,8 +195,8 @@ const question = {
                     <div class="space-y-2">
                         <h4 class="font-medium text-gray-700">Guidance</h4>
                         <div id="q49-guide" class="text-gray-700"></div>
-                        <button id="q49-export" class="mt-1 px-2 py-0.5 rounded border bg-green-50 hover:bg-green-100 text-green-700 text-[11px]">Copy config JSON</button>
-                        <div id="q49-export-status" class="h-4 text-green-600 text-[10px]"></div>
+                        <button id="q49-export" class="mt-1 px-2 py-0.5 rounded border bg-green-50 hover:bg-green-100 text-green-700 text-xs">Copy config JSON</button>
+                        <div id="q49-export-status" class="h-4 text-green-600 text-xs"></div>
                     </div>
                 </div>
             </div>
@@ -204,8 +204,8 @@ const question = {
             <!-- Phase 4: Emergent Capability Thresholds -->
             <div class="bg-white p-3 rounded-lg border space-y-3">
                 <h4 class="font-medium text-gray-700 text-sm">Emergent capability ladder</h4>
-                <ol id="q49-ladder" class="space-y-1 text-[11px]" aria-live="polite"></ol>
-                <div id="q49-th-near" class="text-[11px] text-indigo-700 h-4" aria-live="polite"></div>
+                <ol id="q49-ladder" class="space-y-1 text-xs" aria-live="polite"></ol>
+                <div id="q49-th-near" class="text-xs text-indigo-700 h-4" aria-live="polite"></div>
             </div>
 
             <!-- Output -->
@@ -323,7 +323,7 @@ const question = {
                     else if (ratio > 40) chips.push({ t: (cbMode?'* ':'')+'Data-heavy (capacity limited)', cls: 'bg-indigo-100 text-indigo-800 border-indigo-300' });
                     else chips.push({ t: (cbMode?'= ':'')+'Balanced data/params', cls: 'bg-green-100 text-green-800 border-green-300' });
                     if ((cEl.value === '32K' || cEl.value === '128K') && scale < 0.4) chips.push({ t: (cbMode?'+ ':'')+'Context underutilized', cls: 'bg-yellow-100 text-yellow-800 border-yellow-300' });
-                    regimesEl.innerHTML = chips.map(ch => `<span class=\"px-2 py-0.5 rounded border text-[11px] font-medium ${ch.cls} ${cbMode?'border-dashed':''}\">${ch.t}</span>`).join('');
+                    regimesEl.innerHTML = chips.map(ch => `<span class=\"px-2 py-0.5 rounded border text-xs font-medium ${ch.cls} ${cbMode?'border-dashed':''}\">${ch.t}</span>`).join('');
                     if (ratioEl) {
                         let cls = 'border-gray-300 bg-gray-100 text-gray-700';
                         if (ratio < 10) cls = 'border-orange-300 bg-orange-50 text-orange-700';
@@ -367,7 +367,7 @@ const question = {
                     alignBars.innerHTML = `
                         <div class=\"space-y-1 mt-2\">
                             <div class=\"flex items-center gap-2\"><span class=\"text-gray-600\">Base</span><div class=\"flex-1 h-2 bg-gray-200 rounded overflow-hidden\"><div style=\"width:${(baseScore*100).toFixed(0)}%;background:#6366f1\" class=\"h-full\"></div></div></div>
-                            <div class=\"flex items-center gap-2\"><span class=\"text-gray-600\">Aligned</span><div class=\"flex-1 h-2 bg-gray-200 rounded overflow-hidden\"><div style=\"width:${(score*100).toFixed(0)}%;background:#16a34a\" class=\"h-full\"></div></div><span class=\"text-[10px] text-gray-500\">+${(alignDelta*100).toFixed(0)}%</span></div>
+                            <div class=\"flex items-center gap-2\"><span class=\"text-gray-600\">Aligned</span><div class=\"flex-1 h-2 bg-gray-200 rounded overflow-hidden\"><div style=\"width:${(score*100).toFixed(0)}%;background:#16a34a\" class=\"h-full\"></div></div><span class=\"text-xs text-gray-500\">+${(alignDelta*100).toFixed(0)}%</span></div>
                         </div>`;
                 }
                 // Pareto plot (capability vs latency proxy)

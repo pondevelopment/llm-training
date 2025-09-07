@@ -4,32 +4,32 @@
 
 const question = {
     title: "46. How do encoders and decoders differ in transformers?",
-        answer: `<div class="space-y-6">
-                <!-- Recommended Reading -->
-                <div class="bg-white border border-indigo-200 rounded p-3 text-xs">
-                    <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading</h4>
-                    <ul class="list-disc ml-5 space-y-0.5">
-                        <li><a class="text-indigo-700 hover:underline" href="#question-02">Q02: How does attention work?</a></li>
-                        <li><a class="text-indigo-700 hover:underline" href="#question-05">Q05: Tokenization & subwords</a></li>
-                        <li><a class="text-indigo-700 hover:underline" href="#question-07">Q07: Masking & causal generation</a></li>
-                        <li><a class="text-indigo-700 hover:underline" href="#question-21">Q21: Context windows & limits</a></li>
-                        <li><a class="text-indigo-700 hover:underline" href="#question-15">Q15: Distillation & architecture choices</a></li>
+        answer: `<div class="space-y-4">
+                <!-- Recommended Reading (canonical) -->
+                <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+                    <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related)</h4>
+                    <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+                        <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-02">Question 2: How does attention work?</a></li>
+                        <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-05">Question 5: Tokenization & subwords</a></li>
+                        <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-07">Question 7: Masking & causal generation</a></li>
+                        <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-21">Question 21: Context windows & limits</a></li>
+                        <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-15">Question 15: Distillation & architecture choices</a></li>
                     </ul>
-                    <p class="mt-2 text-[11px] text-indigo-800">Links reinforce the mechanics of attention, masking, context scope, and architectural trade-offs.</p>
+                    <p class="mt-2 text-xs text-indigo-700">Attention mechanics, masking, context, and architecture trade-offs.</p>
                 </div>
 
-                <!-- Main Concept Box -->
-                <div class="bg-blue-50 p-5 rounded-xl border border-blue-200">
-                        <h4 class="font-semibold text-blue-900 mb-2">🧭 Core idea</h4>
-                        <p class="text-blue-800 text-sm">Encoders build <b>bidirectional contextual embeddings</b> for an input sequence. Decoders generate <b>left‑to‑right</b> using a causal mask. Encoder–decoder stacks let the decoder use both its prior outputs and <b>cross‑attention</b> over encoder states each step.</p>
-                        <div class="text-center mt-3 bg-white p-3 rounded border overflow-x-auto whitespace-nowrap">
+                <!-- Key Idea (accent) -->
+                <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
+                        <h4 class="font-semibold text-blue-900 mb-2">🧭 Core Idea</h4>
+                        <p class="text-blue-800 text-sm">Encoders form <b>bidirectional contextual embeddings</b>. Decoders generate <b>left‑to‑right</b> under a causal mask. Encoder–decoder stacks add <b>cross‑attention</b> so each target step can consult the full encoded source + its history.</p>
+                        <div class="text-center mt-3 bg-white p-3 rounded border overflow-x-auto whitespace-nowrap text-xs">
                                 $$\\text{Attention}(\\mathbf{Q},\\mathbf{K},\\mathbf{V}) = \\text{softmax}\\!\\left(\\frac{\\mathbf{Q}\\mathbf{K}^T}{\\sqrt{d_k}}\\right)\\mathbf{V}$$
                         </div>
-                        <ul class="mt-3 list-disc ml-5 text-xs text-blue-800 space-y-0.5">
-                            <li><span class="font-mono">L</span>: input (source) length</li>
-                            <li><span class="font-mono">t</span>: target decoding step (1…T) in decoder / encoder–decoder</li>
-                            <li><b>Causal mask</b>: hides future tokens (positions \(> t\)) for decoder self‑attention</li>
-                            <li><b>Cross‑attention</b>: decoder queries keys/values from encoder outputs</li>
+                        <ul class="mt-3 list-disc ml-5 text-xs text-blue-800 space-y-1">
+                            <li><code class="font-mono">L</code>: source length</li>
+                            <li><code class="font-mono">t</code>: decode step (1…T)</li>
+                            <li><b>Causal mask</b>: hides future positions ( > t )</li>
+                            <li><b>Cross‑attention</b>: decoder queries encoder states</li>
                         </ul>
                 </div>
         
@@ -52,14 +52,14 @@ const question = {
             </div>
         </div>
         
-        <!-- Why It Matters Section -->
+        <!-- Why This Matters (canonical) -->
         <div class="bg-yellow-50 p-4 rounded-lg">
-            <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why this matters</h4>
+            <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why This Matters</h4>
             <ul class="text-sm text-yellow-800 space-y-1">
-                <li>• <strong>Task fit:</strong> Classification/embedding → encoder; generation → decoder; seq2seq → encoder–decoder.</li>
-                <li>• <strong>Masking:</strong> Causal masks enforce left‑to‑right generation; encoders are typically bidirectional.</li>
-                <li>• <strong>Information flow:</strong> Cross‑attention lets the decoder condition on the full input at each step.</li>
-                <li>• <strong>Fine‑tuning choices:</strong> Pick architecture+heads that match your downstream objective.</li>
+                <li>• <b>Task fit:</b> classification/embedding → encoder; generation → decoder; seq2seq → encoder–decoder</li>
+                <li>• <b>Masking:</b> causal masks enforce left‑to‑right; encoders see full context</li>
+                <li>• <b>Flow:</b> cross‑attention fuses source memory + partial target</li>
+                <li>• <b>Tuning:</b> choose architecture + heads that match objectives</li>
             </ul>
         </div>
     </div>`,
@@ -68,7 +68,7 @@ const question = {
                 html: `<div class="space-y-6">
                         <!-- Config -->
                         <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200">
-                                <div class="flex flex-wrap items-center gap-2 mb-3 text-[11px]" role="group" aria-label="Architecture presets">
+                                <div class="flex flex-wrap items-center gap-2 mb-3 text-xs" role="group" aria-label="Architecture presets">
                                     <span class="font-semibold text-gray-700 mr-1">Presets:</span>
                                     <button data-q46-preset="enc-cls" class="px-2 py-0.5 rounded border border-blue-300 bg-white hover:bg-blue-100" title="Encoder classification (full context)">Encoder CLS</button>
                                     <button data-q46-preset="dec-early" class="px-2 py-0.5 rounded border border-blue-300 bg-white hover:bg-blue-100" title="Decoder early token (low context)">Dec early</button>
@@ -90,7 +90,7 @@ const question = {
                     <div>
                                                 <label class="block text-xs font-semibold text-gray-700 mb-1">Target step t</label>
                                                 <input id="q46-step" aria-label="Target decoding step t" type="range" min="1" max="8" value="5" class="w-full" title="Decoding position (only meaningful for decoder / decoder half)" />
-                                                <div class="text-[11px] text-gray-600">Autoregressive position</div>
+                                                <div class="text-xs text-gray-600">Autoregressive position</div>
                     </div>
                     <div>
                                                 <label class="block text-xs font-semibold text-gray-700 mb-1">Input length</label>
@@ -101,7 +101,7 @@ const question = {
                             <option>10</option>
                             <option>12</option>
                         </select>
-                                                <div class="text-[11px] text-gray-600">Tokens in source/context</div>
+                                                <div class="text-xs text-gray-600">Tokens in source/context</div>
                     </div>
                     <div>
                                                 <label class="block text-xs font-semibold text-gray-700 mb-1">Context coverage</label>
@@ -110,7 +110,7 @@ const question = {
                                                     <div class="h-2 mt-1 rounded bg-gray-200 overflow-hidden">
                                                         <div id="q46-meter" class="h-full rounded" style="width:0%"></div>
                                                     </div>
-                                                    <div id="q46-coverage" class="mt-1 text-[10px] text-gray-600"></div>
+                                                    <div id="q46-coverage" class="mt-1 text-xs text-gray-600"></div>
                                                 </div>
                     </div>
                 </div>
@@ -119,7 +119,7 @@ const question = {
             <!-- Canvas -->
                         <div class="bg-white border border-gray-200 rounded-lg p-4">
                                 <div id="q46-canvas" class="space-y-3"></div>
-                                <div class="mt-3 text-[10px] text-gray-600 flex flex-wrap gap-3" aria-label="Legend">
+                                <div class="mt-3 text-xs text-gray-600 flex flex-wrap gap-3" aria-label="Legend">
                                     <span class="inline-flex items-center gap-1"><span class="w-3 h-3 rounded bg-green-200 border border-green-400"></span><span>Bi-dir self-attn</span></span>
                                     <span class="inline-flex items-center gap-1"><span class="w-3 h-3 rounded bg-purple-200 border border-purple-400"></span><span>Causal self-attn</span></span>
                                     <span class="inline-flex items-center gap-1"><span class="w-3 h-3 rounded bg-orange-200 border border-orange-400"></span><span>Cross-attn</span></span>
@@ -127,7 +127,7 @@ const question = {
                         </div>
             
             <!-- Explanation -->
-            <div id="q46-expl" class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-sm text-yellow-900" aria-live="polite"></div>
+            <div id="q46-expl" class="bg-yellow-50 rounded-lg p-4 text-sm text-yellow-900" aria-live="polite"></div>
             <div id="q46-guide" class="text-xs text-indigo-700 border-l-4 border-indigo-300 pl-3" aria-live="polite"></div>
         </div>`,
         script: () => {

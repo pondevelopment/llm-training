@@ -4,45 +4,41 @@
 
 const question = {
     title: "47. How do LLMs differ from traditional statistical language models?",
-    answer: `<div class="space-y-6">
-        <!-- Recommended Reading -->
-        <div class="bg-white border border-indigo-200 rounded p-3 text-xs">
-            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading</h4>
-            <ul class="list-disc ml-5 space-y-0.5">
-                <li><a class="text-indigo-700 hover:underline" href="#question-01">Q01: Tokenization fundamentals</a></li>
-                <li><a class="text-indigo-700 hover:underline" href="#question-02">Q02: How does attention work?</a></li>
-                <li><a class="text-indigo-700 hover:underline" href="#question-07">Q07: Masking & causal generation</a></li>
-                <li><a class="text-indigo-700 hover:underline" href="#question-18">Q18: Scaling laws</a></li>
-                <li><a class="text-indigo-700 hover:underline" href="#question-21">Q21: Context windows & limits</a></li>
+    answer: `<div class="space-y-4">
+        <!-- Recommended Reading (canonical) -->
+        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related)</h4>
+            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+                <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-01">Question 1: Tokenization fundamentals</a></li>
+                <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-02">Question 2: How does attention work?</a></li>
+                <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-07">Question 7: Masking & causal generation</a></li>
+                <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-18">Question 18: Scaling laws</a></li>
+                <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-21">Question 21: Context windows & limits</a></li>
             </ul>
-            <p class="mt-2 text-[11px] text-indigo-800">These reinforce context handling, masking, scaling behavior, and token representation foundations.</p>
+            <p class="mt-2 text-xs text-indigo-700">Context scope, masking, scaling behavior, token representations.</p>
         </div>
 
-        <!-- Main Concept Box -->
-        <div class="bg-blue-50 p-5 rounded-xl border border-blue-200">
-            <h4 class="font-semibold text-blue-900 mb-2">🧭 Core idea</h4>
-            <p class="text-blue-800 text-sm">LLMs (transformer-based) learn <b>distributed representations</b> and model long-range dependencies through self‑attention. Classical models (N‑grams, HMMs) rely on <b>local statistics</b> and Markov assumptions, limiting generalization and context reach.</p>
-            <div class="grid md:grid-cols-2 gap-3 mt-4 text-xs text-blue-900">
-                <div class="bg-white/60 rounded p-3 border border-blue-100">
+        <!-- Key Idea (accent) -->
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
+            <h4 class="font-semibold text-blue-900 mb-2">🧭 Core Idea</h4>
+            <p class="text-blue-800 text-sm">LLMs learn <b>deep distributed representations</b> and capture long‑range dependencies via self‑attention. Classical models (N‑grams, HMMs) depend on <b>local Markov statistics</b>, limiting generalization & context reach.</p>
+            <div class="grid md:grid-cols-2 gap-3 mt-3 text-xs text-blue-900">
+                <div class="bg-white rounded p-3 border border-blue-100">
                     <h5 class="font-semibold mb-1">Probability factorization</h5>
-                    <div class="overflow-x-auto whitespace-nowrap text-center">
-                        $$P(w_{1:T}) = \prod_{t=1}^{T} P(w_t \mid w_{1:t-1})$$
-                    </div>
-                    <p class="mt-1">LLMs approximate long conditional chains with deep contextual embeddings.</p>
+                    <div class="overflow-x-auto whitespace-nowrap text-center">$$P(w_{1:T}) = \\prod_{t=1}^{T} P(w_t \mid w_{1:t-1})$$</div>
+                    <p class="mt-1">LLMs approximate long chains with contextual embeddings.</p>
                 </div>
-                <div class="bg-white/60 rounded p-3 border border-blue-100">
+                <div class="bg-white rounded p-3 border border-blue-100">
                     <h5 class="font-semibold mb-1">Attention kernel</h5>
-                    <div class="overflow-x-auto whitespace-nowrap text-center">
-                        $$\\mathrm{Attn}(Q,K,V)=\\mathrm{softmax}\\left(\\frac{QK^T}{\\sqrt{d_k}}\\right)V$$
-                    </div>
-                    <p class="mt-1">Replaces fixed local windows with learned global relevance weighting.</p>
+                    <div class="overflow-x-auto whitespace-nowrap text-center">$$\\mathrm{Attn}(Q,K,V)=\\mathrm{softmax}\\left(\\frac{QK^T}{\\sqrt{d_k}}\\right)V$$</div>
+                    <p class="mt-1">Learns global relevance vs fixed local windows.</p>
                 </div>
             </div>
-            <ul class="mt-4 list-disc ml-5 text-xs text-blue-800 space-y-0.5">
-                <li><b>Context horizon:</b> Global (bounded by window) vs fixed N‑gram span.</li>
-                <li><b>Representation:</b> Dense learned embeddings vs sparse counts / hidden states.</li>
-                <li><b>Transfer:</b> Pretrain + adaptation vs task‑specific feature design.</li>
-                <li><b>Expressivity:</b> Deep compositional semantics vs shallow local statistics.</li>
+            <ul class="mt-3 list-disc ml-5 text-xs text-blue-800 space-y-1">
+                <li><b>Context:</b> global window vs fixed N‑gram span</li>
+                <li><b>Representation:</b> dense embeddings vs counts / states</li>
+                <li><b>Transfer:</b> pretrain + adapt vs bespoke features</li>
+                <li><b>Expressivity:</b> deep semantics vs shallow locality</li>
             </ul>
         </div>
         
@@ -74,14 +70,14 @@ const question = {
             </div>
         </div>
         
-        <!-- Why It Matters -->
+        <!-- Why This Matters (canonical) -->
         <div class="bg-yellow-50 p-4 rounded-lg">
-            <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why this matters</h4>
+            <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why This Matters</h4>
             <ul class="text-sm text-yellow-800 space-y-1">
-                <li>• <strong>Context length:</strong> LLMs model long-range dependencies; N-grams are bounded by N.</li>
-                <li>• <strong>Generalization:</strong> LLMs learn semantics via embeddings; counts-based models memorize statistics.</li>
-                <li>• <strong>Versatility:</strong> Prompting enables many tasks without retraining; classical models need bespoke pipelines.</li>
-                <li>• <strong>Compute tradeoff:</strong> LLMs need significant compute; classical models are cheap but limited.</li>
+                <li>• <b>Context length:</b> global vs N‑bounded window</li>
+                <li>• <b>Generalization:</b> semantic embeddings vs memorized counts</li>
+                <li>• <b>Versatility:</b> prompting multi-task vs bespoke pipelines</li>
+                <li>• <b>Compute tradeoff:</b> higher cost for broader capability</li>
             </ul>
         </div>
     </div>`,
@@ -90,7 +86,7 @@ const question = {
         html: `<div class="space-y-6">
             <!-- Controls & Presets -->
             <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200">
-                <div class="flex flex-wrap items-center gap-2 mb-3 text-[11px]" role="group" aria-label="Presets">
+                <div class="flex flex-wrap items-center gap-2 mb-3 text-xs" role="group" aria-label="Presets">
                     <span class="font-semibold text-gray-700">Presets:</span>
                     <button data-q47-preset="ngram-small" class="px-2 py-0.5 rounded border border-blue-300 bg-white hover:bg-blue-100">2‑gram tiny</button>
                     <button data-q47-preset="ngram-high" class="px-2 py-0.5 rounded border border-blue-300 bg-white hover:bg-blue-100">5‑gram high</button>
@@ -113,7 +109,7 @@ const question = {
                     <div>
                         <label class="block text-xs font-semibold text-gray-700 mb-1">Context size / N</label>
                         <input id="q47-n" aria-label="Context size slider" type="range" min="1" max="10" value="3" class="w-full">
-                        <div class="text-[11px] text-gray-600">N-gram order or transformer visible tokens</div>
+                        <div class="text-xs text-gray-600">N-gram order or transformer visible tokens</div>
                     </div>
                     <div>
                         <label class="block text-xs font-semibold text-gray-700 mb-1">Sequence length</label>
@@ -123,7 +119,7 @@ const question = {
                             <option>32</option>
                             <option>64</option>
                         </select>
-                        <div class="text-[11px] text-gray-600">Tokens in sequence</div>
+                        <div class="text-xs text-gray-600">Tokens in sequence</div>
                     </div>
                 </div>
                 <div class="mt-3 grid md:grid-cols-3 gap-3 text-xs">
@@ -134,16 +130,16 @@ const question = {
                             <option value="addk">Add-k</option>
                             <option value="kneser">Kneser-Ney</option>
                         </select>
-                        <div class="text-[11px] text-gray-600">Adjusts sparsity handling</div>
+                        <div class="text-xs text-gray-600">Adjusts sparsity handling</div>
                     </div>
-                    <div class="col-span-2 text-[11px] text-gray-600 flex items-center">Smoothing only affects n-gram perplexity (illustrative heuristic).</div>
+                    <div class="col-span-2 text-xs text-gray-600 flex items-center">Smoothing only affects n-gram perplexity (illustrative heuristic).</div>
                 </div>
                 <!-- Advanced levers -->
                 <div class="mt-3 grid md:grid-cols-3 gap-3 text-xs">
                     <div>
-                        <label class="block text-xs font-semibold text-gray-700 mb-1">Memory cap <span id="q47-mem-label" class="text-[10px] font-normal text-gray-500">(transformer only)</span></label>
+                        <label class="block text-xs font-semibold text-gray-700 mb-1">Memory cap <span id="q47-mem-label" class="text-xs font-normal text-gray-500">(transformer only)</span></label>
                         <input id="q47-mem" type="range" min="4" max="64" value="64" aria-label="Memory context cap" class="w-full" />
-                        <div class="text-[11px] text-gray-600">Limits usable tokens. <span id="q47-mem-readout" class="font-medium text-indigo-700"></span></div>
+                        <div class="text-xs text-gray-600">Limits usable tokens. <span id="q47-mem-readout" class="font-medium text-indigo-700"></span></div>
                     </div>
                     <div>
                         <label class="block text-xs font-semibold text-gray-700 mb-1">Subword factor</label>
@@ -153,9 +149,9 @@ const question = {
                             <option value="1.5">1.5×</option>
                             <option value="2">2.0×</option>
                         </select>
-                        <div class="text-[11px] text-gray-600">Approx tokens/word</div>
+                        <div class="text-xs text-gray-600">Approx tokens/word</div>
                     </div>
-                    <div class="text-[11px] text-gray-600 flex items-center">Shows scaling pressure (cost ~ L²).</div>
+                    <div class="text-xs text-gray-600 flex items-center">Shows scaling pressure (cost ~ L²).</div>
                 </div>
             </div>
 
@@ -169,9 +165,9 @@ const question = {
                             <div class="h-2 mt-1 rounded bg-gray-200 overflow-hidden">
                                 <div id="q47-meter" class="h-full rounded" style="width:0%"></div>
                             </div>
-                            <div id="q47-coverage" class="mt-1 text-[10px] text-gray-600"></div>
+                            <div id="q47-coverage" class="mt-1 text-xs text-gray-600"></div>
                         </div>
-                        <div class="text-[11px] text-gray-500 mt-1">Visibility ratio relative to full sequence length.</div>
+                        <div class="text-xs text-gray-500 mt-1">Visibility ratio relative to full sequence length.</div>
                     </div>
                     <div>
                         <div class="text-sm font-medium text-green-700 mb-1">Good for</div>
@@ -192,9 +188,9 @@ const question = {
             <!-- Explanation -->
             <div id="q47-expl" class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-sm text-yellow-900" aria-live="polite"></div>
             <div id="q47-guide" class="text-xs text-indigo-700 border-l-4 border-indigo-300 pl-3" aria-live="polite"></div>
-            <div id="q47-change" class="text-[11px] text-gray-600"></div>
+            <div id="q47-change" class="text-xs text-gray-600"></div>
                <!-- Probability walkthrough -->
-               <div id="q47-prob" class="mt-2 text-[12px] text-gray-700 bg-white border border-gray-200 rounded p-3" aria-live="polite"></div>
+               <div id="q47-prob" class="mt-2 text-xs text-gray-700 bg-white border border-gray-200 rounded p-3" aria-live="polite"></div>
 
                <!-- Compare Panel -->
                <div class="mt-4 bg-white border border-indigo-200 rounded p-3 text-xs" id="q47-compare" aria-live="polite">
@@ -205,7 +201,7 @@ const question = {
                        <button id="q47-clearCmp" class="px-2 py-0.5 rounded border border-red-300 bg-red-50 hover:bg-red-100 text-red-700">Clear</button>
                    </div>
                    <div class="grid md:grid-cols-3 gap-3" id="q47-compare-slots"></div>
-                   <div id="q47-compare-delta" class="mt-2 text-[11px] text-gray-600"></div>
+                   <div id="q47-compare-delta" class="mt-2 text-xs text-gray-600"></div>
                </div>
 
                 <!-- Model Math Pane -->
@@ -495,7 +491,7 @@ const question = {
                     if (win < origWin) extraNote = ` – window truncated by cap ${cap} (orig ${origWin})`;
                     else extraNote = ` – full window (=${origWin}) utilized`;
                 }
-                ppEl.innerHTML = `<span class=\"font-medium\">Estimated perplexity (toy):</span> ${pp} <span class=\"text-[11px] text-gray-500\">(factor ${factor} cost≈${seqEff}${extraNote})</span>`;
+                ppEl.innerHTML = `<span class=\"font-medium\">Estimated perplexity (toy):</span> ${pp} <span class=\"text-xs text-gray-500\">(factor ${factor} cost≈${seqEff}${extraNote})</span>`;
                 canvas.appendChild(ppEl);
 
                    // Sparkline history
@@ -528,7 +524,7 @@ const question = {
 
                 // Explanation
                 const messages = {
-                    ngram: `N-grams estimate \\( p(w_t \\mid w_{t-1},...,w_{t-N+1}) \\) via counts + smoothing (e.g. Kneser–Ney). Expressive power capped by N and data coverage. <span class=\"text-[11px] text-gray-600\">Smoothing: ${smoothing}</span>`,
+                    ngram: `N-grams estimate \\( p(w_t \\mid w_{t-1},...,w_{t-N+1}) \\) via counts + smoothing (e.g. Kneser–Ney). Expressive power capped by N and data coverage. <span class=\"text-xs text-gray-600\">Smoothing: ${smoothing}</span>`,
                     hmm: `HMMs introduce latent states with first-order transitions. Effective for POS tagging / segmentation but long-range semantics remain inaccessible.`,
                     transformer: `Transformers learn deep contextual token embeddings; self-attention links distant positions enabling semantic generalization + transfer across tasks.`
                 };
@@ -721,9 +717,9 @@ const question = {
                            card.innerHTML = `<div class=\"text-gray-400 italic\">Slot ${slot} empty</div>`;
                        } else {
                            card.innerHTML = `<div class=\"font-semibold text-indigo-700 mb-1\">${slot}: ${data.model}</div>
-                           <div class=\"text-[11px] text-gray-600\">N=${data.N}, L=${data.L}${data.smoothing? ', sm='+data.smoothing:''}</div>
-                           <div class=\"mt-1 text-[11px]\">Eff ctx: <b>${data.eff}</b> (${Math.round(data.ratio*100)}%)</div>
-                           <div class=\"text-[11px]\">Perplexity: <b>${data.pp}</b></div>`;
+                           <div class=\"text-xs text-gray-600\">N=${data.N}, L=${data.L}${data.smoothing? ', sm='+data.smoothing:''}</div>
+                           <div class=\"mt-1 text-xs\">Eff ctx: <b>${data.eff}</b> (${Math.round(data.ratio*100)}%)</div>
+                           <div class=\"text-xs\">Perplexity: <b>${data.pp}</b></div>`;
                        }
                        compareSlotsEl.appendChild(card);
                    });

@@ -5,65 +5,63 @@
 const question = {
   title: "42. How does Adaptive Softmax optimize LLMs?",
   answer: `
-    <div class="space-y-6">
-      <!-- Recommended Reading -->
+    <div class="space-y-4">
+      <!-- Recommended Reading (canonical style) -->
       <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
-        <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading</h4>
-        <ul class="text-xs text-indigo-800 list-disc ml-4 space-y-0.5">
-          <li><a class="underline hover:no-underline" href="index.html#question-5">Q05: Tokenization & vocabulary shaping</a></li>
-          <li><a class="underline hover:no-underline" href="index.html#question-6">Q06: Temperature & decoding</a></li>
-          <li><a class="underline hover:no-underline" href="index.html#question-39">Q39: Discriminative vs generative heads</a></li>
+  <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related)</h4>
+        <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+          <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-05">Question 5: Tokenization & vocabulary shaping</a></li>
+          <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-06">Question 6: Temperature & decoding</a></li>
+          <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-39">Question 39: Discriminative vs generative heads</a></li>
         </ul>
       </div>
-      <!-- Main Concept -->
-      <div class="bg-blue-50 p-5 rounded-xl border border-blue-200">
+      <!-- Key Idea (accent panel) -->
+      <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
         <h4 class="font-semibold text-blue-900 mb-2">⚡ Key Idea</h4>
-        <p class="text-sm text-blue-800">Adaptive Softmax splits a large vocabulary into a <b>frequent head</b> and one or more <b>rare tails</b>. At training time, it computes the head for <i>all</i> tokens and only the <i>relevant tail</i> for the gold label. Rare tails use <b>reduced projection dimensions</b>, cutting multiply-adds and parameters while preserving accuracy on frequent words.</p>
+        <p class="text-sm text-blue-800">Adaptive Softmax splits a large vocabulary into a <b>frequent head</b> and one or more <b>rare tails</b>. At training time it computes the head for <i>all</i> tokens and only the <i>relevant tail</i> for the gold label. Rare tails use <b>reduced projection dimensions</b>, cutting multiply‑adds and parameters while preserving accuracy on frequent words.</p>
         <div class="text-xs mt-2 text-blue-800">
-          Compute model (batch size \\(B\\), hidden dim \\(d\\), head size \\(V_h\\), tails \\(i=1..C\\), tail dims \\(d_i=\\alpha_i d\\), tail sizes \\(V_i\\), batch fractions \\(p_i\\)):
+          <span class="font-semibold">Compute model:</span> batch size \(B\), hidden dim \(d\), head size \(V_h\), tails \(i=1..C\), tail dims \(d_i = \alpha_i d\), tail sizes \(V_i\), batch fractions \(p_i\):
           <div class="math-display mt-2">$$
           \\begin{align*}
-          C_{\\text{full}} &\\propto B\\, d\\, V,\\\\
-          C_{\\text{adaptive}} &\\propto B\\, d\\,(V_h + C) + B\\sum_i p_i\\, d_i\\, V_i,\\\\
+          C_{\\text{full}} &\\propto B d V,\\\\
+          C_{\\text{adaptive}} &\\propto B d (V_h + C) + B\\sum_i p_i d_i V_i,\\\\
           P_{\\text{adaptive}} &\\approx d V_h + \\sum_i d_i V_i + d C.
           \\end{align*}
           $$</div>
         </div>
       </div>
-
-      <!-- Comparison Cards -->
+      <!-- Comparison Cards (accentified) -->
       <div class="grid md:grid-cols-3 gap-4">
-        <div class="bg-green-50 border border-green-200 p-4 rounded-lg">
-          <h5 class="font-semibold text-green-900">🟢 Full Softmax</h5>
-          <ul class="text-sm text-green-800 mt-2 space-y-1">
+        <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
+          <h5 class="font-medium text-green-900">🟢 Full Softmax</h5>
+          <ul class="text-sm text-green-700 mt-1 space-y-1">
             <li>• Compute over <b>entire</b> vocabulary</li>
             <li>• Maximum accuracy, expensive</li>
           </ul>
         </div>
-        <div class="bg-purple-50 border border-purple-200 p-4 rounded-lg">
-          <h5 class="font-semibold text-purple-900">🟣 Adaptive Softmax</h5>
-          <ul class="text-sm text-purple-800 mt-2 space-y-1">
+        <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
+          <h5 class="font-medium text-purple-900">🟣 Adaptive Softmax</h5>
+          <ul class="text-sm text-purple-700 mt-1 space-y-1">
             <li>• Head + small set of tails per example</li>
-            <li>• Tail projections shrink: \\(d_i=\\alpha_i d\\)</li>
+            <li>• Tail projections shrink: \(d_i = \alpha_i d\)</li>
           </ul>
         </div>
-        <div class="bg-orange-50 border border-orange-200 p-4 rounded-lg">
-          <h5 class="font-semibold text-orange-900">🟠 When to use</h5>
-            <ul class="text-sm text-orange-800 mt-2 space-y-1">
+        <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
+          <h5 class="font-medium text-orange-900">🟠 When to use</h5>
+          <ul class="text-sm text-orange-700 mt-1 space-y-1">
             <li>• Very large vocabularies (50k–1M)</li>
             <li>• Zipfian distributions (few frequent, many rare)</li>
           </ul>
         </div>
       </div>
-
-      <!-- Why This Matters -->
-      <div class="bg-yellow-50 p-5 rounded-xl border border-yellow-200">
+      <!-- Why This Matters (canonical) -->
+      <div class="bg-yellow-50 p-4 rounded-lg">
         <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why This Matters</h4>
         <ul class="text-sm text-yellow-800 space-y-1">
           <li>• <b>Speeds up</b> training by avoiding full-vocab logits</li>
           <li>• <b>Reduces parameters</b> with low-dim tails</li>
           <li>• Keeps accuracy high for frequent words</li>
-          <li>• Great for resource-limited or large-vocab settings</li>
+          <li>• Great for large-vocab or resource-limited settings</li>
         </ul>
       </div>
     </div>
@@ -74,7 +72,7 @@ const question = {
       <!-- existing wrapper start -->
       <div class="space-y-6">
         <div class="bg-gradient-to-r from-fuchsia-50 to-rose-50 p-4 rounded-lg border border-fuchsia-200">
-          <div class="flex flex-wrap items-center gap-2 mb-3 text-[11px]">
+          <div class="flex flex-wrap items-center gap-2 mb-3 text-xs">
             <!-- existing preset buttons -->
             <span class="font-semibold text-gray-700 mr-1">Presets:</span>
             <button data-preset="balanced" class="px-2 py-0.5 rounded border border-fuchsia-300 bg-white hover:bg-fuchsia-100 transition">Balanced</button>
@@ -85,7 +83,7 @@ const question = {
             <label class="flex items-center gap-1 ml-2 cursor-pointer select-none"><input id="q42-baseline" type="checkbox" class="scale-90"> <span>Baseline overlay</span></label>
             <button id="q42-copy" class="px-2 py-0.5 rounded border border-fuchsia-400 bg-white hover:bg-fuchsia-100 text-fuchsia-700">Copy link</button>
             <button id="q42-export" class="px-2 py-0.5 rounded border border-fuchsia-400 bg-white hover:bg-fuchsia-100 text-fuchsia-700">Export</button>
-            <button id="q42-reset" class="ml-auto px-2 py-0.5 rounded bg-fuchsia-600 text-white text-[11px] hover:bg-fuchsia-700">Reset</button>
+            <button id="q42-reset" class="ml-auto px-2 py-0.5 rounded bg-fuchsia-600 text-white text-xs hover:bg-fuchsia-700">Reset</button>
           </div>
           <!-- existing controls grid retained below -->
           <div class="grid md:grid-cols-5 gap-4 text-xs">
@@ -111,7 +109,7 @@ const question = {
                 <option value="15000,50000">15k, 50k</option>
                 <option value="20000,60000">20k, 60k</option>
               </select>
-              <div class="text-[11px] text-gray-500 mt-1">Example: 10k,30k → head=[1..10k], tail1=(10k..30k], tail2=(30k..V]</div>
+              <div class="text-xs text-gray-500 mt-1">Example: 10k,30k → head=[1..10k], tail1=(10k..30k], tail2=(30k..V]</div>
             </div>
             <div id="q42-adv-1" class="hidden">
               <label class="font-semibold text-gray-700 flex items-center gap-1">Tail shrink (α) <span title="Tails use lower projection dims: d_i = α_i · d." class="cursor-help text-fuchsia-600">?</span></label>
@@ -121,7 +119,7 @@ const question = {
                 <option value="0.50,0.125">(0.50, 0.125)</option>
                 <option value="0.35,0.15">(0.35, 0.15)</option>
               </select>
-              <div id="q42-alpha-detail" class="text-[11px] text-gray-500 mt-1"></div>
+              <div id="q42-alpha-detail" class="text-xs text-gray-500 mt-1"></div>
             </div>
             <div id="q42-adv-2" class="hidden">
               <label class="font-semibold text-gray-700 flex items-center gap-1">Hidden dim d <span title="Base hidden dimension before projection." class="cursor-help text-fuchsia-600">?</span></label>
@@ -134,7 +132,7 @@ const question = {
               </select>
             </div>
           </div>
-          <p class="text-[11px] text-gray-600 mt-2"><b>Tip:</b> Start with presets. Use “Show advanced” for α & d tuning. Toggle baseline to visualize full softmax reference.</p>
+          <p class="text-xs text-gray-600 mt-2"><b>Tip:</b> Start with presets. Use “Show advanced” for α & d tuning. Toggle baseline to visualize full softmax reference.</p>
         </div>
   <div>
           <!-- existing panels unchanged up to coverage panel -->
@@ -142,9 +140,9 @@ const question = {
             <h5 class="font-semibold text-gray-800 mb-2">🧱 Bucket Coverage</h5>
             <div id="q42-coverage" class="text-xs text-gray-700 space-y-2" aria-live="polite"></div>
             <div class="mt-3">
-              <div class="flex items-center justify-between mb-1"><span class="font-semibold text-gray-700 text-[11px]">Zipf distribution</span><span id="q42-spark-legend" class="text-[10px] text-gray-500"></span></div>
+              <div class="flex items-center justify-between mb-1"><span class="font-semibold text-gray-700 text-xs">Zipf distribution</span><span id="q42-spark-legend" class="text-xs text-gray-500"></span></div>
               <div id="q42-spark" class="relative h-16 bg-gradient-to-b from-white to-slate-50 border rounded overflow-hidden"></div>
-              <div id="q42-spark-info" class="mt-1 text-[11px] text-gray-500"></div>
+              <div id="q42-spark-info" class="mt-1 text-xs text-gray-500"></div>
             </div>
           </div>
         </div>
@@ -156,11 +154,11 @@ const question = {
         <div class="bg-white border rounded-lg p-4">
           <h5 class="font-semibold text-gray-800 mb-2">🧾 Scenario Compare</h5>
           <div class="flex flex-wrap gap-2 mb-2">
-            <button id="q42-freeze" class="px-2 py-1 text-[11px] rounded bg-gray-800 text-white hover:bg-gray-700">Freeze current</button>
-            <button id="q42-clear" class="px-2 py-1 text-[11px] rounded border border-gray-300 hover:bg-gray-50">Clear</button>
+            <button id="q42-freeze" class="px-2 py-1 text-xs rounded bg-gray-800 text-white hover:bg-gray-700">Freeze current</button>
+            <button id="q42-clear" class="px-2 py-1 text-xs rounded border border-gray-300 hover:bg-gray-50">Clear</button>
           </div>
-          <div id="q42-compare" class="text-[11px] space-y-2"></div>
-          <div id="q42-sensitivity" class="text-[11px] text-gray-600 mt-3"></div>
+          <div id="q42-compare" class="text-xs space-y-2"></div>
+          <div id="q42-sensitivity" class="text-xs text-gray-600 mt-3"></div>
         </div>
       </div>
     `,
@@ -239,18 +237,18 @@ const question = {
       function bar(label, val, color, ghostBaseline){
         const pctVal = Math.max(0, Math.min(100, Math.round(val*100)));
         if(ghostBaseline){
-          return `<div class=\"relative\">\n  <div class=\"flex justify-between text-[11px] mb-0.5\"><span>${label}</span><span>${pctVal}%</span></div>\n  <div class=\"w-full h-3 relative rounded bg-gray-100 overflow-hidden\"><div class=\"absolute inset-0 bg-${color}-200 opacity-40\"></div><div class=\"h-3 bg-${color}-600 relative transition-all" style="width:${pctVal}%"></div></div>\n</div>`;
+          return `<div class=\"relative\">\n  <div class=\"flex justify-between text-xs mb-0.5\"><span>${label}</span><span>${pctVal}%</span></div>\n  <div class=\"w-full h-3 relative rounded bg-gray-100 overflow-hidden\"><div class=\"absolute inset-0 bg-${color}-200 opacity-40\"></div><div class=\"h-3 bg-${color}-600 relative transition-all" style="width:${pctVal}%"></div></div>\n</div>`;
         }
-        return `<div>\n  <div class=\"flex justify-between text-[11px] mb-0.5\"><span>${label}</span><span>${pctVal}%</span></div>\n  <div class=\"w-full h-3 bg-${color}-200 rounded\"><div class=\"h-3 bg-${color}-600 transition-all" style="width:${pctVal}%"></div></div>\n</div>`;
+        return `<div>\n  <div class=\"flex justify-between text-xs mb-0.5\"><span>${label}</span><span>${pctVal}%</span></div>\n  <div class=\"w-full h-3 bg-${color}-200 rounded\"><div class=\"h-3 bg-${color}-600 transition-all" style="width:${pctVal}%"></div></div>\n</div>`;
       }
       function ratioBar(label, ratio, color){
         const pctVal = Math.max(0, Math.min(100, Math.round(ratio*100)));
-        return `<div>\n  <div class=\"flex justify-between text-[11px] mb-0.5\"><span>${label}</span><span>${(ratio*100).toFixed(0)}% (×${ratio.toFixed(2)})</span></div>\n  <div class=\"w-full h-3 bg-${color}-200 rounded\"><div class=\"h-3 bg-${color}-600 transition-all" style="width:${pctVal}%"></div></div>\n</div>`;
+        return `<div>\n  <div class=\"flex justify-between text-xs mb-0.5\"><span>${label}</span><span>${(ratio*100).toFixed(0)}% (×${ratio.toFixed(2)})</span></div>\n  <div class=\"w-full h-3 bg-${color}-200 rounded\"><div class=\"h-3 bg-${color}-600 transition-all" style="width:${pctVal}%"></div></div>\n</div>`;
       }
       function coverageRow(label, mass, color){
         const pctVal = (mass*100).toFixed(1);
         const tokensPerM = Math.round(mass * 1_000_000);
-        return `<div class=\"space-y-0.5\">\n  <div class=\"flex justify-between text-[11px]\"><span>${label}</span><span>${pctVal}% (~${fmt(tokensPerM)} / 1M)</span></div>\n  <div class=\"w-full h-3 bg-${color}-200 rounded\"><div class=\"h-3 bg-${color}-600 transition-all" style="width:${Math.min(100, Math.max(0, mass*100))}%"></div></div>\n</div>`;
+        return `<div class=\"space-y-0.5\">\n  <div class=\"flex justify-between text-xs\"><span>${label}</span><span>${pctVal}% (~${fmt(tokensPerM)} / 1M)</span></div>\n  <div class=\"w-full h-3 bg-${color}-200 rounded\"><div class=\"h-3 bg-${color}-600 transition-all" style="width:${Math.min(100, Math.max(0, mass*100))}%"></div></div>\n</div>`;
       }
       function highlight(el){ if(!el) return; el.classList.add('ring','ring-fuchsia-300'); setTimeout(()=>el.classList.remove('ring','ring-fuchsia-300'),400); }
 
@@ -291,14 +289,14 @@ const question = {
         const base = frozen[0];
         compareEl.innerHTML = `<div class=\"overflow-x-auto\"><table class=\"min-w-full text-left border border-gray-200\">
           <thead class=\"bg-gray-50\"><tr>
-            <th class=\"px-2 py-1 text-[11px]\">#</th>
-            <th class=\"px-2 py-1 text-[11px]\">Cutoffs</th>
-            <th class=\"px-2 py-1 text-[11px]\">α</th>
-            <th class=\"px-2 py-1 text-[11px]\">d</th>
-            <th class=\"px-2 py-1 text-[11px]\">Rel Compute</th>
-            <th class=\"px-2 py-1 text-[11px]\">Rel Params</th>
-            <th class=\"px-2 py-1 text-[11px]\">Speed-up</th>
-            <th class=\"px-2 py-1 text-[11px]\">Param Save</th>
+            <th class=\"px-2 py-1 text-xs\">#</th>
+            <th class=\"px-2 py-1 text-xs\">Cutoffs</th>
+            <th class=\"px-2 py-1 text-xs\">α</th>
+            <th class=\"px-2 py-1 text-xs\">d</th>
+            <th class=\"px-2 py-1 text-xs\">Rel Compute</th>
+            <th class=\"px-2 py-1 text-xs\">Rel Params</th>
+            <th class=\"px-2 py-1 text-xs\">Speed-up</th>
+            <th class=\"px-2 py-1 text-xs\">Param Save</th>
           </tr></thead>
           <tbody>${frozen.map((f,i)=>{
             const dComp = (f.relCompute - base.relCompute);
@@ -330,7 +328,7 @@ const question = {
           {k:'Clusters', v:paramClusters, hint:'Reduce number of tails (merge) or head size.'}
         ].sort((a,b)=>b.v-a.v);
         const pTop = paramParts[0];
-        sensitivityEl.innerHTML = `<div><span class=\"font-semibold\">Sensitivity:</span> Compute dominated by <b>${top.k}</b>; ${top.hint} Params dominated by <b>${pTop.k}</b>; ${pTop.hint}</div>`;
+  sensitivityEl.innerHTML = `<div class=\"leading-snug\"><span class=\"font-semibold\">Sensitivity:</span> Compute dominated by <b>${top.k}</b>; ${top.hint} Params dominated by <b>${pTop.k}</b>; ${pTop.hint}</div>`;
       }
 
       function render(){
@@ -401,7 +399,7 @@ const question = {
           { label: 'Cluster tokens', val: paramClusters }
         ];
         function breakdownHTML(title, arr, total){
-          return `<div class=\"mt-1\"><div class=\"font-semibold text-[11px] text-gray-600\">${title}</div>${arr.map(x=>`<div class=\"flex justify-between text-[11px]\"><span>${x.label}</span><span>${((x.val/total)*100).toFixed(1)}% (${fmt(x.val)})</span></div>`).join('')}</div>`;
+          return `<div class=\"mt-1\"><div class=\"font-semibold text-xs text-gray-600\">${title}</div>${arr.map(x=>`<div class=\"flex justify-between text-xs\"><span>${x.label}</span><span>${((x.val/total)*100).toFixed(1)}% (${fmt(x.val)})</span></div>`).join('')}</div>`;
         }
 
         if(metricsEl){
@@ -412,7 +410,7 @@ const question = {
             <div class=\"mt-2\">${ratioBar('Adaptive compute vs baseline (d₀=1024)', Cadapt / Cadapt0, 'blue')}</div>
             <div>${ratioBar('Classifier params vs baseline (d₀=1024)', Padapt / Padapt0, 'teal')}</div>
             <div class=\"mt-1\">Speed-up factor: <span class=\"font-mono\">${speedup.toFixed(2)}×</span>; Param savings: <span class=\"font-mono\">${(paramSave*100).toFixed(1)}%</span></div>
-            <div class=\"mt-2 p-2 rounded bg-gray-50 border border-gray-200 text-[11px] leading-snug\">
+            <div class=\"mt-2 p-2 rounded bg-gray-50 border border-gray-200 text-xs leading-snug\">
               <div class=\"font-semibold mb-1\">Instantiated equations</div>
               <div class=\"font-mono\">${eqCompute}</div>
               <div class=\"font-mono mt-0.5\">${eqParams}</div>
@@ -420,15 +418,15 @@ const question = {
             ${breakdownHTML('Compute breakdown', computeBreak, Cadapt)}
             ${breakdownHTML('Parameter breakdown', paramBreak, Padapt)}
             <hr class=\"my-2\" />
-            <div class=\"text-[11px] text-gray-600\">Baseline scaling: d/d₀ = ×${baselineScale.toFixed(2)} (d₀=${BASE_D}). Absolute compute: full=${fmt(Cfull)}, adaptive≈${fmt(Cadapt)}. Params: full=${fmt(Pfull)}, adaptive≈${fmt(Padapt)}.</div>
-            ${prevD !== null && prevD !== d ? `<div class=\"text-[11px] text-gray-700 mt-1\">Δd=${d - prevD}: Δcompute≈<span class=\"font-mono\">${fmtSigned((d - prevD) * (head + C + pTail1 * (a1) * tail1 + pTail2 * (a2) * tail2))}</span>, Δparams≈<span class=\"font-mono\">${fmtSigned((d - prevD) * (head + C + a1 * tail1 + a2 * tail2))}</span></div>` : ''}
-              <div id=\"q42-guidance\" class=\"mt-2 text-[11px] text-gray-700\"></div>
+            <div class=\"text-xs text-gray-600\">Baseline scaling: d/d₀ = ×${baselineScale.toFixed(2)} (d₀=${BASE_D}). Absolute compute: full=${fmt(Cfull)}, adaptive≈${fmt(Cadapt)}. Params: full=${fmt(Pfull)}, adaptive≈${fmt(Padapt)}.</div>
+            ${prevD !== null && prevD !== d ? `<div class=\"text-xs text-gray-700 mt-1\">Δd=${d - prevD}: Δcompute≈<span class=\"font-mono\">${fmtSigned((d - prevD) * (head + C + pTail1 * (a1) * tail1 + pTail2 * (a2) * tail2))}</span>, Δparams≈<span class=\"font-mono\">${fmtSigned((d - prevD) * (head + C + a1 * tail1 + a2 * tail2))}</span></div>` : ''}
+              <div id=\"q42-guidance\" class=\"mt-2 text-xs text-gray-700\"></div>
           `;
             // Guidance heuristic (Phase 4)
             const guidanceEl = document.getElementById('q42-guidance');
             if(guidanceEl){
               let advice = '';
-              if(relCompute > 0.55){ advice += 'Compute still high; consider shrinking head or α values. '; }
+              if(relCompute > 0.55){ advice += 'Compute still high; reduce head or shrink α values. '; }
               if(relParams > 0.55){ advice += 'Parameters dominated by head/tails; lower α or head cutoff. '; }
               if(speedup < 1.5){ advice += 'Speed-up moderate; more aggressive tail compression could help.'; }
               if(!advice) advice = 'Configuration is already efficient; further gains may impact accuracy.';
@@ -522,7 +520,7 @@ const question = {
         // We already have absolute lines; add a subtle overlay banner
         const overlay = document.createElement('div');
         overlay.setAttribute('data-baseline-overlay','1');
-        overlay.className='mt-1 p-1 rounded bg-gradient-to-r from-gray-50 to-gray-100 border border-gray-200 text-[10px] text-gray-600';
+  overlay.className='mt-1 p-1 rounded bg-gradient-to-r from-gray-50 to-gray-100 border border-gray-200 text-xs text-gray-600';
         overlay.innerHTML = 'Baseline overlay active: bars show adaptive share; full softmax = 100% reference.';
         metricsEl.appendChild(overlay);
       });

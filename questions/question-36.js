@@ -7,22 +7,22 @@
 
 const question = {
   title: "36. What are the steps in Retrieval-Augmented Generation (RAG)?",
-  answer: `<div class="space-y-6">
+  answer: `<div class="space-y-4">
     <!-- Recommended Reading -->
     <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
       <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading</h4>
-      <ul class="list-disc ml-5 text-xs text-indigo-800 space-y-1">
+      <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
         <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-07">Question 7: How do embedding models differ?</a></li>
         <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-18">Question 18: Why do LLMs hallucinate?</a></li>
         <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-20">Question 20: What is prompt engineering?</a></li>
         <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-24">Question 24: What is parameter-efficient fine-tuning?</a></li>
         <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-34">Question 34: What types of foundation models exist?</a></li>
       </ul>
-      <p class="text-[11px] text-indigo-700 mt-2">Context: similarity search, hallucination mitigation, prompt design, lightweight adaptation, taxonomy.</p>
+  <p class="text-xs text-indigo-700 mt-2">Context: similarity search, hallucination mitigation, prompt design, lightweight adaptation, taxonomy.</p>
     </div>
 
     <!-- Core concept -->
-  <div class="bg-blue-50 p-4 rounded-xl border border-blue-200">
+  <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
       <h4 class="font-semibold text-blue-900 mb-2">🧱 RAG in three stages</h4>
       <ol class="list-decimal ml-5 text-sm text-blue-800 space-y-1">
         <li><b>Retrieval</b>: Fetch candidate passages (lexical, dense, hybrid).</li>
@@ -34,7 +34,7 @@ const question = {
 
     <!-- Retrieval methods -->
     <div class="grid md:grid-cols-3 gap-4 text-sm">
-      <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+      <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
         <h5 class="font-semibold text-green-800 mb-1">Lexical (BM25)</h5>
         <ul class="list-disc ml-4 text-xs text-green-700 space-y-1">
           <li>Exact token match</li>
@@ -42,7 +42,7 @@ const question = {
           <li>Weak on paraphrase</li>
         </ul>
       </div>
-      <div class="bg-purple-50 border border-purple-200 rounded-lg p-4">
+      <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
         <h5 class="font-semibold text-purple-800 mb-1">Dense (Embeddings)</h5>
         <ul class="list-disc ml-4 text-xs text-purple-700 space-y-1">
           <li>Semantic similarity</li>
@@ -50,7 +50,7 @@ const question = {
           <li>Vector index needed</li>
         </ul>
       </div>
-      <div class="bg-amber-50 border border-amber-200 rounded-lg p-4">
+      <div class="bg-amber-50 p-3 rounded border-l-4 border-amber-400">
         <h5 class="font-semibold text-amber-800 mb-1">Hybrid / Multi‑Stage</h5>
         <ul class="list-disc ml-4 text-xs text-amber-700 space-y-1">
           <li>High recall + precision</li>
@@ -61,7 +61,7 @@ const question = {
     </div>
 
     <!-- Scoring example -->
-  <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+  <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
       <h4 class="font-semibold text-gray-900 mb-2">🧮 Scoring example</h4>
       <p class="text-sm text-gray-700">Cosine similarity for dense retrieval:</p>
         <div class="text-center bg-gradient-to-r from-indigo-50 to-indigo-100 p-3 rounded-lg border border-indigo-200 text-sm font-mono overflow-x-auto whitespace-nowrap" aria-label="Cosine similarity equation">
@@ -71,7 +71,7 @@ const question = {
     </div>
 
     <!-- Why it matters -->
-  <div class="bg-yellow-50 p-4 rounded-xl border border-yellow-200">
+  <div class="bg-yellow-50 p-4 rounded-lg">
       <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why This Matters</h4>
       <ul class="text-sm text-yellow-800 space-y-1">
         <li>• <b>Grounding</b> reduces hallucinations with citations.</li>

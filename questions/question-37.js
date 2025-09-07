@@ -4,11 +4,11 @@
 
 const question = {
   title: "37. How does Mixture of Experts (MoE) enhance LLM scalability?",
-  answer: `<div class=\"space-y-6\">
+  answer: `<div class=\"space-y-4\">
     <!-- Recommended Reading -->
   <div class=\"bg-indigo-50 p-3 rounded-lg border border-indigo-200\">
     <h4 class=\"font-semibold text-indigo-900 mb-1\">📚 Recommended reading</h4>
-    <ul class=\"list-disc ml-5 text-xs text-indigo-800 space-y-1\">
+  <ul class=\"list-disc ml-5 text-sm text-indigo-800 space-y-1\">
     <li><a class=\"text-indigo-700 underline hover:text-indigo-900\" href=\"#question-12\">Question 12: How do LLMs scale with parameters?</a></li>
     <li><a class=\"text-indigo-700 underline hover:text-indigo-900\" href=\"#question-24\">Question 24: What is parameter-efficient fine-tuning?</a></li>
     <li><a class=\"text-indigo-700 underline hover:text-indigo-900\" href=\"#question-32\">Question 32: How are attention scores computed?</a></li>
@@ -19,7 +19,7 @@ const question = {
   </div>
 
     <!-- Core Concept -->
-  <div class=\"bg-blue-50 p-4 rounded-xl border border-blue-200\">
+  <div class=\"bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400\">
     
       <h4 class=\"font-semibold text-blue-900 mb-2\">🧩 Key Idea</h4>
       <p class=\"text-sm text-blue-800\">Mixture of Experts (MoE) inflates <em>capacity</em> (parameters) while largely preserving <em>per‑token compute</em>: a small gating module chooses the top‑<span class=\"font-mono\">k</span> experts out of <span class=\"font-mono\">E</span> for each token and linearly combines their outputs.</p>
@@ -34,7 +34,7 @@ const question = {
 
     <!-- Approaches / Trade-offs -->
     <div class=\"grid md:grid-cols-3 gap-4 text-sm\">
-      <div class=\"bg-green-50 border border-green-200 rounded-lg p-4\">
+  <div class=\"bg-green-50 p-3 rounded border-l-4 border-green-400\">
         <h5 class=\"font-semibold text-green-800 mb-1\">Dense (Baseline)</h5>
         <ul class=\"list-disc ml-4 text-xs text-green-700 space-y-1\">
           <li>All weights active</li>
@@ -42,7 +42,7 @@ const question = {
           <li>Compute grows with params</li>
         </ul>
       </div>
-      <div class=\"bg-purple-50 border border-purple-200 rounded-lg p-4\">
+  <div class=\"bg-purple-50 p-3 rounded border-l-4 border-purple-400\">
         <h5 class=\"font-semibold text-purple-800 mb-1\">Sparse MoE</h5>
         <ul class=\"list-disc ml-4 text-xs text-purple-700 space-y-1\">
           <li>Top‑k routing</li>
@@ -50,7 +50,7 @@ const question = {
           <li>Needs balancing loss</li>
         </ul>
       </div>
-      <div class=\"bg-amber-50 border border-amber-200 rounded-lg p-4\">
+  <div class=\"bg-amber-50 p-3 rounded border-l-4 border-amber-400\">
         <h5 class=\"font-semibold text-amber-800 mb-1\">Advanced / Hybrid</h5>
         <ul class=\"list-disc ml-4 text-xs text-amber-700 space-y-1\">
           <li>Routing tricks (Switch, Hash)</li>
@@ -61,7 +61,7 @@ const question = {
     </div>
 
     <!-- Why it matters -->
-  <div class=\"bg-yellow-50 p-4 rounded-xl border border-yellow-200\">
+  <div class=\"bg-yellow-50 p-4 rounded-lg\">
     
       <h4 class=\"font-semibold text-yellow-900 mb-2\">🎯 Why This Matters</h4>
       <ul class=\"text-sm text-yellow-800 space-y-1\">
@@ -103,7 +103,7 @@ const question = {
             <div class=\"text-center mt-1\"><span id=\"q37-P-val\" class=\"font-mono\">70</span></div>
           </div>
         </div>
-    <p class=\"text-[11px] text-gray-600 mt-2\">Higher routing entropy ≈ more uniform assignments; low entropy ≈ peaky gate → imbalance risk. Active parameter fraction \(k/E\).</p>
+  <p class=\"text-xs text-gray-600 mt-2\">Higher routing entropy ≈ more uniform assignments; low entropy ≈ peaky gate → imbalance risk. Active parameter fraction \(k/E\).</p>
       </div>
 
       <div class=\"grid md:grid-cols-3 gap-4\">
@@ -150,7 +150,7 @@ const question = {
         const bg = invert ? `bg-${color}-200` : `bg-${color}-600`;
         const fill = invert ? `bg-${color}-600` : `bg-${color}-300`;
         return `<div role=\"group\" aria-label=\"${label} ${text}\">
-          <div class=\"flex justify-between text-[11px] mb-0.5\"><span>${label}</span><span>${text}</span></div>
+          <div class=\"flex justify-between text-xs mb-0.5\"><span>${label}</span><span>${text}</span></div>
           <div class=\"w-full h-3 ${bg} rounded relative overflow-hidden\">
             <div class=\"h-3 ${fill}\" style=\"width:${pct}%\"></div>
           </div>
@@ -223,7 +223,7 @@ const question = {
         explainEl.innerHTML = `
           <p>Only the top‑k experts are active per token. Compute scales with <span class="font-mono">k</span>, while parameters scale with <span class="font-mono">E</span>.</p>
           <p>Low routing entropy (peaky gate) increases imbalance and can overflow per‑expert capacity, reducing realized speedup.</p>
-          <div class="text-center bg-white border p-2 rounded font-mono text-[12px] mt-1 overflow-x-auto">
+          <div class="text-center bg-white border p-2 rounded font-mono text-xs mt-1 overflow-x-auto">
             \\[ \\text{active fraction} = \\frac{k}{E} \\]
             \\[ \\text{speedup} \\propto \\frac{1}{\\text{active fraction}} \\]
           </div>

@@ -12,6 +12,7 @@ class LLMQuestionApp {
         this.totalQuestions = this.availableQuestions.length;
         this.currentQuestionIndex = 0;
         this.isLoading = false;
+    this.queuedIndex = null; // for queued navigation during in-flight load
 
         // Landing + path state
         this.landingRoot = document.getElementById('landing-root');
@@ -77,10 +78,43 @@ class LLMQuestionApp {
     }
 
     /* -------------- Hash / Routing -------------- */
-    parseHash(){ const h=window.location.hash; if(!h||h==='#') return null; const m=h.match(/#(?:question-?|q)?(\d+)/i); return m?parseInt(m[1],10):null; }
-    initFromHash(){ const q=this.parseHash(); if(!q){ this.showLanding(); return; } const idx=this.availableQuestions.indexOf(q); if(idx!==-1){ this.hideLanding(); this.displayQuestion(idx);} else { this.showLanding(); this.notify(`Question ${q} not found`,'error'); } }
+    // Return canonical hash for a question number (no leading zeroes)
+    canonicalHash(q){ return `#question-${q}`; }
+    // Parse current hash, allow legacy forms: #question07, #question-07, #q7, #7
+    parseHash(){
+        const h = window.location.hash;
+        if(!h || h==='#') return null;
+        const m = h.match(/^#(?:question-?|q)?0*(\d{1,3})$/i);
+        if(!m) return null;
+        const q = parseInt(m[1],10);
+        if(!Number.isFinite(q) || q < 1) return null;
+        return q;
+    }
+    initFromHash(){
+        const q = this.parseHash();
+        if(!q){ this.showLanding(); return; }
+        // Normalize hash immediately if non‑canonical (leading zeros or alt form)
+        const desired = this.canonicalHash(q);
+        if(window.location.hash !== desired){
+            // Use replaceState so we don't bloat history for normalization
+            history.replaceState(null,'',desired);
+        }
+        const idx = this.availableQuestions.indexOf(q);
+        if(idx!==-1){ this.hideLanding(); this.displayQuestion(idx,{replace:true}); } else { this.showLanding(); this.notify(`Question ${q} not found`,'error'); }
+    }
     onHashChange(){ this.initFromHash(); }
-    updateURL(i){ const q=this.availableQuestions[i]; const h=`#question-${q}`; if(window.location.hash!==h) history.pushState(null,'',h); }
+    updateURL(i, { replace=false } = {}){
+        const q = this.availableQuestions[i];
+        const h = this.canonicalHash(q);
+        if(window.location.hash === h) return;
+        if(replace){
+            history.replaceState(null,'',h);
+            // Fallback: if hash did not update (some browsers), force it
+            if(window.location.hash !== h){ window.location.hash = h; }
+        } else {
+            window.location.hash = h; // pushes history (expected for explicit navigation)
+        }
+    }
     getShareableURL(){ const q=this.availableQuestions[this.currentQuestionIndex]; const base=`${window.location.origin}${window.location.pathname}`.replace(/[^/]+$/,''); return `${base}q/${q}.html`; }
 
     /* -------------- Landing & Paths -------------- */
@@ -161,7 +195,50 @@ class LLMQuestionApp {
         }
 
     /* -------------- Questions -------------- */
-    async displayQuestion(index){ if(this.isLoading) return; this.hideLanding(); this.isLoading=true; this.showLoading(); try{ this.elements.questionViewer.style.opacity='0'; const qNum=this.availableQuestions[index]; const question=await this.questionLoader.loadQuestion(qNum); this.updateDropdownOption(index,question.title); await this.delay(120); this.updateQuestionContent(question,index); this.updateNavState(index); if(question.interactive?.script){ try{ question.interactive.script(); }catch(e){ console.error(e); this.showInteractiveError(); }} await this.renderMath(); this.elements.questionViewer.style.opacity='1'; this.currentQuestionIndex=index; this.syncActivePath(qNum); this.updatePathUI(); window.scrollTo({top:0,behavior:'smooth'}); this.updateURL(index);} catch(e){ console.error('Display failed',e); this.showQuestionError(this.availableQuestions[index]); } finally { this.hideLoading(); this.isLoading=false; } }
+    async displayQuestion(index,{replace=false}={}){
+        // Always update URL immediately to reflect user intent
+        try { this.updateURL(index,{ replace }); } catch(_) {}
+        // Queue if already loading (URL already reflects target)
+        if(this.isLoading){ this.queuedIndex = index; return; }
+        this.hideLanding();
+        this.isLoading = true;
+        this.showLoading();
+        const qNum = this.availableQuestions[index];
+        // (URL already updated above)
+        let previousIndex = this.currentQuestionIndex;
+        try {
+            this.elements.questionViewer.style.opacity='0';
+            const question = await this.questionLoader.loadQuestion(qNum);
+            this.updateDropdownOption(index,question.title);
+            await this.delay(80);
+            this.updateQuestionContent(question,index);
+            this.updateNavState(index);
+            if(question.interactive?.script){
+                try { question.interactive.script(); }
+                catch(e){ console.error(e); this.showInteractiveError(); }
+            }
+            await this.renderMath();
+            this.elements.questionViewer.style.opacity='1';
+            this.currentQuestionIndex = index;
+            this.syncActivePath(qNum);
+            this.updatePathUI();
+            window.scrollTo({top:0,behavior:'smooth'});
+        } catch(e){
+            console.error('Display failed', e);
+            // Revert hash if load failed
+            this.updateURL(previousIndex, { replace:true });
+            this.showQuestionError(this.availableQuestions[index]);
+        } finally {
+            this.hideLoading();
+            this.isLoading = false;
+            // Process queued navigation if any (single-step coalescing)
+            if(this.queuedIndex !== null && this.queuedIndex !== this.currentQuestionIndex){
+                const next = this.queuedIndex; this.queuedIndex = null; this.displayQuestion(next,{replace:false});
+            } else {
+                this.queuedIndex = null;
+            }
+        }
+    }
     async showNext(){ if(this.activePath){ if(this.activePath.pos < this.activePath.sequence.length-1){ const nextQ=this.activePath.sequence[this.activePath.pos+1]; return this.displayQuestion(this.availableQuestions.indexOf(nextQ)); } else { const done=this.activePath.key; this.exitPath(); this.notify(`Completed ${done} path!`); }} if(this.currentQuestionIndex < this.totalQuestions-1) await this.displayQuestion(this.currentQuestionIndex+1); }
     async showPrev(){ if(this.activePath){ if(this.activePath.pos>0){ const prevQ=this.activePath.sequence[this.activePath.pos-1]; return this.displayQuestion(this.availableQuestions.indexOf(prevQ)); } else { this.exitPath(); }} if(this.currentQuestionIndex>0) await this.displayQuestion(this.currentQuestionIndex-1); }
     async jumpTo(){ const newIdx=parseInt(this.elements.questionNavDropdown.value,10); if(newIdx!==this.currentQuestionIndex) await this.displayQuestion(newIdx); }
@@ -169,7 +246,35 @@ class LLMQuestionApp {
 
     /* -------------- UI Helpers -------------- */
     populateQuestionDropdown(){ const titles={1:"What does tokenization entail, and why is it critical for LLMs?",2:"How does the attention mechanism function in transformer models?",3:"What is the context window in LLMs, and why does it matter?",4:"What distinguishes LoRA from QLoRA in fine-tuning LLMs?",5:"How does beam search improve text generation compared to greedy decoding?",6:"What is temperature in text generation and how does it affect output?",7:"What are embeddings and how do they enable LLMs to understand semantic meaning?",8:"What is RLHF and how does it improve LLM alignment with human preferences?",9:"How do autoregressive and masked models differ in LLM training?",10:"What are embeddings, and how are they initialized in LLMs?",11:"What is next sentence prediction, and how does it enhance LLMs?",12:"How do top-k and top-p sampling differ in text generation?",13:"Why is prompt engineering crucial for LLM performance?",14:"How can LLMs avoid catastrophic forgetting during fine-tuning?",15:"What is model distillation, and how does it benefit LLMs?",16:"How do LLMs manage out-of-vocabulary (OOV) words?",17:"How do transformers improve on traditional Seq2Seq models?",18:"What is overfitting, and how can it be mitigated in LLMs?",19:"What are generative versus discriminative models in NLP?",20:"How do GPT-3, GPT-4, and GPT-5 differ in features and applications?",21:"What are positional encodings, and why are they used?",22:"What is multi-head attention, and how does it enhance LLMs?",23:"How is the softmax function applied in attention mechanisms?",24:"How does the dot product contribute to self-attention?",25:"Why is cross-entropy loss used in language modeling?",26:"How are gradients computed for embeddings in LLMs?",27:"What is the Jacobian matrix's role in transformer backpropagation?",28:"How do eigenvalues and eigenvectors relate to dimensionality reduction?",29:"What is KL divergence, and how is it used in LLMs?",30:"What is the derivative of the ReLU function, and why is it significant?",31:"How does backpropagation work, and why is the chain rule critical?",32:"How are attention scores calculated in transformers?",33:"How does Gemini optimize multimodal LLM training?",34:"What types of foundation models exist?",35:"How does PEFT mitigate catastrophic forgetting?",36:"What are the steps in Retrieval-Augmented Generation (RAG)?",37:"How does Mixture of Experts (MoE) enhance LLM scalability?",38:"What is Chain-of-Thought (CoT) prompting, and how does it aid reasoning?",39:"How do discriminative and generative AI models differ?",40:"How does knowledge graph integration improve LLMs?",41:"What is zero-shot learning, and how do LLMs implement it?",42:"How does Adaptive Softmax optimize LLMs?",43:"How do transformers address the vanishing gradient problem?",44:"What is few-shot learning, and what are its benefits?",45:"How would you fix an LLM generating biased or incorrect outputs?",46:"How do encoders and decoders differ in transformers?",47:"How do LLMs differ from traditional statistical language models?",48:"What is a hyperparameter, and why is it important?",49:"What defines a Large Language Model (LLM)?",50:"What challenges do LLMs face in deployment?"}; this.elements.questionNavDropdown.innerHTML=''; this.availableQuestions.forEach((q,i)=>{ const o=document.createElement('option'); o.value=i; o.textContent=`${q}. ${titles[q]}`; this.elements.questionNavDropdown.appendChild(o); }); }
-    updateQuestionContent(question,idx){ this.elements.questionTitle.textContent=question.title; let html=question.answer; if(question.interactive){ html+=`\n<div class="interactive-container mt-8 p-6 bg-gray-50 rounded-lg border-2 border-dashed border-gray-300">\n  <h3 class="text-lg font-semibold text-indigo-700 mb-4">${question.interactive.title}</h3>\n  ${question.interactive.html}\n</div>`;} this.elements.questionAnswer.innerHTML=html; setTimeout(()=>{ if(window.MathJax?.typesetPromise){ window.MathJax.typesetClear&&window.MathJax.typesetClear(); window.MathJax.typesetPromise([this.elements.questionAnswer]).catch(()=>{}); } },40); }
+    updateQuestionContent(question,idx){
+        this.elements.questionTitle.textContent=question.title;
+        let html=question.answer;
+        if(question.interactive){
+            html+=`\n<div class="interactive-container mt-8 p-6 bg-gray-50 rounded-lg border-2 border-dashed border-gray-300">\n  <h3 class="text-lg font-semibold text-indigo-700 mb-4">${question.interactive.title}</h3>\n  ${question.interactive.html}\n</div>`;
+        }
+        this.elements.questionAnswer.innerHTML=html;
+        // Normalize internal anchors (#question-0N or #question0N -> #question-N)
+        this.normalizeAnchors();
+        setTimeout(()=>{ if(window.MathJax?.typesetPromise){ window.MathJax.typesetClear&&window.MathJax.typesetClear(); window.MathJax.typesetPromise([this.elements.questionAnswer]).catch(()=>{}); } },40);
+    }
+    normalizeAnchors(){
+        const anchors = this.elements.questionAnswer.querySelectorAll('a[href^="#question"],a[href^="#q"],a[href^="#0"],a[href^="#question-0"],a[href^="#question0"]');
+        anchors.forEach(a=>{
+            const href = a.getAttribute('href');
+            if(!href) return;
+            const m = href.match(/^#(?:question-?|q)?0*(\d{1,3})$/i);
+            if(m){
+                const q = parseInt(m[1],10);
+                if(q>=1 && q<=this.totalQuestions){
+                    a.setAttribute('href', this.canonicalHash(q));
+                    a.addEventListener('click', (e)=>{
+                        e.preventDefault();
+                        this.displayQuestion(this.availableQuestions.indexOf(q));
+                    }, { once:true });
+                }
+            }
+        });
+    }
     updateNavState(i){ this.elements.prevBtn.disabled=i===0; this.elements.nextBtn.disabled=i===this.totalQuestions-1; this.elements.progressIndicator.textContent=`Question ${i+1} of ${this.totalQuestions} (${this.availableQuestions[i]})`; this.elements.questionNavDropdown.value=i; }
     updateDropdownOption(i,title){ const opt=this.elements.questionNavDropdown.children[i]; if(opt){ const qText=title.substring(title.indexOf(' ')+1); opt.textContent=`${i+1}. ${qText}`; } }
     showLoading(){ this.elements.loadingIndicator.style.opacity='1'; }

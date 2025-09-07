@@ -4,21 +4,21 @@
 
 const question = {
   title: "35. How does PEFT mitigate catastrophic forgetting?",
-  answer: `<div class="space-y-6">
+  answer: `<div class="space-y-4">
     <!-- Recommended Reading (Cross-links) -->
     <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
       <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading</h4>
-      <ul class="list-disc ml-5 text-xs text-indigo-800 space-y-1">
+      <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
         <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-15">Question 15: What is catastrophic forgetting?</a></li>
         <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-16">Question 16: What is transfer learning in LLMs?</a></li>
         <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-24">Question 24: What is parameter-efficient fine-tuning?</a></li>
         <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-31">Question 31: How does RLHF shape model behavior?</a></li>
         <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-34">Question 34: What types of foundation models exist?</a></li>
       </ul>
-      <p class="text-[11px] text-indigo-700 mt-2">These provide grounding for continual learning pressure, transfer dynamics, and alignment signals relevant to PEFT.</p>
+  <p class="text-xs text-indigo-700 mt-2">These provide grounding for continual learning pressure, transfer dynamics, and alignment signals relevant to PEFT.</p>
     </div>
     <!-- Definition / Core Concept -->
-  <div class="bg-blue-50 p-4 rounded-xl border border-blue-200">
+  <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
       <h4 class="font-semibold text-blue-900 mb-2">🧠 Core Idea</h4>
       <p class="text-sm text-blue-800 leading-relaxed"><strong>Parameter‑Efficient Fine‑Tuning (PEFT)</strong> reduces <em>catastrophic forgetting</em> by freezing most pretrained weights \(\theta_{\text{base}}\) and introducing a small, trainable subset \(\Delta\theta\) (adapters, low‑rank matrices, prefixes, bias terms). Because the original representation space is largely preserved, gradients from new tasks cannot overwrite previously learned generalizations.</p>
       <div class="mt-3 grid md:grid-cols-4 gap-3 text-xs">
@@ -30,7 +30,7 @@ const question = {
     </div>
 
     <!-- Mechanism & Math -->
-  <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm">
+  <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
       <h4 class="font-semibold text-gray-900 mb-3">🧩 Mechanism</h4>
   <p class="text-sm text-gray-700">Instead of updating inline parameters, we add a <em>structured delta</em> to a frozen base (additive decomposition):</p>
       <div class="text-center bg-gradient-to-r from-indigo-50 to-indigo-100 p-4 rounded-lg border border-indigo-200 text-sm font-mono">
@@ -50,7 +50,7 @@ const question = {
 
     <!-- Comparison Cards -->
     <div class="grid lg:grid-cols-4 md:grid-cols-2 gap-4 text-sm">
-      <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+      <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
         <h5 class="font-semibold text-green-800 mb-1">LoRA / QLoRA</h5>
         <ul class="list-disc ml-4 text-xs text-green-700 space-y-1">
           <li>Low‑rank residual update</li>
@@ -58,7 +58,7 @@ const question = {
           <li>Mergeable at inference</li>
         </ul>
       </div>
-      <div class="bg-purple-50 border border-purple-200 rounded-lg p-4">
+      <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
         <h5 class="font-semibold text-purple-800 mb-1">Adapters</h5>
         <ul class="list-disc ml-4 text-xs text-purple-700 space-y-1">
           <li>Bottleneck MLP blocks</li>
@@ -66,7 +66,7 @@ const question = {
           <li>Stable gradients</li>
         </ul>
       </div>
-      <div class="bg-amber-50 border border-amber-200 rounded-lg p-4">
+      <div class="bg-amber-50 p-3 rounded border-l-4 border-amber-400">
         <h5 class="font-semibold text-amber-800 mb-1">Prefix / P‑Tuning</h5>
         <ul class="list-disc ml-4 text-xs text-amber-700 space-y-1">
           <li>Train virtual tokens</li>
@@ -74,7 +74,7 @@ const question = {
           <li>Fast adaptation</li>
         </ul>
       </div>
-      <div class="bg-rose-50 border border-rose-200 rounded-lg p-4">
+      <div class="bg-rose-50 p-3 rounded border-l-4 border-rose-400">
         <h5 class="font-semibold text-rose-800 mb-1">BitFit / Bias‑Only</h5>
         <ul class="list-disc ml-4 text-xs text-rose-700 space-y-1">
           <li>Update only biases</li>
@@ -85,7 +85,7 @@ const question = {
     </div>
 
     <!-- Why It Matters -->
-  <div class="bg-yellow-50 p-4 rounded-xl border border-yellow-200">
+  <div class="bg-yellow-50 p-4 rounded-lg">
       <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why This Matters</h4>
       <ul class="text-sm text-yellow-800 space-y-1">
         <li>• <strong>Preserves generalization:</strong> Frozen base prevents destructive drift.</li>

@@ -5,11 +5,11 @@
 const question = {
   title: "39. How do discriminative and generative AI models differ?",
   answer: `
-    <div class="space-y-6">
+    <div class="space-y-4">
       <!-- Recommended Reading -->
-      <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+  <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
         <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading</h4>
-        <ul class="text-xs text-indigo-800 list-disc ml-5 space-y-1">
+    <ul class="text-sm text-indigo-800 list-disc ml-5 space-y-1">
           <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-12">Question 12: Prompt engineering basics</a></li>
           <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-31">Question 31: Temperature & sampling</a></li>
           <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-36">Question 36: Retrieval-Augmented Generation</a></li>
@@ -17,7 +17,7 @@ const question = {
         </ul>
       </div>
       <!-- Main Concept -->
-  <div class="bg-blue-50 p-4 rounded-xl border border-blue-200">
+  <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
         <h4 class="font-semibold text-blue-900 mb-2">🔤 Key Idea</h4>
         <p class="text-sm text-blue-800">
           <b>Discriminative</b> models learn the decision rule
@@ -29,32 +29,32 @@ const question = {
           $$\\text{Discriminative: } \\; \\hat{y} = \\arg\\max_y \\, P(y\\mid x) \\qquad\\quad
           \\text{Generative: } \\; P(x) \\text{ or }\\; P(x,y) = P(y\\mid x)P(x)$$
         </div>
-        <p class="text-xs text-blue-700">Rule of thumb: Discriminative = best boundaries for labeling; Generative = learn the data distribution to generate or reason with missing parts.</p>
+    <p class="text-xs text-blue-800 mt-2">Rule of thumb: Discriminative = best boundaries for labeling; Generative = learn the data distribution to generate or reason with missing parts.</p>
       </div>
 
       <!-- Comparison Cards -->
       <div class="grid md:grid-cols-3 gap-4">
-        <div class="bg-green-50 border border-green-200 p-4 rounded-lg">
-          <h5 class="font-semibold text-green-900">🟢 Discriminative</h5>
-          <ul class="text-sm text-green-800 mt-2 space-y-1">
+        <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
+          <h5 class="font-semibold text-green-900 mb-1">🟢 Discriminative</h5>
+          <ul class="text-sm text-green-800 space-y-1">
             <li>• Models \(P(y\mid x)\)</li>
             <li>• Great for classification and ranking</li>
             <li>• Often simpler, faster at inference</li>
             <li>• Examples: Logistic Reg., SVM, fine‑tuned encoder</li>
           </ul>
         </div>
-        <div class="bg-purple-50 border border-purple-200 p-4 rounded-lg">
-          <h5 class="font-semibold text-purple-900">🟣 Generative</h5>
-          <ul class="text-sm text-purple-800 mt-2 space-y-1">
+        <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
+          <h5 class="font-semibold text-purple-900 mb-1">🟣 Generative</h5>
+          <ul class="text-sm text-purple-800 space-y-1">
             <li>• Models \(P(x)\) or \(P(x,y)\)</li>
             <li>• Can sample and synthesize new data</li>
             <li>• Useful for imputation, simulation, few‑shot tasks</li>
             <li>• Examples: GPT, diffusion models, VAEs</li>
           </ul>
         </div>
-        <div class="bg-orange-50 border border-orange-200 p-4 rounded-lg">
-          <h5 class="font-semibold text-orange-900">🟠 Hybrid patterns</h5>
-          <ul class="text-sm text-orange-800 mt-2 space-y-1">
+        <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
+          <h5 class="font-semibold text-orange-900 mb-1">🟠 Hybrid patterns</h5>
+          <ul class="text-sm text-orange-800 space-y-1">
             <li>• Discriminative heads on generative backbones</li>
             <li>• Prompting LLMs for classification</li>
             <li>• Energy‑based and classifier‑guided generation</li>
@@ -63,7 +63,7 @@ const question = {
       </div>
 
       <!-- Why This Matters -->
-  <div class="bg-yellow-50 p-4 rounded-xl border border-yellow-200">
+  <div class="bg-yellow-50 p-4 rounded-lg">
         <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why This Matters</h4>
         <ul class="text-sm text-yellow-800 space-y-1">
           <li>• Choose the right tool: label vs. synthesize vs. reason.</li>
@@ -74,7 +74,7 @@ const question = {
       </div>
 
       <!-- Tiny code hints -->
-      <div class="bg-white p-4 rounded border text-xs">
+  <div class="bg-white p-4 rounded border text-xs">
         <div class="grid md:grid-cols-2 gap-4">
           <div>
             <div class="font-semibold mb-1">Discriminative (logistic):</div>
@@ -268,10 +268,7 @@ const question = {
 
       function bars(label,val,color='indigo'){
         const pct = Math.max(0, Math.min(100, val*100));
-        return `<div role=\"group\" aria-label=\"${label} ${pct.toFixed(0)} percent\">
-          <div class=\"flex justify-between text-xs mb-0.5\"><span>${label}</span><span>${pct.toFixed(0)}%</span></div>
-          <div class=\"w-full h-3 bg-${color}-200 rounded\" aria-hidden=\"true\"><div class=\"h-3 bg-${color}-600\" style=\"width:${pct}%\" role=\"progressbar\" aria-valuenow=\"${pct.toFixed(0)}\" aria-valuemin=\"0\" aria-valuemax=\"100\" aria-label=\"${label}\"></div></div>
-        </div>`;
+        return `<div role=\"group\" aria-label=\"${label} ${pct.toFixed(0)} percent\">\n          <div class=\"flex justify-between text-xs mb-0.5\"><span>${label}</span><span>${pct.toFixed(0)}%</span></div>\n          <div class=\"w-full h-3 bg-${color}-200 rounded\" aria-hidden=\"true\"><div class=\"h-3 bg-${color}-600\" style=\"width:${pct}%\" role=\"progressbar\" aria-valuenow=\"${pct.toFixed(0)}\" aria-valuemin=\"0\" aria-valuemax=\"100\" aria-label=\"${label}\"></div></div>\n        </div>`;
       }
 
       function render(){

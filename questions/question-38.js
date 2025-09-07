@@ -4,11 +4,11 @@
 
 const question = {
   title: "38. What is Chain-of-Thought (CoT) prompting, and how does it aid reasoning?",
-  answer: `<div class="space-y-6">
+  answer: `<div class="space-y-4">
     <!-- Recommended Reading -->
     <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
       <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading</h4>
-      <ul class="text-xs text-indigo-800 list-disc ml-5 space-y-1">
+      <ul class="text-sm text-indigo-800 list-disc ml-5 space-y-1">
         <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-12">Question 12: Prompt engineering basics</a></li>
         <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-31">Question 31: Temperature & sampling</a></li>
         <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-36">Question 36: Retrieval-Augmented Generation</a></li>
@@ -16,7 +16,7 @@ const question = {
       </ul>
     </div>
     <!-- Core Concept -->
-  <div class="bg-blue-50 p-4 rounded-xl border border-blue-200">
+  <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
       <h4 class="font-semibold text-blue-900 mb-2">🧩 Key Idea</h4>
       <p class="text-sm text-blue-800">Chain‑of‑Thought (CoT) prompting asks the model to <b>show intermediate steps</b> rather than jumping straight to the final answer. This structured reasoning improves results on multi‑step tasks (math word problems, logic, program synthesis).</p>
   <div id="q38-key-math" class="text-xs bg-white border border-blue-100 p-3 rounded font-mono text-center mt-3 tex2jax_process">
@@ -30,27 +30,27 @@ const question = {
 
     <!-- Strategy Comparison Cards -->
     <div class="grid md:grid-cols-3 gap-4">
-      <div class="bg-green-50 p-4 rounded-lg border border-green-200">
+      <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
         <h5 class="font-semibold text-green-900 mb-1">Direct Answer</h5>
-        <p class="text-xs text-green-800">Model outputs an answer immediately. <b>Lowest cost</b>, but can fail on multi‑step logic.</p>
+        <p class="text-sm text-green-800">Model outputs an answer immediately. <b>Lowest cost</b>, but can fail on multi‑step logic.</p>
   <div class="text-xs bg-white border p-2 mt-2 rounded overflow-x-auto whitespace-nowrap">$$ y = f(\text{prompt}) $$</div>
   <ul class="mt-2 text-xs text-green-900 space-y-0.5">
           <li>• Fast, cheap</li>
           <li>• No transparency</li>
         </ul>
       </div>
-      <div class="bg-purple-50 p-4 rounded-lg border border-purple-200">
-        <h5 class="font-semibold text-purple-900 mb-1">Single CoT</h5>
-        <p class="text-xs text-purple-800">Ask the model to “think step by step.” Increases accuracy by decomposing reasoning.</p>
+  <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
+    <h5 class="font-semibold text-purple-900 mb-1">Single CoT</h5>
+    <p class="text-sm text-purple-800">Ask the model to “think step by step.” Increases accuracy by decomposing reasoning.</p>
   <div class="text-xs bg-white border p-2 mt-2 rounded overflow-x-auto whitespace-nowrap">$$ y = g(s_1, s_2, \dots, s_T) $$</div>
   <ul class="mt-2 text-xs text-purple-900 space-y-0.5">
           <li>• Better reasoning</li>
-          <li>• More tokens</li>
+  <p class="text-xs text-gray-600 mt-2">For self‑consistency, sample \\(m\\) CoT chains at moderate temperature and vote on the final answer.</p>
         </ul>
       </div>
-      <div class="bg-orange-50 p-4 rounded-lg border border-orange-200">
+      <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
         <h5 class="font-semibold text-orange-900 mb-1">Self‑Consistency</h5>
-        <p class="text-xs text-orange-800">Sample multiple diverse CoT chains and <b>vote</b> on the final answer. Robust to a bad chain.</p>
+        <p class="text-sm text-orange-800">Sample multiple diverse CoT chains and <b>vote</b> on the final answer. Robust to a bad chain.</p>
         <!-- Escaped LaTeX for MathJax inside JS template string -->
     <div class="text-xs bg-white border p-2 mt-2 rounded overflow-x-auto whitespace-nowrap">$$ P_{\mathrm{SC}} = \\sum_{k=t}^{m} \\binom{m}{k} p^{k} (1-p)^{m-k} $$</div>
   <ul class="mt-2 text-xs text-orange-900 space-y-0.5">
@@ -61,7 +61,7 @@ const question = {
     </div>
 
     <!-- Why it matters -->
-  <div class="bg-yellow-50 p-4 rounded-xl border border-yellow-200">
+  <div class="bg-yellow-50 p-4 rounded-lg">
       <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why This Matters</h4>
       <ul class="text-sm text-yellow-800 space-y-1">
         <li>• <b>Decomposes</b> complex problems into smaller steps.</li>
@@ -73,7 +73,7 @@ const question = {
   </div>`,
   interactive: {
   title: "🧪 CoT Reasoning Playground (Direct vs CoT vs Self‑Consistency)",
-  html: `<div class=\"space-y-6\">\n      <div class=\"bg-gradient-to-r from-amber-50 to-orange-50 p-4 rounded-lg border border-amber-200\">\n        <div class=\"grid md:grid-cols-4 gap-4 text-xs\">\n          <div>\n            <label class=\"font-semibold text-gray-700\" for=\"q38-problem\">Problem</label>\n            <select id=\"q38-problem\" class=\"w-full border rounded p-1 text-xs\" aria-label=\"Select problem type\">\n              <option value=\"sum\">Add numbers</option>\n              <option value=\"apples\">Word problem (apples)</option>\n              <option value=\"units\">Units conversion</option>\n            </select>\n          </div>\n          <div>\n            <label class=\"font-semibold text-gray-700\" for=\"q38-strategy\">Strategy</label>\n            <select id=\"q38-strategy\" class=\"w-full border rounded p-1 text-xs\" aria-label=\"Select reasoning strategy\">\n              <option value=\"direct\">Direct answer</option>\n              <option value=\"cot\">CoT (1 sample)</option>\n              <option value=\"sc\">CoT + Self‑Consistency</option>\n            </select>\n          </div>\n            <div>\n              <label class=\"font-semibold text-gray-700\" for=\"q38-temp\">Temperature</label>\n              <input id=\"q38-temp\" aria-label=\"Sampling temperature\" type=\"range\" min=\"0\" max=\"1\" step=\"0.05\" value=\"0.4\" class=\"w-full\" />\n              <div class=\"text-center mt-1\"><span id=\"q38-temp-val\" class=\"font-mono\">0.40</span></div>\n            </div>\n            <div>\n              <label class=\"font-semibold text-gray-700\" for=\"q38-m\">Samples (m)</label>\n              <input id=\"q38-m\" aria-label=\"Number of self-consistency samples\" type=\"range\" min=\"1\" max=\"15\" step=\"1\" value=\"5\" class=\"w-full\" />\n              <div class=\"text-center mt-1\"><span id=\"q38-m-val\" class=\"font-mono\">5</span></div>\n            </div>\n        </div>\n        <p class=\"text-[11px] text-gray-600 mt-2\">For self‑consistency, sample \\(m\\) CoT chains at moderate temperature and vote on the final answer.</p>\n      </div>\n\n      <div class=\"grid md:grid-cols-3 gap-4\">\n        <div class=\"bg-white border rounded-lg p-4\">\n          <h5 class=\"font-semibold text-gray-800 mb-2\">📝 Problem</h5>\n          <div id=\"q38-problem-text\" class=\"text-sm text-gray-700\"></div>\n          <button id=\"q38-rand\" class=\"mt-3 text-xs px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded border\" aria-label=\"Shuffle numbers for new problem instance\">Shuffle numbers</button>\n        </div>\n        <div class=\"bg-white border rounded-lg p-4\">\n          <h5 class=\"font-semibold text-gray-800 mb-2\">📌 Metrics</h5>\n          <div id=\"q38-metrics\" class=\"text-xs space-y-2\" aria-live=\"polite\"></div>\n        </div>\n        <div class=\"bg-white border rounded-lg p-4\">\n          <h5 class=\"font-semibold text-gray-800 mb-2\">📣 Output</h5>\n          <div id=\"q38-output\" class=\"text-sm text-gray-800 space-y-2\" aria-live=\"polite\"></div>\n        </div>\n      </div>\n\n      <div class=\"bg-indigo-50 border border-indigo-200 rounded-lg p-4\">\n        <h5 class=\"font-semibold text-indigo-900 mb-1\">🔎 Explanation</h5>\n        <div id=\"q38-explain\" class=\"text-xs text-indigo-800\" aria-live=\"polite\"></div>\n      </div>\n    </div>`,
+  html: `<div class="space-y-6">\n      <div class="bg-gradient-to-r from-amber-50 to-orange-50 p-4 rounded-lg border border-amber-200">\n        <div class="grid md:grid-cols-4 gap-4 text-xs">\n          <div>\n            <label class="font-semibold text-gray-700" for="q38-problem">Problem</label>\n            <select id="q38-problem" class="w-full border rounded p-1 text-xs" aria-label="Select problem type">\n              <option value="sum">Add numbers</option>\n              <option value="apples">Word problem (apples)</option>\n              <option value="units">Units conversion</option>\n            </select>\n          </div>\n          <div>\n            <label class="font-semibold text-gray-700" for="q38-strategy">Strategy</label>\n            <select id="q38-strategy" class="w-full border rounded p-1 text-xs" aria-label="Select reasoning strategy">\n              <option value="direct">Direct answer</option>\n              <option value="cot">CoT (1 sample)</option>\n              <option value="sc">CoT + Self‑Consistency</option>\n            </select>\n          </div>\n            <div>\n              <label class="font-semibold text-gray-700" for="q38-temp">Temperature</label>\n              <input id="q38-temp" aria-label="Sampling temperature" type="range" min="0" max="1" step="0.05" value="0.4" class="w-full" />\n              <div class="text-center mt-1"><span id="q38-temp-val" class="font-mono">0.40</span></div>\n            </div>\n            <div>\n              <label class="font-semibold text-gray-700" for="q38-m">Samples (m)</label>\n              <input id="q38-m" aria-label="Number of self-consistency samples" type="range" min="1" max="15" step="1" value="5" class="w-full" />\n              <div class="text-center mt-1"><span id="q38-m-val" class="font-mono">5</span></div>\n            </div>\n        </div>\n        <p class="text-xs text-gray-600 mt-2">For self‑consistency, sample \\(m\\) CoT chains at moderate temperature and vote on the final answer.</p>\n      </div>\n\n      <div class="grid md:grid-cols-3 gap-4">\n        <div class="bg-white border rounded-lg p-4">\n          <h5 class="font-semibold text-gray-800 mb-2">📝 Problem</h5>\n          <div id="q38-problem-text" class="text-sm text-gray-700"></div>\n          <button id="q38-rand" class="mt-3 text-xs px-3 py-1 bg-gray-100 hover:bg-gray-200 rounded border" aria-label="Shuffle numbers for new problem instance">Shuffle numbers</button>\n        </div>\n        <div class="bg-white border rounded-lg p-4">\n          <h5 class="font-semibold text-gray-800 mb-2">📌 Metrics</h5>\n          <div id="q38-metrics" class="text-xs space-y-2" aria-live="polite"></div>\n        </div>\n        <div class="bg-white border rounded-lg p-4">\n          <h5 class="font-semibold text-gray-800 mb-2">📣 Output</h5>\n          <div id="q38-output" class="text-sm text-gray-800 space-y-2" aria-live="polite"></div>\n        </div>\n      </div>\n\n      <div class="bg-indigo-50 border border-indigo-200 rounded-lg p-4">\n        <h5 class="font-semibold text-indigo-900 mb-1">🔎 Explanation</h5>\n        <div id="q38-explain" class="text-xs text-indigo-800" aria-live="polite"></div>\n      </div>\n    </div>`,
     script: () => {
       const problemEl = document.getElementById('q38-problem');
       const stratEl = document.getElementById('q38-strategy');
@@ -196,15 +196,15 @@ const question = {
         const bars = (label,val,color='indigo') => {
           const pct = Math.max(0, Math.min(100, val*100));
           return `<div role=\"group\" aria-label=\"${label} ${pct.toFixed(0)} percent\">
-            <div class=\"flex justify-between text-[11px] mb-0.5\"><span>${label}</span><span>${pct.toFixed(0)}%</span></div>
+            <div class=\"flex justify-between text-xs mb-0.5\"><span>${label}</span><span>${pct.toFixed(0)}%</span></div>
             <div class=\"w-full h-3 bg-${color}-200 rounded\" aria-hidden=\"true\"><div class=\"h-3 bg-${color}-600\" style=\"width:${pct}%\" role=\"progressbar\" aria-valuenow=\"${pct.toFixed(0)}\" aria-valuemin=\"0\" aria-valuemax=\"100\" aria-label=\"${label}\"></div></div>
           </div>`;
         };
 
         const explain = `
           <p>CoT reveals intermediate steps. Self‑consistency samples multiple chains and takes a majority (ties count half) to reduce variance from any single flawed chain.</p>
-          <div id="q38-explain-math" class="text-center bg-white border p-2 rounded font-mono text-[12px] mt-1 overflow-x-auto whitespace-nowrap"></div>
-          <div class="text-[11px] text-gray-600 mt-1">We treat chains as independent with single‑chain correctness <span class="font-mono">p</span>. For even <span class="font-mono">m</span>, a tie contributes half its probability mass so accuracy is non‑decreasing as <span class="font-mono">m</span> grows.</div>
+          <div id="q38-explain-math" class="text-center bg-white border p-2 rounded font-mono text-xs mt-1 overflow-x-auto whitespace-nowrap"></div>
+          <div class="text-xs text-gray-600 mt-1">We treat chains as independent with single‑chain correctness <span class="font-mono">p</span>. For even <span class="font-mono">m</span>, a tie contributes half its probability mass so accuracy is non‑decreasing as <span class="font-mono">m</span> grows.</div>
         `;
 
         explainEl.innerHTML = explain;

@@ -5,18 +5,18 @@
 const question = {
   title: "40. How does knowledge graph integration improve LLMs?",
   answer: `
-    <div class="space-y-6">
+    <div class="space-y-4">
       <!-- Recommended Reading -->
-      <div class="bg-indigo-50 p-4 rounded-lg border border-indigo-200">
+      <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
         <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading</h4>
-        <ul class="text-xs text-indigo-800 list-disc ml-5 space-y-0.5">
-          <li><b>Q36</b> – Retrieval-Augmented Generation (contrast KG triples vs unstructured doc chunks)</li>
-          <li><b>Q38</b> – Chain-of-Thought (paths in graphs vs reasoning chains)</li>
-          <li><b>Q39</b> – Discriminative vs Generative (KG reduces generative hallucination risk)</li>
+        <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+          <li><a href="#question-36" class="text-indigo-700 underline hover:text-indigo-900">Question 36: Retrieval-Augmented Generation</a></li>
+          <li><a href="#question-38" class="text-indigo-700 underline hover:text-indigo-900">Question 38: Chain-of-Thought prompting</a></li>
+          <li><a href="#question-39" class="text-indigo-700 underline hover:text-indigo-900">Question 39: Discriminative vs Generative</a></li>
         </ul>
       </div>
       <!-- Main Concept -->
-      <div class="bg-blue-50 p-5 rounded-xl border border-blue-200">
+      <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
         <h4 class="font-semibold text-blue-900 mb-2">🔗 Key Idea</h4>
         <p class="text-sm text-blue-800">A knowledge graph (KG) adds <b>structured, factual edges</b> between entities. Grounding an LLM's answers in a KG reduces hallucinations, enables <i>path reasoning</i>, and supports <b>verifiable citations</b>.</p>
         <div class="text-xs mt-2 text-blue-800">Formal view: with grounding the model conditions on graph facts \(G\): \(P(\text{answer}\mid x, G)\) instead of just \(P(\text{answer}\mid x)\).</div>
@@ -24,24 +24,24 @@ const question = {
 
       <!-- Comparison Cards -->
       <div class="grid md:grid-cols-3 gap-4">
-        <div class="bg-green-50 border border-green-200 p-4 rounded-lg">
-          <h5 class="font-semibold text-green-900">🟢 LLM Only</h5>
-          <ul class="text-sm text-green-800 mt-2 space-y-1">
+        <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
+          <h5 class="font-semibold text-green-900 mb-1">🟢 LLM Only</h5>
+          <ul class="text-sm text-green-800 space-y-1">
             <li>• Fluent, fast, but may hallucinate</li>
             <li>• No explicit evidence or graph structure</li>
           </ul>
         </div>
-        <div class="bg-purple-50 border border-purple-200 p-4 rounded-lg">
-          <h5 class="font-semibold text-purple-900">🟣 Grounded with KG</h5>
-          <ul class="text-sm text-purple-800 mt-2 space-y-1">
+        <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
+          <h5 class="font-semibold text-purple-900 mb-1">🟣 Grounded with KG</h5>
+          <ul class="text-sm text-purple-800 space-y-1">
             <li>• Looks up facts as triples</li>
             <li>• Adds citations to answers</li>
             <li>• Lower hallucination risk</li>
           </ul>
         </div>
-        <div class="bg-orange-50 border border-orange-200 p-4 rounded-lg">
-          <h5 class="font-semibold text-orange-900">🟠 Graph Reasoning</h5>
-          <ul class="text-sm text-orange-800 mt-2 space-y-1">
+        <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
+          <h5 class="font-semibold text-orange-900 mb-1">🟠 Graph Reasoning</h5>
+          <ul class="text-sm text-orange-800 space-y-1">
             <li>• Multi-hop path discovery</li>
             <li>• Explains how entities relate</li>
           </ul>
@@ -49,7 +49,7 @@ const question = {
       </div>
 
       <!-- Why This Matters -->
-      <div class="bg-yellow-50 p-5 rounded-xl border border-yellow-200">
+  <div class="bg-yellow-50 p-4 rounded-lg">
         <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why This Matters</h4>
         <ul class="text-sm text-yellow-800 space-y-1">
           <li>• <b>Reducing hallucinations</b> by verifying against graph facts.</li>
@@ -110,7 +110,7 @@ const question = {
               <label class=\"inline-flex items-center gap-2\"><input id=\"q40-cite\" type=\"checkbox\" checked /><span>Add citations</span></label>
             </div>
           </div>
-          <p class=\"text-[11px] text-gray-600 mt-2\">Simulated KG grounding with a small in-memory graph; coverage controls how much of the relevant subgraph is found.</p>
+            <p class=\"text-xs text-gray-600 mt-2\">Simulated KG grounding with a small in-memory graph; coverage controls how much of the relevant subgraph is found.</p>
         </div>
 
         <div class=\"grid md:grid-cols-3 gap-4\">
@@ -217,23 +217,23 @@ const question = {
             capitalOf: 'bg-indigo-100 text-indigo-800 border-indigo-300'
           };
           const cls = map[p] || 'bg-gray-100 text-gray-700 border-gray-300';
-            return `<span class=\"px-1.5 py-0.5 rounded border text-[10px] font-medium ${cls}\" title=\"Predicate: ${p}\">${p}</span>`;
+          return `<span class=\"px-1.5 py-0.5 rounded border text-xs font-medium ${cls}\" title=\"Predicate: ${p}\">${p}</span>`;
         };
         let html = '';
         groups.forEach((arr, subj)=>{
           html += `<div class=\"space-y-1\">`+
-            `<div class=\"text-[11px] font-semibold text-gray-700 flex items-center gap-1\">`+
-              `<span class=\"px-1.5 py-0.5 bg-blue-100 text-blue-800 rounded border border-blue-300 text-[10px]\">${subj}</span>`+
-              `<span class=\"text-gray-400 font-normal\">(${arr.length})</span>`+
+              `<div class=\"text-xs font-semibold text-gray-700 flex items-center gap-1\">`+
+                `<span class=\"px-1.5 py-0.5 bg-blue-100 text-blue-800 rounded border border-blue-300 text-xs\">${subj}</span>`+
+                `<span class=\"text-gray-400 font-normal\">(${arr.length})</span>`+
             `</div>`;
-          arr.forEach(t=>{ html += `<div id=\"q40-triple-${t.i+1}\" class=\"pl-2 flex items-center gap-2 transition-colors\">${badge(t.p)} <span class=\"font-mono text-[11px]\" title=\"Object: ${t.o}\">${t.o}</span><span class=\"text-gray-400 text-[10px]\">[#${t.i+1}]</span></div>`; });
+          arr.forEach(t=>{ html += `<div id=\"q40-triple-${t.i+1}\" class=\"pl-2 flex items-center gap-2 transition-colors\">${badge(t.p)} <span class=\"font-mono text-xs\" title=\"Object: ${t.o}\">${t.o}</span><span class=\"text-gray-400 text-xs\">[#${t.i+1}]</span></div>`; });
           html += '</div>';
         });
         html += `<div class=\"pt-2 flex flex-wrap gap-1 border-t mt-2\" aria-label=\"Predicate legend\">`+
-          `<span class=\"px-1.5 py-0.5 rounded bg-green-100 text-green-800 border border-green-300 text-[10px]\">foundedBy</span>`+
-          `<span class=\"px-1.5 py-0.5 rounded bg-purple-100 text-purple-800 border border-purple-300 text-[10px]\">bornIn</span>`+
-          `<span class=\"px-1.5 py-0.5 rounded bg-orange-100 text-orange-800 border border-orange-300 text-[10px]\">inCountry</span>`+
-          `<span class=\"px-1.5 py-0.5 rounded bg-indigo-100 text-indigo-800 border border-indigo-300 text-[10px]\">capitalOf</span>`+
+          `<span class=\"px-1.5 py-0.5 rounded bg-green-100 text-green-800 border border-green-300 text-xs\">foundedBy</span>`+
+          `<span class=\"px-1.5 py-0.5 rounded bg-purple-100 text-purple-800 border border-purple-300 text-xs\">bornIn</span>`+
+          `<span class=\"px-1.5 py-0.5 rounded bg-orange-100 text-orange-800 border border-orange-300 text-xs\">inCountry</span>`+
+          `<span class=\"px-1.5 py-0.5 rounded bg-indigo-100 text-indigo-800 border border-indigo-300 text-xs\">capitalOf</span>`+
         `</div>`;
         return html;
       }
@@ -242,7 +242,7 @@ const question = {
         const pct = Math.max(0, Math.min(100, Math.round(value*100)));
         // Accessible progress bar
         return `<div>
-          <div class=\"flex justify-between text-[11px] mb-0.5\"><span>${label}</span><span>${(value*100).toFixed(0)}%</span></div>
+          <div class=\"flex justify-between text-xs mb-0.5\"><span>${label}</span><span>${(value*100).toFixed(0)}%</span></div>
           <div class=\"w-full h-3 bg-${color}-200 rounded relative overflow-hidden\" role=\"progressbar\" aria-label=\"${label}\" aria-valuenow=\"${pct}\" aria-valuemin=\"0\" aria-valuemax=\"100\">
             <div class=\"h-3 bg-${color}-600\" style=\"width:${pct}%\"></div>
           </div>
@@ -396,8 +396,8 @@ const question = {
             const rel = pathEdges[i].p;
             return pill + `<span class=\"q40-path-seg text-gray-400\">→</span><span class=\"q40-path-seg px-1 py-0.5 rounded bg-gray-100 text-gray-700 border border-gray-300\">${rel}</span><span class=\"q40-path-seg text-gray-400\">→</span>`;
           }).join('');
-          pathRibbon = `<div id=\"q40-path-ribbon\" class=\"flex flex-wrap items-center gap-1 text-[10px] mb-2\" aria-label=\"Reasoning path (animated)\">${parts}`+
-            `<button type=\"button\" class=\"q40-path-seg ml-2 px-1.5 py-0.5 text-[10px] rounded border bg-white hover:bg-gray-50\" aria-label=\"Replay path animation\" id=\"q40-path-replay\">Replay</button></div>`;
+          pathRibbon = `<div id=\"q40-path-ribbon\" class=\"flex flex-wrap items-center gap-1 text-xs mb-2\" aria-label=\"Reasoning path (animated)\">${parts}`+
+            `<button type=\"button\" class=\"q40-path-seg ml-2 px-1.5 py-0.5 text-xs rounded border bg-white hover:bg-gray-50\" aria-label=\"Replay path animation\" id=\"q40-path-replay\">Replay</button></div>`;
         }
         // Evidence panel (prepend path ribbon if present)
         const evidenceHTML = (pathRibbon || '') + triplesToHTML(tris);
@@ -423,8 +423,8 @@ const question = {
           `${task.ask.replace('?','')}: ${mode==='llm' ? 'Likely answer.' : 'Attempted answer (limited evidence).'}` :
           task.answerFrom(tris);
 
-  const cites = cite && hasFacts ? `<div class=\"text-[11px] text-gray-600\">Citations: ${tris.map(t=>`<a href=\"#\" data-triple=\"${t.i+1}\" class=\"underline hover:text-gray-800\" aria-label=\"Jump to triple ${t.i+1}\">[#${t.i+1}]</a>`).join(' ')}</div>` : '';
-        const pathExplain = (mode==='path' && pathFound) ? `<div class=\"text-[11px] text-gray-700\">Path: ${pathEdges.map(e=> e.rev? `(${e.o}) -[${e.p}]→ (${e.s})` : `(${e.s}) -[${e.p}]→ (${e.o})`).join(' , ')}</div>` : '';
+  const cites = cite && hasFacts ? `<div class=\"text-xs text-gray-600\">Citations: ${tris.map(t=>`<a href=\"#\" data-triple=\"${t.i+1}\" class=\"underline hover:text-gray-800\" aria-label=\"Jump to triple ${t.i+1}\">[#${t.i+1}]</a>`).join(' ')}</div>` : '';
+        const pathExplain = (mode==='path' && pathFound) ? `<div class=\"text-xs text-gray-700\">Path: ${pathEdges.map(e=> e.rev? `(${e.o}) -[${e.p}]→ (${e.s})` : `(${e.s}) -[${e.p}]→ (${e.o})`).join(' , ')}</div>` : '';
 
         outputEl.innerHTML = `<div>${answerText}</div>${cites}${pathExplain}`;
 
@@ -437,7 +437,7 @@ const question = {
             `<circle cx=\"${size/2}\" cy=\"${size/2}\" r=\"${r}\" stroke=\"#10b981\" stroke-width=\"${stroke}\" fill=\"none\" stroke-dasharray=\"${C.toFixed(2)}\" stroke-dashoffset=\"${offset.toFixed(2)}\" stroke-linecap=\"round\" transform=\"rotate(-90 ${size/2} ${size/2})\" />`+
             `<text x=\"50%\" y=\"50%\" text-anchor=\"middle\" dominant-baseline=\"central\" font-size=\"10\" fill=\"#065f46\">${potential?Math.round(ratio*100):0}%</text>`+
           `</svg>`+
-          `<div class=\"text-[11px]\"><div class=\"font-medium\">Coverage</div><div>${tris.length}/${potential} triples</div></div>`+
+          `<div class=\"text-xs\"><div class=\"font-medium\">Coverage</div><div>${tris.length}/${potential} triples</div></div>`+
         `</div>`;
         metricsEl.innerHTML = `
           ${bar('Estimated accuracy', acc, 'emerald')}
@@ -450,7 +450,7 @@ const question = {
 
         // Progressive expansion control (if coverage < 1 and more triples available)
         if (ratio < 0.999 && potential > tris.length) {
-          metricsEl.innerHTML += `<button id=\"q40-expand\" class=\"mt-2 px-2 py-1 text-[11px] rounded border bg-white hover:bg-gray-50\" aria-label=\"Expand to full coverage\">Expand graph (+${potential-tris.length})</button>`;
+          metricsEl.innerHTML += `<button id=\"q40-expand\" class=\"mt-2 px-2 py-1 text-xs rounded border bg-white hover:bg-gray-50\" aria-label=\"Expand to full coverage\">Expand graph (+${potential-tris.length})</button>`;
         }
 
         // Explanation
@@ -458,7 +458,7 @@ const question = {
           <div class=\"space-y-2\">
             <div>With KG grounding, the model conditions on retrieved triples and optionally a reasoning path. More coverage and a found path typically improve accuracy and reduce risk.</div>
             <div class=\"overflow-x-auto whitespace-nowrap bg-white border rounded p-2\">$$P(\\text{answer} \\mid x, G) = f_\\theta\\big(x, \\phi(G_{x})\\big)$$</div>
-            <div class=\"text-[11px] text-indigo-700\">Here \\(G_x\\) is the task-relevant subgraph (affected by coverage). If no triples are retrieved the model falls back to estimating \\(P(\\text{answer}\\mid x)\\), increasing hallucination risk.</div>
+            <div class=\"text-xs text-indigo-700\">Here \\(G_x\\) is the task-relevant subgraph (affected by coverage). If no triples are retrieved the model falls back to estimating \\(P(\\text{answer}\\mid x)\\), increasing hallucination risk.</div>
           </div>
         `;
 

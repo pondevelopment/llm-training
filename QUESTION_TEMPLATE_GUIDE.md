@@ -137,6 +137,7 @@ All math in this project renders with MathJax v3 using the `tex-svg` output. SVG
 - No custom macro definitions (keep portability). For named operators use `\\operatorname{softmax}` etc.
 - Avoid visual micromanagement commands: no `\displaystyle` (already display), minimal `\text{}`—prefer symbols or short words only when clarity demands it.
 - Do NOT wrap display math in additional colored / bordered / scrolling utility containers. Styling is centralized in `.math-display` (defined in `index.html`).
+- Color is unified globally: `.math-display` sets `color: var(--math-color)` (defined in `:root`). Do NOT add inline styles or utility text‑color classes inside math blocks. If a future theme needs a different tone, override `--math-color` globally—not per question.
 - Only use horizontal scroll (`overflow-x-auto whitespace-nowrap`) in truly constrained chip-like UI elements; avoid for standard answers (we removed legacy wrappers project‑wide).
 - Never mix multiple separate `$$ ... $$` blocks back-to-back without need—combine unless you are intentionally separating conceptual stages.
 
@@ -157,6 +158,8 @@ When you inject or update formulas in `interactive.script()`:
 2. Call `typesetMath(containerElement)` with the closest wrapper—not the entire document—to limit work.
 3. Avoid re‑typesetting unchanged siblings (performance & flicker).
 4. If rapidly updating (e.g., slider), debounce or only typeset on `mouseup` unless clarity suffers.
+5. Never re-add color classes (e.g., `text-blue-600`) to formulas—color inheritance is fixed via `--math-color`.
+6. After injecting math, ensure you have not duplicated a trailing `\\end{aligned}`; stray duplicates cause MathJax input errors.
 
 ### Updated safe typeset helper
 
@@ -192,11 +195,13 @@ Do:
 - Use one `.math-display` per conceptual block
 - Keep LaTeX plain & portable
 - Re-typeset only the updated container
+- Let the global variable handle equation color (no inline coloration)
 
 Don’t:
 - Add ad-hoc wrappers (`bg-white p-2`, `overflow-x-auto whitespace-nowrap`) around display math
 - Chain many single-line `$$` blocks instead of one aligned block
 - Inject custom macro packages
+- Override math color inside individual questions
 
 All existing questions follow this standard; new contributions must as well.
 

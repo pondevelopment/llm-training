@@ -124,6 +124,12 @@ const question = {
             </div>
         </div>`,
         script: () => {
+            // NOTE (Math / LaTeX):
+            // 1. Wrap multi-line or multi-symbol formulas in <div class="math-display"> $$ ... $$ </div>
+            // 2. Escape backslashes in template literals: \\frac{a}{b}, \\sum_i
+            // 3. Use one block per conceptual group; prefer align* with \\ line breaks when showing derivations
+            // 4. Do NOT add color classes inside math; global --math-color handles consistency
+            // 5. After injecting math dynamically, call typesetMath(containerEl) (helper defined globally)
             // Get DOM elements with error checking
             const input = document.getElementById('qX-text-input');
             const output = document.getElementById('qX-output');

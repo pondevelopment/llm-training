@@ -23,12 +23,10 @@ const question = {
     
       <h4 class=\"font-semibold text-blue-900 mb-2\">🧩 Key Idea</h4>
       <p class=\"text-sm text-blue-800\">Mixture of Experts (MoE) inflates <em>capacity</em> (parameters) while largely preserving <em>per‑token compute</em>: a small gating module chooses the top‑<span class=\"font-mono\">k</span> experts out of <span class=\"font-mono\">E</span> for each token and linearly combines their outputs.</p>
-      <div class=\"text-xs bg-white border border-blue-100 p-3 rounded font-mono text-center mt-3 overflow-x-auto whitespace-nowrap\">
-    $$\\begin{aligned}
-    S(x) &= \\text{TopK}(\\text{softmax}(W_g x)) \\\\
-    y &= \\sum_{i \\in S(x)} p_i(x) f_i(x)
-    \\end{aligned}$$
-      </div>
+    <div class=\"math-display text-xs font-mono mt-3\">$$\\begin{aligned}
+  S(x) &= \\text{TopK}(\\text{softmax}(W_g x)) \\\\
+  y &= \\sum_{i \\in S(x)} p_i(x) f_i(x)
+  \\end{aligned}$$</div>
       <p class=\"text-xs text-blue-800 mt-2\"><b>Sparsity ratio:</b> only <span class=\"font-mono\">k/E</span> experts active → compute ∝ k, parameters ∝ E. With E≫k (e.g. 64 experts, top‑2) billions of weights sit behind a light gating decision.</p>
     </div>
 
@@ -223,10 +221,10 @@ const question = {
         explainEl.innerHTML = `
           <p>Only the top‑k experts are active per token. Compute scales with <span class="font-mono">k</span>, while parameters scale with <span class="font-mono">E</span>.</p>
           <p>Low routing entropy (peaky gate) increases imbalance and can overflow per‑expert capacity, reducing realized speedup.</p>
-          <div class="text-center bg-white border p-2 rounded font-mono text-xs mt-1 overflow-x-auto">
-            \\[ \\text{active fraction} = \\frac{k}{E} \\]
-            \\[ \\text{speedup} \\propto \\frac{1}{\\text{active fraction}} \\]
-          </div>
+          <div class="math-display">$$
+            \\text{active fraction} = \\frac{k}{E} \\\\
+            \\text{speedup} \\propto \\frac{1}{\\text{active fraction}}
+          $$</div>
         `;
 
   let insight;

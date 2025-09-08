@@ -103,116 +103,7 @@
             }
         };
     </script>
-    <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
-    
-    <!-- MathJax Error Recovery and Retry Script -->
-    <script>
-        // Global MathJax error recovery and retry mechanism
-        window.mathJaxRetryCount = 0;
-        window.maxMathJaxRetries = 3;
-        
-        function retryMathJax() {
-            if (window.MathJax && window.MathJax.typesetPromise && window.mathJaxRetryCount < window.maxMathJaxRetries) {
-                window.mathJaxRetryCount++;
-                console.log(`Retrying MathJax typesetting (attempt ${window.mathJaxRetryCount})`);
-                
-                return window.MathJax.typesetPromise().then(() => {
-                    console.log('MathJax retry successful');
-                    window.mathJaxRetryCount = 0; // Reset on success
-                }).catch((err) => {
-                    console.warn(`MathJax retry ${window.mathJaxRetryCount} failed:`, err);
-                    if (window.mathJaxRetryCount < window.maxMathJaxRetries) {
-                        setTimeout(retryMathJax, 1000 * window.mathJaxRetryCount); // Exponential backoff
-                    } else {
-                        console.error('MathJax rendering failed after all retries');
-                        // Fallback: Try to fix common LaTeX errors
-                        fixCommonLatexErrors();
-                    }
-                });
-            }
-        }
-        
-        function fixCommonLatexErrors() {
-            // Find all elements with "Math input error" and try to fix them
-            const errorElements = document.querySelectorAll('[title*="Math input error"], .MathJax_Error');
-            errorElements.forEach(element => {
-                const parent = element.closest('[id*="output"], [class*="math"], .bg-blue-50');
-                if (parent) {
-                    // Replace common problematic patterns
-                    let content = parent.innerHTML;
-                    
-                    // Fix double backslashes that might have been missed
-                    content = content.replace(/\\\\/g, '\\');
-                    
-                    // Fix mathbf issues
-                    content = content.replace(/\\mathbf\{([^}]+)\}/g, '\\mathbf{$1}');
-                    
-                    // Fix common fraction issues
-                    content = content.replace(/\\frac\{([^}]+)\}\{([^}]+)\}/g, '\\frac{$1}{$2}');
-                    
-                    // Update content if changes were made
-                    if (content !== parent.innerHTML) {
-                        parent.innerHTML = content;
-                        console.log('Applied LaTeX fixes to element');
-                        
-                        // Retry MathJax on this element
-                        if (window.MathJax && window.MathJax.typesetPromise) {
-                            window.MathJax.typesetPromise([parent]).catch(() => {
-                                console.warn('Failed to re-render fixed LaTeX');
-                            });
-                        }
-                    }
-                }
-            });
-        }
-        
-        // Auto-retry mechanism with observer
-        function setupMathJaxObserver() {
-            const observer = new MutationObserver((mutations) => {
-                mutations.forEach((mutation) => {
-                    if (mutation.type === 'childList') {
-                        const hasNewMath = Array.from(mutation.addedNodes).some(node => 
-                            node.nodeType === 1 && (
-                                node.textContent.includes('$$') || 
-                                node.textContent.includes('\\(') ||
-                                node.querySelector && node.querySelector('[class*="math"], .bg-blue-50')
-                            )
-                        );
-                        
-                        if (hasNewMath) {
-                            setTimeout(() => {
-                                if (window.MathJax && window.MathJax.typesetPromise) {
-                                    window.MathJax.typesetPromise().catch((err) => {
-                                        console.warn('MathJax auto-retry failed:', err);
-                                        retryMathJax();
-                                    });
-                                }
-                            }, 100);
-                        }
-                    }
-                });
-            });
-            
-            observer.observe(document.body, {
-                childList: true,
-                subtree: true
-            });
-        }
-        
-        // Initialize when DOM is ready
-        document.addEventListener('DOMContentLoaded', () => {
-            setupMathJaxObserver();
-            
-            // Initial check for math errors after page load
-            setTimeout(() => {
-                const errors = document.querySelectorAll('.MathJax_Error, [title*="Math input error"]');
-                if (errors.length > 0) {
-                    console.log(`Found ${errors.length} MathJax errors, attempting fixes...`);
-                    retryMathJax();
-                }
-            }, 2000);
-        });
-    </script>
+    <script async src="https://cdn.jsdelivr.net/npm/mathjax-full@3.2.2/es5/tex-mml-svg.js"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -323,6 +214,10 @@
             }
         }
 
+        :root {
+            --math-color: #1f2937; /* Gray-800 baseline; adjust via theme overrides */
+        }
+
         /* Enhanced Mathematical notation styles */
         .math-display {
             background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
@@ -335,6 +230,7 @@
             overflow-x: auto;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(10px);
+            color: var(--math-color);
         }
 
         .math-inline {

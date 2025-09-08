@@ -22,9 +22,7 @@ const question = {
                 <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
                         <h4 class="font-semibold text-blue-900 mb-2">🧭 Core Idea</h4>
                         <p class="text-blue-800 text-sm">Encoders form <b>bidirectional contextual embeddings</b>. Decoders generate <b>left‑to‑right</b> under a causal mask. Encoder–decoder stacks add <b>cross‑attention</b> so each target step can consult the full encoded source + its history.</p>
-                        <div class="text-center mt-3 bg-white p-3 rounded border overflow-x-auto whitespace-nowrap text-xs">
-                                $$\\text{Attention}(\\mathbf{Q},\\mathbf{K},\\mathbf{V}) = \\text{softmax}\\!\\left(\\frac{\\mathbf{Q}\\mathbf{K}^T}{\\sqrt{d_k}}\\right)\\mathbf{V}$$
-                        </div>
+                        <div class="math-display">$$\\text{Attention}(\\mathbf{Q},\\mathbf{K},\\mathbf{V}) = \\text{softmax}\\!\\left(\\frac{\\mathbf{Q}\\mathbf{K}^T}{\\sqrt{d_k}}\\right)\\mathbf{V}$$</div>
                         <ul class="mt-3 list-disc ml-5 text-xs text-blue-800 space-y-1">
                             <li><code class="font-mono">L</code>: source length</li>
                             <li><code class="font-mono">t</code>: decode step (1…T)</li>

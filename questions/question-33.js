@@ -6,13 +6,6 @@ const question = {
     title: "33. How do multimodal LLMs integrate multiple modalities efficiently?",
     answer: `<div class="space-y-8">
         <style>
-            /* Responsive math helpers for Q33 */
-            .q33-math-block { overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:0.25rem; }
-            .q33-math-block mjx-container { margin: 0 !important; }
-            .q33-math-inline mjx-container { display:inline-block; }
-            @media (max-width: 640px){
-                .q33-math-block mjx-container[jax="SVG"] svg { max-width:100% !important; height:auto !important; }
-            }
             /* Layout containment & overflow prevention */
             .q33-tech-section { max-width:100%; overflow:hidden; }
             .q33-tech-grid { display:grid; gap:2rem; }
@@ -24,9 +17,6 @@ const question = {
                 /* So large cards don't overflow on medium screens */
                 .q33-wide-px { padding-left:1.25rem !important; padding-right:1.25rem !important; }
             }
-            /* Tighten MathJax inside cards to reduce horizontal growth */
-            .q33-math-block mjx-container[jax="SVG"] svg { width:auto !important; }
-            .q33-math-tight mjx-container[jax="SVG"] svg { max-width:100% !important; height:auto !important; }
             /* Prevent long inline sequences from forcing scroll */
             .q33-break { word-break:break-word; overflow-wrap:break-word; }
         </style>
@@ -71,12 +61,12 @@ const question = {
                             
                             <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 md:p-8 rounded-xl border border-blue-200 shadow-inner">
                                 <div class="space-y-4">
-                                    <div class="q33-math-block mx-auto max-w-full" aria-label="Gemini efficiency decomposition">
-                                        $$\\begin{align}
-                                        \\text{Multimodal Efficiency} &= \\text{Appropriate Fusion Strategy} \\\\
-                                        &\\quad + \\text{Cross-Modal Attention} \\\\
-                                        &\\quad + \\text{Self / Contrastive Pretraining}
-                                        \\end{align}$$
+                                    <div class="math-display" aria-label="Gemini efficiency decomposition">
+$$\\begin{align}
+\\text{Multimodal Efficiency} &= \\text{Appropriate Fusion Strategy} \\\\
+&\\quad + \\text{Cross-Modal Attention} \\\\
+&\\quad + \\text{Self / Contrastive Pretraining}
+\\end{align}$$
                                     </div>
                                     <div class="text-sm text-gray-600 italic border-l-4 border-blue-300 pl-4 bg-blue-50/50 py-2 rounded-r">
                                         <strong>Key Insight:</strong> Selecting the right fusion stage + shared representations reduces redundant parameters while improving alignment.
@@ -139,8 +129,8 @@ const question = {
                                 <div class="bg-white p-3 rounded-lg border border-blue-100 shadow-sm">
                                     <div class="text-sm font-semibold text-gray-900 mb-2">Single Transformer Backbone</div>
                                     <div class="text-xs text-gray-600 mb-3">One model handles all modalities simultaneously</div>
-                                    <div class="bg-blue-50 p-2 rounded text-xs font-mono text-center border q33-math-block">
-                                        $$\\mathbf{H} = \\text{Transformer}(\\text{TokenizeMultimodal}(x_{text}, x_{image}, x_{audio}))$$
+                                    <div class="math-display">
+$$\\mathbf{H} = \\text{Transformer}(\\text{TokenizeMultimodal}(x_{text}, x_{image}, x_{audio}))$$
                                     </div>
                                 </div>
                                 <div class="bg-white p-3 rounded-lg border border-blue-100 shadow-sm">
@@ -174,8 +164,8 @@ const question = {
                                 <div class="bg-white p-3 rounded-lg border border-green-100 shadow-sm">
                                     <div class="text-sm font-semibold text-gray-900 mb-2">Interleaved Attention</div>
                                     <div class="text-xs text-gray-600 mb-3">Modalities attend to each other simultaneously</div>
-                                    <div class="bg-green-50 p-2 rounded text-xs font-mono text-center border q33-math-block">
-                                        $$\\text{Attention}(Q_{text}, K_{image}, V_{audio})$$
+                                    <div class="math-display">
+$$\\text{Attention}(Q_{text}, K_{image}, V_{audio})$$
                                     </div>
                                 </div>
                                 <div class="bg-white p-3 rounded-lg border border-green-100 shadow-sm">
@@ -204,8 +194,8 @@ const question = {
                                 <div class="bg-white p-3 rounded-lg border border-purple-100 shadow-sm">
                                     <div class="text-sm font-semibold text-gray-900 mb-2">Contrastive Learning</div>
                                     <div class="text-xs text-gray-600 mb-3">Learn representations without labels</div>
-                                    <div class="bg-purple-50 p-2 rounded text-xs font-mono text-center border q33-math-block">
-                                        $$\\mathcal{L} = -\\log\\frac{\\exp(\\text{sim}(z_i, z_j)/\\tau)}{\\sum_k \\exp(\\text{sim}(z_i, z_k)/\\tau)}$$
+                                    <div class="math-display">
+$$\\mathcal{L} = -\\log\\frac{\\exp(\\text{sim}(z_i, z_j)/\\tau)}{\\sum_k \\exp(\\text{sim}(z_i, z_k)/\\tau)}$$
                                     </div>
                                 </div>
                                 <div class="bg-white p-3 rounded-lg border border-purple-100 shadow-sm">
@@ -801,15 +791,13 @@ const question = {
                                 <p class="text-sm text-purple-700 mt-1">Cross-modal interaction mechanism</p>
                             </div>
                             
-                            <div class="bg-gradient-to-r from-purple-50 to-indigo-50 border-2 border-purple-200 rounded-xl p-4 mb-4 q33-math-tight">
-                                <div class="text-center text-sm space-y-2">
-                                    $$\\begin{align}
-                                    \\mathbf{Q}_{mm} &= \\text{Concat}(\\mathbf{Q}_{text}, \\mathbf{Q}_{image}, \\mathbf{Q}_{audio}) \\\\[0.5em]
-                                    \\mathbf{K}_{mm} &= \\text{Concat}(\\mathbf{K}_{text}, \\mathbf{K}_{image}, \\mathbf{K}_{audio}) \\\\[0.5em]
-                                    \\mathbf{V}_{mm} &= \\text{Concat}(\\mathbf{V}_{text}, \\mathbf{V}_{image}, \\mathbf{V}_{audio}) \\\\[0.5em]
-                                    \\text{MultiModal-Attn} &= \\text{softmax}\\left(\\frac{\\mathbf{Q}_{mm}\\mathbf{K}_{mm}^T}{\\sqrt{d_k}}\\right)\\mathbf{V}_{mm}
-                                    \\end{align}$$
-                                </div>
+                            <div class="math-display">
+$$\\begin{align}
+\\mathbf{Q}_{mm} &= \\text{Concat}(\\mathbf{Q}_{text}, \\mathbf{Q}_{image}, \\mathbf{Q}_{audio}) \\\\[0.5em]
+\\mathbf{K}_{mm} &= \\text{Concat}(\\mathbf{K}_{text}, \\mathbf{K}_{image}, \\mathbf{K}_{audio}) \\\\[0.5em]
+\\mathbf{V}_{mm} &= \\text{Concat}(\\mathbf{V}_{text}, \\mathbf{V}_{image}, \\mathbf{V}_{audio}) \\\\[0.5em]
+\\text{MultiModal-Attn} &= \\text{softmax}\\left(\\frac{\\mathbf{Q}_{mm}\\mathbf{K}_{mm}^T}{\\sqrt{d_k}}\\right)\\mathbf{V}_{mm}
+\\end{align}$$
                             </div>
                             
                             <div class="bg-purple-50 border border-purple-200 rounded-lg p-4">
@@ -834,13 +822,11 @@ const question = {
                                 <p class="text-sm text-blue-700 mt-1">Multi-objective optimization strategy</p>
                             </div>
                             
-                            <div class="bg-gradient-to-r from-blue-50 to-cyan-50 border-2 border-blue-200 rounded-xl p-4 mb-4">
-                                <div class="text-center text-sm space-y-2">
-                                    $$\\begin{align}
-                                    \\mathcal{L}_{total} &= \\alpha \\mathcal{L}_{text} + \\beta \\mathcal{L}_{vision} + \\gamma \\mathcal{L}_{audio} \\\\[0.5em]
-                                    &\\quad + \\delta \\mathcal{L}_{contrastive} + \\epsilon \\mathcal{L}_{reconstruction}
-                                    \\end{align}$$
-                                </div>
+                            <div class="math-display">
+$$\\begin{align}
+\\mathcal{L}_{total} &= \\alpha \\mathcal{L}_{text} + \\beta \\mathcal{L}_{vision} + \\gamma \\mathcal{L}_{audio} \\\\[0.5em]
+&\\quad + \\delta \\mathcal{L}_{contrastive} + \\epsilon \\mathcal{L}_{reconstruction}
+\\end{align}$$
                             </div>
                             
                             <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">

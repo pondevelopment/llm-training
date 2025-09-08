@@ -22,7 +22,7 @@ const question = {
         <p class="text-sm text-blue-800">Transformers keep gradients healthy with <b>residual connections</b>, <b>LayerNorm</b> (typically <i>pre-norm</i>), and <b>parallel attention paths</b> that shorten effective depth.</p>
   <div class="text-xs mt-2 text-blue-800">
           Gradient through a residual block with pre-norm (input \\(\mathbf{x}_\ell\\)):
-          <div class="math-display mt-1">$$
+          <div class="math-display">$$
           \\begin{align*}
           \\mathbf{y}_\\ell &= \\mathbf{x}_\\ell + F(\\mathrm{LN}(\\mathbf{x}_\\ell)), \\\\
           \\frac{\\partial \\mathcal{L}}{\\partial \\mathbf{x}_\\ell} &\\approx \\frac{\\partial \\mathcal{L}}{\\partial \\mathbf{y}_\\ell} \\big( \\mathbf{I} + \\mathbf{J}_\\ell \\big), \\\\

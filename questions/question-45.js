@@ -23,8 +23,8 @@ const question = {
         <p class="text-sm text-blue-800">Bias/error mitigation is <b>layered</b>: surface controls (prompts / filters), data remediation & retrieval, then model-level alignment (SFT + RLHF/DPO). Combined layers yield durable reduction.</p>
         <div class="text-xs mt-2 text-blue-800">
           Residual risk intuition:
-          <div class="math-display mt-1">$$
-          r_{after} = r_0 \cdot \prod_{i} (1 - e_i),\quad 0 \le e_i \le 1
+          <div class="math-display">$$
+          r_{\text{after}} = r_0 \\cdot \\prod_{i=1}^{n} (1 - e_i), \\quad 0 \\le e_i \\le 1
           $$</div>
           <ul class="mt-2 list-disc ml-5 space-y-1">
             <li><code class="font-mono">r_0</code>: base (pre‑mitigation) risk</li>

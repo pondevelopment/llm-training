@@ -41,12 +41,15 @@ Use this checklist when creating or updating questions for the LLM Questions app
 - [ ] Update explanations dynamically on input/selection
 - [ ] Add short tooltips where non-obvious
 
-## MathJax (if applicable)
-- [ ] Use `\(...\)` for inline math and `$$...$$` for display math
-- [ ] In JS strings, escape backslashes: `\\frac{\\partial f}{\\partial x}`
-- [ ] Space around `<` or `>` inside inline math to avoid HTML parsing issues
-- [ ] Stick to standard LaTeX (no custom macros); verify render in the app
-- [ ] For long single-line formulas in small containers, add `overflow-x-auto whitespace-nowrap` to the container to prevent clipping
+## MathJax (SVG output – mandatory)
+- [ ] Display math wrapped in `<div class="math-display"> $$ ... $$ </div>` (one block per conceptual group)
+- [ ] Inline math only for short symbols: `\(...\)`
+- [ ] JS strings escape backslashes (e.g. `\\frac{a}{b}`)
+- [ ] No custom macro definitions; use `\\operatorname{...}` for named functions
+- [ ] Group related lines with `\\` or `align*` instead of many adjacent `$$` blocks
+- [ ] Do NOT add ad-hoc wrappers (`bg-white p-2`, `overflow-x-auto`) around display math
+- [ ] Re-typeset only updated container via `typesetMath(el)` in interactive scripts
+- [ ] Avoid horizontal scroll unless in a deliberately compact chip UI
 
 ## Integration
 - [ ] Ensure the question number is included in `availableQuestions` in `js/app.js`

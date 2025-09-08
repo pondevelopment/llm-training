@@ -25,12 +25,12 @@ const question = {
             <div class="grid md:grid-cols-2 gap-3 mt-3 text-xs text-blue-900">
                 <div class="bg-white rounded p-3 border border-blue-100">
                     <h5 class="font-semibold mb-1">Probability factorization</h5>
-                    <div class="overflow-x-auto whitespace-nowrap text-center">$$P(w_{1:T}) = \\prod_{t=1}^{T} P(w_t \mid w_{1:t-1})$$</div>
+                    <div class="math-display">$$P(w_{1:T}) = \\prod_{t=1}^{T} P(w_t \mid w_{1:t-1})$$</div>
                     <p class="mt-1">LLMs approximate long chains with contextual embeddings.</p>
                 </div>
                 <div class="bg-white rounded p-3 border border-blue-100">
                     <h5 class="font-semibold mb-1">Attention kernel</h5>
-                    <div class="overflow-x-auto whitespace-nowrap text-center">$$\\mathrm{Attn}(Q,K,V)=\\mathrm{softmax}\\left(\\frac{QK^T}{\\sqrt{d_k}}\\right)V$$</div>
+                    <div class="math-display">$$\\mathrm{Attn}(Q,K,V)=\\mathrm{softmax}\\left(\\frac{QK^T}{\\sqrt{d_k}}\\right)V$$</div>
                     <p class="mt-1">Learns global relevance vs fixed local windows.</p>
                 </div>
             </div>

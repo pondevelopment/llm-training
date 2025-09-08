@@ -28,9 +28,7 @@ const question = {
         <div class="bg-white p-4 rounded-lg border border-gray-200">
             <h4 class="font-semibold text-gray-900 mb-3">📊 The Attention Formula</h4>
             <div class="text-center">
-                <div class="bg-gray-50 p-4 rounded-lg">
-                    $$\\text{Attention}(\\mathbf{Q}, \\mathbf{K}, \\mathbf{V}) = \\text{softmax}\\left(\\frac{\\mathbf{Q}\\mathbf{K}^T}{\\sqrt{d_k}}\\right)\\mathbf{V}$$
-                </div>
+                <div class="math-display">$$\\text{Attention}(\\mathbf{Q}, \\mathbf{K}, \\mathbf{V}) = \\text{softmax}\\left(\\frac{\\mathbf{Q}\\mathbf{K}^T}{\\sqrt{d_k}}\\right)\\mathbf{V}$$</div>
                 <p class="text-sm text-gray-600 mt-2">The scaled dot-product attention mechanism that revolutionized NLP</p>
             </div>
         </div>
@@ -40,36 +38,28 @@ const question = {
             <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
                 <h5 class="font-medium text-green-900">1. Dot Product</h5>
                 <p class="text-sm text-green-700 mb-2">Compute similarity between queries and keys</p>
-                <div class="text-xs bg-green-100 px-2 py-1 rounded font-mono">
-                    $$\\mathbf{Q}\\mathbf{K}^T$$
-                </div>
+                <div class="math-display">$$\\mathbf{Q}\\mathbf{K}^T$$</div>
                 <p class="text-xs text-green-600 mt-2">🔍 Measures relevance: higher values = more similar</p>
             </div>
             
             <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
                 <h5 class="font-medium text-purple-900">2. Scale</h5>
                 <p class="text-sm text-purple-700 mb-2">Normalize by dimension to prevent saturation</p>
-                <div class="text-xs bg-purple-100 px-2 py-1 rounded font-mono">
-                    $$\\frac{\\mathbf{Q}\\mathbf{K}^T}{\\sqrt{d_k}}$$
-                </div>
+                <div class="math-display">$$\\frac{\\mathbf{Q}\\mathbf{K}^T}{\\sqrt{d_k}}$$</div>
                 <p class="text-xs text-purple-600 mt-2">⚖️ Prevents gradients from vanishing in softmax</p>
             </div>
             
             <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
                 <h5 class="font-medium text-orange-900">3. Softmax</h5>
                 <p class="text-sm text-orange-700 mb-2">Convert to probability distribution</p>
-                <div class="text-xs bg-orange-100 px-2 py-1 rounded font-mono">
-                    $$\\text{softmax}(\\text{scores})$$
-                </div>
+                <div class="math-display">$$\\text{softmax}(\\text{scores})$$</div>
                 <p class="text-xs text-orange-600 mt-2">📊 Creates attention weights that sum to 1</p>
             </div>
             
             <div class="bg-red-50 p-3 rounded border-l-4 border-red-400">
                 <h5 class="font-medium text-red-900">4. Weighted Sum</h5>
                 <p class="text-sm text-red-700 mb-2">Combine values using attention weights</p>
-                <div class="text-xs bg-red-100 px-2 py-1 rounded font-mono">
-                    $$\\text{weights} \\cdot \\mathbf{V}$$
-                </div>
+                <div class="math-display">$$\\text{weights} \\cdot \\mathbf{V}$$</div>
                 <p class="text-xs text-red-600 mt-2">🎯 Final contextualized representation</p>
             </div>
         </div>

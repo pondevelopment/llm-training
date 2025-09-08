@@ -33,11 +33,7 @@ const question = {
                     <p class="text-sm text-green-700 mb-2">
                         Train student using teacher's soft probability distributions instead of hard labels.
                     </p>
-                    <div class="text-xs bg-green-100 px-2 py-1 rounded border text-center overflow-x-auto whitespace-nowrap">
-                        $$
-                        \\mathcal{L} = \\alpha\\, T^2\\, D_{KL}\\!\\left(p_{t}^{(T)}\\,\\big\\|\\, p_{s}^{(T)}\\right) + (1-\\alpha)\\, \\mathrm{CE}(y, p_s)
-                        $$
-                    </div>
+                    <div class="math-display text-xs">$$\\mathcal{L} = \\alpha\\, T^2\\, D_{KL}\\!\\left(p_{t}^{(T)}\\,\\big\\|\\, p_{s}^{(T)}\\right) + (1-\\alpha)\\, \\mathrm{CE}(y, p_s)$$</div>
                 </div>
                 
                 <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
@@ -93,11 +89,7 @@ const question = {
                     <p class="text-sm text-indigo-700">
                         Adjust softmax temperature to control probability distribution smoothness during distillation.
                     </p>
-                    <div class="text-xs bg-indigo-100 px-2 py-1 rounded border text-center mt-1 overflow-x-auto whitespace-nowrap">
-                        $$
-                        p_i = \\frac{e^{z_i / T}}{\\sum_j e^{z_j / T}}
-                        $$
-                    </div>
+                    <div class="math-display text-xs">$$p_i = \\frac{e^{z_i / T}}{\\sum_j e^{z_j / T}}$$</div>
                 </div>
                 
                 <div class="bg-teal-50 p-3 rounded border-l-4 border-teal-400">
@@ -151,11 +143,7 @@ const question = {
             <div class="bg-white p-3 rounded border">
                 <h5 class="font-medium text-gray-900 mb-1">🧮 Standard Distillation Loss</h5>
                 <p class="text-sm text-gray-700 mb-2">Weighted combination of soft (teacher) and hard (ground‑truth) terms with temperature scaling:</p>
-                <div class="text-sm bg-gray-50 p-2 rounded border text-center overflow-x-auto whitespace-nowrap">
-                    $$
-                    \\mathcal{L}_{\\mathrm{KD}} = \\alpha\\, T^2\\, D_{KL}\\!\\left(p_{t}^{(T)}\\,\\big\\|\\, p_{s}^{(T)}\\right) + (1-\\alpha)\\, \\mathrm{CE}(y, p_s)
-                    $$
-                </div>
+                <div class="math-display text-sm">$$\\mathcal{L}_{\\mathrm{KD}} = \\alpha\\, T^2\\, D_{KL}\\!\\left(p_{t}^{(T)}\\,\\big\\|\\, p_{s}^{(T)}\\right) + (1-\\alpha)\\, \\mathrm{CE}(y, p_s)$$</div>
                 <p class="text-xs text-gray-500 mt-2">Where: <em>T</em> is temperature, <em>\alpha</em> balances soft vs. hard targets, <em>p_t^{(T)}</em> and <em>p_s^{(T)}</em> are teacher/student with temperature.</p>
             </div>
         </div>

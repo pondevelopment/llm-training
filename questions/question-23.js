@@ -25,10 +25,10 @@ const question = {
         <!-- Mathematical Formula -->
         <div class="bg-gray-50 p-4 rounded-lg border border-gray-300">
             <h4 class="font-semibold text-gray-900 mb-2">📐 The Softmax Formula</h4>
-            <div id="q23-formula" class="text-base md:text-lg text-center bg-white p-3 rounded border overflow-x-auto whitespace-nowrap">
-                    $$ p_i = \frac{e^{x_i}}{\sum_{j} e^{x_j}} $$
-                    $$ p_i(T) = \frac{e^{x_i/T}}{\sum_{j} e^{x_j/T}} $$
-            </div>
+        <div id="q23-formula" class="math-display">
+            $$ p_i = \frac{e^{x_i}}{\sum_{j} e^{x_j}} $$ \\newline
+            $$ p_i(T) = \frac{e^{x_i/T}}{\sum_{j} e^{x_j/T}} $$
+        </div>
             <p class="text-sm text-gray-600 mt-2">Here, x<sub>i</sub> are raw attention scores; softmax converts them into a probability distribution that sums to 1.</p>
         </div>
         

@@ -37,7 +37,7 @@ const question = {
         <!-- Mathematical Formula -->
         <div class="bg-gray-50 p-4 rounded-lg border border-gray-300">
             <h4 class="font-semibold text-gray-900 mb-2">📐 The Gradient Formula</h4>
-            <div id="q26-formula" class="text-center bg-white p-3 rounded border mb-2 overflow-x-auto whitespace-nowrap">
+            <div id="q26-formula" class="math-display">
                 $$ \\frac{\\partial L}{\\partial E} \\;=\\; \\frac{\\partial L}{\\partial \\text{logits}} \\cdot \\frac{\\partial \\text{logits}}{\\partial E} $$
             </div>
             <div class="text-sm text-gray-600 space-y-1">

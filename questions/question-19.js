@@ -60,16 +60,12 @@ const question = {
             <div class="grid md:grid-cols-2 gap-4 text-sm">
                 <div>
                     <strong class="text-green-700">Generative Models:</strong>
-                    <div class="text-xs bg-white p-2 rounded mt-1 text-center overflow-x-auto whitespace-nowrap">
-                        $$ P(X, Y) = P(X\mid Y) \\times P(Y) $$
-                    </div>
+                    <div class="math-display text-xs">$$ P(X, Y) = P(X\mid Y) \\times P(Y) $$</div>
                     <p class="text-indigo-700 text-xs mt-1">Learn the full data distribution to generate new samples</p>
                 </div>
                 <div>
                     <strong class="text-purple-700">Discriminative Models:</strong>
-                    <div class="text-xs bg-white p-2 rounded mt-1 text-center overflow-x-auto whitespace-nowrap">
-                        $$ P(Y\mid X) $$
-                    </div>
+                    <div class="math-display text-xs">$$ P(Y\mid X) $$</div>
                     <p class="text-indigo-700 text-xs mt-1">Learn decision boundaries to classify given inputs</p>
                 </div>
             </div>

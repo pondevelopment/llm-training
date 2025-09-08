@@ -119,46 +119,48 @@ script: () => {
 }
 ```
 
-## MathJax guidelines
+## MathJax guidelines (SVG Output Standard)
 
-Follow these rules to avoid “Math input error” and ensure robust rendering:
+All math in this project renders with MathJax v3 using the `tex-svg` output. SVG is the mandated format because it:
 
-- Use `\(...\)` for inline math and `$$...$$` for display math. Prefer display math for anything non‑trivial.
-- In JS strings, escape backslashes: `\\frac{a}{b}` and `\\sum_{j} e^{x_j}`.
-- Avoid text-mode macros in compact areas: skip `\text{}`, `\mathrm{}`, `\mathbf{}` in chips/badges.
-- Avoid stretchy delimiters/size macros in chips: skip `\left...\right`, `\big`, etc. Use plain `( ) [ ]`.
-- Do not rely on custom macros. Use plain LaTeX or `\operatorname{...}` for named functions.
-- For function subscripts (e.g., softmax with temperature), split into separate display lines instead of one long block.
-- Add `overflow-x-auto whitespace-nowrap` to small containers to allow horizontal scrolling.
-- After dynamically inserting formulas, call the safe typeset helper shown below.
+1. Scales crisply on all DPR/zoom levels (no blurring like HTML/CSS fallbacks)
+2. Preserves semantic structure for screen readers (where supported)
+3. Avoids layout jitter vs. delayed web-font loading
+4. Enables consistent vertical alignment across browsers
 
-Layout and overflow tips:
+### Core rules
 
-- Prefer `align*` with `\\` line breaks for long equations.
-- If a formula must stay on one line (e.g., small cards/chips), wrap its container with `overflow-x-auto whitespace-nowrap` so users can scroll horizontally on narrow screens. Consider `text-xs` for compact displays.
-- The app auto-typesets after loads. When you inject/update math in an interactive script, call `typesetMath(container)` (see helper below).
+- Inline math: use `\(...\)` sparingly for short symbols or micro‑expressions inside sentences.
+- Display math: ALWAYS wrap multi-symbol formulas in a dedicated block using the shared wrapper: `<div class="math-display"> $$ ... $$ </div>`.
+- Group related steps (derivation lines) inside a SINGLE `.math-display` when they logically belong together. Use `\\` line breaks or an `align*` environment.
+- Escape backslashes in JS template strings: `\\frac{a}{b}`, `\\sum_j e^{x_j}`.
+- No custom macro definitions (keep portability). For named operators use `\\operatorname{softmax}` etc.
+- Avoid visual micromanagement commands: no `\displaystyle` (already display), minimal `\text{}`—prefer symbols or short words only when clarity demands it.
+- Do NOT wrap display math in additional colored / bordered / scrolling utility containers. Styling is centralized in `.math-display` (defined in `index.html`).
+- Only use horizontal scroll (`overflow-x-auto whitespace-nowrap`) in truly constrained chip-like UI elements; avoid for standard answers (we removed legacy wrappers project‑wide).
+- Never mix multiple separate `$$ ... $$` blocks back-to-back without need—combine unless you are intentionally separating conceptual stages.
 
-Example: safe softmax forms inside a compact container with scroll safety
+### Consistency & formatting
 
-```html
-<div class="text-xs bg-green-100 px-2 py-1 rounded border text-center overflow-x-auto whitespace-nowrap">
-    $$ p_i = \frac{e^{x_i}}{\sum_j e^{x_j}} $$
-    $$ p_i(T) = \frac{e^{x_i/T}}{\sum_j e^{x_j/T}} $$
-    <!-- Avoid \text / \mathrm / \left...\right in compact areas -->
-</div>
-```
+- Prefer vertical alignment via `align*` instead of stacking many individual display blocks.
+- Keep lines reasonably short; split long exponents or denominators across lines with `align*` if they risk horizontal scrolling.
+- Use `p_i` / `p(y|x)` style probabilities; for softmax with temperature show both base and temperature form in one `.math-display` block with line breaks.
+- Vectors: plain symbols (`x`, `h_t`) unless bold is essential: `\\boldsymbol{x}` (use sparingly).
+- Matrices: `\\begin{bmatrix} a & b \\ c & d \\ \end{bmatrix}`.
+- Partial derivatives: `\\frac{\\partial f}{\\partial x}`.
 
-Common patterns:
+### Dynamic math (interactive sections)
 
-- Partial derivatives: `\frac{\partial f}{\partial x}`
-- Matrices: `\begin{bmatrix} a & b \\ c & d \end{bmatrix}`
-- Vectors: use plain symbols or `\boldsymbol{x}` if absolutely needed in larger blocks
-- Number sets: `\mathbb{R}`, `\mathbb{C}`
-- Functions: `\operatorname{softmax}(x)` (or use plain probabilities like `p_i`)
+When you inject or update formulas in `interactive.script()`:
 
-### Safe typeset helper for interactive scripts
+1. Write/replace the HTML that contains the LaTeX (inline or a `.math-display`).
+2. Call `typesetMath(containerElement)` with the closest wrapper—not the entire document—to limit work.
+3. Avoid re‑typesetting unchanged siblings (performance & flicker).
+4. If rapidly updating (e.g., slider), debounce or only typeset on `mouseup` unless clarity suffers.
 
-Use this when you inject or update formulas inside your `interactive.script()`:
+### Updated safe typeset helper
+
+Minimal, non-destructive variant (does not purge existing rendered nodes outside the target):
 
 ```javascript
 function typesetMath(root) {
@@ -166,15 +168,37 @@ function typesetMath(root) {
         if (window.MathJax && window.MathJax.typesetPromise) {
             const el = root || document.getElementById('question-answer');
             if (!el) return Promise.resolve();
-            // Clear old nodes that may hold stale errors
-            el.querySelectorAll('mjx-container').forEach(n => n.remove());
-            window.MathJax.typesetClear && window.MathJax.typesetClear();
             return window.MathJax.typesetPromise([el]);
         }
     } catch {}
     return Promise.resolve();
 }
 ```
+
+Older code that removed all `mjx-container` nodes is no longer recommended (it forced full re-render and could momentarily remove already-correct math elsewhere).
+
+### Example (grouped softmax forms)
+
+```html
+<div class="math-display">
+$$ p_i = \frac{e^{x_i}}{\sum_j e^{x_j}} \\
+p_i(T) = \frac{e^{x_i/T}}{\sum_j e^{x_j/T}} $$
+</div>
+```
+
+### Quick do & don’t
+
+Do:
+- Use one `.math-display` per conceptual block
+- Keep LaTeX plain & portable
+- Re-typeset only the updated container
+
+Don’t:
+- Add ad-hoc wrappers (`bg-white p-2`, `overflow-x-auto whitespace-nowrap`) around display math
+- Chain many single-line `$$` blocks instead of one aligned block
+- Inject custom macro packages
+
+All existing questions follow this standard; new contributions must as well.
 
 ## Deep links and navigation
 

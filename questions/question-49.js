@@ -158,7 +158,7 @@ const question = {
                         <span class="text-xs text-gray-500">Loss vs added params (data fixed)</span>
                     </div>
                     <div class="text-xs text-gray-700 hidden" id="q49-scale-box">
-                        <div class="overflow-x-auto whitespace-nowrap">$$\\text{Loss} \approx L_\\infty + a P^{-\\alpha} + b D^{-\\beta}$$</div>
+                        <div class="math-display">$$\\text{Loss} \approx L_\\infty + a P^{-\\alpha} + b D^{-\\beta}$$</div>
                         <div id="q49-loss" class="mt-1"></div>
                     </div>
                     <div class="flex flex-col gap-1">

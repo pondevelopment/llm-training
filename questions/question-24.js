@@ -37,9 +37,7 @@ const question = {
         <!-- Mathematical Formula -->
         <div class="bg-gray-50 p-4 rounded-lg border border-gray-300">
             <h4 class="font-semibold text-gray-900 mb-2">📐 The Attention Score Formula</h4>
-            <div id="q24-formula" class="text-base md:text-lg text-center bg-white p-3 rounded border overflow-x-auto whitespace-nowrap">
-                $$ s = \frac{Q \cdot K}{\sqrt{d_k}} $$
-            </div>
+            <div class="math-display">$$ s = \\frac{Q \\cdot K}{\\sqrt{d_k}} $$</div>
             <p class="text-sm text-gray-600 mt-2">Where Q is the query vector, K is the key vector, and d<sub>k</sub> is the dimension of the key vectors (for scaling).</p>
         </div>
         

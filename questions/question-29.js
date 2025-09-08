@@ -31,7 +31,7 @@ const question = {
                         
                         <div class="bg-blue-50 p-6 rounded-lg border border-blue-200">
                             <div class="space-y-3">
-                                <div>$$D_{KL}(P||Q) = \\sum_{x} P(x) \\log \\frac{P(x)}{Q(x)}$$</div>
+                                <div class="math-display">$$D_{KL}(P||Q) = \\sum_{x} P(x) \\log \\frac{P(x)}{Q(x)}$$</div>
                                 <div class="text-sm text-gray-600">where \\( P(x) \\) is the true distribution and \\( Q(x) \\) is the approximating distribution</div>
                             </div>
                         </div>
@@ -58,13 +58,13 @@ const question = {
                     <div class="space-y-4">
                         <div class="bg-white p-4 rounded-lg border">
                             <div class="text-sm font-medium text-gray-700 mb-2">Non-negativity</div>
-                            <div class="text-center">$$D_{KL}(P||Q) \\geq 0$$</div>
+                            <div class="math-display">$$D_{KL}(P||Q) \\geq 0$$</div>
                             <div class="text-xs text-gray-600 mt-2">Always positive; equals 0 only when P = Q</div>
                         </div>
                         
                         <div class="bg-white p-4 rounded-lg border">
                             <div class="text-sm font-medium text-gray-700 mb-2">Asymmetry</div>
-                            <div class="text-center">$$D_{KL}(P||Q) \\neq D_{KL}(Q||P)$$</div>
+                            <div class="math-display">$$D_{KL}(P||Q) \\neq D_{KL}(Q||P)$$</div>
                             <div class="text-xs text-gray-600 mt-2">Not a true distance metric - order matters!</div>
                         </div>
                     </div>

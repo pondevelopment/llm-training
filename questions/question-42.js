@@ -21,7 +21,7 @@ const question = {
         <p class="text-sm text-blue-800">Adaptive Softmax splits a large vocabulary into a <b>frequent head</b> and one or more <b>rare tails</b>. At training time it computes the head for <i>all</i> tokens and only the <i>relevant tail</i> for the gold label. Rare tails use <b>reduced projection dimensions</b>, cutting multiply‑adds and parameters while preserving accuracy on frequent words.</p>
         <div class="text-xs mt-2 text-blue-800">
           <span class="font-semibold">Compute model:</span> batch size \(B\), hidden dim \(d\), head size \(V_h\), tails \(i=1..C\), tail dims \(d_i = \alpha_i d\), tail sizes \(V_i\), batch fractions \(p_i\):
-          <div class="math-display mt-2">$$
+          <div class="math-display">$$
           \\begin{align*}
           C_{\\text{full}} &\\propto B d V,\\\\
           C_{\\text{adaptive}} &\\propto B d (V_h + C) + B\\sum_i p_i d_i V_i,\\\\

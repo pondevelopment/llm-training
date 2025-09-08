@@ -17,7 +17,7 @@ const question = {
         <h4 class="font-semibold text-blue-900 mb-2">🧠 Key Idea</h4>
         <p class="text-sm text-blue-800">Zero-shot learning lets an LLM perform a task <b>without task-specific examples</b>, by relying on its pretrained knowledge and a natural-language <b>prompt</b> that defines the task + label words (verbalizer).</p>
         <div class="text-xs mt-2 text-blue-800">Formal view: choose label via conditional likelihood:
-          <div class="math-display mt-2 overflow-x-auto whitespace-nowrap bg-white border rounded p-2">$$\\hat y = \\arg\\max_y P(y|x,p),\\; P(y|x,p)=\\operatorname{softmax}_y(s_y(x,p)/T)$$</div>
+          <div class="math-display">$$\\hat y = \\arg\\max_y P(y|x,p),\\; P(y|x,p)=\\operatorname{softmax}_y(s_y(x,p)/T)$$</div>
         </div>
       </div>
       <div class="grid md:grid-cols-3 gap-4">

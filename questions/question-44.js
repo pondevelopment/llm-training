@@ -23,7 +23,7 @@ const question = {
         <p class="text-sm text-blue-800">Few-shot prompting lets an LLM <b>adapt at inference time</b> by embedding a handful of <b>labeled examples</b> in context—pattern learned on the fly, no parameter updates.</p>
         <div class="text-xs mt-2 text-blue-800">
           Saturating benefit intuition:
-          <div class="math-display mt-1">$$
+          <div class="math-display">$$
           p(K) = 1 - (1 - p_0) e^{-\\lambda s c K}
           $$</div>
           <ul class="mt-2 list-disc ml-5 space-y-1">

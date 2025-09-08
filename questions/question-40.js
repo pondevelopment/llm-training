@@ -457,7 +457,7 @@ const question = {
         explainEl.innerHTML = `
           <div class=\"space-y-2\">
             <div>With KG grounding, the model conditions on retrieved triples and optionally a reasoning path. More coverage and a found path typically improve accuracy and reduce risk.</div>
-            <div class=\"overflow-x-auto whitespace-nowrap bg-white border rounded p-2\">$$P(\\text{answer} \\mid x, G) = f_\\theta\\big(x, \\phi(G_{x})\\big)$$</div>
+            <div class=\"math-display\">$$P(\\text{answer} \\mid x, G) = f_\\theta\\big(x, \\phi(G_{x})\\big)$$</div>
             <div class=\"text-xs text-indigo-700\">Here \\(G_x\\) is the task-relevant subgraph (affected by coverage). If no triples are retrieved the model falls back to estimating \\(P(\\text{answer}\\mid x)\\), increasing hallucination risk.</div>
           </div>
         `;

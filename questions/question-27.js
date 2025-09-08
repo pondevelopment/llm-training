@@ -29,7 +29,7 @@ const question = {
                         <p class="text-sm font-medium text-gray-700">Core Definition</p>
                         
                         <div class="bg-blue-50 p-6 rounded-lg border border-blue-200">
-                            $$J = \\frac{\\partial f}{\\partial x}$$
+                            <div class="math-display">$$J = \\frac{\\partial f}{\\partial x}$$</div>
                         </div>
                         
                         <div class="text-center text-sm text-gray-600 mt-4">
@@ -57,7 +57,7 @@ const question = {
                             
                             <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
                                 <div class="text-center font-mono text-sm space-y-2">
-                                    <div>$$J_{ij} = \\frac{\\partial f_i}{\\partial x_j}$$</div>
+                                    <div class="math-display">$$J_{ij} = \\frac{\\partial f_i}{\\partial x_j}$$</div>
                                     <div class="text-xs text-gray-600">where i = 1,2,...,m and j = 1,2,...,n</div>
                                 </div>
                             </div>
@@ -114,7 +114,7 @@ const question = {
                     <div class="bg-purple-50 p-4 rounded-lg border border-purple-200 h-full">
                         <div class="font-medium text-purple-900 mb-3">Function Composition</div>
                         <div class="bg-white p-3 rounded border mb-3">
-                            $$z = h(g(f(x)))$$
+                            <div class="math-display">$$z = h(g(f(x)))$$</div>
                         </div>
                         <div class="text-xs text-purple-700">Multiple transformer layers</div>
                     </div>
@@ -125,7 +125,7 @@ const question = {
                     <div class="bg-purple-50 p-4 rounded-lg border border-purple-200 h-full">
                         <div class="font-medium text-purple-900 mb-3">Chain Rule</div>
                         <div class="bg-white p-3 rounded border mb-3">
-                            $$\\frac{\\partial z}{\\partial x} = \\frac{\\partial z}{\\partial y_2} \\cdot \\frac{\\partial y_2}{\\partial y_1} \\cdot \\frac{\\partial y_1}{\\partial x}$$
+                            <div class="math-display">$$\\frac{\\partial z}{\\partial x} = \\frac{\\partial z}{\\partial y_2} \\cdot \\frac{\\partial y_2}{\\partial y_1} \\cdot \\frac{\\partial y_1}{\\partial x}$$</div>
                         </div>
                         <div class="text-xs text-purple-700">Gradient computation</div>
                     </div>
@@ -136,7 +136,7 @@ const question = {
                     <div class="bg-purple-50 p-4 rounded-lg border border-purple-200 h-full">
                         <div class="font-medium text-purple-900 mb-3">Jacobian Form</div>
                         <div class="bg-white p-3 rounded border mb-3">
-                            $$J_{total} = J_h \\cdot J_g \\cdot J_f$$
+                            <div class="math-display">$$J_{total} = J_h \\cdot J_g \\cdot J_f$$</div>
                         </div>
                         <div class="text-xs text-purple-700">Matrix multiplication</div>
                     </div>
@@ -583,7 +583,7 @@ const question = {
                         extras += `
                             <div class="mt-3 p-3 bg-indigo-50 rounded border border-indigo-200">
                                 <div class="text-xs text-indigo-800 mb-1">Computation view formula</div>
-                                <div class="bg-white p-2 rounded border overflow-x-auto whitespace-nowrap text-center">${formula}</div>
+                                <div class="math-display text-center text-xs">${formula}</div>
                             </div>
                         `;
                     } else if (mode === 'backprop') {

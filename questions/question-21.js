@@ -27,19 +27,19 @@ const question = {
             <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
                 <h5 class="font-medium text-green-900">Sinusoidal (Fixed)</h5>
                 <p class="text-sm text-green-700">Uses sine and cosine functions with different frequencies to create unique patterns for each position.</p>
-                <div class="text-xs bg-green-100 px-2 py-1 rounded border text-center overflow-x-auto whitespace-nowrap">$$PE_{(pos, 2i)} = \\sin\\left(\\frac{pos}{10000^{\\frac{2i}{d_{\\text{model}}}}}\\right),\\; PE_{(pos, 2i+1)} = \\cos\\left(\\frac{pos}{10000^{\\frac{2i}{d_{\\text{model}}}}}\\right)$$</div>
+                <div class="math-display text-xs">$$PE_{(pos, 2i)} = \\sin\\left(\\frac{pos}{10000^{\\frac{2i}{d_{\\text{model}}}}}\\right),\\; PE_{(pos, 2i+1)} = \\cos\\left(\\frac{pos}{10000^{\\frac{2i}{d_{\\text{model}}}}}\\right)$$</div>
             </div>
             
             <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
                 <h5 class="font-medium text-purple-900">Learned Embeddings</h5>
                 <p class="text-sm text-purple-700">Trainable position vectors that the model learns during training, similar to word embeddings.</p>
-                <div class="text-xs bg-purple-100 px-2 py-1 rounded border text-center overflow-x-auto whitespace-nowrap">$$ pos_{emb} = \\mathrm{Embedding}(max_{len},\ d_{model}) $$</div>
+                <div class="math-display text-xs">$$ pos_{emb} = \\mathrm{Embedding}(max_{len},\ d_{model}) $$</div>
             </div>
             
             <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
                 <h5 class="font-medium text-orange-900">Relative Encodings</h5>
                 <p class="text-sm text-orange-700">Focus on relative distances between tokens rather than absolute positions. Examples include RoPE (rotary) and ALiBi (additive bias).</p>
-                <div class="text-xs bg-orange-100 px-2 py-1 rounded border text-center overflow-x-auto whitespace-nowrap">$$\\text{Attn}(q_i, k_j) \\mathrel{+}= b(i-j)$$</div>
+                <div class="math-display text-xs">$$\\text{Attn}(q_i, k_j) \\mathrel{+}= b(i-j)$$</div>
             </div>
         </div>
         
@@ -87,7 +87,7 @@ const question = {
                                 <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">Original</span>
                             </div>
                             <p class="text-xs text-gray-600">Fixed mathematical patterns using sine and cosine waves</p>
-                            <div class="text-xs mt-2 bg-gray-100 px-2 py-1 rounded overflow-x-auto whitespace-nowrap">$$ \\sin\\!\\left( \\frac{pos}{10000^{2i/d}} \\right) $$</div>
+                            <div class="math-display text-xs mt-2">$$ \\sin\\!\\left( \\frac{pos}{10000^{2i/d}} \\right) $$</div>
                         </div>
                     </label>
                     
@@ -99,7 +99,7 @@ const question = {
                                 <span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">Trainable</span>
                             </div>
                             <p class="text-xs text-gray-600">Position embeddings learned during training</p>
-                            <div class="text-xs mt-2 bg-gray-100 px-2 py-1 rounded overflow-x-auto whitespace-nowrap">$$ \\mathrm{Embedding}(max_{len},\ d_{model}) $$</div>
+                            <div class="math-display text-xs mt-2">$$ \\mathrm{Embedding}(max_{len},\ d_{model}) $$</div>
                         </div>
                     </label>
                     
@@ -111,7 +111,7 @@ const question = {
                                 <span class="text-xs bg-orange-100 text-orange-800 px-2 py-1 rounded">Distance</span>
                             </div>
                             <p class="text-xs text-gray-600">Based on relative distances between tokens</p>
-                            <div class="text-xs mt-2 bg-gray-100 px-2 py-1 rounded overflow-x-auto whitespace-nowrap">\( r(i{-}j) \)</div>
+                            <div class="math-display text-xs mt-2">\( r(i{-}j) \)</div>
                         </div>
                     </label>
                 </div>

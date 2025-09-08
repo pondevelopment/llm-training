@@ -33,7 +33,7 @@ const question = {
       <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
         <h5 class="font-semibold text-green-900 mb-1">Direct Answer</h5>
         <p class="text-sm text-green-800">Model outputs an answer immediately. <b>Lowest cost</b>, but can fail on multi‑step logic.</p>
-  <div class="text-xs bg-white border p-2 mt-2 rounded overflow-x-auto whitespace-nowrap">$$ y = f(\text{prompt}) $$</div>
+  <div class="math-display">$$ y = f(\text{prompt}) $$</div>
   <ul class="mt-2 text-xs text-green-900 space-y-0.5">
           <li>• Fast, cheap</li>
           <li>• No transparency</li>
@@ -42,7 +42,7 @@ const question = {
   <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
     <h5 class="font-semibold text-purple-900 mb-1">Single CoT</h5>
     <p class="text-sm text-purple-800">Ask the model to “think step by step.” Increases accuracy by decomposing reasoning.</p>
-  <div class="text-xs bg-white border p-2 mt-2 rounded overflow-x-auto whitespace-nowrap">$$ y = g(s_1, s_2, \dots, s_T) $$</div>
+  <div class="math-display">$$ y = g(s_1, s_2, \dots, s_T) $$</div>
   <ul class="mt-2 text-xs text-purple-900 space-y-0.5">
           <li>• Better reasoning</li>
   <p class="text-xs text-gray-600 mt-2">For self‑consistency, sample \\(m\\) CoT chains at moderate temperature and vote on the final answer.</p>
@@ -52,7 +52,7 @@ const question = {
         <h5 class="font-semibold text-orange-900 mb-1">Self‑Consistency</h5>
         <p class="text-sm text-orange-800">Sample multiple diverse CoT chains and <b>vote</b> on the final answer. Robust to a bad chain.</p>
         <!-- Escaped LaTeX for MathJax inside JS template string -->
-    <div class="text-xs bg-white border p-2 mt-2 rounded overflow-x-auto whitespace-nowrap">$$ P_{\mathrm{SC}} = \\sum_{k=t}^{m} \\binom{m}{k} p^{k} (1-p)^{m-k} $$</div>
+  <div class="math-display">$$ P_{\mathrm{SC}} = \\sum_{k=t}^{m} \\binom{m}{k} p^{k} (1-p)^{m-k} $$</div>
   <ul class="mt-2 text-xs text-orange-900 space-y-0.5">
           <li>• Higher accuracy</li>
           <li>• Higher cost</li>
@@ -203,7 +203,7 @@ const question = {
 
         const explain = `
           <p>CoT reveals intermediate steps. Self‑consistency samples multiple chains and takes a majority (ties count half) to reduce variance from any single flawed chain.</p>
-          <div id="q38-explain-math" class="text-center bg-white border p-2 rounded font-mono text-xs mt-1 overflow-x-auto whitespace-nowrap"></div>
+          <div id="q38-explain-math" class="math-display text-xs font-mono mt-1"></div>
           <div class="text-xs text-gray-600 mt-1">We treat chains as independent with single‑chain correctness <span class="font-mono">p</span>. For even <span class="font-mono">m</span>, a tie contributes half its probability mass so accuracy is non‑decreasing as <span class="font-mono">m</span> grows.</div>
         `;
 

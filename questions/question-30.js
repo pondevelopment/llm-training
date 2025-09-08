@@ -19,7 +19,7 @@ const question = {
         <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
             <h4 class="font-semibold text-blue-900 mb-2">⚡ What is ReLU and Its Derivative?</h4>
             <p class="text-blue-800">The ReLU (Rectified Linear Unit) function is defined as <strong>\\( f(x) = \\max(0, x) \\)</strong>. Its derivative is remarkably simple: <strong>1 for positive inputs, 0 for negative inputs</strong>. This simplicity is what makes ReLU so powerful in deep learning – it either passes gradients through unchanged or blocks them completely.</p>
-            <div class="mt-3 bg-white/60 p-3 rounded border text-center overflow-x-auto whitespace-nowrap">
+            <div class="math-display">
                 $$ f'(x) = \\begin{cases} 1 & \\text{if } x > 0 \\\\ 0 & \\text{if } x \\le 0 \\end{cases} $$
             </div>
         </div>
@@ -30,19 +30,17 @@ const question = {
             <div class="grid md:grid-cols-2 gap-4">
                 <div class="text-center">
                     <h5 class="font-medium text-gray-800 mb-2">ReLU Function</h5>
-                    <div class="bg-gray-50 p-3 rounded">
+                    <div class="math-display">
                         $$f(x) = \\max(0, x) = \\begin{cases} 
-                        x & \\text{if } x > 0 \\\\
-                        0 & \\text{if } x \\leq 0
+                        x & \\text{if } x > 0 \\\\n+                        0 & \\text{if } x \\leq 0
                         \\end{cases}$$
                     </div>
                 </div>
                 <div class="text-center">
                     <h5 class="font-medium text-gray-800 mb-2">ReLU Derivative</h5>
-                    <div class="bg-gray-50 p-3 rounded">
+                    <div class="math-display">
                         $$f'(x) = \\begin{cases} 
-                        1 & \\text{if } x > 0 \\\\
-                        0 & \\text{if } x \\leq 0
+                        1 & \\text{if } x > 0 \\\\n+                        0 & \\text{if } x \\leq 0
                         \\end{cases}$$
                     </div>
                 </div>

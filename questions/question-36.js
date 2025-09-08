@@ -64,9 +64,7 @@ const question = {
   <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
       <h4 class="font-semibold text-gray-900 mb-2">🧮 Scoring example</h4>
       <p class="text-sm text-gray-700">Cosine similarity for dense retrieval:</p>
-        <div class="text-center bg-gradient-to-r from-indigo-50 to-indigo-100 p-3 rounded-lg border border-indigo-200 text-sm font-mono overflow-x-auto whitespace-nowrap" aria-label="Cosine similarity equation">
-          $$ \\cos(\\theta) = \\frac{\\sum_i q_i d_i}{\\sqrt{\\sum_i q_i^2}\\,\\sqrt{\\sum_i d_i^2}} $$
-        </div>
+  <div class="math-display" aria-label="Cosine similarity equation">$$ \\cos(\\theta) = \\frac{\\sum_i q_i d_i}{\\sqrt{\\sum_i q_i^2}\\,\\sqrt{\\sum_i d_i^2}} $$</div>
       <p class="text-xs text-gray-600 mt-2">Hybrid pattern: lexical recall → dense refine → cross‑encoder rerank → answer assembly.</p>
     </div>
 

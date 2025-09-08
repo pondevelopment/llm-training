@@ -25,9 +25,11 @@ const question = {
           <b>Generative</b> models learn how data is produced, modeling \\(P(x)\\) or \\(P(x,y)\\),
           so they can <i>sample</i> new examples (e.g., GPT).
         </p>
-        <div class="math-display text-sm">
-          $$\\text{Discriminative: } \\; \\hat{y} = \\arg\\max_y \\, P(y\\mid x) \\qquad\\quad
-          \\text{Generative: } \\; P(x) \\text{ or }\\; P(x,y) = P(y\\mid x)P(x)$$
+  <div class="math-display">
+            $$\\begin{aligned}
+            \\text{Discriminative: } & \\; \\hat{y} = \\arg\\max_y P(y\\mid x) \\\\
+            \\text{Generative: } & \\; P(x) \\text{ or }\\; P(x,y) = P(y\\mid x)P(x)
+            \\end{aligned}$$
         </div>
     <p class="text-xs text-blue-800 mt-2">Rule of thumb: Discriminative = best boundaries for labeling; Generative = learn the data distribution to generate or reason with missing parts.</p>
       </div>
@@ -287,7 +289,7 @@ const question = {
           metricsEl.innerHTML = `${bars('P(positive|x)', r.p, 'emerald')}`;
           outputEl.textContent = `Predicted label: ${label}\nConfidence: ${(r.p*100).toFixed(1)}%`;
           explainEl.innerHTML = `
-            <div class="text-center bg-white border p-2 rounded font-mono text-[12px]">$$P(y=1\\mid x)=\\sigma(w\\cdot x + b)$$</div>
+            <div class="math-display">$$P(y=1\\mid x)=\\sigma(w\\cdot x + b)$$</div>
             <div class="text-xs text-gray-600 mt-1">Boundary‑focused: learns to separate classes directly.</div>
           `;
         } else {
@@ -302,7 +304,7 @@ const question = {
             `;
           outputEl.textContent = (txt.trim() + ' ' + cont).trim();
           explainEl.innerHTML = `
-            <div class="text-center bg-white border p-2 rounded font-mono text-[12px]">$$P(x)=\\prod_{t} P(x_t\\mid x_{\\lt t})$$</div>
+            <div class="math-display">$$P(x)=\\prod_{t} P(x_t\\mid x_{\\lt t})$$</div>
             <div class="text-xs text-gray-600 mt-1">Distribution‑focused: can sample new text; higher temperature increases diversity.</div>
           `;
         }

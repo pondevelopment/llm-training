@@ -48,24 +48,16 @@ const question = {
                 <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
                     <h5 class="font-medium text-purple-900">🎯 Long-Range Dependencies</h5>
                     <p class="text-sm text-purple-700 mb-2">Direct attention to any position in the sequence</p>
-                    <div class="text-xs bg-purple-100 px-1 py-1 rounded text-center overflow-x-auto whitespace-nowrap">
-                        $$
-                        \\mathrm{Attention}(Q,K,V) = \\mathrm{softmax}\\!\\left( \\frac{QK^{T}}{\\sqrt{d_k}} \\right) V
-                        $$
-                    </div>
+                    <div class="math-display text-xs">$$\\mathrm{Attention}(Q,K,V) = \\mathrm{softmax}\\!\\left( \\frac{QK^{T}}{\\sqrt{d_k}} \\right) V$$</div>
                 </div>
                 
                 <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
                     <h5 class="font-medium text-orange-900">📍 Positional Encoding</h5>
                     <p class="text-sm text-orange-700 mb-2">Preserves sequence order without sequential processing</p>
-                    <div class="text-xs bg-orange-100 px-1 py-1 rounded text-center overflow-x-auto whitespace-nowrap">
-                        $$
-                        \\begin{align*}
+                    <div class="math-display text-xs">$$\\begin{align*}
                         \\mathrm{PE}(pos,2i) &= \\sin\\!\\left( pos / 10000^{\\frac{2i}{d_{model}}} \\right) \\\\
                         \\mathrm{PE}(pos,2i+1) &= \\cos\\!\\left( pos / 10000^{\\frac{2i}{d_{model}}} \\right)
-                        \\end{align*}
-                        $$
-                    </div>
+                        \\end{align*}$$</div>
                 </div>
             </div>
             

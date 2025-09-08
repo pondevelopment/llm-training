@@ -18,10 +18,7 @@ const question = {
         <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
             <h4 class="font-semibold text-blue-900 mb-2">🧭 Core Idea</h4>
             <p class="text-blue-800">Hyperparameters are preset values that control training dynamics (learning rate, batch size, regularization strength, etc.). They are chosen before / outside training, influence <em>how</em> parameters are learned, and do <strong>not</strong> receive gradient updates.</p>
-            <div class="text-center mt-3 bg-white p-3 rounded border overflow-x-auto whitespace-nowrap text-sm">
-                <span class="block text-gray-600 mb-1">Gradient update rule</span>
-                $$\\theta_{t+1} = \\theta_t - \\eta \\nabla_{\\theta} \\mathcal{L}(\\theta_t)$$
-            </div>
+            <div class="math-display">$$\\theta_{t+1} = \\theta_t - \\eta \\nabla_{\\theta} \\mathcal{L}(\\theta_t)$$</div>
         </div>
 
         <!-- Comparison Grid -->

@@ -33,18 +33,16 @@ const question = {
   <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
       <h4 class="font-semibold text-gray-900 mb-3">🧩 Mechanism</h4>
   <p class="text-sm text-gray-700">Instead of updating inline parameters, we add a <em>structured delta</em> to a frozen base (additive decomposition):</p>
-      <div class="text-center bg-gradient-to-r from-indigo-50 to-indigo-100 p-4 rounded-lg border border-indigo-200 text-sm font-mono">
-  $$ f(x; \theta_{\\text{base}}, \\Delta\\theta) = f\\big(x; \\theta_{\\text{base}} + P(\\Delta\\theta)\\big) $$
-      </div>
+  <div class="math-display">$$ f(x; \theta_{\\text{base}}, \\Delta\\theta) = f\\big(x; \theta_{\\text{base}} + P(\\Delta\\theta)\\big) $$</div>
   <p class="text-sm text-gray-700 mt-3">Where <code>P(\cdot)</code> injects / projects the small trainable structure (adapters, low‑rank matrices, prefixes). We model forgetting with a <em>qualitative</em> saturating hazard (illustrative only):</p>
-    <div class="text-center bg-yellow-50 border border-yellow-200 p-3 rounded text-xs font-mono">
-  $$ \text{ForgettingRisk} = 1 - e^{-\alpha s d t},\quad \text{Retention} = e^{-\alpha s d t} $$
-    </div>
+  <div class="math-display">$$\\begin{aligned}
+    \\text{ForgettingRisk} &= 1 - e^{-\\alpha s d t},\\\\
+    \\text{Retention}      &= e^{-\\alpha s d t}.
+
+  \\end{aligned}$$</div>
   <p class="text-xs text-gray-600">Symbols: \(s\)=trainable fraction; \(d\)=domain shift factor; \(t\)=sequential task count; \(\alpha\)=method sensitivity (smaller ⇒ more robust). Pedagogical curve—use empirical continual learning benchmarks for measurement.</p>
       <p class="text-sm text-gray-700 mb-2">LoRA applies a low‑rank update to each targeted weight matrix:</p>
-      <div class="text-center bg-white border border-gray-200 p-3 rounded text-xs font-mono">
-  $$ W' = W + B A,\; W\\in\\mathbb{R}^{d_{out}\\times d_{in}},\; A\\in\\mathbb{R}^{r\\times d_{in}},\; B\\in\\mathbb{R}^{d_{out}\\times r},\; r \\ll d_{out},d_{in} $$
-      </div>
+  <div class="math-display">$$ W' = W + B A,\; W\\in\\mathbb{R}^{d_{out}\\times d_{in}},\; A\\in\\mathbb{R}^{r\\times d_{in}},\; B\\in\\mathbb{R}^{d_{out}\\times r},\; r \\ll d_{out},d_{in} $$</div>
       <p class="text-xs text-gray-600">Original \(W\) is preserved (frozen); only \(A,B\) train → prior capabilities remain accessible.</p>
     </div>
 

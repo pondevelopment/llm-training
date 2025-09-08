@@ -34,9 +34,11 @@ const question = {
         <!-- Mathematical Breakdown -->
         <div class="bg-gray-50 p-4 rounded-lg border border-gray-300">
             <h4 class="font-semibold text-gray-900 mb-2">📐 The Cross-Entropy Formula</h4>
-            <div id="q25-formula" class="text-center bg-white p-3 rounded border mb-2 overflow-x-auto whitespace-nowrap">
-                $$ L = -\\sum_i \\; y_i\\,\\log\\big(\\hat{p}_i\\big) $$
-                $$ \\text{(for one-hot targets)}\\;\\Rightarrow\\; L = -\\log\\big(p_{\\mathrm{correct}}\\big) $$
+            <div id="q25-formula" class="math-display">
+$$\\begin{aligned}
+L &= -\\sum_i y_i\\log(\\hat{p}_i) \\\\
+\\text{(one-hot targets)} &\\Rightarrow L = -\\log(p_{\\mathrm{correct}})
+\\end{aligned}$$
             </div>
             <div class="text-sm text-gray-600 space-y-1">
                 <p><strong>L</strong> = cross-entropy loss</p>

@@ -31,7 +31,7 @@ const question = {
                         
                         <div class="bg-purple-50 p-6 rounded-lg border border-purple-200">
                             <div class="space-y-3">
-                                <div>$$\\mathbf{A}\\mathbf{v} = \\lambda\\mathbf{v}$$</div>
+                                <div class="math-display">$$\\mathbf{A}\\mathbf{v} = \\lambda\\mathbf{v}$$</div>
                                 <div class="text-sm text-gray-600">where \\( \\mathbf{A} \\) is the covariance matrix, \\( \\mathbf{v} \\) is an eigenvector, and \\( \\lambda \\) is the eigenvalue</div>
                             </div>
                         </div>
@@ -59,12 +59,10 @@ const question = {
                         <div class="text-center space-y-4">
                             <div class="text-sm font-medium text-gray-700">Characteristic Equation</div>
                             
-                <div class="bg-blue-50 p-4 rounded-lg border border-blue-200 overflow-x-auto whitespace-nowrap">
-                                <div class="text-center space-y-2">
-                                    <div>$$\\det(\\mathbf{A} - \\lambda\\mathbf{I}) = 0$$</div>
-                    <div class="text-xs text-gray-600">Determines eigenvalues \\( \\lambda_1, \\lambda_2, \\ldots, \\lambda_n \\)</div>
-                                </div>
-                            </div>
+                <div class="math-display">
+                    $$\\det(\\mathbf{A} - \\lambda\\mathbf{I}) = 0$$
+                </div>
+                <div class="text-xs text-gray-600 text-center">Determines eigenvalues \\( \\lambda_1, \\lambda_2, \\ldots, \\lambda_n \\)</div>
                             
                             <div class="text-xs text-gray-600 max-w-xs mx-auto">
                                 Each eigenvalue represents the variance captured along its corresponding eigenvector direction
@@ -115,9 +113,7 @@ const question = {
                 <div class="text-center">
                     <div class="bg-purple-50 p-4 rounded-lg border border-purple-200 h-full">
                         <div class="font-medium text-purple-900 mb-3">1. Variance Analysis</div>
-                        <div class="bg-white p-3 rounded border mb-3">
-                            <div class="text-sm overflow-x-auto whitespace-nowrap">$$\\text{Var}(\\mathbf{X}) = \\frac{1}{n}\\sum_{i=1}^{n}(\\mathbf{x}_i - \\bar{\\mathbf{x}})^2$$</div>
-                        </div>
+                        <div class="math-display">$$\\text{Var}(\\mathbf{X}) = \\frac{1}{n}\\sum_{i=1}^{n}(\\mathbf{x}_i - \\bar{\\mathbf{x}})^2$$</div>
                         <div class="text-xs text-purple-700">Compute covariance matrix to understand data spread</div>
                     </div>
                 </div>
@@ -126,9 +122,7 @@ const question = {
                 <div class="text-center">
                     <div class="bg-purple-50 p-4 rounded-lg border border-purple-200 h-full">
                         <div class="font-medium text-purple-900 mb-3">2. Principal Components</div>
-                        <div class="bg-white p-3 rounded border mb-3">
-                            <div class="text-sm overflow-x-auto whitespace-nowrap">$$\\mathbf{W} = [\\mathbf{v}_1, \\mathbf{v}_2, \\ldots, \\mathbf{v}_k]$$</div>
-                        </div>
+                        <div class="math-display">$$\\mathbf{W} = [\\mathbf{v}_1, \\mathbf{v}_2, \\ldots, \\mathbf{v}_k]$$</div>
                         <div class="text-xs text-purple-700">Select eigenvectors with highest eigenvalues</div>
                     </div>
                 </div>
@@ -137,9 +131,7 @@ const question = {
                 <div class="text-center">
                     <div class="bg-purple-50 p-4 rounded-lg border border-purple-200 h-full">
                         <div class="font-medium text-purple-900 mb-3">3. Projection</div>
-                        <div class="bg-white p-3 rounded border mb-3">
-                            <div class="text-sm overflow-x-auto whitespace-nowrap">$$\\mathbf{Y} = \\mathbf{X}\\mathbf{W}$$</div>
-                        </div>
+                        <div class="math-display">$$\\mathbf{Y} = \\mathbf{X}\\mathbf{W}$$</div>
                         <div class="text-xs text-purple-700">Transform data to lower-dimensional space</div>
                     </div>
                 </div>
@@ -166,10 +158,8 @@ const question = {
                 <div class="bg-white p-4 rounded-lg border">
                     <h5 class="font-semibold text-gray-900 mb-3">Variance Explained</h5>
                     <div class="bg-blue-50 p-4 rounded-lg border border-blue-200 mb-3">
-                        <div class="text-center overflow-x-auto whitespace-nowrap">
-                            <div>$$\\text{Variance Explained} = \\frac{\\sum_{i=1}^{k} \\lambda_i}{\\sum_{i=1}^{n} \\lambda_i}$$</div>
-                            <div class="text-xs text-gray-600 mt-2">Ratio of selected eigenvalues to total eigenvalues</div>
-                        </div>
+                        <div class="math-display">$$\\text{Variance Explained} = \\frac{\\sum_{i=1}^{k} \\lambda_i}{\\sum_{i=1}^{n} \\lambda_i}$$</div>
+                        <div class="text-xs text-gray-600 text-center mt-2">Ratio of selected eigenvalues to total eigenvalues</div>
                     </div>
                     <p class="text-sm text-gray-600">Higher eigenvalues = more variance captured = less information loss</p>
                 </div>

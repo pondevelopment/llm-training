@@ -40,9 +40,7 @@ const question = {
                 <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
                     <h5 class="font-medium text-green-900">🎛️ Regularization</h5>
                     <p class="text-sm text-green-700 mb-2">Add penalties to model complexity</p>
-                    <div class="text-xs bg-green-100 px-2 py-1 rounded text-center overflow-x-auto whitespace-nowrap">
-                        $$ \\text{L2: } \\lambda \\lVert w \\rVert_2^2 \\quad \\text{or L1: } \\lambda \\lVert w \\rVert_1 $$
-                    </div>
+                        <div class="math-display text-xs">$$ \\text{L2: } \\lambda \\lVert w \\rVert_2^2 \\quad \\text{or L1: } \\lambda \\lVert w \\rVert_1 $$</div>
                     <div class="text-xs text-green-600 mt-1">Prevents large weights</div>
                 </div>
                 

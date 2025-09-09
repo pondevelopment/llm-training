@@ -29,7 +29,7 @@ const question = {
           \\mathbf{J}_\\ell &= \\frac{\\partial F}{\\partial \\mathrm{LN}(\\mathbf{x}_\\ell)} \\cdot \\frac{\\partial \\mathrm{LN}}{\\partial \\mathbf{x}_\\ell}
           \\end{align*}
           $$</div>
-          The identity path \\(\\mathbf{I}\\) <i>guarantees</i> a direct gradient route; LayerNorm keeps scales near 1.
+          The identity path $\\mathbf{I}$ <i>guarantees</i> a direct gradient route; LayerNorm keeps scales near 1.
         </div>
       </div>
       <div class="grid md:grid-cols-3 gap-4">
@@ -37,13 +37,13 @@ const question = {
           <h5 class="font-medium text-green-900">🟢 Plain Deep Stack</h5>
           <ul class="text-sm text-green-700 mt-1 space-y-1">
             <li>• Multiplicative chain of gains</li>
-            <li>• Per-layer gain \(g \\lt 1\) ⇒ decay \(g^L\)</li>
+            <li>• Per-layer gain $g < 1$ ⇒ decay $g^L$</li>
           </ul>
         </div>
         <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
           <h5 class="font-medium text-purple-900">🟣 Residual + Pre-LN</h5>
           <ul class="text-sm text-purple-700 mt-1 space-y-1">
-            <li>• Always includes identity gradient \(\\mathbf{I}\\)</li>
+            <li>• Always includes identity gradient $\\mathbf{I}$</li>
             <li>• LN centers/scales → stable Jacobians</li>
           </ul>
         </div>
@@ -73,7 +73,7 @@ const question = {
         <div class="text-sm text-gray-800 space-y-3">
           <div>
             <b>1) Residuals add an identity Jacobian.</b>
-            Without residuals, gradients multiply per-layer gains and decay like \\(g^L\\) when \\(g\\lt 1\\). With residuals, each layer contributes \\((\\mathbf{I}+\\alpha\\,\\mathbf{J}_\\ell)\\):
+              Without residuals, gradients multiply per-layer gains and decay like $g^L$ when $g < 1$. With residuals, each layer contributes $(\\mathbf{I}+\\alpha\,\\mathbf{J}_\\ell)$:
             <div class="math-display">$$
             \\frac{\\partial \\mathcal{L}}{\\partial \\mathbf{x}_0} \\;\\approx\\; \\frac{\\partial \\mathcal{L}}{\\partial \\mathbf{y}_L}\\; \\prod_{\\ell=1}^{L} \\big( \\mathbf{I} + \\alpha\\,\\mathbf{J}_\\ell \\big)
             $$</div>

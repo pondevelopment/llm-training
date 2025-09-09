@@ -1,4 +1,4 @@
-# Top 51 LLM Interview Questions
+# LLM Interview Questions
 
 [➡️ Open the latest version (GitHub Pages)](https://pondevelopment.github.io/llm-training/#question-1)
 
@@ -7,11 +7,11 @@ An interactive learning experience with hands-on examples for the most important
 
 ## 🎯 Overview
 
-This project is a single‑page, static web app covering 51 essential LLM questions. Every question includes a clear explanation and most include interactive mini‑simulators. There’s also a searchable Glossary with deep links into the questions.
+This project is a single‑page, static web app covering an expanding set of essential LLM questions. Every question includes a clear explanation and most include interactive mini‑simulators. There’s also a searchable Glossary with deep links into the questions.
 
 ## � Features
 
-- 51 curated questions with explanations and interactive widgets
+- Curated questions with explanations and interactive widgets (continuously growing)
 - Searchable in‑app Glossary with “Learn more: Question N →” cross‑links
 - Shareable deep links per question (Share button or press “S”)
 - Keyboard navigation (← / →), and a top dropdown to jump anywhere

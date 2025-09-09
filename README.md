@@ -1,4 +1,4 @@
-# Top 50 LLM Interview Questions
+# Top 51 LLM Interview Questions
 
 [➡️ Open the latest version (GitHub Pages)](https://pondevelopment.github.io/llm-training/#question-1)
 
@@ -7,11 +7,11 @@ An interactive learning experience with hands-on examples for the most important
 
 ## 🎯 Overview
 
-This project is a single‑page, static web app covering 50 essential LLM questions. Every question includes a clear explanation and most include interactive mini‑simulators. There’s also a searchable Glossary with deep links into the questions.
+This project is a single‑page, static web app covering 51 essential LLM questions. Every question includes a clear explanation and most include interactive mini‑simulators. There’s also a searchable Glossary with deep links into the questions.
 
 ## � Features
 
-- 50 curated questions with explanations and interactive widgets
+- 51 curated questions with explanations and interactive widgets
 - Searchable in‑app Glossary with “Learn more: Question N →” cross‑links
 - Shareable deep links per question (Share button or press “S”)
 - Keyboard navigation (← / →), and a top dropdown to jump anywhere
@@ -43,7 +43,7 @@ top-50-llm-questions/
 │   ├── questionLoader.js     # Safe dynamic loader for question modules
 │   └── glossary.js           # Searchable glossary with in‑app navigation
 ├── questions/
-│   ├── question-01.js … question-50.js   # Individual questions
+│   ├── question-01.js … question-51.js   # Individual questions
 │   └── question-template.js              # Template for new questions
 ├── QUESTION_TEMPLATE_GUIDE.md            # Authoring guidance
 ├── QUESTION_CHECKLIST.md                 # Review & test checklist
@@ -68,7 +68,7 @@ Tips inside the app:
 
 ### Adding a new question
 
-1. Copy `questions/question-template.js` to a new file (e.g., `question-51.js`)
+1. Copy `questions/question-template.js` to a new file (e.g., `question-52.js`)
 2. Export your question using CommonJS: `module.exports = question;`
 3. Add the number to `availableQuestions` and the title to `questionTitles` in `js/app.js`
 4. Follow `QUESTION_TEMPLATE_GUIDE.md` and verify with `QUESTION_CHECKLIST.md`
@@ -115,6 +115,7 @@ This project is open source under the [MIT License](LICENSE).
 
 ## 🔄 Recent updates
 
+- Added question 51 (end-to-end LLM lifecycle) and interactive pipeline explorer
 - Added questions 46–50 with interactive explorers
 - Added searchable Glossary with cross‑links to questions
 - Improved deployment trade‑offs explorer (Q50) and math rendering resilience

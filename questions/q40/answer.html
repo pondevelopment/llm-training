@@ -1,0 +1,74 @@
+
+    <div class="space-y-4">
+      <!-- Recommended Reading -->
+      <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+        <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading</h4>
+        <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+          <li><a href="#question-36" class="text-indigo-700 underline hover:text-indigo-900">Question 36: Retrieval-Augmented Generation</a></li>
+          <li><a href="#question-38" class="text-indigo-700 underline hover:text-indigo-900">Question 38: Chain-of-Thought prompting</a></li>
+          <li><a href="#question-39" class="text-indigo-700 underline hover:text-indigo-900">Question 39: Discriminative vs Generative</a></li>
+        </ul>
+      </div>
+      <!-- Main Concept -->
+      <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
+        <h4 class="font-semibold text-blue-900 mb-2">🔗 Key Idea</h4>
+        <p class="text-sm text-blue-800">A knowledge graph (KG) adds <b>structured, factual edges</b> between entities. Grounding an LLM's answers in a KG reduces hallucinations, enables <i>path reasoning</i>, and supports <b>verifiable citations</b>.</p>
+        <div class="text-xs mt-2 text-blue-800">Formal view: with grounding the model conditions on graph facts (G): (P(	ext{answer}mid x, G)) instead of just (P(	ext{answer}mid x)).</div>
+      </div>
+
+      <!-- Comparison Cards -->
+      <div class="grid md:grid-cols-3 gap-4">
+        <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
+          <h5 class="font-semibold text-green-900 mb-1">🟢 LLM Only</h5>
+          <ul class="text-sm text-green-800 space-y-1">
+            <li>• Fluent, fast, but may hallucinate</li>
+            <li>• No explicit evidence or graph structure</li>
+          </ul>
+        </div>
+        <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
+          <h5 class="font-semibold text-purple-900 mb-1">🟣 Grounded with KG</h5>
+          <ul class="text-sm text-purple-800 space-y-1">
+            <li>• Looks up facts as triples</li>
+            <li>• Adds citations to answers</li>
+            <li>• Lower hallucination risk</li>
+          </ul>
+        </div>
+        <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
+          <h5 class="font-semibold text-orange-900 mb-1">🟠 Graph Reasoning</h5>
+          <ul class="text-sm text-orange-800 space-y-1">
+            <li>• Multi-hop path discovery</li>
+            <li>• Explains how entities relate</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Why This Matters -->
+  <div class="bg-yellow-50 p-4 rounded-lg">
+        <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why This Matters</h4>
+        <ul class="text-sm text-yellow-800 space-y-1">
+          <li>• <b>Reducing hallucinations</b> by verifying against graph facts.</li>
+          <li>• <b>Improving reasoning</b> via explicit entity relations.</li>
+          <li>• <b>Enhancing context</b> with structured, compact evidence.</li>
+          <li>• <b>Trust & traceability</b> through citations and paths.</li>
+        </ul>
+      </div>
+
+      <!-- Tiny code hint -->
+      <div class="bg-white p-4 rounded border text-xs">
+        <div class="grid md:grid-cols-2 gap-4">
+          <div>
+            <div class="font-semibold mb-1">Pseudo-code: Grounding pipeline</div>
+            <code>entities = NER(x)
+triples = KG.lookup(entities)
+answer = LLM(x, context=triples)
+return answer + citations(triples)</code>
+          </div>
+          <div>
+            <div class="font-semibold mb-1">Path reasoning</div>
+            <code>path = KG.findPath(a, b)
+explain(path) // show relation chain</code>
+          </div>
+        </div>
+      </div>
+    </div>
+  

@@ -35,7 +35,7 @@ Always consult these when creating or updating any question. They are the source
 ## Question workflow reminders
 
 - Each question lives in `questions/qXX/` with `answer.html`, `interactive.html`, and `interactive.js`.
-- Update `questions/manifest.json` and the `questions/question-XX.js` shim together.
+- Update `questions/manifest.json` and the `questions/qXX/` asset folder together (answer, interactive HTML, interactive JS).
 - Ensure `all.html` lists the question and any curated learning paths include the id.
 - Share pages remain under `/q/XX.html` and must match the latest title/description.
 
@@ -69,3 +69,4 @@ Always consult these when creating or updating any question. They are the source
 - Ensure all files remain UTF-8 encoded so emoji and punctuation render correctly.
 
 Follow these instructions and the accompanying docs to keep new questions consistent, discoverable, and easy to maintain.
+

@@ -1,0 +1,138 @@
+
+            <div class="space-y-6">
+                <!-- Model Configuration -->
+                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200">
+                    <label class="block text-sm font-medium text-gray-700 mb-3">🤖 Model Training Configuration</label>
+                    <div class="grid md:grid-cols-3 gap-4">
+                        <div>
+                            <label for="q18-model-size" class="block text-xs text-gray-600 mb-1">Model Size (parameters)</label>
+                            <select id="q18-model-size" class="w-full px-2 py-1 border border-gray-300 rounded text-sm">
+                                <option value="small">Small (1M params)</option>
+                                <option value="medium" selected>Medium (10M params)</option>
+                                <option value="large">Large (100M params)</option>
+                                <option value="xlarge">XLarge (1B params)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="q18-dataset-size" class="block text-xs text-gray-600 mb-1">Training Dataset Size</label>
+                            <select id="q18-dataset-size" class="w-full px-2 py-1 border border-gray-300 rounded text-sm">
+                                <option value="tiny">Tiny (1K samples)</option>
+                                <option value="small">Small (10K samples)</option>
+                                <option value="medium" selected>Medium (100K samples)</option>
+                                <option value="large">Large (1M samples)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="q18-epochs" class="block text-xs text-gray-600 mb-1">Training Epochs</label>
+                            <input type="range" id="q18-epochs" min="1" max="100" value="20" class="w-full">
+                            <span id="q18-epochs-value" class="text-xs text-gray-600">20 epochs</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Regularization Techniques -->
+                <div class="bg-white border border-gray-200 rounded-lg p-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-3">🛡️ Choose Regularization Techniques</label>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <label class="cursor-pointer">
+                            <input type="checkbox" id="q18-l2-reg" class="sr-only">
+                            <div class="border-2 border-green-200 rounded-lg p-3 hover:border-green-300 transition-colors bg-green-50">
+                                <div class="font-medium text-green-900">⭕ L2 Regularization <span class="text-xs text-gray-500">(DISABLED)</span></div>
+                                <div class="text-xs text-green-700 mt-1">
+                                    Weight decay λ = <span id="l2-value">0.01</span>
+                                </div>
+                                <input type="range" id="l2-strength" min="0" max="0.1" step="0.001" value="0.01" 
+                                       class="w-full h-1 bg-green-200 rounded-lg appearance-none cursor-pointer mt-2">
+                                <div class="text-xs bg-green-100 text-green-600 px-2 py-1 rounded mt-2 inline-block">Penalty: λ∑w²</div>
+                            </div>
+                        </label>
+                        
+                        <label class="cursor-pointer">
+                            <input type="checkbox" id="q18-dropout" class="sr-only">
+                            <div class="border-2 border-purple-200 rounded-lg p-3 hover:border-purple-300 transition-colors bg-purple-50">
+                                <div class="font-medium text-purple-900">⭕ Dropout <span class="text-xs text-gray-500">(DISABLED)</span></div>
+                                <div class="text-xs text-purple-700 mt-1">
+                                    Rate: <span id="dropout-value">0.3</span> (<span id="dropout-percent">30</span>% neurons)
+                                </div>
+                                <input type="range" id="dropout-rate" min="0" max="0.8" step="0.1" value="0.3" 
+                                       class="w-full h-1 bg-purple-200 rounded-lg appearance-none cursor-pointer mt-2">
+                                <div class="text-xs bg-purple-100 text-purple-600 px-2 py-1 rounded mt-2 inline-block">Random Disable</div>
+                            </div>
+                        </label>
+                        
+                        <label class="cursor-pointer">
+                            <input type="checkbox" id="q18-early-stop" class="sr-only">
+                            <div class="border-2 border-orange-200 rounded-lg p-3 hover:border-orange-300 transition-colors bg-orange-50">
+                                <div class="font-medium text-orange-900">⭕ Early Stopping <span class="text-xs text-gray-500">(DISABLED)</span></div>
+                                <div class="text-xs text-orange-700 mt-1">
+                                    Patience: <span id="patience-value">5</span> epochs
+                                </div>
+                                <input type="range" id="early-stop-patience" min="1" max="15" step="1" value="5" 
+                                       class="w-full h-1 bg-orange-200 rounded-lg appearance-none cursor-pointer mt-2">
+                                <div class="text-xs bg-orange-100 text-orange-600 px-2 py-1 rounded mt-2 inline-block">Auto Stop</div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- Regularization Status Summary -->
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-3">
+                    <div class="font-medium text-blue-900 mb-2">🎯 Current Regularization Status</div>
+                    <div id="q18-status-summary" class="text-sm text-blue-800">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+                            <div id="l2-status" class="flex items-center">
+                                <span class="mr-2">❌</span> L2 Regularization: OFF
+                            </div>
+                            <div id="dropout-status" class="flex items-center">
+                                <span class="mr-2">❌</span> Dropout: OFF
+                            </div>
+                            <div id="early-stop-status" class="flex items-center">
+                                <span class="mr-2">❌</span> Early Stopping: OFF
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Training Simulation Controls -->
+                <div class="flex flex-wrap gap-4 items-center">
+                    <button id="q18-simulate-btn" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
+                        🎲 Simulate Training
+                    </button>
+                    <span class="text-sm font-medium text-gray-700">💡 Quick Scenarios:</span>
+                    <button id="q18-scenario-overfit" class="text-xs bg-red-100 text-red-700 px-2 py-1 rounded hover:bg-red-200 transition-colors">High Overfitting</button>
+                    <button id="q18-scenario-balanced" class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded hover:bg-green-200 transition-colors">Well Regularized</button>
+                </div>
+                
+                <!-- Training Results Visualization -->
+                <div class="bg-white border border-gray-200 rounded-lg p-4">
+                    <div class="flex items-center justify-between mb-3">
+                        <h4 class="font-medium text-gray-900">📊 Training Results</h4>
+                        <div id="q18-overfitting-indicator" class="text-xs bg-gray-100 px-2 py-1 rounded font-medium">Ready to simulate</div>
+                    </div>
+                    <div id="q18-output" class="min-h-[300px] p-3 bg-gray-50 rounded border-2 border-dashed border-gray-300">
+                        <div class="text-center text-gray-500 mt-20">
+                            Click "Simulate Training" to see overfitting analysis
+                        </div>
+                    </div>
+                    <div id="q18-legend" class="mt-3 text-xs">
+                        <!-- Legend will be generated here -->
+                    </div>
+                </div>
+                
+                <!-- Performance Metrics -->
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                    <h4 class="font-medium text-blue-900 mb-2">📈 Performance Analysis</h4>
+                    <div id="q18-metrics" class="text-sm text-blue-800">
+                        Configure your model and click simulate to see detailed metrics.
+                    </div>
+                </div>
+                
+                <!-- Educational Explanation -->
+                <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                    <h4 class="font-medium text-yellow-900 mb-2">🎓 Regularization Analysis</h4>
+                    <div id="q18-explanation" class="text-sm text-yellow-800">
+                        Select regularization techniques and run a simulation to understand their effects on overfitting.
+                    </div>
+                </div>
+            </div>
+        

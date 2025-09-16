@@ -1,0 +1,62 @@
+
+    <div class="space-y-4">
+      <!-- Recommended Reading (canonical style) -->
+      <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+  <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related)</h4>
+        <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+          <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-05">Question 5: Tokenization & vocabulary shaping</a></li>
+          <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-06">Question 6: Temperature & decoding</a></li>
+          <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-39">Question 39: Discriminative vs generative heads</a></li>
+        </ul>
+      </div>
+      <!-- Key Idea (accent panel) -->
+      <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
+        <h4 class="font-semibold text-blue-900 mb-2">⚡ Key Idea</h4>
+        <p class="text-sm text-blue-800">Adaptive Softmax splits a large vocabulary into a <b>frequent head</b> and one or more <b>rare tails</b>. At training time it computes the head for <i>all</i> tokens and only the <i>relevant tail</i> for the gold label. Rare tails use <b>reduced projection dimensions</b>, cutting multiply‑adds and parameters while preserving accuracy on frequent words.</p>
+        <div class="text-xs mt-2 text-blue-800">
+          <span class="font-semibold">Compute model:</span> batch size (B), hidden dim (d), head size (V_h), tails (i=1..C), tail dims (d_i = alpha_i d), tail sizes (V_i), batch fractions (p_i):
+          <div class="math-display">$$
+          \begin{align*}
+          C_{\text{full}} &\propto B d V,\\
+          C_{\text{adaptive}} &\propto B d (V_h + C) + B\sum_i p_i d_i V_i,\\
+          P_{\text{adaptive}} &\approx d V_h + \sum_i d_i V_i + d C.
+          \end{align*}
+          $$</div>
+        </div>
+      </div>
+      <!-- Comparison Cards (accentified) -->
+      <div class="grid md:grid-cols-3 gap-4">
+        <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
+          <h5 class="font-medium text-green-900">🟢 Full Softmax</h5>
+          <ul class="text-sm text-green-700 mt-1 space-y-1">
+            <li>• Compute over <b>entire</b> vocabulary</li>
+            <li>• Maximum accuracy, expensive</li>
+          </ul>
+        </div>
+        <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
+          <h5 class="font-medium text-purple-900">🟣 Adaptive Softmax</h5>
+          <ul class="text-sm text-purple-700 mt-1 space-y-1">
+            <li>• Head + small set of tails per example</li>
+            <li>• Tail projections shrink: (d_i = alpha_i d)</li>
+          </ul>
+        </div>
+        <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
+          <h5 class="font-medium text-orange-900">🟠 When to use</h5>
+          <ul class="text-sm text-orange-700 mt-1 space-y-1">
+            <li>• Very large vocabularies (50k–1M)</li>
+            <li>• Zipfian distributions (few frequent, many rare)</li>
+          </ul>
+        </div>
+      </div>
+      <!-- Why This Matters (canonical) -->
+      <div class="bg-yellow-50 p-4 rounded-lg">
+        <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why This Matters</h4>
+        <ul class="text-sm text-yellow-800 space-y-1">
+          <li>• <b>Speeds up</b> training by avoiding full-vocab logits</li>
+          <li>• <b>Reduces parameters</b> with low-dim tails</li>
+          <li>• Keeps accuracy high for frequent words</li>
+          <li>• Great for large-vocab or resource-limited settings</li>
+        </ul>
+      </div>
+    </div>
+  

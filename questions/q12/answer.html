@@ -1,0 +1,93 @@
+<div class="space-y-4">
+        <!-- Recommended Reading -->
+        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related)</h4>
+            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+                <li><a href="#question-05" class="text-indigo-700 underline hover:text-indigo-900">Question 5: Beam Search vs Greedy – broader search vs local sampling</a></li>
+                <li><a href="#question-06" class="text-indigo-700 underline hover:text-indigo-900">Question 6: Temperature – how logits are reshaped before sampling</a></li>
+                <li><a href="#question-23" class="text-indigo-700 underline hover:text-indigo-900">Question 23: Softmax in Attention – same probabilistic normalization core</a></li>
+                <li><a href="#question-25" class="text-indigo-700 underline hover:text-indigo-900">Question 25: Cross-Entropy Loss – trains the token distribution you sample from</a></li>
+            </ul>
+        </div>
+        <!-- Main Concept Box -->
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
+            <h4 class="font-semibold text-blue-900 mb-2">🎲 What is Sampling in Text Generation?</h4>
+            <p class="text-blue-800">Sampling methods control how language models choose the next token during text generation. Instead of always picking the most probable word (greedy decoding), sampling introduces controlled randomness to create more diverse and creative outputs. Think of it like a creative writer choosing between several good word options rather than always using the most obvious one.</p>
+        </div>
+        
+        <!-- Terminology: Tokens vs Words (moved up) -->
+        <div class="bg-white p-4 rounded-lg border">
+            <h4 class="font-semibold text-gray-900 mb-2">🔤 Terminology: tokens vs. words</h4>
+            <p class="text-sm text-gray-700">
+                Sampling operates over <strong>tokens</strong>, which are usually <em>subword pieces</em> (not whole words). A word can be split into multiple tokens (e.g., "unbelievable" → "un", "believ", "able"). In this demo we visualize whole words as tokens for clarity, but the same principles apply at the token level.
+            </p>
+        </div>
+        
+        <!-- Sampling Methods Comparison -->
+        <div class="grid md:grid-cols-3 gap-4">
+            <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
+                <h5 class="font-medium text-green-900 mb-2">🔢 Top-k Sampling</h5>
+                <p class="text-sm text-green-700 mb-2">Selects from the k most probable tokens for random sampling, ensuring controlled diversity.</p>
+                <div class="text-xs space-y-1">
+                    <div><strong>Example (k=3):</strong> "The cat" → {sat: 40%, jumped: 30%, ran: 20%}</div>
+                    <div class="bg-green-100 px-2 py-1 rounded mt-1"><strong>Fixed vocabulary size</strong> - always considers exactly k options</div>
+                </div>
+            </div>
+            
+            <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
+                <h5 class="font-medium text-purple-900 mb-2">🎯 Top-p Sampling (Nucleus)</h5>
+                <p class="text-sm text-purple-700 mb-2">Chooses tokens whose cumulative probability exceeds threshold p, adapting to context.</p>
+                <div class="text-xs space-y-1">
+                    <div><strong>Example (p=0.9):</strong> "The cat" → tokens until 90% probability mass</div>
+                    <div class="bg-purple-100 px-2 py-1 rounded mt-1"><strong>Dynamic vocabulary size</strong> - adapts to probability distribution</div>
+                </div>
+            </div>
+            
+            <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
+                <h5 class="font-medium text-orange-900 mb-2">⚡ Greedy Decoding</h5>
+                <p class="text-sm text-orange-700 mb-2">Always selects the most probable token for deterministic, predictable output.</p>
+                <div class="text-xs space-y-1">
+                    <div><strong>Example:</strong> "The cat" → sat (40% - highest probability)</div>
+                    <div class="bg-orange-100 px-2 py-1 rounded mt-1"><strong>No randomness</strong> - deterministic but can be repetitive</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Key Differences -->
+        <div class="bg-indigo-50 p-4 rounded-lg border-l-4 border-indigo-400">
+            <h4 class="font-semibold text-indigo-900 mb-2">🔍 Key Differences</h4>
+            <div class="grid md:grid-cols-2 gap-4 text-sm text-indigo-800">
+                <div>
+                    <h5 class="font-medium mb-2">Top-k Sampling:</h5>
+                    <ul class="space-y-1">
+                        <li>• <strong>Fixed vocabulary:</strong> Always considers exactly k tokens</li>
+                        <li>• <strong>Simple implementation:</strong> Sort by probability, take top k</li>
+                        <li>• <strong>Consistent diversity:</strong> Same number of options every time</li>
+                        <li>• <strong>Risk:</strong> May include very low-probability tokens</li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-medium mb-2">Top-p Sampling:</h5>
+                    <ul class="space-y-1">
+                        <li>• <strong>Dynamic vocabulary:</strong> Size varies based on distribution</li>
+                        <li>• <strong>Context-adaptive:</strong> More choices for uncertain contexts</li>
+                        <li>• <strong>Quality focus:</strong> Excludes very low-probability tokens</li>
+                        <li>• <strong>Flexibility:</strong> Better for creative and coherent generation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Why This Matters -->
+        <div class="bg-yellow-50 p-4 rounded-lg">
+            <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why Sampling Strategy Matters</h4>
+            <ul class="text-sm text-yellow-800 space-y-1">
+                <li>• <strong>Creative Writing:</strong> Top-p produces more varied and engaging narratives</li>
+                <li>• <strong>Coherence Control:</strong> Proper sampling prevents repetitive or nonsensical text</li>
+                <li>• <strong>Task Adaptation:</strong> Different tasks benefit from different sampling approaches</li>
+                <li>• <strong>Quality vs. Diversity:</strong> Balance between creative output and meaningful content</li>
+                <li>• <strong>User Experience:</strong> Sampling affects how natural and engaging AI text feels</li>
+                <li>• <strong>Common practice:</strong> Combine <em>top-p</em> with <em>temperature</em> (e.g., τ≈0.7–1.0) for stable, creative outputs</li>
+            </ul>
+        </div>
+    </div>

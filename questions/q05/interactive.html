@@ -1,0 +1,110 @@
+<div class="space-y-6">
+            <!-- Strategy Configuration -->
+            <div class="bg-gradient-to-r from-blue-50 to-purple-50 p-4 rounded-lg border border-blue-200">
+                <label class="block text-sm font-medium text-gray-700 mb-2">⚙️ Beam Search Configuration</label>
+                <div class="flex items-center gap-4">
+                    <label class="text-sm">Beam Width:</label>
+                    <select id="q5-beam-width" class="px-3 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        <option value="1">1 (Greedy)</option>
+                        <option value="2" selected>2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </select>
+                    <button id="q5-example-btn" class="text-xs bg-indigo-100 text-indigo-700 px-2 py-1 rounded hover:bg-indigo-200 transition-colors">Try Different Beam Widths</button>
+                    <button id="q5-reset-both-btn" class="text-xs bg-red-100 text-red-700 px-2 py-1 rounded hover:bg-red-200 transition-colors ml-2">🔄 Reset Both</button>
+                </div>
+                <p class="text-xs text-blue-700 font-medium mt-2 bg-blue-100 px-2 py-1 rounded">👆 Beam width of 1 = Greedy decoding!</p>
+            </div>
+
+            <!-- Side-by-side Comparison -->
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Greedy Decoding Panel -->
+                <div class="bg-white border-2 border-green-200 rounded-lg p-4 space-y-4">
+                    <div class="text-center">
+                        <h4 class="font-bold text-green-900 text-lg flex items-center justify-center gap-2">
+                            🎯 Greedy Decoding
+                        </h4>
+                        <p class="text-xs text-green-700">Always picks highest probability</p>
+                    </div>
+                    
+                    <div class="text-center space-x-2">
+                        <button id="q5-greedy-step-btn" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition-colors">
+                            ▶️ Next Step
+                        </button>
+                        <button id="q5-greedy-reset-btn" class="text-xs text-gray-500 hover:underline">🔄 Reset</button>
+                    </div>
+                    
+                    <div>
+                        <p class="text-sm font-semibold text-green-900 mb-2">📝 Generated Sequence:</p>
+                        <div id="q5-greedy-sequence" class="p-3 bg-green-50 rounded-lg min-h-[40px] text-lg font-mono border border-green-200"></div>
+                    </div>
+                    
+                    <div>
+                        <p class="text-sm font-semibold text-green-900 mb-2">📊 Next Word Probabilities:</p>
+                        <div id="q5-greedy-probs" class="space-y-1 font-mono text-sm bg-green-50 p-2 rounded border border-green-200 min-h-[80px]"></div>
+                    </div>
+                    
+                    <div class="bg-green-100 p-2 rounded">
+                        <div class="text-xs text-green-800">
+                            <strong>Total Probability:</strong> <span id="q5-greedy-total-prob">1.000</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Beam Search Panel -->
+                <div class="bg-white border-2 border-purple-200 rounded-lg p-4 space-y-4">
+                    <div class="text-center">
+                        <h4 class="font-bold text-purple-900 text-lg flex items-center justify-center gap-2">
+                            🌟 Beam Search
+                        </h4>
+                        <p class="text-xs text-purple-700">Explores multiple paths simultaneously</p>
+                    </div>
+                    
+                    <div class="text-center space-x-2">
+                        <button id="q5-beam-step-btn" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-lg transition-colors">
+                            ▶️ Next Step
+                        </button>
+                        <button id="q5-beam-reset-btn" class="text-xs text-gray-500 hover:underline">🔄 Reset</button>
+                    </div>
+                    
+                    <div>
+                        <p class="text-sm font-semibold text-purple-900 mb-2">🎯 Active Beams:</p>
+                        <div id="q5-beam-list" class="space-y-2 bg-purple-50 p-2 rounded border border-purple-200 min-h-[120px]"></div>
+                    </div>
+                    
+                    <div class="bg-purple-100 p-2 rounded">
+                        <div class="text-xs text-purple-800">
+                            <strong>Beam Width:</strong> <span id="q5-current-beam-width">2</span> | 
+                            <strong>Best Score:</strong> <span id="q5-best-score">1.000</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Step-by-step Analysis -->
+            <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                <h4 class="font-medium text-yellow-900 mb-3">🔍 Step-by-step Analysis</h4>
+                <div id="q5-analysis" class="text-sm text-yellow-800">
+                    Click "Next Step" on either strategy to begin generating text and see how the approaches differ.
+                </div>
+            </div>
+            
+            <!-- Performance Comparison -->
+            <div class="bg-gray-50 border border-gray-200 rounded-lg p-4">
+                <h4 class="font-medium text-gray-900 mb-3">📈 Performance Metrics</h4>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="bg-white p-3 rounded border">
+                        <div class="text-xs text-gray-600">Steps Taken</div>
+                        <div class="text-lg font-bold" id="q5-steps">0</div>
+                    </div>
+                    <div class="bg-white p-3 rounded border">
+                        <div class="text-xs text-gray-600">Sequences Explored</div>
+                        <div class="text-lg font-bold" id="q5-sequences">0</div>
+                    </div>
+                    <div class="bg-white p-3 rounded border">
+                        <div class="text-xs text-gray-600">Diversity Score</div>
+                        <div class="text-lg font-bold" id="q5-diversity">0.0</div>
+                    </div>
+                </div>
+            </div>
+        </div>

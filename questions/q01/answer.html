@@ -1,0 +1,45 @@
+<div class="space-y-4">
+        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related)</h4>
+            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+                <li><a href="#question-02" class="text-indigo-700 underline hover:text-indigo-900">Question 2: How do attention mechanisms work in transformers?</a></li>
+                <li><a href="#question-09" class="text-indigo-700 underline hover:text-indigo-900">Question 9: What is a transformer architecture?</a></li>
+                <li><a href="#question-14" class="text-indigo-700 underline hover:text-indigo-900">Question 14: What are embeddings and why do they matter?</a></li>
+                <li><a href="#question-47" class="text-indigo-700 underline hover:text-indigo-900">Question 47: What is context and perplexity?</a></li>
+            </ul>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
+            <h4 class="font-semibold text-blue-900 mb-2">🔤 What is Tokenization?</h4>
+            <p class="text-blue-800">Tokenization breaks down raw text into smaller units called <strong>tokens</strong> that LLMs can process. Think of it as cutting up a sentence into digestible pieces.</p>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-4">
+            <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
+                <h5 class="font-medium text-green-900">Word-level</h5>
+                <p class="text-sm text-green-700">Splits by spaces and punctuation</p>
+                <code class="text-xs bg-green-100 px-1 rounded">"Hello world!" → ["Hello", "world", "!"]</code>
+            </div>
+            
+            <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
+                <h5 class="font-medium text-purple-900">Subword (BPE)</h5>
+                <p class="text-sm text-purple-700">Breaks words into meaningful parts</p>
+                <code class="text-xs bg-purple-100 px-1 rounded">"unhappy" → ["un", "happy"]</code>
+            </div>
+            
+            <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
+                <h5 class="font-medium text-orange-900">Character-level</h5>
+                <p class="text-sm text-orange-700">Each character is a token</p>
+                <code class="text-xs bg-orange-100 px-1 rounded">"hi" → ["h", "i"]</code>
+            </div>
+        </div>
+        
+        <div class="bg-yellow-50 p-4 rounded-lg">
+            <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why This Matters</h4>
+            <ul class="text-sm text-yellow-800 space-y-1">
+                <li>• <strong>Vocabulary Size:</strong> Affects model memory and training time</li>
+                <li>• <strong>Unknown Words:</strong> Subword tokenization handles new terms better</li>
+                <li>• <strong>Languages:</strong> Different strategies work better for different languages</li>
+                <li>• <strong>Efficiency:</strong> Fewer tokens = faster processing</li>
+            </ul>
+        </div>
+    </div>

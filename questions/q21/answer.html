@@ -1,0 +1,50 @@
+<div class="space-y-4">
+        <!-- Recommended Reading -->
+        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related topics)</h4>
+            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+                <li><a href="#question-07" class="text-indigo-700 underline hover:text-indigo-900">Question 7: Embeddings and semantic meaning</a></li>
+                <li><a href="#question-10" class="text-indigo-700 underline hover:text-indigo-900">Question 10: Embeddings and initialization in LLMs</a></li>
+                <li><a href="#question-22" class="text-indigo-700 underline hover:text-indigo-900">Question 22: Multi-head attention</a></li>
+                <li><a href="#question-32" class="text-indigo-700 underline hover:text-indigo-900">Question 32: Attention score calculation</a></li>
+                <li><a href="#question-46" class="text-indigo-700 underline hover:text-indigo-900">Question 46: Encoders vs decoders in transformers</a></li>
+            </ul>
+        </div>
+        <!-- Main Concept Box -->
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
+            <h4 class="font-semibold text-blue-900 mb-2">📍 What are Positional Encodings?</h4>
+            <p class="text-blue-800">Positional encodings are mathematical representations added to token embeddings to give transformers a sense of word order. Think of them like GPS coordinates for words - they tell the model where each word sits in the sequence, since self-attention naturally treats all positions equally.</p>
+        </div>
+        
+        <!-- Types of Positional Encodings -->
+        <div class="grid md:grid-cols-3 gap-4">
+            <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
+                <h5 class="font-medium text-green-900">Sinusoidal (Fixed)</h5>
+                <p class="text-sm text-green-700">Uses sine and cosine functions with different frequencies to create unique patterns for each position.</p>
+                <div class="math-display text-xs">$$PE_{(pos, 2i)} = \sin\left(\frac{pos}{10000^{\frac{2i}{d_{\text{model}}}}}\right),\; PE_{(pos, 2i+1)} = \cos\left(\frac{pos}{10000^{\frac{2i}{d_{\text{model}}}}}\right)$$</div>
+            </div>
+            
+            <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
+                <h5 class="font-medium text-purple-900">Learned Embeddings</h5>
+                <p class="text-sm text-purple-700">Trainable position vectors that the model learns during training, similar to word embeddings.</p>
+                <div class="math-display text-xs">$$ pos_{emb} = \mathrm{Embedding}(max_{len}, d_{model}) $$</div>
+            </div>
+            
+            <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
+                <h5 class="font-medium text-orange-900">Relative Encodings</h5>
+                <p class="text-sm text-orange-700">Focus on relative distances between tokens rather than absolute positions. Examples include RoPE (rotary) and ALiBi (additive bias).</p>
+                <div class="math-display text-xs">$$\text{Attn}(q_i, k_j) \mathrel{+}= b(i-j)$$</div>
+            </div>
+        </div>
+        
+        <!-- Why It Matters Section -->
+        <div class="bg-yellow-50 p-4 rounded-lg">
+            <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why Positional Encodings Matter</h4>
+            <ul class="text-sm text-yellow-800 space-y-1">
+                <li>• <strong>Order Awareness:</strong> Self-attention is permutation-invariant, treating "The king wore a crown" the same as "Crown a wore king the"</li>
+                <li>• <strong>Sequence Understanding:</strong> Essential for tasks like translation where word order completely changes meaning</li>
+                <li>• <strong>Mathematical Elegance:</strong> Sinusoidal encodings allow models to extrapolate to longer sequences than seen during training</li>
+                <li>• <strong>Efficiency:</strong> Adding encodings is computationally cheaper than modifying the attention mechanism itself</li>
+            </ul>
+        </div>
+    </div>

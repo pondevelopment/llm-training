@@ -1,0 +1,90 @@
+<div class="space-y-4">
+        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related)</h4>
+            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+                <li><a href="#question-01" class="text-indigo-700 underline hover:text-indigo-900">Question 1: What does tokenization entail?</a></li>
+                <li><a href="#question-02" class="text-indigo-700 underline hover:text-indigo-900">Question 2: How does the attention mechanism function in transformer models?</a></li>
+                <li><a href="#question-09" class="text-indigo-700 underline hover:text-indigo-900">Question 9: What is a transformer architecture?</a></li>
+                <li><a href="#question-47" class="text-indigo-700 underline hover:text-indigo-900">Question 47: What is context and perplexity?</a></li>
+            </ul>
+        </div>
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
+            <h4 class="font-semibold text-blue-900 mb-2">🧠 What are Embeddings?</h4>
+            <p class="text-blue-800">Embeddings are dense numerical vectors that represent words, tokens, or concepts in high-dimensional space. Think of them as a universal translator that converts human language into mathematical coordinates that machines can understand and compute with, while preserving semantic meaning and relationships.</p>
+        </div>
+        
+        <div class="grid md:grid-cols-3 gap-4">
+            <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
+                <h5 class="font-medium text-green-900 mb-2">📍 Static Embeddings</h5>
+                <p class="text-sm text-green-700 mb-2">Fixed vector per word (Word2Vec, GloVe)</p>
+                <div class="text-xs space-y-1">
+                    <div>✅ <strong>Simple:</strong> One vector per word</div>
+                    <div>✅ <strong>Fast:</strong> Pre-computed vectors</div>
+                    <div>❌ <strong>Context-blind:</strong> "bank" always same vector</div>
+                    <div>❌ <strong>Limited:</strong> No handling of ambiguity</div>
+                </div>
+                <code class="text-xs bg-green-100 px-1 rounded mt-2 block">Example: Word2Vec, GloVe</code>
+            </div>
+            
+            <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
+                <h5 class="font-medium text-purple-900 mb-2">🎯 Contextual Embeddings</h5>
+                <p class="text-sm text-purple-700 mb-2">Dynamic vectors based on context (BERT, GPT)</p>
+                <div class="text-xs space-y-1">
+                    <div>✅ <strong>Smart:</strong> Context-aware vectors</div>
+                    <div>✅ <strong>Precise:</strong> Handles word ambiguity</div>
+                    <div>✅ <strong>Rich:</strong> Captures subtle meanings</div>
+                    <div>❌ <strong>Complex:</strong> Requires computation</div>
+                </div>
+                <code class="text-xs bg-purple-100 px-1 rounded mt-2 block">Example: BERT, RoBERTa</code>
+            </div>
+            
+            <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
+                <h5 class="font-medium text-orange-900 mb-2">🚀 Transformer Embeddings</h5>
+                <p class="text-sm text-orange-700 mb-2">Multi-layered contextual representations</p>
+                <div class="text-xs space-y-1">
+                    <div>✅ <strong>Powerful:</strong> Deep contextual understanding</div>
+                    <div>✅ <strong>Flexible:</strong> Task-specific adaptations</div>
+                    <div>✅ <strong>Scalable:</strong> Works with any text length</div>
+                    <div>❌ <strong>Resource-heavy:</strong> High computational cost</div>
+                </div>
+                <code class="text-xs bg-orange-100 px-1 rounded mt-2 block">Example: GPT, T5, LLaMA</code>
+            </div>
+        </div>
+        
+        <div class="bg-yellow-50 p-4 rounded-lg">
+            <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why Embeddings Matter</h4>
+            <ul class="text-sm text-yellow-800 space-y-1">
+                <li>• <strong>Semantic Understanding:</strong> Enable machines to grasp meaning, not just match symbols</li>
+                <li>• <strong>Mathematical Operations:</strong> Allow vector arithmetic to explore relationships (e.g., king − man + woman ≈ queen)</li>
+                <li>• <strong>Transfer Learning:</strong> Pre-trained embeddings can be reused across different tasks and domains</li>
+                <li>• <strong>Foundation of AI:</strong> Critical component in search engines, recommendation systems, and all modern NLP</li>
+            </ul>
+        </div>
+        
+        <div class="bg-indigo-50 p-4 rounded-lg border border-indigo-200">
+            <h4 class="font-semibold text-indigo-900 mb-2">🧭 Provider quick reference (2025)</h4>
+            <ul class="text-sm text-indigo-900 space-y-1 list-disc pl-5">
+                <li><strong>Similarity:</strong> Prefer cosine similarity on L2-normalized vectors. When vectors are normalized, cosine, dot, and Euclidean rank similarly.</li>
+                <li><strong>Retrieval task hints:</strong> Use provider-specific flags so queries and documents embed optimally:
+                    <span class="block text-indigo-800 mt-1">Cohere <code class="bg-indigo-100 px-1 rounded">input_type</code> (search_query vs search_document), Voyage <code class="bg-indigo-100 px-1 rounded">input_type</code> (query vs document), Google <code class="bg-indigo-100 px-1 rounded">task_type</code> in config.</span>
+                </li>
+                <li><strong>Dimensions:</strong> Adjustable for storage/speed trade-offs:
+                    <span class="block text-indigo-800 mt-1">Cohere <code>256/512/1024/1536</code>, Google Gemini up to <code>3072</code> via <code>output_dimensionality</code>, Voyage <code>256–2048</code> (model-dependent), Mistral fixed <code>1024</code>.</span>
+                </li>
+                <li><strong>Quantization:</strong> Some providers return <code>int8</code>/<code>uint8</code>/<code>binary</code>/<code>ubinary</code> to save space. Binary is bit-packed (length = dim/8) and may need unpacking for some vector DBs.</li>
+                <li><strong>Multilingual/Multimodal:</strong> Cohere embed-v4.0 is multilingual and supports text+image fusion; Google offers separate multimodal embedding APIs.</li>
+                <li><strong>Limits (typical):</strong> Google: up to ~250 inputs/request and 2048 tokens/input; Cohere: up to ~96 inputs; Voyage: up to ~1000 texts (model limits vary). Always check current docs.</li>
+            </ul>
+            <div class="mt-3">
+                <div class="text-xs font-semibold text-indigo-900 uppercase tracking-wide">Provider models</div>
+                <ul class="text-sm text-indigo-900 list-disc pl-5 mt-1 space-y-0.5">
+                    <li><strong>OpenAI:</strong> text-embedding-3 family</li>
+                    <li><strong>Google:</strong> gemini-embedding-001</li>
+                    <li><strong>Cohere:</strong> embed-v4.0</li>
+                    <li><strong>Mistral:</strong> mistral-embed</li>
+                    <li><strong>Voyage:</strong> 3.x (e.g., voyage-3-large, voyage-3.5, voyage-3.5-lite)</li>
+                </ul>
+            </div>
+            <p class="text-xs text-indigo-700 mt-2">Note: Linear analogy tricks (e.g., king − man + woman ≈ queen) are illustrative; modern sentence embeddings don’t guarantee such relationships.</p>
+        </div>
+    </div>

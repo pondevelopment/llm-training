@@ -1,0 +1,60 @@
+<div class="space-y-4">
+        <!-- Recommended Reading -->
+        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related)</h4>
+            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+                <li><a href="#question-01" class="text-indigo-700 underline hover:text-indigo-900">Question 1: Tokenization & why it matters</a></li>
+                <li><a href="#question-02" class="text-indigo-700 underline hover:text-indigo-900">Question 2: Attention mechanisms</a></li>
+                <li><a href="#question-18" class="text-indigo-700 underline hover:text-indigo-900">Question 18: Overfitting & mitigation</a></li>
+                <li><a href="#question-47" class="text-indigo-700 underline hover:text-indigo-900">Question 47: Context & perplexity</a></li>
+                <li><a href="#question-48" class="text-indigo-700 underline hover:text-indigo-900">Question 48: Hyperparameters</a></li>
+            </ul>
+        </div>
+        <!-- Main Concept Box -->
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
+            <h4 class="font-semibold text-blue-900 mb-2">🧭 Core Idea</h4>
+            <p class="text-blue-800">LLMs are transformer-based generative models trained on vast corpora to predict tokens. Scale (parameters, data), compute, and training objectives enable emergent capabilities like in-context learning and broad task generalization.</p>
+            <div class="text-center mt-3 bg-white p-3 rounded border">
+                $$\text{LM objective: } \max_\theta \sum_t \log p_\theta(y_t \mid y_{\lt t})$$
+            </div>
+        </div>
+        
+        <!-- Comparison Grid -->
+        <div class="grid md:grid-cols-3 gap-4">
+            <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
+                <h5 class="font-medium text-green-900">Architecture</h5>
+                <ul class="text-sm text-green-800 list-disc pl-5 space-y-1">
+                    <li>Transformer with self-attention</li>
+                    <li>Decoder-only or encoder–decoder</li>
+                    <li>Positional encodings, MLP blocks</li>
+                </ul>
+            </div>
+            <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
+                <h5 class="font-medium text-purple-900">Scale</h5>
+                <ul class="text-sm text-purple-800 list-disc pl-5 space-y-1">
+                    <li>Parameters: millions → trillions</li>
+                    <li>Data: diverse web, code, books</li>
+                    <li>Compute: long training runs</li>
+                </ul>
+            </div>
+            <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
+                <h5 class="font-medium text-orange-900">Capabilities</h5>
+                <ul class="text-sm text-orange-800 list-disc pl-5 space-y-1">
+                    <li>Generation, reasoning, coding</li>
+                    <li>In-context learning, tool use</li>
+                    <li>Multimodality (for some models)</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Why It Matters -->
+        <div class="bg-yellow-50 p-4 rounded-lg">
+            <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why This Matters</h4>
+            <ul class="text-sm text-yellow-800 space-y-1">
+                <li>• <strong>Roadmapping:</strong> Understanding scale/data trade-offs helps plan budgets.</li>
+                <li>• <strong>Performance:</strong> Larger models and longer context often improve quality within limits.</li>
+                <li>• <strong>Safety:</strong> Alignment techniques (RLHF, safety tuning) are critical for deployment.</li>
+                <li>• <strong>Cost & latency:</strong> Bigger ≠ always better; inference + fine-tuning costs grow superlinearly with size.</li>
+            </ul>
+        </div>
+    </div>

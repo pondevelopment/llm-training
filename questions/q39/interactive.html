@@ -1,0 +1,52 @@
+
+      <div class="space-y-6">
+        <div class="bg-gradient-to-r from-indigo-50 to-cyan-50 p-4 rounded-lg border border-indigo-200">
+          <div class="grid md:grid-cols-4 gap-4 text-xs">
+            <div>
+              <label class="font-semibold text-gray-700" for="q39-mode">Mode</label>
+              <select id="q39-mode" aria-label="Select modeling mode" class="w-full border rounded p-1 text-xs">
+                <option value="disc">Discriminative: Sentiment</option>
+                <option value="gen">Generative: Next‑word LM</option>
+              </select>
+            </div>
+            <div class="md:col-span-2">
+              <label class="font-semibold text-gray-700" for="q39-text">Example text</label>
+              <select id="q39-text" aria-label="Select example text" class="w-full border rounded p-1 text-xs">
+                <option value="I love this movie" selected>I love this movie</option>
+                <option value="This movie was bad">This movie was bad</option>
+                <option value="The weather is nice today">The weather is nice today</option>
+                <option value="I hate boring movies">I hate boring movies</option>
+                <option value="This pizza is amazing">This pizza is amazing</option>
+                <option value="Music is fun">Music is fun</option>
+              </select>
+            </div>
+            <div>
+              <label class="font-semibold text-gray-700" for="q39-temp">Temperature (gen)</label>
+              <input id="q39-temp" aria-label="Sampling temperature for generative mode" type="range" min="0.1" max="1.5" step="0.1" value="0.8" class="w-full" />
+              <div class="text-center mt-1"><span id="q39-temp-val" class="font-mono">0.8</span></div>
+            </div>
+          </div>
+          <p class="text-xs text-gray-600 mt-2">Discriminative estimates \(P(y\mid x)\) for labeling. Generative samples from \(P(x)\) to continue text. <b>Temperature affects only Generative mode.</b></p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-4">
+          <div class="bg-white border rounded-lg p-4">
+            <h5 class="font-semibold text-gray-800 mb-2">📌 Model View</h5>
+            <div id="q39-model" class="text-xs text-gray-700" aria-live="polite"></div>
+          </div>
+          <div class="bg-white border rounded-lg p-4">
+            <h5 class="font-semibold text-gray-800 mb-2">📊 Metrics</h5>
+            <div id="q39-metrics" class="text-xs text-gray-700" aria-live="polite"></div>
+          </div>
+          <div class="bg-white border rounded-lg p-4">
+            <h5 class="font-semibold text-gray-800 mb-2">🗣️ Output</h5>
+            <div id="q39-output" class="text-sm text-gray-800 whitespace-pre-wrap" aria-live="polite"></div>
+          </div>
+        </div>
+
+        <div class="bg-indigo-50 border border-indigo-200 rounded-lg p-4">
+          <h5 class="font-semibold text-indigo-900 mb-1">🔎 Explanation</h5>
+          <div id="q39-explain" class="text-xs text-indigo-800" aria-live="polite"></div>
+        </div>
+      </div>
+    

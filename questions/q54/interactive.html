@@ -1,0 +1,62 @@
+
+<div class="space-y-6" id="q54-root">
+  <div class="p-4 rounded-lg bg-gradient-to-r from-blue-50 to-blue-100 border border-blue-200 space-y-4">
+    <div class="flex flex-wrap gap-4 items-end">
+      <div class="flex-1 min-w-[260px]">
+        <label class="block text-xs font-medium text-gray-600 mb-1" for="q54-logits-select">Example Logit Pattern</label>
+        <select id="q54-logits-select" class="w-full text-sm px-3 py-2 border rounded-md bg-white">
+          <option value="5.0,1.2,0.5,-0.3,-1.0">Peaked: one clear winner</option>
+          <option value="2.2,2.1,0.0,-0.5,-1.5" selected>Two-way competition</option>
+          <option value="0.2,0.1,0.0,-0.1,-0.2">Flat / almost uniform</option>
+          <option value="3.0,2.0,1.0,0.0,-2.5">Long tail decay</option>
+          <option value="-0.5,-0.7,-1.2,-2.0,-3.5">All moderately low</option>
+          <option value="4.0,0.0,-1.0,-3.0,-6.0">Wide spread / high contrast</option>
+            <option value="2.0,1.95,1.90,0.0,-1.5">Near-tie triple</option>
+            <option value="7.0,1.0,0.8,0.2,-2.0">Extreme outlier</option>
+            <option value="3.5,-0.2,-0.3,-0.4,-0.5">One positive rest negative</option>
+            <option value="1.5,1.5,-0.2,-0.8,-1.2">Exact tie pair</option>
+            <option value="4.0,3.9,-2.0,-2.1,-2.2">Dual peak, suppressed tail</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-xs font-medium text-gray-600 mb-1" for="q54-shift">Add Constant (shift)</label>
+        <input id="q54-shift" type="range" min="-5" max="5" step="0.5" value="0" class="w-44" />
+        <div class="text-[10px] text-center text-gray-500"><span id="q54-shift-val">0.0</span></div>
+      </div>
+      <div>
+        <label class="block text-xs font-medium text-gray-600 mb-1" for="q54-scale">Scale (×)</label>
+        <input id="q54-scale" type="range" min="0.25" max="3" step="0.05" value="1" class="w-44" />
+        <div class="text-[10px] text-center text-gray-500"><span id="q54-scale-val">1.00</span></div>
+      </div>
+      <div>
+        <label class="block text-xs font-medium text-gray-600 mb-1" for="q54-temp">Temperature (T)</label>
+        <input id="q54-temp" type="range" min="0.4" max="2.0" step="0.1" value="1" class="w-44" />
+        <div class="text-[10px] text-center text-gray-500"><span id="q54-temp-val">1.0</span></div>
+      </div>
+      <div>
+        <label class="block text-xs font-medium text-gray-600 mb-1" for="q54-bias-index">Bias Token Index</label>
+        <select id="q54-bias-index" class="w-28 text-sm px-2 py-1 border rounded-md bg-white"></select>
+      </div>
+      <div>
+        <label class="block text-xs font-medium text-gray-600 mb-1" for="q54-bias-size">Bias (+)</label>
+        <input id="q54-bias-size" type="range" min="0" max="5" step="0.25" value="0" class="w-40" />
+        <div class="text-[10px] text-center text-gray-500"><span id="q54-bias-size-val">0.00</span></div>
+      </div>
+    </div>
+    <div class="flex flex-wrap gap-3 text-xs items-center">
+  <button id="q54-reset" class="px-3 py-1.5 rounded border bg-white hover:bg-gray-50">Reset</button>
+  <button id="q54-random" class="px-3 py-1.5 rounded bg-blue-600 text-white hover:bg-blue-700">Random logits</button>
+    </div>
+  </div>
+  <div class="grid md:grid-cols-2 gap-6">
+    <div class="space-y-3">
+      <h5 class="font-semibold text-gray-800 text-sm">Logits → Probabilities</h5>
+      <div id="q54-table" class="space-y-1 text-xs font-mono"></div>
+    </div>
+    <div class="space-y-3">
+      <h5 class="font-semibold text-gray-800 text-sm">Insights</h5>
+      <div id="q54-insight" class="p-3 rounded-lg border bg-white text-xs leading-relaxed">—</div>
+      <div id="q54-math" class="text-[11px] text-gray-600"></div>
+    </div>
+  </div>
+</div>

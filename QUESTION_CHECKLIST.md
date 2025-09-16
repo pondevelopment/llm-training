@@ -10,13 +10,13 @@ Use this checklist when creating or updating questions for the LLM Questions app
 
 ## File setup (new or migrated questions)
 
-- [ ] Create `questions/qXX/` (two-digit id) containing:
+- [ ] Copy `questions/q-template/` to `questions/qXX/` (two-digit id) containing:
   - [ ] `answer.html`
   - [ ] `interactive.html`
   - [ ] `interactive.js` exporting `interactiveScript`
 - [ ] Add or update the entry in `questions/manifest.json` (prefer `{ "XX": { "title": "...", "dir": "./questions/qXX", "interactiveTitle": "..." } }`)
-- [ ] Keep/adjust the shim `questions/question-XX.js` so it exports the correct title and notes that content loads dynamically
 - [ ] Update `/q/XX.html` (static share page) with the new title/description/links
+- [ ] Ensure the question id exists in `availableQuestions` (and relevant learning paths) in `js/app.js`
 - [ ] Add the question to `all.html` (titles map + path arrays) if it isn’t already present
 
 ## Content development

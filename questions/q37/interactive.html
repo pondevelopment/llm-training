@@ -1,0 +1,52 @@
+<div class="space-y-6">
+      <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200">
+        <div class="grid md:grid-cols-5 gap-4 text-xs">
+          <div>
+      <label for="q37-E" class="font-semibold text-gray-700">Experts (E)</label>
+      <input id="q37-E" type="range" min="4" max="64" step="1" value="16" class="w-full" aria-label="Number of experts slider" />
+            <div class="text-center mt-1"><span id="q37-E-val" class="font-mono">16</span></div>
+          </div>
+          <div>
+      <label for="q37-k" class="font-semibold text-gray-700">Top‑k</label>
+      <input id="q37-k" type="range" min="1" max="8" step="1" value="2" class="w-full" aria-label="Top k experts slider" />
+            <div class="text-center mt-1"><span id="q37-k-val" class="font-mono">2</span></div>
+          </div>
+          <div>
+      <label for="q37-T" class="font-semibold text-gray-700">Batch tokens (T)</label>
+      <input id="q37-T" type="range" min="32" max="2048" step="32" value="256" class="w-full" aria-label="Batch tokens slider" />
+            <div class="text-center mt-1"><span id="q37-T-val" class="font-mono">256</span></div>
+          </div>
+          <div>
+      <label for="q37-entropy" class="font-semibold text-gray-700">Routing entropy</label>
+      <input id="q37-entropy" type="range" min="0" max="1" step="0.05" value="0.4" class="w-full" aria-label="Routing entropy slider" />
+            <div class="text-center mt-1"><span id="q37-entropy-val" class="font-mono">0.40</span></div>
+          </div>
+          <div>
+      <label for="q37-P" class="font-semibold text-gray-700">Model params (B)</label>
+      <input id="q37-P" type="range" min="5" max="200" step="5" value="70" class="w-full" aria-label="Total model parameters in billions slider" />
+            <div class="text-center mt-1"><span id="q37-P-val" class="font-mono">70</span></div>
+          </div>
+        </div>
+  <p class="text-xs text-gray-600 mt-2">Higher routing entropy ≈ more uniform assignments; low entropy ≈ peaky gate → imbalance risk. Active parameter fraction (k/E).</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-4">
+        <div class="bg-white border rounded-lg p-4">
+          <h5 class="font-semibold text-gray-800 mb-2">📌 Metrics</h5>
+          <div id="q37-metrics" class="text-xs space-y-2" role="list" aria-label="MoE derived metrics"></div>
+        </div>
+        <div class="bg-white border rounded-lg p-4">
+          <h5 class="font-semibold text-gray-800 mb-2">📈 Bars</h5>
+          <div id="q37-bars" class="text-xs space-y-2" role="list" aria-label="Visualization bars for MoE metrics"></div>
+        </div>
+        <div class="bg-white border rounded-lg p-4">
+          <h5 class="font-semibold text-gray-800 mb-2">🧠 Explanation</h5>
+          <div id="q37-explain" class="text-xs text-gray-700 space-y-2" aria-live="polite"></div>
+        </div>
+      </div>
+
+      <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+        <h5 class="font-semibold text-green-900 mb-1">💡 Insight</h5>
+        <div id="q37-insight" class="text-sm text-green-800" aria-live="polite"></div>
+      </div>
+    </div>

@@ -1,0 +1,178 @@
+<div class="space-y-6">
+            <!-- Input Section -->
+            <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200">
+                <label for="q3-text-input" class="block text-sm font-medium text-gray-700 mb-2">📝 Document to Analyze</label>
+                <textarea id="q3-text-input" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Paste text to analyze context window effects...">Large Language Models represent a breakthrough in artificial intelligence, transforming how we interact with computers through natural language. These models, trained on vast datasets, can understand and generate human-like text with remarkable fluency. The context window is a crucial architectural feature that determines how much preceding text the model can reference when generating each new token. A larger context window allows for better coherence across longer texts but comes with significant computational costs. Modern models like GPT-4 have context windows of 8K to 128K tokens, enabling them to process entire documents or maintain context across very long conversations. This capability is essential for tasks such as document summarization, creative writing, code generation, and complex problem-solving that requires maintaining awareness of multiple interconnected concepts throughout a lengthy interaction.</textarea>
+                <p class="text-xs text-blue-700 font-medium mt-2 bg-blue-100 px-2 py-1 rounded">👆 Edit the text to see how different context windows affect understanding!</p>
+            </div>
+            
+            <!-- Mode Selection -->
+            <div class="bg-white border border-gray-200 rounded-lg p-4">
+                <label class="block text-sm font-medium text-gray-700 mb-3">🧭 Mode</label>
+                <div class="inline-flex rounded-md shadow-sm overflow-hidden border">
+                    <label class="px-3 py-1 text-sm cursor-pointer bg-indigo-50 border-r">
+                        <input type="radio" name="q3-mode" value="demo" class="mr-2" checked> Demo (50/100/200)
+                    </label>
+                    <label class="px-3 py-1 text-sm cursor-pointer">
+                        <input type="radio" name="q3-mode" value="real" class="mr-2"> Real-world presets
+                    </label>
+                </div>
+            </div>
+
+            <!-- Window Size Selection -->
+            <div class="bg-white border border-gray-200 rounded-lg p-4">
+                <label class="block text-sm font-medium text-gray-700 mb-3">🎯 Choose Context Window Size</label>
+                <!-- Demo presets -->
+                <div id="q3-demo-section" class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                    <label class="cursor-pointer">
+                        <input type="radio" name="q3-window-size" value="small" class="sr-only">
+                        <div class="border-2 border-green-200 rounded-lg p-3 hover:border-green-400 hover:bg-green-50 transition-colors">
+                            <div class="font-medium text-green-900">Small (50 tokens)</div>
+                            <div class="text-xs text-green-700">Fast & Efficient</div>
+                            <div class="text-xs text-green-600 mt-1">~200 words</div>
+                        </div>
+                    </label>
+                    
+                    <label class="cursor-pointer">
+                        <input type="radio" name="q3-window-size" value="medium" class="sr-only" checked>
+                        <div class="border-2 border-purple-200 rounded-lg p-3 hover:border-purple-400 hover:bg-purple-50 transition-colors">
+                            <div class="font-medium text-purple-900">Medium (100 tokens)</div>
+                            <div class="text-xs text-purple-700">Balanced</div>
+                            <div class="text-xs text-purple-600 mt-1">~400 words</div>
+                        </div>
+                    </label>
+                    
+                    <label class="cursor-pointer">
+                        <input type="radio" name="q3-window-size" value="large" class="sr-only">
+                        <div class="border-2 border-orange-200 rounded-lg p-3 hover:border-orange-400 hover:bg-orange-50 transition-colors">
+                            <div class="font-medium text-orange-900">Large (200 tokens)</div>
+                            <div class="text-xs text-orange-700">Maximum Context</div>
+                            <div class="text-xs text-orange-600 mt-1">~800 words</div>
+                        </div>
+                    </label>
+                </div>
+
+                <!-- Real-world presets -->
+                <div id="q3-real-section" class="grid grid-cols-1 md:grid-cols-5 gap-3 hidden mt-3">
+                    <label class="cursor-pointer">
+                        <input type="radio" name="q3-real-window" value="4k" class="sr-only" checked>
+                        <div class="border-2 border-blue-200 rounded-lg p-3 hover:border-blue-400 hover:bg-blue-50 transition-colors">
+                            <div class="font-medium text-blue-900">4K</div>
+                            <div class="text-xs text-blue-700">Legacy small</div>
+                        </div>
+                    </label>
+                    <label class="cursor-pointer">
+                        <input type="radio" name="q3-real-window" value="32k" class="sr-only">
+                        <div class="border-2 border-blue-200 rounded-lg p-3 hover:border-blue-400 hover:bg-blue-50 transition-colors">
+                            <div class="font-medium text-blue-900">32K</div>
+                            <div class="text-xs text-blue-700">Common baseline</div>
+                        </div>
+                    </label>
+                    <label class="cursor-pointer">
+                        <input type="radio" name="q3-real-window" value="128k" class="sr-only">
+                        <div class="border-2 border-blue-200 rounded-lg p-3 hover:border-blue-400 hover:bg-blue-50 transition-colors">
+                            <div class="font-medium text-blue-900">128K</div>
+                            <div class="text-xs text-blue-700">Mainstream</div>
+                        </div>
+                    </label>
+                    <label class="cursor-pointer">
+                        <input type="radio" name="q3-real-window" value="200k" class="sr-only">
+                        <div class="border-2 border-blue-200 rounded-lg p-3 hover:border-blue-400 hover:bg-blue-50 transition-colors">
+                            <div class="font-medium text-blue-900">200K</div>
+                            <div class="text-xs text-blue-700">Claude</div>
+                        </div>
+                    </label>
+                    <label class="cursor-pointer">
+                        <input type="radio" name="q3-real-window" value="1m" class="sr-only">
+                        <div class="border-2 border-blue-200 rounded-lg p-3 hover:border-blue-400 hover:bg-blue-50 transition-colors">
+                            <div class="font-medium text-blue-900">1M</div>
+                            <div class="text-xs text-blue-700">Gemini / Claude (beta)</div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Quick Examples + Lorem Generator -->
+            <div class="flex flex-wrap items-center gap-2">
+                <span class="text-sm font-medium text-gray-700">💡 Quick Examples:</span>
+                <button id="q3-example-btn" class="text-xs bg-indigo-100 text-indigo-700 px-2 py-1 rounded hover:bg-indigo-200 transition-colors">Try: Long research paper excerpt</button>
+                <span class="mx-2 text-sm text-gray-500">or</span>
+                <label for="q3-lorem-size" class="text-sm text-gray-700">Generate lorem:</label>
+                <select id="q3-lorem-size" class="text-xs px-2 py-1 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <option value="1000">~1k tokens</option>
+                    <option value="3000" selected>~3k tokens</option>
+                    <option value="5000">~5k tokens</option>
+                    <option value="10000">~10k tokens</option>
+                </select>
+                <button id="q3-lorem-btn" class="text-xs bg-gray-100 text-gray-800 px-2 py-1 rounded border border-gray-200 hover:bg-gray-200 transition-colors">Generate</button>
+            </div>
+            
+            <!-- Results -->
+            <div class="bg-white border border-gray-200 rounded-lg p-4">
+                <div class="flex items-center justify-between mb-3">
+                    <h4 class="font-medium text-gray-900">🎨 Context Window Visualization</h4>
+                    <div id="q3-window-indicator" class="text-xs bg-gray-100 px-2 py-1 rounded font-medium">Medium Window</div>
+                </div>
+                <div id="q3-output" class="min-h-[120px] p-3 bg-gray-50 rounded border-2 border-dashed border-gray-300 text-sm leading-relaxed overflow-auto max-h-60">Enter or edit text above to begin...</div>
+                <div id="q3-token-summary" class="mt-2 text-xs text-gray-700"></div>
+                <div id="q3-legend" class="mt-3 text-xs bg-blue-50 p-2 rounded">
+                    <div class="flex flex-wrap gap-4">
+                        <span class="inline-flex items-center gap-1">
+                            <span class="w-3 h-3 bg-blue-200 rounded"></span>
+                            Within Context Window
+                        </span>
+                        <span class="inline-flex items-center gap-1">
+                            <span class="w-3 h-3 bg-gray-200 rounded"></span>
+                            Outside Context (Forgotten)
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Performance Metrics -->
+            <div class="grid md:grid-cols-3 gap-4">
+                <div class="bg-green-50 border border-green-200 rounded-lg p-3">
+                    <h5 class="font-medium text-green-900 mb-2">📈 Coherence Quality</h5>
+                    <div class="w-full bg-gray-200 rounded-full h-3">
+                        <div id="q3-coherence-bar" class="bg-green-500 h-3 rounded-full transition-all duration-500" style="width: 60%"></div>
+                    </div>
+                    <p id="q3-coherence-text" class="text-xs text-green-700 mt-1">Good context retention</p>
+                </div>
+                
+                <div class="bg-red-50 border border-red-200 rounded-lg p-3">
+                    <h5 class="font-medium text-red-900 mb-2">⚡ Computational Cost</h5>
+                    <div class="w-full bg-gray-200 rounded-full h-3">
+                        <div id="q3-cost-bar" class="bg-red-500 h-3 rounded-full transition-all duration-500" style="width: 40%"></div>
+                    </div>
+                    <p id="q3-cost-text" class="text-xs text-red-700 mt-1">Moderate processing load</p>
+                </div>
+                
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-3">
+                    <h5 class="font-medium text-blue-900 mb-2">🎯 Use Case Fit</h5>
+                    <div class="w-full bg-gray-200 rounded-full h-3">
+                        <div id="q3-usecase-bar" class="bg-blue-500 h-3 rounded-full transition-all duration-500" style="width: 70%"></div>
+                    </div>
+                    <p id="q3-usecase-text" class="text-xs text-blue-700 mt-1">Good for most tasks</p>
+                </div>
+            </div>
+            
+            <!-- Interactive Demo -->
+            <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                <h4 class="font-medium text-yellow-900 mb-3">🎮 Task Simulation</h4>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <button id="q3-summarize-btn" class="bg-yellow-100 hover:bg-yellow-200 text-yellow-800 px-4 py-2 rounded-lg transition-colors">📄 Generate Summary</button>
+                    <button id="q3-qa-btn" class="bg-yellow-100 hover:bg-yellow-200 text-yellow-800 px-4 py-2 rounded-lg transition-colors">❓ Answer Questions</button>
+                </div>
+                <div id="q3-demo-output" class="mt-3 p-3 bg-white rounded-lg border hidden">
+                    <div class="text-sm"></div>
+                </div>
+            </div>
+            
+            <!-- Educational Explanation -->
+            <div id="q3-explanation" class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                <h4 class="font-medium text-yellow-900 mb-2">📊 How Context Windows Work</h4>
+                <div id="q3-explanation-content" class="text-sm text-yellow-800">
+                    Select a window size above and edit the text to see how context limitations affect the model's ability to understand and process information. Larger windows retain more context but require significantly more computational resources.
+                </div>
+            </div>
+        </div>

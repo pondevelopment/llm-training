@@ -1,0 +1,127 @@
+
+        <div class="space-y-4">
+            <!-- Recommended Reading Links -->
+            <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+                <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (if these terms are new)</h4>
+                <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+                    <li><a href="#question-4" class="text-indigo-700 underline hover:text-indigo-900">Question 4: LoRA vs QLoRA</a> — what LoRA modules are and why they help prevent forgetting.</li>
+                    <li><a href="#question-35" class="text-indigo-700 underline hover:text-indigo-900">Question 35: PEFT and catastrophic forgetting</a> — how parameter‑efficient tuning (LoRA, adapters, BitFit) preserves base knowledge.</li>
+                </ul>
+            </div>
+            <!-- Main Concept -->
+            <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
+                <h4 class="font-semibold text-blue-900 mb-2">🧠 What is Catastrophic Forgetting?</h4>
+                <p class="text-blue-800">
+                    Catastrophic forgetting occurs when a neural network loses previously learned knowledge while learning new tasks. 
+                    Imagine studying for a new subject so intensively that you forget everything you learned in previous courses - 
+                    that's essentially what happens to LLMs during aggressive fine-tuning without proper safeguards.
+                </p>
+            </div>
+
+            <!-- Prevention Strategies -->
+            <div class="grid md:grid-cols-3 gap-4">
+                <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
+                    <h5 class="font-medium text-green-900">🔄 Rehearsal Methods</h5>
+                    <p class="text-sm text-green-700 mb-2">
+                        Mix old and new training data to remind the model of previous knowledge while learning new tasks.
+                    </p>
+                    <code class="text-xs bg-green-100 px-1 rounded block">
+                        Training = 70% new data + 30% old data
+                    </code>
+                </div>
+                
+                <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
+                    <h5 class="font-medium text-purple-900">⚖️ Elastic Weight Consolidation</h5>
+                    <p class="text-sm text-purple-700 mb-2">
+                        Protect important weights from large changes by adding regularization based on weight importance.
+                    </p>
+                    <div class="text-xs bg-purple-100 px-2 py-1 rounded border text-center">
+                        $$
+                        \mathcal{L}(\theta) = \mathcal{L}_{\text{task}}(\theta) + \lambda \sum_i F_i\, (\theta_i - \theta_i^{*})^2
+                        $$
+                    </div>
+                </div>
+                
+                <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
+                    <h5 class="font-medium text-orange-900">🔧 Modular Architectures</h5>
+                    <p class="text-sm text-orange-700 mb-2">
+                        Add task-specific modules (adapters, LoRA) instead of modifying the entire model.
+                    </p>
+                    <code class="text-xs bg-orange-100 px-1 rounded block">
+                        Base Model + Task-Specific Adapter
+                    </code>
+                </div>
+            </div>
+
+            <!-- Advanced Techniques -->
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="bg-indigo-50 p-3 rounded border-l-4 border-indigo-400">
+                    <h5 class="font-medium text-indigo-900">📚 Progressive Neural Networks</h5>
+                    <p class="text-sm text-indigo-700">
+                        Create new columns for each task while preserving old ones, allowing lateral connections between tasks.
+                    </p>
+                    <code class="text-xs bg-indigo-100 px-1 rounded block mt-1">
+                        Task1 → Task2 → Task3 (with connections)
+                    </code>
+                </div>
+                
+                <div class="bg-teal-50 p-3 rounded border-l-4 border-teal-400">
+                    <h5 class="font-medium text-teal-900">🎯 Task-Specific Heads</h5>
+                    <p class="text-sm text-teal-700">
+                        Keep shared representations while using different output layers for different tasks.
+                    </p>
+                    <code class="text-xs bg-teal-100 px-1 rounded block mt-1">
+                        Shared Encoder → Task-Specific Decoder
+                    </code>
+                </div>
+            </div>
+
+            <!-- Memory Consolidation Strategies -->
+            <div class="bg-gray-50 p-4 rounded-lg">
+                <h4 class="font-semibold text-gray-900 mb-2">🧩 Memory Consolidation Approaches</h4>
+                <div class="grid md:grid-cols-2 gap-4 text-sm">
+                    <div>
+                        <h6 class="font-medium text-gray-800 mb-2">Regularization-Based:</h6>
+                        <ul class="text-gray-700 space-y-1">
+                            <li>• <strong>EWC:</strong> Fisher Information Matrix weighting</li>
+                            <li>• <strong>SI:</strong> Synaptic Intelligence tracking</li>
+                            <li>• <strong>MAS:</strong> Memory Aware Synapses</li>
+                            <li>• <strong>L2:</strong> Simple weight decay regularization</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h6 class="font-medium text-gray-800 mb-2">Architecture-Based:</h6>
+                        <ul class="text-gray-700 space-y-1">
+                            <li>• <strong>LoRA:</strong> Low-rank adaptation layers</li>
+                            <li>• <strong>Adapters:</strong> Bottleneck task modules</li>
+                            <li>• <strong>Prefix Tuning:</strong> Learnable prompt vectors</li>
+                            <li>• <strong>BitFit:</strong> Bias-only fine-tuning</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Why It Matters -->
+            <div class="bg-yellow-50 p-4 rounded-lg">
+                <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why Preventing Catastrophic Forgetting Matters</h4>
+                <ul class="text-sm text-yellow-800 space-y-1">
+                    <li>• <strong>Versatility:</strong> Maintain ability to handle diverse tasks and domains</li>
+                    <li>• <strong>Cost Efficiency:</strong> Avoid retraining from scratch for each new task</li>
+                    <li>• <strong>Knowledge Transfer:</strong> Leverage shared representations across related tasks</li>
+                    <li>• <strong>Deployment Flexibility:</strong> Single model can serve multiple applications</li>
+                    <li>• <strong>Continuous Learning:</strong> Enable lifelong learning capabilities</li>
+                </ul>
+            </div>
+
+            <!-- Trade-offs and Considerations -->
+            <div class="bg-red-50 p-4 rounded-lg border-l-4 border-red-400">
+                <h4 class="font-semibold text-red-900 mb-2">⚠️ Trade-offs and Considerations</h4>
+                <div class="text-sm text-red-800 space-y-2">
+                    <p><strong>Memory vs. Performance:</strong> Storing old data or importance weights increases memory requirements.</p>
+                    <p><strong>Plasticity vs. Stability:</strong> Strong forgetting prevention may reduce learning capacity for new tasks.</p>
+                    <p><strong>Computational Cost:</strong> Some methods require additional forward/backward passes or complex calculations.</p>
+                    <p><strong>Task Similarity:</strong> Methods work better when tasks share common structure or domain.</p>
+                </div>
+            </div>
+        </div>
+    

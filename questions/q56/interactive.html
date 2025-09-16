@@ -1,0 +1,36 @@
+<div class="space-y-6">
+      <div class="bg-gradient-to-r from-indigo-50 to-blue-50 p-4 rounded-lg border border-indigo-200">
+        <p class="text-xs text-indigo-800 mb-2">Adjust scenario parameters; heuristic engine proposes an adaptation strategy and next steps.</p>
+        <div class="grid md:grid-cols-2 gap-4 text-xs">
+          <div class="space-y-3">
+            <label class="block">Domain shift severity <span id="q56-domain-val" class="font-mono">0%</span><input id="q56-domain" type="range" min="0" max="100" value="30" class="w-full" /><span class="block text-[10px] text-gray-500 mt-0.5"><strong>Low</strong>: base model already speaks domain. <strong>High</strong>: vocabulary / style / concepts differ → adapters or FT once retrieval is solid.</span></label>
+            <label class="block">Proprietary knowledge share <span id="q56-prop-val" class="font-mono">0%</span><input id="q56-prop" type="range" min="0" max="100" value="50" class="w-full" /><span class="block text-[10px] text-gray-500 mt-0.5"><strong>Low</strong>: public knowledge suffices. <strong>High</strong>: answers rely on internal corpus → internalization (selective FT) gains if corpus stable.</span></label>
+            <label class="block">Retrieval hit rate <span id="q56-hit-val" class="font-mono">0%</span><input id="q56-hit" type="range" min="0" max="100" value="65" class="w-full" /><span class="block text-[10px] text-gray-500 mt-0.5"><strong>&lt;60%</strong>: retrieval pipeline weak → fix before tuning model. <strong>&gt;80%</strong>: retrieval quality likely not bottleneck.</span></label>
+            <label class="block">Grounded answer rate <span id="q56-ground-val" class="font-mono">0%</span><input id="q56-ground" type="range" min="0" max="100" value="70" class="w-full" /><span class="block text-[10px] text-gray-500 mt-0.5"><strong>Low vs high hit</strong>: synthesis / prompt issue. <strong>Both low</strong>: retrieval pipeline issue. <strong>High</strong>: stable base for considering adapters / FT.</span></label>
+            <label class="block">Latency target<select id="q56-latency" class="w-full border rounded px-2 py-1 mt-1"><option value="fast"><300ms</option><option value="moderate" selected><800ms</option><option value="flex">Flexible</option></select><span class="block text-[10px] text-gray-500 mt-0.5"><strong><300ms</strong>: near real-time UX (chat assist, inline editor) leaves little budget for retrieval chain. <strong><800ms</strong>: moderate—RAG + light rerank okay. <strong>Flexible</strong>: latency less critical → can afford multi-hop / complex retrieval.</span></label>
+          </div>
+          <div class="space-y-3">
+            <label class="block">Update frequency<select id="q56-update" class="w-full border rounded px-2 py-1 mt-1"><option value="hourly">Hourly</option><option value="daily">Daily</option><option value="weekly" selected>Weekly</option><option value="monthly">Monthly</option><option value="quarterly">Quarterly+</option></select><span class="block text-[10px] text-gray-500 mt-0.5"><strong>Hourly/Daily</strong>: RAG essential; fine-tune stale fast. <strong>Weekly</strong>: hybrid possible. <strong>Monthly+</strong>: knowledge stable enough to justify selective fine-tune.</span></label>
+            <label class="block">Personalization<select id="q56-personal" class="w-full border rounded px-2 py-1 mt-1"><option value="none">None</option><option value="cohort" selected>Cohort</option><option value="user">Per-user</option></select><span class="block text-[10px] text-gray-500 mt-0.5"><strong>None</strong>: identical output for everyone. <strong>Cohort</strong>: a few segment prompts (e.g. region, plan tier). <strong>Per‑user</strong>: unique preferences / histories → usually needs adapter layering; full FT only if patterns are stable & high value.</span></label>
+            <label class="block">Format rigidity<select id="q56-format" class="w-full border rounded px-2 py-1 mt-1"><option value="loose">Loose prose</option><option value="semi" selected>Semi-structured</option><option value="strict">Strict schema</option></select><span class="block text-[10px] text-gray-500 mt-0.5"><strong>Loose</strong>: narrative output; prompting usually enough. <strong>Semi</strong>: lists / light JSON—add exemplars + validator. <strong>Strict</strong>: machine-consumable schema → adapters / constrained decoding → maybe FT if persistent errors.</span></label>
+            <label class="block">Query volume<select id="q56-volume" class="w-full border rounded px-2 py-1 mt-1"><option value="low">Low</option><option value="med" selected>Medium</option><option value="high">High</option></select><span class="block text-[10px] text-gray-500 mt-0.5"><strong>Low</strong>: optimize manually first; training unlikely ROI. <strong>Medium</strong>: watch latency & retrieval cost curves. <strong>High</strong>: marginal cost dominates → internalization / distillation gains matter.</span></label>
+            <div class="text-[10px] text-gray-500 mt-2 text-center">Auto-updates on change</div>
+          </div>
+        </div>
+      </div>
+      <div class="grid md:grid-cols-3 gap-4">
+        <div class="bg-white border rounded p-3 space-y-2">
+          <h5 class="font-semibold text-gray-800 text-sm">📈 Pressure Profile</h5>
+          <div id="q56-pressures" class="space-y-1 text-[11px]"></div>
+        </div>
+        <div class="bg-white border rounded p-3 space-y-2">
+          <h5 class="font-semibold text-gray-800 text-sm">🎯 Recommendation</h5>
+          <div id="q56-reco" class="text-xs text-gray-700 space-y-1"></div>
+        </div>
+        <div class="bg-yellow-50 border border-yellow-200 rounded p-3 space-y-2">
+          <h5 class="font-semibold text-yellow-900 text-sm">🛠 Next Experiments</h5>
+          <ul id="q56-next" class="text-[11px] text-yellow-800 space-y-1 list-disc ml-4"></ul>
+        </div>
+      </div>
+      <div id="q56-rationale" class="bg-gray-50 border border-gray-200 rounded p-3 text-[11px] text-gray-700"></div>
+    </div>

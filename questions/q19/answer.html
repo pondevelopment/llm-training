@@ -1,0 +1,79 @@
+<div class="space-y-4">
+        <!-- Recommended Reading -->
+        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related topics)</h4>
+            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+                <li><a href="#question-02" class="text-indigo-700 underline hover:text-indigo-900">Question 2: Attention mechanisms</a></li>
+                <li><a href="#question-17" class="text-indigo-700 underline hover:text-indigo-900">Question 17: Seq2Seq vs Transformers</a></li>
+            </ul>
+        </div>
+        <!-- Main Concept Box -->
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
+            <h4 class="font-semibold text-blue-900 mb-2">🤖 Generative vs Discriminative Models</h4>
+            <p class="text-blue-800">Think of it like two different types of artists: a <strong>generative model</strong> is like a creative writer who can compose entirely new stories from scratch, while a <strong>discriminative model</strong> is like a literary critic who excels at categorizing and analyzing existing texts. Both are essential but serve fundamentally different purposes in NLP.</p>
+        </div>
+        
+        <!-- Comparison Grid -->
+        <div class="grid md:grid-cols-2 gap-4">
+            <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
+                <h5 class="font-medium text-green-900 mb-2">🎨 Generative Models</h5>
+                <p class="text-sm text-green-700 mb-2">Model joint probability P(X,Y) to create new data</p>
+                <div class="space-y-2">
+                    <div class="text-xs bg-green-100 p-2 rounded">
+                        <strong>Examples:</strong> OpenAI: GPT-4.1/4o, o1/o3; Anthropic: Claude 3.7/4; Google: Gemini 2.5 Pro/Flash; Meta: Llama 3.1/4; Mistral: Large 2, Mixtral
+                    </div>
+                    <div class="text-xs bg-green-100 p-2 rounded">
+                        <strong>Tasks:</strong> Text generation, translation, summarization, creative writing
+                    </div>
+                    <div class="text-xs bg-green-100 p-2 rounded">
+                        <strong>Output:</strong> "The future of AI will likely involve..."
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
+                <h5 class="font-medium text-purple-900 mb-2">🎯 Discriminative Models</h5>
+                <p class="text-sm text-purple-700 mb-2">Model conditional probability P(Y|X) to classify existing data</p>
+                <div class="space-y-2">
+                    <div class="text-xs bg-purple-100 p-2 rounded">
+                        <strong>Examples:</strong> BERT, RoBERTa, DistilBERT, ELECTRA
+                    </div>
+                    <div class="text-xs bg-purple-100 p-2 rounded">
+                        <strong>Tasks:</strong> Sentiment analysis, NER, question answering, classification
+                    </div>
+                    <div class="text-xs bg-purple-100 p-2 rounded">
+                        <strong>Output:</strong> [Positive], [Person: "John"], [Answer: "Paris"]
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mathematical Foundation -->
+        <div class="bg-indigo-50 p-4 rounded-lg border-l-4 border-indigo-400">
+            <h5 class="font-medium text-indigo-900 mb-2">📊 Mathematical Foundation</h5>
+            <div class="grid md:grid-cols-2 gap-4 text-sm">
+                <div>
+                    <strong class="text-green-700">Generative Models:</strong>
+                    <div class="math-display text-xs">$$ P(X, Y) = P(Xmid Y) \times P(Y) $$</div>
+                    <p class="text-indigo-700 text-xs mt-1">Learn the full data distribution to generate new samples</p>
+                </div>
+                <div>
+                    <strong class="text-purple-700">Discriminative Models:</strong>
+                    <div class="math-display text-xs">$$ P(Ymid X) $$</div>
+                    <p class="text-indigo-700 text-xs mt-1">Learn decision boundaries to classify given inputs</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Why It Matters Section -->
+        <div class="bg-yellow-50 p-4 rounded-lg">
+            <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why This Distinction Matters</h4>
+            <ul class="text-sm text-yellow-800 space-y-1">
+                <li>• <strong>Task Selection:</strong> Choose generative for content creation, discriminative for analysis tasks</li>
+                <li>• <strong>Data Requirements:</strong> Generative models need more diverse training data, discriminative need labeled examples</li>
+                <li>• <strong>Computational Costs:</strong> Generative models are typically more expensive to train and run</li>
+                <li>• <strong>Performance Trade-offs:</strong> Discriminative models often achieve higher accuracy on classification tasks</li>
+                <li>• <strong>Hybrid Approaches:</strong> Modern systems often combine both types for optimal results</li>
+            </ul>
+        </div>
+    </div>

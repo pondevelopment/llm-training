@@ -1,0 +1,133 @@
+
+        <div class="space-y-4">
+            <!-- Recommended Reading -->
+            <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+                <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related)</h4>
+                <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+                    <li><a href="#question-01" class="text-indigo-700 underline hover:text-indigo-900">Question 1: Tokenization – foundation for how prompts are chunked</a></li>
+                    <li><a href="#question-02" class="text-indigo-700 underline hover:text-indigo-900">Question 2: Attention – how the model locates relevant parts of your prompt</a></li>
+                    <li><a href="#question-06" class="text-indigo-700 underline hover:text-indigo-900">Question 6: Temperature – tuning creativity after prompt structuring</a></li>
+                    <li><a href="#question-12" class="text-indigo-700 underline hover:text-indigo-900">Question 12: Top-k vs Top-p – sampling strategies influenced by prompt clarity</a></li>
+                    <li><a href="#question-17" class="text-indigo-700 underline hover:text-indigo-900">Question 17: Preference Optimization – downstream alignment shaping prompt response style</a></li>
+                </ul>
+            </div>
+            <!-- Main Concept -->
+            <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
+                <h4 class="font-semibold text-blue-900 mb-2">🎯 What is Prompt Engineering?</h4>
+                <p class="text-blue-800">
+                    Prompt engineering is the art and science of crafting input instructions to guide Large Language Models 
+                    toward producing desired outputs. Think of it like giving directions to a very capable but literal assistant - 
+                    the clearer and more specific your instructions, the better the results you'll get.
+                </p>
+            </div>
+
+            <!-- 2025 Updates -->
+            <div class="bg-white p-4 rounded-lg border">
+                <h4 class="font-semibold text-gray-900 mb-2">✨ What's new in 2025 prompt engineering</h4>
+                <ul class="text-sm text-gray-700 space-y-1">
+                    <li>• <strong>Structured outputs</strong>: Ask for strict JSON (or XML/Markdown) with a defined schema to improve reliability and parsing.</li>
+                    <li>• <strong>Grounded answers</strong>: Provide context and require citations; instruct the model to answer with "NOT FOUND" when info is missing.</li>
+                    <li>• <strong>System/developer prompts</strong>: Separate role-level instructions from user content for stability.</li>
+                    <li>• <strong>Affordances</strong> (tools/functions): Prefer tool use/search/calculators instead of recalling facts from memory.</li>
+                    <li>• <strong>Clear delimiters</strong>: Use XML/Markdown sections and repeat key instructions at the end to offset recency bias.</li>
+                    <li>• <strong>Evaluate and iterate</strong>: Keep a small eval set; A/B prompts; measure format adherence and accuracy, not just style.</li>
+                    <li>• <strong>Long-context tips</strong>: Chunk, summarize, and reference anchors; avoid gratuitous verbosity.</li>
+                </ul>
+            </div>
+
+            <!-- Prompt Types Comparison -->
+            <div class="grid md:grid-cols-3 gap-4">
+                <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
+                    <h5 class="font-medium text-green-900">🚀 Zero-Shot Prompting</h5>
+                    <p class="text-sm text-green-700 mb-2">
+                        Direct task instruction without examples. Relies on the model's pre-trained knowledge.
+                    </p>
+                    <code class="text-xs bg-green-100 px-1 rounded block">
+                        "Translate this to French: Hello world"
+                    </code>
+                </div>
+                
+                <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
+                    <h5 class="font-medium text-purple-900">📚 Few-Shot Prompting</h5>
+                    <p class="text-sm text-purple-700 mb-2">
+                        Provides 2-5 examples to demonstrate the desired pattern and format.
+                    </p>
+                    <code class="text-xs bg-purple-100 px-1 rounded block">
+                        "Cat → Animal
+Rose → Plant
+Car → ?"
+                    </code>
+                </div>
+                
+                <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
+                    <h5 class="font-medium text-orange-900">🔧 Chain-of-Thought</h5>
+                    <p class="text-sm text-orange-700 mb-2">
+                        Guides the model to show its reasoning process step-by-step.
+                    </p>
+                    <code class="text-xs bg-orange-100 px-1 rounded block">
+                        "Let's think step by step: First..."
+                    </code>
+                </div>
+            </div>
+
+            <!-- Advanced Techniques -->
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="bg-indigo-50 p-3 rounded border-l-4 border-indigo-400">
+                    <h5 class="font-medium text-indigo-900">🎭 Role-Based Prompting</h5>
+                    <p class="text-sm text-indigo-700">
+                        Assign the model a specific role or persona to get specialized responses.
+                    </p>
+                    <code class="text-xs bg-indigo-100 px-1 rounded block mt-1">
+                        "You are a senior software engineer..."
+                    </code>
+                </div>
+                
+                <div class="bg-teal-50 p-3 rounded border-l-4 border-teal-400">
+                    <h5 class="font-medium text-teal-900">📏 Format Specification</h5>
+                    <p class="text-sm text-teal-700">
+                        Explicitly define the desired output structure and constraints.
+                    </p>
+                    <code class="text-xs bg-teal-100 px-1 rounded block mt-1">
+                        "Respond in exactly 3 bullet points..."
+                    </code>
+                </div>
+            </div>
+
+            <!-- Why It Matters -->
+            <div class="bg-yellow-50 p-4 rounded-lg">
+                <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why Prompt Engineering is Crucial</h4>
+                <ul class="text-sm text-yellow-800 space-y-1">
+                    <li>• <strong>Cost Efficiency:</strong> Good prompts can eliminate the need for expensive fine-tuning</li>
+                    <li>• <strong>Consistency:</strong> Well-crafted prompts produce more reliable and predictable outputs</li>
+                    <li>• <strong>Versatility:</strong> Same model can handle diverse tasks with different prompting strategies</li>
+                    <li>• <strong>Rapid Iteration:</strong> Quick experimentation and refinement without retraining models</li>
+                    <li>• <strong>Performance Boost:</strong> Can improve accuracy from 40% to 85%+ on complex tasks</li>
+                </ul>
+            </div>
+
+            <!-- Best Practices -->
+            <div class="bg-gray-50 p-4 rounded-lg">
+                <h4 class="font-semibold text-gray-900 mb-2">💡 Key Prompt Engineering Principles</h4>
+                <div class="grid md:grid-cols-2 gap-3 text-sm">
+                    <div>
+                        <strong class="text-green-700">✅ Do:</strong>
+                        <ul class="text-gray-700 ml-4 mt-1">
+                            <li>• Be specific and clear</li>
+                            <li>• Provide context and examples</li>
+                            <li>• Define output format</li>
+                            <li>• Use delimiters for sections</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <strong class="text-red-700">❌ Avoid:</strong>
+                        <ul class="text-gray-700 ml-4 mt-1">
+                            <li>• Vague or ambiguous instructions</li>
+                            <li>• Contradictory requirements</li>
+                            <li>• Overly long prompts</li>
+                            <li>• Assuming implied context</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    

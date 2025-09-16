@@ -1,0 +1,197 @@
+<div class="space-y-4">
+            <style>
+                .q48-chip { display:inline-flex; align-items:center; font-size:0.75rem; line-height:1; padding:4px 6px; border-radius:4px; margin:2px 4px 2px 0; font-weight:500; }
+                .q48-chip.lr-high { background:#fee2e2; color:#991b1b; }
+                .q48-chip.lr-low { background:#fef9c3; color:#854d0e; }
+                .q48-chip.lr-balanced { background:#dcfce7; color:#166534; }
+                .q48-chip.batch-large { background:#e0f2fe; color:#075985; }
+                .q48-chip.batch-small { background:#ede9fe; color:#5b21b6; }
+                .q48-chip.reg-strong { background:#f1f5f9; color:#0f172a; border:1px solid #cbd5e1; }
+                .q48-chip.reg-low { background:#fff7ed; color:#9a3412; }
+                .q48-chip.risk-overfit { background:#fee2e2; color:#b91c1c; font-weight:600; }
+                .q48-chip.risk-underfit { background:#e0e7ff; color:#3730a3; font-weight:600; }
+                .q48-flash-up { animation:q48FlashUp 0.6s ease-out; }
+                .q48-flash-down { animation:q48FlashDown 0.6s ease-out; }
+                @keyframes q48FlashUp { 0% { box-shadow:0 0 0 0 rgba(34,197,94,0.7);} 100% { box-shadow:0 0 0 12px rgba(34,197,94,0);} }
+                @keyframes q48FlashDown { 0% { box-shadow:0 0 0 0 rgba(239,68,68,0.7);} 100% { box-shadow:0 0 0 12px rgba(239,68,68,0);} }
+                .q48-tip { cursor:help; font-size:0.75rem; color:#6366f1; margin-left:4px; }
+            </style>
+            <!-- Controls -->
+            <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200">
+                <div class="grid md:grid-cols-4 gap-3" aria-label="Hyperparameter controls">
+                    <div>
+                        <label for="q48-lr" class="block text-sm font-medium text-gray-700 mb-1">Learning rate (η)
+                            <span class="q48-tip" title="Too high → divergence; too low → slow convergence; sweet spot often ~1e-4–5e-3 for many transformer fine-tunes.">ℹ️</span>
+                        </label>
+                        <input id="q48-lr" type="range" min="-4" max="-1" step="0.1" value="-2.5" class="w-full" aria-describedby="q48-lr-help q48-lr-val" aria-label="Learning rate log10 slider">
+                        <div id="q48-lr-help" class="text-xs text-gray-600">Log10 scale: η = 10^x | current: <span id="q48-lr-val" class="font-semibold"></span></div>
+                    </div>
+                    <div>
+                        <label for="q48-bs" class="block text-sm font-medium text-gray-700 mb-1">Batch size
+                            <span class="q48-tip" title="Larger batch → smoother gradients but less noise regularization; very large batches may need LR warmup.">ℹ️</span>
+                        </label>
+                        <select id="q48-bs" class="w-full px-2 py-2 border border-gray-300 rounded" aria-label="Batch size">
+                            <option>8</option>
+                            <option>16</option>
+                            <option selected>32</option>
+                            <option>64</option>
+                            <option>128</option>
+                        </select>
+                        <div class="text-xs text-gray-600">Samples / optimizer step</div>
+                    </div>
+                    <div>
+                        <label for="q48-wd" class="block text-sm font-medium text-gray-700 mb-1">Weight decay
+                            <span class="q48-tip" title="L2 penalty: prevents weights growing too large; too high shrinks signal → underfitting.">ℹ️</span>
+                        </label>
+                        <input id="q48-wd" type="range" min="0" max="0.1" step="0.005" value="0.01" class="w-full" aria-label="Weight decay slider">
+                        <div class="text-xs text-gray-600">L2 strength: <span id="q48-wd-val" class="font-semibold"></span></div>
+                    </div>
+                    <div>
+                        <label for="q48-do" class="block text-sm font-medium text-gray-700 mb-1">Dropout
+                            <span class="q48-tip" title="Randomly drops activations: improves generalization; too high slows learning & reduces capacity.">ℹ️</span>
+                        </label>
+                        <input id="q48-do" type="range" min="0" max="0.7" step="0.05" value="0.1" class="w-full" aria-label="Dropout probability slider">
+                        <div class="text-xs text-gray-600">p(drop): <span id="q48-do-val" class="font-semibold"></span></div>
+                    </div>
+                </div>
+                <div class="mt-4 flex flex-wrap items-center" aria-label="Detected regimes"><div id="q48-regimes" class="flex flex-wrap"></div>
+                    <button id="q48-snapshot-btn" class="ml-auto text-xs bg-indigo-600 text-white px-2 py-1 rounded hover:bg-indigo-700 transition-colors" type="button">Copy snapshot</button>
+                    <span id="q48-snapshot-status" class="text-xs text-gray-600 ml-2"></span>
+                </div>
+            </div>
+
+            <!-- Impact & Guidance -->
+            <div class="bg-white p-3 rounded-lg border">
+                <div class="grid md:grid-cols-3 gap-4 items-start">
+                    <div>
+                        <div class="text-sm font-medium text-gray-700 mb-1">Stability/Speed estimate</div>
+                        <div id="q48-impact" class="text-xs">
+                            <span id="q48-impact-badge" class="inline-block px-2 py-0.5 rounded border"></span>
+                            <div class="h-2 mt-1 rounded bg-gray-200 overflow-hidden">
+                                <div id="q48-meter" class="h-full rounded" style="width:0%"></div>
+                            </div>
+                        </div>
+                        <div class="text-xs text-gray-500 mt-1">Heuristic based on η, batch size, and regularization.</div>
+                    </div>
+                    <div>
+                        <div class="text-sm font-medium text-green-700 mb-1">Good points</div>
+                        <ul id="q48-pros" class="list-disc pl-5 text-xs text-gray-700 space-y-1"></ul>
+                    </div>
+                    <div>
+                        <div class="text-sm font-medium text-red-700 mb-1">Potential issues</div>
+                        <ul id="q48-cons" class="list-disc pl-5 text-xs text-gray-700 space-y-1"></ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Training Dynamics Simulation -->
+            <div class="bg-gray-50 p-4 rounded-lg border border-gray-200 space-y-4" aria-label="Synthetic training dynamics">
+                <div class="flex items-center justify-between">
+                    <h4 class="text-sm font-semibold text-gray-700">Synthetic training curves (heuristic)</h4>
+                    <div class="text-xs text-gray-500">Not real data – shaped by current hyperparameters</div>
+                </div>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="col-span-2">
+                        <canvas id="q48-curve" width="460" height="140" class="w-full border bg-white rounded" aria-label="Training and validation loss curves"></canvas>
+                        <div class="flex items-center gap-3 mt-1 text-xs">
+                            <span class="inline-flex items-center gap-1"><span style="width:10px;height:10px;background:#2563eb;display:inline-block;border-radius:2px"></span> Train loss</span>
+                            <span class="inline-flex items-center gap-1"><span style="width:10px;height:10px;background:#dc2626;display:inline-block;border-radius:2px"></span> Val loss</span>
+                            <span id="q48-curve-label" class="ml-auto text-gray-600"></span>
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <div>
+                            <div class="text-xs font-medium text-gray-600 mb-1">Gradient noise</div>
+                            <div class="h-2 rounded bg-gray-200 overflow-hidden"><div id="q48-noise-bar" class="h-full bg-fuchsia-600" style="width:0%"></div></div>
+                            <div id="q48-noise-text" class="text-xs text-gray-600 mt-1"></div>
+                        </div>
+                        <div>
+                            <div class="text-xs font-medium text-gray-600 mb-1">Effective step size</div>
+                            <div id="q48-effstep" class="text-xs bg-white border rounded px-2 py-1 font-mono"></div>
+                        </div>
+                        <div>
+                            <div class="text-xs font-medium text-gray-600 mb-1">Parameter norm trend</div>
+                            <canvas id="q48-norm" width="150" height="70" class="w-full border bg-white rounded" aria-label="Parameter norm trend"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scenario Presets & A/B Compare -->
+            <div class="bg-white p-4 rounded-lg border space-y-3" aria-label="Presets and comparison tools">
+                <div class="flex flex-wrap gap-2 items-center">
+                    <span class="text-xs font-semibold text-gray-600 mr-1">Presets:</span>
+                    <button type="button" class="q48-preset text-xs px-2 py-1 rounded bg-indigo-50 text-indigo-700 hover:bg-indigo-100" data-preset="balanced">Balanced</button>
+                    <button type="button" class="q48-preset text-xs px-2 py-1 rounded bg-yellow-50 text-yellow-800 hover:bg-yellow-100" data-preset="underfit">Underfit</button>
+                    <button type="button" class="q48-preset text-xs px-2 py-1 rounded bg-red-50 text-red-700 hover:bg-red-100" data-preset="overfit">Overfit risk</button>
+                    <button type="button" class="q48-preset text-xs px-2 py-1 rounded bg-pink-50 text-pink-700 hover:bg-pink-100" data-preset="unstable">Unstable LR</button>
+                    <button type="button" class="q48-preset text-xs px-2 py-1 rounded bg-green-50 text-green-700 hover:bg-green-100" data-preset="slow">Smooth but slow</button>
+                </div>
+                <div class="flex flex-wrap gap-2 items-center pt-2 border-t">
+                    <span class="text-xs font-semibold text-gray-600">A/B Compare:</span>
+                    <button id="q48-capture-a" type="button" class="text-xs px-2 py-1 rounded bg-blue-600 text-white hover:bg-blue-700">Capture A</button>
+                    <button id="q48-capture-b" type="button" class="text-xs px-2 py-1 rounded bg-gray-600 text-white hover:bg-gray-700" disabled>Capture B</button>
+                    <button id="q48-clear-ab" type="button" class="text-xs px-2 py-1 rounded bg-gray-200 text-gray-700 hover:bg-gray-300" disabled>Clear</button>
+                    <span id="q48-ab-status" class="text-xs text-gray-600"></span>
+                </div>
+                <div id="q48-ab-panel" class="hidden text-xs bg-gray-50 border border-gray-200 rounded p-3 space-y-2">
+                    <div class="font-semibold text-gray-700">A vs B Differences</div>
+                    <div id="q48-ab-diff" class="font-mono whitespace-pre-wrap"></div>
+                </div>
+            </div>
+
+            <!-- Sensitivity & Interactions -->
+            <div class="bg-indigo-50 p-4 rounded-lg border border-indigo-200 space-y-4" aria-label="Sensitivity analysis">
+                <div class="flex items-center justify-between">
+                    <h4 class="text-sm font-semibold text-indigo-800">Local sensitivity (score delta if nudged)</h4>
+                    <span class="text-xs text-indigo-700">± small perturbation around current point</span>
+                </div>
+                <div id="q48-sensitivity" class="space-y-2"></div>
+                <div>
+                    <h5 class="text-xs font-semibold text-indigo-800 mb-1">Interaction insight</h5>
+                    <div id="q48-interactions" class="text-xs text-indigo-900 bg-white/60 rounded p-2 leading-snug"></div>
+                </div>
+            </div>
+
+            <!-- Advanced Exploration (Phase 4) -->
+            <div class="bg-white p-4 rounded-lg border space-y-4" aria-label="Advanced hyperparameter exploration">
+                <div class="flex items-center justify-between flex-wrap gap-2">
+                    <h4 class="text-sm font-semibold text-gray-700">Advanced tools</h4>
+                    <div class="flex gap-2 flex-wrap">
+                        <button id="q48-run-lr-finder" type="button" class="text-xs px-2 py-1 rounded bg-amber-600 text-white hover:bg-amber-700">Run LR finder</button>
+                        <button id="q48-export-trail" type="button" class="text-xs px-2 py-1 rounded bg-slate-600 text-white hover:bg-slate-700">Export trail</button>
+                        <span id="q48-adv-status" class="text-xs text-gray-600"></span>
+                    </div>
+                </div>
+                <div class="grid md:grid-cols-3 gap-4">
+                    <div class="col-span-2 space-y-3">
+                        <div>
+                            <div class="flex items-center justify-between mb-1"><span class="text-xs font-medium text-gray-700">LR finder (synthetic sweep)</span><span id="q48-lr-window" class="text-xs text-gray-500"></span></div>
+                            <canvas id="q48-lr-finder" width="460" height="120" class="w-full bg-white border rounded" aria-label="Learning rate finder synthetic curve"></canvas>
+                        </div>
+                        <div>
+                            <div class="flex items-center justify-between mb-1"><span class="text-xs font-medium text-gray-700">Noise vs signal (gradient direction drift)</span><span id="q48-noise-ratio" class="text-xs text-gray-500"></span></div>
+                            <canvas id="q48-noise-signal" width="460" height="110" class="w-full bg-white border rounded" aria-label="Noise vs signal scatter"></canvas>
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <div>
+                            <div class="text-xs font-medium text-gray-700 mb-1">Regularization components</div>
+                            <div id="q48-reg-break" class="text-xs bg-gray-50 border rounded p-2 space-y-1"></div>
+                        </div>
+                        <div>
+                            <div class="text-xs font-medium text-gray-700 mb-1">Auto-tune suggestion</div>
+                            <div id="q48-suggestion" class="text-xs bg-indigo-50 border border-indigo-200 rounded p-2 leading-snug"></div>
+                        </div>
+                        <div>
+                            <div class="text-xs font-medium text-gray-700 mb-1">Session trail (recent)</div>
+                            <div id="q48-trail" class="text-xs font-mono bg-white border rounded p-2 h-28 overflow-y-auto"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Output -->
+            <div id="q48-expl" class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-sm text-yellow-900" aria-live="polite"></div>
+            <div id="q48-change" class="text-xs text-gray-600" aria-live="polite"></div>
+        </div>

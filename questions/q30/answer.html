@@ -1,0 +1,91 @@
+<div class="space-y-4">
+        <!-- Recommended Reading -->
+        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading</h4>
+            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+                <li><a href="#question-17" class="text-indigo-700 underline hover:text-indigo-900">Question 17: Vanishing gradients in sequence models</a></li>
+                <li><a href="#question-24" class="text-indigo-700 underline hover:text-indigo-900">Question 24: Gradient stability & optimization dynamics</a></li>
+                <li><a href="#question-31" class="text-indigo-700 underline hover:text-indigo-900">Question 31: Chain rule depth & gradient flow</a></li>
+                <li><a href="#question-32" class="text-indigo-700 underline hover:text-indigo-900">Question 32: Scaling tricks to preserve gradients</a></li>
+            </ul>
+        </div>
+        <!-- Main Concept Box -->
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
+            <h4 class="font-semibold text-blue-900 mb-2">⚡ What is ReLU and Its Derivative?</h4>
+            <p class="text-blue-800">The ReLU (Rectified Linear Unit) function is defined as <strong>\( f(x) = \max(0, x) \)</strong>. Its derivative is remarkably simple: <strong>1 for positive inputs, 0 for negative inputs</strong>. This simplicity is what makes ReLU so powerful in deep learning – it either passes gradients through unchanged or blocks them completely.</p>
+            <div class="math-display">
+                $$ f'(x) = \begin{cases} 1 & \text{if } x > 0 \\ 0 & \text{if } x \le 0 \end{cases} $$
+            </div>
+        </div>
+        
+        <!-- Mathematical Definition -->
+        <div class="bg-white p-4 rounded-lg border border-gray-200">
+            <h4 class="font-semibold text-gray-900 mb-3">📊 Mathematical Definition</h4>
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="text-center">
+                    <h5 class="font-medium text-gray-800 mb-2">ReLU Function</h5>
+                    <div class="math-display">
+                        $$f(x) = \max(0, x) = \begin{cases} 
+                        x & \text{if } x > 0 \\n+                        0 & \text{if } x \leq 0
+                        \end{cases}$$
+                    </div>
+                </div>
+                <div class="text-center">
+                    <h5 class="font-medium text-gray-800 mb-2">ReLU Derivative</h5>
+                    <div class="math-display">
+                        $$f'(x) = \begin{cases} 
+                        1 & \text{if } x > 0 \\n+                        0 & \text{if } x \leq 0
+                        \end{cases}$$
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Comparison with Other Activation Functions -->
+        <div class="grid md:grid-cols-3 gap-4">
+            <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
+                <h5 class="font-medium text-green-900">ReLU</h5>
+                <p class="text-sm text-green-700 mb-2">Simple step function derivative</p>
+                <div class="text-xs bg-green-100 px-2 py-1 rounded font-mono">
+                    f'(x) = {1 if x > 0, 0 if x ≤ 0}
+                </div>
+                <p class="text-xs text-green-600 mt-2">✓ No vanishing gradients for x > 0</p>
+            </div>
+            
+            <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
+                <h5 class="font-medium text-purple-900">Sigmoid</h5>
+                <p class="text-sm text-purple-700 mb-2">Smooth but problematic derivative</p>
+                <div class="text-xs bg-purple-100 px-2 py-1 rounded font-mono">
+                    f'(x) = σ(x)(1 - σ(x))
+                </div>
+                <p class="text-xs text-purple-600 mt-2">⚠ Vanishing gradients (max 0.25)</p>
+            </div>
+            
+            <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
+                <h5 class="font-medium text-orange-900">Tanh</h5>
+                <p class="text-sm text-orange-700 mb-2">Better than sigmoid but still limited</p>
+                <div class="text-xs bg-orange-100 px-2 py-1 rounded font-mono">
+                    f'(x) = 1 - tanh²(x)
+                </div>
+                <p class="text-xs text-orange-600 mt-2">⚠ Vanishing gradients (max 1.0)</p>
+            </div>
+        </div>
+        
+        <!-- Why It Matters Section -->
+        <div class="bg-yellow-50 p-4 rounded-lg">
+            <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why ReLU's Derivative is Revolutionary</h4>
+            <ul class="text-sm text-yellow-800 space-y-1">
+                <li>• <strong>Solves Vanishing Gradients:</strong> Gradient is either 0 or 1, preventing exponential decay through layers</li>
+                <li>• <strong>Computational Efficiency:</strong> No expensive exponential calculations, just simple thresholding</li>
+                <li>• <strong>Sparse Activation:</strong> Roughly half of neurons are inactive, creating efficient sparse representations</li>
+                <li>• <strong>Biological Plausibility:</strong> Mimics neuron firing behavior - either active or inactive</li>
+                <li>• <strong>Enables Deep Networks:</strong> Made training of very deep networks (100+ layers) practically feasible</li>
+            </ul>
+        </div>
+        
+        <!-- Dead Neuron Problem -->
+        <div class="bg-red-50 p-4 rounded-lg border-l-4 border-red-400">
+            <h4 class="font-semibold text-red-900 mb-2">⚠️ The Dead Neuron Problem</h4>
+            <p class="text-sm text-red-800">ReLU's derivative being 0 for negative inputs can cause "dead neurons" that never activate again once their weights push them into the negative region. This led to variants like Leaky ReLU and ELU that have small positive derivatives for negative inputs.</p>
+        </div>
+    </div>

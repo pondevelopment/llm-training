@@ -1,0 +1,167 @@
+
+        <div class="space-y-4">
+            <!-- Recommended Reading -->
+            <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+                <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (if these terms are new)</h4>
+                <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+                    <li><a href="#question-1" class="text-indigo-700 underline hover:text-indigo-900">Question 1: What is tokenization and why does it matter?</a></li>
+                    <li><a href="#question-12" class="text-indigo-700 underline hover:text-indigo-900">Question 12: Tokens vs. words — how are they different?</a></li>
+                </ul>
+            </div>
+
+            <!-- Main Concept -->
+            <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
+                <h4 class="font-semibold text-blue-900 mb-2">🔤 What are Out-of-Vocabulary (OOV) Words?</h4>
+                <p class="text-blue-800">
+                    OOV words are like encountering unfamiliar ingredients while cooking - you need a strategy to handle them. 
+                    In traditional NLP, words not in the training vocabulary were simply marked as "unknown" ([UNK]). 
+                    Modern LLMs solve this by breaking unknown words into smaller, familiar pieces called subwords, 
+                    allowing them to understand and generate even words they've never seen before.
+                </p>
+            </div>
+
+            <!-- Tokenization Strategies -->
+            <div class="grid md:grid-cols-3 gap-4">
+                <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
+                    <h5 class="font-medium text-green-900">🧩 Byte-Pair Encoding (BPE)</h5>
+                    <p class="text-sm text-green-700 mb-2">
+                        Iteratively merges the most frequent character pairs to build a vocabulary of subwords.
+                    </p>
+                    <code class="text-xs bg-green-100 px-1 rounded block">
+                        "cryptocurrency" → ["crypto", "currency"]
+                    </code>
+                </div>
+                
+                <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
+                    <h5 class="font-medium text-purple-900">🎯 SentencePiece</h5>
+                    <p class="text-sm text-purple-700 mb-2">
+                        Language-agnostic algorithm that treats text as raw bytes, handling any language without pre-tokenization.
+                    </p>
+                    <code class="text-xs bg-purple-100 px-1 rounded block">
+                        "▁crypto" + "currency" (with space markers)
+                    </code>
+                </div>
+                
+                <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
+                    <h5 class="font-medium text-orange-900">🔤 WordPiece</h5>
+                    <p class="text-sm text-orange-700 mb-2">
+                        Maximizes likelihood of training data by choosing merges that best predict the next character.
+                    </p>
+                    <code class="text-xs bg-orange-100 px-1 rounded block">
+                        "crypto" + "##currency" (with continuation markers)
+                    </code>
+                </div>
+            </div>
+
+            <!-- Technical Process -->
+            <div class="bg-gray-50 p-4 rounded-lg">
+                <h4 class="font-semibold text-gray-900 mb-2">⚙️ Subword Tokenization Process</h4>
+                <div class="grid md:grid-cols-2 gap-4 text-sm">
+                    <div>
+                        <h6 class="font-medium text-gray-800 mb-2">Training Phase:</h6>
+                        <ul class="text-gray-700 space-y-1">
+                            <li>• Start with character-level vocabulary</li>
+                            <li>• Count frequency of character pairs</li>
+                            <li>• Merge most frequent pairs iteratively</li>
+                            <li>• Build vocabulary of optimal subwords</li>
+                            <li>• Set vocabulary size limit (e.g., 50K tokens)</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h6 class="font-medium text-gray-800 mb-2">Inference Phase:</h6>
+                        <ul class="text-gray-700 space-y-1">
+                            <li>• Apply learned merge rules to new text</li>
+                            <li>• Break OOV words into known subwords</li>
+                            <li>• Fall back to characters if needed</li>
+                            <li>• Maintain semantic relationships</li>
+                            <li>• Enable robust generation and understanding</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Advanced Techniques -->
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="bg-indigo-50 p-3 rounded border-l-4 border-indigo-400">
+                    <h5 class="font-medium text-indigo-900">🌍 Multilingual Handling</h5>
+                    <p class="text-sm text-indigo-700">
+                        Subword tokenization naturally handles multiple languages by learning language-agnostic patterns.
+                    </p>
+                    <code class="text-xs bg-indigo-100 px-1 rounded block mt-1">
+                        "Tokyo" + "駅" → ["To", "ky", "o", "駅"]
+                    </code>
+                </div>
+                
+                <div class="bg-teal-50 p-3 rounded border-l-4 border-teal-400">
+                    <h5 class="font-medium text-teal-900">🔄 Adaptive Vocabularies</h5>
+                    <p class="text-sm text-teal-700">
+                        Some models dynamically expand vocabularies during training to capture domain-specific terms.
+                    </p>
+                    <code class="text-xs bg-teal-100 px-1 rounded block mt-1">
+                        Medical: "cardio" + "vascular" + "itis"
+                    </code>
+                </div>
+            </div>
+
+            <!-- Benefits and Advantages -->
+            <div class="bg-yellow-50 p-4 rounded-lg">
+                <h4 class="font-semibold text-yellow-900 mb-2">🎯 Key Benefits of Subword Tokenization</h4>
+                <div class="grid md:grid-cols-2 gap-4 text-sm">
+                    <div>
+                        <h6 class="font-medium text-yellow-800 mb-2">Robustness Benefits:</h6>
+                        <ul class="text-yellow-700 space-y-1">
+                            <li>• <strong>No UNK Tokens:</strong> Every word can be represented</li>
+                            <li>• <strong>Morphological Awareness:</strong> Understands word structure</li>
+                            <li>• <strong>Cross-lingual Transfer:</strong> Shared subwords across languages</li>
+                            <li>• <strong>Domain Adaptation:</strong> Handles specialized terminology</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h6 class="font-medium text-yellow-800 mb-2">Efficiency Benefits:</h6>
+                        <ul class="text-yellow-700 space-y-1">
+                            <li>• <strong>Vocabulary Control:</strong> Fixed vocabulary size</li>
+                            <li>• <strong>Better Compression:</strong> Optimal sequence length</li>
+                            <li>• <strong>Semantic Preservation:</strong> Meaningful subword units</li>
+                            <li>• <strong>Training Stability:</strong> Consistent token distributions</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Real-world Examples -->
+            <div class="bg-green-50 p-4 rounded-lg">
+                <h4 class="font-semibold text-green-900 mb-2">🌟 Real-world OOV Handling Examples</h4>
+                <div class="grid md:grid-cols-2 gap-4 text-sm">
+                    <div>
+                        <h6 class="font-medium text-green-800 mb-2">Technical Terms:</h6>
+                        <ul class="text-green-700 space-y-1">
+                            <li>• "blockchain" → ["block", "chain"]</li>
+                            <li>• "cryptocurrency" → ["crypto", "currency"]</li>
+                            <li>• "biodegradable" → ["bio", "de", "grad", "able"]</li>
+                            <li>• "neuroscientist" → ["neuro", "scientist"]</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h6 class="font-medium text-green-800 mb-2">Proper Nouns & Neologisms:</h6>
+                        <ul class="text-green-700 space-y-1">
+                            <li>• "COVID-19" → ["COVID", "-", "19"]</li>
+                            <li>• "Pokémon" → ["Po", "ké", "mon"]</li>
+                            <li>• "unfriend" → ["un", "friend"]</li>
+                            <li>• "livestream" → ["live", "stream"]</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Challenges and Limitations -->
+            <div class="bg-red-50 p-4 rounded-lg border-l-4 border-red-400">
+                <h4 class="font-semibold text-red-900 mb-2">⚠️ Challenges and Considerations</h4>
+                <div class="text-sm text-red-800 space-y-2">
+                    <p><strong>Semantic Boundaries:</strong> Subword splits may not align with morphological boundaries, potentially losing semantic meaning.</p>
+                    <p><strong>Sequence Length:</strong> Breaking words into subwords increases sequence length, impacting computational efficiency.</p>
+                    <p><strong>Training Data Bias:</strong> Subword vocabularies reflect training data distribution, potentially underrepresenting minority languages or domains.</p>
+                    <p><strong>Tokenization Consistency:</strong> Different tokenization can lead to inconsistent representations of the same concept.</p>
+                </div>
+            </div>
+        </div>
+    

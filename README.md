@@ -37,19 +37,20 @@ This project is a single‑page, static web app covering an expanding set of ess
 
 ```text
 top-50-llm-questions/
-├── index.html                 # App shell (header, viewer, glossary modal, footer)
-├── js/
-│   ├── app.js                # SPA navigation, deep links, caching, MathJax hooks
-│   ├── questionLoader.js     # Safe dynamic loader for question modules
-│   └── glossary.js           # Searchable glossary with in‑app navigation
-├── questions/
-│   ├── question-01.js … question-51.js   # Individual questions
-│   └── question-template.js              # Template for new questions
-├── QUESTION_TEMPLATE_GUIDE.md            # Authoring guidance
-├── QUESTION_CHECKLIST.md                 # Review & test checklist
-├── COPILOT_SYSTEM_PROMPT.md              # AI-assisted coding system prompt
-├── LICENSE                               # MIT License
-└── README.md
+|-- index.html                 # App shell (header, viewer, glossary modal, footer)
+|-- js/
+|   |-- app.js                # SPA navigation, deep links, caching, MathJax hooks
+|   |-- questionLoader.js     # Manifest-driven loader for question assets
+|   \-- glossary.js           # Searchable glossary with in-app navigation
+|-- questions/
+|   |-- manifest.json         # Maps ids to ./questions/qXX folders
+|   |-- q01/ ... q57/         # Question assets (answer/interactive files)
+|   \-- q-template/           # Copy to qXX/ when authoring a new question
+|-- QUESTION_TEMPLATE_GUIDE.md            # Authoring guidance
+|-- QUESTION_CHECKLIST.md                 # Review & test checklist
+|-- COPILOT_SYSTEM_PROMPT.md              # AI-assisted coding system prompt
+|-- LICENSE                               # MIT License
+\-- README.md
 ```
 
 ## 🎮 How to run
@@ -68,20 +69,21 @@ Tips inside the app:
 
 ### Adding a new question
 
-1. Copy `questions/question-template.js` to a new file (e.g., `question-52.js`)
-2. Export your question using CommonJS: `module.exports = question;`
-3. Add the number to `availableQuestions` and the title to `questionTitles` in `js/app.js`
-4. Follow `QUESTION_TEMPLATE_GUIDE.md` and verify with `QUESTION_CHECKLIST.md`
+1. Copy `questions/q-template/` to `questions/qXX/` (two-digit id).
+2. Customize `answer.html`, `interactive.html`, and `interactive.js` (ensure it exports `interactiveScript`).
+3. Add the id to `questions/manifest.json` with a `dir` entry and update `interactiveTitle`.
+4. Verify `availableQuestions` (and learning paths) in `js/app.js`, update `/q/XX.html`, then follow `QUESTION_TEMPLATE_GUIDE.md` and `QUESTION_CHECKLIST.md`.
 
-Question contract:
-
-- question = { title, answer (HTML string), interactive?: { title, html, script() } }
-- MathJax: escape backslashes and “<” inside JS strings (use `\\` and `&lt;`)
+Question assets:
+- `answer.html`: HTML fragment rendered inside the viewer
+- `interactive.html`: markup for controls/results
+- `interactive.js`: exports `interactiveScript` (CommonJS + browser global)
+- MathJax: call `window.MathJax?.typesetPromise` after injecting new math markup
 
 
 ### Notable implementation details
 
-- Custom loader executes question files in an isolated context and returns either a global `question` symbol or `module.exports`
+- Custom loader reads `questions/manifest.json` and fetches HTML/JS assets per question directory
 - Adjacent questions are opportunistically preloaded to reduce perceived latency
 - MathJax rendering is retried on transient errors; see `index.html` startup config
 

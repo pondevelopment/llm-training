@@ -1,0 +1,104 @@
+<div class="space-y-5">
+        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related)</h4>
+            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+                <li><a href="#question-53" class="text-indigo-700 underline hover:text-indigo-900">Question 53: Decoding strategies (how tokens are selected)</a></li>
+                <li><a href="#question-54" class="text-indigo-700 underline hover:text-indigo-900">Question 54: Logits & probability transformations</a></li>
+                <li><a href="#question-6" class="text-indigo-700 underline hover:text-indigo-900">Question 6: Temperature effects</a></li>
+                <li><a href="#question-12" class="text-indigo-700 underline hover:text-indigo-900">Question 12: Top-k vs top-p sampling</a></li>
+                <li><a href="#question-5" class="text-indigo-700 underline hover:text-indigo-900">Question 5: Beam search</a></li>
+                <li><a href="#question-3" class="text-indigo-700 underline hover:text-indigo-900">Question 3: Context window limits</a></li>
+                <li><a href="#question-18" class="text-indigo-700 underline hover:text-indigo-900">Question 18: (Contrast) Training early stopping</a></li>
+            </ul>
+        </div>
+    <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 space-y-3">
+        <h4 class="font-semibold text-blue-900 mb-2">🛑 Why Stopping Matters</h4>
+        <p class="text-blue-800 text-sm leading-relaxed">A generation session is a <strong>constrained optimization</strong>: maximize utility (clarity, completeness, safety) while minimizing cost (tokens, latency, risk). Choosing <em>when to stop</em> is as important as choosing <em>what to emit next</em>. Done well, stopping feels invisible; done poorly, users see cut sentences, runaway rambles, malformed JSON, or policy leaks.</p>
+        <div class="grid md:grid-cols-2 gap-3 text-[13px] text-blue-900">
+        <div class="bg-white/50 rounded p-3 border border-blue-100">
+            <div class="font-medium mb-1">Cost & Latency</div>
+            <ul class="list-disc ml-4 space-y-0.5 text-blue-800">
+            <li>Each extra token consumes budget + latency.</li>
+            <li>Early stop on stable answer improves UX.</li>
+            <li>Streaming UIs need responsive abort paths.</li>
+            </ul>
+        </div>
+        <div class="bg-white/50 rounded p-3 border border-blue-100">
+            <div class="font-medium mb-1">Coherence & Quality</div>
+            <ul class="list-disc ml-4 space-y-0.5 text-blue-800">
+            <li>Good endings align with discourse structure.</li>
+            <li>Overrun drifts into repetition or filler.</li>
+            <li>Balanced structures (JSON / code) must close.</li>
+            </ul>
+        </div>
+        <div class="bg-white/50 rounded p-3 border border-blue-100">
+            <div class="font-medium mb-1">Safety & Compliance</div>
+            <ul class="list-disc ml-4 space-y-0.5 text-blue-800">
+            <li>Terminate as soon as disallowed content pattern emerges.</li>
+            <li>Reduce window for compounding policy violations.</li>
+            <li>Log stop reason for audit (e.g. <code>policy_toxicity</code>).</li>
+            </ul>
+        </div>
+        <div class="bg-white/50 rounded p-3 border border-blue-100">
+            <div class="font-medium mb-1">Structural Integrity</div>
+            <ul class="list-disc ml-4 space-y-0.5 text-blue-800">
+            <li>APIs consuming JSON / tool calls need valid closure.</li>
+            <li>Guard against truncation mid‑object.</li>
+            <li>Layer structural validation with token limits.</li>
+            </ul>
+        </div>
+        </div>
+        <div class="text-[12px] bg-blue-100/60 border border-blue-200 rounded p-3 leading-relaxed text-blue-900">
+        <strong>Contrast vs training early stopping:</strong> training early stopping halts updates to prevent overfitting; inference stopping halts token emission to preserve quality, safety, and efficiency. They share the idea of "diminishing returns" but operate on different signals (validation loss vs incremental generation heuristics).
+        </div>
+        <p class="text-blue-800 text-xs"><strong>Interplay:</strong> Decoding policy proposes a candidate; stopping layer evaluates global state (tokens used, structures closed, patterns matched). Separation of concerns keeps logic maintainable and auditable.</p>
+    </div>
+    </div>
+        </div>
+        <div class="mt-4 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="bg-green-50 p-3 rounded border-l-4 border-green-400 shadow-sm">
+                <h5 class="font-medium text-green-900">1. Token / Budget Based</h5>
+                <p class="text-[11px] text-green-800 leading-snug">Hard limits: EOS token, max tokens, timeout.</p>
+            </div>
+            <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400 shadow-sm">
+                <h5 class="font-medium text-purple-900">2. Pattern / String Based</h5>
+                <p class="text-[11px] text-purple-800 leading-snug">Substring / delimiter match (normalize + longest-first).</p>
+            </div>
+            <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400 shadow-sm">
+                <h5 class="font-medium text-orange-900">3. Structural Completion</h5>
+                <p class="text-[11px] text-orange-800 leading-snug">Detect balanced / closed syntactic containers.</p>
+            </div>
+            <div class="bg-rose-50 p-3 rounded border-l-4 border-rose-400 shadow-sm">
+                <h5 class="font-medium text-rose-900">4. Safety / Quality</h5>
+                <p class="text-[11px] text-rose-800 leading-snug">Policy triggers, degeneracy, repetition loops.</p>
+            </div>
+            <div class="bg-yellow-50 p-3 rounded border-l-4 border-yellow-400 shadow-sm">
+                <h5 class="font-medium text-yellow-900">5. Probabilistic / Dynamic</h5>
+                <p class="text-[11px] text-yellow-800 leading-snug">Entropy / marginal utility thresholds detect saturation.</p>
+            </div>
+            <div class="bg-slate-50 p-3 rounded border-l-4 border-slate-400 shadow-sm">
+                <h5 class="font-medium text-slate-900">6. Human / Operational</h5>
+                <p class="text-[11px] text-slate-800 leading-snug">External interrupts: user cancel, channel close, budget guard.</p>
+            </div>
+        </div>
+    <div class="mt-6 bg-emerald-50 p-4 rounded-lg border border-emerald-200">
+            <h4 class="font-semibold text-emerald-900 mb-2">✅ Design Tips</h4>
+            <ul class="text-sm text-emerald-800 space-y-1">
+                <li>• Normalize text (Unicode, whitespace) before matching stop sequences.</li>
+                <li>• Apply <strong>longest stop string first</strong> to avoid premature partial matches.</li>
+                <li>• Keep structural guards (JSON balance) orthogonal to textual stops.</li>
+                <li>• Log the <em>first triggered criterion</em> + diagnostics for observability.</li>
+                <li>• Distinguish <code>truncated = true</code> (budget hit) vs <code>stopped = eos</code> for downstream logic.</li>
+            </ul>
+        </div>
+    <div class="mt-4 bg-red-50 p-4 rounded-lg border-l-4 border-red-400">
+            <h4 class="font-semibold text-red-900 mb-2">⚠️ Common Pitfalls</h4>
+            <ul class="text-sm text-red-800 space-y-1">
+                <li>• Partial stop sequence split across streaming chunks.</li>
+                <li>• Unclosed JSON because only max token cap fired.</li>
+                <li>• Double termination: both EOS and stop string (record canonical reason).</li>
+                <li>• Premature structural stop when braces appear inside code blocks.</li>
+                <li>• Repetition detector firing on low length contexts (need warmup tokens).</li>
+            </ul>
+        </div>
+    </div>

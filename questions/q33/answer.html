@@ -1,0 +1,1059 @@
+<div class="space-y-8">
+        <style>
+            /* Layout containment & overflow prevention */
+            .q33-tech-section { max-width:100%; overflow:hidden; }
+            .q33-tech-grid { display:grid; gap:2rem; }
+            .q33-tech-grid > * { min-width:0; }
+            @media (min-width: 768px){
+                .q33-tech-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+            }
+            @media (max-width:1024px){
+                /* So large cards don't overflow on medium screens */
+                .q33-wide-px { padding-left:1.25rem !important; padding-right:1.25rem !important; }
+            }
+            /* Prevent long inline sequences from forcing scroll */
+            .q33-break { word-break:break-word; overflow-wrap:break-word; }
+        </style>
+        <!-- Recommended Reading -->
+        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading</h4>
+            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+                <li><a href="#question-2" class="text-indigo-700 underline hover:text-indigo-900">Question 2: How does the attention mechanism function?</a></li>
+                <li><a href="#question-21" class="text-indigo-700 underline hover:text-indigo-900">Question 21: What are positional encodings?</a></li>
+                <li><a href="#question-22" class="text-indigo-700 underline hover:text-indigo-900">Question 22: What is multi-head attention?</a></li>
+                <li><a href="#question-32" class="text-indigo-700 underline hover:text-indigo-900">Question 32: How are attention scores calculated?</a></li>
+                <li><a href="#question-37" class="text-indigo-700 underline hover:text-indigo-900">Question 37: How does Mixture of Experts enhance scalability?</a></li>
+            </ul>
+            <p class="text-xs text-indigo-700 mt-2">These build the foundation for sequence representation, attention composition, and scaling strategies used in multimodal architectures.</p>
+        </div>
+        <!-- Hero Section with Improved Visual Impact -->
+        <div class="relative overflow-hidden bg-gradient-to-br from-indigo-50 via-blue-50 to-purple-100 rounded-2xl border border-indigo-200 shadow-lg">
+            <!-- Background Pattern -->
+            <div class="absolute inset-0 bg-grid-pattern opacity-5"></div>
+            <div class="relative p-6 sm:p-8 md:p-12 max-w-7xl mx-auto">
+                <div class="text-center mb-8">
+                    <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl mb-4 shadow-lg">
+                        <span class="text-2xl">🔮</span>
+                    </div>
+                    <h3 class="text-2xl md:text-3xl font-bold text-gray-900 mb-4 leading-tight">
+                        Multimodal Training Evolution
+                    </h3>
+                    <p class="text-lg md:text-xl text-gray-700 max-w-4xl mx-auto leading-relaxed">
+                        Multimodal large language models integrate
+                        <span class="font-semibold text-blue-700">text, images, audio, and video</span> 
+                        processing through architectural choices like late fusion, early fusion, unified transformers, and adapter‑based hybrids that improve efficiency versus isolated modality pipelines.
+                    </p>
+                </div>
+                
+                <!-- Core Innovation Formula - Enhanced -->
+                <div class="max-w-5xl mx-auto">
+                    <div class="bg-white/80 backdrop-blur-sm p-6 md:p-8 rounded-xl border border-white/50 shadow-xl">
+                        <div class="text-center space-y-6">
+                            <div class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-100 to-purple-100 rounded-full border border-blue-200">
+                                <span class="text-sm font-semibold text-gray-700">⚡ Core Innovation Formula</span>
+                            </div>
+                            
+                            <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 md:p-8 rounded-xl border border-blue-200 shadow-inner">
+                                <div class="space-y-4">
+                                    <div class="math-display" aria-label="Gemini efficiency decomposition">
+$$\begin{align}
+\text{Multimodal Efficiency} &= \text{Appropriate Fusion Strategy} \\
+&\quad + \text{Cross-Modal Attention} \\
+&\quad + \text{Self / Contrastive Pretraining}
+\end{align}$$
+                                    </div>
+                                    <div class="text-sm text-gray-600 italic border-l-4 border-blue-300 pl-4 bg-blue-50/50 py-2 rounded-r">
+                                        <strong>Key Insight:</strong> Selecting the right fusion stage + shared representations reduces redundant parameters while improving alignment.
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Performance Highlight -->
+                            <div class="grid md:grid-cols-3 gap-4 mt-6">
+                                <div class="bg-green-50 border border-green-200 rounded-lg p-3 text-center">
+                                    <div class="text-2xl font-bold text-green-700">40%</div>
+                                    <div class="text-sm text-green-600">Fewer Parameters</div>
+                                </div>
+                                <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 text-center">
+                                    <div class="text-2xl font-bold text-blue-700">35%</div>
+                                    <div class="text-sm text-blue-600">Faster Training</div>
+                                </div>
+                                <div class="bg-purple-50 border border-purple-200 rounded-lg p-3 text-center">
+                                    <div class="text-2xl font-bold text-purple-700">80%</div>
+                                    <div class="text-sm text-purple-600">Less Labeled Data</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Core Optimization Techniques - Enhanced Layout -->
+        <div class="bg-white border border-gray-200 rounded-2xl shadow-lg overflow-hidden">
+            <!-- Section Header -->
+            <div class="bg-gradient-to-r from-purple-50 to-blue-50 px-6 md:px-8 py-6 border-b border-gray-200">
+                <div class="flex items-center justify-center md:justify-start">
+                    <div class="flex items-center space-x-4">
+                        <div class="bg-gradient-to-br from-purple-500 to-blue-600 text-white w-12 h-12 rounded-xl flex items-center justify-center text-lg font-bold shadow-lg">
+                            1
+                        </div>
+                        <div>
+                            <h4 class="text-xl md:text-2xl font-bold text-gray-900">Core Optimization Techniques</h4>
+                            <p class="text-sm text-gray-600 mt-1">Core techniques that drive multimodal efficiency</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Techniques Grid -->
+            <div class="p-6 md:p-8">
+                <div class="grid lg:grid-cols-3 gap-6 md:gap-8">
+                    <!-- Unified Architecture -->
+                    <div class="group relative">
+                        <div class="absolute -inset-1 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl opacity-20 group-hover:opacity-30 transition-opacity"></div>
+                        <div class="relative bg-blue-50 hover:bg-blue-100 p-4 rounded-xl border border-blue-200 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                            <div class="text-center mb-6">
+                                <div class="inline-flex items-center justify-center w-12 h-12 bg-blue-500 text-white rounded-lg mb-3 text-xl">
+                                    🏗️
+                                </div>
+                                <h5 class="text-lg font-bold text-blue-900">Unified Architecture</h5>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="bg-white p-3 rounded-lg border border-blue-100 shadow-sm">
+                                    <div class="text-sm font-semibold text-gray-900 mb-2">Single Transformer Backbone</div>
+                                    <div class="text-xs text-gray-600 mb-3">One model handles all modalities simultaneously</div>
+                                    <div class="math-display">
+$$\mathbf{H} = \text{Transformer}(\text{TokenizeMultimodal}(x_{text}, x_{image}, x_{audio}))$$
+                                    </div>
+                                </div>
+                                <div class="bg-white p-3 rounded-lg border border-blue-100 shadow-sm">
+                                    <div class="text-sm font-semibold text-gray-900 mb-2">Shared Parameters</div>
+                                    <div class="text-xs text-gray-600">
+                                        <span class="inline-flex items-center px-2 py-1 bg-green-100 text-green-800 text-xs font-medium rounded">
+                                            40% reduction
+                                        </span>
+                                        in model size vs separate encoders
+                                    </div>
+                                </div>
+                                <div class="bg-white p-3 rounded-lg border border-blue-100 shadow-sm">
+                                    <div class="text-sm font-semibold text-gray-900 mb-2">Universal Tokenization</div>
+                                    <div class="text-xs text-gray-600">All modalities mapped to common token space</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cross-Modal Attention -->
+                    <div class="group relative">
+                        <div class="absolute -inset-1 bg-gradient-to-br from-green-400 to-green-600 rounded-xl opacity-20 group-hover:opacity-30 transition-opacity"></div>
+                        <div class="relative bg-green-50 hover:bg-green-100 p-4 rounded-xl border border-green-200 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                            <div class="text-center mb-6">
+                                <div class="inline-flex items-center justify-center w-12 h-12 bg-green-500 text-white rounded-lg mb-3 text-xl">
+                                    🎯
+                                </div>
+                                <h5 class="text-lg font-bold text-green-900">Cross-Modal Attention</h5>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="bg-white p-3 rounded-lg border border-green-100 shadow-sm">
+                                    <div class="text-sm font-semibold text-gray-900 mb-2">Interleaved Attention</div>
+                                    <div class="text-xs text-gray-600 mb-3">Modalities attend to each other simultaneously</div>
+                                    <div class="math-display">
+$$\text{Attention}(Q_{text}, K_{image}, V_{audio})$$
+                                    </div>
+                                </div>
+                                <div class="bg-white p-3 rounded-lg border border-green-100 shadow-sm">
+                                    <div class="text-sm font-semibold text-gray-900 mb-2">Modality-Aware Scaling</div>
+                                    <div class="text-xs text-gray-600">Dynamic attention weights based on input complexity</div>
+                                </div>
+                                <div class="bg-white p-3 rounded-lg border border-green-100 shadow-sm">
+                                    <div class="text-sm font-semibold text-gray-900 mb-2">Temporal Alignment</div>
+                                    <div class="text-xs text-gray-600">Synchronizes audio-visual-text sequences</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Self-Supervised Learning -->
+                    <div class="group relative">
+                        <div class="absolute -inset-1 bg-gradient-to-br from-purple-400 to-purple-600 rounded-xl opacity-20 group-hover:opacity-30 transition-opacity"></div>
+                        <div class="relative bg-purple-50 hover:bg-purple-100 p-4 rounded-xl border border-purple-200 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                            <div class="text-center mb-6">
+                                <div class="inline-flex items-center justify-center w-12 h-12 bg-purple-500 text-white rounded-lg mb-3 text-xl">
+                                    📊
+                                </div>
+                                <h5 class="text-lg font-bold text-purple-900">Self-Supervised Learning</h5>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="bg-white p-3 rounded-lg border border-purple-100 shadow-sm">
+                                    <div class="text-sm font-semibold text-gray-900 mb-2">Contrastive Learning</div>
+                                    <div class="text-xs text-gray-600 mb-3">Learn representations without labels</div>
+                                    <div class="math-display">
+$$\mathcal{L} = -\log\frac{\exp(\text{sim}(z_i, z_j)/\tau)}{\sum_k \exp(\text{sim}(z_i, z_k)/\tau)}$$
+                                    </div>
+                                </div>
+                                <div class="bg-white p-3 rounded-lg border border-purple-100 shadow-sm">
+                                    <div class="text-sm font-semibold text-gray-900 mb-2">Masked Multimodal Modeling</div>
+                                    <div class="text-xs text-gray-600">Predict masked tokens across all modalities</div>
+                                </div>
+                                <div class="bg-white p-3 rounded-lg border border-purple-100 shadow-sm">
+                                    <div class="text-sm font-semibold text-gray-900 mb-2">Cross-Modal Reconstruction</div>
+                                    <div class="text-xs text-gray-600">Generate text from images, images from audio</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Training Pipeline Comparison - Enhanced Visual Design -->
+                    <div class="bg-white border border-gray-200 rounded-2xl shadow-lg overflow-hidden">
+            <!-- Section Header -->
+            <div class="bg-gradient-to-r from-green-50 to-blue-50 px-6 md:px-8 py-6 border-b border-gray-200">
+                <div class="flex items-center justify-center md:justify-start">
+                    <div class="flex items-center space-x-4">
+                        <div class="bg-gradient-to-br from-green-500 to-blue-600 text-white w-12 h-12 rounded-xl flex items-center justify-center text-lg font-bold shadow-lg">
+                            2
+                        </div>
+                        <div>
+                            <h4 class="text-xl md:text-2xl font-bold text-gray-900">Training Pipeline Evolution</h4>
+                            <p class="text-sm text-gray-600 mt-1">Traditional late fusion vs unified / early fusion</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="p-6 md:p-8">
+                <!-- Comparison Grid -->
+                <div class="grid md:grid-cols-2 gap-8 mb-8">
+                    <!-- Traditional Approach -->
+                    <div class="relative group">
+                        <div class="absolute -inset-1 bg-gradient-to-br from-red-300 to-red-500 rounded-xl opacity-20"></div>
+                        <div class="relative bg-red-50 border-2 border-red-200 rounded-xl p-6 h-full">
+                            <div class="text-center mb-6">
+                                <div class="inline-flex items-center justify-center w-16 h-16 bg-red-500 text-white rounded-xl mb-3 text-2xl">
+                                    ❌
+                                </div>
+                                <h5 class="text-xl font-bold text-red-900">Traditional Multimodal Training</h5>
+                                <p class="text-sm text-red-700 mt-2">Separate encoders with limited cross-modal learning</p>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="bg-white border-l-4 border-red-400 p-4 rounded-r-lg shadow-sm">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="flex-shrink-0 w-8 h-8 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-sm font-bold">1</div>
+                                        <div>
+                                            <div class="font-semibold text-sm text-red-900">Separate Encoders</div>
+                                            <div class="text-xs text-red-700">Text encoder + Vision encoder + Audio encoder</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-white border-l-4 border-red-400 p-4 rounded-r-lg shadow-sm">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="flex-shrink-0 w-8 h-8 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-sm font-bold">2</div>
+                                        <div>
+                                            <div class="font-semibold text-sm text-red-900">Late Fusion</div>
+                                            <div class="text-xs text-red-700">Combine features at final layers only</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-white border-l-4 border-red-400 p-4 rounded-r-lg shadow-sm">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="flex-shrink-0 w-8 h-8 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-sm font-bold">3</div>
+                                        <div>
+                                            <div class="font-semibold text-sm text-red-900">Sequential Training</div>
+                                            <div class="text-xs text-red-700">Pre-train modalities separately, then fine-tune</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-white border-l-4 border-red-400 p-4 rounded-r-lg shadow-sm">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="flex-shrink-0 w-8 h-8 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-sm font-bold">4</div>
+                                        <div>
+                                            <div class="font-semibold text-sm text-red-900">High Compute Cost</div>
+                                            <div class="text-xs text-red-700">3x parameters, slower convergence</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Unified / Early Fusion Approach -->
+                    <div class="relative group">
+                        <div class="absolute -inset-1 bg-gradient-to-br from-green-300 to-green-500 rounded-xl opacity-20"></div>
+                        <div class="relative bg-green-50 border-2 border-green-200 rounded-xl p-6 h-full">
+                            <div class="text-center mb-6">
+                                <div class="inline-flex items-center justify-center w-16 h-16 bg-green-500 text-white rounded-xl mb-3 text-2xl">
+                                    ✅
+                                </div>
+                                <h5 class="text-xl font-bold text-green-900">Unified / Early Fusion Training</h5>
+                                <p class="text-sm text-green-700 mt-2">Intelligent unified approach with cross-modal learning</p>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="bg-white border-l-4 border-green-400 p-4 rounded-r-lg shadow-sm">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="flex-shrink-0 w-8 h-8 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-sm font-bold">1</div>
+                                        <div>
+                                            <div class="font-semibold text-sm text-green-900">Unified Encoder</div>
+                                            <div class="text-xs text-green-700">Single transformer handles all modalities</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-white border-l-4 border-green-400 p-4 rounded-r-lg shadow-sm">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="flex-shrink-0 w-8 h-8 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-sm font-bold">2</div>
+                                        <div>
+                                            <div class="font-semibold text-sm text-green-900">Early Fusion</div>
+                                            <div class="text-xs text-green-700">Cross-modal attention from first layer</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-white border-l-4 border-green-400 p-4 rounded-r-lg shadow-sm">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="flex-shrink-0 w-8 h-8 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-sm font-bold">3</div>
+                                        <div>
+                                            <div class="font-semibold text-sm text-green-900">Joint Training</div>
+                                            <div class="text-xs text-green-700">All modalities trained simultaneously</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-white border-l-4 border-green-400 p-4 rounded-r-lg shadow-sm">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="flex-shrink-0 w-8 h-8 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-sm font-bold">4</div>
+                                        <div>
+                                            <div class="font-semibold text-sm text-green-900">Efficient Scaling</div>
+                                            <div class="text-xs text-green-700">40% fewer parameters, faster convergence</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Training Pipeline Comparison - Enhanced Visual Design -->
+        <div class="bg-white border border-gray-200 rounded-2xl shadow-lg overflow-hidden">
+            <!-- Section Header -->
+            <div class="bg-gradient-to-r from-green-50 to-blue-50 px-6 md:px-8 py-6 border-b border-gray-200">
+                <div class="flex items-center justify-center md:justify-start">
+                    <div class="flex items-center space-x-4">
+                        <div class="bg-gradient-to-br from-green-500 to-blue-600 text-white w-12 h-12 rounded-xl flex items-center justify-center text-lg font-bold shadow-lg">
+                            2
+                        </div>
+                        <div>
+                            <h4 class="text-xl md:text-2xl font-bold text-gray-900">Training Pipeline Evolution</h4>
+                            <p class="text-sm text-gray-600 mt-1">Traditional late fusion vs unified / early fusion</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="p-6 md:p-8">
+                <!-- Comparison Grid -->
+                <div class="grid md:grid-cols-2 gap-8 mb-8">
+                    <!-- Traditional Approach -->
+                    <div class="relative group">
+                        <div class="absolute -inset-1 bg-gradient-to-br from-red-300 to-red-500 rounded-xl opacity-20"></div>
+                        <div class="relative bg-red-50 border-2 border-red-200 rounded-xl p-6 h-full">
+                            <div class="text-center mb-6">
+                                <div class="inline-flex items-center justify-center w-16 h-16 bg-red-500 text-white rounded-xl mb-3 text-2xl">
+                                    ❌
+                                </div>
+                                <h5 class="text-xl font-bold text-red-900">Traditional Multimodal Training</h5>
+                                <p class="text-sm text-red-700 mt-2">Separate encoders with limited cross-modal learning</p>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="bg-white border-l-4 border-red-400 p-4 rounded-r-lg shadow-sm">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="flex-shrink-0 w-8 h-8 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-sm font-bold">1</div>
+                                        <div>
+                                            <div class="font-semibold text-sm text-red-900">Separate Encoders</div>
+                                            <div class="text-xs text-red-700">Text encoder + Vision encoder + Audio encoder</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-white border-l-4 border-red-400 p-4 rounded-r-lg shadow-sm">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="flex-shrink-0 w-8 h-8 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-sm font-bold">2</div>
+                                        <div>
+                                            <div class="font-semibold text-sm text-red-900">Late Fusion</div>
+                                            <div class="text-xs text-red-700">Combine features at final layers only</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-white border-l-4 border-red-400 p-4 rounded-r-lg shadow-sm">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="flex-shrink-0 w-8 h-8 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-sm font-bold">3</div>
+                                        <div>
+                                            <div class="font-semibold text-sm text-red-900">Sequential Training</div>
+                                            <div class="text-xs text-red-700">Pre-train modalities separately, then fine-tune</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-white border-l-4 border-red-400 p-4 rounded-r-lg shadow-sm">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="flex-shrink-0 w-8 h-8 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-sm font-bold">4</div>
+                                        <div>
+                                            <div class="font-semibold text-sm text-red-900">High Compute Cost</div>
+                                            <div class="text-xs text-red-700">3x parameters, slower convergence</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Unified / Early Fusion Approach -->
+                    <div class="relative group">
+                        <div class="absolute -inset-1 bg-gradient-to-br from-green-300 to-green-500 rounded-xl opacity-20"></div>
+                        <div class="relative bg-green-50 border-2 border-green-200 rounded-xl p-6 h-full">
+                            <div class="text-center mb-6">
+                                <div class="inline-flex items-center justify-center w-16 h-16 bg-green-500 text-white rounded-xl mb-3 text-2xl">
+                                    ✅
+                                </div>
+                                <h5 class="text-xl font-bold text-green-900">Unified / Early Fusion Training</h5>
+                                <p class="text-sm text-green-700 mt-2">Intelligent unified approach with cross-modal learning</p>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="bg-white border-l-4 border-green-400 p-4 rounded-r-lg shadow-sm">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="flex-shrink-0 w-8 h-8 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-sm font-bold">1</div>
+                                        <div>
+                                            <div class="font-semibold text-sm text-green-900">Unified Encoder</div>
+                                            <div class="text-xs text-green-700">Single transformer handles all modalities</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-white border-l-4 border-green-400 p-4 rounded-r-lg shadow-sm">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="flex-shrink-0 w-8 h-8 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-sm font-bold">2</div>
+                                        <div>
+                                            <div class="font-semibold text-sm text-green-900">Early Fusion</div>
+                                            <div class="text-xs text-green-700">Cross-modal attention from first layer</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-white border-l-4 border-green-400 p-4 rounded-r-lg shadow-sm">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="flex-shrink-0 w-8 h-8 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-sm font-bold">3</div>
+                                        <div>
+                                            <div class="font-semibold text-sm text-green-900">Joint Training</div>
+                                            <div class="text-xs text-green-700">All modalities trained simultaneously</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-white border-l-4 border-green-400 p-4 rounded-r-lg shadow-sm">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="flex-shrink-0 w-8 h-8 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-sm font-bold">4</div>
+                                        <div>
+                                            <div class="font-semibold text-sm text-green-900">Efficient Scaling</div>
+                                            <div class="text-xs text-green-700">40% fewer parameters, faster convergence</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Training Pipeline Comparison - Enhanced Visual Design -->
+        <div class="bg-white border border-gray-200 rounded-2xl shadow-lg overflow-hidden">
+            <!-- Section Header -->
+            <div class="bg-gradient-to-r from-green-50 to-blue-50 px-6 md:px-8 py-6 border-b border-gray-200">
+                <div class="flex items-center justify-center md:justify-start">
+                    <div class="flex items-center space-x-4">
+                        <div class="bg-gradient-to-br from-green-500 to-blue-600 text-white w-12 h-12 rounded-xl flex items-center justify-center text-lg font-bold shadow-lg">
+                            2
+                        </div>
+                        <div>
+                            <h4 class="text-xl md:text-2xl font-bold text-gray-900">Training Pipeline Evolution</h4>
+                            <p class="text-sm text-gray-600 mt-1">Traditional late fusion vs unified / early fusion</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="p-6 md:p-8">
+                <!-- Comparison Grid -->
+                <div class="grid md:grid-cols-2 gap-8 mb-8">
+                    <!-- Traditional Approach -->
+                    <div class="relative group">
+                        <div class="absolute -inset-1 bg-gradient-to-br from-red-300 to-red-500 rounded-xl opacity-20"></div>
+                        <div class="relative bg-red-50 border-2 border-red-200 rounded-xl p-6 h-full">
+                            <div class="text-center mb-6">
+                                <div class="inline-flex items-center justify-center w-16 h-16 bg-red-500 text-white rounded-xl mb-3 text-2xl">
+                                    ❌
+                                </div>
+                                <h5 class="text-xl font-bold text-red-900">Traditional Multimodal Training</h5>
+                                <p class="text-sm text-red-700 mt-2">Separate encoders with limited cross-modal learning</p>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="bg-white border-l-4 border-red-400 p-4 rounded-r-lg shadow-sm">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="flex-shrink-0 w-8 h-8 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-sm font-bold">1</div>
+                                        <div>
+                                            <div class="font-semibold text-sm text-red-900">Separate Encoders</div>
+                                            <div class="text-xs text-red-700">Text encoder + Vision encoder + Audio encoder</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-white border-l-4 border-red-400 p-4 rounded-r-lg shadow-sm">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="flex-shrink-0 w-8 h-8 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-sm font-bold">2</div>
+                                        <div>
+                                            <div class="font-semibold text-sm text-red-900">Late Fusion</div>
+                                            <div class="text-xs text-red-700">Combine features at final layers only</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-white border-l-4 border-red-400 p-4 rounded-r-lg shadow-sm">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="flex-shrink-0 w-8 h-8 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-sm font-bold">3</div>
+                                        <div>
+                                            <div class="font-semibold text-sm text-red-900">Sequential Training</div>
+                                            <div class="text-xs text-red-700">Pre-train modalities separately, then fine-tune</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-white border-l-4 border-red-400 p-4 rounded-r-lg shadow-sm">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="flex-shrink-0 w-8 h-8 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-sm font-bold">4</div>
+                                        <div>
+                                            <div class="font-semibold text-sm text-red-900">High Compute Cost</div>
+                                            <div class="text-xs text-red-700">3x parameters, slower convergence</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Unified / Early Fusion Approach -->
+                    <div class="relative group">
+                        <div class="absolute -inset-1 bg-gradient-to-br from-green-300 to-green-500 rounded-xl opacity-20"></div>
+                        <div class="relative bg-green-50 border-2 border-green-200 rounded-xl p-6 h-full">
+                            <div class="text-center mb-6">
+                                <div class="inline-flex items-center justify-center w-16 h-16 bg-green-500 text-white rounded-xl mb-3 text-2xl">
+                                    ✅
+                                </div>
+                                <h5 class="text-xl font-bold text-green-900">Unified / Early Fusion Training</h5>
+                                <p class="text-sm text-green-700 mt-2">Intelligent unified approach with cross-modal learning</p>
+                            </div>
+                            <div class="space-y-4">
+                                <div class="bg-white border-l-4 border-green-400 p-4 rounded-r-lg shadow-sm">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="flex-shrink-0 w-8 h-8 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-sm font-bold">1</div>
+                                        <div>
+                                            <div class="font-semibold text-sm text-green-900">Unified Encoder</div>
+                                            <div class="text-xs text-green-700">Single transformer handles all modalities</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-white border-l-4 border-green-400 p-4 rounded-r-lg shadow-sm">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="flex-shrink-0 w-8 h-8 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-sm font-bold">2</div>
+                                        <div>
+                                            <div class="font-semibold text-sm text-green-900">Early Fusion</div>
+                                            <div class="text-xs text-green-700">Cross-modal attention from first layer</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-white border-l-4 border-green-400 p-4 rounded-r-lg shadow-sm">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="flex-shrink-0 w-8 h-8 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-sm font-bold">3</div>
+                                        <div>
+                                            <div class="font-semibold text-sm text-green-900">Joint Training</div>
+                                            <div class="text-xs text-green-700">All modalities trained simultaneously</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-white border-l-4 border-green-400 p-4 rounded-r-lg shadow-sm">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="flex-shrink-0 w-8 h-8 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-sm font-bold">4</div>
+                                        <div>
+                                            <div class="font-semibold text-sm text-green-900">Efficient Scaling</div>
+                                            <div class="text-xs text-green-700">40% fewer parameters, faster convergence</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Performance Metrics - Enhanced Dashboard Style -->
+        <div class="bg-white border border-gray-200 rounded-2xl shadow-lg overflow-hidden">
+            <!-- Section Header -->
+            <div class="bg-gradient-to-r from-orange-50 to-red-50 px-6 md:px-8 py-6 border-b border-gray-200">
+                <div class="flex items-center justify-center md:justify-start">
+                    <div class="flex items-center space-x-4">
+                        <div class="bg-gradient-to-br from-orange-500 to-red-600 text-white w-12 h-12 rounded-xl flex items-center justify-center text-lg font-bold shadow-lg">
+                            3
+                        </div>
+                        <div>
+                            <h4 class="text-xl md:text-2xl font-bold text-gray-900">Training Efficiency Gains</h4>
+                            <p class="text-sm text-gray-600 mt-1">Quantified performance improvements across key metrics</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="p-6 md:p-8">
+                <div class="grid md:grid-cols-3 gap-6 md:gap-8">
+                    <!-- Parameter Efficiency Card -->
+                    <div class="group relative">
+                        <div class="absolute -inset-1 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl opacity-20 group-hover:opacity-30 transition-opacity"></div>
+                        <div class="relative bg-white border-2 border-blue-100 rounded-xl p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                            <div class="text-center mb-6">
+                                <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-xl mb-4 text-2xl">
+                                    ⚡
+                                </div>
+                                <h5 class="text-lg font-bold text-gray-900">Parameter Efficiency</h5>
+                            </div>
+                            
+                            <div class="space-y-6">
+                                <!-- Traditional Multi-encoder Baseline -->
+                                <div class="space-y-3">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-sm font-medium text-gray-700">Traditional Multi-encoder</span>
+                                        <div class="text-right">
+                                            <div class="text-lg font-bold text-red-600">100%</div>
+                                            <div class="text-xs text-gray-500">baseline parameters</div>
+                                        </div>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
+                                        <div class="bg-gradient-to-r from-red-500 to-red-600 h-4 rounded-full shadow-inner" style="width: 100%"></div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Unified Transformer -->
+                                <div class="space-y-3">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-sm font-medium text-gray-700">Unified Transformer</span>
+                                        <div class="text-right">
+                                            <div class="text-lg font-bold text-green-600">60%</div>
+                                            <div class="text-xs text-gray-500">relative parameters</div>
+                                        </div>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
+                                        <div class="bg-gradient-to-r from-green-500 to-green-600 h-4 rounded-full shadow-inner" style="width: 60%"></div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Summary -->
+                                <div class="bg-green-50 border border-green-200 rounded-lg p-3 text-center">
+                                    <div class="text-sm font-semibold text-green-800">40% Reduction</div>
+                                    <div class="text-xs text-green-600">with better performance</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Training Speed Card -->
+                    <div class="group relative">
+                        <div class="absolute -inset-1 bg-gradient-to-br from-green-400 to-green-600 rounded-xl opacity-20 group-hover:opacity-30 transition-opacity"></div>
+                        <div class="relative bg-white border-2 border-green-100 rounded-xl p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                            <div class="text-center mb-6">
+                                <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 text-white rounded-xl mb-4 text-2xl">
+                                    🚀
+                                </div>
+                                <h5 class="text-lg font-bold text-gray-900">Training Speed</h5>
+                            </div>
+                            
+                            <div class="space-y-6">
+                                <!-- Traditional Training Speed -->
+                                <div class="space-y-3">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-sm font-medium text-gray-700">Traditional Training</span>
+                                        <div class="text-right">
+                                            <div class="text-lg font-bold text-red-600">100%</div>
+                                            <div class="text-xs text-gray-500">baseline time</div>
+                                        </div>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
+                                        <div class="bg-gradient-to-r from-red-500 to-red-600 h-4 rounded-full shadow-inner" style="width: 100%"></div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Unified Training Speed -->
+                                <div class="space-y-3">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-sm font-medium text-gray-700">Unified Training</span>
+                                        <div class="text-right">
+                                            <div class="text-lg font-bold text-green-600">65%</div>
+                                            <div class="text-xs text-gray-500">relative time</div>
+                                        </div>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
+                                        <div class="bg-gradient-to-r from-green-500 to-green-600 h-4 rounded-full shadow-inner" style="width: 65%"></div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Summary -->
+                                <div class="bg-green-50 border border-green-200 rounded-lg p-3 text-center">
+                                    <div class="text-sm font-semibold text-green-800">35% Faster</div>
+                                    <div class="text-xs text-green-600">training convergence</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Data Efficiency Card -->
+                    <div class="group relative">
+                        <div class="absolute -inset-1 bg-gradient-to-br from-purple-400 to-purple-600 rounded-xl opacity-20 group-hover:opacity-30 transition-opacity"></div>
+                        <div class="relative bg-white border-2 border-purple-100 rounded-xl p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                            <div class="text-center mb-6">
+                                <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-xl mb-4 text-2xl">
+                                    📊
+                                </div>
+                                <h5 class="text-lg font-bold text-gray-900">Data Requirements</h5>
+                            </div>
+                            
+                            <div class="space-y-6">
+                                <!-- Supervised Only Data Requirements -->
+                                <div class="space-y-3">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-sm font-medium text-gray-700">Supervised Only Training</span>
+                                        <div class="text-right">
+                                            <div class="text-lg font-bold text-red-600">100M</div>
+                                            <div class="text-xs text-gray-500">labeled samples</div>
+                                        </div>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
+                                        <div class="bg-gradient-to-r from-red-500 to-red-600 h-4 rounded-full shadow-inner" style="width: 100%"></div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Unified Self-Supervised -->
+                                <div class="space-y-3">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-sm font-medium text-gray-700">Unified Self-Supervised</span>
+                                        <div class="text-right">
+                                            <div class="text-lg font-bold text-green-600">20M</div>
+                                            <div class="text-xs text-gray-500">labeled samples</div>
+                                        </div>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
+                                        <div class="bg-gradient-to-r from-green-500 to-green-600 h-4 rounded-full shadow-inner" style="width: 20%"></div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Summary -->
+                                <div class="bg-green-50 border border-green-200 rounded-lg p-3 text-center">
+                                    <div class="text-sm font-semibold text-green-800">80% Less</div>
+                                    <div class="text-xs text-green-600">labeled data needed</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Technical Deep Dive - Enhanced Scientific Style -->
+    <div class="relative overflow-hidden bg-gradient-to-br from-indigo-50 via-purple-50 to-blue-100 rounded-2xl border border-indigo-200 shadow-lg q33-tech-section q33-wide-px">
+            <!-- Background Pattern -->
+            <div class="absolute inset-0 bg-circuit-pattern opacity-5"></div>
+            <div class="relative p-6 md:p-8">
+                <div class="text-center mb-8">
+                    <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl mb-4 shadow-lg">
+                        <span class="text-2xl">🔬</span>
+                    </div>
+                    <h4 class="text-2xl md:text-3xl font-bold text-gray-900 mb-2">Technical Implementation Details</h4>
+                    <p class="text-sm md:text-base text-gray-600 max-w-2xl mx-auto">
+                        Mathematical foundations and algorithmic innovations powering multimodal efficiency
+                    </p>
+                </div>
+                
+                <div class="q33-tech-grid">
+                    <!-- Multimodal Attention Formula -->
+                    <div class="group relative">
+                        <div class="absolute -inset-1 bg-gradient-to-br from-purple-400 to-purple-600 rounded-xl opacity-20 group-hover:opacity-30 transition-opacity"></div>
+                        <div class="relative bg-white/90 backdrop-blur-sm border-2 border-purple-200 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300">
+                            <div class="text-center mb-6">
+                                <div class="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-xl mb-3 text-xl">
+                                    🎯
+                                </div>
+                                <h5 class="text-lg font-bold text-purple-900">Multimodal Attention Formula</h5>
+                                <p class="text-sm text-purple-700 mt-1">Cross-modal interaction mechanism</p>
+                            </div>
+                            
+                            <div class="math-display">
+$$\begin{align}
+\mathbf{Q}_{mm} &= \text{Concat}(\mathbf{Q}_{text}, \mathbf{Q}_{image}, \mathbf{Q}_{audio}) \\[0.5em]
+\mathbf{K}_{mm} &= \text{Concat}(\mathbf{K}_{text}, \mathbf{K}_{image}, \mathbf{K}_{audio}) \\[0.5em]
+\mathbf{V}_{mm} &= \text{Concat}(\mathbf{V}_{text}, \mathbf{V}_{image}, \mathbf{V}_{audio}) \\[0.5em]
+\text{MultiModal-Attn} &= \text{softmax}\left(\frac{\mathbf{Q}_{mm}\mathbf{K}_{mm}^T}{\sqrt{d_k}}\right)\mathbf{V}_{mm}
+\end{align}$$
+                            </div>
+                            
+                            <div class="bg-purple-50 border border-purple-200 rounded-lg p-4">
+                                <h6 class="text-sm font-semibold text-purple-900 mb-2">🔍 Key Innovation</h6>
+                                <p class="text-sm text-purple-700 leading-relaxed">
+                                    All modalities attend to each other simultaneously, enabling rich cross-modal interactions 
+                                    and semantic alignment across different input types.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Unified Loss Function -->
+                    <div class="group relative">
+                        <div class="absolute -inset-1 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl opacity-20 group-hover:opacity-30 transition-opacity"></div>
+                        <div class="relative bg-white/90 backdrop-blur-sm border-2 border-blue-200 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300">
+                            <div class="text-center mb-6">
+                                <div class="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-xl mb-3 text-xl">
+                                    📉
+                                </div>
+                                <h5 class="text-lg font-bold text-blue-900">Unified Loss Function</h5>
+                                <p class="text-sm text-blue-700 mt-1">Multi-objective optimization strategy</p>
+                            </div>
+                            
+                            <div class="math-display">
+$$\begin{align}
+\mathcal{L}_{total} &= \alpha \mathcal{L}_{text} + \beta \mathcal{L}_{vision} + \gamma \mathcal{L}_{audio} \\[0.5em]
+&\quad + \delta \mathcal{L}_{contrastive} + \epsilon \mathcal{L}_{reconstruction}
+\end{align}$$
+                            </div>
+                            
+                            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                                <h6 class="text-sm font-semibold text-blue-900 mb-2">⚖️ Balanced Learning</h6>
+                                <p class="text-sm text-blue-700 leading-relaxed">
+                                    Weighted combination of modality-specific and cross-modal objectives ensures 
+                                    balanced learning across all input types and interaction patterns.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Architecture Visualization -->
+                <div class="mt-8 bg-white/80 backdrop-blur-sm border-2 border-indigo-200 rounded-xl p-6 shadow-lg">
+                    <h6 class="text-lg font-bold text-gray-900 text-center mb-6">🏗️ Unified Architecture Flow</h6>
+                    <div class="flex items-center justify-center space-x-4 text-sm overflow-x-auto">
+                        <div class="flex-shrink-0 text-center">
+                            <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 text-white rounded-xl flex items-center justify-center text-xl mb-2">📝</div>
+                            <div class="text-xs font-medium">Text Input</div>
+                        </div>
+                        <div class="text-gray-400 text-xl">→</div>
+                        <div class="flex-shrink-0 text-center">
+                            <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-xl flex items-center justify-center text-xl mb-2">🖼️</div>
+                            <div class="text-xs font-medium">Vision Input</div>
+                        </div>
+                        <div class="text-gray-400 text-xl">→</div>
+                        <div class="flex-shrink-0 text-center">
+                            <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-xl flex items-center justify-center text-xl mb-2">🎵</div>
+                            <div class="text-xs font-medium">Audio Input</div>
+                        </div>
+                        <div class="text-gray-400 text-xl">→</div>
+                        <div class="flex-shrink-0 text-center px-4 py-2 bg-gradient-to-r from-indigo-500 to-purple-600 text-white rounded-xl">
+                            <div class="text-lg font-bold mb-1">🧠</div>
+                            <div class="text-xs font-medium">Unified Transformer</div>
+                        </div>
+                        <div class="text-gray-400 text-xl">→</div>
+                        <div class="flex-shrink-0 text-center">
+                            <div class="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-600 text-white rounded-xl flex items-center justify-center text-xl mb-2">✨</div>
+                            <div class="text-xs font-medium">Multimodal Output</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Real-World Applications - Enhanced Impact Showcase -->
+        <div class="relative overflow-hidden bg-gradient-to-br from-emerald-50 via-blue-50 to-purple-100 rounded-2xl border border-emerald-200 shadow-lg">
+            <!-- Background Pattern -->
+            <div class="absolute inset-0 bg-world-pattern opacity-5"></div>
+            <div class="relative p-6 md:p-8">
+                <div class="text-center mb-8">
+                    <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-emerald-500 to-blue-600 rounded-2xl mb-4 shadow-lg">
+                        <span class="text-2xl">🌟</span>
+                    </div>
+                    <h4 class="text-2xl md:text-3xl font-bold text-gray-900 mb-2">Real-World Impact & Applications</h4>
+                    <p class="text-sm md:text-base text-gray-600 max-w-3xl mx-auto">
+                        Revolutionary multimodal training enables unprecedented capabilities across diverse industries and use cases
+                    </p>
+                </div>
+                
+                <!-- Primary Applications Grid -->
+                <div class="grid lg:grid-cols-3 gap-6 mb-8">
+                    <!-- Video Understanding -->
+                    <div class="group relative">
+                        <div class="absolute -inset-1 bg-gradient-to-br from-green-400 to-green-600 rounded-xl opacity-20 group-hover:opacity-30 transition-opacity"></div>
+                        <div class="relative bg-white/90 backdrop-blur-sm border-2 border-green-200 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300">
+                            <div class="text-center mb-6">
+                                <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 text-white rounded-xl mb-3 text-2xl shadow-lg">
+                                    🎬
+                                </div>
+                                <h5 class="text-lg font-bold text-green-900 mb-2">Video Understanding</h5>
+                                <p class="text-sm text-green-700 leading-relaxed">
+                                    Simultaneously processes visual scenes, dialogue, and background audio for comprehensive video analysis
+                                </p>
+                            </div>
+                            
+                            <!-- Performance Metrics -->
+                            <div class="space-y-3 mb-4">
+                                <div class="bg-green-50 border border-green-200 rounded-lg p-3">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-sm text-green-800">Accuracy vs GPT-4V</span>
+                                        <span class="text-lg font-bold text-green-600">+50%</span>
+                                    </div>
+                                    <div class="w-full bg-green-200 rounded-full h-2 mt-2">
+                                        <div class="bg-green-500 h-2 rounded-full" style="width: 75%"></div>
+                                    </div>
+                                </div>
+                                <div class="bg-green-50 border border-green-200 rounded-lg p-3">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-sm text-green-800">Processing Speed</span>
+                                        <span class="text-lg font-bold text-green-600">3.2×</span>
+                                    </div>
+                                    <div class="w-full bg-green-200 rounded-full h-2 mt-2">
+                                        <div class="bg-green-500 h-2 rounded-full" style="width: 80%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Use Cases -->
+                            <div class="bg-green-50 border border-green-200 rounded-lg p-3">
+                                <h6 class="text-sm font-semibold text-green-900 mb-2">🎯 Key Applications</h6>
+                                <ul class="text-xs text-green-700 space-y-1">
+                                    <li>• Content moderation & safety</li>
+                                    <li>• Educational video analysis</li>
+                                    <li>• Entertainment recommendation</li>
+                                    <li>• Security surveillance</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Conversational AI -->
+                    <div class="group relative">
+                        <div class="absolute -inset-1 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl opacity-20 group-hover:opacity-30 transition-opacity"></div>
+                        <div class="relative bg-white/90 backdrop-blur-sm border-2 border-blue-200 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300">
+                            <div class="text-center mb-6">
+                                <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-xl mb-3 text-2xl shadow-lg">
+                                    🗣️
+                                </div>
+                                <h5 class="text-lg font-bold text-blue-900 mb-2">Conversational AI</h5>
+                                <p class="text-sm text-blue-700 leading-relaxed">
+                                    Understands speech, facial expressions, and gestures in real-time for natural interactions
+                                </p>
+                            </div>
+                            
+                            <!-- Performance Metrics -->
+                            <div class="space-y-3 mb-4">
+                                <div class="bg-blue-50 border border-blue-200 rounded-lg p-3">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-sm text-blue-800">Response Time</span>
+                                        <span class="text-lg font-bold text-blue-600">-30%</span>
+                                    </div>
+                                    <div class="w-full bg-blue-200 rounded-full h-2 mt-2">
+                                        <div class="bg-blue-500 h-2 rounded-full" style="width: 70%"></div>
+                                    </div>
+                                </div>
+                                <div class="bg-blue-50 border border-blue-200 rounded-lg p-3">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-sm text-blue-800">Context Understanding</span>
+                                        <span class="text-lg font-bold text-blue-600">95%</span>
+                                    </div>
+                                    <div class="w-full bg-blue-200 rounded-full h-2 mt-2">
+                                        <div class="bg-blue-500 h-2 rounded-full" style="width: 95%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Use Cases -->
+                            <div class="bg-blue-50 border border-blue-200 rounded-lg p-3">
+                                <h6 class="text-sm font-semibold text-blue-900 mb-2">🎯 Key Applications</h6>
+                                <ul class="text-xs text-blue-700 space-y-1">
+                                    <li>• Virtual assistants & chatbots</li>
+                                    <li>• Customer service automation</li>
+                                    <li>• Language learning platforms</li>
+                                    <li>• Accessibility tools</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Medical Diagnosis -->
+                    <div class="group relative">
+                        <div class="absolute -inset-1 bg-gradient-to-br from-purple-400 to-purple-600 rounded-xl opacity-20 group-hover:opacity-30 transition-opacity"></div>
+                        <div class="relative bg-white/90 backdrop-blur-sm border-2 border-purple-200 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300">
+                            <div class="text-center mb-6">
+                                <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-xl mb-3 text-2xl shadow-lg">
+                                    🏥
+                                </div>
+                                <h5 class="text-lg font-bold text-purple-900 mb-2">Medical Diagnosis</h5>
+                                <p class="text-sm text-purple-700 leading-relaxed">
+                                    Analyzes medical images, patient records, and audio symptoms for comprehensive diagnosis
+                                </p>
+                            </div>
+                            
+                            <!-- Performance Metrics -->
+                            <div class="space-y-3 mb-4">
+                                <div class="bg-purple-50 border border-purple-200 rounded-lg p-3">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-sm text-purple-800">Diagnostic Accuracy</span>
+                                        <span class="text-lg font-bold text-purple-600">95%</span>
+                                    </div>
+                                    <div class="w-full bg-purple-200 rounded-full h-2 mt-2">
+                                        <div class="bg-purple-500 h-2 rounded-full" style="width: 95%"></div>
+                                    </div>
+                                </div>
+                                <div class="bg-purple-50 border border-purple-200 rounded-lg p-3">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-sm text-purple-800">Early Detection</span>
+                                        <span class="text-lg font-bold text-purple-600">+40%</span>
+                                    </div>
+                                    <div class="w-full bg-purple-200 rounded-full h-2 mt-2">
+                                        <div class="bg-purple-500 h-2 rounded-full" style="width: 85%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Use Cases -->
+                            <div class="bg-purple-50 border border-purple-200 rounded-lg p-3">
+                                <h6 class="text-sm font-semibold text-purple-900 mb-2">🎯 Key Applications</h6>
+                                <ul class="text-xs text-purple-700 space-y-1">
+                                    <li>• Radiology image analysis</li>
+                                    <li>• Symptom pattern recognition</li>
+                                    <li>• Drug interaction monitoring</li>
+                                    <li>• Mental health assessment</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Industry Impact Summary -->
+                <div class="bg-white/80 backdrop-blur-sm border-2 border-emerald-200 rounded-xl p-6 shadow-lg">
+                    <h6 class="text-lg font-bold text-gray-900 text-center mb-6">🌍 Global Industry Transformation</h6>
+                    <div class="grid md:grid-cols-4 gap-4 text-center">
+                        <div class="bg-gradient-to-br from-emerald-50 to-emerald-100 border border-emerald-200 rounded-lg p-4">
+                            <div class="text-2xl font-bold text-emerald-600 mb-1">$2.8T</div>
+                            <div class="text-sm text-emerald-800">Market Impact by 2030</div>
+                        </div>
+                        <div class="bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200 rounded-lg p-4">
+                            <div class="text-2xl font-bold text-blue-600 mb-1">67%</div>
+                            <div class="text-sm text-blue-800">Efficiency Improvement</div>
+                        </div>
+                        <div class="bg-gradient-to-br from-purple-50 to-purple-100 border border-purple-200 rounded-lg p-4">
+                            <div class="text-2xl font-bold text-purple-600 mb-1">15+</div>
+                            <div class="text-sm text-purple-800">Industries Transformed</div>
+                        </div>
+                        <div class="bg-gradient-to-br from-orange-50 to-orange-100 border border-orange-200 rounded-lg p-4">
+                            <div class="text-2xl font-bold text-orange-600 mb-1">1B+</div>
+                            <div class="text-sm text-orange-800">Lives Impacted</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

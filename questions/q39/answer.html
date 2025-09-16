@@ -1,0 +1,86 @@
+
+    <div class="space-y-4">
+      <!-- Recommended Reading -->
+  <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+        <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading</h4>
+    <ul class="text-sm text-indigo-800 list-disc ml-5 space-y-1">
+          <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-12">Question 12: Prompt engineering basics</a></li>
+          <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-31">Question 31: Temperature & sampling</a></li>
+          <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-36">Question 36: Retrieval-Augmented Generation</a></li>
+          <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-38">Question 38: Chain-of-Thought prompting</a></li>
+        </ul>
+      </div>
+      <!-- Main Concept -->
+  <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
+        <h4 class="font-semibold text-blue-900 mb-2">🔤 Key Idea</h4>
+        <p class="text-sm text-blue-800">
+          <b>Discriminative</b> models learn the decision rule
+          \(P(y\mid x)\) to predict labels given features (e.g., logistic regression, fine‑tuned BERT).
+          <b>Generative</b> models learn how data is produced, modeling \(P(x)\) or \(P(x,y)\),
+          so they can <i>sample</i> new examples (e.g., GPT).
+        </p>
+  <div class="math-display">
+            $$\begin{aligned}
+            \text{Discriminative: } & \; \hat{y} = \arg\max_y P(y\mid x) \\
+            \text{Generative: } & \; P(x) \text{ or }\; P(x,y) = P(y\mid x)P(x)
+            \end{aligned}$$
+        </div>
+    <p class="text-xs text-blue-800 mt-2">Rule of thumb: Discriminative = best boundaries for labeling; Generative = learn the data distribution to generate or reason with missing parts.</p>
+      </div>
+
+      <!-- Comparison Cards -->
+      <div class="grid md:grid-cols-3 gap-4">
+        <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
+          <h5 class="font-semibold text-green-900 mb-1">🟢 Discriminative</h5>
+          <ul class="text-sm text-green-800 space-y-1">
+            <li>• Models (P(ymid x))</li>
+            <li>• Great for classification and ranking</li>
+            <li>• Often simpler, faster at inference</li>
+            <li>• Examples: Logistic Reg., SVM, fine‑tuned encoder</li>
+          </ul>
+        </div>
+        <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
+          <h5 class="font-semibold text-purple-900 mb-1">🟣 Generative</h5>
+          <ul class="text-sm text-purple-800 space-y-1">
+            <li>• Models (P(x)) or (P(x,y))</li>
+            <li>• Can sample and synthesize new data</li>
+            <li>• Useful for imputation, simulation, few‑shot tasks</li>
+            <li>• Examples: GPT, diffusion models, VAEs</li>
+          </ul>
+        </div>
+        <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
+          <h5 class="font-semibold text-orange-900 mb-1">🟠 Hybrid patterns</h5>
+          <ul class="text-sm text-orange-800 space-y-1">
+            <li>• Discriminative heads on generative backbones</li>
+            <li>• Prompting LLMs for classification</li>
+            <li>• Energy‑based and classifier‑guided generation</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Why This Matters -->
+  <div class="bg-yellow-50 p-4 rounded-lg">
+        <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why This Matters</h4>
+        <ul class="text-sm text-yellow-800 space-y-1">
+          <li>• Choose the right tool: label vs. synthesize vs. reason.</li>
+          <li>• Understand cost/latency: discriminative is often lighter.</li>
+          <li>• Generative models enable data augmentation and interactive agents.</li>
+          <li>• Many modern systems blend both for best results.</li>
+        </ul>
+      </div>
+
+      <!-- Tiny code hints -->
+  <div class="bg-white p-4 rounded border text-xs">
+        <div class="grid md:grid-cols-2 gap-4">
+          <div>
+            <div class="font-semibold mb-1">Discriminative (logistic):</div>
+            <code>p = sigmoid(w·x + b)  // estimates P(y=1 | x)</code>
+          </div>
+          <div>
+            <div class="font-semibold mb-1">Generative (LM sampling):</div>
+            <code>for t in 1..T: x[t] ~ softmax( logits(x[&lt;t]) / T )</code>
+          </div>
+        </div>
+      </div>
+    </div>
+  

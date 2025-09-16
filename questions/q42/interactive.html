@@ -1,0 +1,94 @@
+
+      <!-- existing wrapper start -->
+      <div class="space-y-6">
+        <div class="bg-gradient-to-r from-fuchsia-50 to-rose-50 p-4 rounded-lg border border-fuchsia-200">
+          <div class="flex flex-wrap items-center gap-2 mb-3 text-xs">
+            <!-- existing preset buttons -->
+            <span class="font-semibold text-gray-700 mr-1">Presets:</span>
+            <button data-preset="balanced" class="px-2 py-0.5 rounded border border-fuchsia-300 bg-white hover:bg-fuchsia-100 transition">Balanced</button>
+            <button data-preset="aggressive" class="px-2 py-0.5 rounded border border-fuchsia-300 bg-white hover:bg-fuchsia-100 transition">Aggressive tails</button>
+            <button data-preset="widehead" class="px-2 py-0.5 rounded border border-fuchsia-300 bg-white hover:bg-fuchsia-100 transition">Wide head</button>
+            <button data-preset="compression" class="px-2 py-0.5 rounded border border-fuchsia-300 bg-white hover:bg-fuchsia-100 transition">High compression</button>
+            <button id="q42-adv-toggle" class="px-2 py-0.5 rounded border border-fuchsia-400 bg-fuchsia-50 hover:bg-fuchsia-100 transition" aria-expanded="false">Show advanced ▾</button>
+            <label class="flex items-center gap-1 ml-2 cursor-pointer select-none"><input id="q42-baseline" type="checkbox" class="scale-90"> <span>Baseline overlay</span></label>
+            <button id="q42-copy" class="px-2 py-0.5 rounded border border-fuchsia-400 bg-white hover:bg-fuchsia-100 text-fuchsia-700">Copy link</button>
+            <button id="q42-export" class="px-2 py-0.5 rounded border border-fuchsia-400 bg-white hover:bg-fuchsia-100 text-fuchsia-700">Export</button>
+            <button id="q42-reset" class="ml-auto px-2 py-0.5 rounded bg-fuchsia-600 text-white text-xs hover:bg-fuchsia-700">Reset</button>
+          </div>
+          <!-- existing controls grid retained below -->
+          <div class="grid md:grid-cols-5 gap-4 text-xs">
+            <div>
+              <label class="font-semibold text-gray-700 flex items-center gap-1">Vocab size V <span title="Total vocabulary size used for full softmax baseline." class="cursor-help text-fuchsia-600">?</span></label>
+              <select id="q42-vocab" class="w-full border rounded p-1 text-xs">
+                <option value="50000" selected>50k</option>
+                <option value="100000">100k</option>
+              </select>
+            </div>
+            <div>
+              <label class="font-semibold text-gray-700 flex items-center gap-1">Zipf exponent s <span title="Higher s = steeper frequency drop; more mass concentrated in head." class="cursor-help text-fuchsia-600">?</span></label>
+              <input id="q42-zipf" type="range" min="1.00" max="1.20" step="0.01" value="1.08" class="w-full" />
+              <div class="text-center mt-1">s=<span id="q42-zipf-val" class="font-mono">1.08</span></div>
+            </div>
+            <div>
+              <label class="font-semibold text-gray-700 flex items-center gap-1">Bucket cutoffs <span title="Defines head, tail1, tail2 boundaries by rank (inclusive)." class="cursor-help text-fuchsia-600">?</span></label>
+              <select id="q42-cutoffs" class="w-full border rounded p-1 text-xs">
+                <option value="5000,20000">5k, 20k</option>
+                <option value="8000,25000">8k, 25k</option>
+                <option value="10000,30000" selected>10k, 30k</option>
+                <option value="15000,45000">15k, 45k</option>
+                <option value="15000,50000">15k, 50k</option>
+                <option value="20000,60000">20k, 60k</option>
+              </select>
+              <div class="text-xs text-gray-500 mt-1">Example: 10k,30k → head=[1..10k], tail1=(10k..30k], tail2=(30k..V]</div>
+            </div>
+            <div id="q42-adv-1" class="hidden">
+              <label class="font-semibold text-gray-700 flex items-center gap-1">Tail shrink (α) <span title="Tails use lower projection dims: d_i = α_i · d." class="cursor-help text-fuchsia-600">?</span></label>
+              <select id="q42-alphas" class="w-full border rounded p-1 text-xs">
+                <option value="0.75,0.50">(0.75, 0.50)</option>
+                <option value="0.50,0.25" selected>(0.50, 0.25)</option>
+                <option value="0.50,0.125">(0.50, 0.125)</option>
+                <option value="0.35,0.15">(0.35, 0.15)</option>
+              </select>
+              <div id="q42-alpha-detail" class="text-xs text-gray-500 mt-1"></div>
+            </div>
+            <div id="q42-adv-2" class="hidden">
+              <label class="font-semibold text-gray-700 flex items-center gap-1">Hidden dim d <span title="Base hidden dimension before projection." class="cursor-help text-fuchsia-600">?</span></label>
+              <select id="q42-dim" class="w-full border rounded p-1 text-xs">
+                <option value="512">512</option>
+                <option value="768">768</option>
+                <option value="1024" selected>1024</option>
+                <option value="1536">1536</option>
+                <option value="2048">2048</option>
+              </select>
+            </div>
+          </div>
+          <p class="text-xs text-gray-600 mt-2"><b>Tip:</b> Start with presets. Use “Show advanced” for α & d tuning. Toggle baseline to visualize full softmax reference.</p>
+        </div>
+  <div>
+          <!-- existing panels unchanged up to coverage panel -->
+          <div class="bg-white border rounded-lg p-4">
+            <h5 class="font-semibold text-gray-800 mb-2">🧱 Bucket Coverage</h5>
+            <div id="q42-coverage" class="text-xs text-gray-700 space-y-2" aria-live="polite"></div>
+            <div class="mt-3">
+              <div class="flex items-center justify-between mb-1"><span class="font-semibold text-gray-700 text-xs">Zipf distribution</span><span id="q42-spark-legend" class="text-xs text-gray-500"></span></div>
+              <div id="q42-spark" class="relative h-16 bg-gradient-to-b from-white to-slate-50 border rounded overflow-hidden"></div>
+              <div id="q42-spark-info" class="mt-1 text-xs text-gray-500"></div>
+            </div>
+          </div>
+        </div>
+        <!-- existing explanation & compare panels remain below -->
+        <div class="bg-indigo-50 border border-indigo-200 rounded-lg p-4">
+          <h5 class="font-semibold text-indigo-900 mb-1">🔎 Explanation</h5>
+          <div id="q42-explain" class="text-xs text-indigo-800" aria-live="polite"></div>
+        </div>
+        <div class="bg-white border rounded-lg p-4">
+          <h5 class="font-semibold text-gray-800 mb-2">🧾 Scenario Compare</h5>
+          <div class="flex flex-wrap gap-2 mb-2">
+            <button id="q42-freeze" class="px-2 py-1 text-xs rounded bg-gray-800 text-white hover:bg-gray-700">Freeze current</button>
+            <button id="q42-clear" class="px-2 py-1 text-xs rounded border border-gray-300 hover:bg-gray-50">Clear</button>
+          </div>
+          <div id="q42-compare" class="text-xs space-y-2"></div>
+          <div id="q42-sensitivity" class="text-xs text-gray-600 mt-3"></div>
+        </div>
+      </div>
+    

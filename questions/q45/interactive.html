@@ -1,0 +1,65 @@
+
+      <div class="space-y-6">
+        <div class="bg-gradient-to-r from-rose-50 to-amber-50 p-4 rounded-lg border border-amber-200">
+      <div class="flex flex-wrap items-center gap-2 mb-3 text-xs">
+            <span class="font-semibold text-gray-700 mr-1">Presets:</span>
+            <button data-q45-preset="guardrails" class="px-2 py-0.5 rounded border border-amber-300 bg-white hover:bg-amber-100" title="Prompt + filter only (fast)">Quick guardrails</button>
+            <button data-q45-preset="remediation" class="px-2 py-0.5 rounded border border-amber-300 bg-white hover:bg-amber-100" title="Data remediation focus">Data remediation</button>
+            <button data-q45-preset="factual" class="px-2 py-0.5 rounded border border-amber-300 bg-white hover:bg-amber-100" title="High-risk factual mitigation">High‑risk factual</button>
+            <button data-q45-preset="toxicity" class="px-2 py-0.5 rounded border border-amber-300 bg-white hover:bg-amber-100" title="Toxicity hardening">Toxicity hardening</button>
+            <button data-q45-preset="full" class="px-2 py-0.5 rounded border border-amber-300 bg-white hover:bg-amber-100" title="All strategies layered">Full stack</button>
+            <button id="q45-copy" class="px-2 py-0.5 rounded border border-amber-400 bg-white hover:bg-amber-100 text-amber-700">Copy link</button>
+            <button id="q45-export" class="px-2 py-0.5 rounded border border-amber-400 bg-white hover:bg-amber-100 text-amber-700">Export</button>
+          </div>
+          <div class="grid md:grid-cols-12 gap-4 text-xs">
+            <div class="md:col-span-3">
+              <label class="font-semibold text-gray-700">Failure type</label>
+              <select id="q45-type" class="w-full border rounded p-1 text-xs">
+                <option value="bias" selected>Bias (stereotypes, unfair treatment)</option>
+                <option value="factual">Incorrect facts/hallucinations</option>
+                <option value="toxicity">Toxic/unsafe content</option>
+              </select>
+            </div>
+            <div class="md:col-span-2">
+              <label class="font-semibold text-gray-700">Severity</label>
+              <input id="q45-sev" type="range" min="0" max="1" step="0.05" value="0.6" class="w-full" />
+              <div class="text-center mt-1"><span id="q45-sev-val" class="font-mono">0.60</span></div>
+            </div>
+            <div class="md:col-span-2">
+              <label class="font-semibold text-gray-700">Data quality</label>
+              <input id="q45-data" type="range" min="0" max="1" step="0.05" value="0.5" class="w-full" />
+              <div class="text-center mt-1"><span id="q45-data-val" class="font-mono">0.50</span></div>
+            </div>
+            <div class="md:col-span-5">
+              <label class="font-semibold text-gray-700" title="Layer multiple complementary methods">Strategies</label>
+              <div class="grid grid-cols-3 gap-2 mt-1" role="group" aria-label="Mitigation strategies">
+                <label class="flex items-center gap-1" title="Structured prompts, refusals, self-checks"><input id="q45-s-prompt" type="checkbox" checked /> <span>Prompt guardrails</span></label>
+                <label class="flex items-center gap-1" title="Retrieve external evidence for factual grounding"><input id="q45-s-rag" type="checkbox" /> <span>RAG grounding</span></label>
+                <label class="flex items-center gap-1" title="Augment / rebalance data to counter skew"><input id="q45-s-augment" type="checkbox" checked /> <span>Data rebal/augment</span></label>
+                <label class="flex items-center gap-1" title="Toxicity & safety classifiers / regex filters"><input id="q45-s-filter" type="checkbox" checked /> <span>Safety filter</span></label>
+                <label class="flex items-center gap-1" title="Supervised finetune on curated policy examples"><input id="q45-s-sft" type="checkbox" /> <span>SFT fine-tune</span></label>
+                <label class="flex items-center gap-1" title="Align outputs to preferences / safety via feedback"><input id="q45-s-rlhf" type="checkbox" /> <span>RLHF/DPO</span></label>
+              </div>
+            </div>
+          </div>
+          <p class="text-xs text-gray-600 mt-2">Residual risk uses a multiplicative reduction model with diminishing returns at high severity and low data quality.</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-4">
+          <div class="bg-white border rounded-lg p-4">
+            <h5 class="font-semibold text-gray-800 mb-2">📉 Risk impact</h5>
+            <div id="q45-bars" class="text-xs text-gray-700 space-y-1" aria-live="polite"></div>
+            <div class="text-xs text-gray-500 mt-1">Top bar = base risk; second = residual after selected strategies.</div>
+          </div>
+          <div class="bg-white border rounded-lg p-4">
+            <h5 class="font-semibold text-gray-800 mb-2">📊 Metrics</h5>
+            <div id="q45-metrics" class="text-xs text-gray-700 space-y-2" aria-live="polite"></div>
+            <div id="q45-guidance" class="mt-1 text-xs text-indigo-700 border-t pt-2" aria-live="polite"></div>
+          </div>
+          <div class="bg-white border rounded-lg p-4">
+            <h5 class="font-semibold text-gray-800 mb-2">🧠 Recommendation</h5>
+            <div id="q45-explain" class="text-xs text-gray-700" aria-live="polite"></div>
+          </div>
+        </div>
+      </div>
+    

@@ -1,0 +1,95 @@
+<div class="space-y-4">
+        <!-- Recommended Reading -->
+        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related)</h4>
+            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+                <li><a href="#question-01" class="text-indigo-700 underline hover:text-indigo-900">Question 1: Tokenization – how input is segmented before NSP pairs are formed</a></li>
+                <li><a href="#question-02" class="text-indigo-700 underline hover:text-indigo-900">Question 2: Attention – mechanism modeling cross-sentence dependencies</a></li>
+                <li><a href="#question-09" class="text-indigo-700 underline hover:text-indigo-900">Question 9: Autoregressive vs Masked – where NSP fits in pretraining objectives</a></li>
+                <li><a href="#question-25" class="text-indigo-700 underline hover:text-indigo-900">Question 25: Cross-Entropy Loss – objective used by the NSP classification head</a></li>
+            </ul>
+        </div>
+        <!-- Main Concept Box -->
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
+            <h4 class="font-semibold text-blue-900 mb-2">🔗 What is Next Sentence Prediction?</h4>
+            <p class="text-blue-800">Next Sentence Prediction (NSP) is a pretraining task that teaches language models to understand whether two sentences naturally follow each other. Think of it like teaching a student to recognize if two paragraphs from a book belong together or were randomly shuffled - this helps the model learn document structure and coherence patterns.</p>
+        </div>
+        
+        <!-- NSP Training Process Grid -->
+        <div class="grid md:grid-cols-2 gap-4">
+            <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
+                <h5 class="font-medium text-green-900 mb-2">✅ Positive Pairs (50%)</h5>
+                <p class="text-sm text-green-700 mb-2">Sequential sentences that naturally follow each other from the same document.</p>
+                <div class="text-xs space-y-1">
+                    <div><strong>Example:</strong> "The cat sat on the mat. It was a sunny afternoon."</div>
+                    <div><strong>Label:</strong> <code class="bg-green-100 px-1 rounded">IsNext</code></div>
+                </div>
+            </div>
+            
+            <div class="bg-red-50 p-3 rounded border-l-4 border-red-400">
+                <h5 class="font-medium text-red-900 mb-2">❌ Negative Pairs (50%)</h5>
+                <p class="text-sm text-red-700 mb-2">Random sentences from different documents that don't naturally connect.</p>
+                <div class="text-xs space-y-1">
+                    <div><strong>Example:</strong> "The cat sat on the mat. Quantum computing uses qubits."</div>
+                    <div><strong>Label:</strong> <code class="bg-red-100 px-1 rounded">NotNext</code></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Applications Grid -->
+        <div class="grid md:grid-cols-3 gap-4">
+            <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
+                <h5 class="font-medium text-purple-900 mb-2">💬 Dialogue Systems</h5>
+                <p class="text-sm text-purple-700 mb-2">Understanding conversation flow and context continuity.</p>
+                <code class="text-xs bg-purple-100 px-1 rounded block mt-2">User: "How's the weather?" → Bot: "It's sunny today!"</code>
+            </div>
+            
+            <div class="bg-indigo-50 p-3 rounded border-l-4 border-indigo-400">
+                <h5 class="font-medium text-indigo-900 mb-2">📄 Document Summarization</h5>
+                <p class="text-sm text-indigo-700 mb-2">Identifying key relationships between sentences for coherent summaries.</p>
+                <code class="text-xs bg-indigo-100 px-1 rounded block mt-2">Para 1 + Para 2 → Coherent Summary</code>
+            </div>
+            
+            <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
+                <h5 class="font-medium text-orange-900 mb-2">🔍 Reading Comprehension</h5>
+                <p class="text-sm text-orange-700 mb-2">Better understanding of text structure and logical flow.</p>
+                <code class="text-xs bg-orange-100 px-1 rounded block mt-2">Question + Context → Coherent Answer</code>
+            </div>
+        </div>
+        
+        <!-- How NSP Works -->
+        <div class="bg-indigo-50 p-4 rounded-lg border-l-4 border-indigo-400">
+            <h4 class="font-semibold text-indigo-900 mb-2">🧠 How NSP Training Works</h4>
+            <div class="text-sm text-indigo-800 space-y-2">
+                <p><strong>Data Preparation:</strong> Extract consecutive sentence pairs from documents, then create 50% positive (sequential) and 50% negative (random) pairs</p>
+                <p><strong>Model Input:</strong> [CLS] Sentence A [SEP] Sentence B [SEP] → Binary classification head</p>
+                <p><strong>Training Objective:</strong> Learn to predict whether Sentence B naturally follows Sentence A</p>
+                <div class="bg-indigo-100 p-2 rounded mt-2">
+                    <strong>Example:</strong> BERT uses NSP alongside Masked Language Modeling (MLM) to learn both token-level and sentence-level understanding simultaneously.
+                </div>
+            </div>
+        </div>
+        
+        <!-- Caveats & Modern Practice -->
+        <div class="bg-white p-4 rounded-lg border">
+            <h4 class="font-semibold text-gray-900 mb-2">⚠️ Caveats and modern practice</h4>
+            <ul class="text-sm text-gray-700 space-y-1">
+                <li>• While NSP was used in BERT pretraining, follow-ups like <strong>RoBERTa</strong> removed NSP and matched or improved results.</li>
+                <li>• <strong>ALBERT</strong> introduced <em>Sentence Order Prediction (SOP)</em>, using swapped segments as harder negatives instead of random pairs.</li>
+                <li>• Many decoder-only LLMs (GPT-style) don’t use NSP; they learn discourse coherence from next-token prediction over long contexts.</li>
+                <li>• Include NSP/SOP only if it helps your data/task: validate via downstream tasks that require sentence-level coherence.</li>
+            </ul>
+        </div>
+
+        <!-- Why This Matters -->
+        <div class="bg-yellow-50 p-4 rounded-lg">
+            <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why NSP Enhances LLMs</h4>
+            <ul class="text-sm text-yellow-800 space-y-1">
+                <li>• <strong>Coherence Understanding:</strong> Models learn to maintain logical flow in generated text</li>
+                <li>• <strong>Document Structure:</strong> Better grasp of how sentences relate within longer contexts</li>
+                <li>• <strong>Contextual Reasoning:</strong> Improved ability to understand implicit relationships between ideas</li>
+                <li>• <strong>Task Transfer:</strong> NSP knowledge transfers to downstream tasks requiring sentence-level understanding</li>
+                <li>• <strong>Conversation Flow:</strong> Enhanced performance in dialogue systems and conversational AI</li>
+            </ul>
+        </div>
+    </div>

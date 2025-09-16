@@ -1,0 +1,73 @@
+
+<div class="space-y-6" id="q53-root">
+  <!-- Inputs -->
+  <div class="p-4 rounded-lg bg-gradient-to-r from-indigo-50 to-indigo-100 border border-indigo-200 space-y-4">
+    <div class="rounded-md bg-white/70 border border-indigo-200 p-3 text-[11px] leading-relaxed">
+      <div class="font-semibold text-indigo-800 text-xs mb-1">How to use</div>
+      <ol class="list-decimal ml-4 space-y-1 text-indigo-900">
+        <li>Edit or keep the logits vector (raw scores).</li>
+        <li>Adjust <b>Temperature</b> to sharpen (T&lt;1) or flatten (T&gt;1) the base distribution.</li>
+        <li>Select a strategy radio (Greedy / Top-k / Nucleus / Typical).</li>
+        <li>For Top-k move the slider to limit candidate set size; for Top-p set cumulative probability; for Typical set τ (coverage over entropy band).</li>
+        <li>Click <b>Sample</b> to draw; highlighted rows show candidate tokens considered.</li>
+      </ol>
+      <div class="text-[10px] text-indigo-700 mt-2">Greedy is deterministic; stochastic methods resample each click. Typical sampling trims both low-prob tail <em>and</em> overly predictable tokens.</div>
+    </div>
+    <div class="flex flex-wrap gap-3 items-end">
+      <div class="flex-1 min-w-[260px]">
+        <label class="block text-xs font-medium text-gray-600 mb-1" for="q53-logits">Example Logit Pattern</label>
+        <select id="q53-logits" class="w-full text-sm px-3 py-2 border rounded-md bg-white">
+          <option value="3.2,2.8,1.4,0.2,-1.0" selected>Moderately peaked</option>
+          <option value="2.5,2.4,2.3,0.1,-0.5">Near tie triple</option>
+          <option value="5.0,1.2,0.5,-0.3,-1.0">Strong single winner</option>
+          <option value="0.3,0.2,0.1,0.0,-0.1">Almost flat</option>
+          <option value="4.0,0.0,-1.0,-3.0,-6.0">High contrast spread</option>
+          <option value="2.0,1.0,0.0,-1.0,-2.0">Linear decay</option>
+          <option value="1.5,1.5,-0.2,-0.8,-1.2">Exact tie pair</option>
+          <option value="7.0,1.0,0.8,0.2,-2.0">Extreme outlier</option>
+        </select>
+      </div>
+      <div>
+        <label class="block text-xs font-medium text-gray-600 mb-1" for="q53-temp">Temperature</label>
+        <input id="q53-temp" type="range" min="0.2" max="1.8" step="0.1" value="1.0" class="w-40" />
+        <div class="text-[10px] text-gray-500 text-center"><span id="q53-temp-val">1.0</span></div>
+      </div>
+      <div>
+        <label class="block text-xs font-medium text-gray-600 mb-1" for="q53-topk">Top-k</label>
+        <input id="q53-topk" type="range" min="1" max="10" step="1" value="3" class="w-36" />
+        <div class="text-[10px] text-gray-500 text-center"><span id="q53-topk-val">3</span></div>
+      </div>
+      <div>
+        <label class="block text-xs font-medium text-gray-600 mb-1" for="q53-topp">Top-p</label>
+        <input id="q53-topp" type="range" min="0.5" max="0.99" step="0.01" value="0.9" class="w-36" />
+        <div class="text-[10px] text-gray-500 text-center"><span id="q53-topp-val">0.90</span></div>
+      </div>
+      <div>
+        <label class="block text-xs font-medium text-gray-600 mb-1" for="q53-typical">Typical τ</label>
+        <input id="q53-typical" type="range" min="0.5" max="1.8" step="0.1" value="1.0" class="w-36" />
+        <div class="text-[10px] text-gray-500 text-center"><span id="q53-typical-val">1.0</span></div>
+      </div>
+    </div>
+    <div class="flex flex-wrap gap-3 items-center text-xs">
+      <label class="flex items-center gap-1"><input type="radio" name="q53-mode" value="greedy" checked /> Greedy</label>
+      <label class="flex items-center gap-1"><input type="radio" name="q53-mode" value="topk" /> Top-k</label>
+      <label class="flex items-center gap-1"><input type="radio" name="q53-mode" value="topp" /> Nucleus</label>
+      <label class="flex items-center gap-1"><input type="radio" name="q53-mode" value="typical" /> Typical</label>
+      <button id="q53-sample" class="ml-auto px-3 py-1.5 text-xs rounded bg-indigo-600 text-white hover:bg-indigo-700">Sample</button>
+      <button id="q53-reset" class="px-3 py-1.5 text-xs rounded border bg-white hover:bg-gray-50">Reset</button>
+    </div>
+  </div>
+
+  <!-- Distribution View -->
+  <div class="grid md:grid-cols-2 gap-6">
+    <div class="space-y-3">
+      <h5 class="font-semibold text-gray-800 text-sm">Token Probabilities</h5>
+      <div id="q53-table" class="space-y-1 text-xs font-mono"></div>
+    </div>
+    <div class="space-y-3">
+      <h5 class="font-semibold text-gray-800 text-sm">Result & Explanation</h5>
+      <div id="q53-result" class="p-3 rounded-lg border bg-white text-sm">—</div>
+      <div id="q53-explain" class="text-xs text-gray-600 leading-relaxed"></div>
+    </div>
+  </div>
+</div>

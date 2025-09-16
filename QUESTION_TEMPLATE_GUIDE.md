@@ -6,44 +6,44 @@ This guide explains how to create new questions and keep them consistent with th
 
 ```
 questions/
-  question-57.js              # Lightweight shim (CommonJS export)
-  q57/                        # Question assets live in their own folder
-    answer.html               # Main static content
-    interactive.html          # Interactive markup
-    interactive.js            # Interactive behaviour (exports a function)
-manifest.json                 # Maps question ids to their asset folders
+  manifest.json                 # Maps question ids to their asset folders
+  q-template/                   # Copy to qXX/ when starting a new question
+    answer.html
+    interactive.html
+    interactive.js
+  q57/
+    answer.html
+    interactive.html
+    interactive.js
 ```
 
 Static share pages still live under `/q/N.html`. Use `q/_template.html` as a reference when adding new ones.
 
 ## Loader expectations
 
-The client fetches `/questions/manifest.json` to discover question assets. Each entry can either
+The client fetches `/questions/manifest.json` to discover question assets. Each entry should point to a `dir` (preferred) or explicit paths:
 
-- reference a `dir` (preferred): the loader automatically looks for `answer.html`, `interactive.html`, and `interactive.js` inside that folder; or
-- provide explicit `answerPath`, `interactive.htmlPath`, and `interactive.scriptPath` overrides.
+```json
+{
+  "57": {
+    "title": "57. …?",
+    "dir": "./questions/q57",
+    "interactiveTitle": "…"
+  }
+}
+```
 
-Every question keeps a small `questions/question-XX.js` shim so existing tooling (and older links) continue to work. The shim should export a helpful placeholder and a clear title, but the real content comes from the manifest entry.
+`dir` tells the loader to grab `answer.html`, `interactive.html`, and `interactive.js` from that folder. Only fall back to explicit `answerPath`/`interactive` overrides when you need to share assets across questions.
 
 ## Authoring workflow
 
-1. **Create the folder:** `questions/qXX/` (two-digit id).
-2. **Answer content (`answer.html`):** plain HTML fragment, no `<html>` wrapper. Stick to the established visual pattern: recommended reading box → core concept (blue) → comparison cards → “Why this matters”. Emoji are encouraged for scannability but keep them purposeful.
-3. **Interactive markup (`interactive.html`):** HTML fragment for inputs, sliders, radios, results, etc. Include short helper text beneath controls when the intent may not be obvious.
-4. **Interactive behaviour (`interactive.js`):** export a function `interactiveScript` (CommonJS + browser global). Use defensive DOM lookups and keep state local. If the script needs to re-typeset MathJax, call `window.MathJax?.typesetPromise` on the relevant node.
-5. **Manifest entry:** add the new question to `questions/manifest.json`. The preferred form is:
-   ```json
-   {
-     "57": {
-       "title": "57. …?",
-       "dir": "./questions/q57",
-       "interactiveTitle": "…"
-     }
-   }
-   ```
-   You may still use the legacy `answerPath` / `interactive` object when necessary (e.g., sharing assets between questions), but keep it consistent.
-6. **Shim update:** keep `questions/question-57.js` as a short placeholder that exports the title and a small hint that content loads dynamically.
-7. **Share page:** add or update `/q/57.html` so the static unfurl links match the new title and description.
+1. **Copy the template folder:** duplicate `questions/q-template/` to `questions/qXX/` (two-digit id).
+2. **Answer content (`answer.html`):** plain HTML fragment, no `<html>` wrapper. Follow the visual pattern—recommended reading box → core concept (blue) → comparison cards → “Why this matters”. Emojis are encouraged when they improve scannability.
+3. **Interactive markup (`interactive.html`):** HTML fragment for inputs, sliders, radios, results, etc. Keep helper text beneath controls when intent isn’t obvious.
+4. **Interactive behaviour (`interactive.js`):** export a function named `interactiveScript` (CommonJS + browser global). Use defensive DOM lookups and keep state local. If the script needs to re-typeset MathJax, call `window.MathJax?.typesetPromise` on the relevant node.
+5. **Manifest entry:** add/update the question in `questions/manifest.json` using the `dir` form. Include `interactiveTitle` so the app can show a friendly label in the sidebar.
+6. **Share page:** update `/q/XX.html` so static unfurl links match the new title/description.
+7. **App wiring:** make sure `availableQuestions` in `js/app.js` contains the id. Update curated learning paths if needed.
 
 ## Content structure tips
 
@@ -54,16 +54,15 @@ Every question keeps a small `questions/question-XX.js` shim so existing tooling
 
 ## Interactive design guidelines
 
-- Provide sensible defaults so first render is informative.
-- Surface helper text directly under controls (e.g., slider explanations).
+- Provide sensible defaults so the first render is informative.
+- Surface helper text directly under controls (sliders, radios, toggles).
 - Use accessible labels/`aria-` attributes when the default markup isn’t enough.
-- Write modular code: derive derived values in small helper functions to stay readable.
+- Write modular code: factor complex calculations into helpers to stay readable.
 - When adding asynchronous behaviour, guard against duplicate requests and race conditions.
 
 ## Emoji and encoding
 
-All project files are stored as UTF-8 with `
-` line endings. When copying template snippets, make sure your editor retains UTF-8 so emoji (🎯, 🧠, etc.) render correctly rather than as fallback characters.
+All project files are stored as UTF-8 with `\n` line endings. When copying template snippets, make sure your editor retains UTF-8 so emoji (🎯, 🧠, etc.) render correctly rather than as fallback characters.
 
 ## Testing checklist
 
@@ -75,4 +74,4 @@ All project files are stored as UTF-8 with `
 
 ## Maintaining older questions
 
-Not every existing question has been migrated yet. When you touch a legacy `questions/question-XX.js`, consider moving it to the folder/manifest pattern described above. Keep the diff focused—migrate one question per change so reviews stay manageable.
+Legacy `questions/question-XX.js` modules have been retired. If you discover one, migrate it to the folder/manifest pattern above and remove the JS shim.

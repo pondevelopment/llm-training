@@ -1,0 +1,144 @@
+
+        <div class="space-y-4">
+            <!-- Recommended Reading Links -->
+            <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+                <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (if these terms are new)</h4>
+                <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+                    <li><a href="#question-4" class="text-indigo-700 underline hover:text-indigo-900">Question 4: LoRA vs QLoRA</a> — adapters vs full fine‑tuning and memory trade‑offs.</li>
+                    <li><a href="#question-29" class="text-indigo-700 underline hover:text-indigo-900">Question 29: KL divergence</a> — the divergence used in many distillation losses.</li>
+                    <li><a href="#question-6" class="text-indigo-700 underline hover:text-indigo-900">Question 6: Temperature in generation</a> — intuition for temperature T used during distillation.</li>
+                </ul>
+            </div>
+            <!-- Main Concept -->
+            <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
+                <h4 class="font-semibold text-blue-900 mb-2">🎓 What is Model Distillation?</h4>
+                <p class="text-blue-800">
+                    Model distillation is like a master craftsman teaching an apprentice. A large, powerful "teacher" model 
+                    trains a smaller "student" model by sharing not just the final answers, but also its confidence levels 
+                    and reasoning patterns. The student learns to mimic the teacher's decision-making process while being 
+                    much smaller and faster.
+                </p>
+            </div>
+
+            <!-- Distillation Types -->
+            <div class="grid md:grid-cols-3 gap-4">
+                <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
+                    <h5 class="font-medium text-green-900">📚 Knowledge Distillation</h5>
+                    <p class="text-sm text-green-700 mb-2">
+                        Train student using teacher's soft probability distributions instead of hard labels.
+                    </p>
+                    <div class="math-display text-xs">$$\mathcal{L} = \alpha\, T^2\, D_{KL}\!\left(p_{t}^{(T)}\,\big\|\, p_{s}^{(T)}\right) + (1-\alpha)\, \mathrm{CE}(y, p_s)$$</div>
+                </div>
+                
+                <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
+                    <h5 class="font-medium text-purple-900">🏗️ Progressive Distillation</h5>
+                    <p class="text-sm text-purple-700 mb-2">
+                        Gradually reduce model size through multiple teacher-student generations.
+                    </p>
+                    <code class="text-xs bg-purple-100 px-1 rounded block">
+                        Large → Medium → Small → Tiny
+                    </code>
+                </div>
+                
+                <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
+                    <h5 class="font-medium text-orange-900">🎯 Task-Specific Distillation</h5>
+                    <p class="text-sm text-orange-700 mb-2">
+                        Specialize student models for specific tasks while maintaining general teacher knowledge.
+                    </p>
+                    <code class="text-xs bg-orange-100 px-1 rounded block">
+                        General Teacher → Task Expert
+                    </code>
+                </div>
+            </div>
+
+            <!-- Technical Process -->
+            <div class="bg-gray-50 p-4 rounded-lg">
+                <h4 class="font-semibold text-gray-900 mb-2">⚙️ Distillation Process</h4>
+                <div class="grid md:grid-cols-2 gap-4 text-sm">
+                    <div>
+                        <h6 class="font-medium text-gray-800 mb-2">Teacher Model (Large):</h6>
+                        <ul class="text-gray-700 space-y-1">
+                            <li>• Generates soft probability distributions</li>
+                            <li>• Provides rich knowledge about uncertainty</li>
+                            <li>• Shows confidence patterns across classes</li>
+                            <li>• Reveals dark knowledge from training</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h6 class="font-medium text-gray-800 mb-2">Student Model (Small):</h6>
+                        <ul class="text-gray-700 space-y-1">
+                            <li>• Learns from teacher's probability distributions</li>
+                            <li>• Mimics teacher's confidence patterns</li>
+                            <li>• Compressed architecture with fewer parameters</li>
+                            <li>• Optimized for target deployment environment</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Advanced Techniques -->
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="bg-indigo-50 p-3 rounded border-l-4 border-indigo-400">
+                    <h5 class="font-medium text-indigo-900">🌡️ Temperature Scaling</h5>
+                    <p class="text-sm text-indigo-700">
+                        Adjust softmax temperature to control probability distribution smoothness during distillation.
+                    </p>
+                    <div class="math-display text-xs">$$p_i = \frac{e^{z_i / T}}{\sum_j e^{z_j / T}}$$</div>
+                </div>
+                
+                <div class="bg-teal-50 p-3 rounded border-l-4 border-teal-400">
+                    <h5 class="font-medium text-teal-900">🔄 Online Distillation</h5>
+                    <p class="text-sm text-teal-700">
+                        Train teacher and student simultaneously, with mutual learning between peer networks.
+                    </p>
+                    <code class="text-xs bg-teal-100 px-1 rounded block mt-1">
+                        Peer Network A ↔ Peer Network B
+                    </code>
+                </div>
+            </div>
+
+            <!-- Benefits and Applications -->
+            <div class="bg-yellow-50 p-4 rounded-lg">
+                <h4 class="font-semibold text-yellow-900 mb-2">🎯 Key Benefits for LLMs</h4>
+                <div class="grid md:grid-cols-2 gap-4 text-sm">
+                    <div>
+                        <h6 class="font-medium text-yellow-800 mb-2">Performance Benefits:</h6>
+                        <ul class="text-yellow-700 space-y-1">
+                            <li>• <strong>Size Reduction:</strong> 10-100x smaller models</li>
+                            <li>• <strong>Speed Increase:</strong> 5-50x faster inference</li>
+                            <li>• <strong>Memory Efficiency:</strong> Lower GPU/CPU requirements</li>
+                            <li>• <strong>Energy Savings:</strong> Reduced power consumption</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h6 class="font-medium text-yellow-800 mb-2">Deployment Benefits:</h6>
+                        <ul class="text-yellow-700 space-y-1">
+                            <li>• <strong>Mobile Deployment:</strong> Run on smartphones/tablets</li>
+                            <li>• <strong>Edge Computing:</strong> Local processing capabilities</li>
+                            <li>• <strong>Real-time Applications:</strong> Low-latency responses</li>
+                            <li>• <strong>Cost Reduction:</strong> Lower infrastructure costs</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Trade-offs and Considerations -->
+            <div class="bg-red-50 p-4 rounded-lg border-l-4 border-red-400">
+                <h4 class="font-semibold text-red-900 mb-2">⚖️ Trade-offs and Considerations</h4>
+                <div class="text-sm text-red-800 space-y-2">
+                    <p><strong>Performance vs. Size:</strong> Smaller models typically have some performance degradation compared to teachers.</p>
+                    <p><strong>Task Generalization:</strong> Distilled models may struggle with tasks very different from training data.</p>
+                    <p><strong>Training Complexity:</strong> Requires careful tuning of temperature, loss weights, and architectures.</p>
+                    <p><strong>Teacher Quality:</strong> Student performance is fundamentally limited by teacher model quality.</p>
+                </div>
+            </div>
+
+            <!-- Standard Distillation Loss (Reference) -->
+            <div class="bg-white p-3 rounded border">
+                <h5 class="font-medium text-gray-900 mb-1">🧮 Standard Distillation Loss</h5>
+                <p class="text-sm text-gray-700 mb-2">Weighted combination of soft (teacher) and hard (ground‑truth) terms with temperature scaling:</p>
+                <div class="math-display text-sm">$$\mathcal{L}_{\mathrm{KD}} = \alpha\, T^2\, D_{KL}\!\left(p_{t}^{(T)}\,\big\|\, p_{s}^{(T)}\right) + (1-\alpha)\, \mathrm{CE}(y, p_s)$$</div>
+                <p class="text-xs text-gray-500 mt-2">Where: <em>T</em> is temperature, <em>alpha</em> balances soft vs. hard targets, <em>p_t^{(T)}</em> and <em>p_s^{(T)}</em> are teacher/student with temperature.</p>
+            </div>
+        </div>
+    

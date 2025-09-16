@@ -1,0 +1,87 @@
+<div class="space-y-6">
+            <!-- Input Section -->
+            <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200">
+                <label for="q22-text-select" class="block text-sm font-medium text-gray-700 mb-2">📝 Choose a Sentence to Analyze</label>
+                <select id="q22-text-select" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white">
+                    <option value="The cat sat on the mat">The cat sat on the mat (Simple subject-verb-object)</option>
+                    <option value="The quick brown fox jumps over the lazy dog">The quick brown fox jumps over the lazy dog (Multiple adjectives and relationships)</option>
+                    <option value="Although it was raining, she decided to go outside">Although it was raining, she decided to go outside (Complex clause structure)</option>
+                    <option value="The teacher who helped me yesterday is very kind">The teacher who helped me yesterday is very kind (Relative clause)</option>
+                    <option value="I think that you should definitely consider this proposal">I think that you should definitely consider this proposal (Nested thoughts)</option>
+                    <option value="Machine learning models require extensive training data">Machine learning models require extensive training data (Technical terminology)</option>
+                    <option value="Neither John nor Mary could solve the problem">Neither John nor Mary could solve the problem (Coordination and negation)</option>
+                    <option value="The book I read last week was fascinating">The book I read last week was fascinating (Embedded clause)</option>
+                </select>
+                <p class="text-xs text-gray-600 mt-1">Each sentence demonstrates different linguistic patterns that multiple heads can capture!</p>
+            </div>
+            
+            <!-- Number of Heads Selection -->
+            <div class="bg-white border border-gray-200 rounded-lg p-4">
+                <label class="block text-sm font-medium text-gray-700 mb-3">🎯 Choose Number of Attention Heads</label>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                    <label class="relative border border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors">
+                        <input type="radio" name="q22-heads" value="4" class="absolute top-2 right-2">
+                        <div class="heads-option">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-medium text-gray-900">4 Heads</span>
+                                <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">Basic</span>
+                            </div>
+                            <p class="text-xs text-gray-600">Small model configuration, good for simple patterns</p>
+                            <div class="text-xs mt-2 font-mono bg-gray-100 px-2 py-1 rounded">
+                                d_head = 192 (768/4)
+                            </div>
+                        </div>
+                    </label>
+                    
+                    <label class="relative border border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors">
+                        <input type="radio" name="q22-heads" value="8" checked class="absolute top-2 right-2">
+                        <div class="heads-option">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-medium text-gray-900">8 Heads</span>
+                                <span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">Standard</span>
+                            </div>
+                            <p class="text-xs text-gray-600">Common configuration balancing complexity and efficiency</p>
+                            <div class="text-xs mt-2 font-mono bg-gray-100 px-2 py-1 rounded">
+                                d_head = 96 (768/8)
+                            </div>
+                        </div>
+                    </label>
+                    
+                    <label class="relative border border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors">
+                        <input type="radio" name="q22-heads" value="12" class="absolute top-2 right-2">
+                        <div class="heads-option">
+                            <div class="flex items-center justify-between mb-2">
+                                <span class="font-medium text-gray-900">12 Heads</span>
+                                <span class="text-xs bg-orange-100 text-orange-800 px-2 py-1 rounded">Advanced</span>
+                            </div>
+                            <p class="text-xs text-gray-600">Large model configuration for complex pattern recognition</p>
+                            <div class="text-xs mt-2 font-mono bg-gray-100 px-2 py-1 rounded">
+                                d_head = 64 (768/12)
+                            </div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Quick Info -->
+            <div class="flex flex-wrap gap-2">
+                <span class="text-sm font-medium text-gray-700">💡 Quick Tip:</span>
+                <span class="text-xs bg-indigo-100 text-indigo-700 px-2 py-1 rounded">Each head specializes in different linguistic patterns - watch how they focus on different words!</span>
+            </div>
+            
+            <!-- Results Section -->
+            <div class="bg-white border border-gray-200 rounded-lg p-4">
+                <div class="flex items-center justify-between mb-3">
+                    <h4 class="font-medium text-gray-900">🎨 Multi-Head Attention Visualization</h4>
+                    <div id="q22-heads-indicator" class="text-xs bg-gray-100 px-2 py-1 rounded font-medium"></div>
+                </div>
+                <div id="q22-output" class="min-h-[300px] p-3 bg-gray-50 rounded border-2 border-dashed border-gray-300" aria-live="polite"></div>
+                <div id="q22-legend" class="mt-3 text-xs"></div>
+            </div>
+            
+            <!-- Educational Analysis -->
+            <div id="q22-analysis" class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                <h4 class="font-medium text-yellow-900 mb-2">📊 Attention Head Analysis</h4>
+                <div id="q22-explanation" class="text-sm text-yellow-800" aria-live="polite"></div>
+            </div>
+        </div>

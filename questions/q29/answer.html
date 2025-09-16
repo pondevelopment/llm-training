@@ -1,0 +1,259 @@
+<div class="space-y-6">
+        <!-- Recommended Reading (Top) -->
+        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading</h4>
+            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+                <li><a href="#question-25" class="text-indigo-700 underline hover:text-indigo-900">Question 25: Why is cross-entropy loss used in language modeling?</a></li>
+                <li><a href="#question-23" class="text-indigo-700 underline hover:text-indigo-900">Question 23: How is the softmax function applied in attention mechanisms?</a></li>
+                <li><a href="#question-31" class="text-indigo-700 underline hover:text-indigo-900">Question 31: How does backpropagation work, and why is the chain rule critical?</a></li>
+                <li><a href="#question-28" class="text-indigo-700 underline hover:text-indigo-900">Question 28: How do eigenvalues and eigenvectors relate to dimensionality reduction?</a></li>
+            </ul>
+        </div>
+        <!-- Hero Section with Clear Definition -->
+        <div class="bg-gradient-to-br from-blue-50 via-purple-50 to-indigo-100 p-6 rounded-xl border border-blue-200 shadow-sm">
+            <div class="text-center mb-4">
+                <h3 class="text-xl font-bold text-gray-900 mb-2">📊 Kullback-Leibler (KL) Divergence</h3>
+                <p class="text-lg text-gray-700 max-w-3xl mx-auto">
+                    A mathematical measure that quantifies how one probability distribution differs from another, essential for training and aligning language models.
+                </p>
+            </div>
+            
+            <div class="max-w-3xl mx-auto">
+                <div class="bg-white p-6 rounded-lg border shadow-sm">
+                    <div class="text-center space-y-4">
+                        <p class="text-sm font-medium text-gray-700">Core Mathematical Definition</p>
+                        
+                        <div class="bg-blue-50 p-6 rounded-lg border border-blue-200">
+                            <div class="space-y-3">
+                                <div class="math-display">$$D_{KL}(P||Q) = \sum_{x} P(x) \log \frac{P(x)}{Q(x)}$$</div>
+                                <div class="text-sm text-gray-600">where \( P(x) \) is the true distribution and \( Q(x) \) is the approximating distribution</div>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center text-sm text-gray-600 mt-4">
+                            Measures the "surprise" when using distribution Q to approximate the true distribution P
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mathematical Properties -->
+        <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
+            <h4 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
+                <span class="bg-blue-100 text-blue-800 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold mr-3">1</span>
+                📐 Mathematical Properties
+            </h4>
+            
+            <div class="grid lg:grid-cols-2 gap-6">
+                <!-- Key Properties -->
+                <div class="bg-blue-50 p-5 rounded-lg border border-blue-200">
+                    <h5 class="font-semibold text-blue-900 mb-4 text-center">Essential Properties</h5>
+                    <div class="space-y-4">
+                        <div class="bg-white p-4 rounded-lg border">
+                            <div class="text-sm font-medium text-gray-700 mb-2">Non-negativity</div>
+                            <div class="math-display">$$D_{KL}(P||Q) \geq 0$$</div>
+                            <div class="text-xs text-gray-600 mt-2">Always positive; equals 0 only when P = Q</div>
+                        </div>
+                        
+                        <div class="bg-white p-4 rounded-lg border">
+                            <div class="text-sm font-medium text-gray-700 mb-2">Asymmetry</div>
+                            <div class="math-display">$$D_{KL}(P||Q) \neq D_{KL}(Q||P)$$</div>
+                            <div class="text-xs text-gray-600 mt-2">Not a true distance metric - order matters!</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Information Theory Connection -->
+                <div class="bg-green-50 p-5 rounded-lg border border-green-200">
+                    <h5 class="font-semibold text-green-900 mb-3">Information Theory Interpretation</h5>
+                    <div class="space-y-3">
+                        <div class="bg-white p-3 rounded-lg border flex items-center space-x-3">
+                            <div class="w-3 h-3 bg-purple-500 rounded-full flex-shrink-0"></div>
+                            <div>
+                                <div class="font-medium text-sm text-gray-900">Relative Entropy</div>
+                                <div class="text-xs text-gray-600">Extra bits needed when using Q instead of P</div>
+                            </div>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg border flex items-center space-x-3">
+                            <div class="w-3 h-3 bg-blue-500 rounded-full flex-shrink-0"></div>
+                            <div>
+                                <div class="font-medium text-sm text-gray-900">Cross-entropy Connection</div>
+                                <div class="text-xs text-gray-600">\( D_{KL}(P||Q) = H(P,Q) - H(P) \)</div>
+                            </div>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg border flex items-center space-x-3">
+                            <div class="w-3 h-3 bg-green-500 rounded-full flex-shrink-0"></div>
+                            <div>
+                                <div class="font-medium text-sm text-gray-900">Information Gain</div>
+                                <div class="text-xs text-gray-600">Measures information lost in approximation</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- LLM Applications -->
+        <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
+            <h4 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
+                <span class="bg-purple-100 text-purple-800 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold mr-3">2</span>
+                🤖 Applications in Large Language Models
+            </h4>
+            
+            <div class="grid md:grid-cols-3 gap-4">
+                <!-- Knowledge Distillation -->
+                <div class="text-center">
+                    <div class="bg-purple-50 p-4 rounded-lg border border-purple-200 h-full">
+                        <div class="font-medium text-purple-900 mb-3">Knowledge Distillation</div>
+                        <div class="bg-white p-3 rounded border mb-3">
+                            <div class="text-sm">$$\mathcal{L} = D_{KL}(P_{teacher}||P_{student})$$</div>
+                        </div>
+                        <div class="text-xs text-purple-700">Train smaller models to mimic larger teacher models by minimizing distribution differences</div>
+                    </div>
+                </div>
+
+                <!-- RLHF Training -->
+                <div class="text-center">
+                    <div class="bg-blue-50 p-4 rounded-lg border border-blue-200 h-full">
+                        <div class="font-medium text-blue-900 mb-3">RLHF Constraint</div>
+                        <div class="bg-white p-3 rounded border mb-3">
+                            <div class="text-sm">
+                                $$
+                                \begin{align*}
+                                \mathcal{L} = & \mathbb{E}[r(x,y)] \\
+                                               & - \beta D_{KL}(\pi||\pi_{ref})
+                                \end{align*}
+                                $$
+                            </div>
+                        </div>
+                        <div class="text-xs text-blue-700">Prevents policy from drifting too far from reference model during alignment</div>
+                    </div>
+                </div>
+
+                <!-- Model Regularization -->
+                <div class="text-center">
+                    <div class="bg-green-50 p-4 rounded-lg border border-green-200 h-full">
+                        <div class="font-medium text-green-900 mb-3">Regularization</div>
+                        <div class="bg-white p-3 rounded border mb-3">
+                            <div class="text-sm">
+                                $$
+                                \begin{align*}
+                                \mathcal{L} = & \mathcal{L}_{task} \\
+                                               & + \lambda D_{KL}(P_{model}||P_{prior})
+                                \end{align*}
+                                $$
+                            </div>
+                        </div>
+                        <div class="text-xs text-green-700">Keeps model close to a prior distribution to prevent overfitting</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-6 p-4 bg-purple-50 rounded-lg border border-purple-200">
+                <div class="text-sm text-purple-800 text-center">
+                    <strong>Key Insight:</strong> KL divergence provides a principled way to measure and control how much models change during training, ensuring stability and preventing catastrophic forgetting.
+                </div>
+            </div>
+        </div>
+        
+        <!-- Practical Considerations -->
+        <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
+            <h4 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
+                <span class="bg-orange-100 text-orange-800 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold mr-3">3</span>
+                ⚙️ Practical Implementation Considerations
+            </h4>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Numerical Stability -->
+                <div class="bg-white p-4 rounded-lg border">
+                    <h5 class="font-semibold text-gray-900 mb-3">Numerical Stability</h5>
+                    <div class="bg-orange-50 p-4 rounded-lg border border-orange-200 mb-3">
+                        <div class="text-center">
+                            <div class="text-sm">
+                                $$
+                                \begin{align*}
+                                D_{KL}(P||Q) = & \sum P(x) \left[\log P(x) \right. \\
+                                               & \left. - \log Q(x)\right]
+                                \end{align*}
+                                $$
+                            </div>
+                            <div class="text-xs text-gray-600 mt-2">Numerically stable log-space computation</div>
+                        </div>
+                    </div>
+                    <div class="text-sm text-gray-600 space-y-2">
+                        <div>• Use log-space arithmetic to avoid underflow</div>
+                        <div>• Add small epsilon to prevent log(0)</div>
+                        <div>• Use torch.nn.functional.kl_div in PyTorch</div>
+                    </div>
+                </div>
+                
+                <!-- Common Pitfalls -->
+                <div class="bg-white p-4 rounded-lg border">
+                    <h5 class="font-semibold text-gray-900 mb-3">Common Pitfalls</h5>
+                    <div class="space-y-3">
+                        <div class="bg-red-50 p-3 rounded border border-red-200">
+                            <div class="font-medium text-red-900 text-sm">Asymmetry Confusion</div>
+                            <div class="text-xs text-red-700">\( D_{KL}(P||Q) 
+eq D_{KL}(Q||P) \) - order matters!</div>
+                        </div>
+                        
+                        <div class="bg-yellow-50 p-3 rounded border border-yellow-200">
+                            <div class="font-medium text-yellow-900 text-sm">Zero Probability Issue</div>
+                            <div class="text-xs text-yellow-700">Undefined when Q(x)=0 but P(x)>0</div>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-3 rounded border border-blue-200">
+                            <div class="font-medium text-blue-900 text-sm">Scale Sensitivity</div>
+                            <div class="text-xs text-blue-700">Very sensitive to probability tail differences</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Alternative Divergences -->
+        <div class="bg-gradient-to-r from-gray-50 via-blue-50 to-purple-50 border border-gray-200 rounded-xl p-6 shadow-sm">
+            <h4 class="text-lg font-bold text-gray-900 mb-4 text-center">🔄 Related Divergence Measures</h4>
+            
+            <div class="grid lg:grid-cols-3 gap-6">
+                <div class="bg-white p-5 rounded-lg border shadow-sm text-center">
+                    <div class="text-2xl mb-3">↔️</div>
+                    <h5 class="font-semibold text-blue-900 mb-3">Jensen-Shannon Divergence</h5>
+                    <div class="text-sm bg-blue-50 p-3 rounded mb-3">
+                        $$
+                        \begin{align*}
+                        JS(P,Q) = & \frac{1}{2}D_{KL}(P||M) \\
+                                  & + \frac{1}{2}D_{KL}(Q||M)
+                        \end{align*}
+                        $$
+                    </div>
+                    <p class="text-sm text-gray-700">
+                        Symmetric version of KL divergence, bounded between 0 and 1
+                    </p>
+                </div>
+                
+                <div class="bg-white p-5 rounded-lg border shadow-sm text-center">
+                    <div class="text-2xl mb-3">🎯</div>
+                    <h5 class="font-semibold text-purple-900 mb-3">Reverse KL</h5>
+                    <div class="text-sm bg-purple-50 p-3 rounded mb-3">
+                        $$D_{KL}(Q||P)$$
+                    </div>
+                    <p class="text-sm text-gray-700">
+                        Mode-seeking behavior, used in variational inference and GANs
+                    </p>
+                </div>
+                
+                <div class="bg-white p-5 rounded-lg border shadow-sm text-center">
+                    <div class="text-2xl mb-3">🌊</div>
+                    <h5 class="font-semibold text-green-900 mb-3">Wasserstein Distance</h5>
+                    <div class="text-sm bg-green-50 p-3 rounded mb-3">
+                        $$W(P,Q) = \inf_{\gamma} \mathbb{E}[d(x,y)]$$
+                    </div>
+                    <p class="text-sm text-gray-700">
+                        Earth mover's distance, more stable for training GANs
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>

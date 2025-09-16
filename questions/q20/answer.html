@@ -1,0 +1,198 @@
+<div class="space-y-4">
+        <!-- Recommended Reading -->
+        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related)</h4>
+            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+                <li><a href="#question-09" class="text-indigo-700 underline hover:text-indigo-900">Question 9: How do autoregressive and masked models differ?</a></li>
+                <li><a href="#question-15" class="text-indigo-700 underline hover:text-indigo-900">Question 15: What is model distillation, and how does it benefit LLMs?</a></li>
+                <li><a href="#question-18" class="text-indigo-700 underline hover:text-indigo-900">Question 18: What is overfitting, and how can it be mitigated?</a></li>
+                <li><a href="#question-19" class="text-indigo-700 underline hover:text-indigo-900">Question 19: Generative vs discriminative models in NLP</a></li>
+                <li><a href="#question-06" class="text-indigo-700 underline hover:text-indigo-900">Question 6: How does temperature affect generation?</a></li>
+            </ul>
+        </div>
+        <!-- Main Concept Box -->
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
+            <h4 class="font-semibold text-blue-900 mb-2">🚀 GPT-3 → GPT-4 → GPT-5: The Evolution</h4>
+            <p class="text-blue-800">Think of GPT-4 as a <strong>significantly upgraded smartphone</strong> compared to GPT-3's older model. While both can make calls and send texts (generate text), GPT-4 can also take photos (process images), has much more storage (larger context), and makes fewer mistakes (enhanced accuracy). <strong>GPT-5</strong> continues the trend with <em>built-in "thinking" modes and a router</em> that adapts between fast responses and deeper reasoning, plus improvements in speed, coding, and safety (fewer hallucinations, more helpful safe completions).</p>
+        </div>
+        
+        <!-- Direct Comparison Grid -->
+        <div class="grid md:grid-cols-3 gap-4">
+            <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
+                <h5 class="font-medium text-orange-900 mb-2">📱 GPT-3 (2020)</h5>
+                <div class="space-y-2 text-sm text-orange-700">
+                    <div class="bg-orange-100 p-2 rounded">
+                        <strong>Input:</strong> Text only
+                    </div>
+                    <div class="bg-orange-100 p-2 rounded">
+                        <strong>Context:</strong> 4,096 tokens (~3,000 words)
+                    </div>
+                    <div class="bg-orange-100 p-2 rounded">
+                        <strong>Parameters:</strong> 175 billion
+                    </div>
+                    <div class="bg-orange-100 p-2 rounded">
+                        <strong>Accuracy:</strong> Good but prone to hallucinations
+                    </div>
+                    <div class="bg-orange-100 p-2 rounded">
+                        <strong>Applications:</strong> Text generation, basic Q&A, creative writing
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
+                <h5 class="font-medium text-green-900 mb-2">🌟 GPT-4 (2023)</h5>
+                <div class="space-y-2 text-sm text-green-700">
+                    <div class="bg-green-100 p-2 rounded">
+                        <strong>Input:</strong> Text AND images (multimodal)
+                    </div>
+                    <div class="bg-green-100 p-2 rounded">
+                        <strong>Context:</strong> 25,000+ tokens (~18,000 words)
+                    </div>
+                    <div class="bg-green-100 p-2 rounded">
+                        <strong>Parameters:</strong> ~1 trillion (estimated)
+                    </div>
+                    <div class="bg-green-100 p-2 rounded">
+                        <strong>Accuracy:</strong> Significantly more reliable
+                    </div>
+                    <div class="bg-green-100 p-2 rounded">
+                        <strong>Applications:</strong> Visual Q&A, complex analysis, coding, research
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-blue-50 p-3 rounded border-l-4 border-blue-400">
+                <h5 class="font-medium text-blue-900 mb-2">💠 GPT-5 (2025)</h5>
+                <div class="space-y-2 text-sm text-blue-700">
+                    <div class="bg-blue-100 p-2 rounded">
+                        <strong>Input:</strong> Text, images, audio (multimodal)
+                    </div>
+                    <div class="bg-blue-100 p-2 rounded">
+                        <strong>Context:</strong> Large, router-managed (varies by sub‑model)
+                    </div>
+                    <div class="bg-blue-100 p-2 rounded">
+                        <strong>Thinking/Router:</strong> Fast model + deeper reasoning model
+                    </div>
+                    <div class="bg-blue-100 p-2 rounded">
+                        <strong>Reliability:</strong> Faster responses, fewer hallucinations, safer completions
+                    </div>
+                    <div class="bg-blue-100 p-2 rounded">
+                        <strong>Applications:</strong> Faster everyday tasks, deeper analysis on demand, stronger coding
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Improvements -->
+        <div class="grid md:grid-cols-3 gap-4">
+            <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
+                <h5 class="font-medium text-purple-900 mb-2">👁️ Multimodal Input</h5>
+                <p class="text-sm text-purple-700 mb-2">Can process both text and images</p>
+                <div class="text-xs bg-purple-100 p-2 rounded">
+                    <strong>Example:</strong> "What's in this image?" + photo → detailed description
+                </div>
+            </div>
+            
+            <div class="bg-indigo-50 p-3 rounded border-l-4 border-indigo-400">
+                <h5 class="font-medium text-indigo-900 mb-2">📚 Larger Context</h5>
+                <p class="text-sm text-indigo-700 mb-2">6x more context window for complex tasks</p>
+                <div class="text-xs bg-indigo-100 p-2 rounded">
+                    <strong>Benefit:</strong> Can analyze entire documents, maintain longer conversations
+                </div>
+            </div>
+            
+            <div class="bg-teal-50 p-3 rounded border-l-4 border-teal-400">
+                <h5 class="font-medium text-teal-900 mb-2">🎯 Enhanced Accuracy</h5>
+                <p class="text-sm text-teal-700 mb-2">Better fine-tuning reduces errors</p>
+                <div class="text-xs bg-teal-100 p-2 rounded">
+                    <strong>Result:</strong> More reliable facts, fewer hallucinations
+                </div>
+            </div>
+        </div>
+
+    <!-- Performance Comparison -->
+        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+            <h5 class="font-medium text-gray-900 mb-3">📊 Performance Benchmarks</h5>
+            <div class="grid md:grid-cols-2 gap-4 text-sm">
+                <div>
+                    <div class="font-medium text-gray-700 mb-2">Academic Benchmarks:</div>
+                    <div class="space-y-1">
+                        <div class="flex justify-between">
+                            <span>SAT Math:</span>
+                            <span>
+                                <span class="text-orange-600">GPT-3: 590</span>
+                                → <span class="text-green-600">GPT-4: 700</span>
+                                → <span class="text-blue-600">GPT-5: 730</span>
+                            </span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Bar Exam:</span>
+                            <span>
+                                <span class="text-orange-600">GPT-3: 10th%</span>
+                                → <span class="text-green-600">GPT-4: 90th%</span>
+                                → <span class="text-blue-600">GPT-5: 95th%</span>
+                            </span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Coding (HumanEval):</span>
+                            <span>
+                                <span class="text-orange-600">GPT-3: 0%</span>
+                                → <span class="text-green-600">GPT-4: 67%</span>
+                                → <span class="text-blue-600">GPT-5: 80%</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="font-medium text-gray-700 mb-2">Language Understanding:</div>
+                    <div class="space-y-1">
+                        <div class="flex justify-between">
+                            <span>Reading Comprehension:</span>
+                            <span>
+                                <span class="text-orange-600">Good</span>
+                                → <span class="text-green-600">Excellent</span>
+                                → <span class="text-blue-600">Excellent+</span>
+                            </span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Factual Accuracy:</span>
+                            <span>
+                                <span class="text-orange-600">75%</span>
+                                → <span class="text-green-600">85%+</span>
+                                → <span class="text-blue-600">90%+</span>
+                            </span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>Reasoning:</span>
+                            <span>
+                                <span class="text-orange-600">Limited</span>
+                                → <span class="text-green-600">Enhanced</span>
+                                → <span class="text-blue-600">Stronger</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 2025 Update Note for GPT-5 -->
+        <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+            <h5 class="font-medium text-blue-900 mb-2">🆕 2025 Update: GPT-5</h5>
+            <ul class="text-sm text-blue-800 space-y-1">
+                <li>• Adds a <strong>router</strong> that selects between a fast, high‑throughput model and a deeper <strong>thinking</strong> model</li>
+                <li>• <strong>Improved safety</strong> with helpful, safe completions and fewer hallucinations</li>
+                <li>• <strong>Better coding</strong> and writing quality; <strong>faster responses</strong> for everyday tasks; deeper reasoning when needed</li>
+            </ul>
+        </div>
+        
+        <!-- Why It Matters Section -->
+        <div class="bg-yellow-50 p-4 rounded-lg">
+            <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why These Improvements Matter</h4>
+            <ul class="text-sm text-yellow-800 space-y-1">
+                <li>• <strong>Multimodal Capabilities:</strong> Enables visual question answering, document analysis, and image-based applications</li>
+                <li>• <strong>Extended Context:</strong> Allows for complex document analysis, longer conversations, and better task completion</li>
+                <li>• <strong>Improved Reliability:</strong> More trustworthy for professional applications, research, and critical decision-making</li>
+                <li>• <strong>Better Reasoning:</strong> Enhanced logical thinking and problem-solving capabilities across domains</li>
+                <li>• <strong>Professional Applications:</strong> Suitable for legal analysis, medical consultation, advanced coding, and academic research</li>
+            </ul>
+        </div>
+    </div>

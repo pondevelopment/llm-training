@@ -1,0 +1,58 @@
+<div class="space-y-4">
+        <!-- Recommended Reading -->
+        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related)</h4>
+            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+                <li><a href="#question-47" class="text-indigo-700 underline hover:text-indigo-900">Question 47: Context & perplexity</a></li>
+                <li><a href="#question-48" class="text-indigo-700 underline hover:text-indigo-900">Question 48: Hyperparameters</a></li>
+                <li><a href="#question-49" class="text-indigo-700 underline hover:text-indigo-900">Question 49: Defining LLM scale & capability</a></li>
+                <li><a href="#question-18" class="text-indigo-700 underline hover:text-indigo-900">Question 18: Overfitting & mitigation</a></li>
+            </ul>
+        </div>
+        <!-- Main Concept Box -->
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
+            <h4 class="font-semibold text-blue-900 mb-2">🧭 Core Challenges</h4>
+            <p class="text-blue-800 mb-2">Deploying LLMs in production is not just about model quality. Teams must balance <b>cost</b>, <b>latency</b>, <b>fairness & safety</b>, <b>interpretability</b>, and <b>privacy</b> while meeting product goals.</p>
+            <ul class="list-disc pl-5 text-blue-900 text-sm space-y-1">
+                <li><b>Resource intensity:</b> High computational demands (serving GPUs, memory, scaling).</li>
+                <li><b>Bias & safety:</b> Risk of perpetuating training data biases or unsafe outputs.</li>
+                <li><b>Interpretability:</b> Complex models are hard to explain and audit.</li>
+                <li><b>Privacy & compliance:</b> Potential data security concerns and regulations.</li>
+            </ul>
+        </div>
+
+        <!-- Comparison Grid -->
+        <div class="grid md:grid-cols-3 gap-4">
+            <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
+                <h5 class="font-medium text-green-900">Performance</h5>
+                <ul class="text-sm text-green-800 list-disc pl-5 space-y-1">
+                    <li>Latency targets (SLA) and throughput</li>
+                    <li>Quantization, batching, KV-caching</li>
+                </ul>
+            </div>
+            <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
+                <h5 class="font-medium text-purple-900">Safety & Quality</h5>
+                <ul class="text-sm text-purple-800 list-disc pl-5 space-y-1">
+                    <li>Instruction tuning, RLHF, guardrails</li>
+                    <li>Evaluation & red-teaming</li>
+                </ul>
+            </div>
+            <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
+                <h5 class="font-medium text-orange-900">Privacy & Compliance</h5>
+                <ul class="text-sm text-orange-800 list-disc pl-5 space-y-1">
+                    <li>Pseudonymization, on-prem/edge options</li>
+                    <li>Auditability and data retention</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Why It Matters -->
+        <div class="bg-yellow-50 p-4 rounded-lg">
+            <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why This Matters</h4>
+            <ul class="text-sm text-yellow-800 space-y-1">
+                <li>• <strong>Production readiness:</strong> Meeting SLAs without exploding costs.</li>
+                <li>• <strong>Trust & safety:</strong> Reducing bias and harmful outputs.</li>
+                <li>• <strong>Governance:</strong> Satisfying privacy, security, and audit requirements.</li>
+            </ul>
+        </div>
+    </div>

@@ -1,0 +1,111 @@
+<div class="space-y-4">
+        <!-- Recommended Reading (moved to top) -->
+        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200" id="q32-recommended-reading">
+            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading</h4>
+            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+                <li><a href="#question-24" class="text-indigo-700 underline hover:text-indigo-900">Question 24: What is softmax and why is it used?</a></li>
+                <li><a href="#question-30" class="text-indigo-700 underline hover:text-indigo-900">Question 30: What is the ReLU activation function?</a></li>
+                <li><a href="#question-31" class="text-indigo-700 underline hover:text-indigo-900">Question 31: How does backpropagation work?</a></li>
+                <li><a href="#question-33" class="text-indigo-700 underline hover:text-indigo-900">Question 33: What is multi-head attention?</a></li>
+            </ul>
+            <p class="text-xs text-indigo-700 mt-2">These build conceptual grounding for scaling, softmax distribution, gradient flow, and extension to multi-head attention.</p>
+        </div>
+        
+        <!-- Main Concept Box -->
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
+            <h4 class="font-semibold text-blue-900 mb-2">🎯 What is Transformer Attention?</h4>
+            <p class="text-blue-800">Attention in transformers is a mechanism that allows the model to <strong>focus on different parts of the input sequence</strong> when processing each token. It's computed using three matrices: <strong>Query (Q)</strong>, <strong>Key (K)</strong>, and <strong>Value (V)</strong>. Think of it like a search engine: the Query asks "what am I looking for?", Keys answer "what information do I contain?", and Values provide "the actual information to use".</p>
+        </div>
+        
+        <!-- The Core Formula -->
+        <div class="bg-white p-4 rounded-lg border border-gray-200">
+            <h4 class="font-semibold text-gray-900 mb-3">📊 The Attention Formula</h4>
+            <div class="text-center">
+                <div class="math-display">$$\text{Attention}(\mathbf{Q}, \mathbf{K}, \mathbf{V}) = \text{softmax}\left(\frac{\mathbf{Q}\mathbf{K}^T}{\sqrt{d_k}}\right)\mathbf{V}$$</div>
+                <p class="text-sm text-gray-600 mt-2">The scaled dot-product attention mechanism that revolutionized NLP</p>
+            </div>
+        </div>
+        
+        <!-- Step-by-Step Process -->
+        <div class="grid md:grid-cols-4 gap-4">
+            <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
+                <h5 class="font-medium text-green-900">1. Dot Product</h5>
+                <p class="text-sm text-green-700 mb-2">Compute similarity between queries and keys</p>
+                <div class="math-display">$$\mathbf{Q}\mathbf{K}^T$$</div>
+                <p class="text-xs text-green-600 mt-2">🔍 Measures relevance: higher values = more similar</p>
+            </div>
+            
+            <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
+                <h5 class="font-medium text-purple-900">2. Scale</h5>
+                <p class="text-sm text-purple-700 mb-2">Normalize by dimension to prevent saturation</p>
+                <div class="math-display">$$\frac{\mathbf{Q}\mathbf{K}^T}{\sqrt{d_k}}$$</div>
+                <p class="text-xs text-purple-600 mt-2">⚖️ Prevents gradients from vanishing in softmax</p>
+            </div>
+            
+            <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
+                <h5 class="font-medium text-orange-900">3. Softmax</h5>
+                <p class="text-sm text-orange-700 mb-2">Convert to probability distribution</p>
+                <div class="math-display">$$\text{softmax}(\text{scores})$$</div>
+                <p class="text-xs text-orange-600 mt-2">📊 Creates attention weights that sum to 1</p>
+            </div>
+            
+            <div class="bg-red-50 p-3 rounded border-l-4 border-red-400">
+                <h5 class="font-medium text-red-900">4. Weighted Sum</h5>
+                <p class="text-sm text-red-700 mb-2">Combine values using attention weights</p>
+                <div class="math-display">$$\text{weights} \cdot \mathbf{V}$$</div>
+                <p class="text-xs text-red-600 mt-2">🎯 Final contextualized representation</p>
+            </div>
+        </div>
+        
+        <!-- Matrix Dimensions and Relationships -->
+        <div class="bg-indigo-50 p-4 rounded-lg border-l-4 border-indigo-400">
+            <h4 class="font-semibold text-indigo-900 mb-2">🔢 Matrix Dimensions</h4>
+            <div class="text-sm text-indigo-800 space-y-2">
+                <p class="text-indigo-700">Understanding the shapes is crucial to see why the matrix multiplications line up:</p>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-xs md:text-sm border border-indigo-200 bg-white rounded">
+                        <thead class="bg-indigo-100">
+                            <tr class="text-left">
+                                <th class="p-2 font-medium">Symbol</th>
+                                <th class="p-2 font-medium">Meaning</th>
+                                <th class="p-2 font-medium">Shape</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-t">
+                                <td class="p-2 font-mono">Q</td>
+                                <td class="p-2">Query vectors</td>
+                                <td class="p-2 font-mono">(seq_len × d_k)</td>
+                            </tr>
+                            <tr class="border-t">
+                                <td class="p-2 font-mono">K</td>
+                                <td class="p-2">Key vectors</td>
+                                <td class="p-2 font-mono">(seq_len × d_k)</td>
+                            </tr>
+                            <tr class="border-t">
+                                <td class="p-2 font-mono">V</td>
+                                <td class="p-2">Value vectors</td>
+                                <td class="p-2 font-mono">(seq_len × d_v)</td>
+                            </tr>
+                            <tr class="border-t bg-indigo-50">
+                                <td class="p-2 font-mono">Q Kᵀ</td>
+                                <td class="p-2">Similarity scores</td>
+                                <td class="p-2 font-mono">(seq_len × seq_len)</td>
+                            </tr>
+                            <tr class="border-t">
+                                <td class="p-2 font-mono">softmax(Q Kᵀ / √d_k)</td>
+                                <td class="p-2">Attention weights</td>
+                                <td class="p-2 font-mono">(seq_len × seq_len)</td>
+                            </tr>
+                            <tr class="border-t bg-indigo-50">
+                                <td class="p-2 font-mono">Attn · V</td>
+                                <td class="p-2">Output representations</td>
+                                <td class="p-2 font-mono">(seq_len × d_v)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="text-xs text-indigo-700">Multiplications are valid because inner dimensions match: (seq_len × d_k) · (d_k × seq_len) → (seq_len × seq_len), then (seq_len × seq_len) · (seq_len × d_v) → (seq_len × d_v).</p>
+            </div>
+        </div>
+    </div>

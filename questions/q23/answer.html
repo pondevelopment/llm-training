@@ -1,0 +1,62 @@
+<div class="space-y-4">
+        <!-- Recommended Reading (Top) -->
+        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading</h4>
+            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+                <li><a href="#question-2" class="text-indigo-700 underline hover:text-indigo-900">Question 2: How does the attention mechanism function in transformer models?</a></li>
+                <li><a href="#question-24" class="text-indigo-700 underline hover:text-indigo-900">Question 24: How does the dot product contribute to self-attention?</a></li>
+                <li><a href="#question-32" class="text-indigo-700 underline hover:text-indigo-900">Question 32: How are attention scores calculated in transformers?</a></li>
+                <li><a href="#question-22" class="text-indigo-700 underline hover:text-indigo-900">Question 22: What is multi-head attention, and how does it enhance LLMs?</a></li>
+            </ul>
+        </div>
+
+        <!-- Main Concept Box -->
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
+            <h4 class="font-semibold text-blue-900 mb-2">🎯 What is Softmax in Attention?</h4>
+            <p class="text-blue-800">The softmax function converts raw attention scores (similarity values) into a probability distribution that sums to 1. Think of it like converting preference ratings into percentages - if you rate 3 restaurants as 8, 6, and 4, softmax converts these to probabilities like 65%, 24%, and 11%.</p>
+        </div>
+        
+        <!-- Mathematical Formula -->
+        <div class="bg-gray-50 p-4 rounded-lg border border-gray-300">
+            <h4 class="font-semibold text-gray-900 mb-2">📐 The Softmax Formula</h4>
+        <div id="q23-formula" class="math-display">
+            $$ p_i = rac{e^{x_i}}{sum_{j} e^{x_j}} $$ \newline
+            $$ p_i(T) = rac{e^{x_i/T}}{sum_{j} e^{x_j/T}} $$
+        </div>
+            <p class="text-sm text-gray-600 mt-2">Here, x<sub>i</sub> are raw attention scores; softmax converts them into a probability distribution that sums to 1.</p>
+        </div>
+        
+        <!-- Temperature Effects Grid -->
+        <div class="grid md:grid-cols-3 gap-4">
+            <div class="bg-blue-50 p-3 rounded border-l-4 border-blue-400">
+                <h5 class="font-medium text-blue-900">Low Temperature (T < 1.0)</h5>
+                <p class="text-sm text-blue-700">Makes probabilities more "peaked" - emphasizes differences between scores</p>
+                <code class="text-xs bg-blue-100 px-1 rounded">[3, 2, 1] → [0.67, 0.24, 0.09]</code>
+            </div>
+            
+            <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
+                <h5 class="font-medium text-green-900">Normal Temperature (1.0)</h5>
+                <p class="text-sm text-green-700">Standard softmax behavior - balanced probability distribution</p>
+                <code class="text-xs bg-green-100 px-1 rounded">[3, 2, 1] → [0.58, 0.31, 0.11]</code>
+            </div>
+            
+            <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
+                <h5 class="font-medium text-orange-900">High Temperature (T > 1.0)</h5>
+                <p class="text-sm text-orange-700">Makes probabilities more "flat" - reduces differences between scores</p>
+                <code class="text-xs bg-orange-100 px-1 rounded">[3, 2, 1] → [0.42, 0.34, 0.24]</code>
+            </div>
+        </div>
+        
+        <!-- Why It Matters Section -->
+        <div class="bg-yellow-50 p-4 rounded-lg">
+            <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why This Matters</h4>
+            <ul class="text-sm text-yellow-800 space-y-1">
+                <li>• <strong>Normalization:</strong> Ensures attention weights sum to 1, creating a valid probability distribution</li>
+                <li>• <strong>Differentiability:</strong> Smooth function that allows gradient-based learning during training</li>
+                <li>• <strong>Focus Control:</strong> Temperature parameter controls how sharply the model focuses attention</li>
+                <li>• <strong>Numerical Stability:</strong> Prevents extreme values from dominating the attention mechanism</li>
+                <li>• <strong>Interpretability:</strong> Outputs can be interpreted as "how much to attend to each position"</li>
+            </ul>
+        </div>
+        
+    </div>

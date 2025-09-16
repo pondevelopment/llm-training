@@ -1,0 +1,152 @@
+<div class="space-y-4">
+        <!-- Recommended reading -->
+        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading</h4>
+            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+                <li><a href="#question-23" class="text-indigo-700 underline hover:text-indigo-900">Question 23: How is the softmax function applied in attention mechanisms?</a></li>
+                <li><a href="#question-29" class="text-indigo-700 underline hover:text-indigo-900">Question 29: What is KL divergence and how is it used?</a></li>
+            </ul>
+        </div>
+        <!-- Main Concept Box -->
+        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
+            <h4 class="font-semibold text-blue-900 mb-2">🎯 What is Cross-Entropy Loss?</h4>
+            <p class="text-blue-800">Cross-entropy loss measures how far the model's predicted probability distribution is from the true distribution. Think of it like a "surprise meter" — if the model predicts low probability for the actual next word, the loss is high; if it assigns high probability to the correct word, the loss is low. It penalizes confident wrong predictions much more than unsure ones.</p>
+        </div>
+        
+        <!-- Intuitive Example -->
+        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400">
+            <h4 class="font-semibold text-green-900 mb-2">💡 Real-World Analogy</h4>
+            <p class="text-green-800">Imagine you're a weather forecaster predicting tomorrow's weather. Cross-entropy loss is like your "credibility score":</p>
+            <ul class="text-green-700 mt-2 space-y-1">
+                <li>• If you say 90% chance of rain and it rains → <strong>Low loss</strong> (good prediction)</li>
+                <li>• If you say 10% chance of rain and it rains → <strong>High loss</strong> (bad prediction)</li>
+                <li>• If you say 50% chance of rain → <strong>Medium loss</strong> regardless (hedging your bets)</li>
+                <li>• The loss is logarithmic: being confidently wrong is much worse than being unsure</li>
+            </ul>
+        </div>
+        
+        <!-- Mathematical Breakdown -->
+        <div class="bg-gray-50 p-4 rounded-lg border border-gray-300">
+            <h4 class="font-semibold text-gray-900 mb-2">📐 The Cross-Entropy Formula</h4>
+            <div id="q25-formula" class="math-display">
+$$\begin{aligned}
+L &= -\sum_i y_i\log(\hat{p}_i) \\
+\text{(one-hot targets)} &\Rightarrow L = -\log(p_{\mathrm{correct}})
+\end{aligned}$$
+            </div>
+            <div class="text-sm text-gray-600 space-y-1">
+                <p><strong>L</strong> = cross-entropy loss</p>
+                <p><strong>y<sub>i</sub></strong> = true probability (1 for correct token, 0 for others)</p>
+                <p><strong>p̂<sub>i</sub></strong> = predicted probability from model</p>
+                <p><strong>Σ</strong> = sum over all possible tokens in the vocabulary</p>
+            </div>
+        </div>
+        
+        <!-- Loss Function Comparison -->
+        <div class="grid md:grid-cols-3 gap-4">
+            <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
+                <h5 class="font-medium text-green-900">Cross-Entropy Loss</h5>
+                <p class="text-sm text-green-700">Measures probability distribution distance</p>
+                <code class="text-xs bg-green-100 px-1 rounded">L = -log(p_correct)</code>
+                <div class="text-xs text-green-600 mt-1">✓ Probabilistically motivated</div>
+                <div class="text-xs text-green-600">✓ Smooth gradients</div>
+                <div class="text-xs text-green-600">✓ Handles uncertainty well</div>
+            </div>
+            
+            <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
+                <h5 class="font-medium text-purple-900">Mean Squared Error</h5>
+                <p class="text-sm text-purple-700">Measures squared difference in predictions</p>
+                <code class="text-xs bg-purple-100 px-1 rounded">L = (y - ŷ)²</code>
+                <div class="text-xs text-purple-600 mt-1">✗ Not probability-aware</div>
+                <div class="text-xs text-purple-600">✗ Poor for classification</div>
+                <div class="text-xs text-purple-600">✓ Simple to understand</div>
+            </div>
+            
+            <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
+                <h5 class="font-medium text-orange-900">Hinge Loss</h5>
+                <p class="text-sm text-orange-700">Maximizes margin between classes</p>
+                <code class="text-xs bg-orange-100 px-1 rounded">L = max(0, 1 - y·ŷ)</code>
+                <div class="text-xs text-orange-600 mt-1">✗ No probability output</div>
+                <div class="text-xs text-orange-600">✗ Not differentiable everywhere</div>
+                <div class="text-xs text-orange-600">✓ Good for binary classification</div>
+            </div>
+        </div>
+        
+        <!-- Properties of Cross-Entropy -->
+        <div class="bg-indigo-50 p-4 rounded-lg">
+            <h4 class="font-semibold text-indigo-900 mb-2">🔬 Why Cross-Entropy Works So Well</h4>
+            <div class="grid md:grid-cols-2 gap-4 text-sm">
+                <div>
+                    <h6 class="font-medium text-indigo-800 mb-2">Mathematical Properties:</h6>
+                    <ul class="text-indigo-700 space-y-1">
+                        <li>• <strong>Well-behaved gradients:</strong> Strong learning signal, especially when confidently wrong</li>
+                        <li>• <strong>Smooth:</strong> Continuous derivatives for gradient descent</li>
+                        <li>• <strong>Unbounded:</strong> Heavily penalizes confident wrong predictions</li>
+                        <li>• <strong>Probabilistic:</strong> Directly optimizes likelihood</li>
+                    </ul>
+                </div>
+                <div>
+                    <h6 class="font-medium text-indigo-800 mb-2">Training Benefits:</h6>
+                    <ul class="text-indigo-700 space-y-1">
+                        <li>• <strong>Fast Learning:</strong> Large gradients when predictions are wrong</li>
+                        <li>• <strong>Calibrated Outputs:</strong> Probabilities reflect confidence</li>
+                        <li>• <strong>Handles Imbalance:</strong> Works with uneven token frequencies</li>
+                        <li>• <strong>Information Theoretic:</strong> Minimizes surprise/entropy</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Language Modeling Context -->
+        <div class="bg-red-50 p-4 rounded-lg border-l-4 border-red-400">
+            <h4 class="font-semibold text-red-900 mb-2">📚 In Language Modeling Context</h4>
+            <div class="text-sm text-red-800 space-y-2">
+                <p><strong>Next Token Prediction:</strong> Given "The cat sat on the ___", the model outputs probabilities for each word in vocabulary. Cross-entropy compares this distribution to the one-hot vector of the actual next word.</p>
+                <p><strong>Vocabulary Size Impact:</strong> With vocabularies of 50K+ tokens, cross-entropy efficiently handles the massive output space while encouraging the model to be confident about correct predictions and uncertain about wrong ones.</p>
+                <p><strong>Autoregressive Training:</strong> During training, we apply cross-entropy loss at every position in the sequence, teaching the model to predict each word given all previous words.</p>
+            </div>
+        </div>
+        
+        <!-- Practical Examples -->
+        <div class="bg-teal-50 p-4 rounded-lg">
+            <h4 class="font-semibold text-teal-900 mb-2">🎮 Loss in Action</h4>
+            <div class="grid md:grid-cols-2 gap-4 text-sm">
+                <div>
+                    <h6 class="font-medium text-teal-800 mb-2">Good Prediction (Low Loss):</h6>
+                    <div class="bg-white p-2 rounded font-mono text-xs">
+                        <div>Context: "I love eating"</div>
+                        <div>True next: "pizza" (index 1542)</div>
+                        <div>Model predicts:</div>
+                        <div>• pizza: 0.75 ✓</div>
+                        <div>• food: 0.15</div>
+                        <div>• pasta: 0.10</div>
+                        <div class="text-green-600 mt-1">Loss = -log(0.75) = 0.29</div>
+                    </div>
+                </div>
+                <div>
+                    <h6 class="font-medium text-teal-800 mb-2">Bad Prediction (High Loss):</h6>
+                    <div class="bg-white p-2 rounded font-mono text-xs">
+                        <div>Context: "I love eating"</div>
+                        <div>True next: "pizza" (index 1542)</div>
+                        <div>Model predicts:</div>
+                        <div>• elephant: 0.60</div>
+                        <div>• randomly: 0.35</div>
+                        <div>• pizza: 0.05 ✓</div>
+                        <div class="text-red-600 mt-1">Loss = -log(0.05) = 3.00</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Alternative Approaches -->
+        <div class="bg-yellow-50 p-4 rounded-lg">
+            <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why Not Other Loss Functions?</h4>
+            <ul class="text-sm text-yellow-800 space-y-2">
+                <li>• <strong>Accuracy:</strong> Not differentiable, provides no gradient signal for improvement</li>
+                <li>• <strong>MSE:</strong> Treats probability differences linearly, doesn't understand probability distributions</li>
+                <li>• <strong>KL Divergence:</strong> Essentially the same as cross-entropy for this use case (up to a constant)</li>
+                <li>• <strong>Focal Loss:</strong> Variant of cross-entropy that focuses on hard examples, used in some advanced models</li>
+                <li>• <strong>Label Smoothing:</strong> Modifies cross-entropy to prevent overconfidence, used in practice</li>
+            </ul>
+        </div>
+    </div>

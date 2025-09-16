@@ -1,0 +1,72 @@
+
+      <div class="space-y-6">
+        <div class="bg-gradient-to-r from-emerald-50 to-teal-50 p-4 rounded-lg border border-emerald-200">
+          <div class="flex flex-wrap items-center gap-2 mb-3 text-xs">
+            <span class="font-semibold text-gray-700 mr-1">Presets:</span>
+            <button data-q44-preset="starter" class="px-2 py-0.5 rounded border border-emerald-300 bg-white hover:bg-emerald-100">Starter (K=4,s=0.7,p0=0.45,CoT off)</button>
+            <button data-q44-preset="high-sim" class="px-2 py-0.5 rounded border border-emerald-300 bg-white hover:bg-emerald-100">High similarity (K=6,s=0.9)</button>
+            <button data-q44-preset="cost-tight" class="px-2 py-0.5 rounded border border-emerald-300 bg-white hover:bg-emerald-100">Cost tight (K=3,32/shot,B=256)</button>
+            <button data-q44-preset="cot-heavy" class="px-2 py-0.5 rounded border border-emerald-300 bg-white hover:bg-emerald-100">CoT heavy (K=5,CoT on)</button>
+            <button id="q44-copy" class="px-2 py-0.5 rounded border border-emerald-400 bg-white hover:bg-emerald-100 text-emerald-700">Copy link</button>
+            <button id="q44-export" class="px-2 py-0.5 rounded border border-emerald-400 bg-white hover:bg-emerald-100 text-emerald-700">Export</button>
+          </div>
+          <div class="grid md:grid-cols-5 gap-4 text-xs">
+            <div>
+              <label class="font-semibold text-gray-700" title="Number of in-context examples provided">Shots K</label>
+              <input id="q44-k" type="range" min="0" max="16" step="1" value="4" class="w-full" />
+              <div class="text-center mt-1"><span id="q44-k-val" class="font-mono">4</span></div>
+            </div>
+            <div>
+              <label class="font-semibold text-gray-700" title="Semantic relevance of examples to the new query (0-1)">Similarity s</label>
+              <input id="q44-s" type="range" min="0" max="1" step="0.05" value="0.7" class="w-full" />
+              <div class="text-center mt-1"><span id="q44-s-val" class="font-mono">0.70</span></div>
+            </div>
+            <div>
+              <label class="font-semibold text-gray-700" title="Baseline accuracy with no examples">Zero‑shot p₀</label>
+              <input id="q44-p0" type="range" min="0.20" max="0.90" step="0.01" value="0.45" class="w-full" />
+              <div class="text-center mt-1"><span id="q44-p0-val" class="font-mono">0.45</span></div>
+            </div>
+            <div>
+              <label class="font-semibold text-gray-700" title="Chain-of-thought: reasoning traces increase quality & tokens">CoT</label>
+              <select id="q44-cot" class="w-full border rounded p-1 text-xs">
+                <option value="off" selected>Off</option>
+                <option value="on">On (↑ quality, ↑ tokens)</option>
+              </select>
+            </div>
+            <div>
+              <label class="font-semibold text-gray-700" title="Overall prompt token budget and per-shot token length">Budget / shot size</label>
+              <div class="flex gap-1">
+                <select id="q44-budget" class="w-1/2 border rounded p-1 text-xs">
+                  <option value="256">256 tok</option>
+                  <option value="512" selected>512 tok</option>
+                  <option value="1024">1024 tok</option>
+                </select>
+                <select id="q44-len" class="w-1/2 border rounded p-1 text-xs">
+                  <option value="32">32/shot</option>
+                  <option value="64" selected>64/shot</option>
+                  <option value="128">128/shot</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <p class="text-xs text-gray-600 mt-2">We model accuracy with diminishing returns and account for token budget. CoT increases both quality gain and token cost per shot.</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-4">
+          <div class="bg-white border rounded-lg p-4">
+            <h5 class="font-semibold text-gray-800 mb-2">📈 Accuracy vs baseline</h5>
+            <div id="q44-bars" class="text-xs text-gray-700 space-y-1" aria-live="polite"></div>
+            <div class="text-xs text-gray-500 mt-1">Top bar = baseline; second = effective few-shot accuracy.</div>
+          </div>
+          <div class="bg-white border rounded-lg p-4">
+            <h5 class="font-semibold text-gray-800 mb-2">📊 Metrics</h5>
+            <div id="q44-metrics" class="text-xs text-gray-700 space-y-2" aria-live="polite"></div>
+            <div id="q44-guide" class="mt-2 text-xs text-indigo-700 border-t pt-2" aria-live="polite"></div>
+          </div>
+          <div class="bg-white border rounded-lg p-4">
+            <h5 class="font-semibold text-gray-800 mb-2">🧠 Explanation</h5>
+            <div id="q44-explain" class="text-xs text-gray-700" aria-live="polite"></div>
+          </div>
+        </div>
+      </div>
+    

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Question Loader - Dynamically loads question content from separate files or manifest entries
  */
 class QuestionLoader {
@@ -42,13 +42,15 @@ class QuestionLoader {
     async _loadQuestionContent(questionId, questionIndex) {
         try {
             const manifestEntry = await this._getManifestEntry(questionIndex, questionId);
-            if (manifestEntry) {
-                return await this._loadFromManifest(questionId, questionIndex, manifestEntry);
+            if (!manifestEntry) {
+                console.warn(`No manifest entry found for ${questionId}`);
+                return this._createPlaceholderQuestion(questionId, 'Missing manifest entry. Hard refresh and verify questions/manifest.json.');
             }
+            return await this._loadFromManifest(questionId, questionIndex, manifestEntry);
         } catch (error) {
             console.error(`Error loading manifest-backed question ${questionId}:`, error);
+            return this._createPlaceholderQuestion(questionId, 'Failed to load manifest-backed assets.');
         }
-        return this._fetchQuestion(questionId);
     }
 
     async _loadFromManifest(questionId, questionIndex, entry) {
@@ -92,7 +94,7 @@ class QuestionLoader {
             };
         } catch (error) {
             console.error(`Error constructing manifest-backed question ${questionId}:`, error);
-            return this._createPlaceholderQuestion(questionId);
+            return this._createPlaceholderQuestion(questionId, 'Failed to construct manifest-backed content.');
         }
     }
 
@@ -187,45 +189,11 @@ class QuestionLoader {
         return typeof window !== 'undefined' && window.__DEV_NO_CACHE__;
     }
 
-    async _fetchQuestion(questionId) {
-        try {
-            const noCache = this._shouldBypassCache();
-            const url = `./questions/${questionId}.js${noCache ? `?t=${Date.now()}` : ''}`;
-            const response = await fetch(url, { cache: noCache ? 'no-store' : 'default' });
-            if (!response.ok) {
-                throw new Error(`Failed to load question: ${response.status}`);
-            }
-
-            const questionCode = await response.text();
-            const questionModule = this._executeQuestionModule(questionCode, questionId);
-            return questionModule;
-        } catch (error) {
-            console.error(`Error loading question ${questionId}:`, error);
-            return this._createPlaceholderQuestion(questionId);
-        }
-    }
-
-    _executeQuestionModule(code, questionId) {
-        const moduleContext = { exports: {}, module: { exports: {} } };
-        try {
-            const factory = new Function(
-                'exports',
-                'module',
-                `${code}\n;return (typeof question !== 'undefined') ? question : module.exports;`
-            );
-            const result = factory(moduleContext.exports, moduleContext.module);
-            return result || moduleContext.module.exports || moduleContext.exports;
-        } catch (error) {
-            console.error(`Error executing question module ${questionId}:`, error);
-            throw error;
-        }
-    }
-
-    _createPlaceholderQuestion(questionId) {
+    _createPlaceholderQuestion(questionId, reason = 'Unable to load content for this question.') {
         const questionNumber = parseInt(questionId.split('-')[1], 10);
         return {
-            title: `${questionNumber}. Question Loading Failed`,
-            answer: `<p><b>Error:</b> Unable to load content for question ${questionNumber}. Please check your connection and try again.</p>`,
+            title: `${questionNumber}. Question Unavailable`,
+            answer: `<p><b>Error:</b> ${reason}<br>Question ${questionNumber} could not be loaded.</p>`,
             interactive: {
                 title: 'Content Unavailable',
                 html: `<div class="p-8 text-center bg-red-50 rounded-lg">
@@ -262,4 +230,6 @@ class QuestionLoader {
     }
 }
 
-window.QuestionLoader = QuestionLoader;
+if (typeof module !== 'undefined') {
+    module.exports = QuestionLoader;
+}

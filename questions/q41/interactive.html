@@ -1,0 +1,54 @@
+
+      <div class="space-y-6">
+        <div class="bg-gradient-to-r from-indigo-50 to-sky-50 p-4 rounded-lg border border-indigo-200">
+          <div class="grid md:grid-cols-4 gap-4 text-xs">
+            <div>
+              <label class="font-semibold text-gray-700">Task</label>
+              <select id="q41-task" class="w-full border rounded p-1 text-xs">
+                <option value="sentiment" selected>Sentiment (pos/neg/neutral)</option>
+                <option value="topic">Topic (tech/sports/finance)</option>
+                <option value="spam">Spam detection</option>
+              </select>
+            </div>
+            <div>
+              <label class="font-semibold text-gray-700">Example text</label>
+              <select id="q41-text" class="w-full border rounded p-1 text-xs"></select>
+            </div>
+            <div>
+              <label class="font-semibold text-gray-700">Mode</label>
+              <select id="q41-mode" class="w-full border rounded p-1 text-xs">
+                <option value="zero" selected>Zero-shot</option>
+                <option value="zero-inst">Zero-shot + Instruction</option>
+                <option value="few">Few-shot (k=2)</option>
+              </select>
+            </div>
+            <div>
+              <label class="font-semibold text-gray-700">Temperature</label>
+              <input id="q41-temp" type="range" min="0.1" max="1.5" step="0.1" value="0.7" class="w-full" aria-label="Sampling temperature" aria-valuemin="0.1" aria-valuemax="1.5" aria-valuenow="0.7" />
+              <div class="text-center mt-1"><span id="q41-temp-val" class="font-mono">0.7</span></div>
+            </div>
+          </div>
+          <p class="text-xs text-gray-600 mt-2">Pipeline: word-match counts → (optional) instruction bias → (optional) few-shot similarity boosts → softmax(T).</p>
+        </div>
+        <div class="grid md:grid-cols-3 gap-4">
+          <div class="bg-white border rounded-lg p-4">
+            <h5 class="font-semibold text-gray-800 mb-2">🧾 Prompt Preview</h5>
+            <pre id="q41-prompt" class="text-xs bg-gray-50 border rounded p-2 whitespace-pre-wrap break-words leading-snug"></pre>
+          </div>
+          <div class="bg-white border rounded-lg p-4">
+            <h5 class="font-semibold text-gray-800 mb-2">📊 Model Scores</h5>
+            <div id="q41-scores" class="text-xs text-gray-700 space-y-2" aria-live="polite"></div>
+            <button id="q41-sim" type="button" class="mt-2 text-xs px-2 py-1 rounded border bg-white hover:bg-gray-50" aria-label="Run sampling stability simulation">Stability sample (20 draws)</button>
+            <div id="q41-sim-out" class="mt-2 text-xs text-gray-600 space-y-1" aria-live="polite"></div>
+          </div>
+          <div class="bg-white border rounded-lg p-4">
+            <h5 class="font-semibold text-gray-800 mb-2">🗣️ Output</h5>
+            <div id="q41-output" class="text-sm text-gray-800 space-y-2"></div>
+          </div>
+        </div>
+        <div class="bg-emerald-50 border border-emerald-200 rounded-lg p-4">
+          <h5 class="font-semibold text-emerald-900 mb-1">🔎 Explanation</h5>
+          <div id="q41-explain" class="text-xs text-emerald-800" aria-live="polite"></div>
+        </div>
+      </div>
+    

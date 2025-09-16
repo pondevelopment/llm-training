@@ -1,0 +1,69 @@
+
+    <div class="space-y-4">
+      <!-- Recommended Reading (canonical) -->
+      <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+        <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related)</h4>
+        <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+          <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-13">Question 13: Prompt engineering techniques</a></li>
+          <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-40">Question 40: Retrieval grounding & knowledge integration</a></li>
+          <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-41">Question 41: Few-/zero-shot baselines & evaluation</a></li>
+          <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-17">Question 17: RLHF & preference optimization</a></li>
+        </ul>
+        <p class="mt-2 text-xs text-indigo-700">Guardrails, retrieval, evaluation baselines, and alignment tuning context.</p>
+      </div>
+      <!-- Key Idea (accent) -->
+      <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
+        <h4 class="font-semibold text-blue-900 mb-2">🧠 Core Idea</h4>
+        <p class="text-sm text-blue-800">Bias/error mitigation is <b>layered</b>: surface controls (prompts / filters), data remediation & retrieval, then model-level alignment (SFT + RLHF/DPO). Combined layers yield durable reduction.</p>
+        <div class="text-xs mt-2 text-blue-800">
+          Residual risk intuition:
+          <div class="math-display">$$
+          r_{	ext{after}} = r_0 \cdot \prod_{i=1}^{n} (1 - e_i), \quad 0 \le e_i \le 1
+          $$</div>
+          <ul class="mt-2 list-disc ml-5 space-y-1">
+            <li><code class="font-mono">r_0</code>: base (pre‑mitigation) risk</li>
+            <li><code class="font-mono">e_i</code>: effectiveness of strategy i</li>
+            <li><code class="font-mono">r_{after}</code>: residual post-layering</li>
+            <li>Higher severity ↓ marginal returns</li>
+          </ul>
+        </div>
+      </div>
+      <!-- Comparison Cards (accentified) -->
+      <div class="grid md:grid-cols-3 gap-4">
+        <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
+          <h5 class="font-medium text-green-900">🟢 Prompting & Guardrails</h5>
+          <ul class="text-sm text-green-700 mt-1 space-y-1">
+            <li>• Clear refusals & structure</li>
+            <li>• Self-check / critique passes</li>
+            <li>• Safety & moderation filters</li>
+          </ul>
+        </div>
+        <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
+          <h5 class="font-medium text-purple-900">🟣 Data & Retrieval</h5>
+          <ul class="text-sm text-purple-700 mt-1 space-y-1">
+            <li>• Balanced & counterfactual data</li>
+            <li>• RAG factual grounding</li>
+            <li>• Debias sampling / reweighting</li>
+          </ul>
+        </div>
+        <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
+          <h5 class="font-medium text-orange-900">🟠 Fine-tuning & RLHF</h5>
+          <ul class="text-sm text-orange-700 mt-1 space-y-1">
+            <li>• SFT curated policy data</li>
+            <li>• DPO / RLHF preference shaping</li>
+            <li>• Adversarial robustness training</li>
+          </ul>
+        </div>
+      </div>
+      <!-- Why This Matters (canonical) -->
+      <div class="bg-yellow-50 p-4 rounded-lg">
+        <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why This Matters</h4>
+        <ul class="text-sm text-yellow-800 space-y-1">
+          <li>• <b>Fairness</b> & harm reduction</li>
+          <li>• <b>Reliability</b> & factual integrity</li>
+          <li>• <b>Compliance</b> & audit readiness</li>
+          <li>• <b>Trust</b> via transparent controls</li>
+        </ul>
+      </div>
+    </div>
+  

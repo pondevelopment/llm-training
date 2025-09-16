@@ -1,0 +1,66 @@
+﻿<div class="space-y-4">
+  <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
+    <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related)</h4>
+    <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
+      <li><a href="#question-13" class="text-indigo-700 underline hover:text-indigo-900">Question 13: Prompt engineering frameworks</a></li>
+      <li><a href="#question-03" class="text-indigo-700 underline hover:text-indigo-900">Question 3: Context window limits</a></li>
+      <li><a href="#question-34" class="text-indigo-700 underline hover:text-indigo-900">Question 34: Foundation model adaptation modes</a></li>
+      <li><a href="#question-36" class="text-indigo-700 underline hover:text-indigo-900">Question 36: Retrieval-Augmented Generation (RAG)</a></li>
+      <li><a href="#question-45" class="text-indigo-700 underline hover:text-indigo-900">Question 45: Evaluating prompt quality</a></li>
+    </ul>
+  </div>
+  <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400 space-y-2">
+    <h4 class="font-semibold text-blue-900">🧠 What is in-context learning?</h4>
+    <p class="text-sm text-blue-800 leading-relaxed">In-context learning (ICL) is the <strong>model's ability to infer a task from examples and instructions embedded inside the prompt</strong> without updating weights. The context acts like a scratchpad that teaches the model the pattern it should follow for the current query.</p>
+    <p class="text-xs text-blue-700">Analogy: You hand a contractor three completed rooms (examples) and ask them to "do the same" for the next one. The contractor never retrains; it just imitates the pattern you primed.</p>
+  </div>
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
+      <h5 class="font-medium text-green-900">Instruction framing</h5>
+      <p class="text-sm text-green-700">Set goal + scope. Use explicit markers (<code>Instruction:</code>, <code>Output:</code>).</p>
+    </div>
+    <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
+      <h5 class="font-medium text-purple-900">Demonstration quality</h5>
+      <p class="text-sm text-purple-700">Pick accurate, diverse exemplars that cover edge cases.</p>
+    </div>
+    <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
+      <h5 class="font-medium text-orange-900">Ordering &amp; formatting</h5>
+      <p class="text-sm text-orange-700">Keep structure crisp: delimiter, reasoning steps, final answer slot.</p>
+    </div>
+  </div>
+  <div class="bg-white border border-gray-200 rounded-lg p-4">
+    <h4 class="font-semibold text-gray-900 mb-2">🧩 Essential levers</h4>
+    <div class="grid md:grid-cols-3 gap-3 text-sm text-gray-700">
+      <div class="bg-gray-50 border border-gray-200 rounded p-3">
+        <h5 class="font-medium text-gray-900 mb-1">Coverage</h5>
+        <p>Expose canonical, boundary, and failure cases so the model generalizes beyond majority defaults.</p>
+      </div>
+      <div class="bg-gray-50 border border-gray-200 rounded p-3">
+        <h5 class="font-medium text-gray-900 mb-1">Fidelity</h5>
+        <p>Examples must reflect ideal outputs (tone, structure, JSON) or the model copies flaws verbatim.</p>
+      </div>
+      <div class="bg-gray-50 border border-gray-200 rounded p-3">
+        <h5 class="font-medium text-gray-900 mb-1">Budget</h5>
+        <p>Large contexts help, but too many mediocre shots dilute signal and consume window tokens.</p>
+      </div>
+    </div>
+  </div>
+  <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
+    <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why this matters</h4>
+    <ul class="text-sm text-yellow-800 space-y-1">
+      <li>• Rapidly prototypes behaviors before investing in fine-tuning.</li>
+      <li>• Allows fast personalization for each request or user cohort.</li>
+      <li>• Reduces hallucination risk by grounding the desired pattern explicitly.</li>
+      <li>• Unlocks hybrid stacks (RAG + exemplars) when knowledge and format both matter.</li>
+    </ul>
+  </div>
+  <div class="bg-white border border-gray-200 rounded-lg p-4">
+    <h4 class="font-semibold text-gray-900 mb-2">🛠 Practical heuristics</h4>
+    <ul class="list-disc ml-5 text-sm text-gray-700 space-y-1">
+      <li>Front-load task intent, then show the strongest examples first.</li>
+      <li>Use consistent separators (<code>---</code>, <code>"Example 1"</code>) so the model parses boundaries.</li>
+      <li>Mix contrasting pairs (positive vs. negative) to prevent default bias.</li>
+      <li>Reserve ~20% of context budget for the actual query and model reasoning.</li>
+    </ul>
+  </div>
+</div>

@@ -1,130 +1,59 @@
-# Question Checklist
+﻿# Question Checklist
 
 Use this checklist when creating or updating questions for the LLM Questions app.
 
 ## Before you start
 
 - [ ] Review `QUESTION_TEMPLATE_GUIDE.md` for conventions and examples
-- [ ] Copy an existing question file (e.g., `/questions/question-01.js`) as a starting point
-- [ ] Identify the key concept and the 2–3 approaches you’ll compare
-- [ ] Confirm CommonJS export is required (the loader does not support ESM)
+- [ ] Decide the learning goal and 2–3 contrasting approaches you’ll highlight
+- [ ] Confirm whether you are migrating a legacy question or adding a brand new one
 
-## File setup
+## File setup (new or migrated questions)
 
-- [ ] Name file `questions/question-XX.js` (two digits where applicable)
-- [ ] Replace all `qX-` prefixes with your question number (e.g., `q12-`)
-- [ ] Remove placeholders and update the comment header (topic + date)
-- [ ] Define a file-scoped `const question = { title, answer, interactive }`
-- [ ] Optional: add `if (typeof module !== 'undefined') { module.exports = question; }`
+- [ ] Create `questions/qXX/` (two-digit id) containing:
+  - [ ] `answer.html`
+  - [ ] `interactive.html`
+  - [ ] `interactive.js` exporting `interactiveScript`
+- [ ] Add or update the entry in `questions/manifest.json` (prefer `{ "XX": { "title": "...", "dir": "./questions/qXX", "interactiveTitle": "..." } }`)
+- [ ] Keep/adjust the shim `questions/question-XX.js` so it exports the correct title and notes that content loads dynamically
+- [ ] Update `/q/XX.html` (static share page) with the new title/description/links
+- [ ] Add the question to `all.html` (titles map + path arrays) if it isn’t already present
 
 ## Content development
 
 ### Title & basics
 
-- [ ] Clear, specific title under ~80 chars
-- [ ] Starts with the number: `X.` and ends with `?` if appropriate
+- [ ] Title is clear, specific, under ~80 characters, and follows the `XX. Question text?` pattern
+- [ ] Related questions (“Recommended reading”) link to relevant ids
+- [ ] Emojis are used sparingly to aid scannability (and are stored as UTF-8)
 
-### Answer section
+### Answer section (`answer.html`)
 
-- [ ] Blue “what is it” box with a clear definition and analogy
-- [ ] 2–3 comparison/option cards (consistent color scheme)
-- [ ] “Why this matters” section with 3–4 bullets
-- [ ] Practical mini examples (use `<code>` where helpful)
-- [ ] Use tasteful emojis (🔤 🎯 📝) where they improve scannability
-- [ ] Optional: top “Recommended reading” box linking to related questions
+- [ ] Includes core concept box (blue) describing the idea + analogy
+- [ ] Comparison/approach cards (2–3) highlight trade-offs
+- [ ] “Why this matters” section lists 3–4 concise bullets
+- [ ] Optional extras (examples, callouts) use semantic HTML (`<code>`, `<ul>`, etc.)
 
-### Interactive component
+### Interactive component (`interactive.html` + `interactive.js`)
 
-- [ ] `interactive.title`, `interactive.html`, and `interactive.script()` implemented
-- [ ] Inputs have sensible defaults; selection cards are descriptive
-- [ ] Visual feedback (hover/selected) and concise explanations per option
-- [ ] If trade-offs are involved, consider an impact meter or pros/cons
+- [ ] Sane defaults show an informative initial state
+- [ ] Controls carry helper text explaining what the user is tuning (sliders, radios, etc.)
+- [ ] Visual feedback updates immediately on user input (indicator, results, legend, explanation)
+- [ ] Script performs defensive DOM checks and avoids leaking globals
+- [ ] Any MathJax updates are re-typeset via `window.MathJax?.typesetPromise`
 
-## JavaScript implementation
+## Integration tasks
 
-- [ ] Defensive DOM lookups; no null dereferences
-- [ ] No globals leaked; keep state local to `script()`
-- [ ] Update explanations dynamically on input/selection
-- [ ] Add short tooltips where non-obvious
+- [ ] Hard-refresh `index.html#question-XX` to ensure manifest loading works
+- [ ] Verify the share page `q/XX.html`
+- [ ] Check `all.html` search/filter lists the question and the Foundations/other path counts remain accurate
+- [ ] Update any relevant docs or cross-links referencing the question
 
-## MathJax (SVG output – mandatory)
+## Quality gates
 
-- [ ] Display math wrapped in `<div class="math-display"> $$ ... $$ </div>` (one block per conceptual group)
-- [ ] Inline math only for short symbols: `\(...\)`
-- [ ] JS strings escape backslashes (e.g. `\\frac{a}{b}`)
-- [ ] No custom macro definitions; use `\\operatorname{...}` for named functions
-- [ ] Group related lines with `\\` or `align*` instead of many adjacent `$$` blocks
-- [ ] Do NOT add ad-hoc wrappers (`bg-white p-2`, `overflow-x-auto`) around display math
-- [ ] Re-typeset only updated container via `typesetMath(el)` in interactive scripts
-- [ ] Avoid horizontal scroll unless in a deliberately compact chip UI
-- [ ] Do not apply per-formula text color classes; global `--math-color` covers consistency
-- [ ] No stray duplicate `\\end{aligned}` or unmatched environment delimiters
+- [ ] No console errors while interacting with the question
+- [ ] Layout holds on mobile (inspect via responsive mode or narrow window)
+- [ ] Interactive logic handles edge inputs gracefully (min/max sliders, switching scenarios, etc.)
+- [ ] Updated files are UTF-8 encoded so emoji and punctuation render correctly
 
-## Integration
-
-- [ ] Ensure the question number is included in `availableQuestions` in `js/app.js`
-- [ ] Deep link works: `index.html#question-XX`
-- [ ] Appears in the dropdown and prev/next navigation functions
-
-## Share and unfurls (new)
-
-- [ ] Create/update static share page: `/q/XX.html`
-	- [ ] `og:title` and `twitter:title` match your question title
-	- [ ] `og:description` summarizes the interactive angle
-	- [ ] `og:image` follows the `...QXX.png` convention
-	- [ ] “Open in app” points to `../index.html#question-XX`
-- [ ] In the app, press `S` to copy and verify the share link to `/q/XX.html`
-
-## Testing
-
-### Functionality
-
-- [ ] Loads without console errors
-- [ ] All inputs and radios work and update results immediately
-- [ ] Examples (if provided) cycle correctly; indicators update
-- [ ] MathJax renders with no errors or fallback retries
-
-### Content quality
-
-- [ ] Explanations are accurate and concise; examples are realistic
-- [ ] Color coding and typography match the established pattern
-- [ ] Tooltips and labels are clear and helpful
-
-### User experience
-
-- [ ] Defaults provide immediate insight; interactions feel responsive
-- [ ] Works on mobile (spacing, wrapping, touch targets)
-
-### Integration check
-
-- [ ] Title appears correctly; progress indicator updates
-- [ ] Deep link navigation returns to the same question
-- [ ] Share link unfurls (Slack/LinkedIn/Teams) with the right meta
-
-## File locations
-
-- [ ] Question file at `/questions/question-XX.js`
-- [ ] App entry is `index.html` (not `index-new.html`)
-- [ ] Share page at `/q/XX.html` exists and opens in-app correctly
-
-## Pre-submission review
-
-- [ ] Code follows patterns; no dead/commented-out blocks left behind
-- [ ] Educational value is clear; interactivity adds understanding
-- [ ] Performance is acceptable (renders quickly)
-
-## Quick references
-
-IDs (replace `X`):
-
-- `qX-input`, `qX-output`, `qX-explanation`, `qX-example-btn`
-- `qX-option`/`name="qX-option"` for radio groups, `qX-indicator`, `qX-legend`
-
-Useful utility classes:
-
-- Containers: `space-y-4`, `space-y-6`, `grid md:grid-cols-3 gap-4`
-- Backgrounds: `bg-blue-50`, `bg-white`, `from-blue-50 to-indigo-50`
-- Borders: `border border-gray-200 rounded-lg`, `border-l-4 border-blue-400`
-- Text: `text-sm font-medium text-gray-700`, `font-semibold text-blue-900`
-- Interactive: `hover:bg-gray-50 transition-colors cursor-pointer`
-
+Tick each item before marking a question ready for review or publishing.

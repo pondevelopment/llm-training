@@ -15,8 +15,8 @@
   <header class="bg-white border-b border-gray-200">
     <div class="max-w-5xl mx-auto px-4 py-5 flex flex-col md:flex-row md:items-center gap-4">
       <div class="flex-1 min-w-0">
-        <h1 class="text-2xl font-bold text-gray-900">All Questions</h1>
-        <p class="text-sm text-gray-600">Browse the full catalog & jump directly into any interactive explanation.</p>
+        <h1 class="text-2xl font-bold text-gray-900">Questions &amp; Paper Explainers</h1>
+        <p class="text-sm text-gray-600">Browse every interactive lesson and research explainer in one place.</p>
       </div>
       <div class="flex items-center gap-3 w-full md:w-auto">
         <input id="search" type="text" placeholder="Search (e.g. attention, cost, gradient)" class="flex-1 md:w-80 px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
@@ -29,8 +29,16 @@
     <div class="flex flex-wrap items-center gap-2 mb-6 text-xs" id="filters" aria-label="Category filters">
       <!-- Filters inserted by script -->
     </div>
-    <div id="count" class="text-sm text-gray-600 mb-4">Loading questionsâ€¦</div>
+    <div id="count" class="text-sm text-gray-600 mb-4">Loading questions…</div>
     <ul id="question-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4"></ul>
+
+    <section id="papers-section" class="mt-12 space-y-4">
+      <div class="flex items-center justify-between flex-wrap gap-2">
+        <h2 class="text-xl font-semibold text-gray-900">Paper explainers</h2>
+        <p class="text-sm text-gray-500">Grounding theory in interactive simulators and cross-links.</p>
+      </div>
+      <div id="papers-list" class="grid md:grid-cols-2 gap-4"></div>
+    </section>
   </main>
 
   <footer class="mt-16 border-t bg-white border-gray-200">
@@ -117,6 +125,58 @@
 
     renderFilters();
     render();
+
+    async function renderPapers(){
+      const list = document.getElementById('papers-list');
+      if(!list) return;
+      list.innerHTML = '<div class="text-sm text-gray-500">Loading papers…</div>';
+      try {
+        const res = await fetch('./papers/manifest.json', { cache: 'no-store' });
+        if(!res.ok) throw new Error('Failed to fetch manifest');
+        const manifest = await res.json();
+        const entries = Object.entries(manifest || {})
+          .map(([key,value]) => ({ id: Number(key), meta: value }))
+          .filter(item => Number.isFinite(item.id))
+          .sort((a,b) => a.id - b.id);
+        if(!entries.length){
+          list.innerHTML = '<div class="text-sm text-gray-500">No paper explainers published yet.</div>';
+          return;
+        }
+        list.innerHTML = entries.map(({id,meta}) => {
+          const nice = id.toString().padStart(2,'0');
+          const title = meta.title || `Paper ${nice}`;
+          const summary = meta.summary || 'Interactive explainer coming soon.';
+          const tags = Array.isArray(meta.tags) ? meta.tags.slice(0,3) : [];
+          const tagChips = tags.map(tag => `<span class="inline-flex items-center px-2 py-0.5 text-[10px] font-medium rounded bg-indigo-50 text-indigo-700 border border-indigo-100">${tag}</span>`).join('');
+          return `<article class="p-4 bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition flex flex-col gap-3">
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <div class="text-xs font-mono text-gray-500">Paper #${nice}</div>
+                <h3 class="text-sm font-semibold text-gray-900 leading-snug">${title}</h3>
+              </div>
+              <div class="flex flex-wrap gap-1">${tagChips}</div>
+            </div>
+            <p class="text-xs text-gray-600 leading-relaxed flex-1">${summary}</p>
+            <div class="flex items-center gap-2 text-xs">
+              <a href="index.html#paper-${id}" class="px-2 py-1 rounded bg-indigo-600 text-white hover:bg-indigo-700">Open explainer</a>
+              <a href="p/${id}.html" class="px-2 py-1 rounded bg-gray-100 text-gray-700 hover:bg-gray-200">Share</a>
+            </div>
+          </article>`;
+        }).join('');
+      } catch (error) {
+        console.error('Failed to load papers', error);
+        list.innerHTML = '<div class="text-sm text-red-600">Could not load papers. Try reloading.</div>';
+      }
+    }
+
+    renderPapers();
+
+    if(window.location.hash === '#papers'){
+      const section = document.getElementById('papers-section');
+      if(section){
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
   </script>
 </body>
 </html>

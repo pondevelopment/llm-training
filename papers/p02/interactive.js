@@ -115,8 +115,8 @@
     insightEl.innerHTML = `
       <h4 class="text-sm font-semibold text-orange-900 mb-2">Why this configuration behaves this way</h4>
       <ul class="text-sm text-orange-800 space-y-2">
-        <li>Prompt novelty contributes ${Math.round((noveltyVal / 100) * 70)} points of hallucination pressure. Reduce novelty via fine-tuning or prompt restriction.</li>
-        <li>Temperature ${tempVal.toFixed(2)} adds ${Math.round(clamp((tempVal - 0.2) / 1.2, 0, 1) * 20)} points of randomness. Lower it for factual answers.</li>
+      <li>Prompt novelty contributes ${Math.round((noveltyVal / 100) * 70)} points of hallucination pressure. Use novelty to unlock new use cases, but pair it with grounding or fine-tuning to stay factual.</li>
+      <li>Temperature ${tempVal.toFixed(2)} adds ${Math.round(clamp((tempVal - 0.2) / 1.2, 0, 1) * 20)} points of randomness. Dial it up for richer phrasing; dial it down when accuracy is critical.</li>
         <li>Mitigations active: ${mitigationBadges.join(' • ')}.</li>
       </ul>
       <p class="text-xs text-orange-700 mt-2">The paper shows mitigations work best in concert: retrieval alters the candidate pool, reward shaping adjusts logits, and gating routes residual uncertainty.</p>

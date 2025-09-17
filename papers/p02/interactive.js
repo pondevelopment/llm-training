@@ -17,7 +17,6 @@
   const insightEl = document.getElementById('p02-insight');
 
   const scenarioSelect = document.getElementById('p02-scenario');
-  const runBtn = document.getElementById('p02-run');
   const simSummaryEl = document.getElementById('p02-sim-summary');
   const simTableEl = document.getElementById('p02-sim-table');
 
@@ -122,6 +121,8 @@
       </ul>
       <p class="text-xs text-orange-700 mt-2">The paper shows mitigations work best in concert: retrieval alters the candidate pool, reward shaping adjusts logits, and gating routes residual uncertainty.</p>
     `;
+
+    runSimulation();
   };
 
   const runSimulation = () => {
@@ -155,7 +156,7 @@
     });
 
     const groundedRate = groundedCount / prompts.length;
-    simSummaryEl.textContent = `${scenario.label}: grounded answers ${groundedCount}/${prompts.length} (${formatPercent(groundedRate)}).`;
+    simSummaryEl.textContent = `${scenario.label}: grounded answers ${groundedCount}/${prompts.length} (${formatPercent(groundedRate)}). ${scenario.description}`;
     simTableEl.innerHTML = rows.join('');
   };
 
@@ -166,16 +167,11 @@
   });
 
   scenarioSelect.addEventListener('change', () => {
-    const scenario = scenarios[scenarioSelect.value] || scenarios.support;
-    simSummaryEl.textContent = `${scenario.description} Click “Run simulation” to sample prompts.`;
-    simTableEl.innerHTML = '';
+    runSimulation();
   });
 
-  runBtn.addEventListener('click', runSimulation);
-
   updateUI();
-  const initialScenario = scenarios[scenarioSelect.value] || scenarios.support;
-  simSummaryEl.textContent = `${initialScenario.description} Click “Run simulation” to sample prompts.`;
+  runSimulation();
 };
 
 if (typeof module !== 'undefined') {

@@ -47,7 +47,7 @@
     <div class="flex items-center justify-between gap-3 flex-wrap">
       <div>
         <h4 class="text-sm font-semibold text-gray-900">Scenario stress test</h4>
-        <p class="text-xs text-gray-600">Sample prompts inspired by the paper’s case studies. We simulate whether the current setup hits a hallucination.</p>
+        <p class="text-xs text-gray-600">Sample prompts inspired by the paper’s case studies. Adjust the scenario and knobs above to see how many responses stay grounded.</p>
       </div>
       <div class="flex items-center gap-2">
         <label for="p02-scenario" class="text-sm font-medium text-gray-700">Scenario</label>
@@ -58,8 +58,7 @@
         </select>
       </div>
     </div>
-    <button id="p02-run" class="px-3 py-1.5 text-xs font-medium bg-indigo-600 text-white rounded hover:bg-indigo-700">Run simulation</button>
-    <div id="p02-sim-summary" class="text-sm font-medium text-gray-700">Press “Run simulation” to sample prompts.</div>
+    <div id="p02-sim-summary" class="text-sm font-medium text-gray-700"></div>
     <div id="p02-sim-table" class="grid gap-2 text-xs text-gray-600"></div>
   </div>
 </div>

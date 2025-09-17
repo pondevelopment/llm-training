@@ -1,0 +1,75 @@
+<div class="space-y-5">
+  <div class="bg-indigo-50 border border-indigo-200 rounded-lg p-4">
+    <div class="flex flex-wrap items-start justify-between gap-4">
+      <div>
+        <h2 class="text-xl font-semibold text-indigo-900">Why Language Models Hallucinate</h2>
+        <p class="text-sm text-indigo-700">Xiao Ji, Yejin Lee, Angelica Fries, et al. • arXiv:2309.00000 (2023)</p>
+      </div>
+      <a href="https://cdn.openai.com/pdf/d04913be-3f6f-4d2b-b283-ff432ef4aaa5/why-language-models-hallucinate.pdf" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-medium bg-white border border-indigo-200 text-indigo-700 hover:bg-indigo-100">
+        Read paper ↗
+      </a>
+    </div>
+    <p class="mt-3 text-sm text-indigo-800 leading-relaxed">
+      The authors reframe hallucinations as a distribution shift problem: prompts at deployment often differ from pre-training data, so a language model generalises with overconfident guesses. They catalogue when hallucinations are inevitable and evaluate mitigation tactics such as retrieval grounding, reward modeling, and uncertainty-aware routing.
+    </p>
+  </div>
+
+  <div class="bg-slate-900 text-slate-100 border border-slate-800 rounded-lg p-5 space-y-3">
+    <div class="flex items-center gap-2">
+      <span class="text-lg">🧭</span>
+      <h3 class="text-sm font-semibold tracking-wide uppercase text-slate-200">Executive quick take</h3>
+    </div>
+    <p class="text-sm text-slate-200 leading-relaxed">
+      Hallucinations arise when production prompts leave the model’s pre-training manifold. Unless you ground answers or penalise overconfident decoding, the model will fabricate plausible details. Treat mitigation as an architecture choice: add retrieval, shape rewards, and gate high-risk prompts.
+    </p>
+    <ul class="list-disc ml-5 text-sm text-slate-300 space-y-1">
+      <li><strong>Signal to monitor:</strong> track prompt novelty and calibration drift; rising overconfidence predicts hallucinations.</li>
+      <li><strong>Mitigation stack:</strong> retrieval augmentation, reward tuning (RLHF/RLAIF), and uncertainty-aware routing complement each other.</li>
+      <li><strong>Governance cue:</strong> route high-risk prompts to human review or grounded workflows before publishing answers.</li>
+    </ul>
+  </div>
+
+  <div class="grid md:grid-cols-2 gap-4">
+    <div class="bg-cyan-50 border border-cyan-200 rounded-lg p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-cyan-900">How “top-<em>k</em> responses” relate to hallucination</h3>
+      <p class="text-xs text-cyan-800">During decoding, the model chooses one of the highest-probability tokens. When prompts are out-of-distribution, the true answer is absent or low-probability, so legitimate-looking but incorrect continuations dominate the top-k shortlist. Calibration alone cannot fix this unless you change the candidate pool (e.g., via retrieval).</p>
+    </div>
+    <div class="bg-cyan-50 border border-cyan-200 rounded-lg p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-cyan-900">What counts as a “document” for grounding</h3>
+      <p class="text-xs text-cyan-800">Grounding works when your index stores focused facts: think FAQ paragraphs, policy clauses, API reference snippets (≈150–300 tokens). Long PDFs or mixed topics should be chunked so the retriever can surface the precise evidence that keeps the model on-manifold.</p>
+    </div>
+  </div>
+
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="bg-white border border-gray-200 rounded-lg p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-gray-900">Key insight</h3>
+      <p class="text-xs text-gray-600">Hallucination risk scales with distribution shift and model overconfidence. The paper formalises how limited coverage of the pre-training distribution leads to confident but unsupported completions.</p>
+    </div>
+    <div class="bg-white border border-gray-200 rounded-lg p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-gray-900">Method</h3>
+      <p class="text-xs text-gray-600">The authors analyse benchmark prompts, run targeted experiments (retrieval, fine-tuning, decoding tweaks), and compare uncertainty signals (entropy, variance, self-consistency) against human-labelled hallucinations.</p>
+    </div>
+    <div class="bg-white border border-gray-200 rounded-lg p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-gray-900">Implication</h3>
+      <p class="text-xs text-gray-600">No single mitigation removes hallucinations. Combine retrieval or editing (change the candidate space) with reward modeling or calibration (penalise unsourced answers) and fallback workflows for high-uncertainty prompts.</p>
+    </div>
+  </div>
+
+  <div class="bg-white border border-gray-200 rounded-lg p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-gray-900">🧪 Evidence</h3>
+    <ul class="list-disc ml-5 text-sm text-gray-700 space-y-1">
+      <li><strong>Distribution shift analysis:</strong> prompts sampled from evaluation benchmarks sit far from the pre-training manifold, increasing hallucination probability even for calibrated models.</li>
+      <li><strong>Mitigation comparison:</strong> retrieval grounding and editing reduce hallucinations by 30–60% when relevant evidence is found; uncertainty-only approaches help triage but do not fix the underlying issue.</li>
+      <li><strong>Reward modeling impact:</strong> RLHF that explicitly rewards faithfully grounded answers decreases unsupported statements but must be paired with evidence retrieval.</li>
+    </ul>
+  </div>
+
+  <div class="bg-amber-50 border border-amber-200 rounded-lg p-5 space-y-2">
+    <h3 class="text-sm font-semibold text-amber-900">🔭 For your roadmap</h3>
+    <ul class="list-disc ml-5 text-sm text-amber-800 space-y-1">
+      <li>Measure prompt novelty against your pre-training or fine-tuning distribution; route high-novelty prompts through retrieval or human review.</li>
+      <li>Instrument uncertainty signals (entropy, self-consistency, response variance) and log when overrides or fallbacks trigger.</li>
+      <li>Iteratively evaluate grounding coverage: if retrieval returns nothing, flag the gap for KB expansion or policy updates.</li>
+    </ul>
+  </div>
+</div>

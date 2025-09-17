@@ -26,7 +26,11 @@
         <input type="checkbox" id="p02-gating" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
         <label for="p02-gating" class="text-sm text-gray-700">Uncertainty gating <span class="text-xs text-gray-500">route high-risk prompts to fallback workflows</span></label>
       </div>
-      <p class="text-xs text-gray-500">Each mitigation shrinks hallucination odds differently: grounding changes the candidate pool, reward shaping adjusts logits, gating catches residual risk.</p>
+      <ul class="list-disc ml-5 text-xs text-gray-500 space-y-1">
+        <li><strong>Retrieval grounding:</strong> fetch supporting snippets so the model quotes facts instead of inventing them.</li>
+        <li><strong>Reward shaping:</strong> fine-tune or RLHF/RLAIF so unsupported answers are penalised during decoding.</li>
+        <li><strong>Uncertainty gating:</strong> detect high-entropy or inconsistent responses and route them to fallback workflows.</li>
+      </ul>
     </div>
   </div>
 

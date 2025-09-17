@@ -1,6 +1,6 @@
 # LLM Interview Questions
 
-[➡️ Open the latest version (GitHub Pages)](https://pondevelopment.github.io/llm-training/#question-1)
+[➡️ Open the latest version (GitHub Pages)](https://pondevelopment.github.io/llm-training/)
 
 
 An interactive learning experience with hands-on examples for the most important Large Language Model (LLM) interview questions.

@@ -1,0 +1,81 @@
+﻿<div class="space-y-5">
+  <div class="bg-indigo-50 border border-indigo-200 rounded-lg p-4">
+    <div class="flex flex-wrap items-start justify-between gap-4">
+      <div>
+        <h2 class="text-xl font-semibold text-indigo-900">On the Theoretical Limitations of Embedding-Based Retrieval</h2>
+        <p class="text-sm text-indigo-700">Orion Weller, Michael Boratko, Iftekhar Naim, Jinhyuk Lee • arXiv:2508.21038 (Aug 2025)</p>
+      </div>
+      <a href="https://arxiv.org/abs/2508.21038" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-medium bg-white border border-indigo-200 text-indigo-700 hover:bg-indigo-100">
+        View paper ↗
+      </a>
+    </div>
+    <p class="mt-3 text-sm text-indigo-800 leading-relaxed">
+      The authors show that single-vector embedding systems cannot realize every possible top-<em>k</em> result set—even for extremely simple queries. They connect learning theory bounds to retrieval, build a stress-test dataset called <strong>LIMIT</strong>, and demonstrate that modern models saturate well below the theoretical optimum.
+    </p>
+  </div>
+
+  <div class="bg-slate-900 text-slate-100 border border-slate-800 rounded-lg p-5 space-y-3">
+    <div class="flex items-center gap-2">
+      <span class="text-lg">🧭</span>
+      <h3 class="text-sm font-semibold tracking-wide uppercase text-slate-200">Executive quick take</h3>
+    </div>
+    <p class="text-sm text-slate-200 leading-relaxed">
+      Retrieval-augmented systems that rely on a single embedding per document have a hard ceiling: no matter how many tokens you feed into the encoder, you are still squeezing everything into a <em>d</em>-dimensional vector. Once users ask for more than \(O(d^k)\) distinct top-<em>k</em> answers, recall will fall off even if you retrain, fine-tune, or add more labels.
+    </p>
+    <ul class="list-disc ml-5 text-sm text-slate-300 space-y-1">
+      <li><strong>Capacity limit:</strong> Increasing context length or model size does not expand the reachable set of answers while you stick with one vector per document.</li>
+      <li><strong>Mitigation options:</strong> Add multiple vectors per doc (fields, passages), blend lexical search, or introduce metadata filters before ranking.</li>
+      <li><strong>Governance cue:</strong> Track recall on adversarial or high-stakes queries—when it drops, you need more signals, not just more training.</li>
+    </ul>
+  </div>
+
+  <div class="grid md:grid-cols-2 gap-4">
+    <div class="bg-cyan-50 border border-cyan-200 rounded-lg p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-cyan-900">How “top-<em>k</em>” maps to retrieval results</h3>
+      <p class="text-xs text-cyan-800">For every query, a retriever ranks all documents and returns the top <em>k</em>. Each unique set of <em>k</em> documents is a possible “top-<em>k</em> subset.” When the paper says only \(O(d^k)\) subsets are realizable, it means there are only that many distinct answers the single-vector index can ever produce—no matter how many documents are stored. If the real corpus demands more than that, some queries must miss relevant documents.</p>
+    </div>
+    <div class="bg-cyan-50 border border-cyan-200 rounded-lg p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-cyan-900">What counts as a “document”</h3>
+      <p class="text-xs text-cyan-800">In LIMIT, a document is the unit you embed: a short FAQ answer, a product listing, a policy clause. The bound applies to whatever you store as a single vector—support tickets, catalog SKUs, paragraphs—so long as each unit has only one embedding.</p>
+      <ul class="list-disc ml-4 text-[11px] text-cyan-700 space-y-1">
+        <li>Keep each document short (≈150–300 tokens) and focused on a single intent. LIMIT’s stress tests use snippets, not whole manuals.</li>
+        <li>Large PDFs or runbooks should be chunked into sections; otherwise a single embedding must stand in for every topic inside.</li>
+        <li>Multi-field items (e.g., product + specs + reviews) usually need multiple vectors to escape the \(O(d^k)\) ceiling.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="bg-white border border-gray-200 rounded-lg p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-gray-900">Key insight</h3>
+      <p class="text-xs text-gray-600">Embedding dimension upper-bounds how many distinct top-<em>k</em> document subsets a model can return. When queries require more diversity than the dimension allows, recall collapses no matter how you train the encoder.</p>
+      <p class="text-xs text-gray-500">Note: the paper reasons entirely over document-level subsets. Tokens still feed each encoder, but once everything is compressed into a single <em>d</em>-dimensional vector, the token count no longer increases capacity—the <em>vector</em> dimension is the bottleneck.</p>
+    </div>
+    <div class="bg-white border border-gray-200 rounded-lg p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-gray-900">Method</h3>
+      <p class="text-xs text-gray-600">They link hyperplane arrangement results to retrieval, then perform controlled experiments by directly optimizing ideal embeddings with access to labels—showing the limit persists even with perfect training.</p>
+    </div>
+    <div class="bg-white border border-gray-200 rounded-lg p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-gray-900">Implication</h3>
+      <p class="text-xs text-gray-600">Larger models or better supervised data cannot escape this cap. Practitioners need multi-vector representations, hybrid lexical+embedding stacks, or additional metadata to reach high recall on adversarial corpora.</p>
+    </div>
+  </div>
+
+  <div class="bg-white border border-gray-200 rounded-lg p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-gray-900">🧪 Evidence</h3>
+    <ul class="list-disc ml-5 text-sm text-gray-700 space-y-1">
+      <li><strong>Top-<em>k</em> subset bound:</strong> In a <em>d</em>-dimensional space, at most \(O(d^k)\) distinct top-<em>k</em> sets are realizable—far below \({n \choose k}\) when the corpus is large.</li>
+      <li><strong>Optimal embeddings still fail:</strong> Even when the embedding vectors are optimized directly on LIMIT labels, recall@2 plateaus near the theoretical ceiling.</li>
+      <li><strong>LIMIT dataset:</strong> Tasks constructed with simple keyword patterns expose these failures; popular commercial APIs and open-source encoders miss >40% of relevant pairs.</li>
+    </ul>
+  </div>
+
+  <div class="bg-amber-50 border border-amber-200 rounded-lg p-5 space-y-2">
+    <h3 class="text-sm font-semibold text-amber-900">🔭 For your roadmap</h3>
+    <ul class="list-disc ml-5 text-sm text-amber-800 space-y-1">
+      <li>Probe how your retriever scales with corpus growth—track unique top-<em>k</em> sets vs. an oracle baseline.</li>
+      <li>Experiment with multi-representation retrievers (e.g., per-field vectors, hybrid BM25 rerankers, learned contexts).</li>
+      <li>Design evaluation suites like LIMIT that match user-critical edge cases rather than average-case workloads.</li>
+    </ul>
+  </div>
+</div>

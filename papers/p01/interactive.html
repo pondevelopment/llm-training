@@ -1,0 +1,99 @@
+<div class="space-y-6" id="p01-explorer">
+  <div class="grid md:grid-cols-2 gap-4">
+    <div class="bg-gradient-to-r from-slate-50 to-indigo-50 border border-indigo-100 rounded-lg p-4 space-y-3">
+      <div>
+        <label for="p01-dimension" class="block text-sm font-medium text-gray-700">Embedding dimension <span id="p01-dimension-label" class="font-mono text-xs text-indigo-700">768</span></label>
+        <input type="range" id="p01-dimension" min="32" max="2048" step="32" value="768" class="w-full">
+      </div>
+      <div>
+        <label for="p01-corpus" class="block text-sm font-medium text-gray-700">Corpus size <span id="p01-corpus-label" class="font-mono text-xs text-indigo-700">1000 docs</span></label>
+        <input type="range" id="p01-corpus" min="100" max="5000" step="100" value="1000" class="w-full">
+      </div>
+      <div>
+        <label for="p01-k" class="block text-sm font-medium text-gray-700">Top-k requirement <span id="p01-k-label" class="font-mono text-xs text-indigo-700">k = 2</span></label>
+        <input type="range" id="p01-k" min="1" max="10" step="1" value="2" class="w-full">
+        <p class="text-xs text-gray-500 mt-1">LIMIT evaluates k=2, but move the slider to see how the combinatorics explode.</p>
+      </div>
+    </div>
+    <div class="bg-white border border-gray-200 rounded-lg p-4 space-y-3">
+      <h4 class="text-sm font-semibold text-gray-900">Design tweaks</h4>
+      <div>
+        <label for="p01-vectors" class="block text-sm font-medium text-gray-700">Vectors per document <span id="p01-vectors-label" class="font-mono text-xs text-indigo-700">1</span></label>
+        <input type="range" id="p01-vectors" min="1" max="8" step="1" value="1" class="w-full">
+        <p class="text-xs text-gray-500 mt-1">Multiple vectors approximate chunked passages or field-specific embeddings.</p>
+      </div>
+      <div class="flex items-center gap-2">
+        <input type="checkbox" id="p01-reranker" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+        <label for="p01-reranker" class="text-sm text-gray-700">Add lightweight lexical reranker <span class="text-xs text-gray-500">(+15% coverage)</span></label>
+      </div>
+      <p class="text-xs text-gray-500">A lexical reranker is a second-pass scorer that rechecks the top candidates with keyword features (BM25, sparse embeddings, metadata rules). It can rescue hits that the pure embedding ranker missed.</p>
+      <div>
+        <label for="p01-retention" class="block text-sm font-medium text-gray-700">Token retention <span id="p01-retention-label" class="font-mono text-xs text-indigo-700">100%</span></label>
+        <input type="range" id="p01-retention" min="35" max="100" step="5" value="100" class="w-full">
+        <p class="text-xs text-gray-500 mt-1">Aggressive truncation lowers the effective embedding dimension. We approximate that here.</p>
+      </div>
+      <p class="text-xs text-gray-600">Effective dimension: <span id="p01-effective-label" class="font-mono text-sm text-indigo-700">768</span></p>
+    </div>
+  </div>
+
+  <div class="bg-white border border-gray-200 rounded-lg p-4 space-y-4">
+    <div class="flex items-center justify-between">
+      <h4 class="text-sm font-semibold text-gray-900">Coverage outlook</h4>
+      <span id="p01-coverage-percent" class="text-lg font-semibold text-indigo-600">0%</span>
+    </div>
+    <div class="h-2 rounded-full bg-indigo-100 overflow-hidden">
+      <div id="p01-coverage-bar" class="h-full bg-indigo-500 transition-all duration-300" style="width:0%"></div>
+    </div>
+    <p id="p01-coverage-note" class="text-xs text-gray-600">Adjust the sliders to explore when capacity collapse happens.</p>
+    <dl class="grid sm:grid-cols-3 gap-3 text-xs text-gray-600">
+      <div class="bg-slate-50 border border-slate-100 rounded-lg p-3">
+        <dt class="font-semibold text-slate-700">Single vector</dt>
+        <dd id="p01-coverage-single" class="text-sm font-medium text-indigo-600">0%</dd>
+      </div>
+      <div class="bg-slate-50 border border-slate-100 rounded-lg p-3">
+        <dt class="font-semibold text-slate-700">Multi-vector</dt>
+        <dd id="p01-coverage-multi" class="text-sm font-medium text-indigo-600">0%</dd>
+      </div>
+      <div class="bg-slate-50 border border-slate-100 rounded-lg p-3">
+        <dt class="font-semibold text-slate-700">+ Reranker boost</dt>
+        <dd id="p01-coverage-reranker" class="text-sm font-medium text-indigo-600">0%</dd>
+      </div>
+    </dl>
+  </div>
+
+  <div class="grid md:grid-cols-2 gap-4">
+    <div class="bg-white border border-gray-200 rounded-lg p-4 space-y-3">
+      <h4 class="text-sm font-semibold text-gray-900">Representable top-k sets</h4>
+      <div id="p01-representable" class="text-2xl font-mono text-indigo-600">0</div>
+      <p class="text-xs text-gray-600">Upper bound assuming the effective dimension above. Inspired by the paper's hyperplane argument.</p>
+    </div>
+    <div class="bg-white border border-gray-200 rounded-lg p-4 space-y-3">
+      <h4 class="text-sm font-semibold text-gray-900">All possible top-k sets</h4>
+      <div id="p01-total" class="text-2xl font-mono text-gray-700">0</div>
+      <p class="text-xs text-gray-600">Combinatorial ceiling \({n \choose k}\). When this number dwarfs the representable bound, recall must fail.</p>
+    </div>
+  </div>
+
+  <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4" id="p01-insight"></div>
+
+  <div class="bg-white border border-gray-200 rounded-lg p-5 space-y-4" id="p01-simulator">
+    <div class="flex items-center justify-between">
+      <h4 class="text-sm font-semibold text-gray-900">LIMIT-style stress simulator</h4>
+      <button id="p01-sim-run" class="px-3 py-1.5 text-xs font-medium bg-indigo-600 text-white rounded hover:bg-indigo-700">Run roll-up</button>
+    </div>
+    <p class="text-xs text-gray-600">Pick a retrieval scenario and simulate how often the boosted design actually finds the key documents. Each row represents a real-life query you might care about.</p>
+    <div class="grid md:grid-cols-2 gap-3">
+      <div>
+        <label for="p01-sim-scenario" class="block text-sm font-medium text-gray-700">Scenario</label>
+        <select id="p01-sim-scenario" class="mt-1 w-full rounded border border-gray-300 px-2 py-1 text-sm text-gray-700 focus:border-indigo-500 focus:ring-indigo-500"></select>
+      </div>
+      <div>
+        <label for="p01-sim-queries" class="block text-sm font-medium text-gray-700">Number of sampled queries <span id="p01-sim-queries-label" class="font-mono text-xs text-indigo-700">10</span></label>
+        <input type="range" id="p01-sim-queries" min="5" max="30" step="1" value="10" class="w-full">
+      </div>
+    </div>
+    <p id="p01-sim-scenario-desc" class="text-xs text-gray-600"></p>
+    <div id="p01-sim-summary" class="text-sm font-medium text-gray-700">Run the simulator to see recall variance.</div>
+    <div id="p01-sim-table" class="grid gap-2 text-xs text-gray-600"></div>
+  </div>
+</div>

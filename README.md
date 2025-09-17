@@ -46,8 +46,14 @@ top-50-llm-questions/
 |   |-- manifest.json         # Maps ids to ./questions/qXX folders
 |   |-- q01/ ... q57/         # Question assets (answer/interactive files)
 |   \-- q-template/           # Copy to qXX/ when authoring a new question
-|-- QUESTION_TEMPLATE_GUIDE.md            # Authoring guidance
-|-- QUESTION_CHECKLIST.md                 # Review & test checklist
+|-- papers/
+|   |-- manifest.json         # Maps paper ids to ./papers/pXX folders
+|   |-- p-template/           # Copy to pXX/ when authoring a new paper
+|   \-- p01/                  # Paper assets (overview/interactive files)
+|-- QUESTION_TEMPLATE_GUIDE.md            # Question authoring guidance
+|-- QUESTION_CHECKLIST.md                 # Question review & test checklist
+|-- PAPER_TEMPLATE_GUIDE.md               # Paper authoring guidance
+|-- PAPER_CHECKLIST.md                    # Paper review & test checklist
 |-- COPILOT_SYSTEM_PROMPT.md              # AI-assisted coding system prompt
 |-- LICENSE                               # MIT License
 \-- README.md
@@ -79,6 +85,19 @@ Question assets:
 - `interactive.html`: markup for controls/results
 - `interactive.js`: exports `interactiveScript` (CommonJS + browser global)
 - MathJax: call `window.MathJax?.typesetPromise` after injecting new math markup
+
+### Adding a new paper explainer
+
+1. Copy `papers/p-template/` to `papers/pXX/` (two-digit id).
+2. Populate `overview.html` (executive quick take, callouts, evidence, roadmap) and `interactive.html`/`interactive.js` (embedding controls, coverage outlook, LIMIT-style simulator).
+3. Add the entry to `papers/manifest.json` with `dir`, author metadata, `summary`, and `relatedQuestions`; update `p/XX.html` based on `p/_template.html`.
+4. Hard-refresh `index.html#paper-XX` to verify the landing card, interactive, and related-question links. Follow `PAPER_TEMPLATE_GUIDE.md` and `PAPER_CHECKLIST.md` for detailed steps.
+
+Paper assets:
+- `overview.html`: HTML fragment rendered inside the paper viewer
+- `interactive.html`: markup for the stress tester controls/results
+- `interactive.js`: exports `interactiveScript` (CommonJS + browser global)
+- Scenario data: define realistic queries, expected documents, and hints inside the simulator configuration
 
 
 ### Notable implementation details

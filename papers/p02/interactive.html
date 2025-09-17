@@ -1,74 +1,107 @@
 <div class="space-y-6" id="p02-explorer">
-  <div class="grid md:grid-cols-2 gap-4">
-    <div class="bg-gradient-to-r from-rose-50 to-orange-50 border border-orange-100 rounded-lg p-4 space-y-3">
+  <section class="bg-white border border-gray-200 rounded-lg p-5 space-y-5">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
       <div>
-        <label for="p02-novelty" class="block text-sm font-medium text-gray-700">Prompt novelty <span id="p02-novelty-label" class="font-mono text-xs text-orange-700">60%</span></label>
-        <div class="flex items-center gap-3">
-          <input type="range" id="p02-novelty" min="0" max="100" step="5" value="60" class="w-full cursor-pointer">
-          <input type="number" id="p02-novelty-number" min="0" max="100" step="5" value="60" class="w-20 px-2 py-1 border border-gray-300 rounded text-sm text-right">
+        <p class="text-[11px] font-semibold tracking-wide text-indigo-600 uppercase">Step 1 · Base model guarantee</p>
+        <h3 class="text-sm font-semibold text-gray-900">How much slack does the theory allow?</h3>
+        <p class="text-xs text-gray-600 mt-1">Move the sliders to see the Theorem&nbsp;1 lower bound. Even calibrated models keep a non-zero hallucination floor.</p>
+      </div>
+      <div class="text-xs text-gray-500">Bound assumes cross-entropy trained, calibrated base model.</div>
+    </div>
+    <div class="grid md:grid-cols-3 gap-4 text-sm">
+      <label class="flex flex-col gap-2">
+        <span class="font-medium text-gray-700">Validity classifier accuracy <span id="p02-accuracy-label" class="font-mono text-xs text-indigo-600">82%</span></span>
+        <input id="p02-accuracy" type="range" min="55" max="99" step="1" value="82" class="w-full">
+        <span class="text-xs text-gray-500">Higher accuracy → smaller misclassification term.</span>
+      </label>
+      <div class="flex flex-col gap-2">
+        <span class="font-medium text-gray-700">Calibration state</span>
+        <div class="flex gap-2">
+          <button type="button" class="p02-toggle px-3 py-1.5 text-xs rounded-md border border-gray-300 text-gray-700" data-delta="0.02">Calibrated</button>
+          <button type="button" class="p02-toggle px-3 py-1.5 text-xs rounded-md border border-gray-300 text-gray-700" data-delta="0.08">Drifting</button>
         </div>
-        <p class="text-xs text-gray-500 mt-1">Novel prompts unlock new use cases and coverage—but the further you stray from pre-training data, the easier it is for the model to improvise facts. Balance experimentation with guardrails.</p>
+        <p class="text-xs text-gray-500">Calibration gap |δ| grows when post-training pulls the model away from the optimum.</p>
       </div>
-      <div>
-        <label for="p02-temperature" class="block text-sm font-medium text-gray-700">Decoding temperature <span id="p02-temperature-label" class="font-mono text-xs text-orange-700">0.8</span></label>
-        <div class="flex items-center gap-3">
-          <input type="range" id="p02-temperature" min="0.2" max="1.4" step="0.05" value="0.8" class="w-full cursor-pointer">
-          <input type="number" id="p02-temperature-number" min="0.2" max="1.4" step="0.05" value="0.8" class="w-20 px-2 py-1 border border-gray-300 rounded text-sm text-right">
-        </div>
-        <p class="text-xs text-gray-500 mt-1">Lower temperature keeps answers safe but can sound robotic; higher values improve creativity and phrasing at the cost of hallucination risk. Use more mitigation when exploring.</p>
-      </div>
-    </div>
-    <div class="bg-white border border-gray-200 rounded-lg p-4 space-y-3">
-      <h4 class="text-sm font-semibold text-gray-900">Mitigation stack</h4>
-      <div class="flex items-center gap-2">
-        <input type="checkbox" id="p02-retrieval" class="h-4 w-4 text-indigo-600 border-gray-300 rounded" checked>
-        <label for="p02-retrieval" class="text-sm text-gray-700">Retrieval grounding <span class="text-xs text-gray-500">adds evidence chunks when available</span></label>
-      </div>
-      <div class="flex items-center gap-2">
-        <input type="checkbox" id="p02-reward" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-        <label for="p02-reward" class="text-sm text-gray-700">Reward shaping <span class="text-xs text-gray-500">RLHF/RLAIF penalises unsupported statements</span></label>
-      </div>
-      <div class="flex items-center gap-2">
-        <input type="checkbox" id="p02-gating" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-        <label for="p02-gating" class="text-sm text-gray-700">Uncertainty gating <span class="text-xs text-gray-500">route high-risk prompts to fallback workflows</span></label>
-      </div>
-      <ul class="list-disc ml-5 text-xs text-gray-500 space-y-1">
-        <li><strong>Retrieval grounding:</strong> fetch supporting snippets so the model quotes facts instead of inventing them.</li>
-        <li><strong>Reward shaping:</strong> fine-tune or RLHF/RLAIF so unsupported answers are penalised during decoding.</li>
-        <li><strong>Uncertainty gating:</strong> detect high-entropy or inconsistent responses and route them to fallback workflows.</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="bg-white border border-gray-200 rounded-lg p-4 space-y-4">
-    <div class="flex items-center justify-between">
-      <h4 class="text-sm font-semibold text-gray-900">Hallucination outlook</h4>
-      <span id="p02-risk-label" class="text-lg font-semibold text-rose-600">42%</span>
-    </div>
-    <div class="h-2 rounded-full bg-rose-100 overflow-hidden">
-      <div id="p02-risk-bar" class="h-full bg-rose-500 transition-all duration-300" style="width:42%"></div>
-    </div>
-    <p id="p02-risk-note" class="text-xs text-gray-600">Adjust the controls to see how novelty, decoding, and mitigations interact.</p>
-  </div>
-
-  <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4" id="p02-insight"></div>
-
-  <div class="bg-white border border-gray-200 rounded-lg p-5 space-y-4" id="p02-simulator">
-    <div class="flex items-center justify-between gap-3 flex-wrap">
-      <div>
-        <h4 class="text-sm font-semibold text-gray-900">Scenario stress test</h4>
-        <p class="text-xs text-gray-600">Sample prompts inspired by the paper’s case studies. Adjust the scenario and knobs above to see how many responses stay grounded.</p>
-      </div>
-      <div class="flex items-center gap-2">
-        <label for="p02-scenario" class="text-sm font-medium text-gray-700">Scenario</label>
-        <select id="p02-scenario" class="px-2 py-1 rounded border border-gray-300 text-sm focus:ring-2 focus:ring-indigo-500">
-          <option value="support">Customer support KB</option>
-          <option value="policy">Policy & compliance</option>
-          <option value="creative">Creative assistant</option>
+      <label class="flex flex-col gap-2">
+        <span class="font-medium text-gray-700">Prompt structure</span>
+        <select id="p02-structure" class="px-2 py-1 border border-gray-300 rounded text-sm">
+          <option value="0.03">Single correct answer</option>
+          <option value="0.01">Several answers acceptable</option>
+          <option value="0.07">Tough grading (one tiny target)</option>
         </select>
+        <span class="text-xs text-gray-500">Represents the |Vc| ÷ |Ec| adjustment in the bound.</span>
+      </label>
+    </div>
+    <div class="bg-indigo-50 border border-indigo-200 rounded-lg p-4 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+      <div>
+        <p class="text-xs font-semibold text-indigo-900 uppercase tracking-wide">Guaranteed hallucination rate</p>
+        <p class="text-sm text-indigo-900">Generative error ≥ <span id="p02-base-bound" class="font-semibold">0%</span></p>
+      </div>
+      <p id="p02-base-note" class="text-xs text-indigo-800 md:text-right">With near-perfect calibration the floor collapses; with drift it jumps back up.</p>
+    </div>
+  </section>
+
+  <section class="bg-gradient-to-r from-sky-50 to-blue-50 border border-blue-100 rounded-lg p-5 space-y-4">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+      <div>
+        <p class="text-[11px] font-semibold tracking-wide text-blue-700 uppercase">Step 2 · Coverage of rare facts</p>
+        <h3 class="text-sm font-semibold text-blue-900">How many one-off facts did pre-training see?</h3>
+        <p class="text-xs text-blue-900 mt-1">Singleton facts act like missing mass. Theorem&nbsp;2 says their share becomes a lower bound on hallucinations.</p>
       </div>
     </div>
-    <div id="p02-sim-summary" class="text-sm font-medium text-gray-700"></div>
-    <div id="p02-sim-table" class="grid gap-2 text-xs text-gray-600"></div>
-  </div>
+    <div class="grid md:grid-cols-3 gap-4 text-sm">
+      <label class="flex flex-col gap-1">
+        <span class="font-medium text-gray-700">Once-seen facts <span id="p02-singletons-label" class="font-mono text-xs text-blue-700">12%</span></span>
+        <input id="p02-singletons" type="range" min="0" max="40" step="1" value="12" class="w-full">
+      </label>
+      <label class="flex flex-col gap-1">
+        <span class="font-medium text-gray-700">Sample size <span id="p02-samples-label" class="font-mono text-xs text-blue-700">80k</span></span>
+        <input id="p02-samples" type="range" min="20" max="200" step="10" value="80" class="w-full">
+        <span class="text-[11px] text-gray-500">Use thousands of examples (e.g. “80” = 80k).</span>
+      </label>
+      <div class="bg-white border border-blue-200 rounded-md p-3 text-xs text-blue-900 flex flex-col gap-1">
+        <p class="font-semibold">Singleton bound</p>
+        <p id="p02-singleton-bound" class="text-sm">0%</p>
+        <p id="p02-singleton-note">Expands or shrinks with coverage.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-white border border-gray-200 rounded-lg p-5 space-y-4">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+      <div>
+        <p class="text-[11px] font-semibold tracking-wide text-rose-600 uppercase">Step 3 · Evaluation incentives</p>
+        <h3 class="text-sm font-semibold text-gray-900">Does the benchmark reward guessing?</h3>
+        <p class="text-xs text-gray-600 mt-1">Pick the scoring rule and model confidence. The note explains whether bluffing beats abstaining.</p>
+      </div>
+    </div>
+    <div class="grid md:grid-cols-2 gap-4 text-sm">
+      <fieldset class="flex flex-col gap-2">
+        <legend class="font-medium text-gray-700">Scoring rule</legend>
+        <label class="flex items-center gap-2 text-xs text-gray-700">
+          <input type="radio" name="p02-rule" value="binary" checked> Binary leaderboard (1 for correct, 0 otherwise)
+        </label>
+        <label class="flex items-center gap-2 text-xs text-gray-700">
+          <input type="radio" name="p02-rule" value="minus-one"> Minus-one penalty (1 for correct, −1 for wrong)
+        </label>
+        <label class="flex items-center gap-2 text-xs text-gray-700">
+          <input type="radio" name="p02-rule" value="confidence"> Confidence target (1 for correct, −0.5 for wrong)
+        </label>
+      </fieldset>
+      <label class="flex flex-col gap-2">
+        <span class="font-medium text-gray-700">Model confidence on this question <span id="p02-confidence-label" class="font-mono text-xs text-rose-600">55%</span></span>
+        <input id="p02-confidence" type="range" min="30" max="98" step="1" value="55" class="w-full">
+        <span class="text-xs text-gray-500">Treat this as “probability the guess is actually right”.</span>
+      </label>
+    </div>
+    <div class="bg-rose-50 border border-rose-200 rounded-lg p-4 text-xs text-rose-700" id="p02-rule-note">
+      Binary grading rewards guessing—expected score is higher when you answer even if you are only 55% sure.
+    </div>
+  </section>
+
+  <section class="bg-slate-900 text-slate-100 border border-slate-800 rounded-lg p-5 space-y-3">
+    <p class="text-[11px] font-semibold tracking-wide uppercase text-slate-300">Putting it together</p>
+    <h3 class="text-sm font-semibold">What the numbers imply for this paper</h3>
+    <div id="p02-summary" class="space-y-2 text-xs text-slate-200"></div>
+  </section>
 </div>

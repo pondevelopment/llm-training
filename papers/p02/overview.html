@@ -38,6 +38,10 @@
       <h3 class="text-sm font-semibold text-cyan-900">What counts as a “document” for grounding</h3>
       <p class="text-xs text-cyan-800">Grounding works when your index stores focused facts: think FAQ paragraphs, policy clauses, API reference snippets (≈150–300 tokens). Long PDFs or mixed topics should be chunked so the retriever can surface the precise evidence that keeps the model on-manifold.</p>
     </div>
+    <div class="bg-cyan-50 border border-cyan-200 rounded-lg p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-cyan-900">Hallucination taxonomy</h3>
+      <p class="text-xs text-cyan-800">The paper separates <em>intrinsic</em> hallucinations (internal inconsistencies) from <em>extrinsic</em> ones (contradicting external facts). It also surfaces user-facing severity levels (fabrications vs. imprecisions) and ambiguity-driven cases. Classifying incidents this way helps pick the right mitigation: editing for intrinsic faults, grounding for extrinsic ones, clarification for ambiguous prompts.</p>
+    </div>
   </div>
 
   <div class="grid md:grid-cols-3 gap-4">
@@ -61,6 +65,8 @@
       <li><strong>Distribution shift analysis:</strong> prompts sampled from evaluation benchmarks sit far from the pre-training manifold, increasing hallucination probability even for calibrated models.</li>
       <li><strong>Mitigation comparison:</strong> retrieval grounding and editing reduce hallucinations by 30–60% when relevant evidence is found; uncertainty-only approaches help triage but do not fix the underlying issue.</li>
       <li><strong>Reward modeling impact:</strong> RLHF that explicitly rewards faithfully grounded answers decreases unsupported statements but must be paired with evidence retrieval.</li>
+      <li><strong>Uncertainty metrics:</strong> entropy, variance, and self-consistency scores correlate with hallucinations; self-consistency + calibration performs best at flagging risky answers.</li>
+      <li><strong>Benchmarks:</strong> the paper evaluates TruthfulQA, HallucinationBench, and domain-specific audits, showing how each reveals different failure modes.</li>
     </ul>
   </div>
 
@@ -70,6 +76,8 @@
       <li>Measure prompt novelty against your pre-training or fine-tuning distribution; route high-novelty prompts through retrieval or human review.</li>
       <li>Instrument uncertainty signals (entropy, self-consistency, response variance) and log when overrides or fallbacks trigger.</li>
       <li>Iteratively evaluate grounding coverage: if retrieval returns nothing, flag the gap for KB expansion or policy updates.</li>
+      <li>Tag incidents using the paper’s taxonomy (intrinsic vs. extrinsic, ambiguity-driven) so you know whether to edit prompts, expand knowledge, or escalate to humans.</li>
+      <li>Design clarification flows for ambiguous prompts and fine-tune on disambiguated examples to reduce future hallucinations.</li>
     </ul>
   </div>
 </div>

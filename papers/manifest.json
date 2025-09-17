@@ -1,4 +1,28 @@
 ﻿{
+    "3":  {
+              "title":  "Rethinking Chunk Size for Long-Document Retrieval",
+              "authors":  [
+                              "Sinchana Ramakanth Bhat",
+                              "Max Rudat",
+                              "Jannis Spiekermann",
+                              "Nicolas Flores-Herr"
+                          ],
+              "year":  2025,
+              "venue":  "arXiv cs.IR (2025-06-10)",
+              "tags":  [
+                           "rag",
+                           "retrieval",
+                           "chunking"
+                       ],
+              "summary":  "Benchmarks token chunk sizes across QA corpora; shows dataset traits and embedding bias dictate the optimal window.",
+              "dir":  "./papers/p03",
+              "interactiveTitle":  "Chunk sizing planner",
+              "relatedQuestions":  [
+                                       7,
+                                       36,
+                                       53
+                                   ]
+          },
     "2":  {
               "title":  "Why Language Models Hallucinate",
               "authors":  [

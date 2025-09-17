@@ -1,0 +1,66 @@
+<div class="space-y-6" id="p03-explorer">
+  <section class="bg-white border border-gray-200 rounded-lg p-5 space-y-4">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+      <div>
+        <p class="text-[11px] font-semibold tracking-wide text-indigo-600 uppercase">Choose your retrieval setting</p>
+        <h3 class="text-sm font-semibold text-gray-900">Select a dataset profile and embedder</h3>
+        <p class="text-xs text-gray-600 mt-1">The paper benchmarks six QA corpora across Stella (decoder) and Snowflake (encoder). Pick one to see how chunk size drives recall.</p>
+      </div>
+    </div>
+    <div class="grid md:grid-cols-3 gap-3 text-sm">
+      <label class="flex flex-col gap-2">
+        <span class="font-medium text-gray-700">Dataset profile</span>
+        <select id="p03-dataset" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+          <option value="squad">SQuAD (factoid, Wikipedia)</option>
+          <option value="covidqa">COVID-QA (biomedical)</option>
+          <option value="newsqa">NewsQA (news, medium spans)</option>
+          <option value="nq">Natural Questions (web search)</option>
+          <option value="techqa">TechQA (enterprise support)</option>
+          <option value="narrativeqa">NarrativeQA (long narratives)</option>
+        </select>
+      </label>
+      <div class="flex flex-col gap-2">
+        <span class="font-medium text-gray-700">Embedding model</span>
+        <div class="flex gap-2">
+          <button type="button" class="p03-embed-toggle px-3 py-1.5 text-xs rounded-md border border-gray-300 text-gray-700" data-embed="stella">Stella (decoder)</button>
+          <button type="button" class="p03-embed-toggle px-3 py-1.5 text-xs rounded-md border border-gray-300 text-gray-700" data-embed="snowflake">Snowflake (encoder)</button>
+        </div>
+        <p class="text-xs text-gray-500">Stella was trained with 130k context; Snowflake with 8k context.</p>
+      </div>
+      <div class="flex flex-col gap-2">
+        <span class="font-medium text-gray-700">Chunk size (tokens)</span>
+        <input id="p03-chunk" type="range" min="0" max="4" step="1" value="0" class="w-full">
+        <div class="flex items-center justify-between text-[11px] text-gray-500">
+          <span>64</span>
+          <span>128</span>
+          <span>256</span>
+          <span>512</span>
+          <span>1024</span>
+        </div>
+        <p class="text-xs text-gray-500">Slide to compare the paper’s tested windows.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-indigo-50 border border-indigo-200 rounded-lg p-4 space-y-3">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+      <div>
+        <p class="text-[11px] font-semibold uppercase tracking-wide text-indigo-700">Recall outlook</p>
+        <h4 class="text-sm font-semibold text-indigo-900">Expected recall@1 when chunking at <span id="p03-chunk-label" class="font-mono">64</span> tokens</h4>
+      </div>
+      <div class="text-xs font-mono bg-white border border-indigo-200 px-3 py-1.5 rounded text-indigo-700" id="p03-recall">—</div>
+    </div>
+    <div id="p03-chart" class="grid gap-2 text-xs text-indigo-900"></div>
+  </section>
+
+  <section class="bg-white border border-gray-200 rounded-lg p-5 space-y-3">
+    <h4 class="text-sm font-semibold text-gray-900">What the paper suggests</h4>
+    <div id="p03-observations" class="text-sm text-gray-700 space-y-2"></div>
+    <div class="grid md:grid-cols-3 gap-3 text-[11px] text-gray-500" id="p03-dataset-meta"></div>
+  </section>
+
+  <section class="bg-amber-50 border border-amber-200 rounded-lg p-5 space-y-2">
+    <h4 class="text-sm font-semibold text-amber-900">Implementation to-do list</h4>
+    <ul id="p03-actions" class="list-disc ml-5 text-sm text-amber-800 space-y-1"></ul>
+  </section>
+</div>

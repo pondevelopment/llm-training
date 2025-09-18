@@ -21,6 +21,7 @@ Use this checklist whenever you add or update a paper explainer.
 ## Overview content
 
 - [ ] Executive quick take summarises the practical ceiling and governance signal
+- [ ] Business relevance block follows the quick take, includes 3–4 stakeholder bullets, and nests a white “Derivative example” card with a runnable workflow
 - [ ] Include “How top-k maps to retrieval results” callout
 - [ ] Include “What counts as a document” callout (and doc chunking guidance)
 - [ ] Populate `Key insight`, `Method`, `Implication` cards with concise copy

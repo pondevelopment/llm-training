@@ -30,6 +30,19 @@
     </ul>
   </div>
 
+  <div class="bg-emerald-50 border border-emerald-200 rounded-lg p-5 space-y-2">
+    <h3 class="text-sm font-semibold text-emerald-900">💼 Business relevance</h3>
+    <ul class="list-disc ml-5 text-sm text-emerald-800 space-y-1">
+      <li><strong>RAG onboarding:</strong> Treat chunk size as a launch checklist item; run sweeps before exposing new corpora to analysts or customers.</li>
+      <li><strong>Latency and cost:</strong> Larger windows inflate index storage and retrieval time; factor the trade-offs into infrastructure budgets and SLAs.</li>
+      <li><strong>Vendor alignment:</strong> Embedder-specific sweet spots mean procurement should include evaluation time when switching providers or model families.</li>
+    </ul>
+    <div class="bg-white border border-emerald-200 rounded-md p-3 mt-3 space-y-1 text-xs text-emerald-900">
+      <p class="font-semibold">Derivative example (chunk sweep in production)</p>
+      <p class="text-emerald-800">An in-house legal research team can clone the authors sweep, testing 128 versus 512 token chunks on past matters to set the default window before onboarding attorneys.</p>
+    </div>
+  </div>
+
   <div class="grid md:grid-cols-2 gap-4">
     <div class="bg-cyan-50 border border-cyan-200 rounded-lg p-4 space-y-2">
       <h3 class="text-sm font-semibold text-cyan-900">Chunk-size heuristics from the paper</h3>

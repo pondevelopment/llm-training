@@ -38,6 +38,10 @@
       <li><strong>User experience:</strong> Humor tutors, creative assistants, or social bots that misread pun structure feel tone-deaf; PunBreak-style negatives should be in QA before launch.</li>
       <li><strong>Model evaluation:</strong> Precision/recall deltas here are a warning sign for any ambiguity-heavy feature (sarcasm, idioms, irony). Treat pun benchmarks as part of a broader linguistic robustness suite.</li>
     </ul>
+    <div class="bg-white border border-emerald-200 rounded-md p-3 mt-3 space-y-1 text-xs text-emerald-900">
+      <p class="font-semibold">Derivative example (pun-aware moderation drill)</p>
+      <p class="text-emerald-800">A moderation vendor can seed PunBreak negatives into review tooling, measuring precision drops on pun-like spam to decide when to escalate to human linguists.</p>
+    </div>
   </div>
 
   <div class="grid md:grid-cols-2 gap-4">
@@ -101,16 +105,6 @@
       <li><strong>PunBreak perturbations:</strong> homophone swaps drive accuracy to 0.33–0.45 even for GPT‑4o.</li>
       <li><strong>Rationale scoring:</strong> PPA highlights hallucinated senses; manual audit (80 samples/model) shows context and phonetic errors dominate.</li>
       <li><strong>Open assets:</strong> Datasets + annotation guidelines released at <a href="https://github.com/alezanga/punintended" class="text-indigo-600 hover:underline" target="_blank" rel="noopener">alezanga/punintended</a>.</li>
-    </ul>
-  </div>
-
-  <div class="bg-emerald-50 border border-emerald-200 rounded-lg p-5 space-y-2">
-    <h3 class="text-sm font-semibold text-emerald-900">💼 Business relevance</h3>
-    <ul class="list-disc ml-5 text-sm text-emerald-800 space-y-1">
-      <li><strong>Brand voice & marketing:</strong> Copy teams lean on clever wordplay; a detector that confuses faux-puns with real jokes will surface the wrong snippets or greenlight awkward ads.</li>
-      <li><strong>Moderation & safety:</strong> Puns can mask edgy or offensive content—poor precision means noisy escalations, while poor recall misses risky posts.</li>
-      <li><strong>User experience:</strong> Humor tutors, creative assistants, or social bots that misread pun structure feel tone-deaf; PunBreak-style negatives should be in QA before launch.</li>
-      <li><strong>Model evaluation:</strong> Precision/recall deltas here are a warning sign for any ambiguity-heavy feature (sarcasm, idioms, irony). Treat pun benchmarks as part of a broader linguistic robustness suite.</li>
     </ul>
   </div>
 

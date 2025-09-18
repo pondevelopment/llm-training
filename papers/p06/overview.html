@@ -1,0 +1,96 @@
+<div class="space-y-5">
+  <div class="bg-indigo-50 border border-indigo-200 rounded-lg p-4">
+    <div class="flex flex-wrap md:flex-nowrap items-start justify-between gap-4">
+      <div class="md:max-w-3xl">
+        <h2 class="text-xl font-semibold text-indigo-900">The Illusion of Diminishing Returns: Measuring Long Horizon Execution in LLMs</h2>
+        <p class="text-sm text-indigo-700">Akshit Sinha, Arvindh Arun, Shashwat Goel, Steffen Staab, Jonas Geiping • arXiv:2509.09677 (Sep 2025)</p>
+      </div>
+      <a href="https://arxiv.org/abs/2509.09677" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-medium bg-white border border-indigo-200 text-indigo-700 hover:bg-indigo-100">
+        <span>View paper</span>
+        <span aria-hidden="true" class="text-sm leading-none">↗</span>
+      </a>
+    </div>
+    <p class="mt-3 text-sm text-indigo-800 leading-relaxed">
+      The authors design a synthetic benchmark that removes planning and knowledge, forcing language models to simply execute long sequences of retrieve-and-compose operations. They show that tiny improvements in per-step accuracy compound into exponential gains in horizon length, reveal a <em>self-conditioning</em> failure mode, and explain why “thinking” models with sequential test-time compute can run hundreds of steps longer than standard LLMs.
+    </p>
+  </div>
+
+  <div class="bg-slate-900 text-slate-100 border border-slate-800 rounded-lg p-5 space-y-3">
+    <div class="flex items-center gap-2">
+      <span class="text-lg">🧭</span>
+      <h3 class="text-sm font-semibold tracking-wide uppercase text-slate-200">Executive quick take</h3>
+    </div>
+    <p class="text-sm text-slate-200 leading-relaxed">
+      Diminishing returns on single-step benchmarks do <em>not</em> mean LLM scaling is tapped out. Once you control for planning and knowledge, larger models still execute far longer task horizons—and reasoning tokens or RL-trained “thinking” models eliminate self-conditioning failures entirely.
+    </p>
+    <ul class="list-disc ml-5 text-sm text-slate-300 space-y-1">
+      <li><strong>Compounding gains:</strong> Moving step accuracy from 70→80% can multiply the reliable task length.</li>
+      <li><strong>Execution bottleneck:</strong> Even models with 100% single-turn accuracy crumble after a handful of turns.</li>
+      <li><strong>Thinking advantage:</strong> DeepSeek R1 and GPT‑5 Horizon run hundreds–1000+ steps in one shot; non-thinking peers fail at 2.</li>
+    </ul>
+  </div>
+
+  <div class="bg-emerald-50 border border-emerald-200 rounded-lg p-5 space-y-2">
+    <h3 class="text-sm font-semibold text-emerald-900">💼 Business relevance</h3>
+    <ul class="list-disc ml-5 text-sm text-emerald-800 space-y-1">
+      <li><strong>Long workflows:</strong> Agent deployments live or die by how many sequential actions they can perform without human rescue.</li>
+      <li><strong>Scaling ROI:</strong> Horizon length may be a better proxy for productivity gains than static benchmark accuracy—use it to justify compute budgets.</li>
+      <li><strong>Reliability audits:</strong> Self-conditioning explains why agents spiral after the first mistake; mitigation requires thinking tokens or context management.</li>
+    </ul>
+    <div class="bg-white border border-emerald-200 rounded-md p-3 mt-3 space-y-1 text-xs text-emerald-900">
+      <p class="font-semibold">Derivative example (patterned on the paper’s setup)</p>
+      <p class="text-emerald-800">A customer-support automation team could simulate ticket escalation workflows with the paper’s key–value sandbox: each turn retrieves the next policy clause, composes it with the running resolution state, and checks for policy breaches. By measuring horizon length and self-conditioning under injected errors, ops leaders can estimate when a bot needs supervisory handoff and which “thinking” models deliver the best ROI.</p>
+    </div>
+  </div>
+
+  <div class="grid md:grid-cols-2 gap-4">
+    <div class="bg-cyan-50 border border-cyan-200 rounded-lg p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-cyan-900">Key mechanics</h3>
+      <p class="text-xs text-cyan-800">The task chains a Markov state: each turn the model reads a dictionary entry and updates a running sum. No plan inference or world knowledge is required.</p>
+      <ul class="list-disc ml-4 text-[11px] text-cyan-700 space-y-1">
+        <li><strong>Turn complexity K:</strong> Steps per turn; total task length = turns × K.</li>
+        <li><strong>Step accuracy:</strong> Probability a single retrieval+composition is correct.</li>
+        <li><strong>Horizon length H<sub>s</sub>:</strong> Longest task completed with success rate ≥s (0.5 by default).</li>
+      </ul>
+    </div>
+    <div class="bg-cyan-50 border border-cyan-200 rounded-lg p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-cyan-900">Self-conditioning effect</h3>
+      <p class="text-xs text-cyan-800">Injecting erroneous history into the prompt sharply reduces future accuracy—models imitate their own mistakes. Larger non-thinking models still self-condition, whereas thinking models (Qwen3-think, DeepSeek R1, GPT‑5 Horizon) do not.</p>
+      <ul class="list-disc ml-4 text-[11px] text-cyan-700 space-y-1">
+        <li>Healing the context (removing past mistakes) recovers accuracy.</li>
+        <li>Simple context management—forgetting stale turns—can partially help.</li>
+        <li>Sequential reasoning tokens appear necessary for stable execution.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="bg-white border border-gray-200 rounded-lg p-4 space-y-2">
+    <h3 class="text-sm font-semibold text-gray-900">Terminology</h3>
+    <ul class="list-disc ml-5 text-xs text-gray-700 space-y-1">
+      <li><strong>Long-horizon execution:</strong> Number of sequential steps an LLM can perform correctly once the plan is fixed.</li>
+      <li><strong>Turn complexity K:</strong> Number of retrieval/composition operations bundled into one response.</li>
+      <li><strong>Thinking model:</strong> LLM fine-tuned (often via RL) to generate internal reasoning before final answers.</li>
+      <li><strong>Self-conditioning:</strong> Model behaviour where earlier generated errors increase the probability of future errors.</li>
+    </ul>
+  </div>
+
+  <div class="bg-white border border-gray-200 rounded-lg p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-gray-900">🧪 Experiments & Evidence</h3>
+    <ul class="list-disc ml-5 text-sm text-gray-700 space-y-1">
+      <li><strong>Scaling study:</strong> Qwen3/Gemma3 families—32B models maintain >50% accuracy beyond 15 turns; 4B drop before 5.</li>
+      <li><strong>Counterfactual history:</strong> Injecting 75% incorrect turns slashes turn-100 accuracy by >30 pts (self-conditioning), even in 200B+ models.</li>
+      <li><strong>Thinking ablation:</strong> Qwen3-think variants keep turn-100 accuracy flat regardless of injected error history.</li>
+      <li><strong>Single-turn capacity:</strong> Without CoT, even frontier non-thinking models struggle at K=2; with thinking, GPT‑5 Horizon reaches K>1000, Claude-4 Sonnet ≈400.</li>
+    </ul>
+  </div>
+
+  <div class="bg-amber-50 border border-amber-200 rounded-lg p-5 space-y-2">
+    <h3 class="text-sm font-semibold text-amber-900">🔭 For your roadmap</h3>
+    <ul class="list-disc ml-5 text-sm text-amber-800 space-y-1">
+      <li>Track horizon length as a KPI alongside accuracy; tiny step gains can unlock entire workflows.</li>
+      <li>Stress-test agents with injected-history protocols to expose self-conditioning before launch.</li>
+      <li>Budget for thinking tokens or RL post-training if your use case requires long sequential execution.</li>
+      <li>Combine reasoning models with context hygiene (forgetting, checkpoints) to mitigate drift.</li>
+    </ul>
+  </div>
+</div>

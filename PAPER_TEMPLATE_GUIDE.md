@@ -48,9 +48,8 @@ The loader automatically looks for `overview.html`, `interactive.html`, and `int
 1. **Copy the template:** duplicate `papers/p-template/` to `papers/pXX/` (two-digit id).
 2. **Draft the overview (`overview.html`):**
    - Lead with an **Executive quick take** that summarises the practical ceiling or lesson for architects/decision-makers.
-   - Include supporting callouts:
-     - “How top-k maps to retrieval results” – explain the paper’s combinatorics.
-     - “What counts as a document” – define your embedding unit and remind readers to chunk large PDFs (≈150–300 token guidance).
+   - Immediately follow with a **Business relevance** block (emerald styling) that spells out 3–4 stakeholder impacts. Nest a white “Derivative example” card inside this block showing how a team could replicate the paper’s setup with their own data.
+   - Layer supporting callouts that unpack the paper’s mechanics (e.g., “How top-k maps to retrieval results”, “Embedding-model sensitivities”). Name and scope them to the paper—keep each under ~120 words.
    - Keep the trio of cards (`Key insight`, `Method`, `Implication`) focused and scannable.
    - Provide an **Evidence** list citing the main theoretical/empirical results.
    - End with **Forward-looking / roadmap** bullets that tell practitioners what to monitor next.
@@ -73,7 +72,8 @@ The loader automatically looks for `overview.html`, `interactive.html`, and `int
 ## Overview content guidelines
 
 - **Executive quick take:** 2–3 sentences aimed at architects/PMs; speak in plain language, highlight the practical ceiling, and include one actionable signal (e.g., “Track recall on adversarial tickets”).
-- **Callout boxes:** keep each under ~120 words. Use them to unpack terminology (top-k subsets, document units) so the interactive makes sense.
+- **Business relevance:** place this block directly after the quick take, add 3–4 bullets tailored to operators, and include a nested “Derivative example” card that gives a concrete workflow teams can run.
+- **Callout boxes:** keep each under ~120 words. Use them to unpack terminology or experimental levers so the interactive makes sense.
 - **Evidence bullets:** cite the paper’s key theorem, experiment, or data release. Include precise phrases (e.g., “recall@2 saturates at 0.42 even with oracle embeddings”).
 - **Roadmap bullets:** frame them as next steps (“Audit how your retriever chunking aligns with LIMIT assumptions”), not generic advice.
 - **Encoding:** store as UTF-8 with `\n` endings so emoji and punctuation render correctly.

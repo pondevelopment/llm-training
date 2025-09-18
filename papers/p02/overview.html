@@ -29,6 +29,20 @@
     </ul>
   </div>
 
+  <div class="bg-emerald-50 border border-emerald-200 rounded-lg p-5 space-y-2">
+    <h3 class="text-sm font-semibold text-emerald-900">💼 Business relevance</h3>
+    <ul class="list-disc ml-5 text-sm text-emerald-800 space-y-1">
+      <li><strong>Product risk:</strong> Calibrated base models still bluff; production assistants need abstention UX, tool fallback paths, and logging for low-confidence turns.</li>
+      <li><strong>Evaluation policy:</strong> Binary grading rewards guessing; adopt penalty scoring or abstention bonuses in QA harnesses so teams can prove hallucination mitigations work.</li>
+      <li><strong>Governance metrics:</strong> Track calibration error and singleton coverage across releases to back compliance claims about hallucination rates.</li>
+      <li><strong>Training investment:</strong> Budget data collection for sparse facts instead of only tweaking decoding or reward models.</li>
+    </ul>
+    <div class="bg-white border border-emerald-200 rounded-md p-3 mt-3 space-y-1 text-xs text-emerald-900">
+      <p class="font-semibold">Derivative example (applying the scoring-rule fix)</p>
+      <p class="text-emerald-800">A healthcare knowledge base squad can rerun the authors scoring change by grading test calls with abstention bonuses, logging when the assistant outputs defer instead of guessing, and using the metrics in release reviews.</p>
+    </div>
+  </div>
+
   <div class="grid md:grid-cols-2 gap-4">
     <div class="bg-cyan-50 border border-cyan-200 rounded-lg p-4 space-y-2">
       <h3 class="text-sm font-semibold text-cyan-900">IIV reduction in plain language</h3>

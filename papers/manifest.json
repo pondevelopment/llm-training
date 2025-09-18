@@ -1,4 +1,29 @@
 ﻿{
+    "6":  {
+              "title":  "The Illusion of Diminishing Returns: Measuring Long Horizon Execution in LLMs",
+              "authors":  [
+                              "Akshit Sinha",
+                              "Arvindh Arun",
+                              "Shashwat Goel",
+                              "Steffen Staab",
+                              "Jonas Geiping"
+                          ],
+              "year":  2025,
+              "venue":  "arXiv cs.AI (2025-09-11)",
+              "tags":  [
+                           "execution",
+                           "scaling",
+                           "evaluation"
+                       ],
+              "summary":  "Shows that small step-accuracy gains compound into exponential horizon growth, isolates long-horizon execution, and reveals self-conditioning failures mitigated by thinking models.",
+              "dir":  "./papers/p06",
+              "interactiveTitle":  "Long horizon lab",
+              "relatedQuestions":  [
+                                       8,
+                                       36,
+                                       55
+                                   ]
+          },
     "5":  {
               "title":  "Mathematical Research with GPT-5: a Malliavin–Stein Experiment",
               "authors":  [

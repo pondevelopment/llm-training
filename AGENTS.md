@@ -6,8 +6,10 @@ Purpose: Provide consistent, high-signal instructions for AI-assisted coding in 
 
 - Question Template Guide: [QUESTION_TEMPLATE_GUIDE.md](./QUESTION_TEMPLATE_GUIDE.md)
 - Question Checklist: [QUESTION_CHECKLIST.md](./QUESTION_CHECKLIST.md)
+- Paper Template Guide: [PAPER_TEMPLATE_GUIDE.md](./PAPER_TEMPLATE_GUIDE.md)
+- Paper Checklist: [PAPER_CHECKLIST.md](./PAPER_CHECKLIST.md)
 
-Always consult these when creating or updating any question. They are the source of truth for structure, styling, MathJax, interactivity, and the per-question directory/manifest layout.
+Always consult these when creating or updating any question or paper. They are the source of truth for structure, styling, MathJax, interactivity, and the per-asset directory/manifest layout.
 
 ## Operating principles
 
@@ -69,4 +71,7 @@ Always consult these when creating or updating any question. They are the source
 - Ensure all files remain UTF-8 encoded so emoji and punctuation render correctly.
 
 Follow these instructions and the accompanying docs to keep new questions consistent, discoverable, and easy to maintain.
+
+
+
 

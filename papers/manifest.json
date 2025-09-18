@@ -1,4 +1,27 @@
 ﻿{
+    "5":  {
+              "title":  "Mathematical Research with GPT-5: a Malliavin–Stein Experiment",
+              "authors":  [
+                              "Charles-Philippe Diez",
+                              "Luís da Maia",
+                              "Ivan Nourdin"
+                          ],
+              "year":  2025,
+              "venue":  "arXiv math.PR (2025-09-03)",
+              "tags":  [
+                           "research",
+                           "math",
+                           "ai-assist"
+                       ],
+              "summary":  "Documents how GPT-5 helped derive new quantitative Malliavin–Stein bounds, highlighting human-in-the-loop proof workflows.",
+              "dir":  "./papers/p05",
+              "interactiveTitle":  "AI proof lab",
+              "relatedQuestions":  [
+                                       8,
+                                       37,
+                                       45
+                                   ]
+          },
     "4":  {
               "title":  "Pun Unintended: LLMs and the Illusion of Humor Understanding",
               "authors":  [

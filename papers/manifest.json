@@ -1,4 +1,29 @@
 ﻿{
+    "4":  {
+              "title":  "Pun Unintended: LLMs and the Illusion of Humor Understanding",
+              "authors":  [
+                              "Alessandro Zangari",
+                              "Matteo Marcuzzo",
+                              "Andrea Albarelli",
+                              "Mohammad Taher Pilehvar",
+                              "Jose Camacho-Collados"
+                          ],
+              "year":  2025,
+              "venue":  "arXiv cs.CL (2025-09-15)",
+              "tags":  [
+                           "humor",
+                           "robustness",
+                           "evaluation"
+                       ],
+              "summary":  "Introduces PunnyPattern and PunBreak to show LLM pun detection relies on shallow cues and breaks under simple perturbations.",
+              "dir":  "./papers/p04",
+              "interactiveTitle":  "Pun robustness lab",
+              "relatedQuestions":  [
+                                       13,
+                                       41,
+                                       45
+                                   ]
+          },
     "3":  {
               "title":  "Rethinking Chunk Size for Long-Document Retrieval",
               "authors":  [

@@ -1,0 +1,116 @@
+<div class="space-y-5">
+  <div class="bg-indigo-50 border border-indigo-200 rounded-lg p-4">
+    <div class="flex flex-wrap md:flex-nowrap items-start justify-between gap-4">
+      <div class="md:max-w-3xl">
+        <h2 class="text-xl font-semibold text-indigo-900">Pun Unintended: LLMs and the Illusion of Humor Understanding</h2>
+        <p class="text-sm text-indigo-700">Alessandro Zangari, Matteo Marcuzzo, Andrea Albarelli, Mohammad Taher Pilehvar, Jose Camacho-Collados • arXiv:2509.12158 (Sep 2025)</p>
+      </div>
+      <a href="https://arxiv.org/abs/2509.12158" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-medium bg-white border border-indigo-200 text-indigo-700 hover:bg-indigo-100">
+        <span>View paper</span>
+        <span aria-hidden="true" class="text-sm leading-none">↗</span>
+      </a>
+    </div>
+    <p class="mt-3 text-sm text-indigo-800 leading-relaxed">
+      The authors revisit pun detection with three fresh datasets—PunnyPattern, PunBreak, and a newly annotated pun set—to show that top LLMs lean on surface cues. Accuracy plunges when common pun templates are decoys or when pun words are swapped for synonyms or nonsense terms, and the explanation rationales reveal missing context and wrong senses.
+    </p>
+  </div>
+
+  <div class="bg-slate-900 text-slate-100 border border-slate-800 rounded-lg p-5 space-y-3">
+    <div class="flex items-center gap-2">
+      <span class="text-lg">🧭</span>
+      <h3 class="text-sm font-semibold tracking-wide uppercase text-slate-200">Executive quick take</h3>
+    </div>
+    <p class="text-sm text-slate-200 leading-relaxed">
+      LLMs ace legacy pun benchmarks but fail when you strip away memorized patterns. On the new PunnyPattern set, F1 drops ~10 points and precision plunges up to 23 points because models rubber-stamp anything shaped like a pun. PunBreak shows the brittleness: replace a pun word with a homophone and accuracy collapses near coin-flip for every model.
+    </p>
+    <ul class="list-disc ml-5 text-sm text-slate-300 space-y-1">
+      <li><strong>Bias exposure:</strong> High recall + low precision means the models chase templates (“Old X never die…”) rather than judging meaning.</li>
+      <li><strong>Rationales help—but not enough:</strong> Forcing models to name pun pairs slightly boosts F1, yet manual review shows hallucinated senses and context gaps.</li>
+      <li><strong>Benchmark takeaway:</strong> Humor understanding needs adversarial checks, phonetic awareness, and structured rationale evaluation.</li>
+    </ul>
+  </div>
+
+  <div class="grid md:grid-cols-2 gap-4">
+    <div class="bg-cyan-50 border border-cyan-200 rounded-lg p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-cyan-900">Pun types at a glance</h3>
+      <p class="text-xs text-cyan-800">The study tracks two standard categories: heterographic puns use different written forms (sail/sale), while homographic puns reuse the same token with multiple senses (hit/hit). A pun pair is the (<em>w<sub>p</sub></em>, <em>w<sub>a</sub></em>) that triggers both readings.</p>
+      <ul class="list-disc ml-4 text-[11px] text-cyan-700 space-y-1">
+        <li><strong>Rationale prompts</strong> force models to output the pun pair plus senses.</li>
+        <li><strong>R1</strong> (DeepSeek) and GPT‑4o best identify correct pairs (~1.5/2 words right).</li>
+        <li>Mistral struggles: under 1 word of the pair correct on average, often hallucinates senses.</li>
+      </ul>
+      <div class="bg-white border border-cyan-200 rounded-md p-3 text-[11px] text-cyan-800 space-y-2">
+        <p class="font-semibold text-cyan-900">Quick examples</p>
+        <ul class="list-disc ml-4 space-y-1">
+          <li><strong>Heterographic:</strong> “I bought a boat because it was for <em>sale</em>.” → pun pair (<em>sail</em>, <em>sale</em>); senses: to navigate vs. to purchase cheaply.</li>
+          <li><strong>Homographic:</strong> “The math book has too many <em>problems</em>.” → same token (<em>problems</em>) meaning exercises vs. difficulties.</li>
+          <li><strong>Ruined homophone (PunBreak):</strong> swap <em>dragon</em> in “Long fairy tales tend to dra<strong>g on</strong>” with <em>wyvern</em>; humans notice the wordplay disappears, LLMs often still say “pun”.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="bg-cyan-50 border border-cyan-200 rounded-lg p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-cyan-900">Benchmarks introduced</h3>
+      <p class="text-xs text-cyan-800"><strong>PunnyPattern</strong> pairs six popular English pun templates with matched non-puns; <strong>PunBreak</strong> swaps the pun word for synonyms, homophones, or random tokens (plus random sentences). Both include 1,200+ examples with pun-pair annotations.</p>
+      <ul class="list-disc ml-4 text-[11px] text-cyan-700 space-y-1">
+        <li>F1 drops 4–13 pts on PunnyPattern; precision down 16–23 pts.</li>
+        <li>On PunBreak, non-pun accuracy falls to 0.33–0.59 (homophone swaps hardest).</li>
+        <li>Control sentences score &gt;0.8 accuracy → failures stem from pun-like structure, not general bias.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="bg-cyan-50 border border-cyan-200 rounded-lg p-4 space-y-2">
+    <h3 class="text-sm font-semibold text-cyan-900">How the paper measures success</h3>
+    <p class="text-xs text-cyan-800">Detection uses F1 plus precision/recall. Rationales are scored with <strong>Pun Pair Agreement (PPA)</strong>: 2 points if both pun word and alternative are correct, 1 point for one match, 0 otherwise (incorrect predictions also score 0). Manual review tags errors into context, pun-pair, word-sense, and sense-similarity issues.</p>
+    <ul class="list-disc ml-4 text-[11px] text-cyan-700 space-y-1">
+      <li>GPT‑4o leads rationales (PPA ≈1.5/2); DeepSeek‑R1 close behind.</li>
+      <li>Most common failure: missing context to justify the claimed senses.</li>
+      <li>Pun pair errors expose weak phonetic handling—models force mismatched words into wordplay.</li>
+    </ul>
+  </div>
+
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="bg-white border border-gray-200 rounded-lg p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-gray-900">Key insight</h3>
+      <p class="text-xs text-gray-600">High scores on legacy pun datasets hide shallow heuristics. Once templates are adversarial or pun words change, every leading LLM over-predicts “pun”.</p>
+    </div>
+    <div class="bg-white border border-gray-200 rounded-lg p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-gray-900">Method</h3>
+      <p class="text-xs text-gray-600">Prompt seven LLMs with zero-/few-shot, rationale, and reasoning variants; evaluate on PunEval, JOKER, NAP, PunnyPattern, and PunBreak using structured outputs for pun pairs and senses.</p>
+    </div>
+    <div class="bg-white border border-gray-200 rounded-lg p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-gray-900">Implication</h3>
+      <p class="text-xs text-gray-600">Humor understanding remains a brittle frontier. Build benchmarks that target linguistic traps, collect human-reviewed rationales, and bake phonetic reasoning into retrieval/training loops.</p>
+    </div>
+  </div>
+
+  <div class="bg-white border border-gray-200 rounded-lg p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-gray-900">🧪 Experiments & Evidence</h3>
+    <ul class="list-disc ml-5 text-sm text-gray-700 space-y-1">
+      <li><strong>PunnyPattern stress-test:</strong> precision plunges by up to 23 pts across models, revealing template overfitting.</li>
+      <li><strong>PunBreak perturbations:</strong> homophone swaps drive accuracy to 0.33–0.45 even for GPT‑4o.</li>
+      <li><strong>Rationale scoring:</strong> PPA highlights hallucinated senses; manual audit (80 samples/model) shows context and phonetic errors dominate.</li>
+      <li><strong>Open assets:</strong> Datasets + annotation guidelines released at <a href="https://github.com/alezanga/punintended" class="text-indigo-600 hover:underline" target="_blank" rel="noopener">alezanga/punintended</a>.</li>
+    </ul>
+  </div>
+
+  <div class="bg-emerald-50 border border-emerald-200 rounded-lg p-5 space-y-2">
+    <h3 class="text-sm font-semibold text-emerald-900">💼 Business relevance</h3>
+    <ul class="list-disc ml-5 text-sm text-emerald-800 space-y-1">
+      <li><strong>Brand voice & marketing:</strong> Copy teams lean on clever wordplay; a detector that confuses faux-puns with real jokes will surface the wrong snippets or greenlight awkward ads.</li>
+      <li><strong>Moderation & safety:</strong> Puns can mask edgy or offensive content—poor precision means noisy escalations, while poor recall misses risky posts.</li>
+      <li><strong>User experience:</strong> Humor tutors, creative assistants, or social bots that misread pun structure feel tone-deaf; PunBreak-style negatives should be in QA before launch.</li>
+      <li><strong>Model evaluation:</strong> Precision/recall deltas here are a warning sign for any ambiguity-heavy feature (sarcasm, idioms, irony). Treat pun benchmarks as part of a broader linguistic robustness suite.</li>
+    </ul>
+  </div>
+
+  <div class="bg-amber-50 border border-amber-200 rounded-lg p-5 space-y-2">
+    <h3 class="text-sm font-semibold text-amber-900">🔭 For your roadmap</h3>
+    <ul class="list-disc ml-5 text-sm text-amber-800 space-y-1">
+      <li>Run pun-detection smoke tests on your safety or moderation stack; log precision vs. recall per template.</li>
+      <li>Augment training with ruined-pun negatives (synonym + homophone swaps) to discourage sycophantic “pun” predictions.</li>
+      <li>Instrument rationale scoring (PPA) to flag hallucinated senses before shipping explanations to users.</li>
+      <li>Invest in phonetic features or auxiliary speech models when handling wordplay-heavy domains (ads, entertainment, tutoring).</li>
+    </ul>
+  </div>
+</div>

@@ -1,4 +1,28 @@
 ﻿{
+  "8": {
+    "title": "Conversational AI increases political knowledge as effectively as self-directed internet search",
+    "authors": [
+      "Lennart Luettgau",
+      "Hannah Kirk",
+      "Kobi Hackenburg",
+      "Christopher Summerfield"
+    ],
+    "year": 2025,
+    "venue": "arXiv cs.HC (2025-09-05)",
+    "tags": [
+      "policy",
+      "trust",
+      "misinformation"
+    ],
+    "summary": "UK survey and RCTs show election research with GPT-4o, Claude 3.5, and Mistral matches web search at boosting true beliefs, avoids misinformation gains, and resists persuasive prompts.",
+    "dir": "./papers/p08",
+    "interactiveTitle": "Civic info impact lab",
+    "relatedQuestions": [
+      45,
+      50,
+      36
+    ]
+  },
   "7": {
     "title": "A Taxonomy of Transcendence",
     "authors": [
@@ -170,3 +194,4 @@
     "summary": "Shows that single-vector embeddings cannot realize all top-k subsets; introduces the LIMIT dataset to expose the gap."
   }
 }
+

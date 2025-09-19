@@ -1,148 +1,172 @@
 ﻿{
-    "6":  {
-              "title":  "The Illusion of Diminishing Returns: Measuring Long Horizon Execution in LLMs",
-              "authors":  [
-                              "Akshit Sinha",
-                              "Arvindh Arun",
-                              "Shashwat Goel",
-                              "Steffen Staab",
-                              "Jonas Geiping"
-                          ],
-              "year":  2025,
-              "venue":  "arXiv cs.AI (2025-09-11)",
-              "tags":  [
-                           "execution",
-                           "scaling",
-                           "evaluation"
-                       ],
-              "summary":  "Shows that small step-accuracy gains compound into exponential horizon growth, isolates long-horizon execution, and reveals self-conditioning failures mitigated by thinking models.",
-              "dir":  "./papers/p06",
-              "interactiveTitle":  "Long horizon lab",
-              "relatedQuestions":  [
-                                       8,
-                                       36,
-                                       55
-                                   ]
-          },
-    "5":  {
-              "title":  "Mathematical Research with GPT-5: a Malliavin–Stein Experiment",
-              "authors":  [
-                              "Charles-Philippe Diez",
-                              "Luís da Maia",
-                              "Ivan Nourdin"
-                          ],
-              "year":  2025,
-              "venue":  "arXiv math.PR (2025-09-03)",
-              "tags":  [
-                           "research",
-                           "math",
-                           "ai-assist"
-                       ],
-              "summary":  "Documents how GPT-5 helped derive new quantitative Malliavin–Stein bounds, highlighting human-in-the-loop proof workflows.",
-              "dir":  "./papers/p05",
-              "interactiveTitle":  "AI proof lab",
-              "relatedQuestions":  [
-                                       8,
-                                       37,
-                                       45
-                                   ]
-          },
-    "4":  {
-              "title":  "Pun Unintended: LLMs and the Illusion of Humor Understanding",
-              "authors":  [
-                              "Alessandro Zangari",
-                              "Matteo Marcuzzo",
-                              "Andrea Albarelli",
-                              "Mohammad Taher Pilehvar",
-                              "Jose Camacho-Collados"
-                          ],
-              "year":  2025,
-              "venue":  "arXiv cs.CL (2025-09-15)",
-              "tags":  [
-                           "humor",
-                           "robustness",
-                           "evaluation"
-                       ],
-              "summary":  "Introduces PunnyPattern and PunBreak to show LLM pun detection relies on shallow cues and breaks under simple perturbations.",
-              "dir":  "./papers/p04",
-              "interactiveTitle":  "Pun robustness lab",
-              "relatedQuestions":  [
-                                       13,
-                                       41,
-                                       45
-                                   ]
-          },
-    "3":  {
-              "title":  "Rethinking Chunk Size for Long-Document Retrieval",
-              "authors":  [
-                              "Sinchana Ramakanth Bhat",
-                              "Max Rudat",
-                              "Jannis Spiekermann",
-                              "Nicolas Flores-Herr"
-                          ],
-              "year":  2025,
-              "venue":  "arXiv cs.IR (2025-06-10)",
-              "tags":  [
-                           "rag",
-                           "retrieval",
-                           "chunking"
-                       ],
-              "summary":  "Benchmarks token chunk sizes across QA corpora; shows dataset traits and embedding bias dictate the optimal window.",
-              "dir":  "./papers/p03",
-              "interactiveTitle":  "Chunk sizing planner",
-              "relatedQuestions":  [
-                                       7,
-                                       36,
-                                       53
-                                   ]
-          },
-    "2":  {
-              "title":  "Why Language Models Hallucinate",
-              "authors":  [
-                              "Ji",
-                              "Lee",
-                              "Fries",
-                              "et al."
-                          ],
-              "year":  2025,
-              "venue":  "arXiv (2025-09-04)",
-              "tags":  [
-                           "hallucination",
-                           "retrieval",
-                           "alignment"
-                       ],
-              "summary":  "Distribution shift makes LLMs fabricate confident answers; combine grounding, reward shaping, and uncertainty routing.",
-              "dir":  "./papers/p02",
-              "interactiveTitle":  "Hallucination risk simulator",
-              "relatedQuestions":  [
-                                       32,
-                                       36,
-                                       45,
-                                       55
-                                   ]
-          },
-    "1":  {
-              "title":  "On the Theoretical Limitations of Embedding-Based Retrieval",
-              "authors":  [
-                              "Orion Weller",
-                              "Michael Boratko",
-                              "Iftekhar Naim",
-                              "Jinhyuk Lee"
-                          ],
-              "year":  2025,
-              "venue":  "arXiv cs.IR (2025)",
-              "tags":  [
-                           "retrieval",
-                           "theory",
-                           "embeddings"
-                       ],
-              "relatedQuestions":  [
-                                       7,
-                                       36,
-                                       38
-                                   ],
-              "dir":  "./papers/p01",
-              "interactiveTitle":  "Embedding capacity stress tester",
-              "summary":  "Shows that single-vector embeddings cannot realize all top-k subsets; introduces the LIMIT dataset to expose the gap."
-          }
+  "7": {
+    "title": "A Taxonomy of Transcendence",
+    "authors": [
+      "Natalie Abreu",
+      "Edwin Zhang",
+      "Eran Malach",
+      "Naomi Saphra"
+    ],
+    "year": 2025,
+    "venue": "COLM 2025",
+    "tags": [
+      "data diversity",
+      "capabilities",
+      "theory"
+    ],
+    "summary": "Formalises skill denoising/selection/generalisation and shows synthetic expert diversity lets models outperform any contributor.",
+    "dir": "./papers/p07",
+    "interactiveTitle": "Transcendence lab",
+    "relatedQuestions": [
+      36,
+      37,
+      45
+    ]
+  },
+  "6": {
+    "title": "The Illusion of Diminishing Returns: Measuring Long Horizon Execution in LLMs",
+    "authors": [
+      "Akshit Sinha",
+      "Arvindh Arun",
+      "Shashwat Goel",
+      "Steffen Staab",
+      "Jonas Geiping"
+    ],
+    "year": 2025,
+    "venue": "arXiv cs.AI (2025-09-11)",
+    "tags": [
+      "execution",
+      "scaling",
+      "evaluation"
+    ],
+    "summary": "Shows that small step-accuracy gains compound into exponential horizon growth, isolates long-horizon execution, and reveals self-conditioning failures mitigated by thinking models.",
+    "dir": "./papers/p06",
+    "interactiveTitle": "Long horizon lab",
+    "relatedQuestions": [
+      8,
+      36,
+      55
+    ]
+  },
+  "5": {
+    "title": "Mathematical Research with GPT-5: a Malliavin–Stein Experiment",
+    "authors": [
+      "Charles-Philippe Diez",
+      "Luís da Maia",
+      "Ivan Nourdin"
+    ],
+    "year": 2025,
+    "venue": "arXiv math.PR (2025-09-03)",
+    "tags": [
+      "research",
+      "math",
+      "ai-assist"
+    ],
+    "summary": "Documents how GPT-5 helped derive new quantitative Malliavin–Stein bounds, highlighting human-in-the-loop proof workflows.",
+    "dir": "./papers/p05",
+    "interactiveTitle": "AI proof lab",
+    "relatedQuestions": [
+      8,
+      37,
+      45
+    ]
+  },
+  "4": {
+    "title": "Pun Unintended: LLMs and the Illusion of Humor Understanding",
+    "authors": [
+      "Alessandro Zangari",
+      "Matteo Marcuzzo",
+      "Andrea Albarelli",
+      "Mohammad Taher Pilehvar",
+      "Jose Camacho-Collados"
+    ],
+    "year": 2025,
+    "venue": "arXiv cs.CL (2025-09-15)",
+    "tags": [
+      "humor",
+      "robustness",
+      "evaluation"
+    ],
+    "summary": "Introduces PunnyPattern and PunBreak to show LLM pun detection relies on shallow cues and breaks under simple perturbations.",
+    "dir": "./papers/p04",
+    "interactiveTitle": "Pun robustness lab",
+    "relatedQuestions": [
+      13,
+      41,
+      45
+    ]
+  },
+  "3": {
+    "title": "Rethinking Chunk Size for Long-Document Retrieval",
+    "authors": [
+      "Sinchana Ramakanth Bhat",
+      "Max Rudat",
+      "Jannis Spiekermann",
+      "Nicolas Flores-Herr"
+    ],
+    "year": 2025,
+    "venue": "arXiv cs.IR (2025-06-10)",
+    "tags": [
+      "rag",
+      "retrieval",
+      "chunking"
+    ],
+    "summary": "Benchmarks token chunk sizes across QA corpora; shows dataset traits and embedding bias dictate the optimal window.",
+    "dir": "./papers/p03",
+    "interactiveTitle": "Chunk sizing planner",
+    "relatedQuestions": [
+      7,
+      36,
+      53
+    ]
+  },
+  "2": {
+    "title": "Why Language Models Hallucinate",
+    "authors": [
+      "Ji",
+      "Lee",
+      "Fries",
+      "et al."
+    ],
+    "year": 2025,
+    "venue": "arXiv (2025-09-04)",
+    "tags": [
+      "hallucination",
+      "retrieval",
+      "alignment"
+    ],
+    "summary": "Distribution shift makes LLMs fabricate confident answers; combine grounding, reward shaping, and uncertainty routing.",
+    "dir": "./papers/p02",
+    "interactiveTitle": "Hallucination risk simulator",
+    "relatedQuestions": [
+      32,
+      36,
+      45,
+      55
+    ]
+  },
+  "1": {
+    "title": "On the Theoretical Limitations of Embedding-Based Retrieval",
+    "authors": [
+      "Orion Weller",
+      "Michael Boratko",
+      "Iftekhar Naim",
+      "Jinhyuk Lee"
+    ],
+    "year": 2025,
+    "venue": "arXiv cs.IR (2025)",
+    "tags": [
+      "retrieval",
+      "theory",
+      "embeddings"
+    ],
+    "relatedQuestions": [
+      7,
+      36,
+      38
+    ],
+    "dir": "./papers/p01",
+    "interactiveTitle": "Embedding capacity stress tester",
+    "summary": "Shows that single-vector embeddings cannot realize all top-k subsets; introduces the LIMIT dataset to expose the gap."
+  }
 }

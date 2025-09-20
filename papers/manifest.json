@@ -1,4 +1,27 @@
 ﻿{
+  "10": {
+    "title": "Genius on Demand: The Value of Transformative Artificial Intelligence",
+    "authors": [
+      "Ajay Agrawal",
+      "Joshua S. Gans",
+      "Avi Goldfarb"
+    ],
+    "year": 2025,
+    "venue": "NBER Transformative AI Conference (2025-09-08)",
+    "tags": [
+      "automation",
+      "labour",
+      "strategy"
+    ],
+    "summary": "Models how scarce human geniuses and routine workers split knowledge tasks, then shows AI genius capacity pushes humans to the frontier and can erase routine roles when efficiency improves.",
+    "dir": "./papers/p10",
+    "interactiveTitle": "Genius routing planner",
+    "relatedQuestions": [
+      36,
+      50,
+      52
+    ]
+  },
   "9": {
     "title": "Training Compute-Optimal Large Language Models",
     "authors": [
@@ -218,3 +241,4 @@
     "summary": "Shows that single-vector embeddings cannot realize all top-k subsets; introduces the LIMIT dataset to expose the gap."
   }
 }
+

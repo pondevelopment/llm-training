@@ -1,4 +1,26 @@
 {
+  "12": {
+    "title": "AI\u2019s Use of Knowledge in Society",
+    "authors": [
+      "Erik Brynjolfsson",
+      "Zo\u00eb Hitzig"
+    ],
+    "year": 2025,
+    "venue": "NBER Workshop on Transformative AI (2025-09-18)",
+    "tags": [
+      "strategy",
+      "governance",
+      "policy"
+    ],
+    "summary": "Argues that transformative AI codifies tacit expertise and expands HQ planning capacity, pushing organisations toward centralised ownership unless countervailing forces intervene.",
+    "dir": "./papers/p12",
+    "interactiveTitle": "Centralisation stress test",
+    "relatedQuestions": [
+      36,
+      50,
+      52
+    ]
+  },
   "11": {
     "title": "The impact of AI and digital platforms on the information ecosystem",
     "authors": [

@@ -1,4 +1,26 @@
 {
+  "14": {
+    "title": "AI Exposure and the Adaptive Capacity of American Workers",
+    "authors": [
+      "Sam Manning",
+      "Tom\u00e1s Aguirre"
+    ],
+    "year": 2025,
+    "venue": "GovAI & Foundation for American Innovation (2025-09-17)",
+    "tags": [
+      "workforce",
+      "policy",
+      "reskilling"
+    ],
+    "summary": "Builds an occupation-level adaptive capacity index to show where AI-exposed workers are resilient and where clerical roles face concentrated vulnerability.",
+    "dir": "./papers/p14",
+    "interactiveTitle": "Exposure vs capacity planner",
+    "relatedQuestions": [
+      8,
+      45,
+      52
+    ]
+  },
   "13": {
     "title": "An Economy of AI Agents",
     "authors": [

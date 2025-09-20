@@ -1,4 +1,26 @@
-﻿{
+{
+  "11": {
+    "title": "The impact of AI and digital platforms on the information ecosystem",
+    "authors": [
+      "Joseph E. Stiglitz",
+      "Maxim Ventura-Bolet"
+    ],
+    "year": 2025,
+    "venue": "NBER Transformative AI Conference (2025-09-15)",
+    "tags": [
+      "policy",
+      "misinformation",
+      "platforms"
+    ],
+    "summary": "Models news producers, consumers, and platforms to show AI efficiencies can shrink truthful supply and raise misinformation unless accountability and licensing guardrails align incentives.",
+    "dir": "./papers/p11",
+    "interactiveTitle": "Information ecosystem stress test",
+    "relatedQuestions": [
+      36,
+      45,
+      50
+    ]
+  },
   "10": {
     "title": "Genius on Demand: The Value of Transformative Artificial Intelligence",
     "authors": [
@@ -120,10 +142,10 @@
     ]
   },
   "5": {
-    "title": "Mathematical Research with GPT-5: a Malliavin–Stein Experiment",
+    "title": "Mathematical Research with GPT-5: a Malliavin\u2013Stein Experiment",
     "authors": [
       "Charles-Philippe Diez",
-      "Luís da Maia",
+      "Lu\u00eds da Maia",
       "Ivan Nourdin"
     ],
     "year": 2025,
@@ -133,7 +155,7 @@
       "math",
       "ai-assist"
     ],
-    "summary": "Documents how GPT-5 helped derive new quantitative Malliavin–Stein bounds, highlighting human-in-the-loop proof workflows.",
+    "summary": "Documents how GPT-5 helped derive new quantitative Malliavin\u2013Stein bounds, highlighting human-in-the-loop proof workflows.",
     "dir": "./papers/p05",
     "interactiveTitle": "AI proof lab",
     "relatedQuestions": [
@@ -241,4 +263,3 @@
     "summary": "Shows that single-vector embeddings cannot realize all top-k subsets; introduces the LIMIT dataset to expose the gap."
   }
 }
-

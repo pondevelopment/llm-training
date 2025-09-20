@@ -1,4 +1,28 @@
 ﻿{
+  "9": {
+    "title": "Training Compute-Optimal Large Language Models",
+    "authors": [
+      "Jordan Hoffmann",
+      "Sebastian Borgeaud",
+      "Arthur Mensch",
+      "Elena Buchatskaya"
+    ],
+    "year": 2022,
+    "venue": "arXiv cs.LG (2022-03-29)",
+    "tags": [
+      "scaling",
+      "compute",
+      "training"
+    ],
+    "summary": "Derives compute-optimal scaling laws and shows a 70B parameter, 1.4T token Chinchilla model beats larger GPT-3/Gopher runs by reallocating FLOPs to more data.",
+    "dir": "./papers/p09",
+    "interactiveTitle": "Compute budget navigator",
+    "relatedQuestions": [
+      48,
+      49,
+      51
+    ]
+  },
   "8": {
     "title": "Conversational AI increases political knowledge as effectively as self-directed internet search",
     "authors": [
@@ -194,4 +218,3 @@
     "summary": "Shows that single-vector embeddings cannot realize all top-k subsets; introduces the LIMIT dataset to expose the gap."
   }
 }
-

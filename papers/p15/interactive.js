@@ -1,4 +1,4 @@
-const interactiveScript = () => {
+﻿const interactiveScript = () => {
   const root = document.getElementById('p15-lab');
   if (!root) return;
 
@@ -35,7 +35,7 @@ const interactiveScript = () => {
     },
     usage: {
       label: 'Usage fee markups',
-      wage: '-3.5% real wage',
+      wage: '\u22123.5% real wage',
       variety: '+1.5% (muted)',
       leakage: 'High via usage fees',
       levers: [
@@ -56,8 +56,8 @@ const interactiveScript = () => {
     },
     access: {
       label: 'Access fee markups',
-      wage: '-2% real wage',
-      variety: '-4% (variety loss)',
+      wage: '\u22122% real wage',
+      variety: '\u22124% (variety loss)',
       leakage: 'High via access tolls',
       levers: [
         {
@@ -87,6 +87,16 @@ const interactiveScript = () => {
       } else {
         btn.classList.remove('bg-indigo-600', 'text-white', 'border-indigo-600');
         btn.classList.add('bg-white', 'text-indigo-700');
+      }
+      const subtitle = btn.querySelector('.p15-scenario-sub');
+      if (subtitle) {
+        if (isActive) {
+          subtitle.classList.remove('text-slate-500');
+          subtitle.classList.add('text-indigo-100');
+        } else {
+          subtitle.classList.remove('text-indigo-100');
+          subtitle.classList.add('text-slate-500');
+        }
       }
     });
   };

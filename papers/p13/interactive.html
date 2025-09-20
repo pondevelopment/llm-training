@@ -1,0 +1,43 @@
+<div id="p13-lab" class="space-y-6">
+  <div class="bg-gradient-to-r from-slate-50 via-indigo-50 to-slate-50 border border-indigo-100 rounded-lg p-4">
+    <h4 class="text-sm font-semibold text-indigo-900">Choose deployment scenario</h4>
+    <div id="p13-scenarios" class="mt-3 flex flex-wrap gap-2">
+      <button type="button" data-scenario="baseline" class="p13-scenario inline-flex items-center gap-2 px-3 py-1.5 text-xs font-medium border border-indigo-200 rounded-md bg-white text-indigo-700 hover:bg-indigo-100" aria-pressed="true">Human-in-loop workflows</button>
+      <button type="button" data-scenario="pilot" class="p13-scenario inline-flex items-center gap-2 px-3 py-1.5 text-xs font-medium border border-indigo-200 rounded-md bg-white text-indigo-700 hover:bg-indigo-100" aria-pressed="false">Agent pilot with guardrails</button>
+      <button type="button" data-scenario="open" class="p13-scenario inline-flex items-center gap-2 px-3 py-1.5 text-xs font-medium border border-indigo-200 rounded-md bg-white text-indigo-700 hover:bg-indigo-100" aria-pressed="false">Open agent marketplace</button>
+    </div>
+    <p class="mt-2 text-xs text-indigo-700">Scenarios illustrate how scope, oversight, and required institutions evolve as autonomy increases.</p>
+  </div>
+
+  <div class="grid md:grid-cols-3 gap-4" id="p13-metrics">
+    <div class="bg-white border border-gray-200 rounded-lg p-4 space-y-2">
+      <div class="text-[11px] uppercase tracking-wide text-indigo-600 font-semibold">Autonomy scope</div>
+      <p id="p13-metric-autonomy" class="text-2xl font-semibold text-gray-900">--</p>
+      <p class="text-xs text-gray-500">How much of the workflow the agent executes end-to-end.</p>
+    </div>
+    <div class="bg-white border border-gray-200 rounded-lg p-4 space-y-2">
+      <div class="text-[11px] uppercase tracking-wide text-emerald-600 font-semibold">Oversight burden</div>
+      <p id="p13-metric-oversight" class="text-2xl font-semibold text-gray-900">--</p>
+      <p class="text-xs text-gray-500">Hours of human supervision required per 100 agent actions.</p>
+    </div>
+    <div class="bg-white border border-gray-200 rounded-lg p-4 space-y-2">
+      <div class="text-[11px] uppercase tracking-wide text-rose-600 font-semibold">Institutional readiness</div>
+      <p id="p13-metric-infra" class="text-2xl font-semibold text-gray-900">--</p>
+      <p class="text-xs text-gray-500">Maturity level of policies, audits, and safeguards needed.</p>
+    </div>
+  </div>
+
+  <div class="bg-white border border-gray-200 rounded-lg p-5 space-y-3">
+    <div class="flex items-center justify-between gap-3">
+      <h4 class="text-sm font-semibold text-gray-900">What changes as autonomy scales</h4>
+      <span id="p13-context-label" class="text-xs font-mono bg-indigo-50 text-indigo-700 px-2 py-1 rounded">--</span>
+    </div>
+    <div id="p13-levers" class="grid md:grid-cols-2 gap-3 text-sm text-gray-700"></div>
+  </div>
+
+  <div class="bg-amber-50 border border-amber-200 rounded-lg p-5 space-y-3">
+    <h4 class="text-sm font-semibold text-amber-900">Takeaway for operators</h4>
+    <p id="p13-summary" class="text-sm text-amber-800 leading-relaxed"></p>
+    <ul id="p13-actions" class="list-disc ml-5 text-sm text-amber-800 space-y-1"></ul>
+  </div>
+</div>

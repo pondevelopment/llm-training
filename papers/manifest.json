@@ -1,4 +1,26 @@
 {
+  "13": {
+    "title": "An Economy of AI Agents",
+    "authors": [
+      "Gillian K. Hadfield",
+      "Andrew Koh"
+    ],
+    "year": 2025,
+    "venue": "NBER Handbook on the Economics of Transformative AI (2025-09-03)",
+    "tags": [
+      "agents",
+      "markets",
+      "governance"
+    ],
+    "summary": "Explores how autonomous AI agents might transact, bargain, and organise with minimal human oversight, and outlines the market institutions needed to keep them aligned.",
+    "dir": "./papers/p13",
+    "interactiveTitle": "Agent deployment playbook",
+    "relatedQuestions": [
+      45,
+      50,
+      52
+    ]
+  },
   "12": {
     "title": "AI\u2019s Use of Knowledge in Society",
     "authors": [

@@ -1,4 +1,26 @@
 {
+  "15": {
+    "title": "Artificial Intelligence, Competition, and Welfare",
+    "authors": [
+      "Susan Athey",
+      "Fiona Scott Morton"
+    ],
+    "year": 2025,
+    "venue": "NBER Transformative AI Conference (2025-09-19)",
+    "tags": [
+      "competition",
+      "policy",
+      "welfare"
+    ],
+    "summary": "Models AI as an upstream monopolist selling access and usage rights, showing how markups can lower wages, shrink variety, and leak rents abroad even when AI is productive.",
+    "dir": "./papers/p15",
+    "interactiveTitle": "AI market power simulator",
+    "relatedQuestions": [
+      45,
+      50,
+      52
+    ]
+  },
   "14": {
     "title": "AI Exposure and the Adaptive Capacity of American Workers",
     "authors": [

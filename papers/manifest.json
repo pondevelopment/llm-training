@@ -1,4 +1,25 @@
 {
+  "17": {
+    "title": "We Won't Be Missed: Work and Growth in the Era of AGI",
+    "authors": [
+      "Pascual Restrepo"
+    ],
+    "year": 2025,
+    "venue": "NBER Transformative AI Conference (2025-07-04)",
+    "tags": [
+      "growth",
+      "labor",
+      "compute"
+    ],
+    "summary": "Shows that once AGI automates all growth bottlenecks, output becomes compute-limited, wages shadow compute costs, and labor's income share trends toward zero even with residual accessory work.",
+    "dir": "./papers/p17",
+    "interactiveTitle": "AGI compute allocation lab",
+    "relatedQuestions": [
+      8,
+      45,
+      52
+    ]
+  },
   "16": {
     "title": "Artificial Intelligence in Research and Development",
     "authors": [

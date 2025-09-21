@@ -1,4 +1,26 @@
 {
+  "19": {
+    "title": "Making AI Count: The Next Measurement Frontier",
+    "authors": [
+      "Diane Coyle",
+      "John Lourenze Poquiz"
+    ],
+    "year": 2025,
+    "venue": "NBER Transformative AI Conference (2025-08-01)",
+    "tags": [
+      "measurement",
+      "economics",
+      "policy"
+    ],
+    "summary": "Maps where national accounts miss AI's diffusion across free services, embedded quality gains, supply-chain inputs, and time savings, and lays out satellite-account fixes.",
+    "dir": "./papers/p19",
+    "interactiveTitle": "AI measurement readiness lab",
+    "relatedQuestions": [
+      45,
+      50,
+      52
+    ]
+  },
   "18": {
     "title": "How Much Should We Spend to Reduce A.I.'s Existential Risk?",
     "authors": [

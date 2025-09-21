@@ -1,4 +1,25 @@
 {
+  "16": {
+    "title": "Artificial Intelligence in Research and Development",
+    "authors": [
+      "Benjamin F. Jones"
+    ],
+    "year": 2025,
+    "venue": "NBER Transformative AI Conference (2025-09-16)",
+    "tags": [
+      "R&D",
+      "productivity",
+      "strategy"
+    ],
+    "summary": "Models AI as research capital alongside people, emphasising task coverage, relative productivity, and complementary bottlenecks when machines take on R&D tasks.",
+    "dir": "./papers/p16",
+    "interactiveTitle": "R&D intelligence planner",
+    "relatedQuestions": [
+      7,
+      8,
+      45
+    ]
+  },
   "15": {
     "title": "Artificial Intelligence, Competition, and Welfare",
     "authors": [

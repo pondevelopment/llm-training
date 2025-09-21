@@ -238,7 +238,7 @@ class LLMQuestionApp {
                 const entries = Object.entries(manifest)
                     .map(([key,value]) => ({ id: Number(key), meta: value }))
                     .filter(item => Number.isFinite(item.id) && item.id > 0)
-                    .sort((a,b) => a.id - b.id);
+                    .sort((a,b) => b.id - a.id);
                 this.availablePapers = entries.map(item => item.id);
                 this.paperMeta = manifest;
                 this.updateFooterPaperCount(entries.length);

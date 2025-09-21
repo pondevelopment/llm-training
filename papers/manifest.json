@@ -1,4 +1,25 @@
 {
+  "18": {
+    "title": "How Much Should We Spend to Reduce A.I.'s Existential Risk?",
+    "authors": [
+      "Charles I. Jones"
+    ],
+    "year": 2025,
+    "venue": "NBER Transformative AI Conference (2025-03-17)",
+    "tags": [
+      "policy",
+      "risk",
+      "economics"
+    ],
+    "summary": "Uses revealed-preference and VSL logic to argue that multi-percent-of-GDP investments in AI catastrophe mitigation are rational even without longtermist weighting.",
+    "dir": "./papers/p18",
+    "interactiveTitle": "AI risk budget calculator",
+    "relatedQuestions": [
+      36,
+      45,
+      52
+    ]
+  },
   "17": {
     "title": "We Won't Be Missed: Work and Growth in the Era of AGI",
     "authors": [

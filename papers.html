@@ -13,34 +13,76 @@
 </head>
 <body class="bg-gray-50 text-gray-800">
   <header class="bg-white border-b border-gray-200">
-    <div class="max-w-5xl mx-auto px-4 py-5 flex flex-col md:flex-row md:items-center gap-4">
-      <div class="flex-1 min-w-0">
-        <h1 class="text-2xl font-bold text-gray-900">All Papers</h1>
-        <p class="text-sm text-gray-600">Deep dives on influential LLM research with interactive explainers.</p>
+    <div class="max-w-4xl mx-auto px-4 py-6 space-y-6">
+      <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div class="space-y-1">
+          <h1 class="text-2xl font-bold text-gray-900">
+            <a href="index.html#" class="hover:text-indigo-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded-sm">LLM Learning Hub</a>
+          </h1>
+          <p class="text-sm text-gray-600">Questions, paper explainers, and interactive simulators to make confident LLM decisions.</p>
+          <p class="text-xs text-gray-500">&#128161; Share direct links to questions &bull; Navigate with arrow keys &bull; Press 'S' to share</p>
+        </div>
+        <button id="glossary-open-btn" class="h-10 inline-flex items-center justify-center px-3 text-sm bg-emerald-100 text-emerald-800 hover:bg-emerald-200 rounded-md border border-emerald-200 transition-colors" title="Open LLM glossary">
+          &#128218; Glossary
+        </button>
       </div>
-      <div class="flex items-center gap-3 w-full md:w-auto">
-        <input id="search" type="text" placeholder="Search titles, authors, tags" class="flex-1 md:w-80 px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
-        <a href="index.html#papers" class="px-4 py-2 text-sm bg-indigo-600 text-white rounded-md shadow hover:bg-indigo-700">Back</a>
+      <div class="flex flex-col md:flex-row md:items-center gap-4">
+        <div class="flex-1 min-w-0">
+          <h2 class="text-xl font-semibold text-gray-900">All Papers</h2>
+          <p class="text-sm text-gray-600">Deep dives on influential LLM research with interactive explainers.</p>
+        </div>
+        <div class="flex items-center gap-3 w-full md:w-auto">
+          <input id="search" type="text" placeholder="Search titles, authors, tags" class="flex-1 md:w-80 px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+        </div>
       </div>
     </div>
   </header>
 
-  <main class="max-w-5xl mx-auto px-4 py-8">
+  <main class="max-w-4xl mx-auto px-4 py-8">
     <div class="flex flex-wrap items-center gap-2 mb-6 text-xs" id="tag-filters" aria-label="Tag filters">
       <!-- Tag filters populated via script -->
     </div>
-    <div id="count" class="text-sm text-gray-600 mb-4">Loading papers…</div>
+    <div id="count" class="text-sm text-gray-600 mb-4">Loading papers...</div>
     <ul id="paper-list" class="grid sm:grid-cols-2 gap-4"></ul>
     <div id="error" class="hidden mt-6 p-4 border border-red-200 bg-red-50 text-sm text-red-700 rounded-md"></div>
   </main>
 
   <footer class="mt-16 border-t bg-white border-gray-200">
-    <div class="max-w-5xl mx-auto px-4 py-8 text-center text-xs text-gray-500">
-      <p>Interactive LLM Learning Experience • <a class="text-indigo-600 hover:underline" href="index.html#">Return to landing</a></p>
+    <div class="max-w-4xl mx-auto px-4 py-8 text-center text-xs text-gray-500">
+      <p>Interactive LLM Learning Experience &bull; <a class="text-indigo-600 hover:underline" href="index.html#">Return to landing</a></p>
       <p class="mt-2">Static share links live under <code class="px-1 py-0.5 bg-gray-100 rounded">/p/N.html</code></p>
     </div>
   </footer>
 
+  <!-- Glossary Modal -->
+  <div id="glossary-modal" class="fixed inset-0 z-50 hidden">
+    <div class="absolute inset-0 bg-black/40"></div>
+    <div class="absolute inset-0 flex items-start justify-center p-4 md:p-8 overflow-auto">
+      <div class="w-full max-w-3xl bg-white rounded-xl shadow-2xl border border-gray-200 animate-slide-up">
+        <div class="flex items-center justify-between p-4 border-b">
+          <div>
+            <h3 class="text-lg font-semibold text-gray-900">GenAI / LLM Glossary</h3>
+            <p class="text-xs text-gray-500">Quickly find definitions of common terms</p>
+          </div>
+          <button id="glossary-close-btn" class="px-2 py-1 text-sm text-gray-600 hover:text-gray-900">&times;</button>
+        </div>
+        <div class="p-4 space-y-3">
+          <div class="flex items-center gap-2">
+            <input id="glossary-search" type="text" placeholder="Search terms (e.g., attention, RLHF, RAG)" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+            <button id="glossary-clear" class="px-3 py-2 text-xs bg-gray-100 hover:bg-gray-200 rounded border">Clear</button>
+          </div>
+          <div id="glossary-tags" class="flex flex-wrap gap-2 text-xs"></div>
+          <div id="glossary-count" class="text-xs text-gray-500"></div>
+          <div id="glossary-list" class="grid sm:grid-cols-2 gap-3"></div>
+        </div>
+        <div class="p-3 border-t text-right">
+          <button id="glossary-close-btn-bottom" class="px-3 py-2 text-sm bg-indigo-600 text-white rounded hover:bg-indigo-700">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./js/glossary.js"></script>
   <script>
     const listEl = document.getElementById('paper-list');
     const countEl = document.getElementById('count');
@@ -118,13 +160,13 @@
                   <span class="inline-flex items-center px-2 py-0.5 text-[11px] font-medium rounded bg-gray-100 text-gray-700 border border-gray-200">Interactive</span>
                 </div>
                 <h2 class="text-base font-semibold text-gray-900 leading-snug">${paper.title}</h2>
-                <p class="text-xs text-gray-500">${formatAuthors(paper.authors)} • ${paper.venue || 'Unknown venue'}</p>
+                <p class="text-xs text-gray-500">${formatAuthors(paper.authors)} &bull; ${paper.venue || 'Unknown venue'}</p>
                 <p class="text-sm text-gray-700 leading-relaxed">${paper.summary || 'Overview forthcoming.'}</p>
                 ${tags ? `<div class="flex flex-wrap gap-1.5">${tags}</div>` : ''}
               </a>
               <div class="px-4 py-3 border-t border-gray-200 bg-gray-50 text-xs flex items-center justify-between rounded-b-lg">
                 <a class="text-indigo-600 hover:text-indigo-700 font-medium" href="p/${paper.index}.html" aria-label="Open static share page for paper ${paper.index}">Static share</a>
-                <span class="text-gray-500">Updated ${paper.year || '—'}</span>
+                <span class="text-gray-500">Updated ${paper.year || '&mdash;'}</span>
               </div>
             </article>
           </li>

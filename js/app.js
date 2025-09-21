@@ -17,6 +17,7 @@ class LLMQuestionApp {
         this.isLoading = false;
         this.mode = "question";
         this.availablePapers = [];
+        this.totalPapers = 0;
         this.paperMeta = {};
         this.pendingPaperId = null;
         this.papersReady = null;
@@ -37,6 +38,10 @@ class LLMQuestionApp {
         };
 
         this.initDOM();
+        if (this.elements.footerQuestionCount) {
+            this.elements.footerQuestionCount.textContent = this.totalQuestions;
+        }
+        this.updateFooterPaperCount(0);
         this.syncModeUI();
         this.bindEvents();
         this.populateQuestionDropdown();
@@ -73,6 +78,8 @@ class LLMQuestionApp {
             paperInteractiveBody: document.getElementById('paper-interactive-body'),
             paperShareBtn: document.getElementById('paper-share-btn'),
             paperBackBtn: document.getElementById('paper-back-btn'),
+            footerQuestionCount: document.getElementById('footer-total-count'),
+            footerPaperCount: document.getElementById('footer-paper-count'),
             loadingIndicator: this.createLoadingIndicator()
         };
     }
@@ -216,13 +223,16 @@ class LLMQuestionApp {
         const section=document.getElementById('papers-section');
         const grid=document.getElementById('papers-grid');
         if(!section || !grid){
+            this.updateFooterPaperCount(0);
             return Promise.resolve([]);
         }
         section.hidden = true;
         grid.innerHTML = '';
+        this.updateFooterPaperCount(0);
         return this.paperLoader.getManifest()
             .then(manifest => {
                 if(!manifest || typeof manifest !== 'object'){
+                    this.updateFooterPaperCount(0);
                     return [];
                 }
                 const entries = Object.entries(manifest)
@@ -231,6 +241,7 @@ class LLMQuestionApp {
                     .sort((a,b) => a.id - b.id);
                 this.availablePapers = entries.map(item => item.id);
                 this.paperMeta = manifest;
+                this.updateFooterPaperCount(entries.length);
                 if(!entries.length){
                     return [];
                 }
@@ -242,6 +253,7 @@ class LLMQuestionApp {
                 console.error('Failed to initialize papers section', err);
                 grid.innerHTML = '<div class="p-4 bg-red-50 border border-red-200 rounded text-sm text-red-700">Paper explainers are temporarily unavailable.</div>';
                 section.hidden = false;
+                this.updateFooterPaperCount(0);
                 return [];
             });
     }
@@ -443,6 +455,7 @@ class LLMQuestionApp {
         if(id > 0 && !this.availablePapers.includes(id)){
             this.availablePapers.push(id);
             this.availablePapers.sort((a,b)=>a-b);
+            this.updateFooterPaperCount(this.availablePapers.length);
         }
         if(this.elements.paperIdentifier) this.elements.paperIdentifier.textContent = `Paper #${nice}`;
         if(this.elements.paperTitle) this.elements.paperTitle.textContent = paper.title || `Paper ${id}`;
@@ -623,7 +636,7 @@ class LLMQuestionApp {
     }
     async showNext(){ if(this.activePath){ if(this.activePath.pos < this.activePath.sequence.length-1){ const nextQ=this.activePath.sequence[this.activePath.pos+1]; return this.displayQuestion(this.availableQuestions.indexOf(nextQ)); } else { const done=this.activePath.key; this.exitPath(); this.notify(`Completed ${done} path!`); }} if(this.currentQuestionIndex < this.totalQuestions-1) await this.displayQuestion(this.currentQuestionIndex+1); }
     async showPrev(){ if(this.activePath){ if(this.activePath.pos>0){ const prevQ=this.activePath.sequence[this.activePath.pos-1]; return this.displayQuestion(this.availableQuestions.indexOf(prevQ)); } else { this.exitPath(); }} if(this.currentQuestionIndex>0) await this.displayQuestion(this.currentQuestionIndex-1); }
-    async jumpTo(){ const newIdx=parseInt(this.elements.questionNavDropdown.value,10); if(newIdx!==this.currentQuestionIndex) await this.displayQuestion(newIdx); }
+    async jumpTo(){ if(!this.elements.questionNavDropdown) return; const newIdx=parseInt(this.elements.questionNavDropdown.value,10); if(newIdx!==this.currentQuestionIndex) await this.displayQuestion(newIdx); }
     async preloadAdjacent(){ const list=[]; if(this.currentQuestionIndex>0) list.push(this.availableQuestions[this.currentQuestionIndex-1]); if(this.currentQuestionIndex<this.totalQuestions-1) list.push(this.availableQuestions[this.currentQuestionIndex+1]); if(list.length) this.questionLoader.preloadQuestions(list); }
 
     /* -------------- UI Helpers -------------- */
@@ -668,8 +681,29 @@ class LLMQuestionApp {
             }
         });
     }
-    updateNavState(i){ this.elements.prevBtn.disabled=i===0; this.elements.nextBtn.disabled=i===this.totalQuestions-1; this.elements.progressIndicator.textContent=`Question ${i+1} of ${this.totalQuestions} (${this.availableQuestions[i]})`; this.elements.questionNavDropdown.value=i; }
-    updateDropdownOption(i,title){ const opt=this.elements.questionNavDropdown.children[i]; if(opt){ const qText=title.substring(title.indexOf(' ')+1); opt.textContent=`${i+1}. ${qText}`; } }
+    updateFooterPaperCount(count){
+        const safeCount = Number.isFinite(count) && count >= 0 ? count : 0;
+        this.totalPapers = safeCount;
+        if(this.elements.footerPaperCount){
+            this.elements.footerPaperCount.textContent = safeCount;
+        }
+    }
+    updateNavState(i){
+        this.elements.prevBtn.disabled = i === 0;
+        this.elements.nextBtn.disabled = i === this.totalQuestions - 1;
+        this.elements.progressIndicator.textContent = `Question ${i+1} of ${this.totalQuestions} (${this.availableQuestions[i]})`;
+        if (this.elements.questionNavDropdown) {
+            this.elements.questionNavDropdown.value = i;
+        }
+    }
+    updateDropdownOption(i,title){
+        if(!this.elements.questionNavDropdown) return;
+        const opt = this.elements.questionNavDropdown.children[i];
+        if(opt){
+            const qText = title.substring(title.indexOf(" ")+1);
+            opt.textContent = `${i+1}. ${qText}`;
+        }
+    }
     showLoading(){ this.elements.loadingIndicator.style.opacity='1'; }
     hideLoading(){ this.elements.loadingIndicator.style.opacity='0'; }
     showInteractiveError(){ const el=this.elements.questionAnswer.querySelector('.interactive-container'); if(el) el.innerHTML='<div class="p-8 text-center bg-red-50 rounded-lg"><p class="text-red-600 mb-4">Interactive component failed to load</p><button onclick="location.reload()" class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700">Reload Page</button></div>'; }
@@ -684,7 +718,8 @@ class LLMQuestionApp {
     }
     fallbackCopy(text){ const ta=document.createElement('textarea'); ta.value=text; ta.style.position='fixed'; ta.style.left='-9999px'; document.body.appendChild(ta); ta.select(); try{ document.execCommand('copy'); this.notify('Link copied to clipboard!'); } catch { this.notify('Failed to copy link. Copy manually.','error'); } ta.remove(); }
     notify(msg,type='success'){ const el=document.createElement('div'); el.className=`fixed top-4 right-4 px-4 py-2 rounded-lg shadow-lg z-50 transition-all duration-300 transform translate-x-full ${type==='success'?'bg-green-600 text-white':'bg-red-600 text-white'}`; el.textContent=msg; document.body.appendChild(el); setTimeout(()=>{el.style.transform='translateX(0)';},10); setTimeout(()=>{el.style.transform='translateX(120%)'; setTimeout(()=>el.remove(),300);},3000); }
-    getStats(){ return { currentQuestion:this.availableQuestions[this.currentQuestionIndex], currentIndex:this.currentQuestionIndex+1, totalQuestions:this.totalQuestions, availableQuestions:this.availableQuestions, cacheStats:this.questionLoader.getCacheStats(), currentURL:this.getShareableURL() }; }
+    getStats(){ return { currentQuestion:this.availableQuestions[this.currentQuestionIndex], currentIndex:this.currentQuestionIndex+1, totalQuestions:this.totalQuestions, totalPapers:this.totalPapers, availableQuestions:this.availableQuestions, availablePapers:this.availablePapers, cacheStats:this.questionLoader.getCacheStats(), currentURL:this.getShareableURL() }; }
 }
 
-window.addEventListener('DOMContentLoaded',()=>{ window.app=new LLMQuestionApp(); const footerCount=document.getElementById('footer-total-count'); if(footerCount&&window.app) footerCount.textContent=window.app.totalQuestions; });
+window.addEventListener('DOMContentLoaded',()=>{ window.app=new LLMQuestionApp(); const footerCount=document.getElementById('footer-total-count'); if(footerCount&&window.app) footerCount.textContent=window.app.totalQuestions; const footerPapers=document.getElementById('footer-paper-count'); if(footerPapers&&window.app?.papersReady){ window.app.papersReady.then(ids=>footerPapers.textContent=String(Array.isArray(ids)?ids.length:0)).catch(()=>footerPapers.textContent='0'); } });
+

@@ -69,6 +69,7 @@ Always consult these when creating or updating any question or paper. They are t
 - When touching the manifest or loader, hard-refresh or clear caches so new assets load correctly.
 - Keep `interactive.js` exports pure functions and avoid polluting `window` unless explicitly required.
 - Ensure all files remain UTF-8 encoded with `\n` line endings so emoji and punctuation render correctly.
+- Park temporary downloads or scratch exports under `tmp/` (gitignored) and delete them before you ship changes.
 
 Follow these instructions and the accompanying docs to keep new questions consistent, discoverable, and easy to maintain.
 

@@ -106,3 +106,5 @@ The loader automatically looks for `overview.html`, `interactive.html`, and `int
 - Open `p/XX.html` to ensure social metadata is correct.
 
 Use `PAPER_CHECKLIST.md` to track completion of these steps for every new or updated paper.
+
+> Use the neutral token classes from `css/theme.css` (such as `bg-card`, `bg-surface`, `text-heading`, `text-muted`, `border-divider`) for backgrounds and typography.

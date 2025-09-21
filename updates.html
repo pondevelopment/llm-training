@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -7,116 +7,117 @@
   <meta name="description" content="Newest questions and paper explainers added to the LLM Learning Hub." />
   <link rel="icon" href="favicon.ico" />
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="css/theme.css">
   <style>
     ::selection { background:#4338ca; color:#fff; }
   </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
-  <header class="bg-white border-b border-gray-200">
+<body class="bg-surface text-body">
+  <header class="bg-card border-b border-divider">
     <div class="max-w-4xl mx-auto px-4 py-6 space-y-6">
       <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div class="space-y-1">
-          <h1 class="text-2xl font-bold text-gray-900">
+          <h1 class="text-2xl font-bold text-heading">
             <a href="index.html#" class="hover:text-indigo-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded-sm">LLM Learning Hub</a>
           </h1>
-          <p class="text-sm text-gray-600">Questions, paper explainers, and interactive tools to make confident LLM decisions.</p>
-          <p class="text-xs text-gray-500">&#128161; Share direct links to questions &bull; Navigate with arrow keys &bull; Press 'S' to share</p>
+          <p class="text-sm text-muted">Questions, paper explainers, and interactive tools to make confident LLM decisions.</p>
+          <p class="text-xs text-muted-soft">&#128161; Share direct links to questions &bull; Navigate with arrow keys &bull; Press 'S' to share</p>
         </div>
         <button id="glossary-open-btn" class="h-10 inline-flex items-center justify-center px-3 text-sm bg-emerald-100 text-emerald-800 hover:bg-emerald-200 rounded-md border border-emerald-200 transition-colors" title="Open LLM glossary">
           &#128218; Glossary
         </button>
       </div>
       <div class="space-y-2">
-        <h2 class="text-xl font-semibold text-gray-900">Latest Site Updates</h2>
-        <p class="text-sm text-gray-600">Newest interview questions and paper explainers, shown newest first.</p>
+        <h2 class="text-xl font-semibold text-heading">Latest Site Updates</h2>
+        <p class="text-sm text-muted">Newest interview questions and paper explainers, shown newest first.</p>
       </div>
     </div>
   </header>
 
   <main class="max-w-4xl mx-auto px-4 py-8 space-y-6">
-    <article class="bg-white border border-gray-200 rounded-lg shadow-sm p-5 space-y-3">
+    <article class="bg-card border border-divider rounded-lg shadow-sm p-5 space-y-3">
       <header class="flex flex-wrap items-center justify-between gap-3">
         <span class="text-xs font-semibold tracking-wide text-indigo-700 uppercase">New Paper Explainer</span>
-        <time datetime="2025-09-18" class="text-xs font-medium text-gray-500 uppercase tracking-wide">18 Sep 2025</time>
+        <time datetime="2025-09-18" class="text-xs font-medium text-muted-soft uppercase tracking-wide">18 Sep 2025</time>
       </header>
-      <p class="text-lg font-semibold text-gray-900">Paper 20 &middot; Agentic Market Design</p>
-      <p class="text-sm text-gray-600 italic">Agent-led marketplace patterns for orchestrating tool-using LLM services, with guidance on when to delegate decisions.</p>
-      <ul class="list-disc list-inside text-sm text-gray-700 space-y-2">
+      <p class="text-lg font-semibold text-heading">Paper 20 &middot; Agentic Market Design</p>
+      <p class="text-sm text-muted italic">Agent-led marketplace patterns for orchestrating tool-using LLM services, with guidance on when to delegate decisions.</p>
+      <ul class="list-disc list-inside text-sm text-secondary space-y-2">
         <li>Published <code>paper 20</code> with an executive quick take, stakeholder impacts, and an interactive lab.</li>
         <li>Updated <code>papers/manifest.json</code>, related question links, and generated the share page at <code>/p/20.html</code>.</li>
       </ul>
     </article>
 
-    <article class="bg-white border border-gray-200 rounded-lg shadow-sm p-5 space-y-3">
+    <article class="bg-card border border-divider rounded-lg shadow-sm p-5 space-y-3">
       <header class="flex flex-wrap items-center justify-between gap-3">
         <span class="text-xs font-semibold tracking-wide text-indigo-700 uppercase">Latest Interview Question</span>
-        <time datetime="2025-09-17" class="text-xs font-medium text-gray-500 uppercase tracking-wide">17 Sep 2025</time>
+        <time datetime="2025-09-17" class="text-xs font-medium text-muted-soft uppercase tracking-wide">17 Sep 2025</time>
       </header>
-      <p class="text-lg font-semibold text-gray-900">Question 57 &middot; What are the fundamentals of in-context learning?</p>
-      <p class="text-sm text-gray-600 italic">Explains how prompt examples steer model behaviour, where the pattern breaks down, and how to audit reliance on few-shot cues.</p>
-      <ul class="list-disc list-inside text-sm text-gray-700 space-y-2">
+      <p class="text-lg font-semibold text-heading">Question 57 &middot; What are the fundamentals of in-context learning?</p>
+      <p class="text-sm text-muted italic">Explains how prompt examples steer model behaviour, where the pattern breaks down, and how to audit reliance on few-shot cues.</p>
+      <ul class="list-disc list-inside text-sm text-secondary space-y-2">
         <li>Refreshed the answer and scenario-driven interactive, and published the share page at <code>/q/57.html</code>.</li>
         <li>Added the question to manifests, learning paths, and the all-questions index for easy discovery.</li>
       </ul>
     </article>
 
-    <article class="bg-white border border-gray-200 rounded-lg shadow-sm p-5 space-y-3">
+    <article class="bg-card border border-divider rounded-lg shadow-sm p-5 space-y-3">
       <header class="flex flex-wrap items-center justify-between gap-3">
         <span class="text-xs font-semibold tracking-wide text-indigo-700 uppercase">New Paper Explainer</span>
-        <time datetime="2025-09-17" class="text-xs font-medium text-gray-500 uppercase tracking-wide">17 Sep 2025</time>
+        <time datetime="2025-09-17" class="text-xs font-medium text-muted-soft uppercase tracking-wide">17 Sep 2025</time>
       </header>
-      <p class="text-lg font-semibold text-gray-900">Paper 17 &middot; Zero-shot Evaluation Playbook</p>
-      <p class="text-sm text-gray-600 italic">Step-by-step playbook for assembling zero-shot evaluations, benchmarking baselines, and closing the loop on regressions.</p>
-      <ul class="list-disc list-inside text-sm text-gray-700 space-y-2">
+      <p class="text-lg font-semibold text-heading">Paper 17 &middot; Zero-shot Evaluation Playbook</p>
+      <p class="text-sm text-muted italic">Step-by-step playbook for assembling zero-shot evaluations, benchmarking baselines, and closing the loop on regressions.</p>
+      <ul class="list-disc list-inside text-sm text-secondary space-y-2">
         <li>Published <code>paper 17</code> with business relevance, measurement callouts, and an interactive simulator.</li>
         <li>Linked the explainer from manifests, related questions, and the share page at <code>/p/17.html</code>.</li>
       </ul>
     </article>
 
-    <article class="bg-white border border-gray-200 rounded-lg shadow-sm p-5 space-y-3">
+    <article class="bg-card border border-divider rounded-lg shadow-sm p-5 space-y-3">
       <header class="flex flex-wrap items-center justify-between gap-3">
         <span class="text-xs font-semibold tracking-wide text-indigo-700 uppercase">New Paper Explainer</span>
-        <time datetime="2025-09-16" class="text-xs font-medium text-gray-500 uppercase tracking-wide">16 Sep 2025</time>
+        <time datetime="2025-09-16" class="text-xs font-medium text-muted-soft uppercase tracking-wide">16 Sep 2025</time>
       </header>
-      <p class="text-lg font-semibold text-gray-900">Paper 19 &middot; Measurement Audit Guide</p>
-      <p class="text-sm text-gray-600 italic">Provide a repeatable audit plan for LLM launches, focusing on precision/recall trade-offs and regression monitoring.</p>
-      <ul class="list-disc list-inside text-sm text-gray-700 space-y-2">
+      <p class="text-lg font-semibold text-heading">Paper 19 &middot; Measurement Audit Guide</p>
+      <p class="text-sm text-muted italic">Provide a repeatable audit plan for LLM launches, focusing on precision/recall trade-offs and regression monitoring.</p>
+      <ul class="list-disc list-inside text-sm text-secondary space-y-2">
         <li>Released <code>paper 19</code> with audit checklists and scenario walkthroughs.</li>
         <li>Registered the explainer in manifests, related questions, and the share page at <code>/p/19.html</code>.</li>
       </ul>
     </article>
 
-    <article class="bg-white border border-gray-200 rounded-lg shadow-sm p-5 space-y-3">
+    <article class="bg-card border border-divider rounded-lg shadow-sm p-5 space-y-3">
       <header class="flex flex-wrap items-center justify-between gap-3">
         <span class="text-xs font-semibold tracking-wide text-indigo-700 uppercase">New Paper Explainer</span>
-        <time datetime="2025-09-15" class="text-xs font-medium text-gray-500 uppercase tracking-wide">15 Sep 2025</time>
+        <time datetime="2025-09-15" class="text-xs font-medium text-muted-soft uppercase tracking-wide">15 Sep 2025</time>
       </header>
-      <p class="text-lg font-semibold text-gray-900">Paper 18 &middot; AI Risk Budgeting</p>
-      <p class="text-sm text-gray-600 italic">Maps AI failure modes to mitigation budgets and escalation triggers for operations teams.</p>
-      <ul class="list-disc list-inside text-sm text-gray-700 space-y-2">
+      <p class="text-lg font-semibold text-heading">Paper 18 &middot; AI Risk Budgeting</p>
+      <p class="text-sm text-muted italic">Maps AI failure modes to mitigation budgets and escalation triggers for operations teams.</p>
+      <ul class="list-disc list-inside text-sm text-secondary space-y-2">
         <li>Added <code>paper 18</code> with stakeholder guidance and mitigation recommendations.</li>
         <li>Updated manifests, related question pointers, and the share page at <code>/p/18.html</code>.</li>
       </ul>
     </article>
 
-    <article class="bg-white border border-gray-200 rounded-lg shadow-sm p-5 space-y-3">
+    <article class="bg-card border border-divider rounded-lg shadow-sm p-5 space-y-3">
       <header class="flex flex-wrap items-center justify-between gap-3">
         <span class="text-xs font-semibold tracking-wide text-indigo-700 uppercase">Catalog Expansion</span>
-        <time datetime="2025-09-14" class="text-xs font-medium text-gray-500 uppercase tracking-wide">14 Sep 2025</time>
+        <time datetime="2025-09-14" class="text-xs font-medium text-muted-soft uppercase tracking-wide">14 Sep 2025</time>
       </header>
-      <p class="text-lg font-semibold text-gray-900">Indexes for Questions &amp; Papers</p>
-      <p class="text-sm text-gray-600 italic">Introduced <code>all.html</code> and <code>papers.html</code> to browse every interview question and paper explainer with search and filtering.</p>
-      <ul class="list-disc list-inside text-sm text-gray-700 space-y-2">
+      <p class="text-lg font-semibold text-heading">Indexes for Questions &amp; Papers</p>
+      <p class="text-sm text-muted italic">Introduced <code>all.html</code> and <code>papers.html</code> to browse every interview question and paper explainer with search and filtering.</p>
+      <ul class="list-disc list-inside text-sm text-secondary space-y-2">
         <li>Centralised discovery for questions and papers with search, tag filters, and share links.</li>
         <li>Backfilled manifests and static share pages so historic additions remain accessible.</li>
       </ul>
     </article>
   </main>
 
-  <footer class="mt-16 border-t bg-white border-gray-200">
-    <div class="max-w-4xl mx-auto px-4 py-8 text-center text-xs text-gray-500 space-y-2">
+  <footer class="mt-16 border-t bg-card border-divider">
+    <div class="max-w-4xl mx-auto px-4 py-8 text-center text-xs text-muted-soft space-y-2">
       <p>Interactive LLM Learning Experience &bull; <a class="text-indigo-600 hover:underline" href="index.html#">Return to landing</a></p>
-      <p class="text-gray-500">Something missing? <a class="text-indigo-600 hover:underline" href="mailto:hello@llm-learning-hub.example">Email the team</a>.</p>
+      <p class="text-muted-soft">Something missing? <a class="text-indigo-600 hover:underline" href="mailto:hello@llm-learning-hub.example">Email the team</a>.</p>
     </div>
   </footer>
 
@@ -124,21 +125,21 @@
   <div id="glossary-modal" class="fixed inset-0 z-50 hidden">
     <div class="absolute inset-0 bg-black/40"></div>
     <div class="absolute inset-0 flex items-start justify-center p-4 md:p-8 overflow-auto">
-      <div class="w-full max-w-3xl bg-white rounded-xl shadow-2xl border border-gray-200 animate-slide-up">
+      <div class="w-full max-w-3xl bg-card rounded-xl shadow-2xl border border-divider animate-slide-up">
         <div class="flex items-center justify-between p-4 border-b">
           <div>
-            <h3 class="text-lg font-semibold text-gray-900">GenAI / LLM Glossary</h3>
-            <p class="text-xs text-gray-500">Quickly find definitions of common terms</p>
+            <h3 class="text-lg font-semibold text-heading">GenAI / LLM Glossary</h3>
+            <p class="text-xs text-muted-soft">Quickly find definitions of common terms</p>
           </div>
-          <button id="glossary-close-btn" class="px-2 py-1 text-sm text-gray-600 hover:text-gray-900">&times;</button>
+          <button id="glossary-close-btn" class="px-2 py-1 text-sm text-muted hover:text-heading">&times;</button>
         </div>
         <div class="p-4 space-y-3">
           <div class="flex items-center gap-2">
-            <input id="glossary-search" type="text" placeholder="Search terms (e.g., attention, RLHF, RAG)" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
-            <button id="glossary-clear" class="px-3 py-2 text-xs bg-gray-100 hover:bg-gray-200 rounded border">Clear</button>
+            <input id="glossary-search" type="text" placeholder="Search terms (e.g., attention, RLHF, RAG)" class="w-full px-3 py-2 border border-subtle rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+            <button id="glossary-clear" class="px-3 py-2 text-xs bg-subtle hover:bg-subtle rounded border">Clear</button>
           </div>
           <div id="glossary-tags" class="flex flex-wrap gap-2 text-xs"></div>
-          <div id="glossary-count" class="text-xs text-gray-500"></div>
+          <div id="glossary-count" class="text-xs text-muted-soft"></div>
           <div id="glossary-list" class="grid sm:grid-cols-2 gap-3"></div>
         </div>
         <div class="p-3 border-t text-right">
@@ -151,3 +152,4 @@
   <script src="./js/glossary.js"></script>
 </body>
 </html>
+

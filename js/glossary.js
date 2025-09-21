@@ -90,15 +90,15 @@
 
     function renderTags(){
       const all = ['All', ...cats];
-      tags.innerHTML = all.map(c => `<button data-cat="${c}" class="px-2 py-1 rounded border text-gray-700 bg-gray-50 hover:bg-gray-100 ${activeCat===c?'border-indigo-400 text-indigo-700 bg-indigo-50':''}">${c}</button>`).join('');
+      tags.innerHTML = all.map(c => `<button data-cat="${c}" class="px-2 py-1 rounded border text-secondary bg-subtle hover:bg-subtle ${activeCat===c?'border-indigo-400 text-indigo-700 bg-indigo-50':''}">${c}</button>`).join('');
       tags.querySelectorAll('button').forEach(btn => btn.addEventListener('click', () => { activeCat = btn.dataset.cat; render(); renderTags(); }));
     }
 
     function card(t){
       const link = t.q ? `<div class=\"mt-2 text-[11px]\"><button class=\"px-2 py-0.5 rounded bg-indigo-50 text-indigo-700 border border-indigo-200 hover:bg-indigo-100 transition\" data-q=\"${t.q}\">Learn more: Question ${t.q} →</button></div>` : '';
-      return `<div class="border rounded-lg p-3 bg-white hover:bg-gray-50 transition-colors">
-        <div class="flex items-center justify-between mb-1"><div class="font-medium text-gray-900">${t.term}</div><span class="text-[10px] px-1.5 py-0.5 rounded bg-gray-100 border">${t.cat}</span></div>
-        <div class="text-xs text-gray-700">${t.def}</div>
+      return `<div class="border rounded-lg p-3 bg-white hover:bg-subtle transition-colors">
+        <div class="flex items-center justify-between mb-1"><div class="font-medium text-heading">${t.term}</div><span class="text-[10px] px-1.5 py-0.5 rounded bg-subtle border border-divider">${t.cat}</span></div>
+        <div class="text-xs text-secondary">${t.def}</div>
         ${link}
       </div>`;
     }

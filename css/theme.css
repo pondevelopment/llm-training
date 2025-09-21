@@ -1,0 +1,40 @@
+﻿:root {
+  --color-surface: #f9fafb; /* gray-50 */
+  --color-card: #ffffff;
+  --color-heading: #111827; /* gray-900 */
+  --color-body: #1f2937; /* gray-800 */
+  --color-secondary: #374151; /* gray-700 */
+  --color-muted: #4b5563; /* gray-600 */
+  --color-muted-soft: #6b7280; /* gray-500 */
+  --color-muted-faint: #9ca3af; /* gray-400 */
+  --color-border: #e5e7eb; /* gray-200 */
+  --color-border-subtle: #d1d5db; /* gray-300 */
+  --color-subtle-bg: #f3f4f6; /* gray-100 */
+}
+
+body {
+  background-color: var(--color-surface);
+  color: var(--color-body);
+}
+
+.bg-surface { background-color: var(--color-surface); }
+.bg-card { background-color: var(--color-card); }
+.bg-subtle { background-color: var(--color-subtle-bg); }
+.text-heading { color: var(--color-heading); }
+.text-body { color: var(--color-body); }
+.text-secondary { color: var(--color-secondary); }
+.text-muted { color: var(--color-muted); }
+.text-muted-soft { color: var(--color-muted-soft); }
+.text-muted-faint { color: var(--color-muted-faint); }
+.border-divider { border-color: var(--color-border); }
+.border-subtle { border-color: var(--color-border-subtle); }
+.hover\:bg-subtle:hover { background-color: var(--color-subtle-bg); }
+.hover\:text-heading:hover { color: var(--color-heading); }
+.text-link { color: #4338ca; }
+.text-link:hover { color: #3730a3; }
+
+.badge-pill {
+  background-color: var(--color-subtle-bg);
+  color: var(--color-secondary);
+  border-color: var(--color-border-subtle);
+}

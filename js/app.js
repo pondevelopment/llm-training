@@ -1,4 +1,4 @@
-/* global QuestionLoader, PaperLoader */
+﻿/* global QuestionLoader, PaperLoader */
 /**
  * LLM Questions App (clean refactor)
  * - Hash based navigation (#question-N, #qN, #N)
@@ -265,26 +265,26 @@ class LLMQuestionApp {
         const title = this.escapeHtml(meta.title || `Paper ${safeId}`);
         const summary = this.escapeHtml(meta.summary || 'Interactive overview coming soon.');
         const authors = Array.isArray(meta.authors) ? meta.authors.join(', ') : '';
-        const authorHtml = authors ? `<p class="text-xs text-gray-500">By ${this.escapeHtml(authors)}</p>` : '';
+        const authorHtml = authors ? `<p class="text-xs text-muted-soft">By ${this.escapeHtml(authors)}</p>` : '';
         const venueParts = [];
         if(meta.venue) venueParts.push(meta.venue);
         if(meta.year) venueParts.push(String(meta.year));
-        const venueHtml = venueParts.length ? `<p class="text-xs text-gray-500">${this.escapeHtml(venueParts.join(' • '))}</p>` : '';
+        const venueHtml = venueParts.length ? `<p class="text-xs text-muted-soft">${this.escapeHtml(venueParts.join(' &bull; '))}</p>` : '';
         const tags = Array.isArray(meta.tags) ? meta.tags.slice(0,3) : [];
         const tagChips = tags.map(tag => `<span class="inline-flex items-center px-2 py-0.5 rounded bg-indigo-50 text-indigo-700 text-[11px] font-medium border border-indigo-100">${this.escapeHtml(tag)}</span>`).join('');
         const tagsHtml = tagChips ? `<div class="flex flex-wrap gap-1">${tagChips}</div>` : '';
         const shareHref = `p/${safeId}.html`;
         const routeHref = this.canonicalPaperHash(safeId);
-        return `<article class="p-4 rounded-lg border border-gray-200 bg-white flex flex-col gap-3 shadow-sm hover:shadow transition-shadow">
+        return `<article class="p-4 rounded-lg border border-divider bg-white flex flex-col gap-3 shadow-sm hover:shadow transition-shadow">
   <div class="flex items-start justify-between gap-3">
     <div>
-      <div class="text-xs font-mono text-gray-500">#${niceId}</div>
-      <h3 class="text-base font-semibold text-gray-900 leading-snug">${title}</h3>
+      <div class="text-xs font-mono text-muted-soft">#${niceId}</div>
+      <h3 class="text-base font-semibold text-heading leading-snug">${title}</h3>
       ${venueHtml}
     </div>
-    <a href="${shareHref}" class="inline-flex items-center px-2 py-1 text-xs font-medium text-gray-600 border border-gray-200 rounded-md hover:bg-gray-100" title="Open share page for this paper">Share</a>
+    <a href="${shareHref}" class="inline-flex items-center px-2 py-1 text-xs font-medium text-muted border border-divider rounded-md hover:bg-subtle" title="Open share page for this paper">Share</a>
   </div>
-  <p class="text-sm text-gray-600 leading-snug">${summary}</p>
+  <p class="text-sm text-muted leading-snug">${summary}</p>
   ${authorHtml}
   <div class="flex items-center justify-between gap-2 pt-2">
     <a href="${routeHref}" data-paper="${safeId}" class="px-3 py-1.5 rounded-md bg-indigo-600 text-white text-xs font-medium hover:bg-indigo-700">Open overview</a>
@@ -315,9 +315,9 @@ class LLMQuestionApp {
                 }
         }
         difficultyStars(level){
-                if(level==='beginner') return '★☆☆';
-                if(level==='intermediate') return '★★☆';
-                if(level==='advanced') return '★★★';
+                if(level==='beginner') return 'â˜…â˜†â˜†';
+                if(level==='intermediate') return 'â˜…â˜…â˜†';
+                if(level==='advanced') return 'â˜…â˜…â˜…';
                 return '';
         }
         buildBannerHTML(nice,pos,total,key){
@@ -342,7 +342,7 @@ class LLMQuestionApp {
                     <div class="flex items-center flex-wrap gap-2 pt-1">
                         <button id="path-prev" ${atStart?'disabled':''} class="text-xs px-3 py-1 rounded border bg-white/70 hover:bg-white disabled:opacity-40">Prev</button>
                         <button id="path-next" class="text-xs px-3 py-1 rounded border bg-indigo-600 text-white hover:bg-indigo-700 disabled:opacity-60">${atEnd?'Finish':'Next'}</button>
-                        ${atEnd?'<span class="text-xs text-gray-600">End of path</span>':''}
+                        ${atEnd?'<span class="text-xs text-muted">End of path</span>':''}
                     </div>`;
         }
         updatePathUI(){
@@ -367,7 +367,7 @@ class LLMQuestionApp {
                 this.elements.prevBtn.title= pos>0 ? `Prev in ${nice} (${pos}/${total})` : 'Start of path';
                 if(banner){
                         banner.classList.remove('hidden');
-                        banner.className=`mb-5 p-4 rounded-lg border text-sm flex flex-col gap-3 bg-gradient-to-r ${this.getPathGradient(key)} text-gray-800 shadow-sm`;
+                        banner.className=`mb-5 p-4 rounded-lg border text-sm flex flex-col gap-3 bg-gradient-to-r ${this.getPathGradient(key)} text-body shadow-sm`;
                         banner.innerHTML=this.buildBannerHTML(nice,pos,total,key);
                         banner.querySelector('#path-banner-exit')?.addEventListener('click',()=>this.exitPath());
                         banner.querySelector('#path-prev')?.addEventListener('click',()=>{ if(pos>0) this.displayQuestion(this.availableQuestions.indexOf(sequence[pos-1])); });
@@ -398,7 +398,7 @@ class LLMQuestionApp {
             this.elements.paperTags.classList.add('hidden');
         }
         if(this.elements.paperVenue){ this.elements.paperVenue.textContent = ''; this.elements.paperVenue.classList.add('hidden'); }
-        if(this.elements.paperOverview) this.elements.paperOverview.innerHTML = '<p class="text-sm text-gray-500">Loading...</p>';
+        if(this.elements.paperOverview) this.elements.paperOverview.innerHTML = '<p class="text-sm text-muted-soft">Loading...</p>';
         if(this.elements.paperInteractive){
             this.elements.paperInteractive.classList.add('hidden');
             if(this.elements.paperInteractiveTitle) this.elements.paperInteractiveTitle.textContent = '';
@@ -470,7 +470,7 @@ class LLMQuestionApp {
         if(paper.meta?.year) venueBits.push(String(paper.meta.year));
         if(this.elements.paperVenue){
             if(venueBits.length){
-                this.elements.paperVenue.textContent = venueBits.join(' • ');
+                this.elements.paperVenue.textContent = venueBits.join(' &bull; ');
                 this.elements.paperVenue.classList.remove('hidden');
             } else {
                 this.elements.paperVenue.textContent = '';
@@ -515,7 +515,7 @@ class LLMQuestionApp {
             }
         }
         if(this.elements.paperOverview){
-            this.elements.paperOverview.innerHTML = paper.overview || '<p class="text-sm text-gray-500">Overview unavailable.</p>';
+            this.elements.paperOverview.innerHTML = paper.overview || '<p class="text-sm text-muted-soft">Overview unavailable.</p>';
         }
         if(this.elements.paperInteractive){
             if(paper.interactive && (paper.interactive.html || paper.interactive.title)){
@@ -656,7 +656,7 @@ class LLMQuestionApp {
         this.elements.questionTitle.textContent=question.title;
         let html=question.answer;
         if(question.interactive){
-            html+=`\n<div class="interactive-container mt-8 p-6 bg-gray-50 rounded-lg border-2 border-dashed border-gray-300">\n  <h3 class="text-lg font-semibold text-indigo-700 mb-4">${question.interactive.title}</h3>\n  ${question.interactive.html}\n</div>`;
+            html+=`\n<div class="interactive-container mt-8 p-6 bg-card rounded-lg border-2 border-dashed border-subtle">\n  <h3 class="text-lg font-semibold text-indigo-700 mb-4">${question.interactive.title}</h3>\n  ${question.interactive.html}\n</div>`;
         }
         this.elements.questionAnswer.innerHTML=html;
         // Normalize internal anchors (#question-0N or #question0N -> #question-N)
@@ -722,4 +722,5 @@ class LLMQuestionApp {
 }
 
 window.addEventListener('DOMContentLoaded',()=>{ window.app=new LLMQuestionApp(); const footerCount=document.getElementById('footer-total-count'); if(footerCount&&window.app) footerCount.textContent=window.app.totalQuestions; const footerPapers=document.getElementById('footer-paper-count'); if(footerPapers&&window.app?.papersReady){ window.app.papersReady.then(ids=>footerPapers.textContent=String(Array.isArray(ids)?ids.length:0)).catch(()=>footerPapers.textContent='0'); } });
+
 

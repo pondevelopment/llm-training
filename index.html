@@ -1,10 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>LLM Learning Hub &ndash; Questions, Papers & Interactive Simulators</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/theme.css">
     <script>
         // Disable client-side caching when running locally to ensure fresh question files
         window.__DEV_NO_CACHE__ = (location.hostname === 'localhost' || location.hostname === '127.0.0.1');
@@ -168,7 +169,7 @@
         }
 
         .param-block.frozen {
-            background-color: #6b7280; /* bg-gray-500 */
+            background-color: #6b7280; /* bg-surface0 */
         }
 
         .param-block.quantized {
@@ -191,7 +192,7 @@
             width: 1rem; /* w-4 */
             height: 1rem; /* h-4 */
             border-radius: 0.25rem; /* rounded */
-            border: 1px solid #d1d5db; /* border-gray-300 */
+            border: 1px solid #d1d5db; /* border-subtle */
         }
 
         #question-viewer {
@@ -201,7 +202,7 @@
         /* Loading animation for dynamic content */
         .loading-skeleton {
             animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; /* animate-pulse */
-            background-color: #e5e7eb; /* bg-gray-200 */
+            background-color: #e5e7eb; /* bg-subtle */
             border-radius: 0.25rem; /* rounded */
         }
 
@@ -428,15 +429,15 @@
         }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
+<body class="bg-surface text-body">
     <!-- Header -->
-    <header class="bg-white shadow-sm border-b border-gray-200">
+    <header class="bg-card shadow-sm border-b border-divider">
         <div class="max-w-4xl mx-auto px-4 py-5">
             <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                 <div class="space-y-1">
-                    <h1 class="text-2xl font-bold text-gray-900">LLM Learning Hub</h1>
-                    <p class="text-sm text-gray-600">Questions, paper explainers, and interactive simulators to make confident LLM decisions.</p>
-                    <p class="text-xs text-gray-500">&#128161; Share direct links to questions &bull; Navigate with arrow keys &bull; Press 'S' to share</p>
+                    <h1 class="text-2xl font-bold text-heading">LLM Learning Hub</h1>
+                    <p class="text-sm text-muted">Questions, paper explainers, and interactive simulators to make confident LLM decisions.</p>
+                    <p class="text-xs text-muted-soft">&#128161; Share direct links to questions &bull; Navigate with arrow keys &bull; Press 'S' to share</p>
                 </div>
                 <div class="flex md:flex-none">
                     <button id="glossary-open-btn" class="h-10 inline-flex items-center justify-center px-3 w-full md:w-auto text-sm bg-emerald-100 text-emerald-800 hover:bg-emerald-200 rounded-md border border-emerald-200 transition-colors" title="Open LLM glossary">
@@ -451,17 +452,17 @@
     <div id="landing-root" class="max-w-4xl mx-auto px-4 py-10 space-y-12 hidden">
         <!-- Hero Section -->
         <section class="text-center space-y-6">
-            <h1 class="text-3xl md:text-4xl font-bold text-gray-900">LLM Learning Hub</h1>
-            <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+            <h1 class="text-3xl md:text-4xl font-bold text-heading">LLM Learning Hub</h1>
+            <p class="text-lg text-muted max-w-3xl mx-auto">
                 Interview prep meets research explainability. Work through curated questions, paper deep dives, and hands-on simulators that translate theory into practical choices for your LLM stack.
             </p>
             <div class="flex flex-wrap justify-center gap-3">
                 <a id="hero-foundations-btn" href="javascript:void(0)" class="px-5 py-3 rounded-lg bg-indigo-600 text-white font-medium shadow hover:bg-indigo-700 transition">Start with Foundations</a>
-                <a href="all.html" class="px-5 py-3 rounded-lg bg-white border border-gray-300 text-gray-800 font-medium hover:bg-gray-50 transition">Browse Questions &amp; Paths</a>
+                <a href="all.html" class="px-5 py-3 rounded-lg bg-card border border-subtle text-body font-medium hover:bg-surface transition">Browse Questions &amp; Paths</a>
                 <a href="#papers-section" class="px-5 py-3 rounded-lg bg-slate-900 text-white font-medium shadow hover:bg-slate-800 transition">Explore Paper Explainers</a>
                 <a href="updates.html" class="px-5 py-3 rounded-lg bg-emerald-50 text-emerald-700 font-medium border border-emerald-100 hover:bg-emerald-100 transition">See What&apos;s New</a>
             </div>
-            <div class="flex flex-wrap justify-center gap-4 text-sm text-gray-500 pt-4">
+            <div class="flex flex-wrap justify-center gap-4 text-sm text-muted-soft pt-4">
                 <span>Curated question library</span><span>&bull;</span>
                 <span>Research explainers with simulators</span><span>&bull;</span>
                 <span>Cross-linked learning paths</span><span>&bull;</span>
@@ -471,46 +472,46 @@
 
         <!-- Learning Paths -->
         <section class="space-y-6" aria-labelledby="learning-paths-heading">
-            <h2 id="learning-paths-heading" class="text-2xl font-semibold text-gray-900 text-center">Choose a Learning Path</h2>
+            <h2 id="learning-paths-heading" class="text-2xl font-semibold text-heading text-center">Choose a Learning Path</h2>
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-                <button type="button" data-path="foundations" aria-label="Foundations path, 6 questions" class="group p-5 rounded-lg border border-gray-200 bg-white hover:shadow-md text-left transition focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                <button type="button" data-path="foundations" aria-label="Foundations path, 6 questions" class="group p-5 rounded-lg border border-divider bg-card hover:shadow-md text-left transition focus:outline-none focus:ring-2 focus:ring-indigo-500">
                     <div class="flex items-center justify-between mb-2">
                         <h3 class="font-semibold text-indigo-700">Foundations</h3>
                         <span class="text-xs bg-indigo-50 text-indigo-700 px-2 py-0.5 rounded">Beginner &#9733;&#9734;&#9734;</span>
                     </div>
-                    <p class="text-sm text-gray-600">Tokens &rarr; attention &rarr; embeddings &rarr; training paradigms.</p>
+                    <p class="text-sm text-muted">Tokens &rarr; attention &rarr; embeddings &rarr; training paradigms.</p>
                     <div class="mt-3 text-xs text-indigo-600 font-medium inline-flex items-center gap-1 opacity-0 group-hover:opacity-100 transition">Start Path &rarr;</div>
                 </button>
-                <button type="button" data-path="generation" aria-label="Generation &amp; Decoding path, 4 questions" class="group p-5 rounded-lg border border-gray-200 bg-white hover:shadow-md text-left transition focus:outline-none focus:ring-2 focus:ring-purple-500">
+                <button type="button" data-path="generation" aria-label="Generation &amp; Decoding path, 4 questions" class="group p-5 rounded-lg border border-divider bg-card hover:shadow-md text-left transition focus:outline-none focus:ring-2 focus:ring-purple-500">
                     <div class="flex items-center justify-between mb-2">
                         <h3 class="font-semibold text-purple-700">Generation &amp; Decoding</h3>
                         <span class="text-xs bg-purple-50 text-purple-700 px-2 py-0.5 rounded">Intermediate &#9733;&#9733;&#9734;</span>
                     </div>
-                    <p class="text-sm text-gray-600">Control creativity, diversity, and output structure.</p>
+                    <p class="text-sm text-muted">Control creativity, diversity, and output structure.</p>
                     <div class="mt-3 text-xs text-purple-600 font-medium inline-flex items-center gap-1 opacity-0 group-hover:opacity-100 transition">Start Path &rarr;</div>
                 </button>
-                <button type="button" data-path="training" aria-label="Training &amp; Optimization path, 3 questions" class="group p-5 rounded-lg border border-gray-200 bg-white hover:shadow-md text-left transition focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <button type="button" data-path="training" aria-label="Training &amp; Optimization path, 3 questions" class="group p-5 rounded-lg border border-divider bg-card hover:shadow-md text-left transition focus:outline-none focus:ring-2 focus:ring-blue-500">
                     <div class="flex items-center justify-between mb-2">
                         <h3 class="font-semibold text-blue-700">Training &amp; Optimization</h3>
                         <span class="text-xs bg-blue-50 text-blue-700 px-2 py-0.5 rounded">Intermediate &#9733;&#9733;&#9734;</span>
                     </div>
-                    <p class="text-sm text-gray-600">How models learn, scale, and improve.</p>
+                    <p class="text-sm text-muted">How models learn, scale, and improve.</p>
                     <div class="mt-3 text-xs text-blue-600 font-medium inline-flex items-center gap-1 opacity-0 group-hover:opacity-100 transition">Start Path &rarr;</div>
                 </button>
-                <button type="button" data-path="alignment" aria-label="Alignment &amp; Preference path, 5 questions" class="group p-5 rounded-lg border border-gray-200 bg-white hover:shadow-md text-left transition focus:outline-none focus:ring-2 focus:ring-teal-500">
+                <button type="button" data-path="alignment" aria-label="Alignment &amp; Preference path, 5 questions" class="group p-5 rounded-lg border border-divider bg-card hover:shadow-md text-left transition focus:outline-none focus:ring-2 focus:ring-teal-500">
                     <div class="flex items-center justify-between mb-2">
                         <h3 class="font-semibold text-teal-700">Alignment &amp; Preference</h3>
                         <span class="text-xs bg-teal-50 text-teal-700 px-2 py-0.5 rounded">Advanced &#9733;&#9733;&#9733;</span>
                     </div>
-                    <p class="text-sm text-gray-600">Shape usefulness, safety, and human alignment.</p>
+                    <p class="text-sm text-muted">Shape usefulness, safety, and human alignment.</p>
                     <div class="mt-3 text-xs text-teal-600 font-medium inline-flex items-center gap-1 opacity-0 group-hover:opacity-100 transition">Start Path &rarr;</div>
                 </button>
-                <button type="button" data-path="scaling" aria-label="Scaling &amp; Efficiency path, 5 questions" class="group p-5 rounded-lg border border-gray-200 bg-white hover:shadow-md text-left transition focus:outline-none focus:ring-2 focus:ring-rose-500">
+                <button type="button" data-path="scaling" aria-label="Scaling &amp; Efficiency path, 5 questions" class="group p-5 rounded-lg border border-divider bg-card hover:shadow-md text-left transition focus:outline-none focus:ring-2 focus:ring-rose-500">
                     <div class="flex items-center justify-between mb-2">
                         <h3 class="font-semibold text-rose-700">Scaling &amp; Efficiency</h3>
                         <span class="text-xs bg-rose-50 text-rose-700 px-2 py-0.5 rounded">Advanced &#9733;&#9733;&#9733;</span>
                     </div>
-                    <p class="text-sm text-gray-600">Multimodal, RAG, MoE, adaptive softmax &amp; throughput.</p>
+                    <p class="text-sm text-muted">Multimodal, RAG, MoE, adaptive softmax &amp; throughput.</p>
                     <div class="mt-3 text-xs text-rose-600 font-medium inline-flex items-center gap-1 opacity-0 group-hover:opacity-100 transition">Start Path &rarr;</div>
                 </button>
             </div>
@@ -519,7 +520,7 @@
         <!-- Paper Explainers -->
         <section id="papers-section" class="space-y-5" aria-labelledby="papers-heading" hidden>
             <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-                <h2 id="papers-heading" class="text-2xl font-semibold text-gray-900">Interactive LLM Paper Explainers</h2>
+                <h2 id="papers-heading" class="text-2xl font-semibold text-heading">Interactive LLM Paper Explainers</h2>
                 <a href="papers.html" class="text-sm font-medium text-indigo-600 hover:underline">Browse all papers &rarr;</a>
             </div>
             <div id="papers-grid" class="grid md:grid-cols-2 gap-4"></div>
@@ -527,17 +528,17 @@
 
         <!-- How It Works -->
         <section class="grid md:grid-cols-3 gap-6 pt-4" aria-label="How the site works">
-            <div class="p-4 rounded-lg border bg-white">
-                <h3 class="font-semibold text-gray-900 mb-1">1. Learn</h3>
-                <p class="text-sm text-gray-600">Concise, color-coded explanations.</p>
+            <div class="p-4 rounded-lg border bg-card">
+                <h3 class="font-semibold text-heading mb-1">1. Learn</h3>
+                <p class="text-sm text-muted">Concise, color-coded explanations.</p>
             </div>
-            <div class="p-4 rounded-lg border bg-white">
-                <h3 class="font-semibold text-gray-900 mb-1">2. Experiment</h3>
-                <p class="text-sm text-gray-600">Interactives build intuition.</p>
+            <div class="p-4 rounded-lg border bg-card">
+                <h3 class="font-semibold text-heading mb-1">2. Experiment</h3>
+                <p class="text-sm text-muted">Interactives build intuition.</p>
             </div>
-            <div class="p-4 rounded-lg border bg-white">
-                <h3 class="font-semibold text-gray-900 mb-1">3. Connect</h3>
-                <p class="text-sm text-gray-600">Cross-links reinforce concepts.</p>
+            <div class="p-4 rounded-lg border bg-card">
+                <h3 class="font-semibold text-heading mb-1">3. Connect</h3>
+                <p class="text-sm text-muted">Cross-links reinforce concepts.</p>
             </div>
         </section>
 
@@ -552,7 +553,7 @@
           <div id="path-banner" class="hidden mb-5 p-4 rounded-lg border text-sm flex flex-col gap-3"
               aria-live="polite" aria-atomic="true"></div>
             <!-- Question Title -->
-            <h2 id="question-title" class="text-xl font-semibold text-gray-900 mb-6">
+            <h2 id="question-title" class="text-xl font-semibold text-heading mb-6">
                 Loading question...
             </h2>
 
@@ -568,20 +569,20 @@
         <div id="paper-viewer" class="hidden space-y-6">
             <div class="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
                 <div class="space-y-2">
-                    <div class="flex items-center gap-2 text-xs text-gray-500">
+                    <div class="flex items-center gap-2 text-xs text-muted-soft">
                         <span id="paper-identifier">Paper #--</span>
                         <span id="paper-venue" class="hidden px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-100"></span>
                     </div>
-                    <h2 id="paper-title" class="text-2xl font-semibold text-gray-900">Loading paper...</h2>
-                    <div id="paper-authors" class="text-sm text-gray-600"></div>
+                    <h2 id="paper-title" class="text-2xl font-semibold text-heading">Loading paper...</h2>
+                    <div id="paper-authors" class="text-sm text-muted"></div>
                     <div id="paper-tags" class="flex flex-wrap gap-2 text-xs"></div>
                 </div>
                 <div class="flex items-center gap-2 shrink-0">
-                    <button id="paper-back-btn" type="button" class="px-3 py-2 text-sm bg-gray-100 text-gray-700 rounded-md border border-gray-200 hover:bg-gray-200">Back to questions</button>
+                    <button id="paper-back-btn" type="button" class="px-3 py-2 text-sm bg-subtle text-secondary rounded-md border border-divider hover:bg-subtle">Back to questions</button>
                     <button id="paper-share-btn" type="button" class="px-3 py-2 text-sm bg-indigo-100 text-indigo-700 rounded-md border border-indigo-200 hover:bg-indigo-200">Share</button>
                 </div>
             </div>
-            <p id="paper-summary" class="text-sm text-gray-700 leading-relaxed"></p>
+            <p id="paper-summary" class="text-sm text-secondary leading-relaxed"></p>
             <section id="paper-related" class="hidden rounded-lg border border-indigo-100 bg-indigo-50/60 p-4 space-y-3">
                 <div class="flex items-center justify-between gap-2">
                     <h3 class="text-sm font-semibold text-indigo-900">Build concept intuition</h3>
@@ -590,16 +591,16 @@
                 <p class="text-xs text-indigo-800">Explore these questions to connect the paper with core interview topics.</p>
                 <ul id="paper-related-list" class="grid gap-2"></ul>
             </section>
-            <article id="paper-overview" class="prose prose-gray max-w-none bg-white border border-gray-200 rounded-lg shadow-sm p-6"></article>
-            <section id="paper-interactive" class="hidden rounded-lg border-2 border-dashed border-gray-300 bg-gray-50 p-6 space-y-4">
+            <article id="paper-overview" class="prose prose-gray max-w-none bg-card border border-divider rounded-lg shadow-sm p-6"></article>
+            <section id="paper-interactive" class="hidden rounded-lg border-2 border-dashed border-subtle bg-surface p-6 space-y-4">
                 <h3 id="paper-interactive-title" class="text-lg font-semibold text-indigo-700"></h3>
                 <div id="paper-interactive-body"></div>
             </section>
         </div>
 
         <!-- Navigation Controls -->
-        <div id="question-nav" class="flex items-center justify-between mt-12 pt-8 border-t border-gray-200">
-            <button id="prev-btn" class="flex items-center space-x-2 px-4 py-2 text-gray-600 hover:text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
+        <div id="question-nav" class="flex items-center justify-between mt-12 pt-8 border-t border-divider">
+            <button id="prev-btn" class="flex items-center space-x-2 px-4 py-2 text-muted hover:text-heading disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
                 </svg>
@@ -607,7 +608,7 @@
             </button>
 
             <div class="flex items-center space-x-4">
-                <span id="progress-indicator" class="text-sm text-gray-500">Question 1 of 50</span>
+                <span id="progress-indicator" class="text-sm text-muted-soft">Question 1 of 50</span>
                 <!-- Active Path Indicator (shown only when a learning path is engaged) -->
                 <div id="path-indicator" class="hidden text-xs bg-indigo-50 text-indigo-700 px-2 py-1 rounded-md flex items-center gap-2">
                     <span id="path-indicator-label"></span>
@@ -619,12 +620,12 @@
                     </svg>
                     <span>Share</span>
                 </button>
-                <div class="text-xs text-gray-400">
+                <div class="text-xs text-muted-faint">
                     Use &larr; &rarr; arrows to navigate &bull; Press S to share
                 </div>
             </div>
 
-            <button id="next-btn" class="flex items-center space-x-2 px-4 py-2 text-gray-600 hover:text-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
+            <button id="next-btn" class="flex items-center space-x-2 px-4 py-2 text-muted hover:text-heading disabled:opacity-50 disabled:cursor-not-allowed transition-colors">
                 <span>Next</span>
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -634,20 +635,20 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-white border-t border-gray-200 mt-16">
+    <footer class="bg-card border-t border-divider mt-16">
         <div class="max-w-4xl mx-auto px-4 py-8">
-            <div class="text-center text-sm text-gray-600">
+            <div class="text-center text-sm text-muted">
                 <p>Interactive LLM Learning Experience</p>
                 <p class="mt-2">
                     Currently featuring <span id="footer-total-count" class="font-semibold">--</span> interactive questions and <span id="footer-paper-count" class="font-semibold">--</span> paper explainers with dynamic loading.
                 </p>
-                <p class="mt-2 text-xs text-gray-500">
+                <p class="mt-2 text-xs text-muted-soft">
                     Questions are based on the overview here:
                     <a href="https://www.linkedin.com/posts/hoang-van-hao_top-50-linkedin-llm-interview-questions-activity-7332959385280778240-lyU0/" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:underline">
                         Top 50 LinkedIn LLM interview questions (LinkedIn)
                     </a>
                 </p>
-                <p class="mt-2 text-xs text-gray-500">
+                <p class="mt-2 text-xs text-muted-soft">
                     Source code:
                     <a href="https://github.com/pondevelopment/llm-training" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:underline">
                         View on GitHub
@@ -661,21 +662,21 @@
     <div id="glossary-modal" class="fixed inset-0 z-50 hidden">
         <div class="absolute inset-0 bg-black/40"></div>
         <div class="absolute inset-0 flex items-start justify-center p-4 md:p-8 overflow-auto">
-            <div class="w-full max-w-3xl bg-white rounded-xl shadow-2xl border border-gray-200 animate-slide-up">
+            <div class="w-full max-w-3xl bg-card rounded-xl shadow-2xl border border-divider animate-slide-up">
                 <div class="flex items-center justify-between p-4 border-b">
                     <div>
                         &#128218; Glossary</h3>
-                        <p class="text-xs text-gray-500">Quickly find definitions of common terms</p>
+                        <p class="text-xs text-muted-soft">Quickly find definitions of common terms</p>
                     </div>
-                    <button id="glossary-close-btn" class="px-2 py-1 text-sm text-gray-600 hover:text-gray-900">&times;</button>
+                    <button id="glossary-close-btn" class="px-2 py-1 text-sm text-muted hover:text-heading">&times;</button>
                 </div>
                 <div class="p-4 space-y-3">
                     <div class="flex items-center gap-2">
-                        <input id="glossary-search" type="text" placeholder="Search terms (e.g., attention, RLHF, RAG)" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
-                        <button id="glossary-clear" class="px-3 py-2 text-xs bg-gray-100 hover:bg-gray-200 rounded border">Clear</button>
+                        <input id="glossary-search" type="text" placeholder="Search terms (e.g., attention, RLHF, RAG)" class="w-full px-3 py-2 border border-subtle rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+                        <button id="glossary-clear" class="px-3 py-2 text-xs bg-subtle hover:bg-subtle rounded border">Clear</button>
                     </div>
                     <div id="glossary-tags" class="flex flex-wrap gap-2 text-xs"></div>
-                    <div id="glossary-count" class="text-xs text-gray-500"></div>
+                    <div id="glossary-count" class="text-xs text-muted-soft"></div>
                     <div id="glossary-list" class="grid sm:grid-cols-2 gap-3"></div>
                 </div>
                 <div class="p-3 border-t text-right">
@@ -692,4 +693,6 @@
     <script src="./js/glossary.js"></script>
 </body>
 </html>
+
+
 

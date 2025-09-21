@@ -75,3 +75,5 @@ All project files are stored as UTF-8 with `\n` line endings. When copying templ
 ## Maintaining older questions
 
 Legacy `questions/question-XX.js` modules have been retired. If you discover one, migrate it to the folder/manifest pattern above and remove the JS shim.
+
+> Neutral surfaces and typography should use the shared tokens in `css/theme.css` (e.g., `bg-card`, `bg-surface`, `text-heading`, `text-muted`, `border-divider`).

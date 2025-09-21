@@ -1,4 +1,30 @@
 {
+  "20": {
+    "title": "The Coasean Singularity? Demand, Supply, and Market Design with AI Agents",
+    "authors": [
+      "Peyman Shahidi",
+      "Gili Rusak",
+      "Benjamin S. Manning",
+      "Andrey Fradkin",
+      "John J. Horton"
+    ],
+    "year": 2025,
+    "venue": "NBER Transformative AI Conference (2025-09-16)",
+    "tags": [
+      "agents",
+      "market-design",
+      "economics",
+      "policy"
+    ],
+    "summary": "Shows how autonomous AI agents reshape transaction costs, platform competition, and market design, highlighting new governance levers and research gaps.",
+    "dir": "./papers/p20",
+    "interactiveTitle": "Agentic market design lab",
+    "relatedQuestions": [
+      45,
+      50,
+      52
+    ]
+  },
   "19": {
     "title": "Making AI Count: The Next Measurement Frontier",
     "authors": [

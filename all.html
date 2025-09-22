@@ -8,6 +8,25 @@
   <link rel="icon" href="favicon.ico" />
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="css/theme.css">
+      (function() {
+        var storageKey = "llm-theme";
+        var className = "dark";
+        try {
+          var stored = localStorage.getItem(storageKey);
+          if (stored === "dark") {
+            document.documentElement.classList.add(className);
+          } else if (stored === "light") {
+            document.documentElement.classList.remove(className);
+          } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+            document.documentElement.classList.add(className);
+          }
+        } catch (err) {
+          if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+            document.documentElement.classList.add(className);
+          }
+        }
+      })();
+    </script>
   <style>
     ::selection { background:#4338ca; color:#fff; }
   </style>
@@ -23,9 +42,15 @@
           <p class="text-sm text-muted">Questions, paper explainers, and interactive simulators to make confident LLM decisions.</p>
           <p class="text-xs text-muted-soft">&#128161; Share direct links to questions &bull; Navigate with arrow keys &bull; Press 'S' to share</p>
         </div>
-        <button id="glossary-open-btn" class="h-10 inline-flex items-center justify-center px-3 text-sm bg-emerald-100 text-emerald-800 hover:bg-emerald-200 rounded-md border border-emerald-200 transition-colors" title="Open LLM glossary">
-          &#128218; Glossary
-        </button>
+        <div class="flex md:flex-none gap-2">
+          <button type="button" data-theme-toggle class="h-10 inline-flex items-center justify-center px-3 text-sm bg-subtle text-heading hover:bg-subtle border border-subtle rounded-md transition-colors">
+            <span class="theme-toggle-icon" aria-hidden="true">🌙</span>
+            <span class="sr-only">Toggle color theme</span>
+          </button>
+          <button id="glossary-open-btn" class="h-10 inline-flex items-center justify-center px-3 text-sm bg-emerald-100 text-emerald-800 hover:bg-emerald-200 rounded-md border border-emerald-200 transition-colors" title="Open LLM glossary">
+            &#128218; Glossary
+          </button>
+        </div>
       </div>
       <div class="flex flex-col md:flex-row md:items-center gap-4">
         <div class="flex-1 min-w-0">
@@ -83,7 +108,6 @@
   </div>
 
   <script src="./js/glossary.js"></script>
-  <script>
     // Question title map (keep in sync with app.js populateQuestionDropdown())
     const titles = {1:"What does tokenization entail, and why is it critical for LLMs?",2:"How does the attention mechanism function in transformer models?",3:"What is the context window in LLMs, and why does it matter?",4:"What distinguishes LoRA from QLoRA in fine-tuning LLMs?",5:"How does beam search improve text generation compared to greedy decoding?",6:"What is temperature in text generation and how does it affect output?",7:"What are embeddings and how do they enable LLMs to understand semantic meaning?",8:"What is RLHF and how does it improve LLM alignment with human preferences?",9:"How do autoregressive and masked models differ in LLM training?",10:"What are embeddings, and how are they initialized in LLMs?",11:"What is next sentence prediction, and how does it enhance LLMs?",12:"How do top-k and top-p sampling differ in text generation?",13:"Why is prompt engineering crucial for LLM performance?",14:"How can LLMs avoid catastrophic forgetting during fine-tuning?",15:"What is model distillation, and how does it benefit LLMs?",16:"How do LLMs manage out-of-vocabulary (OOV) words?",17:"How do transformers improve on traditional Seq2Seq models?",18:"What is overfitting, and how can it be mitigated in LLMs?",19:"What are generative versus discriminative models in NLP?",20:"How do GPT-3, GPT-4, and GPT-5 differ in features and applications?",21:"What are positional encodings, and why are they used?",22:"What is multi-head attention, and how does it enhance LLMs?",23:"How is the softmax function applied in attention mechanisms?",24:"How does the dot product contribute to self-attention?",25:"Why is cross-entropy loss used in language modeling?",26:"How are gradients computed for embeddings in LLMs?",27:"What is the Jacobian matrix's role in transformer backpropagation?",28:"How do eigenvalues and eigenvectors relate to dimensionality reduction?",29:"What is KL divergence, and how is it used in LLMs?",30:"What is the derivative of the ReLU function, and why is it significant?",31:"How does backpropagation work, and why is the chain rule critical?",32:"How are attention scores calculated in transformers?",33:"How does Gemini optimize multimodal LLM training?",34:"What types of foundation models exist?",35:"How does PEFT mitigate catastrophic forgetting?",36:"What are the steps in Retrieval-Augmented Generation (RAG)?",37:"How does Mixture of Experts (MoE) enhance LLM scalability?",38:"What is Chain-of-Thought (CoT) prompting, and how does it aid reasoning?",39:"How do discriminative and generative AI models differ?",40:"How does knowledge graph integration improve LLMs?",41:"What is zero-shot learning, and how do LLMs implement it?",42:"How does Adaptive Softmax optimize LLMs?",43:"How do transformers address the vanishing gradient problem?",44:"What is few-shot learning, and what are its benefits?",45:"How would you fix an LLM generating biased or incorrect outputs?",46:"How do encoders and decoders differ in transformers?",47:"How do LLMs differ from traditional statistical language models?",48:"What is a hyperparameter, and why is it important?",49:"What defines a Large Language Model (LLM)?",50:"What challenges do LLMs face in deployment?",51:"What is an LLM, and how are LLMs trained end-to-end?",52:"How do you estimate and compare SaaS vs self-host LLM costs?",53:"What are decoding strategies for selecting output tokens?",54:"What are logits, and why don't LLMs output probabilities directly?",55:"What are effective stopping criteria in streaming or long-form LLM generation?",56:"When should I use Fine-tuning instead of RAG?",57:"What are the fundamentals of in-context learning?"};
 
@@ -173,8 +197,19 @@
     renderFilters();
     render();
   </script>
-</body>
+  <script src="./js/theme.js"></script>\r\n</body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
 
 
 

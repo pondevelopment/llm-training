@@ -8,6 +8,25 @@
   <link rel="icon" href="favicon.ico" />
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="css/theme.css">
+      (function() {
+        var storageKey = "llm-theme";
+        var className = "dark";
+        try {
+          var stored = localStorage.getItem(storageKey);
+          if (stored === "dark") {
+            document.documentElement.classList.add(className);
+          } else if (stored === "light") {
+            document.documentElement.classList.remove(className);
+          } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+            document.documentElement.classList.add(className);
+          }
+        } catch (err) {
+          if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+            document.documentElement.classList.add(className);
+          }
+        }
+      })();
+    </script>
   <style>
     ::selection { background:#4338ca; color:#fff; }
   </style>
@@ -23,9 +42,15 @@
           <p class="text-sm text-muted">Questions, paper explainers, and interactive simulators to make confident LLM decisions.</p>
           <p class="text-xs text-muted-soft">&#128161; Share direct links to questions &bull; Navigate with arrow keys &bull; Press 'S' to share</p>
         </div>
-        <button id="glossary-open-btn" class="h-10 inline-flex items-center justify-center px-3 text-sm bg-emerald-100 text-emerald-800 hover:bg-emerald-200 rounded-md border border-emerald-200 transition-colors" title="Open LLM glossary">
-          &#128218; Glossary
-        </button>
+        <div class="flex md:flex-none gap-2">
+          <button type="button" data-theme-toggle class="h-10 inline-flex items-center justify-center px-3 text-sm bg-subtle text-heading hover:bg-subtle border border-subtle rounded-md transition-colors">
+            <span class="theme-toggle-icon" aria-hidden="true">🌙</span>
+            <span class="sr-only">Toggle color theme</span>
+          </button>
+          <button id="glossary-open-btn" class="h-10 inline-flex items-center justify-center px-3 text-sm bg-emerald-100 text-emerald-800 hover:bg-emerald-200 rounded-md border border-emerald-200 transition-colors" title="Open LLM glossary">
+            &#128218; Glossary
+          </button>
+        </div>
       </div>
       <div class="flex flex-col md:flex-row md:items-center gap-4">
         <div class="flex-1 min-w-0">
@@ -84,7 +109,6 @@
   </div>
 
   <script src="./js/glossary.js"></script>
-  <script>
     const listEl = document.getElementById('paper-list');
     const countEl = document.getElementById('count');
     const searchEl = document.getElementById('search');
@@ -218,7 +242,17 @@
 
     init();
   </script>
-</body>
+  <script src="./js/theme.js"></script>\r\n</body>
 </html>
+
+
+
+
+
+
+
+
+
+
 
 

@@ -7,6 +7,26 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="css/theme.css">
     <script>
+      (function() {
+        var storageKey = "llm-theme";
+        var className = "dark";
+        try {
+          var stored = localStorage.getItem(storageKey);
+          if (stored === "dark") {
+            document.documentElement.classList.add(className);
+          } else if (stored === "light") {
+            document.documentElement.classList.remove(className);
+          } else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+            document.documentElement.classList.add(className);
+          }
+        } catch (err) {
+          if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+            document.documentElement.classList.add(className);
+          }
+        }
+      })();
+    </script>
+    <script>
         // Disable client-side caching when running locally to ensure fresh question files
         window.__DEV_NO_CACHE__ = (location.hostname === 'localhost' || location.hostname === '127.0.0.1');
     </script>
@@ -687,12 +707,16 @@
     </div>
 
     <!-- Scripts -->
+    <script src="./js/theme.js"></script>
     <script src="./js/questionLoader.js"></script>
     <script src="./js/paperLoader.js"></script>
     <script src="./js/app.js"></script>
     <script src="./js/glossary.js"></script>
 </body>
 </html>
+
+
+
 
 
 

@@ -1,45 +1,46 @@
 <div class="space-y-4">
-        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
-            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related)</h4>
-            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
-                <li><a href="#question-01" class="text-indigo-700 underline hover:text-indigo-900">Question 1: What does tokenization entail?</a></li>
-                <li><a href="#question-09" class="text-indigo-700 underline hover:text-indigo-900">Question 9: What is a transformer architecture?</a></li>
-                <li><a href="#question-14" class="text-indigo-700 underline hover:text-indigo-900">Question 14: What are embeddings and why do they matter?</a></li>
-                <li><a href="#question-47" class="text-indigo-700 underline hover:text-indigo-900">Question 47: What is context and perplexity?</a></li>
-            </ul>
-        </div>
-        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
-            <h4 class="font-semibold text-blue-900 mb-2">🔍 What is Attention?</h4>
-            <p class="text-blue-800">The attention mechanism allows transformers to dynamically focus on different parts of the input sequence when processing each token. Think of it like highlighting the most relevant words in a sentence when trying to understand the meaning of a specific word.</p>
-        </div>
-        
-        <div class="grid md:grid-cols-3 gap-4">
-            <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
-                <h5 class="font-medium text-green-900">Query (Q)</h5>
-                <p class="text-sm text-green-700">The token asking "what should I pay attention to?"</p>
-                <code class="text-xs bg-green-100 px-1 rounded">Current word seeking context</code>
-            </div>
-            
-            <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
-                <h5 class="font-medium text-purple-900">Key (K)</h5>
-                <p class="text-sm text-purple-700">All tokens being evaluated for relevance</p>
-                <code class="text-xs bg-purple-100 px-1 rounded">Words that might be important</code>
-            </div>
-            
-            <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
-                <h5 class="font-medium text-orange-900">Value (V)</h5>
-                <p class="text-sm text-orange-700">The actual information to extract from relevant tokens</p>
-                <code class="text-xs bg-orange-100 px-1 rounded">Content to incorporate</code>
-            </div>
-        </div>
-        
-        <div class="bg-yellow-50 p-4 rounded-lg">
-            <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why This Matters</h4>
-            <ul class="text-sm text-yellow-800 space-y-1">
-                <li>• <strong>Context Understanding:</strong> Allows models to understand relationships between distant words</li>
-                <li>• <strong>Parallel Processing:</strong> Unlike RNNs, all attention scores can be computed simultaneously</li>
-                <li>• <strong>Interpretability:</strong> Attention weights show which words the model focuses on</li>
-                <li>• <strong>Long-Range Dependencies:</strong> Connects words regardless of their distance in the sequence</li>
-            </ul>
-        </div>
+  <div class="panel panel-info p-3">
+    <h4 class="font-semibold mb-1">&#x1F4F0; Recommended reading (related)</h4>
+    <ul class="list-disc ml-5 text-sm space-y-1">
+      <li><a href="#question-01" class="underline">Question 1: What does tokenization entail?</a></li>
+      <li><a href="#question-09" class="underline">Question 9: What is a transformer architecture?</a></li>
+      <li><a href="#question-14" class="underline">Question 14: What are embeddings and why do they matter?</a></li>
+      <li><a href="#question-47" class="underline">Question 47: What is context and perplexity?</a></li>
+    </ul>
+  </div>
+
+  <div class="panel panel-info panel-emphasis p-4 space-y-2">
+    <h4 class="font-semibold">&#x1F50D; What is Attention?</h4>
+    <p>The attention mechanism lets transformers dynamically focus on the most relevant parts of the input sequence when processing each token. Think of it as highlighting the words that best explain a specific term in a sentence.</p>
+  </div>
+
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="panel panel-success panel-emphasis p-3 space-y-2">
+      <h5 class="font-medium">Query (Q)</h5>
+      <p class="text-sm">The token asking “what should I pay attention to?”</p>
+      <span class="chip chip-success font-mono text-xs">Current word seeking context</span>
     </div>
+
+    <div class="panel panel-accent panel-emphasis p-3 space-y-2">
+      <h5 class="font-medium">Key (K)</h5>
+      <p class="text-sm">Tokens being evaluated for relevance to the query</p>
+      <span class="chip chip-accent font-mono text-xs">Words that might be important</span>
+    </div>
+
+    <div class="panel panel-warning panel-emphasis p-3 space-y-2">
+      <h5 class="font-medium">Value (V)</h5>
+      <p class="text-sm">The information copied from relevant tokens</p>
+      <span class="chip chip-warning font-mono text-xs">Content to incorporate</span>
+    </div>
+  </div>
+
+  <div class="panel panel-warning p-4 space-y-2">
+    <h4 class="font-semibold">&#x1F3AF; Why This Matters</h4>
+    <ul class="list-disc ml-5 text-sm space-y-1">
+      <li><strong>Context understanding:</strong> Links words even when they are far apart</li>
+      <li><strong>Parallel processing:</strong> Computes attention scores for all tokens simultaneously</li>
+      <li><strong>Interpretability:</strong> Attention weights reveal what the model focuses on</li>
+      <li><strong>Long-range dependencies:</strong> Maintains relationships across long sequences</li>
+    </ul>
+  </div>
+</div>

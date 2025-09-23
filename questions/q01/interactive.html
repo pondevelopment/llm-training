@@ -1,84 +1,84 @@
 <div class="space-y-6">
-            <!-- Input Section -->
-            <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200">
-                <label for="q1-text-select" class="block text-sm font-medium text-gray-700 mb-2">📝 Select Text to Tokenize</label>
-                <select id="q1-text-select" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white">
-                    <option value="The unbelievable transformation is happening!">The unbelievable transformation is happening!</option>
-                    <option value="cryptocurrency blockchain technology">cryptocurrency blockchain technology</option>
-                    <option value="Hello, world! How are you today?">Hello, world! How are you today?</option>
-                    <option value="AI revolutionizes everything continuously.">AI revolutionizes everything continuously.</option>
-                    <option value="tokenization">tokenization</option>
-                </select>
-                <p class="text-xs text-gray-600 mt-1">Pick a phrase to explore how tokenization differs by strategy.</p>
-            </div>
-            
-            <!-- Strategy Selection -->
-            <div class="bg-white border border-gray-200 rounded-lg p-4">
-                <label class="block text-sm font-medium text-gray-700 mb-3">🎯 Choose Tokenization Strategy</label>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                    <label class="relative border border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors">
-                        <input type="radio" name="q1-strategy" value="word" checked class="absolute top-2 right-2">
-                        <div class="strategy-option">
-                            <div class="flex items-center justify-between mb-2">
-                                <span class="font-medium text-gray-900">Word-level</span>
-                                <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">Simple</span>
-                            </div>
-                            <p class="text-xs text-gray-600">Splits text by spaces and punctuation</p>
-                            <div class="text-xs mt-2 font-mono bg-gray-100 px-2 py-1 rounded">
-                                "Hello!" → ["Hello", "!"]
-                            </div>
-                        </div>
-                    </label>
-                    
-                    <label class="relative border border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors">
-                        <input type="radio" name="q1-strategy" value="subword" class="absolute top-2 right-2">
-                        <div class="strategy-option">
-                            <div class="flex items-center justify-between mb-2">
-                                <span class="font-medium text-gray-900">Subword (BPE)</span>
-                                <span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">Smart</span>
-                            </div>
-                            <p class="text-xs text-gray-600">Breaks words into meaningful parts</p>
-                            <div class="text-xs mt-2 font-mono bg-gray-100 px-2 py-1 rounded">
-                                "unhappy" → ["un", "happy"]
-                            </div>
-                        </div>
-                    </label>
-                    
-                    <label class="relative border border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors">
-                        <input type="radio" name="q1-strategy" value="char" class="absolute top-2 right-2">
-                        <div class="strategy-option">
-                            <div class="flex items-center justify-between mb-2">
-                                <span class="font-medium text-gray-900">Character-level</span>
-                                <span class="text-xs bg-orange-100 text-orange-800 px-2 py-1 rounded">Detailed</span>
-                            </div>
-                            <p class="text-xs text-gray-600">Each character becomes a token</p>
-                            <div class="text-xs mt-2 font-mono bg-gray-100 px-2 py-1 rounded">
-                                "hi" → ["h", "i"]
-                            </div>
-                        </div>
-                    </label>
-                </div>
-            </div>
+  <!-- Input Section -->
+  <div class="question-card">
+    <label for="q1-text-select" class="block text-sm font-medium text-heading mb-2">&#x1F4DD; Select Text to Tokenize</label>
+    <select id="q1-text-select" class="w-full px-3 py-2 border border-subtle rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-card text-body shadow-sm">
+      <option value="The unbelievable transformation is happening!">The unbelievable transformation is happening!</option>
+      <option value="cryptocurrency blockchain technology">cryptocurrency blockchain technology</option>
+      <option value="Hello, world! How are you today?">Hello, world! How are you today?</option>
+      <option value="AI revolutionizes everything continuously.">AI revolutionizes everything continuously.</option>
+      <option value="tokenization">tokenization</option>
+    </select>
+    <p class="text-xs text-muted mt-1">Pick a phrase to explore how tokenization differs by strategy.</p>
+  </div>
 
-            <!-- Quick Examples -->
-            <div class="flex flex-wrap gap-2">
-                <span class="text-sm font-medium text-gray-700">💡 Quick Examples:</span>
-                <button id="q1-oov-btn" class="text-xs bg-indigo-100 text-indigo-700 px-2 py-1 rounded hover:bg-indigo-200 transition-colors">Try: "cryptocurrency blockchain technology"</button>
-            </div>
-            
-            <!-- Results Section -->
-            <div class="bg-white border border-gray-200 rounded-lg p-4">
-                <div class="flex items-center justify-between mb-3">
-                    <h4 class="font-medium text-gray-900">🎨 Tokenization Results</h4>
-                    <div id="q1-strategy-indicator" class="text-xs bg-gray-100 px-2 py-1 rounded font-medium"></div>
-                </div>
-                <div id="q1-output" class="min-h-[80px] p-3 bg-gray-50 rounded border-2 border-dashed border-gray-300"></div>
-                <div id="q1-legend" class="mt-3 text-xs"></div>
-            </div>
-            
-            <!-- Educational Comparison -->
-            <div id="q1-comparison" class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-                <h4 class="font-medium text-yellow-900 mb-2">📊 Why This Strategy?</h4>
-                <div id="q1-explanation" class="text-sm text-yellow-800"></div>
-            </div>
+  <!-- Strategy Selection -->
+  <div class="question-card space-y-3">
+    <label class="block text-sm font-medium text-heading">&#x1F3AF; Choose Tokenization Strategy</label>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+      <label class="question-strategy" data-strategy="word">
+        <input type="radio" name="q1-strategy" value="word" checked>
+        <div class="space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="font-medium text-heading">Word-level</span>
+            <span class="chip chip-success text-xs">Simple</span>
+          </div>
+          <p class="text-xs text-muted">Splits text by spaces and punctuation</p>
+          <div class="question-token-example" data-tone="emerald">"Hello!" &rarr; ["Hello", "!"]</div>
         </div>
+      </label>
+
+      <label class="question-strategy" data-strategy="subword">
+        <input type="radio" name="q1-strategy" value="subword">
+        <div class="space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="font-medium text-heading">Subword (BPE)</span>
+            <span class="chip chip-info text-xs">Smart</span>
+          </div>
+          <p class="text-xs text-muted">Breaks words into meaningful parts</p>
+          <div class="question-token-example" data-tone="purple">"unhappy" &rarr; ["un", "happy"]</div>
+        </div>
+      </label>
+
+      <label class="question-strategy" data-strategy="char">
+        <input type="radio" name="q1-strategy" value="char">
+        <div class="space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="font-medium text-heading">Character-level</span>
+            <span class="chip chip-warning text-xs">Detailed</span>
+          </div>
+          <p class="text-xs text-muted">Each character becomes a token</p>
+          <div class="question-token-example" data-tone="amber">"hi" &rarr; ["h", "i"]</div>
+        </div>
+      </label>
+    </div>
+  </div>
+
+  <!-- Quick Examples -->
+  <div class="question-card flex flex-wrap items-center gap-2">
+    <span class="text-sm font-medium text-heading">&#x1F4A1; Quick Examples:</span>
+    <button id="q1-oov-btn" class="btn-soft text-xs">Try: "cryptocurrency blockchain technology"</button>
+  </div>
+
+  <!-- Results Section -->
+  <div class="question-card space-y-3">
+    <div class="flex items-center justify-between">
+      <h4 class="font-medium text-heading">&#x1F3A8; Tokenization Results</h4>
+      <div id="q1-strategy-indicator" class="strategy-indicator text-xs font-medium px-2 py-1 rounded border border-subtle bg-subtle text-secondary"></div>
+    </div>
+    <div id="q1-output" class="question-output"></div>
+    <div id="q1-legend" class="question-legend"></div>
+  </div>
+
+  <!-- Educational Comparison -->
+  <div id="q1-comparison" class="panel panel-warning p-4 space-y-2">
+    <h4 class="font-medium mb-2">&#x1F4CA; Why This Strategy?</h4>
+    <div id="q1-explanation" class="text-sm"></div>
+  </div>
+</div>
+
+
+
+
+
+

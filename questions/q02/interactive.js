@@ -1,16 +1,4 @@
 const interactiveScript = () => {
-            // Inject minimal styles once for clickable words if not present
-            if (!document.getElementById('q2-clickable-style')) {
-                const style = document.createElement('style');
-                style.id = 'q2-clickable-style';
-                style.textContent = `.q2-word{position:relative;cursor:pointer;transition:color .15s, background-color .15s, box-shadow .15s;padding:2px 4px;border-radius:4px;}
-                .q2-word:hover{background:rgba(99,102,241,0.12);color:#3730a3;box-shadow:0 0 0 1px rgba(99,102,241,0.25);} 
-                .q2-word.selected{background:rgba(99,102,241,0.25);color:#1e1b4b;font-weight:600;}
-                .q2-word.attn-high{background:linear-gradient(90deg,rgba(251,191,36,0.55),rgba(253,230,138,0.4));}
-                .q2-word.attn-med{background:linear-gradient(90deg,rgba(251,191,36,0.35),rgba(253,230,138,0.25));}
-                .q2-word.attn-low{background:linear-gradient(90deg,rgba(251,191,36,0.18),rgba(253,230,138,0.12));}`;
-                document.head.appendChild(style);
-            }
             // Get DOM elements with error checking
             const input = document.getElementById('q2-text-select');
             const sentenceDisplay = document.getElementById('q2-sentence-display');
@@ -19,6 +7,58 @@ const interactiveScript = () => {
             const attentionIndicator = document.getElementById('q2-attention-indicator');
             const legend = document.getElementById('q2-legend');
             const explanationContent = document.getElementById('q2-explanation-content');
+
+            const STRATEGY_TONES = {
+                semantic: 'var(--tone-emerald-strong)',
+                syntactic: 'var(--tone-purple-strong)',
+                positional: 'var(--tone-amber-strong)'
+            };
+
+            const getCssVar = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim() || name;
+
+            function mixColor(tone, percentage, base = 'var(--color-card)') {
+                const remainder = Math.max(0, 100 - percentage);
+                return `color-mix(in srgb, ${tone} ${percentage}%, ${base} ${remainder}%)`;
+            }
+
+            function getStrategyTone(type) {
+                return STRATEGY_TONES[type] || STRATEGY_TONES.semantic;
+            }
+
+            function resetStrategyStyles(container) {
+                if (!container) return;
+                container.classList.remove('question-strategy-active');
+                container.style.background = 'var(--color-card)';
+                container.style.borderColor = 'var(--color-border-subtle)';
+                container.style.boxShadow = 'none';
+                container.style.color = 'var(--color-body)';
+            }
+
+            function applyStrategyStyles(container, tone) {
+                if (!container) return;
+                container.classList.add('question-strategy-active');
+                container.style.background = mixColor(tone, 12);
+                container.style.borderColor = mixColor(tone, 32, 'var(--color-border-subtle)');
+                container.style.boxShadow = '0 12px 26px -18px rgba(15, 23, 42, 0.55)';
+                container.style.color = mixColor(tone, 65, 'var(--color-heading)');
+            }
+
+            function resetWordState(el) {
+                if (!el) return;
+                el.classList.remove('is-active', 'attn-high', 'attn-med', 'attn-low', 'q2-word-hint');
+                el.setAttribute('aria-pressed', 'false');
+            }
+
+            function selectWord(index, words) {
+                if (!Array.isArray(words) || index < 0 || index >= wordElements.length) return;
+                wordElements.forEach(resetWordState);
+                const target = wordElements[index];
+                if (!target) return;
+                target.classList.add('is-active');
+                target.setAttribute('aria-pressed', 'true');
+                currentQueryIndex = index;
+                visualizeAttention(index, words);
+            }
 
             // Check if required elements exist
             if (!input || !sentenceDisplay) {
@@ -187,93 +227,111 @@ const interactiveScript = () => {
             function updateAttentionTypeVisuals() {
                 const selected = document.querySelector('input[name="q2-attention-type"]:checked');
                 if (!selected) return;
-                
-                const selectedValue = selected.value;
-                
-                // Update radio button containers
+
                 document.querySelectorAll('input[name="q2-attention-type"]').forEach((radio) => {
-                    const container = radio.closest('label');
-                    
+                    const container = radio.closest('.question-strategy');
+                    if (!container) return;
+
+                    const tone = getStrategyTone(radio.value);
                     if (radio.checked) {
-                        container.classList.add('ring-2', 'ring-blue-500', 'bg-blue-50');
-                        container.classList.remove('border-gray-200');
+                        applyStrategyStyles(container, tone);
                     } else {
-                        container.classList.remove('ring-2', 'ring-blue-500', 'bg-blue-50');
-                        container.classList.add('border-gray-200');
+                        resetStrategyStyles(container);
                     }
                 });
-                
-                // Update attention indicator
-                if (attentionIndicator && attentionPatterns[selectedValue]) {
-                    attentionIndicator.textContent = attentionPatterns[selectedValue].name;
+
+                const tone = getStrategyTone(selected.value);
+                if (attentionIndicator) {
+                    const labelEl = attentionIndicator.querySelector('.attention-indicator-label');
+                    if (labelEl) {
+                        labelEl.textContent = attentionPatterns[selected.value]?.name || 'Attention pattern';
+                    }
+                    attentionIndicator.style.background = mixColor(tone, 14);
+                    attentionIndicator.style.borderColor = mixColor(tone, 26, 'var(--color-border-subtle)');
+                    attentionIndicator.style.color = mixColor(tone, 60, 'var(--color-heading)');
+                    const dot = attentionIndicator.querySelector('.attention-indicator-dot');
+                    if (dot) {
+                        dot.style.background = mixColor(tone, 55, 'transparent');
+                        dot.style.boxShadow = `0 0 0 2px ${mixColor(tone, 22, 'transparent')}`;
+                    }
                 }
             }
 
             // Render sentence as clickable tokens
-            function renderSentence() {
-                const sentenceText = input.value;
-                const words = sentenceText.split(' ').filter(w => w.length > 0);
-                
-                if (words.length === 0) {
-                    sentenceDisplay.innerHTML = '<div class="text-center text-gray-500 py-8"><p class="text-lg mb-2">📝 Enter text above to begin</p><p class="text-sm">Try: "The cat chased the mouse"</p></div>';
-                    return;
-                }
-                
-                // Clear previous content but keep canvas
-                sentenceDisplay.innerHTML = '<canvas id="q2-canvas" class="absolute top-0 left-0 w-full h-full pointer-events-none" style="z-index: 1;"></canvas>';
+                        function renderSentence() {
+                const sentenceText = (input.value || '').trim();
+                const words = sentenceText.split(/\s+/).filter(Boolean);
+
+                sentenceDisplay.innerHTML = '';
+
+                const canvas = document.createElement('canvas');
+                canvas.id = 'q2-canvas';
+                canvas.className = 'q2-canvas-layer';
+                sentenceDisplay.appendChild(canvas);
+
+                const hint = document.createElement('div');
+                hint.className = 'q2-sentence-hint';
+                hint.textContent = 'Click any word to inspect attention strength';
+                sentenceDisplay.appendChild(hint);
+
                 wordElements = [];
                 currentQueryIndex = -1;
+
+                if (!words.length) {
+                    const empty = document.createElement('div');
+                    empty.className = 'q2-empty-state';
+                    empty.innerHTML = '<p class="q2-empty-state-title">Select a sentence to begin</p><p>Try &ldquo;The cat chased the mouse&rdquo;</p>';
+                    sentenceDisplay.appendChild(empty);
+                    clearCanvas();
+                    updateExplanation();
+                    if (legend) legend.innerHTML = '';
+                    const labelEl = attentionIndicator?.querySelector('.attention-indicator-label');
+                    if (labelEl) labelEl.textContent = 'Choose an attention pattern';
+                    return;
+                }
 
                 words.forEach((word, index) => {
                     const span = document.createElement('span');
                     span.textContent = word;
-                    span.className = 'inline-block px-3 py-2 m-1 rounded cursor-pointer transition-all duration-200 hover:bg-blue-200 hover:shadow-md border-2 border-blue-200 bg-white text-gray-800 font-medium hover:border-blue-400 hover:scale-105';
-                    span.style.cssText = 'position: relative; z-index: 2;';
+                    span.className = 'q2-word';
                     span.dataset.index = index;
-                    span.title = `Click to see what "${word}" pays attention to`;
+                    span.setAttribute('role', 'button');
+                    span.setAttribute('tabindex', '0');
+                    span.setAttribute('aria-pressed', 'false');
+                    span.title = `Click to see how "${word}" routes attention`;
+                    const handleSelect = () => {
+                        selectWord(index, words);
+                        wordElements.forEach(el => el.classList.remove('q2-word-hint'));
+                    };
+                    span.addEventListener('click', handleSelect);
+                    span.addEventListener('keydown', (event) => {
+                        if (event.key === 'Enter' || event.key === ' ') {
+                            event.preventDefault();
+                            handleSelect();
+                        }
+                    });
                     sentenceDisplay.appendChild(span);
                     wordElements.push(span);
-
-                    span.addEventListener('click', () => {
-                        // Stop any pulsing animations
-                        wordElements.forEach(el => {
-                            el.classList.remove('animate-pulse');
-                            el.style.animation = '';
-                        });
-                        
-                        // Reset all word styles
-                        wordElements.forEach(el => {
-                            el.classList.remove('bg-blue-600', 'text-white', 'bg-blue-100', 'border-blue-600', 'shadow-lg', 'border-blue-300');
-                            el.classList.add('border-blue-200', 'bg-white', 'text-gray-800');
-                        });
-                        
-                        // Highlight selected word
-                        span.classList.remove('border-blue-200', 'bg-white', 'text-gray-800');
-                        span.classList.add('bg-blue-600', 'text-white', 'border-blue-600', 'shadow-lg');
-                        
-                        currentQueryIndex = index;
-                        visualizeAttention(index, words);
-                    });
                 });
 
-                // Add visual pulse animation to first word as a hint
                 if (wordElements.length > 0) {
                     const firstWord = wordElements[0];
-                    firstWord.classList.add('animate-pulse');
+                    firstWord.classList.add('q2-word-hint');
                     setTimeout(() => {
-                        if (currentQueryIndex === -1) { // Only if user hasn't clicked yet
-                            firstWord.classList.remove('animate-pulse');
-                            firstWord.style.animation = 'pulse 2s infinite';
+                        if (currentQueryIndex === -1) {
+                            firstWord.classList.add('q2-word-hint');
+                        } else {
+                            firstWord.classList.remove('q2-word-hint');
                         }
-                    }, 1000);
+                    }, 1200);
                 }
 
-                // Clear canvas and explanation
                 clearCanvas();
                 updateExplanation();
                 if (legend) legend.innerHTML = '';
+                const labelEl = attentionIndicator?.querySelector('.attention-indicator-label');
+                if (labelEl) labelEl.textContent = 'Click a word below';
             }
-
             // Clear canvas
             function clearCanvas() {
                 const canvas = document.getElementById('q2-canvas');
@@ -300,11 +358,13 @@ const interactiveScript = () => {
                 const attentionType = getCurrentAttentionType();
                 const pattern = attentionPatterns[attentionType];
 
+                const toneIndigo = getCssVar('--tone-indigo-strong') || '#4f46e5';
+                const toneIndigoSoft = getCssVar('--tone-indigo-soft') || toneIndigo;
+
                 // Reset non-query word highlights before applying new ones
                 wordElements.forEach((el, idx) => {
                     if (idx === queryIndex) return;
-                    el.classList.remove('bg-blue-100', 'border-blue-300');
-                    el.classList.add('border-blue-200', 'bg-white', 'text-gray-800');
+                    el.classList.remove('attn-high', 'attn-med', 'attn-low');
                 });
 
                 const attentionScores = [];
@@ -348,40 +408,51 @@ const interactiveScript = () => {
                     ctx.quadraticCurveTo(cp1x, cp1y, x2, y2);
                     
                     // Make lines more visible with stronger colors and better opacity
-                    const alpha = Math.max(0.4, Math.min(attentionScore * 1.5, 1));
-                    ctx.strokeStyle = `rgba(59, 130, 246, ${alpha})`;
+                    const alpha = Math.max(0.35, Math.min(attentionScore * 1.2, 1));
+                    ctx.save();
+                    ctx.strokeStyle = toneIndigo;
+                    ctx.globalAlpha = alpha;
                     ctx.lineWidth = Math.max(3, attentionScore * 10);
                     ctx.lineCap = 'round';
                     ctx.lineJoin = 'round';
                     ctx.stroke();
+                    ctx.restore();
 
-                    // Add a glowing effect for high attention scores
                     if (attentionScore > 0.3) {
+                        ctx.save();
                         ctx.beginPath();
                         ctx.moveTo(x1, y1);
                         ctx.quadraticCurveTo(cp1x, cp1y, x2, y2);
-                        ctx.strokeStyle = `rgba(59, 130, 246, 0.15)`;
+                        ctx.strokeStyle = toneIndigoSoft;
+                        ctx.globalAlpha = 0.18;
                         ctx.lineWidth = Math.max(8, attentionScore * 16);
+                        ctx.lineCap = 'round';
+                        ctx.lineJoin = 'round';
                         ctx.stroke();
+                        ctx.restore();
                     }
 
-                    // Add an even softer outer glow for very high attention
                     if (attentionScore > 0.6) {
+                        ctx.save();
                         ctx.beginPath();
                         ctx.moveTo(x1, y1);
                         ctx.quadraticCurveTo(cp1x, cp1y, x2, y2);
-                        ctx.strokeStyle = `rgba(59, 130, 246, 0.08)`;
+                        ctx.strokeStyle = toneIndigoSoft;
+                        ctx.globalAlpha = 0.1;
                         ctx.lineWidth = Math.max(15, attentionScore * 24);
+                        ctx.lineCap = 'round';
+                        ctx.lineJoin = 'round';
                         ctx.stroke();
+                        ctx.restore();
                     }
 
                     // Highlight key words with attention
                     if (attentionScore > 0.5) {
-                        keyWordEl.classList.remove('border-blue-200', 'bg-white');
-                        keyWordEl.classList.add('bg-blue-100', 'border-blue-300');
+                        keyWordEl.classList.add('attn-high');
                     } else if (attentionScore > 0.3) {
-                        keyWordEl.classList.remove('border-blue-200', 'bg-white');
-                        keyWordEl.classList.add('bg-blue-50', 'border-blue-300');
+                        keyWordEl.classList.add('attn-med');
+                    } else if (attentionScore > 0.15) {
+                        keyWordEl.classList.add('attn-low');
                     }
                 });
 
@@ -392,12 +463,13 @@ const interactiveScript = () => {
                 if (attentionIndicator) {
                     const strongConnections = attentionScores.filter(s => s.score > 0.5).length;
                     const mediumConnections = attentionScores.filter(s => s.score > 0.3 && s.score <= 0.5).length;
-                    attentionIndicator.innerHTML = `🎯 "${queryWord}" — ${strongConnections} strong, ${mediumConnections} medium`;
-                    attentionIndicator.className = strongConnections > 0
-                        ? 'text-xs bg-green-100 text-green-700 px-3 py-1 rounded font-medium border border-green-200'
-                        : mediumConnections > 0
-                            ? 'text-xs bg-blue-100 text-blue-700 px-3 py-1 rounded font-medium border border-blue-200'
-                            : 'text-xs bg-gray-100 text-gray-700 px-3 py-1 rounded font-medium border border-gray-200';
+                    const labelEl = attentionIndicator?.querySelector('.attention-indicator-label');
+                    if (labelEl) {
+                        labelEl.textContent = `"${queryWord}" - ${strongConnections} strong, ${mediumConnections} medium`;
+                    }
+                    if (attentionIndicator) {
+                        attentionIndicator.setAttribute('aria-label', `Attention summary for ${queryWord}`);
+                    }
                 }
                 
                 // Update explanation
@@ -411,15 +483,15 @@ const interactiveScript = () => {
                 const topScores = sortedScores.slice(0, 5);
                 const legendItems = topScores.map(item => {
                     const strength = item.score > 0.7 ? 'Strong' : item.score > 0.4 ? 'Medium' : 'Weak';
-                    const color = item.score > 0.7 ? '#3730a3' : item.score > 0.4 ? '#6366f1' : '#a5b4fc';
-                    
-                    return `<span class="inline-flex items-center gap-1 text-xs mr-3">
-                        <span class="w-3 h-1 rounded" style="background-color: ${color}"></span>
-                        ${words[item.index]}: ${strength} (${item.score.toFixed(2)})
-                    </span>`;
+                        const strengthClass = item.score > 0.7
+                        ? 'legend-strength legend-strength-strong'
+                        : item.score > 0.4
+                            ? 'legend-strength legend-strength-medium'
+                            : 'legend-strength legend-strength-weak';
+                    return `<span class="${strengthClass}">${words[item.index]}: ${strength} (${item.score.toFixed(2)})</span>`;
                 }).join('');
                 
-                legend.innerHTML = `<div class="flex flex-wrap gap-1">${legendItems}</div>`;
+                legend.innerHTML = legendItems ? `<div class="legend-summary">${legendItems}</div>` : '';
             }
 
             // Update educational explanation
@@ -434,21 +506,21 @@ const interactiveScript = () => {
                 const explanations = {
                     'semantic': `
                         <strong>Semantic Attention for "${queryWord}":</strong> ${description}
-                        <br>• The model identifies words with related meanings (nouns with their actions, related concepts)
-                        <br>• Thicker lines show stronger semantic relationships
-                        <br>• This helps the model understand the meaning and context of "${queryWord}"
+                        <br>&bull; The model identifies words with related meanings (nouns with their actions, related concepts)
+                        <br>&bull; Thicker lines show stronger semantic relationships
+                        <br>&bull; This helps the model understand the meaning and context of "${queryWord}"
                     `,
                     'syntactic': `
                         <strong>Syntactic Attention for "${queryWord}":</strong> ${description}
-                        <br>• The model focuses on grammatical relationships (subject-verb, determiner-noun, etc.)
-                        <br>• Stronger connections to grammatically related words
-                        <br>• This helps the model understand the role of "${queryWord}" in the sentence structure
+                        <br>&bull; The model focuses on grammatical relationships (subject-verb, determiner-noun, etc.)
+                        <br>&bull; Stronger connections to grammatically related words
+                        <br>&bull; This helps the model understand the role of "${queryWord}" in the sentence structure
                     `,
                     'positional': `
                         <strong>Positional Attention for "${queryWord}":</strong> ${description}
-                        <br>• The model gives higher attention to nearby words
-                        <br>• Attention strength decreases with distance
-                        <br>• This helps the model capture local context around "${queryWord}"
+                        <br>&bull; The model gives higher attention to nearby words
+                        <br>&bull; Attention strength decreases with distance
+                        <br>&bull; This helps the model capture local context around "${queryWord}"
                     `
                 };
                 
@@ -487,12 +559,11 @@ const interactiveScript = () => {
                 radio.addEventListener('change', () => {
                     updateAttentionTypeVisuals();
                     if (currentQueryIndex >= 0) {
-                        const words = input.value.split(' ').filter(w => w.length > 0);
+                        const words = input.value.split(/\s+/).filter(Boolean);
                         if (currentQueryIndex < words.length) {
-                            visualizeAttention(currentQueryIndex, words);
+                            selectWord(currentQueryIndex, words);
                         }
                     } else {
-                        // No word selected yet; keep the generic explanation
                         updateExplanation();
                     }
                 });
@@ -502,7 +573,7 @@ const interactiveScript = () => {
             window.addEventListener('resize', () => {
                 if (currentQueryIndex >= 0) {
                     setTimeout(() => {
-                        const words = input.value.split(' ').filter(w => w.length > 0);
+                        const words = input.value.split(/\s+/).filter(Boolean);
                         if (currentQueryIndex < words.length) {
                             visualizeAttention(currentQueryIndex, words);
                         }
@@ -520,3 +591,4 @@ if (typeof module !== 'undefined') {
 } else if (typeof window !== 'undefined') {
   window.question02Interactive = interactiveScript;
 }
+

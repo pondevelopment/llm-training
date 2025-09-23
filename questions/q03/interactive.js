@@ -21,6 +21,74 @@ const interactiveScript = () => {
             const loremBtn = document.getElementById('q3-lorem-btn');
             const loremSize = document.getElementById('q3-lorem-size');
             
+            const TONE_MAP = {
+                green: 'var(--tone-emerald-strong)',
+                purple: 'var(--tone-purple-strong)',
+                orange: 'var(--tone-amber-strong)',
+                blue: 'var(--tone-sky-strong)',
+                emerald: 'var(--tone-emerald-strong)',
+                sky: 'var(--tone-sky-strong)',
+                amber: 'var(--tone-amber-strong)',
+                rose: 'var(--tone-rose-strong)'
+            };
+
+            const mixColor = (tone, percentage, base = 'var(--color-card)') => {
+                const remainder = Math.max(0, 100 - percentage);
+                return `color-mix(in srgb, ${tone} ${percentage}%, ${base} ${remainder}%)`;
+            };
+
+            const toneValue = (key) => TONE_MAP[key] || 'var(--tone-indigo-strong)';
+
+            function styleSelectableCard(card, toneKey, selected) {
+                if (!card) return;
+                const tone = toneValue(toneKey);
+                if (selected) {
+                    card.classList.add('context-card--selected');
+                    card.style.background = mixColor(tone, 18);
+                    card.style.borderColor = mixColor(tone, 36, 'var(--color-border-subtle)');
+                    card.style.boxShadow = '0 14px 32px -24px rgba(15, 23, 42, 0.55)';
+                } else {
+                    card.classList.remove('context-card--selected');
+                    card.style.background = 'var(--color-card)';
+                    card.style.borderColor = 'var(--color-border-subtle)';
+                    card.style.boxShadow = 'none';
+                }
+            }
+
+            function setModeOptionState(option, active) {
+                if (!option) return;
+                option.classList.toggle('context-mode-option--active', active);
+            }
+
+            const formatNumber = (value) => value.toLocaleString();
+
+            const modeOptions = document.querySelectorAll('.context-mode-option');
+            const demoSizeRadios = document.querySelectorAll('input[name="q3-window-size"]');
+            const realSizeRadios = document.querySelectorAll('input[name="q3-real-window"]');
+
+            const updateModeStyles = () => {
+                modeOptions.forEach(option => {
+                    const radio = option.querySelector('input[name="q3-mode"]');
+                    setModeOptionState(option, radio ? radio.checked : false);
+                });
+            };
+
+            const updateDemoCardStyles = () => {
+                demoSizeRadios.forEach(radio => {
+                    const card = radio.closest('.context-card');
+                    if (!card) return;
+                    styleSelectableCard(card, card.dataset.tone || radio.dataset.tone, radio.checked);
+                });
+            };
+
+            const updateRealCardStyles = () => {
+                realSizeRadios.forEach(radio => {
+                    const card = radio.closest('.context-card');
+                    if (!card) return;
+                    styleSelectableCard(card, card.dataset.tone || radio.dataset.tone, radio.checked);
+                });
+            };
+
             if (!input || !output) return;
 
             // Configuration data for demo window sizes
@@ -153,7 +221,7 @@ const interactiveScript = () => {
                 const approxTokens = estimateTokens(text);
                 
                 if (words.length === 0) {
-                    output.innerHTML = '<div class="text-center text-gray-500 py-8"><p class="text-lg mb-2">📝 Enter text above to begin</p><p class="text-sm">Try pasting a long article or document</p></div>';
+                    output.innerHTML = '<div class="context-empty"><p class="context-empty-title">Paste text to get started</p><p class="small-caption text-muted">Try a long article, transcript, || code snippet.</p></div>';
                     return;
                 }
 
@@ -168,10 +236,10 @@ const interactiveScript = () => {
                     span.textContent = word + ' ';
                     const within = index < wordsWithin;
                     if (within) {
-                        span.className = `inline bg-blue-200 text-blue-900 px-1 rounded-sm mr-1 transition-all duration-300`;
+                        span.className = 'context-token context-token--in';
                         span.title = `≈ Token group ${index + 1}: Within context window`;
                     } else {
-                        span.className = `inline bg-gray-200 text-gray-600 px-1 rounded-sm mr-1 opacity-60 transition-all duration-300`;
+                        span.className = 'context-token context-token--out';
                         span.title = `≈ Token group ${index + 1}: Outside context window (forgotten)`;
                     }
                     
@@ -183,13 +251,13 @@ const interactiveScript = () => {
                 const tokensMissed = Math.max(0, approxTokens - config.tokens);
                 const pct = Math.round((tokensInWindow / Math.max(1, approxTokens)) * 100);
                 if (tokenSummary) {
-                    tokenSummary.innerHTML = `Approx tokens in input: <strong>${approxTokens.toLocaleString()}</strong> • Window: <strong>${config.tokens.toLocaleString()}</strong> • Fit: <strong>${pct}%</strong>`;
+                    tokenSummary.innerHTML = `<span><strong>${formatNumber(approxTokens)}</strong> tokens</span><span><strong>${formatNumber(config.tokens)}</strong> window</span><span><strong>${pct}%</strong> coverage</span>`;
                 }
 
                 if (tokensMissed > 0) {
                     const indicator = document.createElement('div');
-                    indicator.className = 'mt-2 text-xs text-gray-500 italic border-t pt-2';
-                    indicator.innerHTML = `⚠️ ${tokensMissed.toLocaleString()} tokens truncated (model cannot see this content)`;
+                    indicator.className = 'context-truncation';
+                    indicator.textContent = `⚠️ ${formatNumber(tokensMissed)} tokens beyond the window (model cannot reference them)`;
                     output.appendChild(indicator);
                 }
 
@@ -204,8 +272,10 @@ const interactiveScript = () => {
             // Update performance metrics
             function updateMetrics(config) {
                 windowIndicator.textContent = config.name;
-                windowIndicator.className = `text-xs bg-${config.color}-100 text-${config.color}-700 px-2 py-1 rounded font-medium`;
-                
+                if (windowIndicator) {
+                    windowIndicator.dataset.tone = config.color;
+                }
+
                 coherenceBar.style.width = `${config.coherence}%`;
                 costBar.style.width = `${config.cost}%`;
                 usecaseBar.style.width = `${config.usecase}%`;
@@ -227,7 +297,7 @@ const interactiveScript = () => {
                     <br>• Processing ${tokensInWindow.toLocaleString()} of ${tokenCount.toLocaleString()} tokens (${Math.round((tokensInWindow/Math.max(1, tokenCount))*100)}% of input)
                     ${tokensMissed > 0 ? `<br>• <span class="text-red-600">${tokensMissed} tokens are outside the context window and will be ignored</span>` : '<br>• ✅ Entire document fits within context window'}
                     <br>• Complexity: Prefill ~O(n²), Decode with KV caching ~O(n) per new token
-                    <br><small class="text-gray-600">Token estimate uses ~4 chars per token guideline.</small>
+                    <br><small class="small-caption text-muted">Token estimate uses ~4 chars per token guideline.</small>
                 `;
             }
 
@@ -261,7 +331,7 @@ const interactiveScript = () => {
             // Lorem ipsum generator
             if (loremBtn) {
                 loremBtn.addEventListener('click', () => {
-                    const targetTokens = parseInt(loremSize?.value || '3000', 10) || 3000;
+                    const targetTokens = parseInt((loremSize && loremSize.value) || '3000', 10) || 3000;
                     const base = [
                         'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
                         'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
@@ -301,7 +371,7 @@ const interactiveScript = () => {
                     demoOutput.innerHTML = `
                         <strong>Summary Quality:</strong> ${summaryQuality}
                         <br><strong>Generated Summary:</strong> "${summaryText}"
-                        <br><small class="text-gray-600">Quality depends on how much context the model can "see"</small>
+                        <br><small class="small-caption text-muted">Quality depends on how much context the model can "see"</small>
                     `;
                 });
             }
@@ -328,7 +398,7 @@ const interactiveScript = () => {
                     demoOutput.innerHTML = `
                         <strong>Q&A Capability:</strong> ${qaQuality}
                         <br><strong>Analysis:</strong> ${qaText}
-                        <br><small class="text-gray-600">Larger context windows enable better question answering</small>
+                        <br><small class="small-caption text-muted">Larger context windows enable better question answering</small>
                     `;
                 });
             }
@@ -346,41 +416,30 @@ const interactiveScript = () => {
                         realSection.classList.add('hidden');
                         demoSection.classList.remove('hidden');
                     }
+                    updateModeStyles();
+                    updateDemoCardStyles();
+                    updateRealCardStyles();
                     processInput();
                 });
             });
-            document.querySelectorAll('input[name="q3-window-size"]').forEach(radio => {
+            demoSizeRadios.forEach(radio => {
                 radio.addEventListener('change', () => {
-                    // Update visual selection
-                    document.querySelectorAll('input[name="q3-window-size"]').forEach(r => {
-                        const card = r.nextElementSibling;
-                        if (r.checked) {
-                            card.classList.remove('border-green-200', 'border-purple-200', 'border-orange-200');
-                            card.classList.add('border-green-400', 'bg-green-50');
-                            if (r.value === 'medium') {
-                                card.classList.remove('border-green-400', 'bg-green-50');
-                                card.classList.add('border-purple-400', 'bg-purple-50');
-                            } else if (r.value === 'large') {
-                                card.classList.remove('border-green-400', 'bg-green-50');
-                                card.classList.add('border-orange-400', 'bg-orange-50');
-                            }
-                        } else {
-                            card.classList.remove('border-green-400', 'border-purple-400', 'border-orange-400', 'bg-green-50', 'bg-purple-50', 'bg-orange-50');
-                            if (r.value === 'small') card.classList.add('border-green-200');
-                            else if (r.value === 'medium') card.classList.add('border-purple-200');
-                            else card.classList.add('border-orange-200');
-                        }
-                    });
+                    updateDemoCardStyles();
                     processInput();
                 });
             });
+
             document.querySelectorAll('input[name="q3-real-window"]').forEach(radio => {
                 radio.addEventListener('change', () => {
+                    updateRealCardStyles();
                     processInput();
                 });
             });
 
             // Initial setup
+            updateModeStyles();
+            updateDemoCardStyles();
+            updateRealCardStyles();
             processInput();
         };
 

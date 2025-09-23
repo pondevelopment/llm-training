@@ -25,7 +25,8 @@ Smoke-check each batch (light/dark, share page, interactive behaviour).
 Status:
 - Q01 migrated on 2025-09-23 (panels + chips + token-aware legend). Manual smoke check pending until more of Q01-Q10 are complete.
 - Q02 migrated on 2025-09-23 (attention explorer uses tokens + themed legend/indicator). Smoke-check still pending for combined Q01-Q02 set.
-- Next batch: Q03-Q10 (pending).
+- Q03 migrated on 2025-09-23 (context window demo restyled; needs light/dark verification).
+- Next batch: Q04-Q10 (pending).
 
 Phase 3 - Papers
 

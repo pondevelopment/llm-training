@@ -1,54 +1,56 @@
 <div class="space-y-4">
-        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
-            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related)</h4>
-            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
-                <li><a href="#question-14" class="text-indigo-700 underline hover:text-indigo-900">Question 14: How can LLMs avoid catastrophic forgetting during fine-tuning?</a></li>
-                <li><a href="#question-35" class="text-indigo-700 underline hover:text-indigo-900">Question 35: How does PEFT mitigate catastrophic forgetting?</a></li>
-                <li><a href="#question-15" class="text-indigo-700 underline hover:text-indigo-900">Question 15: What is model distillation, and how does it benefit LLMs?</a></li>
-                <li><a href="#question-48" class="text-indigo-700 underline hover:text-indigo-900">Question 48: What is a hyperparameter, and why is it important?</a></li>
-            </ul>
-        </div>
-        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
-            <h4 class="font-semibold text-blue-900 mb-2">🎯 What is Efficient Fine-tuning?</h4>
-            <p class="text-blue-800">Instead of updating all billions of parameters in an LLM (which requires massive GPU memory), efficient fine-tuning methods like LoRA and QLoRA only train a small subset of parameters. Think of it like learning a new skill by adding specialized tools to your toolkit rather than replacing everything you know.</p>
-        </div>
-        
-        <div class="grid md:grid-cols-3 gap-4">
-            <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
-                <h5 class="font-medium text-green-900">Full Fine-tuning</h5>
-                <p class="text-sm text-green-700">Updates all model parameters for maximum flexibility</p>
-                <code class="text-xs bg-green-100 px-1 rounded">Typical 7B training: ~60–80 GB</code>
-            </div>
-            
-            <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
-                <h5 class="font-medium text-purple-900">LoRA (Low-Rank Adaptation)</h5>
-                <p class="text-sm text-purple-700">Adds small trainable matrices while freezing base model</p>
-                <code class="text-xs bg-purple-100 px-1 rounded">Typical 7B training: ~20–35 GB</code>
-            </div>
-            
-            <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
-                <h5 class="font-medium text-orange-900">QLoRA (Quantized LoRA)</h5>
-                <p class="text-sm text-orange-700">LoRA + 4-bit quantization for extreme efficiency</p>
-                <code class="text-xs bg-orange-100 px-1 rounded">Typical 7B training: ~8–14 GB</code>
-            </div>
-        </div>
-        
-        <div class="bg-yellow-50 p-4 rounded-lg">
-            <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why This Matters</h4>
-            <ul class="text-sm text-yellow-800 space-y-1">
-                <li>• <strong>Accessibility:</strong> QLoRA enables fine-tuning large models on consumer GPUs</li>
-                <li>• <strong>Efficiency:</strong> LoRA reduces trainable parameters by 99%+ while maintaining performance</li>
-                <li>• <strong>Deployment:</strong> Smaller adapter weights make model distribution much easier</li>
-                <li>• <strong>Cost Reduction:</strong> Dramatically lower cloud computing costs for fine-tuning</li>
-            </ul>
-        </div>
-        <div class="bg-white border border-gray-200 rounded-lg p-4">
-            <h4 class="font-semibold text-gray-900 mb-2">ℹ️ Practical Notes & Caveats</h4>
-            <ul class="text-sm text-gray-700 space-y-1 list-disc pl-5">
-                <li><strong>Memory depends on</strong> batch size, sequence length, precision, optimizer, and activation checkpointing.</li>
-                <li><strong>QLoRA</strong> typically uses 4-bit NF4 quantization for the frozen base; adapters remain in BF16/FP16.</li>
-                <li><strong>Quality</strong> is usually close to full fine-tuning; slight regressions can occur with heavy quantization.</li>
-                <li><strong>PEFT</strong> (adapters) is ideal for domain/task adaptation; use full FT when you must modify core capabilities.</li>
-            </ul>
-        </div>
+  <div class="panel panel-info p-3">
+    <h4 class="font-semibold mb-1">&#x1F4DA; Recommended reading (related)</h4>
+    <ul class="list-disc ml-5 text-sm space-y-1">
+      <li><a href="#question-14" class="underline">Question 14: How can LLMs avoid catastrophic forgetting during fine-tuning?</a></li>
+      <li><a href="#question-35" class="underline">Question 35: How does PEFT mitigate catastrophic forgetting?</a></li>
+      <li><a href="#question-15" class="underline">Question 15: What is model distillation, and how does it benefit LLMs?</a></li>
+      <li><a href="#question-48" class="underline">Question 48: What is a hyperparameter, and why is it important?</a></li>
+    </ul>
+  </div>
+
+  <div class="panel panel-info panel-emphasis p-4 space-y-2">
+    <h4 class="font-semibold">&#x1F3AF; What is Efficient Fine-tuning?</h4>
+    <p>Efficient fine-tuning methods like LoRA and QLoRA update a small set of adapter weights instead of touching every parameter in a large model. It is like adding specialised attachments to a power tool&mdash;you keep the base machine intact and only swap in lightweight parts for the new job.</p>
+  </div>
+
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="panel panel-success panel-emphasis p-3 stacked-card">
+      <h5 class="font-medium">Full Fine-tuning</h5>
+      <p class="text-sm">Updates all parameters for maximum flexibility.</p>
+      <span class="chip chip-success font-mono text-xs">Typical 7B training: ~60&ndash;80 GB</span>
     </div>
+
+    <div class="panel panel-accent panel-emphasis p-3 stacked-card">
+      <h5 class="font-medium">LoRA (Low-Rank Adaptation)</h5>
+      <p class="text-sm">Freezes the base model and learns small adapter matrices.</p>
+      <span class="chip chip-accent font-mono text-xs">Typical 7B training: ~20&ndash;35 GB</span>
+    </div>
+
+    <div class="panel panel-warning panel-emphasis p-3 stacked-card">
+      <h5 class="font-medium">QLoRA (Quantized LoRA)</h5>
+      <p class="text-sm">Combines LoRA with 4-bit quantization for the frozen base.</p>
+      <span class="chip chip-warning font-mono text-xs">Typical 7B training: ~8&ndash;14 GB</span>
+    </div>
+  </div>
+
+  <div class="panel panel-warning p-4 space-y-2">
+    <h4 class="font-semibold">&#x1F4CC; Why This Matters</h4>
+    <ul class="list-disc ml-5 text-sm space-y-1">
+      <li><strong>Accessibility:</strong> QLoRA enables fine-tuning large models on consumer GPUs.</li>
+      <li><strong>Efficiency:</strong> LoRA routinely cuts trainable parameters by 99%+ while holding quality.</li>
+      <li><strong>Deployment:</strong> Adapter checkpoints are lightweight to store, share, and version.</li>
+      <li><strong>Cost reduction:</strong> Lower compute and energy footprints shrink fine-tuning budgets.</li>
+    </ul>
+  </div>
+
+  <div class="panel panel-neutral p-4 space-y-2">
+    <h4 class="font-semibold">&#x2139;&#xFE0F; Practical Notes &amp; Caveats</h4>
+    <ul class="list-disc ml-5 text-sm space-y-1">
+      <li>Memory usage still depends on batch size, sequence length, precision, optimizer, and checkpointing.</li>
+      <li>QLoRA usually stores the frozen base in 4-bit NF4 quantization; adapters remain in BF16/FP16.</li>
+      <li>Expect quality near full fine-tuning, with small regressions if quantization is too aggressive.</li>
+      <li>PEFT adapters excel for task or domain adaptation; use full fine-tuning to shift core capabilities.</li>
+    </ul>
+  </div>
+</div>

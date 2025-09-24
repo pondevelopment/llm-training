@@ -44,32 +44,100 @@ const interactiveScript = () => {
                 xl: { name: '70B', params: 70, baseMemory: 280 }
             };
 
-        const methodConfig = {
+            const methodConfig = {
                 full: {
                     name: 'Full Fine-tuning',
-            color: 'green',
-            memoryMultiplier: 2.5,
+                    memoryMultiplier: 2.5,
                     speedMultiplier: 1,
                     paramReduction: 0,
                     description: 'Updates all model parameters, requiring the most memory but offering maximum flexibility. The base model and gradients must be stored in memory simultaneously.'
                 },
                 lora: {
                     name: 'LoRA',
-            color: 'purple', 
-            memoryMultiplier: 1.2,
+                    memoryMultiplier: 1.2,
                     speedMultiplier: 3,
                     paramReduction: 99.6,
                     description: 'Freezes the base model and adds small trainable low-rank matrices. Only the adapter parameters are updated, dramatically reducing memory requirements while maintaining performance.'
                 },
                 qlora: {
-                    name: 'QLoRA', 
-            color: 'orange',
-            memoryMultiplier: 0.45,
+                    name: 'QLoRA',
+                    memoryMultiplier: 0.45,
                     speedMultiplier: 2.5,
                     paramReduction: 99.6,
                     description: 'Combines LoRA with 4-bit quantization of the base model. The frozen parameters use 75% less memory while LoRA adapters remain in full precision for training.'
                 }
             };
+
+            const STRATEGY_TONES = {
+                full: 'var(--tone-emerald-strong)',
+                lora: 'var(--tone-purple-strong)',
+                qlora: 'var(--tone-amber-strong)'
+            };
+
+            const INDICATOR_CHIPS = {
+                full: 'chip-success',
+                lora: 'chip-accent',
+                qlora: 'chip-warning'
+            };
+
+            const getCssVar = (name, fallback) => {
+                const value = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+                return value || fallback;
+            };
+
+            function getMatrixPalette() {
+                const tonePurple = getCssVar('--tone-purple-strong', '#7c3aed');
+                const toneAmber = getCssVar('--tone-amber-strong', '#f59e0b');
+                const neutral = getCssVar('--color-border', '#e2e8f0');
+                const subtleBorder = getCssVar('--color-border-subtle', '#cbd5f5');
+                const dark = document.documentElement.classList.contains('dark');
+
+                if (dark) {
+                    return {
+                        adapter: `color-mix(in srgb, ${tonePurple} 60%, rgba(255, 255, 255, 0.16) 40%)`,
+                        quantized: `color-mix(in srgb, ${toneAmber} 62%, rgba(255, 255, 255, 0.12) 38%)`,
+                        frozen: `color-mix(in srgb, ${neutral} 48%, rgba(255, 255, 255, 0.08) 52%)`,
+                        border: `color-mix(in srgb, ${subtleBorder} 38%, transparent)`
+                    };
+                }
+
+                return {
+                    adapter: `color-mix(in srgb, ${tonePurple} 45%, #ffffff 55%)`,
+                    quantized: `color-mix(in srgb, ${toneAmber} 47%, #ffffff 53%)`,
+                    frozen: `color-mix(in srgb, ${neutral} 35%, #ffffff 65%)`,
+                    border: `color-mix(in srgb, ${subtleBorder} 65%, transparent)`
+                };
+            }
+
+
+            function mixColor(tone, percentage, base = 'var(--color-card)') {
+                const remaining = Math.max(0, 100 - percentage);
+                return `color-mix(in srgb, ${tone} ${percentage}%, ${base} ${remaining}%)`;
+            }
+
+            function resetStrategyStyles(container) {
+                if (!container) return;
+                container.classList.remove('question-strategy-active');
+                container.style.background = '';
+                container.style.borderColor = '';
+                container.style.boxShadow = '';
+                container.style.color = '';
+            }
+
+            function applyStrategyStyles(container, tone) {
+                if (!container) return;
+                container.classList.add('question-strategy-active');
+                container.style.background = mixColor(tone, 12);
+                container.style.borderColor = mixColor(tone, 32, 'var(--color-border-subtle)');
+                container.style.boxShadow = '0 16px 32px -26px rgba(15, 23, 42, 0.55)';
+            }
+
+            function getMatrixColor(type) {
+                if (type === 'adapter') return mixColor('var(--tone-purple-strong)', 55);
+                if (type === 'quantized') return mixColor('var(--tone-amber-strong)', 55);
+                return mixColor('var(--accent-border)', 45);
+            }
+
 
             // Get current selections
             function getCurrentMethod() {
@@ -274,33 +342,45 @@ const interactiveScript = () => {
             }
 
             // Create matrix visualization
-            function createMatrixVisualization(method) {
+                                    function createMatrixVisualization(method) {
+                if (!matrixDisplay) return;
+                const palette = getMatrixPalette();
                 matrixDisplay.innerHTML = '';
-                matrixDisplay.style.gridTemplateColumns = 'repeat(10, 1fr)';
-                
+                matrixDisplay.style.display = 'grid';
+                matrixDisplay.style.gridTemplateColumns = 'repeat(10, minmax(0, 1fr))';
+                matrixDisplay.style.gridTemplateRows = 'repeat(10, minmax(0, 1fr))';
+                matrixDisplay.style.width = '100%';
+                matrixDisplay.style.height = '100%';
+                matrixDisplay.style.gap = '0.25rem';
+                matrixDisplay.style.alignItems = 'stretch';
+                matrixDisplay.style.justifyItems = 'stretch';
+                matrixDisplay.style.padding = '0.35rem';
+
                 for (let i = 0; i < 100; i++) {
-                    const cell = document.createElement('div');
-                    cell.className = 'w-3 h-3 rounded-sm transition-all duration-300';
-                    
+                    const cell = document.createElement('span');
+                    cell.style.width = '100%';
+                    cell.style.height = '100%';
+                    cell.style.borderRadius = '0.5rem';
+                    cell.style.transition = 'background-color 0.3s ease';
+                    cell.style.border = `1px solid ${palette.border}`;
+
                     if (method === 'full') {
-                        cell.className += ' bg-blue-500'; // All trainable
+                        cell.style.background = palette.adapter;
                     } else if (method === 'lora') {
-                        if (i % 10 === 0 || i % 10 === 1) {
-                            cell.className += ' bg-blue-500'; // Adapter parameters
-                        } else {
-                            cell.className += ' bg-gray-300'; // Frozen parameters
-                        }
+                        cell.style.background = (i % 10 === 0 || i % 10 === 1)
+                            ? palette.adapter
+                            : palette.frozen;
                     } else if (method === 'qlora') {
-                        if (i % 10 === 0 || i % 10 === 1) {
-                            cell.className += ' bg-blue-500'; // Adapter parameters
-                        } else {
-                            cell.className += ' bg-orange-400'; // Quantized frozen parameters
-                        }
+                        cell.style.background = (i % 10 === 0 || i % 10 === 1)
+                            ? palette.adapter
+                            : palette.quantized;
                     }
-                    
+
                     matrixDisplay.appendChild(cell);
                 }
             }
+
+
 
             // Update metrics and visualizations
             function updateDisplay() {
@@ -309,16 +389,12 @@ const interactiveScript = () => {
                 const modelData = modelSizes[model];
                 const methodData = methodConfig[method];
                 
-                // Update method indicator
-                methodIndicator.textContent = methodData.name;
-                // Use static classes to avoid Tailwind CDN JIT issues
-                methodIndicator.className = 'text-xs px-2 py-1 rounded font-medium';
-                const colorClassMap = {
-                    green: ['bg-green-100','text-green-700'],
-                    purple: ['bg-purple-100','text-purple-700'],
-                    orange: ['bg-orange-100','text-orange-700']
-                };
-                (colorClassMap[methodData.color] || []).forEach(c => methodIndicator.classList.add(c));
+                if (methodIndicator) {
+                    methodIndicator.textContent = methodData.name;
+                    const chipTone = INDICATOR_CHIPS[method] || 'chip-info';
+                    methodIndicator.className = `chip ${chipTone} text-xs font-medium`;
+                }
+
                 
                 // Calculate metrics
                 const baseMemory = modelData.baseMemory;
@@ -371,98 +447,89 @@ const interactiveScript = () => {
                 if (quantSelect) quantSelect.disabled = !quantEnabled;
                 if (quantWrapper) {
                     if (!quantEnabled) {
-                        quantWrapper.classList.add('opacity-50');
+                        quantWrapper.style.opacity = '0.5';
                         quantWrapper.style.pointerEvents = 'none';
                     } else {
-                        quantWrapper.classList.remove('opacity-50');
+                        quantWrapper.style.opacity = '';
                         quantWrapper.style.pointerEvents = '';
                     }
                 }
                 if (quantNote) {
-                    quantNote.textContent = quantEnabled ? 'Active for QLoRA' : 'Only applies when QLoRA is selected';
+                    quantNote.textContent = quantEnabled ? 'Active for QLoRA.' : 'Only applies when QLoRA is selected.';
                 }
+
             }
 
             // Update technical breakdown
-            function updateBreakdown(method, model, methodData, modelData, totalMemory) {
+                        function updateBreakdown(method, model, methodData, modelData, totalMemory) {
                 const loraRank = getCurrentRank();
                 const hiddenSize = model === 'small' ? 2048 : model === 'medium' ? 4096 : model === 'large' ? 5120 : 8192;
                 const originalParams = Math.round(modelData.params * 1000) / 1000;
-                // Approximate LoRA params in millions: 2 * hidden * r * layers (heuristic layer count)
                 const layers = model === 'small' ? 24 : model === 'medium' ? 32 : model === 'large' ? 40 : 80;
                 const loraParams = Math.round((2 * hiddenSize * loraRank * layers) / 1e6 * 100) / 100;
-                
+
                 let content = `
                     <div>
-                        <h6 class="font-medium text-gray-800 mb-2">Model Statistics</h6>
-                        <p class="text-xs">Total Parameters: ${originalParams}B</p>
-                        <p class="text-xs">Base Memory: ${modelData.baseMemory} GB</p>
-                        <p class="text-xs">Training Memory: ${totalMemory} GB</p>
+                        <h6 class="font-medium text-heading mb-2">Model statistics</h6>
+                        <p class="text-xs text-secondary">Total parameters: ${originalParams}B</p>
+                        <p class="text-xs text-secondary">Base memory: ${modelData.baseMemory} GB</p>
+                        <p class="text-xs text-secondary">Training memory: ${totalMemory} GB</p>
                     </div>
                 `;
-                
+
                 if (method === 'full') {
                     content += `
                         <div>
-                            <h6 class="font-medium text-gray-800 mb-2">Full Fine-tuning</h6>
-                            <p class="text-xs">Trainable Parameters: ${originalParams}B (100%)</p>
-                            <p class="text-xs">Memory Overhead: Model + Gradients + Optimizer</p>
-                            <p class="text-xs">Precision: 16-bit (FP16)</p>
+                            <h6 class="font-medium text-heading mb-2">Full fine-tuning</h6>
+                            <p class="text-xs text-secondary">Trainable parameters: ${originalParams}B (100%)</p>
+                            <p class="text-xs text-secondary">Memory overhead: model + gradients + optimizer</p>
+                            <p class="text-xs text-secondary">Precision: 16-bit (FP16)</p>
                         </div>
                     `;
                 } else if (method === 'lora') {
                     content += `
                         <div>
-                            <h6 class="font-medium text-gray-800 mb-2">LoRA Configuration</h6>
-                            <p class="text-xs">Trainable Parameters: ~${loraParams}M (${methodData.paramReduction}% reduction)</p>
-                            <p class="text-xs">Rank: r=${loraRank} (low-rank adapters)</p>
-                            <p class="text-xs">Base Model: Frozen at 16-bit precision</p>
+                            <h6 class="font-medium text-heading mb-2">LoRA configuration</h6>
+                            <p class="text-xs text-secondary">Trainable parameters: ~${loraParams}M (${methodData.paramReduction}% reduction)</p>
+                            <p class="text-xs text-secondary">Rank: r=${loraRank} (low-rank adapters)</p>
+                            <p class="text-xs text-secondary">Base model: frozen at 16-bit precision</p>
                         </div>
                     `;
                 } else if (method === 'qlora') {
                     content += `
                         <div>
-                            <h6 class="font-medium text-gray-800 mb-2">QLoRA Configuration</h6>
-                            <p class="text-xs">Trainable Parameters: ~${loraParams}M (${methodData.paramReduction}% reduction)</p>
-                            <p class="text-xs">Base Model: ${getCurrentQuant()}-bit quantized</p>
-                            <p class="text-xs">Adapters: 16-bit precision for accuracy</p>
+                            <h6 class="font-medium text-heading mb-2">QLoRA configuration</h6>
+                            <p class="text-xs text-secondary">Trainable parameters: ~${loraParams}M (${methodData.paramReduction}% reduction)</p>
+                            <p class="text-xs text-secondary">Base model: ${getCurrentQuant()}-bit quantized</p>
+                            <p class="text-xs text-secondary">Adapters: 16-bit precision for accuracy</p>
                         </div>
                     `;
                 }
-                
+
                 breakdown.innerHTML = content;
             }
 
             // Update explanation
-            function updateExplanation(methodData, modelData) {
+                        function updateExplanation(methodData, modelData) {
                 explanationContent.innerHTML = `
                     <strong>${methodData.name} for ${modelData.name} model:</strong> ${methodData.description}
                     <br><br>
-                    <strong>Key Advantages:</strong>
-                    <br>• Memory efficiency: ${Math.round((1 - methodData.memoryMultiplier / methodConfig.full.memoryMultiplier) * 100)}% less memory than full fine-tuning
-                    <br>• Training speed: ${methodData.speedMultiplier}x faster execution
-                    <br>• Parameter efficiency: ${methodData.paramReduction > 0 ? methodData.paramReduction + '% fewer' : 'All'} trainable parameters
+                    <strong>Key advantages:</strong>
+                    <br>&bull; Memory efficiency: ${Math.round((1 - methodData.memoryMultiplier / methodConfig.full.memoryMultiplier) * 100)}% less memory than full fine-tuning
+                    <br>&bull; Training speed: ${methodData.speedMultiplier}x faster execution
+                    <br>&bull; Parameter efficiency: ${methodData.paramReduction > 0 ? methodData.paramReduction + '% fewer' : 'All'} trainable parameters
                 `;
             }
 
             // Update method selection visuals
-            function updateMethodSelection(selectedMethod) {
+                        function updateMethodSelection(selectedMethod) {
                 document.querySelectorAll('input[name="q4-method"]').forEach(radio => {
-                    const card = radio.nextElementSibling;
-                    if (radio.checked) {
-                        card.classList.remove('border-green-200', 'border-purple-200', 'border-orange-200');
-                        if (selectedMethod === 'full') {
-                            card.classList.add('border-green-400', 'bg-green-50');
-                        } else if (selectedMethod === 'lora') {
-                            card.classList.add('border-purple-400', 'bg-purple-50');
-                        } else {
-                            card.classList.add('border-orange-400', 'bg-orange-50');
-                        }
-                    } else {
-                        card.classList.remove('border-green-400', 'border-purple-400', 'border-orange-400', 'bg-green-50', 'bg-purple-50', 'bg-orange-50');
-                        if (radio.value === 'full') card.classList.add('border-green-200');
-                        else if (radio.value === 'lora') card.classList.add('border-purple-200');
-                        else card.classList.add('border-orange-200');
+                    const container = radio.closest('.question-strategy');
+                    if (!container) return;
+                    const tone = STRATEGY_TONES[radio.value] || STRATEGY_TONES.lora;
+                    resetStrategyStyles(container);
+                    if (radio.checked && radio.value === selectedMethod) {
+                        applyStrategyStyles(container, tone);
                     }
                 });
             }
@@ -498,20 +565,20 @@ const interactiveScript = () => {
                     
                     let gpuAnalysis = '';
                     if (totalMemory <= 24) {
-                        gpuAnalysis = '✅ RTX 4090 (24GB): Compatible';
+                        gpuAnalysis = '&#x2705; RTX 4090 (24GB): Compatible';
                     } else if (totalMemory <= 48) {
-                        gpuAnalysis = '✅ A6000 (48GB): Compatible';  
+                        gpuAnalysis = '&#x2705; A6000 (48GB): Compatible';  
                     } else if (totalMemory <= 80) {
-                        gpuAnalysis = '✅ A100 (80GB): Compatible';
+                        gpuAnalysis = '&#x2705; A100 (80GB): Compatible';
                     } else {
-                        gpuAnalysis = '❌ Requires multiple GPUs or cloud resources';
+                        gpuAnalysis = '&#x274C; Requires multiple GPUs or cloud resources';
                     }
                     
                     scenarioOutput.innerHTML = `
-                        <strong>GPU Compatibility for ${modelSizes[model].name} model with ${methodConfig[method].name}:</strong>
-                        <br>Memory Required: ${totalMemory} GB
+                        <strong>GPU compatibility for ${modelSizes[model].name} with ${methodConfig[method].name}:</strong>
+                        <br>Memory required: ${totalMemory} GB
                         <br>${gpuAnalysis}
-                        <br><small class="text-gray-600">Note: Includes overhead for gradients and optimizer states</small>
+                        <br><small class="small-caption text-muted">Includes overhead for gradients and optimizer states.</small>
                     `;
                 });
             }
@@ -528,11 +595,11 @@ const interactiveScript = () => {
                     
                     scenarioOutput.classList.remove('hidden');
                     scenarioOutput.innerHTML = `
-                        <strong>Estimated Training Cost for ${modelSizes[model].name} model:</strong>
+                        <strong>Estimated training cost for ${modelSizes[model].name}:</strong>
                         <br>Method: ${methodConfig[method].name}
-                        <br>Training Time: ~${Math.round(trainingHours * 10) / 10} hours
-                        <br>Cloud Cost: ~$${totalCost} (${speedMultiplier}x faster than full fine-tuning)
-                        <br><small class="text-gray-600">Based on typical cloud GPU pricing</small>
+                        <br>Training time: ~${Math.round(trainingHours * 10) / 10} hours
+                        <br>Cloud cost: ~$${totalCost} (${speedMultiplier}x faster than full fine-tuning)
+                        <br><small class="small-caption text-muted">Approximate on-demand single-GPU pricing.</small>
                     `;
                 });
             }

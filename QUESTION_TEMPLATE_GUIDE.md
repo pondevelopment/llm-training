@@ -1,6 +1,6 @@
-﻿# Question Template Guide
+# Question Template Guide
 
-This guide explains how to create new questions and keep them consistent with the app’s conventions. Follow it alongside the checklist whenever you add or revise a question.
+This guide explains how to create new questions and keep them consistent with the app's conventions. Follow it alongside the checklist whenever you add or revise a question.
 
 ## Repository layout
 
@@ -38,8 +38,8 @@ The client fetches `/questions/manifest.json` to discover question assets. Each 
 ## Authoring workflow
 
 1. **Copy the template folder:** duplicate `questions/q-template/` to `questions/qXX/` (two-digit id).
-2. **Answer content (`answer.html`):** plain HTML fragment, no `<html>` wrapper. Follow the visual pattern—recommended reading box → core concept (blue) → comparison cards → “Why this matters”. Emojis are encouraged when they improve scannability.
-3. **Interactive markup (`interactive.html`):** HTML fragment for inputs, sliders, radios, results, etc. Keep helper text beneath controls when intent isn’t obvious.
+2. **Answer content (`answer.html`):** plain HTML fragment, no `<html>` wrapper. Follow the visual pattern—recommended reading panel ? core concept panel ? comparison panels ? “Why this matters”. Emojis are encouraged when they improve scannability.
+3. **Interactive markup (`interactive.html`):** use the semantic helpers (`panel …`, `chip …`, `view-toggle`) for inputs and outputs. Keep helper text beneath controls when intent isn't obvious.
 4. **Interactive behaviour (`interactive.js`):** export a function named `interactiveScript` (CommonJS + browser global). Use defensive DOM lookups and keep state local. If the script needs to re-typeset MathJax, call `window.MathJax?.typesetPromise` on the relevant node.
 5. **Manifest entry:** add/update the question in `questions/manifest.json` using the `dir` form. Include `interactiveTitle` so the app can show a friendly label in the sidebar.
 6. **Share page:** update `/q/XX.html` so static unfurl links match the new title/description.
@@ -48,7 +48,7 @@ The client fetches `/questions/manifest.json` to discover question assets. Each 
 ## Content structure tips
 
 - Headings: `h4` for section titles, `h5` for cards, `p` for descriptive text.
-- Use Tailwind utility classes already present in the code base (`bg-indigo-50`, `border-l-4`, etc.).
+- Use the shared semantic helpers (`panel panel-info`, `panel panel-success panel-emphasis`, `chip chip-info`) rather than raw Tailwind colour utilities such as `bg-indigo-50` or `border-blue-200`.
 - Keep paragraphs concise (2–3 sentences) and lean on lists for quick scanning.
 - Prefer semantic HTML (`<ul>`, `<li>`, `<code>`) over custom spans.
 
@@ -56,13 +56,14 @@ The client fetches `/questions/manifest.json` to discover question assets. Each 
 
 - Provide sensible defaults so the first render is informative.
 - Surface helper text directly under controls (sliders, radios, toggles).
-- Use accessible labels/`aria-` attributes when the default markup isn’t enough.
+- Use accessible labels/`aria-` attributes when the default markup isn't enough.
 - Write modular code: factor complex calculations into helpers to stay readable.
 - When adding asynchronous behaviour, guard against duplicate requests and race conditions.
+- Keep styling token-driven: rely on semantic helpers or CSS variables instead of inline colours, and only wire up theme-change hooks when a design truly cannot be expressed in CSS.
 
 ## Emoji and encoding
 
-All project files are stored as UTF-8 with `\n` line endings. When copying template snippets, make sure your editor retains UTF-8 so emoji (🎯, 🧠, etc.) render correctly rather than as fallback characters.
+All project files are stored as UTF-8 with `\n` line endings. When copying template snippets, make sure your editor retains UTF-8 so emoji (??, ??, etc.) render correctly rather than as fallback characters.
 
 ## Testing checklist
 

@@ -1,4 +1,4 @@
-const interactiveScript = () => {
+﻿const interactiveScript = () => {
             // Get DOM elements with error checking
             const tempSlider = document.getElementById('q6-temp-slider');
             const tempValue = document.getElementById('q6-temp-value');
@@ -22,8 +22,103 @@ const interactiveScript = () => {
             const resetMetricsBtn = document.getElementById('q6-reset-metrics');
             const explanationEl = document.getElementById('q6-explanation');
             const exampleBtn = document.getElementById('q6-example-btn');
-            const contextInput = document.getElementById('q6-context-input');
-            const customInputDiv = document.getElementById('q6-custom-input');
+
+            const getCssVar = (name, fallback) => {
+                const value = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+                return value || fallback;
+            };
+
+            const mixColor = (tone, percentage, base) => {
+                const pct = Math.max(0, Math.min(100, percentage));
+                const remainder = Math.max(0, 100 - pct);
+                const fallback = base || getCssVar('--color-card', '#f1f5f9');
+                return `color-mix(in srgb, ${tone} ${pct}%, ${fallback} ${remainder}%)`;
+            };
+
+            const resetStrategyStyles = (frame) => {
+                if (!frame) return;
+                frame.classList.remove('question-strategy-active');
+                frame.style.background = '';
+                frame.style.borderColor = '';
+                frame.style.boxShadow = '';
+                frame.style.color = '';
+                const inner = frame.querySelector('.stacked-card');
+                if (inner) {
+                    inner.style.background = '';
+                    inner.style.borderColor = '';
+                    inner.style.boxShadow = '';
+                    inner.style.color = '';
+                }
+                const badge = frame.querySelector('.stacked-card .chip');
+                if (badge) {
+                    badge.style.borderColor = '';
+                    badge.style.background = '';
+                    badge.style.color = '';
+                }
+            };
+
+            const applyStrategyStyles = (frame, tone) => {
+                if (!frame) return;
+                const cardColor = getCssVar('--color-card', '#f1f5f9');
+                const borderSubtle = getCssVar('--color-border-subtle', '#e2e8f0');
+                const heading = getCssVar('--color-heading', '#0f172a');
+                const darkMode = document.documentElement.classList.contains('dark');
+
+                const intensities = darkMode ? {
+                    bg: 38,
+                    border: 58,
+                    text: 72,
+                    innerText: 72,
+                    badgeBorder: 48,
+                    badgeBg: 22,
+                    badgeText: 75,
+                    shadow: '0 24px 52px -28px rgba(2, 6, 23, 0.55)'
+                } : {
+                    bg: 16,
+                    border: 28,
+                    text: 42,
+                    innerText: 48,
+                    badgeBorder: 24,
+                    badgeBg: 8,
+                    badgeText: 58,
+                    shadow: '0 20px 36px -30px rgba(15, 23, 42, 0.18)'
+                };
+
+                frame.classList.add('question-strategy-active');
+                frame.style.background = mixColor(tone, intensities.bg, cardColor);
+                frame.style.borderColor = mixColor(tone, intensities.border, borderSubtle);
+                frame.style.boxShadow = intensities.shadow;
+                frame.style.color = mixColor(tone, intensities.text, heading);
+
+                const inner = frame.querySelector('.stacked-card');
+                if (inner) {
+                    inner.style.background = 'transparent';
+                    inner.style.borderColor = 'transparent';
+                    inner.style.boxShadow = 'none';
+                    inner.style.color = mixColor(tone, intensities.innerText, heading);
+                }
+
+                const badge = frame.querySelector('.stacked-card .chip');
+                if (badge) {
+                    badge.style.borderColor = mixColor(tone, intensities.badgeBorder, borderSubtle);
+                    badge.style.background = mixColor(tone, intensities.badgeBg, cardColor);
+                    badge.style.color = mixColor(tone, intensities.badgeText, heading);
+                }
+            };
+
+            const CONTEXT_TONES = {
+                weather: 'var(--tone-sky-strong)',
+                story: 'var(--tone-emerald-strong)',
+                product: 'var(--tone-purple-strong)'
+            };
+
+            const TEMPERATURE_BANDS = [
+                { max: 0.3, text: 'Ultra conservative: nearly deterministic selection', chipClass: 'chip-success', tone: 'var(--tone-emerald-strong)', palette: 'blue' },
+                { max: 0.7, text: 'Conservative: focused on high-probability tokens', chipClass: 'chip-success', tone: 'var(--tone-emerald-strong)', palette: 'blue' },
+                { max: 1.2, text: 'Balanced: natural language variation', chipClass: 'chip-info', tone: 'var(--tone-purple-strong)', palette: 'purple' },
+                { max: 1.6, text: 'Creative: explores diverse vocabulary', chipClass: 'chip-accent', tone: 'var(--tone-purple-strong)', palette: 'orange' },
+                { max: Infinity, text: 'Wild: highly experimental and unpredictable', chipClass: 'chip-warning', tone: 'var(--tone-amber-strong)', palette: 'red' }
+            ];
 
             if (!tempSlider || !probChart) return;
 
@@ -44,14 +139,13 @@ const interactiveScript = () => {
                     { word: 'was', baseProb: 0.15 },
                     { word: 'a', baseProb: 0.10 }
                 ],
-                custom: [
-                    { word: 'the', baseProb: 0.25 },
-                    { word: 'and', baseProb: 0.20 },
-                    { word: 'to', baseProb: 0.15 },
-                    { word: 'a', baseProb: 0.15 },
-                    { word: 'of', baseProb: 0.12 },
-                    { word: 'in', baseProb: 0.08 },
-                    { word: 'that', baseProb: 0.05 }
+                product: [
+                    { word: 'launch', baseProb: 0.28 },
+                    { word: 'feature', baseProb: 0.22 },
+                    { word: 'customers', baseProb: 0.18 },
+                    { word: 'update', baseProb: 0.14 },
+                    { word: 'faster', baseProb: 0.10 },
+                    { word: 'workflow', baseProb: 0.08 }
                 ]
             };
 
@@ -105,11 +199,7 @@ const interactiveScript = () => {
 
             // Get temperature description
             function getTemperatureDescription(temp) {
-                if (temp <= 0.3) return { text: 'Ultra Conservative: Nearly deterministic selection', color: 'blue' };
-                if (temp <= 0.7) return { text: 'Conservative: Focused on high-probability tokens', color: 'blue' };
-                if (temp <= 1.2) return { text: 'Balanced: Natural language variation', color: 'purple' };
-                if (temp <= 1.6) return { text: 'Creative: Explores diverse vocabulary', color: 'orange' };
-                return { text: 'Wild: Highly experimental and unpredictable', color: 'red' };
+                return TEMPERATURE_BANDS.find(band => temp <= band.max) || TEMPERATURE_BANDS[TEMPERATURE_BANDS.length - 1];
             }
 
             // Update probability visualization
@@ -126,57 +216,103 @@ const interactiveScript = () => {
                 entropyValue.textContent = `Entropy: ${entropy.toFixed(2)}`;
                 
                 // Update temperature indicator
-                // Use inline styles to avoid dynamic Tailwind class issues with CDN
-                tempIndicator.className = 'mt-2 text-xs font-medium px-2 py-1 rounded';
+                tempIndicator.className = `chip ${description.chipClass} text-xs w-fit`;
+                currentTempLabel.className = `chip ${description.chipClass} text-xs`;
+                const darkMode = document.documentElement.classList.contains('dark');
                 const colorMap = {
-                    blue: { bg: '#DBEAFE', fg: '#1E40AF' },
-                    purple: { bg: '#EDE9FE', fg: '#5B21B6' },
-                    orange: { bg: '#FFEDD5', fg: '#9A3412' },
-                    red: { bg: '#FEE2E2', fg: '#7F1D1D' }
+                    blue: darkMode ? { bg: 'rgba(59, 130, 246, 0.18)', fg: '#bfdbfe' } : { bg: '#DBEAFE', fg: '#1E40AF' },
+                    purple: darkMode ? { bg: 'rgba(168, 85, 247, 0.18)', fg: '#e9d5ff' } : { bg: '#EDE9FE', fg: '#5B21B6' },
+                    orange: darkMode ? { bg: 'rgba(251, 191, 36, 0.18)', fg: '#fde68a' } : { bg: '#FFEDD5', fg: '#9A3412' },
+                    red: darkMode ? { bg: 'rgba(248, 113, 113, 0.2)', fg: '#fecaca' } : { bg: '#FEE2E2', fg: '#7F1D1D' }
                 };
-                const c = colorMap[description.color] || colorMap.purple;
-                tempIndicator.style.backgroundColor = c.bg;
-                tempIndicator.style.color = c.fg;
+                const palette = colorMap[description.palette] || colorMap.purple;
+                tempIndicator.style.backgroundColor = palette.bg;
+                tempIndicator.style.color = palette.fg;
                 tempIndicator.textContent = description.text;
                 
                 // Update probability chart
                 probChart.innerHTML = '';
+                const accentTone = getCssVar('--tone-purple-strong', '#7c3aed');
+                const cardColor = getCssVar('--color-card', '#f1f5f9');
+                const borderSubtle = getCssVar('--color-border-subtle', '#e2e8f0');
+                const headingTone = getCssVar('--color-heading', '#0f172a');
+                const highlightConfig = darkMode ? {
+                    primary: 18,
+                    secondary: 12,
+                    rest: 6,
+                    borderBoost: 12,
+                    shadow: '0 16px 32px -28px rgba(88, 28, 135, 0.35)',
+                    labelTone: headingTone,
+                    barPrimary: 60,
+                    barSecondary: 48,
+                    barRest: 36,
+                    rail: 8
+                } : {
+                    primary: 10,
+                    secondary: 6,
+                    rest: 3,
+                    borderBoost: 6,
+                    shadow: '0 14px 28px -24px rgba(88, 28, 135, 0.18)',
+                    labelTone: mixColor(accentTone, 14, headingTone),
+                    barPrimary: 42,
+                    barSecondary: 28,
+                    barRest: 20,
+                    rail: 2
+                };
+
                 tempProbs.forEach((item, index) => {
                     const container = document.createElement('div');
-                    container.className = 'flex items-center space-x-3 hover:bg-gray-100 p-1 rounded transition-colors';
-                    
-                    const rank = document.createElement('div');
-                    rank.className = 'text-xs text-gray-500 w-4';
-                    rank.textContent = (index + 1);
-                    
+                    container.style.display = 'flex';
+                    container.style.alignItems = 'center';
+                    container.style.gap = '0.75rem';
+                    container.style.padding = '0.5rem 0.65rem';
+                    container.style.borderRadius = '0.85rem';
+                    container.style.transition = 'background-color .3s ease, border-color .3s ease';
+
+                    const highlight = index === 0 ? highlightConfig.primary : index === 1 ? highlightConfig.secondary : highlightConfig.rest;
+                    container.style.background = mixColor(accentTone, highlight, cardColor);
+                    container.style.border = `1px solid ${mixColor(accentTone, highlight + highlightConfig.borderBoost, borderSubtle)}`;
+                    container.style.boxShadow = index === 0 ? highlightConfig.shadow : 'none';
+
+                    const rank = document.createElement('span');
+                    rank.className = 'small-caption text-muted';
+                    rank.style.minWidth = '1.5rem';
+                    rank.style.textAlign = 'center';
+                    rank.textContent = index + 1;
+
                     const label = document.createElement('span');
-                    label.className = 'text-sm font-mono w-16 text-gray-800';
+                    label.style.fontFamily = "'JetBrains Mono', 'Fira Code', 'Source Code Pro', monospace";
+                    label.style.fontSize = '0.875rem';
+                    label.style.color = highlightConfig.labelTone;
+                    label.style.minWidth = '4.5rem';
                     label.textContent = item.word;
-                    
+
                     const barContainer = document.createElement('div');
-                    barContainer.className = 'flex-1 bg-gray-200 rounded-full h-3 relative overflow-hidden';
-                    
+                    barContainer.style.flex = '1';
+                    barContainer.style.height = '0.45rem';
+                    barContainer.style.borderRadius = '999px';
+                    barContainer.style.overflow = 'hidden';
+                    barContainer.style.background = mixColor(accentTone, highlightConfig.rail, borderSubtle);
+
                     const bar = document.createElement('div');
-                    bar.className = `h-3 rounded-full transition-all duration-500 ${
-                        index === 0 ? 'bg-purple-500' : 
-                        index === 1 ? 'bg-purple-400' : 
-                        'bg-purple-300'
-                    }`;
-                    bar.style.width = `${item.tempProb * 100}%`;
-                    
-                    const percentage = document.createElement('span');
-                    percentage.className = 'text-xs text-gray-600 w-12 text-right';
-                    percentage.textContent = `${(item.tempProb * 100).toFixed(1)}%`;
-                    
+                    bar.style.height = '100%';
+                    bar.style.borderRadius = 'inherit';
+                    const barStrength = index === 0 ? highlightConfig.barPrimary : index === 1 ? highlightConfig.barSecondary : highlightConfig.barRest;
+                    bar.style.background = mixColor(accentTone, barStrength, cardColor);
+                    bar.style.width = `${(item.tempProb * 100).toFixed(1)}%`;
+                    bar.style.transition = 'width 0.5s ease';
+
                     barContainer.appendChild(bar);
-                    container.appendChild(rank);
-                    container.appendChild(label);
-                    container.appendChild(barContainer);
-                    container.appendChild(percentage);
-                    probChart.appendChild(container);
-                    
-                    // Add tooltip
+
+                    const percentage = document.createElement('span');
+                    percentage.className = 'small-caption text-muted';
+                    percentage.style.minWidth = '3rem';
+                    percentage.style.textAlign = 'right';
+                    percentage.textContent = `${(item.tempProb * 100).toFixed(1)}%`;
+
+                    container.append(rank, label, barContainer, percentage);
                     container.title = `${item.word}: ${(item.tempProb * 100).toFixed(2)}% chance of selection`;
+                    probChart.appendChild(container);
                 });
                 
                 // Update effective vocabulary size display (2^entropy)
@@ -243,7 +379,7 @@ const interactiveScript = () => {
                 const contextTexts = {
                     weather: 'The weather is',
                     story: 'Once upon a time',
-                    custom: contextInput.value || 'The story begins'
+                    product: 'We\'re excited to announce'
                 };
                 
                 const baseText = contextTexts[context];
@@ -259,21 +395,25 @@ const interactiveScript = () => {
                 const highResult = selectRandomToken(highTemp);
                 
                 // Update outputs
+                const skyTone = getCssVar('--tone-sky-strong', '#0ea5e9');
+                const accentTone = getCssVar('--tone-purple-strong', '#7c3aed');
+                const amberTone = getCssVar('--tone-amber-strong', '#f59e0b');
+
                 lowTempOutput.innerHTML = `
-                    <div>"${baseText} <strong class="text-blue-600">${lowResult.word}</strong>..."</div>
-                    <div class="text-xs text-blue-500 mt-1">${(lowResult.tempProb * 100).toFixed(1)}% probability</div>
+                    <div>"${baseText} <strong style="color:${skyTone}">${lowResult.word}</strong>..."</div>
+                    <div class="small-caption text-muted">${(lowResult.tempProb * 100).toFixed(1)}% probability</div>
                 `;
-                
+
                 currentTempOutput.innerHTML = `
-                    <div>"${baseText} <strong class="text-purple-600">${currentResult.word}</strong>..."</div>
-                    <div class="text-xs text-purple-500 mt-1">${(currentResult.tempProb * 100).toFixed(1)}% probability</div>
+                    <div>"${baseText} <strong style="color:${accentTone}">${currentResult.word}</strong>..."</div>
+                    <div class="small-caption text-muted">${(currentResult.tempProb * 100).toFixed(1)}% probability</div>
                 `;
-                
+
                 highTempOutput.innerHTML = `
-                    <div>"${baseText} <strong class="text-orange-600">${highResult.word}</strong>..."</div>
-                    <div class="text-xs text-orange-500 mt-1">${(highResult.tempProb * 100).toFixed(1)}% probability</div>
+                    <div>"${baseText} <strong style="color:${amberTone}">${highResult.word}</strong>..."</div>
+                    <div class="small-caption text-muted">${(highResult.tempProb * 100).toFixed(1)}% probability</div>
                 `;
-                
+
                 // Update metrics
                 generationHistory.push({ low: lowResult, current: currentResult, high: highResult });
                 updateMetrics();
@@ -348,34 +488,16 @@ const interactiveScript = () => {
             // Handle context changes
             function updateContextSelection() {
                 currentContext = getCurrentContext();
-                
-                // Show/hide custom input
-                if (currentContext === 'custom') {
-                    customInputDiv.classList.remove('hidden');
-                } else {
-                    customInputDiv.classList.add('hidden');
-                }
-                
-                // Update visual selection
+
                 document.querySelectorAll('input[name="q6-context"]').forEach(radio => {
-                    const card = radio.nextElementSibling;
+                    const frame = radio.closest('.question-strategy');
+                    const tone = CONTEXT_TONES[radio.value] || CONTEXT_TONES.weather;
+                    resetStrategyStyles(frame);
                     if (radio.checked) {
-                        card.classList.remove('border-blue-200', 'border-green-200', 'border-purple-200');
-                        if (radio.value === 'weather') {
-                            card.classList.add('border-blue-400', 'bg-blue-50');
-                        } else if (radio.value === 'story') {
-                            card.classList.add('border-green-400', 'bg-green-50');
-                        } else {
-                            card.classList.add('border-purple-400', 'bg-purple-50');
-                        }
-                    } else {
-                        card.classList.remove('border-blue-400', 'border-green-400', 'border-purple-400', 'bg-blue-50', 'bg-green-50', 'bg-purple-50');
-                        if (radio.value === 'weather') card.classList.add('border-blue-200');
-                        else if (radio.value === 'story') card.classList.add('border-green-200');
-                        else card.classList.add('border-purple-200');
+                        applyStrategyStyles(frame, tone);
                     }
                 });
-                
+
                 updateProbabilityChart();
             }
 
@@ -390,16 +512,6 @@ const interactiveScript = () => {
                 radio.addEventListener('change', updateContextSelection);
             });
             
-            if (contextInput) {
-                contextInput.addEventListener('input', () => {
-                    if (getCurrentContext() === 'custom') {
-                        // Reset metrics when context changes to avoid mixing distributions
-                        resetAllMetrics();
-                        updateProbabilityChart();
-                    }
-                });
-            }
-
             // Example button
             if (exampleBtn) {
                 exampleBtn.addEventListener('click', () => {
@@ -410,6 +522,14 @@ const interactiveScript = () => {
                     updateProbabilityChart();
                 });
             }
+
+            // React to theme changes so styles stay legible in light/dark
+            const themeObserver = new MutationObserver((mutations) => {
+                if (mutations.some(m => m.type === 'attributes')) {
+                    updateContextSelection();
+                }
+            });
+            themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
 
             // Initialize
             updateContextSelection();

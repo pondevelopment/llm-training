@@ -1,49 +1,59 @@
 <div class="space-y-4">
-        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
-            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related)</h4>
-            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
-                <li><a href="#question-06" class="text-indigo-700 underline hover:text-indigo-900">Question 6: What is temperature in text generation and how does it affect output?</a></li>
-                <li><a href="#question-12" class="text-indigo-700 underline hover:text-indigo-900">Question 12: How do top-k and top-p sampling differ in text generation?</a></li>
-                <li><a href="#question-23" class="text-indigo-700 underline hover:text-indigo-900">Question 23: How is the softmax function applied in attention mechanisms?</a></li>
-                <li><a href="#question-25" class="text-indigo-700 underline hover:text-indigo-900">Question 25: Why is cross-entropy loss used in language modeling?</a></li>
-            </ul>
-        </div>
-        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
-            <h4 class="font-semibold text-blue-900 mb-2">🔍 What is Text Generation Strategy?</h4>
-            <p class="text-blue-800">When LLMs generate text, they don't just pick random words - they use sophisticated strategies to select the most appropriate next token. These strategies balance between finding the highest probability words and maintaining diversity to avoid repetitive, boring outputs.</p>
-        </div>
-        
-        <div class="grid md:grid-cols-2 gap-4">
-            <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
-                <h5 class="font-medium text-green-900 mb-2">🎯 Greedy Decoding</h5>
-                <p class="text-sm text-green-700 mb-2">Always picks the single highest-probability word at each step</p>
-                <div class="text-xs space-y-1">
-                    <div>✅ <strong>Fast:</strong> One choice per step</div>
-                    <div>✅ <strong>Simple:</strong> Easy to implement</div>
-                    <div>❌ <strong>Myopic:</strong> Can miss better overall sequences</div>
-                    <div>❌ <strong>Repetitive:</strong> Often gets stuck in loops</div>
-                </div>
-            </div>
-            
-            <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
-                <h5 class="font-medium text-purple-900 mb-2">🌟 Beam Search</h5>
-                <p class="text-sm text-purple-700 mb-2">Maintains multiple promising sequences (beams) and explores them in parallel</p>
-                <div class="text-xs space-y-1">
-                    <div>✅ <strong>Better Quality:</strong> Finds globally better sequences</div>
-                    <div>✅ <strong>Balanced:</strong> Considers multiple paths</div>
-                    <div>❌ <strong>Slower:</strong> More computation needed</div>
-                    <div>❌ <strong>Memory:</strong> Stores multiple sequences</div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="bg-yellow-50 p-4 rounded-lg">
-            <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why This Matters</h4>
-            <ul class="text-sm text-yellow-800 space-y-1">
-                <li>• <strong>Quality vs Speed:</strong> Beam search produces more coherent text but takes longer</li>
-                <li>• <strong>Real Applications:</strong> Translation systems use beam search for better accuracy</li>
-                <li>• <strong>Creative Writing:</strong> Different strategies produce different styles of text</li>
-                <li>• <strong>Search Space:</strong> Understanding how AI explores the vast space of possible texts</li>
-            </ul>
-        </div>
+  <div class="panel panel-info p-3">
+    <h4 class="font-semibold mb-1">&#x1F4DA; Recommended reading (related)</h4>
+    <ul class="list-disc ml-5 text-sm space-y-1">
+      <li><a href="#question-06" class="underline">Question 6: What is temperature in text generation and how does it affect output?</a></li>
+      <li><a href="#question-12" class="underline">Question 12: How do top-k and top-p sampling differ in text generation?</a></li>
+      <li><a href="#question-23" class="underline">Question 23: How is the softmax function applied in attention mechanisms?</a></li>
+      <li><a href="#question-25" class="underline">Question 25: Why is cross-entropy loss used in language modeling?</a></li>
+    </ul>
+  </div>
+
+  <div class="panel panel-info panel-emphasis p-4 space-y-2">
+    <h4 class="font-semibold">&#x1F4A1; What is a text generation strategy?</h4>
+    <p>Generation strategies decide <strong>which token comes next</strong> when the model predicts many plausible options. They balance confidence in the highest-probability token with the need for variety so the model avoids repetitive, low-quality loops.</p>
+  </div>
+
+  <div class="grid md:grid-cols-2 gap-4">
+    <div class="panel panel-success panel-emphasis p-3 stacked-card">
+      <h5 class="font-medium">Greedy decoding</h5>
+      <p class="text-sm">Selects the single most likely token at each step.</p>
+      <div class="text-xs space-y-1">
+        <div>&#x2705; <strong>Fast:</strong> One forward pass per token.</div>
+        <div>&#x2705; <strong>Deterministic:</strong> Same prompt, same answer.</div>
+        <div>&#x274C; <strong>Myopic:</strong> Ignores options that unlock better endings.</div>
+        <div>&#x274C; <strong>Loops:</strong> Prone to repeating phrases.</div>
+      </div>
     </div>
+
+    <div class="panel panel-accent panel-emphasis p-3 stacked-card">
+      <h5 class="font-medium">Beam search</h5>
+      <p class="text-sm">Maintains several promising continuations and expands them in parallel.</p>
+      <div class="text-xs space-y-1">
+        <div>&#x2705; <strong>Higher quality:</strong> Explores multiple paths.</div>
+        <div>&#x2705; <strong>Recoverable:</strong> Can backtrack from weak early picks.</div>
+        <div>&#x274C; <strong>Slower:</strong> Needs extra compute and memory.</div>
+        <div>&#x274C; <strong>Tighter beams:</strong> Still risks bland, over-optimized text.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-warning p-4 space-y-2">
+    <h4 class="font-semibold">&#x1F4CC; Why this matters</h4>
+    <ul class="list-disc ml-5 text-sm space-y-1">
+      <li><strong>Quality versus latency:</strong> Wider beams improve coherence but add milliseconds per token.</li>
+      <li><strong>Product fit:</strong> Creative tools prefer diversity; form-fill workflows value stability.</li>
+      <li><strong>Safety:</strong> Broader search uncovers alternative phrasings—both better and riskier.</li>
+      <li><strong>Evaluation:</strong> Understanding the decoder helps explain when outputs drift.</li>
+    </ul>
+  </div>
+
+  <div class="panel panel-neutral p-4 space-y-2">
+    <h4 class="font-semibold">&#x2139;&#xFE0F; Practical notes</h4>
+    <ul class="list-disc ml-5 text-sm space-y-1">
+      <li>Combine beam search with sampling or penalties to avoid over-optimised, high-probability clich�s.</li>
+      <li>Clamp beam width for latency budgets; many production flows stop at widths of 2–4.</li>
+      <li>Logging per-beam scores offers breadcrumbs for debugging and trust analysis.</li>
+    </ul>
+  </div>
+</div>

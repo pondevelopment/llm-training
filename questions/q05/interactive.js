@@ -20,6 +20,11 @@ const interactiveScript = () => {
             const exampleBtn = document.getElementById('q5-example-btn');
             const resetBothBtn = document.getElementById('q5-reset-both-btn');
 
+            const getCssVar = (name, fallback) => {
+                const value = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+                return value || fallback;
+            };
+
             if (!greedyStepBtn || !beamStepBtn) return;
 
             // Simplified, focused scenarios for clear comparison
@@ -193,42 +198,71 @@ const interactiveScript = () => {
             function renderGreedyProbs(probs) {
                 if (!greedyProbsEl) return;
                 greedyProbsEl.innerHTML = '';
-                probs.forEach((p, i) => {
-                    const div = document.createElement('div');
-                    const isChosen = i === 0;
-                    div.className = `p-2 rounded ${isChosen ? 'bg-green-200 border-2 border-green-400 font-bold' : 'bg-white border border-green-200'} transition-all`;
-                    div.innerHTML = `
-                        <span class="flex justify-between items-center">
-                            <span>${isChosen ? '👑 ' : ''}${p.word}</span>
-                            <span class="text-xs ${isChosen ? 'text-green-800' : 'text-gray-600'}">${(p.prob * 100).toFixed(1)}%</span>
-                        </span>
-                    `;
-                    greedyProbsEl.appendChild(div);
+                const successTone = getCssVar('--tone-emerald-strong', '#059669');
+                const mutedTone = getCssVar('--color-muted', '#64748b');
+
+                probs.forEach((prob, index) => {
+                    const isChosen = index === 0;
+                    const row = document.createElement('div');
+                    row.className = isChosen
+                        ? 'panel panel-success panel-emphasis p-2 flex items-center justify-between text-sm'
+                        : 'panel panel-neutral p-2 flex items-center justify-between text-sm';
+
+                    const wordSpan = document.createElement('span');
+                    wordSpan.textContent = `${isChosen ? '👑 ' : ''}${prob.word}`;
+
+                    const valueSpan = document.createElement('span');
+                    valueSpan.className = isChosen ? 'text-xs font-medium' : 'text-xs text-muted';
+                    valueSpan.style.color = isChosen ? successTone : mutedTone;
+                    valueSpan.textContent = `${(prob.prob * 100).toFixed(1)}%`;
+
+                    row.append(wordSpan, valueSpan);
+                    greedyProbsEl.appendChild(row);
                 });
             }
-            
-            // Render beam search beams with enhanced styling
+
             function renderBeams(beams) {
                 if (!beamListEl) return;
                 beamListEl.innerHTML = '';
-                beams.forEach((beam, i) => {
-                    const div = document.createElement('div');
-                    const isBest = i === 0;
-                    div.className = `p-3 rounded-lg border-2 transition-all ${isBest ? 'border-purple-400 bg-purple-100' : 'border-purple-200 bg-white'} relative`;
-                    
-                    const sequenceText = beam.sequence.length > 0 ? beam.sequence.join(' ') : '(start)';
-                    div.innerHTML = `
-                        <div class="flex justify-between items-start">
-                            <span class="font-mono text-sm ${isBest ? 'font-bold' : ''}">${isBest ? '🥇 ' : ''}${sequenceText}</span>
-                            <span class="text-xs ${isBest ? 'text-purple-800 font-bold' : 'text-gray-600'} ml-2">
-                                ${(beam.score * 100).toFixed(2)}%
-                            </span>
-                        </div>
-                        ${isBest ? '<div class="text-xs text-purple-700 mt-1">Best candidate</div>' : ''}
-                    `;
-                    beamListEl.appendChild(div);
+                const accentTone = getCssVar('--tone-purple-strong', '#7c3aed');
+                const mutedTone = getCssVar('--color-muted', '#64748b');
+
+                beams.forEach((beam, index) => {
+                    const isBest = index === 0;
+                    const entry = document.createElement('div');
+                    entry.className = isBest
+                        ? 'panel panel-accent panel-emphasis p-3 space-y-2'
+                        : 'panel panel-neutral p-3 space-y-2';
+
+                    const header = document.createElement('div');
+                    header.className = 'flex items-start justify-between gap-3';
+
+                    const seqSpan = document.createElement('span');
+                    seqSpan.className = 'font-mono text-sm';
+                    seqSpan.textContent = beam.sequence.length > 0 ? beam.sequence.join(' ') : '(start)';
+                    if (isBest) {
+                        seqSpan.textContent = `🥇 ${seqSpan.textContent}`;
+                        seqSpan.style.fontWeight = '600';
+                    }
+
+                    const scoreSpan = document.createElement('span');
+                    scoreSpan.className = 'text-xs font-medium';
+                    scoreSpan.style.color = isBest ? accentTone : mutedTone;
+                    scoreSpan.textContent = `${(beam.score * 100).toFixed(2)}%`;
+
+                    header.append(seqSpan, scoreSpan);
+                    entry.appendChild(header);
+
+                    if (isBest) {
+                        const badge = document.createElement('span');
+                        badge.className = 'chip chip-accent text-xs';
+                        badge.textContent = 'Best candidate';
+                        entry.appendChild(badge);
+                    }
+
+                    beamListEl.appendChild(entry);
                 });
-                
+
                 if (bestScoreEl && beams.length > 0) {
                     bestScoreEl.textContent = (beams[0].score * 100).toFixed(2) + '%';
                 }

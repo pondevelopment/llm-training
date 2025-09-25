@@ -2151,3 +2151,26 @@ html.dark .q8-stage-icon {
 .q8-response-card .q8-response-text {
   background: color-mix(in srgb, var(--panel-bg, var(--color-card)) 85%, transparent);
 }
+.q9-select-light {
+  background-color: var(--color-card);
+  color: var(--color-body);
+}
+html.dark .q9-select-light {
+  background-color: var(--color-card);
+  color: var(--color-body);
+}
+
+.q9-select {
+  background-color: var(--color-card);
+  color: var(--color-body);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 0.65rem;
+  padding: 0.5rem 0.75rem;
+  width: 100%;
+}
+.q9-select:focus {
+  outline: none;
+  border-color: color-mix(in srgb, var(--accent-border) 40%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-border) 25%, transparent);
+}
+

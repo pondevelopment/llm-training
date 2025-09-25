@@ -1,63 +1,73 @@
 <div class="space-y-4">
-        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
-            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related)</h4>
-            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
-                <li><a href="#question-05" class="text-indigo-700 underline hover:text-indigo-900">Question 5: How does beam search improve text generation compared to greedy decoding?</a></li>
-                <li><a href="#question-12" class="text-indigo-700 underline hover:text-indigo-900">Question 12: How do top-k and top-p sampling differ in text generation?</a></li>
-                <li><a href="#question-23" class="text-indigo-700 underline hover:text-indigo-900">Question 23: How is the softmax function applied in attention mechanisms?</a></li>
-                <li><a href="#question-25" class="text-indigo-700 underline hover:text-indigo-900">Question 25: Why is cross-entropy loss used in language modeling?</a></li>
-            </ul>
-        </div>
-        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
-            <h4 class="font-semibold text-blue-900 mb-2">🌡️ What is Temperature?</h4>
-            <p class="text-blue-800">Temperature is a crucial hyperparameter that controls the randomness and creativity in text generation. Think of it like adjusting the "creativity dial" on an AI writer - low temperature makes it conservative and predictable, while high temperature makes it bold and experimental.</p>
-        </div>
-        
-        <div class="grid md:grid-cols-3 gap-4">
-            <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
-                <h5 class="font-medium text-green-900 mb-2">❄️ Low Temperature (0.1-0.5)</h5>
-                <p class="text-sm text-green-700 mb-2">Conservative and focused selection</p>
-                <div class="text-xs space-y-1">
-                    <div>✅ <strong>Coherent:</strong> Stays on topic well</div>
-                    <div>✅ <strong>Consistent:</strong> Predictable style</div>
-                    <div>❌ <strong>Repetitive:</strong> May loop phrases</div>
-                    <div>❌ <strong>Boring:</strong> Limited creativity</div>
-                </div>
-                <code class="text-xs bg-green-100 px-1 rounded mt-2 block">Perfect for: Facts, tutorials</code>
-            </div>
-            
-            <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
-                <h5 class="font-medium text-purple-900 mb-2">🌡️ Medium Temperature (0.7-1.2)</h5>
-                <p class="text-sm text-purple-700 mb-2">Balanced creativity and coherence</p>
-                <div class="text-xs space-y-1">
-                    <div>✅ <strong>Natural:</strong> Human-like variation</div>
-                    <div>✅ <strong>Engaging:</strong> Some surprises</div>
-                    <div>✅ <strong>Versatile:</strong> Works for most tasks</div>
-                    <div>🔄 <strong>Balanced:</strong> Good trade-offs</div>
-                </div>
-                <code class="text-xs bg-purple-100 px-1 rounded mt-2 block">Perfect for: Chat, stories</code>
-            </div>
-            
-            <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
-                <h5 class="font-medium text-orange-900 mb-2">🔥 High Temperature (1.5-2.0)</h5>
-                <p class="text-sm text-orange-700 mb-2">Wild and experimental generation</p>
-                <div class="text-xs space-y-1">
-                    <div>✅ <strong>Creative:</strong> Unexpected combinations</div>
-                    <div>✅ <strong>Diverse:</strong> Wide vocabulary use</div>
-                    <div>❌ <strong>Incoherent:</strong> May lose meaning</div>
-                    <div>❌ <strong>Unpredictable:</strong> Hard to control</div>
-                </div>
-                <code class="text-xs bg-orange-100 px-1 rounded mt-2 block">Perfect for: Poetry, brainstorming</code>
-            </div>
-        </div>
-        
-        <div class="bg-yellow-50 p-4 rounded-lg">
-            <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why Temperature Matters</h4>
-            <ul class="text-sm text-yellow-800 space-y-1">
-                <li>• <strong>Mathematical Control:</strong> Scales logits before softmax, directly affecting probability distributions</li>
-                <li>• <strong>Use Case Optimization:</strong> Different tasks need different creativity levels (factual vs creative writing)</li>
-                <li>• <strong>Quality vs Diversity:</strong> Trade-off between coherent, safe outputs and creative, risky ones</li>
-                <li>• <strong>Real-world Impact:</strong> ChatGPT, Claude, and other AI assistants all use temperature tuning</li>
-            </ul>
-        </div>
+  <div class="panel panel-info p-3">
+    <h4 class="font-semibold mb-1">&#x1F4DA; Recommended reading (related)</h4>
+    <ul class="list-disc ml-5 text-sm space-y-1">
+      <li><a href="#question-05" class="underline">Question 5: How does beam search improve text generation compared to greedy decoding?</a></li>
+      <li><a href="#question-12" class="underline">Question 12: How do top-k and top-p sampling differ in text generation?</a></li>
+      <li><a href="#question-23" class="underline">Question 23: How is the softmax function applied in attention mechanisms?</a></li>
+      <li><a href="#question-25" class="underline">Question 25: Why is cross-entropy loss used in language modeling?</a></li>
+    </ul>
+  </div>
+
+  <div class="panel panel-info panel-emphasis p-4 space-y-2">
+    <h4 class="font-semibold">&#x1F319;&#xFE0F; What is temperature?</h4>
+    <p>Temperature is the <strong>creativity dial</strong> for language models. It rescales logits before softmax: low values sharpen the distribution so the model acts cautious, while high values flatten it and let adventurous tokens surface. It is the quickest lever for balancing coherence and novelty.</p>
+  </div>
+
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="panel panel-success panel-emphasis p-3 stacked-card">
+      <h5 class="font-medium">Low temperature (0.1&ndash;0.5)</h5>
+      <p class="text-sm">Conservative, laser-focused token choices.</p>
+      <div class="text-xs space-y-1">
+        <div>&#x2705; <strong>Coherent:</strong> Sticks to the prompt.</div>
+        <div>&#x2705; <strong>Reliable:</strong> Minimal surprises.</div>
+        <div>&#x274C; <strong>Repetitive:</strong> Can loop phrases.</div>
+        <div>&#x274C; <strong>Flat tone:</strong> Creative flair disappears.</div>
+      </div>
+      <span class="chip chip-success text-xs mt-2">Best for: factual answers, summaries</span>
     </div>
+
+    <div class="panel panel-accent panel-emphasis p-3 stacked-card">
+      <h5 class="font-medium">Medium temperature (0.7&ndash;1.2)</h5>
+      <p class="text-sm">Balanced mix of coherence and variation.</p>
+      <div class="text-xs space-y-1">
+        <div>&#x2705; <strong>Natural:</strong> Reads like human prose.</div>
+        <div>&#x2705; <strong>Engaging:</strong> Adds light surprises.</div>
+        <div>&#x2705; <strong>Versatile:</strong> Works for most tasks.</div>
+        <div>&#x26A0;&#xFE0F; <strong>Prompt sensitive:</strong> Needs guardrails.</div>
+      </div>
+      <span class="chip chip-accent text-xs mt-2">Best for: chat, narratives, ideation</span>
+    </div>
+
+    <div class="panel panel-warning panel-emphasis p-3 stacked-card">
+      <h5 class="font-medium">High temperature (1.5&ndash;2.0)</h5>
+      <p class="text-sm">Experimental, high-entropy sampling.</p>
+      <div class="text-xs space-y-1">
+        <div>&#x2705; <strong>Creative:</strong> Unexpected combinations.</div>
+        <div>&#x2705; <strong>Diverse:</strong> Wide vocabulary usage.</div>
+        <div>&#x274C; <strong>Noisy:</strong> Logic quickly degrades.</div>
+        <div>&#x274C; <strong>Risky:</strong> Harder to moderate.</div>
+      </div>
+      <span class="chip chip-warning text-xs mt-2">Best for: poetry, brainstorming, prompts</span>
+    </div>
+  </div>
+
+  <div class="panel panel-warning p-4 space-y-2">
+    <h4 class="font-semibold">&#x1F4CC; Why temperature matters</h4>
+    <ul class="list-disc ml-5 text-sm space-y-1">
+      <li><strong>Mathematical control:</strong> Directly shapes the softmax output and entropy.</li>
+      <li><strong>User experience:</strong> Lets product teams tune tone, creativity, and repeatability.</li>
+      <li><strong>Safety and guardrails:</strong> Lower temperatures reduce the chance of off-policy responses.</li>
+      <li><strong>Evaluation insights:</strong> Temperature sweeps expose model strengths and failure modes.</li>
+    </ul>
+  </div>
+
+  <div class="panel panel-neutral p-4 space-y-2">
+    <h4 class="font-semibold">&#x2139;&#xFE0F; Practical notes</h4>
+    <ul class="list-disc ml-5 text-sm space-y-1">
+      <li>Pair temperature with top-k/p sampling or frequency penalties to fine-tune diversity.</li>
+      <li>Expose preset values (e.g., 0.2, 0.8, 1.5) so operators can A/B output styles quickly.</li>
+      <li>Log the temperature alongside prompts to debug inconsistent behaviour.</li>
+    </ul>
+  </div>
+</div>

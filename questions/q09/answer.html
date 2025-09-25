@@ -1,81 +1,81 @@
 <div class="space-y-4">
-        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
-            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related)</h4>
-            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
-                <li><a href="#question-01" class="text-indigo-700 underline hover:text-indigo-900">Question 1: What does tokenization entail?</a></li>
-                <li><a href="#question-02" class="text-indigo-700 underline hover:text-indigo-900">Question 2: How does the attention mechanism function in transformer models?</a></li>
-                <li><a href="#question-07" class="text-indigo-700 underline hover:text-indigo-900">Question 7: What are embeddings and how do they enable semantic meaning?</a></li>
-                <li><a href="#question-14" class="text-indigo-700 underline hover:text-indigo-900">Question 14: What are embeddings and why do they matter?</a></li>
+        <div class="panel panel-info p-3">
+            <h4 class="font-semibold mb-1">💼 Recommended reading (related)</h4>
+            <ul class="list-disc ml-5 text-sm space-y-1">
+                <li><a href="#question-01" class="underline">Question 1: What does tokenization entail?</a></li>
+                <li><a href="#question-02" class="underline">Question 2: How does the attention mechanism function in transformer models?</a></li>
+                <li><a href="#question-07" class="underline">Question 7: What are embeddings and how do they enable semantic meaning?</a></li>
+                <li><a href="#question-14" class="underline">Question 14: What are embeddings and why do they matter?</a></li>
             </ul>
         </div>
         <!-- Main Concept Box -->
-        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
-            <h4 class="font-semibold text-blue-900 mb-2">🔄 What are Training Paradigms?</h4>
-            <p class="text-blue-800">Language models learn through different training strategies that shape their strengths. Think of it like learning to read: you could learn by predicting the next word in a story (autoregressive) or by filling in missing words in completed sentences (masked). Each approach develops different language understanding capabilities.</p>
+        <div class="panel panel-info panel-emphasis p-4 space-y-2">
+            <h4 class="font-semibold">🔍 What are Training Paradigms?</h4>
+            <p>Language models learn through different training strategies that shape their strengths. Think of it like learning to read: you could learn by predicting the next word in a story (autoregressive) or by filling in missing words in completed sentences (masked). Each approach develops different language understanding capabilities.</p>
         </div>
         
         <!-- Comparison Grid -->
         <div class="grid md:grid-cols-2 gap-4">
-            <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
-                <h5 class="font-medium text-green-900 mb-2">🎯 Autoregressive Models (GPT-style)</h5>
-                <p class="text-sm text-green-700 mb-3">Predict the next token in sequence, seeing only previous context. Like writing a story word by word, never looking ahead.</p>
+            <div class="panel panel-success panel-emphasis p-3 space-y-3">
+                <h5 class="font-medium">🎯 Autoregressive Models (GPT-style)</h5>
+                <p class="text-sm">Predict the next token in sequence, seeing only previous context. Like writing a story word by word, never looking ahead.</p>
                 <div class="text-xs space-y-2">
                     <div><strong>Training:</strong> "The cat sat on" → predict "the"</div>
                     <div><strong>Strengths:</strong> Text generation, completion, creative writing</div>
                     <div><strong>Direction:</strong> Left-to-right (causal)</div>
                     <div><strong>Examples:</strong> OpenAI (GPT‑4.1/4o, o1/o3), Anthropic (Claude 3.7/4), Google (Gemini 2.5 Pro/Flash), Meta (Llama 3.1/4), Mistral (Large 2/Mixtral)</div>
                 </div>
-                <code class="text-xs bg-green-100 px-2 py-1 rounded block mt-2">P(token | previous_tokens)</code>
+                <span class="chip chip-success mt-2 w-fit">P(token | previous_tokens)</span>
             </div>
             
-            <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
-                <h5 class="font-medium text-purple-900 mb-2">🎭 Masked Language Models (BERT-style)</h5>
-                <p class="text-sm text-purple-700 mb-3">Predict masked tokens using full bidirectional context. Like solving a crossword puzzle with clues from all directions.</p>
+            <div class="panel panel-accent panel-emphasis p-3 space-y-3">
+                <h5 class="font-medium">🧩 Masked Language Models (BERT-style)</h5>
+                <p class="text-sm">Predict masked tokens using full bidirectional context. Like solving a crossword puzzle with clues from all directions.</p>
                 <div class="text-xs space-y-2">
                     <div><strong>Training:</strong> "The cat [MASK] on the mat" → predict "sat"</div>
                     <div><strong>Strengths:</strong> Understanding, classification, Q&A</div>
                     <div><strong>Direction:</strong> Bidirectional (sees all)</div>
                     <div><strong>Examples:</strong> BERT, RoBERTa, DeBERTa</div>
                 </div>
-                <code class="text-xs bg-purple-100 px-2 py-1 rounded block mt-2">P(token | all_context)</code>
+                <span class="chip chip-accent mt-2 w-fit">P(token | all_context)</span>
             </div>
         </div>
 
         <!-- Training Process Comparison -->
-        <div class="bg-gray-50 p-4 rounded-lg">
-            <h4 class="font-semibold text-gray-900 mb-3">🔄 Training Process Differences</h4>
+        <div class="panel panel-neutral p-4 space-y-3">
+            <h4 class="font-semibold">🔧 Training Process Differences</h4>
             <div class="grid md:grid-cols-2 gap-6">
-                <div>
-                    <h6 class="font-medium text-green-800 mb-2">Autoregressive Training</h6>
+                <div class="space-y-2">
+                    <h6 class="font-medium text-success">Autoregressive Training</h6>
                     <div class="text-sm space-y-1">
-                        <div class="font-mono bg-white p-2 rounded border">
-                            <div class="text-gray-500">Input: "The weather is"</div>
-                            <div class="text-green-600">→ Predict: "nice"</div>
-                            <div class="text-gray-500">Input: "The weather is nice"</div>
-                            <div class="text-green-600">→ Predict: "today"</div>
+                        <div class="panel panel-neutral-soft font-mono p-2 space-y-1">
+                            <div class="panel-muted">Input: "The weather is"</div>
+                            <div class="text-success">→ Predict: "nice"</div>
+                            <div class="panel-muted">Input: "The weather is nice"</div>
+                            <div class="text-success">→ Predict: "today"</div>
                         </div>
-                        <p class="text-xs text-gray-600">Sequential prediction, one token at a time</p>
+                        <p class="text-xs text-neutral-muted">Sequential prediction, one token at a time</p>
                     </div>
                 </div>
-                <div>
-                    <h6 class="font-medium text-purple-800 mb-2">Masked Training</h6>
+                <div class="space-y-2">
+                    <h6 class="font-medium text-accent">Masked Training</h6>
                     <div class="text-sm space-y-1">
-                        <div class="font-mono bg-white p-2 rounded border">
-                            <div class="text-gray-500">Input: "The [MASK] is nice today"</div>
-                            <div class="text-purple-600">→ Predict: "weather"</div>
-                            <div class="text-gray-500">Input: "The weather [MASK] nice today"</div>
-                            <div class="text-purple-600">→ Predict: "is"</div>
+                        <div class="panel panel-neutral-soft font-mono p-2 space-y-1">
+                            <div class="panel-muted">Input: "The [MASK] is nice today"</div>
+                            <div class="text-accent">→ Predict: "weather"</div>
+                            <div class="panel-muted">Input: "The weather [MASK] nice today"</div>
+                            <div class="text-accent">→ Predict: "is"</div>
                         </div>
-                        <p class="text-xs text-gray-600">Multiple masks predicted simultaneously</p>
+                        <p class="text-xs text-neutral-muted">Multiple masks predicted simultaneously</p>
                     </div>
                 </div>
             </div>
         </div>
         
         <!-- Why It Matters Section -->
-        <div class="bg-yellow-50 p-4 rounded-lg">
-            <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why This Matters</h4>
-            <ul class="text-sm text-yellow-800 space-y-1">
+        <div class="panel panel-warning p-4 space-y-2">
+            <h4 class="font-semibold">🎯 Why This Matters</h4>
+            <ul class="text-sm space-y-1">
                 <li>• <strong>Task Specialization:</strong> Training paradigm determines what the model excels at - generation vs understanding</li>
                 <li>• <strong>Architecture Design:</strong> Influences attention mechanisms (causal vs bidirectional) and model structure</li>
                 <li>• <strong>Use Case Selection:</strong> Choose autoregressive for creative tasks, masked for analytical tasks</li>

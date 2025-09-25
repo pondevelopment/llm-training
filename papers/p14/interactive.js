@@ -94,11 +94,11 @@
       const isActive = btn.dataset.scenario === scenarioKey;
       btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
       if (isActive) {
-        btn.classList.add('bg-indigo-600', 'text-white', 'border-indigo-600');
-        btn.classList.remove('bg-white', 'text-indigo-700');
+        btn.classList.add('btn-accent');
+        btn.classList.remove('bg-card', 'text-accent', 'border-subtle', 'hover:bg-subtle');
       } else {
-        btn.classList.remove('bg-indigo-600', 'text-white', 'border-indigo-600');
-        btn.classList.add('bg-white', 'text-indigo-700');
+        btn.classList.remove('btn-accent');
+        btn.classList.add('bg-card', 'text-accent', 'border-subtle', 'hover:bg-subtle');
       }
     });
   };
@@ -112,9 +112,9 @@
     contextLabelEl.textContent = scenario.label;
     leversEl.innerHTML = scenario.levers
       .map((lever) => `
-        <div class="bg-slate-50 border border-slate-200 rounded-md p-3">
-          <div class="text-xs font-semibold text-slate-900">${lever.title}</div>
-          <p class="text-[11px] text-slate-700 mt-1">${lever.detail}</p>
+        <div class="bg-card border border-subtle rounded-md p-3">
+          <div class="text-xs font-semibold text-heading">${lever.title}</div>
+          <p class="text-[11px] text-secondary mt-1">${lever.detail}</p>
         </div>
       `)
       .join('');

@@ -271,23 +271,23 @@ class LLMQuestionApp {
         if(meta.year) venueParts.push(String(meta.year));
         const venueHtml = venueParts.length ? `<p class="text-xs text-muted-soft">${this.escapeHtml(venueParts.join(' &bull; '))}</p>` : '';
         const tags = Array.isArray(meta.tags) ? meta.tags.slice(0,3) : [];
-        const tagChips = tags.map(tag => `<span class="inline-flex items-center px-2 py-0.5 rounded bg-indigo-50 text-indigo-700 text-[11px] font-medium border border-indigo-100">${this.escapeHtml(tag)}</span>`).join('');
-        const tagsHtml = tagChips ? `<div class="flex flex-wrap gap-1">${tagChips}</div>` : '';
+        const tagChips = tags.map(tag => `<span class="tag-chip">${this.escapeHtml(tag)}</span>`).join('');
+        const tagsHtml = tagChips ? `<div class="flex flex-wrap gap-1.5">${tagChips}</div>` : '';
         const shareHref = `p/${safeId}.html`;
         const routeHref = this.canonicalPaperHash(safeId);
-        return `<article class="p-4 rounded-lg border border-divider bg-white flex flex-col gap-3 shadow-sm hover:shadow transition-shadow">
+        return `<article class="p-4 rounded-xl border border-divider bg-card flex flex-col gap-3 shadow-sm hover:shadow-md transition-shadow">
   <div class="flex items-start justify-between gap-3">
     <div>
       <div class="text-xs font-mono text-muted-soft">#${niceId}</div>
       <h3 class="text-base font-semibold text-heading leading-snug">${title}</h3>
       ${venueHtml}
     </div>
-    <a href="${shareHref}" class="inline-flex items-center px-2 py-1 text-xs font-medium text-muted border border-divider rounded-md hover:bg-subtle" title="Open share page for this paper">Share</a>
+    <a href="${shareHref}" class="inline-flex items-center px-2.5 py-1.5 text-xs font-medium text-secondary border border-divider rounded-md hover:bg-subtle transition-colors" title="Open share page for this paper">Share</a>
   </div>
   <p class="text-sm text-muted leading-snug">${summary}</p>
   ${authorHtml}
   <div class="flex items-center justify-between gap-2 pt-2">
-    <a href="${routeHref}" data-paper="${safeId}" class="px-3 py-1.5 rounded-md bg-indigo-600 text-white text-xs font-medium hover:bg-indigo-700">Open overview</a>
+    <a href="${routeHref}" data-paper="${safeId}" class="px-3 py-1.5 text-xs font-medium btn-accent">Open overview</a>
     ${tagsHtml}
   </div>
 </article>`;
@@ -305,15 +305,6 @@ class LLMQuestionApp {
     }
     exitPath(){ this.activePath=null; this.updatePathUI(); }
     syncActivePath(q){ if(!this.activePath) return; const i=this.activePath.sequence.indexOf(q); if(i===-1) this.activePath=null; else this.activePath.pos=i; }
-        getPathGradient(key){
-                const diff = this.pathDefinitions[key]?.difficulty;
-                switch(diff){
-                        case 'beginner': return 'from-indigo-50 to-indigo-100 border-indigo-200';
-                        case 'intermediate': return 'from-purple-50 to-purple-100 border-purple-200';
-                        case 'advanced': return 'from-rose-50 to-rose-100 border-rose-200';
-                        default: return 'from-slate-50 to-slate-100 border-slate-200';
-                }
-        }
         difficultyStars(level){
                 if(level==='beginner') return 'â˜…â˜†â˜†';
                 if(level==='intermediate') return 'â˜…â˜…â˜†';
@@ -324,24 +315,26 @@ class LLMQuestionApp {
                 const def = this.pathDefinitions[key];
                 const diff = def?.difficulty || '';
                 const stars = this.difficultyStars(diff);
+                const diffText = diff ? diff.charAt(0).toUpperCase() + diff.slice(1) : '';
+                const diffLabel = diffText ? `<span class="path-chip">${diffText} ${stars}</span>` : '';
                 const atStart=pos===0, atEnd=pos===total-1, pct=((pos+1)/total)*100;
                 return `<div class="flex items-center justify-between flex-wrap gap-3">
                         <div class="flex items-center gap-2">
-                            <div class="font-semibold tracking-wide uppercase text-xs">Learning Path</div>
-                            <span class="text-[10px] px-2 py-0.5 rounded-full bg-white/70 border">${diff} ${stars}</span>
+                            <div class="font-semibold tracking-wide uppercase text-xs text-accent">Learning Path</div>
+                            ${diffLabel}
                         </div>
-                        <button type="button" id="path-banner-exit" class="text-xs px-2 py-1 rounded bg-white/70 hover:bg-white border">Exit Path</button>
+                        <button type="button" id="path-banner-exit" class="text-xs px-2 py-1 btn-soft">Exit Path</button>
                     </div>
                     <div class="flex items-center flex-wrap gap-3">
-                        <h3 class="text-base font-bold">${nice} Path</h3>
-                        <span class="text-xs font-mono px-2 py-0.5 rounded bg-white/70 border">${pos+1} / ${total}</span>
-                        <div class="h-2 flex-1 rounded bg-white/40 overflow-hidden min-w-[140px]">
-                            <div class="h-full bg-gray-800/50" style="width:${pct}%"></div>
+                        <h3 class="text-base font-bold text-heading">${nice} Path</h3>
+                        <span class="path-chip font-mono">Step ${pos+1} / ${total}</span>
+                        <div class="path-progress" role="progressbar" aria-valuemin="0" aria-valuemax="${total}" aria-valuenow="${pos+1}" aria-label="${nice} path progress">
+                            <div class="path-progress-bar" style="width:${pct}%"></div>
                         </div>
                     </div>
                     <div class="flex items-center flex-wrap gap-2 pt-1">
-                        <button id="path-prev" ${atStart?'disabled':''} class="text-xs px-3 py-1 rounded border bg-white/70 hover:bg-white disabled:opacity-40">Prev</button>
-                        <button id="path-next" class="text-xs px-3 py-1 rounded border bg-indigo-600 text-white hover:bg-indigo-700 disabled:opacity-60">${atEnd?'Finish':'Next'}</button>
+                        <button id="path-prev" ${atStart?'disabled':''} class="text-xs px-3 py-1 btn-soft">Prev</button>
+                        <button id="path-next" class="text-xs px-3 py-1 btn-accent">${atEnd?'Finish':'Next'}</button>
                         ${atEnd?'<span class="text-xs text-muted">End of path</span>':''}
                     </div>`;
         }
@@ -353,6 +346,7 @@ class LLMQuestionApp {
                 if(!indicator||!label||!exitBtn) return;
                 if(!this.activePath){
                         indicator.classList.add('hidden');
+                        indicator.dataset.pathTheme = '';
                         if(banner) banner.classList.add('hidden');
                         this.elements.nextBtn.title='Next question';
                         this.elements.prevBtn.title='Previous question';
@@ -363,11 +357,13 @@ class LLMQuestionApp {
                 const diff=def?.difficulty; const stars=this.difficultyStars(diff);
                 label.textContent=`${nice} ${pos+1}/${total} ${stars}`;
                 indicator.classList.remove('hidden');
+                indicator.dataset.pathTheme = key;
                 this.elements.nextBtn.title= pos<total-1 ? `Next in ${nice} (${pos+2}/${total})` : 'End of path';
                 this.elements.prevBtn.title= pos>0 ? `Prev in ${nice} (${pos}/${total})` : 'Start of path';
                 if(banner){
                         banner.classList.remove('hidden');
-                        banner.className=`mb-5 p-4 rounded-lg border text-sm flex flex-col gap-3 bg-gradient-to-r ${this.getPathGradient(key)} text-body shadow-sm`;
+                        banner.className='path-banner mb-5 p-4 rounded-lg text-sm flex flex-col gap-3';
+                        banner.dataset.pathTheme = key;
                         banner.innerHTML=this.buildBannerHTML(nice,pos,total,key);
                         banner.querySelector('#path-banner-exit')?.addEventListener('click',()=>this.exitPath());
                         banner.querySelector('#path-prev')?.addEventListener('click',()=>{ if(pos>0) this.displayQuestion(this.availableQuestions.indexOf(sequence[pos-1])); });
@@ -479,7 +475,7 @@ class LLMQuestionApp {
         }
         const tags = Array.isArray(paper.meta?.tags) ? paper.meta.tags.slice(0,4) : [];
         if(this.elements.paperTags){
-            this.elements.paperTags.innerHTML = tags.map(tag => `<span class="inline-flex items-center px-2 py-0.5 rounded bg-slate-100 text-slate-700 border border-slate-200">${this.escapeHtml(tag)}</span>`).join('');
+            this.elements.paperTags.innerHTML = tags.map(tag => `<span class="tag-chip">${this.escapeHtml(tag)}</span>`).join('');
             this.elements.paperTags.classList.toggle('hidden', tags.length === 0);
         }
         if(this.elements.paperSummary){
@@ -497,13 +493,11 @@ class LLMQuestionApp {
                     const nice = String(q).padStart(2,'0');
                     const title = this.escapeHtml(this.getQuestionTitle(q));
                     const disabled = idx === -1 ? 'disabled' : '';
-                    const stateClasses = idx === -1
-                        ? 'opacity-60 cursor-not-allowed'
-                        : 'hover:bg-indigo-600 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 transition-colors';
+                    const stateClasses = idx === -1 ? 'related-question-disabled' : '';
                     return `<li>
-    <button type="button" data-related-question="${q}" class="group w-full text-left px-3 py-2 text-sm rounded-md bg-white text-indigo-700 border border-indigo-200 ${stateClasses}" ${disabled}>
-        <span class="font-semibold group-hover:text-white">Question ${nice}</span>
-        <span class="block text-xs text-indigo-600/80 group-hover:text-indigo-100">${title}</span>
+    <button type="button" data-related-question="${q}" class="related-question group w-full text-left px-3 py-2 text-sm rounded-md ${stateClasses}" ${disabled}>
+        <span class="related-question-title">Question ${nice}</span>
+        <span class="related-question-subtext">${title}</span>
     </button>
 </li>`;
                 }).join('');
@@ -656,7 +650,7 @@ class LLMQuestionApp {
         this.elements.questionTitle.textContent=question.title;
         let html=question.answer;
         if(question.interactive){
-            html+=`\n<div class="interactive-container mt-8 p-6 bg-card rounded-lg border-2 border-dashed border-subtle">\n  <h3 class="text-lg font-semibold text-indigo-700 mb-4">${question.interactive.title}</h3>\n  ${question.interactive.html}\n</div>`;
+            html+=`\n<div class="interactive-container mt-8 p-6 bg-card rounded-lg border-2 border-dashed border-subtle">\n  <h3 class="text-lg font-semibold text-heading mb-4">${question.interactive.title}</h3>\n  ${question.interactive.html}\n</div>`;
         }
         this.elements.questionAnswer.innerHTML=html;
         // Normalize internal anchors (#question-0N or #question0N -> #question-N)

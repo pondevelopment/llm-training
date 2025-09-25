@@ -1,285 +1,244 @@
-<div class="space-y-6">
-            <!-- In-site notifications container -->
-            <div id="q8-notifications" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50 space-y-2 max-w-md"></div>
-            
-            <!-- How it works panel -->
-            <div class="bg-sky-50 border border-sky-200 rounded-lg p-4">
-                <div class="flex items-start justify-between gap-2">
-                    <div>
-                        <h4 class="font-semibold text-sky-900 mb-1">🎓 How this simulator works</h4>
-                        <p class="text-sm text-sky-800">A quick overview so you know what will happen before you start.</p>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <button id="q8-tour-btn" class="text-xs bg-sky-600 text-white px-2 py-1 rounded hover:bg-sky-700 transition-colors">▶ Start guided tour</button>
-                        <button id="q8-how-toggle" class="text-xs bg-sky-100 text-sky-800 px-2 py-1 rounded hover:bg-sky-200 transition-colors" aria-expanded="true">Hide</button>
-                    </div>
-                </div>
-                <div id="q8-how-body" class="mt-3 space-y-3">
-                    <ol class="list-decimal list-inside text-sm text-sky-900 space-y-1">
-                        <li><strong>Stage 1 – Data Collection:</strong> Compare Response A vs B and click “Prefer This” five times. The progress bar shows 0/5 → 5/5. When you reach 5, we auto‑advance to the Reward Model stage.</li>
-                        <li><strong>Stage 2 – Reward Model:</strong> Click “🧠 Train Reward Model” to simulate learning a preference predictor. When training finishes, we auto‑advance to RL Optimization.</li>
-                        <li><strong>Stage 3 – RL Optimization (PPO):</strong> Click “🚀 Run PPO Training” to improve metrics over episodes, then “📊 Evaluate Model” to see the overall alignment score.</li>
-                    </ol>
-                    <div class="text-xs text-sky-800 bg-white/60 border border-sky-200 rounded p-2">
-                        <div class="font-semibold mb-1">Controls</div>
-                        <ul class="list-disc list-inside space-y-0.5">
-                            <li><strong>💡 Try Training Examples:</strong> Loads example prompts and simulates one feedback step.</li>
-                            <li><strong>🔄 Reset Progress:</strong> Clears all state and returns to Stage 1.</li>
-                            <li><strong>Stage cards:</strong> You can switch stages manually at any time to explore.</li>
-                        </ul>
-                    </div>
-                    <div class="text-xs text-sky-700">
-                        Note: This is a learning simulator. Numbers are illustrative and run entirely in your browser; no data is sent anywhere.
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Training Stage Selection -->
-            <div class="bg-gradient-to-r from-blue-50 to-purple-50 p-4 rounded-lg border border-blue-200">
-                <label class="block text-sm font-medium text-gray-700 mb-2">🔄 Select RLHF Training Stage</label>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                    <label class="cursor-pointer">
-                        <input type="radio" name="q8-stage" value="collection" class="sr-only" checked>
-                        <div class="border-2 border-green-200 rounded-lg p-3 hover:border-green-400 hover:bg-green-50 transition-colors">
-                            <div class="font-medium text-green-900">Data Collection</div>
-                            <div class="text-xs text-green-700">Gather human preferences</div>
-                            <div class="text-xs text-green-600 mt-1">Step 1: Feedback</div>
-                        </div>
-                    </label>
-                    
-                    <label class="cursor-pointer">
-                        <input type="radio" name="q8-stage" value="reward" class="sr-only">
-                        <div class="border-2 border-purple-200 rounded-lg p-3 hover:border-purple-400 hover:bg-purple-50 transition-colors">
-                            <div class="font-medium text-purple-900">Reward Modeling</div>
-                            <div class="text-xs text-purple-700">Train preference predictor</div>
-                            <div class="text-xs text-purple-600 mt-1">Step 2: Learn rewards</div>
-                        </div>
-                    </label>
-                    
-                    <label class="cursor-pointer">
-                        <input type="radio" name="q8-stage" value="optimize" class="sr-only">
-                        <div class="border-2 border-orange-200 rounded-lg p-3 hover:border-orange-400 hover:bg-orange-50 transition-colors">
-                            <div class="font-medium text-orange-900">RL Optimization</div>
-                            <div class="text-xs text-orange-700">Fine-tune with PPO</div>
-                            <div class="text-xs text-orange-600 mt-1">Step 3: Optimize policy</div>
-                        </div>
-                    </label>
-                </div>
-            </div>
+﻿<div class="space-y-6">
+  <div id="q8-notifications" class="q8-toast-stack"></div>
 
-            <!-- Quick Examples -->
-            <div class="flex flex-wrap gap-2 items-center">
-                <span class="text-sm font-medium text-gray-700">💡 Quick Scenarios:</span>
-                <button id="q8-example-btn" class="text-xs bg-indigo-100 text-indigo-700 px-2 py-1 rounded hover:bg-indigo-200 transition-colors">Try Training Examples</button>
-                <button id="q8-reset-btn" class="text-xs bg-gray-100 text-gray-700 px-2 py-1 rounded hover:bg-gray-200 transition-colors">🔄 Reset Progress</button>
-            </div>
-            
-            <!-- Data Collection Stage -->
-            <div id="q8-collection-panel" class="bg-white border border-gray-200 rounded-lg p-4">
-                <h4 class="font-medium text-gray-900 mb-3">📝 Human Feedback Collection</h4>
-                <div class="space-y-4">
-                    <div class="bg-gray-50 p-3 rounded-lg">
-                        <p class="text-sm font-medium text-gray-700 mb-2">Prompt: <span id="q8-current-prompt">"Write a poem about artificial intelligence"</span></p>
-                        <div class="grid md:grid-cols-2 gap-4">
-                            <div class="bg-blue-50 border border-blue-200 rounded-lg p-3">
-                                <h6 class="font-medium text-blue-900 mb-2">Response A <span id="q8-style-a" class="text-xs text-blue-600">(Simple & Direct)</span></h6>
-                                <div class="bg-white p-2 rounded border">
-                                    <p id="q8-response-a" class="text-sm text-gray-700 mb-3 font-mono">
-                                        "AI is smart and cool,<br>
-                                        It helps us every day,<br>
-                                        Technology is great,<br>
-                                        Hip hip hooray!"
-                                    </p>
-                                    <div id="q8-desc-a" class="text-xs text-gray-500 italic">Basic rhyme scheme, simple vocabulary</div>
-                                </div>
-                                <button id="q8-vote-a" class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded hover:bg-blue-200 transition-colors mt-2">👍 Prefer This</button>
-                            </div>
-                            
-                            <div class="bg-green-50 border border-green-200 rounded-lg p-3">
-                                <h6 class="font-medium text-green-900 mb-2">Response B <span id="q8-style-b" class="text-xs text-green-600">(Creative & Poetic)</span></h6>
-                                <div class="bg-white p-2 rounded border">
-                                    <p id="q8-response-b" class="text-sm text-gray-700 mb-3 font-mono">
-                                        "Silicon dreams awaken,<br>
-                                        Neural networks weave thoughts,<br>
-                                        Human wisdom guides<br>
-                                        Digital consciousness forth."
-                                    </p>
-                                    <div id="q8-desc-b" class="text-xs text-gray-500 italic">Haiku-like structure, metaphorical language</div>
-                                </div>
-                                <button id="q8-vote-b" class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded hover:bg-green-200 transition-colors mt-2">👍 Prefer This</button>
-                            </div>
-                        </div>
-                        <div id="q8-vote-result" class="mt-3 p-2 bg-yellow-100 border border-yellow-300 rounded text-sm hidden">
-                            <strong>Feedback recorded!</strong> <span id="q8-vote-text"></span>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-gray-100 p-3 rounded">
-                        <div class="text-sm text-gray-600">
-                            <strong>Feedback Progress:</strong> <span id="q8-feedback-count">0</span>/5 comparisons
-                            <div class="w-full bg-gray-300 rounded-full h-2 mt-2">
-                                <div id="q8-feedback-progress" class="bg-green-500 h-2 rounded-full transition-all duration-300" style="width: 0%"></div>
-                            </div>
-                        </div>
-                        <div class="mt-2">
-                            <span class="text-xs text-gray-500">Current feedback step: <span id="q8-example-counter">1 of 5</span></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Reward Model Stage -->
-            <div id="q8-reward-panel" class="bg-white border border-gray-200 rounded-lg p-4 hidden">
-                <h4 class="font-medium text-gray-900 mb-3">🧠 Reward Model Training</h4>
-                <div class="space-y-4">
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <div class="bg-purple-50 border border-purple-200 rounded-lg p-3">
-                            <h6 class="font-medium text-purple-900 mb-2">Training Data</h6>
-                            <div class="text-sm text-gray-700 space-y-1">
-                                <div>📊 Preference pairs: <span id="q8-training-pairs">0</span></div>
-                                <div>🎯 Quality annotations: <span id="q8-quality-data">0</span></div>
-                                <div>📈 Training accuracy: <span id="q8-model-accuracy">0%</span></div>
-                            </div>
-                        </div>
-                        
-                        <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-3">
-                            <h6 class="font-medium text-yellow-900 mb-2">Reward Predictions</h6>
-                            <div id="q8-reward-examples" class="text-sm space-y-1">
-                                <div>High Quality: <span class="font-mono text-green-600">+0.85</span></div>
-                                <div>Medium Quality: <span class="font-mono text-yellow-600">+0.42</span></div>
-                                <div>Low Quality: <span class="font-mono text-red-600">-0.31</span></div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-gray-50 p-3 rounded">
-                        <button id="q8-train-reward" class="bg-purple-500 hover:bg-purple-600 text-white px-4 py-2 rounded-lg transition-colors">
-                            🧠 Train Reward Model
-                        </button>
-                        <div id="q8-reward-status" class="mt-2 text-sm text-gray-600">
-                            Click to start reward model training
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- RL Optimization Stage -->
-            <div id="q8-optimize-panel" class="bg-white border border-gray-200 rounded-lg p-4 hidden">
-                <h4 class="font-medium text-gray-900 mb-3">🎯 Reinforcement Learning Optimization</h4>
-                <div class="space-y-4">
-                    <div class="grid md:grid-cols-3 gap-4">
-                        <div class="bg-orange-50 border border-orange-200 rounded-lg p-3">
-                            <div class="flex items-start justify-between gap-2 mb-2">
-                                <h6 class="font-medium text-orange-900">Policy Updates</h6>
-                                <button id="q8-policy-help" class="text-[10px] bg-orange-100 text-orange-800 px-2 py-0.5 rounded hover:bg-orange-200">What do these mean?</button>
-                            </div>
-                            <div class="text-sm text-gray-700">
-                                <div>Episodes: <span id="q8-episodes">0</span></div>
-                                <div>Avg Reward: <span id="q8-avg-reward">0.00</span></div>
-                                <div>Learning Rate: <span class="font-mono">1e-5</span></div>
-                            </div>
-                            <div id="q8-policy-help-body" class="mt-2 text-xs text-orange-900 bg-white/60 border border-orange-200 rounded p-2 hidden">
-                                <ul class="list-disc list-inside space-y-0.5">
-                                    <li><strong>Episodes:</strong> How many RL training iterations have run.</li>
-                                    <li><strong>Avg Reward:</strong> The reward model’s average score for recent outputs (0–1, higher is better).</li>
-                                    <li><strong>Learning Rate:</strong> Step size for policy updates; too high is unstable, too low learns slowly.</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="bg-blue-50 border border-blue-200 rounded-lg p-3">
-                            <div class="flex items-start justify-between gap-2 mb-2">
-                                <h6 class="font-medium text-blue-900">Performance</h6>
-                                <button id="q8-performance-help" class="text-[10px] bg-blue-100 text-blue-800 px-2 py-0.5 rounded hover:bg-blue-200">What do these mean?</button>
-                            </div>
-                            <div class="text-sm text-gray-700">
-                                <div>Helpfulness: <span id="q8-helpfulness">65%</span></div>
-                                <div>Safety: <span id="q8-safety">78%</span></div>
-                                <div>Coherence: <span id="q8-coherence">82%</span></div>
-                            </div>
-                            <div id="q8-performance-help-body" class="mt-2 text-xs text-blue-900 bg-white/60 border border-blue-200 rounded p-2 hidden">
-                                <ul class="list-disc list-inside space-y-0.5">
-                                    <li><strong>Helpfulness:</strong> How well responses solve the user’s task.</li>
-                                    <li><strong>Safety:</strong> Avoidance of harmful or policy‑violating content.</li>
-                                    <li><strong>Coherence:</strong> Logical, on‑topic, and consistent responses.</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="bg-green-50 border border-green-200 rounded-lg p-3">
-                            <div class="flex items-start justify-between gap-2 mb-2">
-                                <h6 class="font-medium text-green-900">Alignment</h6>
-                                <button id="q8-alignment-help" class="text-[10px] bg-green-100 text-green-800 px-2 py-0.5 rounded hover:bg-green-200">What do these mean?</button>
-                            </div>
-                            <div class="text-sm text-gray-700">
-                                <div>Human Preference: <span id="q8-preference">71%</span></div>
-                                <div>Value Alignment: <span id="q8-alignment">68%</span></div>
-                                <div>Robustness: <span id="q8-robustness">75%</span></div>
-                            </div>
-                            <div id="q8-alignment-help-body" class="mt-2 text-xs text-green-900 bg-white/60 border border-green-200 rounded p-2 hidden">
-                                <ul class="list-disc list-inside space-y-0.5">
-                                    <li><strong>Human Preference:</strong> Agreement with human‑ranked choices.</li>
-                                    <li><strong>Value Alignment:</strong> Adherence to explicit guidelines and policies.</li>
-                                    <li><strong>Robustness:</strong> Stable behavior under prompt changes or adversarial inputs.</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="bg-gray-50 p-3 rounded">
-                        <button id="q8-run-ppo" class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg transition-colors mr-2">
-                            🚀 Run PPO Training
-                        </button>
-                        <button id="q8-evaluate" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-colors">
-                            📊 Evaluate Model
-                        </button>
-                        <div id="q8-training-status" class="mt-2 text-sm text-gray-600">
-                            Ready to start reinforcement learning
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Results Visualization -->
-            <div class="bg-white border border-gray-200 rounded-lg p-4">
-                <div class="flex items-center justify-between mb-3">
-                    <h4 class="font-medium text-gray-900">📈 RLHF Training Progress</h4>
-                    <div id="q8-overall-progress" class="text-xs bg-gray-100 px-2 py-1 rounded font-medium">Stage 1/3</div>
-                </div>
-                
-                <div class="grid md:grid-cols-3 gap-4">
-                    <div class="text-center">
-                        <div id="q8-stage1-icon" class="w-16 h-16 mx-auto bg-green-100 rounded-full flex items-center justify-center mb-2">
-                            <span class="text-2xl">📝</span>
-                        </div>
-                        <div class="text-sm font-medium">Data Collection</div>
-                        <div id="q8-stage1-status" class="text-xs text-green-600">In Progress</div>
-                    </div>
-                    
-                    <div class="text-center">
-                        <div id="q8-stage2-icon" class="w-16 h-16 mx-auto bg-gray-100 rounded-full flex items-center justify-center mb-2">
-                            <span class="text-2xl">🧠</span>
-                        </div>
-                        <div class="text-sm font-medium">Reward Model</div>
-                        <div id="q8-stage2-status" class="text-xs text-gray-500">Waiting</div>
-                    </div>
-                    
-                    <div class="text-center">
-                        <div id="q8-stage3-icon" class="w-16 h-16 mx-auto bg-gray-100 rounded-full flex items-center justify-center mb-2">
-                            <span class="text-2xl">🎯</span>
-                        </div>
-                        <div class="text-sm font-medium">RL Training</div>
-                        <div id="q8-stage3-status" class="text-xs text-gray-500">Waiting</div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Educational Explanation -->
-            <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-                <h4 class="font-medium text-yellow-900 mb-2">🧠 Understanding RLHF</h4>
-                <div id="q8-explanation" class="text-sm text-yellow-800">
-                    RLHF transforms raw language models into helpful, harmless, and honest AI assistants. 
-                    Explore each stage above to understand how human feedback guides AI alignment.
-                </div>
-            </div>
+  <!-- How it works -->
+  <div class="question-card space-y-3">
+    <div class="flex items-start justify-between gap-3">
+      <div>
+        <h4 class="font-semibold text-heading">&#x1F393; How this simulator works</h4>
+        <p class="small-caption text-muted">Follow the three-stage RLHF loop: collect feedback, train a reward model, then optimise with PPO.</p>
+      </div>
+      <div class="flex items-center gap-2 text-xs">
+        <button id="q8-tour-btn" class="btn-soft">&#x25B6; Start guided tour</button>
+        <button id="q8-how-toggle" class="btn-soft" aria-expanded="true">Hide</button>
+      </div>
+    </div>
+    <div id="q8-how-body" class="space-y-3">
+      <ol class="list-decimal list-inside text-sm text-heading space-y-1">
+        <li><strong>Stage 1 &ndash; Data collection:</strong> Compare responses A and B five times. We track progress and advance automatically.</li>
+        <li><strong>Stage 2 &ndash; Reward model:</strong> Train a preference predictor with the collected comparisons.</li>
+        <li><strong>Stage 3 &ndash; RL optimisation:</strong> Run PPO training and evaluate alignment metrics.</li>
+      </ol>
+      <div class="panel panel-neutral panel-emphasis p-3 text-xs space-y-1">
+        <div class="font-semibold">Controls</div>
+        <ul class="list-disc list-inside space-y-0.5">
+          <li><strong>&#x1F4A1; Try training examples:</strong> Loads a curated prompt + responses and simulates feedback.</li>
+          <li><strong>&#x1F504; Reset progress:</strong> Clears state and returns to Stage 1.</li>
+          <li><strong>Stage cards:</strong> Manually switch stages whenever you want to inspect them.</li>
+        </ul>
+      </div>
+      <p class="small-caption text-muted">All numbers are illustrative and computed locally in your browser.</p>
+    </div>
+  </div>
+
+  <!-- Stage picker -->
+  <div class="question-card space-y-3">
+    <div class="flex items-center justify-between text-sm text-heading">
+      <span class="font-medium">&#x1F504; Select RLHF training stage</span>
+      <span id="q8-overall-progress" class="small-caption text-muted">Stage 1/3</span>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3" id="q8-stage-picker">
+      <label class="question-strategy" data-tone="emerald">
+        <input type="radio" name="q8-stage" value="collection" checked>
+        <div class="stacked-card space-y-1">
+          <span class="font-medium text-heading">Data collection</span>
+          <p class="small-caption text-muted">Gather human preferences (Step 1)</p>
         </div>
+      </label>
+      <label class="question-strategy" data-tone="purple">
+        <input type="radio" name="q8-stage" value="reward">
+        <div class="stacked-card space-y-1">
+          <span class="font-medium text-heading">Reward modelling</span>
+          <p class="small-caption text-muted">Train the preference predictor (Step 2)</p>
+        </div>
+      </label>
+      <label class="question-strategy" data-tone="amber">
+        <input type="radio" name="q8-stage" value="optimize">
+        <div class="stacked-card space-y-1">
+          <span class="font-medium text-heading">RL optimisation</span>
+          <p class="small-caption text-muted">Fine-tune policy with PPO (Step 3)</p>
+        </div>
+      </label>
+    </div>
+  </div>
+
+  <!-- Stage overview chips -->
+  <div class="question-card">
+    <div class="grid md:grid-cols-3 gap-4 text-sm">
+      <div class="panel panel-neutral panel-emphasis p-3 text-center space-y-2">
+        <div id="q8-stage1-icon" class="q8-stage-icon" data-state="idle">1</div>
+        <div class="font-semibold">Feedback collected</div>
+        <div id="q8-stage1-status" class="q8-stage-status small-caption text-muted" data-state="idle">Awaiting comparisons</div>
+      </div>
+      <div class="panel panel-neutral panel-emphasis p-3 text-center space-y-2">
+        <div id="q8-stage2-icon" class="q8-stage-icon" data-state="idle">2</div>
+        <div class="font-semibold">Reward model</div>
+        <div id="q8-stage2-status" class="q8-stage-status small-caption text-muted" data-state="idle">Training pending</div>
+      </div>
+      <div class="panel panel-neutral panel-emphasis p-3 text-center space-y-2">
+        <div id="q8-stage3-icon" class="q8-stage-icon" data-state="idle">3</div>
+        <div class="font-semibold">RL optimisation</div>
+        <div id="q8-stage3-status" class="q8-stage-status small-caption text-muted" data-state="idle">Not started</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick actions -->
+  <div class="question-card flex flex-wrap items-center gap-3">
+    <button id="q8-example-btn" class="btn-soft text-xs">&#x1F4A1; Try training example</button>
+    <button id="q8-reset-btn" class="btn-soft text-xs">&#x1F504; Reset progress</button>
+  </div>
+
+  <!-- Stage 1: Data collection -->
+  <div id="q8-collection-panel" class="question-card space-y-4">
+    <div class="flex items-center justify-between gap-3">
+      <h4 class="font-medium text-heading">&#x1F4DD; Stage 1 &middot; Collect preference data</h4>
+      <span class="chip chip-info text-xs">Compare responses A/B five times</span>
+    </div>
+
+    <div class="panel panel-neutral panel-emphasis p-4 space-y-3">
+      <div class="flex items-center justify-between">
+        <div>
+          <div class="font-semibold text-heading text-sm" id="q8-current-prompt">Prompt will appear here</div>
+          <p class="small-caption text-muted">Vote for the response you prefer. Five votes advance you to the reward model.</p>
+        </div>
+        <div class="text-right">
+          <div class="font-mono text-heading" id="q8-feedback-count">0 / 5 comparisons</div>
+          <div class="q8-progress"><div id="q8-feedback-progress"></div></div>
+        <div class="small-caption text-muted" id="q8-example-counter">1 of 5</div>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="panel panel-info p-3 q8-response-card">
+          <div class="flex items-start justify-between gap-2">
+            <h5 class="font-medium text-heading">Response A</h5>
+            <span class="chip chip-info text-xs" id="q8-response-a-style">Style</span>
+          </div>
+          <div id="q8-response-a" class="q8-response-text"></div>
+          <p id="q8-response-a-meta" class="small-caption text-muted"></p>
+          <button id="q8-vote-a" class="btn-soft text-xs w-full">Prefer this</button>
+        </div>
+        <div class="panel panel-success p-3 q8-response-card">
+          <div class="flex items-start justify-between gap-2">
+            <h5 class="font-medium text-heading">Response B</h5>
+            <span class="chip chip-success text-xs" id="q8-response-b-style">Style</span>
+          </div>
+          <div id="q8-response-b" class="q8-response-text"></div>
+          <p id="q8-response-b-meta" class="small-caption text-muted"></p>
+          <button id="q8-vote-b" class="btn-soft text-xs w-full">Prefer this</button>
+        </div>
+      </div>
+
+      <div class="panel panel-neutral p-3 text-sm" id="q8-vote-text">Make your first preference comparison to begin.</div>
+      <div class="small-caption text-muted" id="q8-vote-result"></div>
+    </div>
+  </div>
+
+  <!-- Stage 2: Reward model -->
+  <div id="q8-reward-panel" class="question-card space-y-4 hidden">
+    <div class="flex items-center justify-between gap-3">
+      <h4 class="font-medium text-heading">&#x1F9E0; Stage 2 &middot; Train reward model</h4>
+      <span class="chip chip-accent text-xs">Requires collected comparisons</span>
+    </div>
+    <div class="panel panel-neutral panel-emphasis p-4 space-y-4">
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="panel panel-accent p-3 space-y-1">
+          <h6 class="font-medium text-heading">Training data</h6>
+          <div class="text-sm text-body">&#x1F4CA; Preference pairs: <span id="q8-training-pairs">0</span></div>
+          <div class="text-sm text-body">&#x1F3AF; Quality annotations: <span id="q8-quality-data">0</span></div>
+          <div class="text-sm text-body">&#x1F4C8; Training accuracy: <span id="q8-model-accuracy">0%</span></div>
+        </div>
+        <div class="panel panel-warning p-3 space-y-1">
+          <h6 class="font-medium text-heading">Reward predictions</h6>
+          <div id="q8-reward-examples" class="text-sm space-y-1">
+            <div>High quality: <span class="font-mono text-success">+0.85</span></div>
+            <div>Medium quality: <span class="font-mono text-warning">+0.42</span></div>
+            <div>Low quality: <span class="font-mono text-danger">-0.31</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="panel panel-neutral p-3 text-sm space-y-2">
+        <button id="q8-train-reward" class="btn-soft">&#x1F9E0; Train reward model</button>
+        <div id="q8-reward-status" class="small-caption text-muted">Click to start reward-model training.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stage 3: RL optimisation -->
+  <div id="q8-optimize-panel" class="question-card space-y-4 hidden">
+    <div class="flex items-center justify-between gap-3">
+      <h4 class="font-medium text-heading">&#x1F3AF; Stage 3 &middot; Reinforcement learning optimisation</h4>
+      <span class="chip chip-warning text-xs">Simulated PPO loop</span>
+    </div>
+    <div class="panel panel-neutral panel-emphasis p-4 space-y-4">
+      <div class="grid md:grid-cols-3 gap-4">
+        <div class="panel panel-warning p-3 space-y-2">
+          <div class="flex items-start justify-between gap-2">
+            <h6 class="font-medium text-heading">Policy updates</h6>
+            <button id="q8-policy-help" class="btn-soft text-xs">What do these mean?</button>
+          </div>
+          <div class="text-sm text-body">
+            <div>Episodes: <span id="q8-episodes">0</span></div>
+            <div>Avg reward: <span id="q8-avg-reward">0.00</span></div>
+            <div>Learning rate: <span class="font-mono">1e-5</span></div>
+          </div>
+          <div id="q8-policy-help-body" class="panel panel-warning p-2 hidden text-xs">
+            <ul class="list-disc list-inside space-y-0.5">
+              <li><strong>Episodes:</strong> RL training iterations.</li>
+              <li><strong>Avg reward:</strong> Reward model score for latest outputs.</li>
+              <li><strong>Learning rate:</strong> Step size for PPO updates.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="panel panel-info p-3 q8-response-card">
+          <div class="flex items-start justify-between gap-2">
+            <h6 class="font-medium text-heading">Performance</h6>
+            <button id="q8-performance-help" class="btn-soft text-xs">What do these mean?</button>
+          </div>
+          <div class="text-sm text-body">
+            <div>Helpfulness: <span id="q8-helpfulness">65%</span></div>
+            <div>Safety: <span id="q8-safety">78%</span></div>
+            <div>Coherence: <span id="q8-coherence">82%</span></div>
+          </div>
+          <div id="q8-performance-help-body" class="panel panel-info p-2 hidden text-xs">
+            <ul class="list-disc list-inside space-y-0.5">
+              <li><strong>Helpfulness:</strong> How often the model answers the prompt well.</li>
+              <li><strong>Safety:</strong> Likelihood of avoiding harmful content.</li>
+              <li><strong>Coherence:</strong> Structure and clarity of responses.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="panel panel-success p-3 q8-response-card">
+          <div class="flex items-start justify-between gap-2">
+            <h6 class="font-medium text-heading">Alignment metrics</h6>
+            <button id="q8-alignment-help" class="btn-soft text-xs">What do these mean?</button>
+          </div>
+          <div class="text-sm text-body">
+            <div>Preference match: <span id="q8-preference">71%</span></div>
+            <div>Alignment score: <span id="q8-alignment">68%</span></div>
+            <div>Robustness: <span id="q8-robustness">75%</span></div>
+          </div>
+          <div id="q8-alignment-help-body" class="panel panel-success p-2 hidden text-xs">
+            <ul class="list-disc list-inside space-y-0.5">
+              <li><strong>Preference match:</strong> Agreement with human rankings.</li>
+              <li><strong>Alignment:</strong> Combined helpfulness &times; safety.</li>
+              <li><strong>Robustness:</strong> Stability across prompts.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap gap-3">
+        <button id="q8-run-ppo" class="btn-soft">&#x1F680; Run PPO training</button>
+        <button id="q8-evaluate" class="btn-soft">&#x1F4CA; Evaluate model</button>
+      </div>
+      <div id="q8-rl-status" class="small-caption text-muted">Run PPO training to update the metrics.</div>
+    </div>
+  </div>
+
+  <!-- Explanations -->
+  <div id="q8-explanation" class="panel panel-warning p-4 text-sm">
+    RLHF starts with human comparisons, fits a reward model to those preferences, then tunes the base model with reinforcement learning so it consistently produces human-aligned answers.
+  </div>
+</div>

@@ -27,8 +27,8 @@ const interactiveScript = () => {
 
             // Config
             const configData = {
-                autoregressive: { name: 'Autoregressive (GPT-style)', color: '#10b981', bgColor: '#ecfdf5' },
-                masked: { name: 'Masked Language Model (BERT-style)', color: '#8b5cf6', bgColor: '#f3e8ff' }
+                autoregressive: { name: 'Autoregressive (GPT-style)', panelClass: 'panel panel-success', chipClass: 'chip chip-success' },
+                masked: { name: 'Masked Language Model (BERT-style)', panelClass: 'panel panel-accent', chipClass: 'chip chip-accent' }
             };
 
             const STOPWORDS = new Set(['the','is','a','an','and','or','of','to','in','on','for','with','from']);
@@ -120,6 +120,8 @@ const interactiveScript = () => {
                 if(strategyIndicator && configData[selectedStrategy] && !compareToggle?.checked) {
                     strategyIndicator.textContent = configData[selectedStrategy].name;
                 }
+                const strategyRadio = document.querySelector(`input[name="q9-strategy"][value="${selectedStrategy}"]`);
+                if(strategyRadio) strategyRadio.checked = true;
                 const toggle = document.getElementById('q9-view-toggle');
                 if(toggle){
                     // Show toggle only in single view
@@ -127,18 +129,16 @@ const interactiveScript = () => {
                     // Update button styles
                     toggle.querySelectorAll('button').forEach(btn=>{
                         const isActive = btn.getAttribute('data-strategy')===selectedStrategy;
-                        btn.classList.toggle('bg-indigo-600', isActive);
-                        btn.classList.toggle('text-white', isActive);
-                        btn.classList.toggle('bg-white', !isActive);
-                        btn.classList.toggle('text-gray-700', !isActive);
-                    });
-                }
-            }
+                          btn.classList.toggle('toggle-active', isActive);
+                          btn.classList.toggle('toggle-inactive', !isActive);
+                      });
+                  }
+              }
 
             function highlightCompareSelection(){
                 if(!compareToggle?.checked) return;
-                const selected=document.querySelector('input[name="q9-strategy"]:checked'); if(!selected) return;
-                const selectedValue=selected.value;
+                const selected=document.querySelector('input[name="q9-strategy"]:checked');
+                const selectedValue= selected?.value || selectedStrategy;
                 // Reset
                 [outputAR, outputMLM].forEach(el=>{ if(!el) return; el.classList.remove('ring-2','ring-indigo-500','opacity-60'); });
                 const badgeAR = document.getElementById('q9-badge-ar');
@@ -161,19 +161,35 @@ const interactiveScript = () => {
                 if(!explanation) return;
                 const explanations={
                     autoregressive: `
-                        <strong>Autoregressive Training</strong> predicts tokens sequentially from left to right.
-                        <br>• <strong>Pros:</strong> Excellent for text generation, natural for language modeling, maintains coherent long-form text
-                        <br>• <strong>Cons:</strong> Cannot see future context, slower inference (sequential), limited understanding tasks
-                        <br>• <strong>Best for:</strong> Text completion, creative writing, chatbots, code generation
-                        <br>• <strong>Examples:</strong> GPT series, Claude`,
+                        <strong>Autoregressive training</strong> predicts tokens sequentially from left to right, so the model learns to extend a passage one token at a time.
+                        <ul class="mt-2 space-y-1">
+                            <li>• <strong>Pros:</strong> Natural for long-form generation, coherent storytelling, code completion.</li>
+                            <li>• <strong>Cons:</strong> No future context, sequential inference is slower, weaker at analysis tasks.</li>
+                            <li>• <strong>Best for:</strong> Chat, creative writing, autocomplete, summarisation.</li>
+                            <li>• <strong>Examples:</strong> GPT family, Claude, Llama.</li>
+                        </ul>`,
                     masked: `
-                        <strong>Masked Language Model Training</strong> predicts tokens using full bidirectional context.
-                        <br>• <strong>Pros:</strong> Rich understanding, bidirectional context, excellent for classification and analysis
-                        <br>• <strong>Cons:</strong> Cannot generate text naturally, requires fine-tuning for downstream tasks
-                        <br>• <strong>Best for:</strong> Text classification, sentiment analysis, question answering, named entity recognition
-                        <br>• <strong>Examples:</strong> BERT, RoBERTa, DeBERTa`
+                        <strong>Masked language-model training</strong> hides tokens and asks the model to recover them with full bidirectional context.
+                        <ul class="mt-2 space-y-1">
+                            <li>• <strong>Pros:</strong> Strong comprehension, uses both left and right context, excels at classification.</li>
+                            <li>• <strong>Cons:</strong> Not suited for free-form generation, usually needs fine-tuning for tasks.</li>
+                            <li>• <strong>Best for:</strong> Search ranking, QA, sentiment, retrieval and analysis.</li>
+                            <li>• <strong>Examples:</strong> BERT, RoBERTa, DeBERTa.</li>
+                        </ul>`
                 };
                 explanation.innerHTML = explanations[strategy] || '';
+            }
+
+            function updateComparisonExplanation(){
+                if(!explanation) return;
+                explanation.innerHTML = `
+                    <strong>Comparing Autoregressive vs Masked LM.</strong>
+                    <ul class="mt-2 space-y-1">
+                        <li>• Autoregressive models learn to <em>continue</em> text and generate fluent sequences but do not see future tokens.</li>
+                        <li>• Masked LMs learn to <em>understand</em> text by filling blanks with full context, giving higher accuracy on analysis and ranking tasks.</li>
+                        <li>• Choose autoregressive when you need longer responses or creative output; choose masked when you prioritise comprehension and structured predictions.</li>
+                        <li>• Many production systems pair them: autoregressive for generation, masked models for evaluation or retrieval scoring.</li>
+                    </ul>`;
             }
 
             function updateSpanControlsEnabled(){
@@ -200,26 +216,25 @@ const interactiveScript = () => {
 
                 const stepsContainer=document.createElement('div'); stepsContainer.className='space-y-3';
                 if(steps.length===0){
-                    stepsContainer.innerHTML='<div class="text-gray-500 text-center py-4">Input too short for meaningful training simulation</div>';
+                    stepsContainer.innerHTML='<div class="panel panel-neutral-soft text-center py-4">Input too short for meaningful training simulation</div>';
                 } else {
-                    // Display steps sorted by confidence (high → low) for better readability
+                    // Display steps sorted by confidence (high to low) for better readability
                     const displaySteps = [...steps].sort((a,b)=> (b.probability||0) - (a.probability||0));
                     displaySteps.forEach(step=>{
                         const confidence=(step.probability*100).toFixed(1);
-                        const confidenceColor= step.probability>0.8 ? 'text-green-600' : step.probability>0.6 ? 'text-yellow-600' : 'text-red-600';
+                        const confidenceClass = step.probability>0.8 ? 'text-success' : step.probability>0.6 ? 'text-warning' : 'text-danger';
                         const stepEl=document.createElement('div');
-                        stepEl.className='border rounded-lg p-3 transition-all duration-200 hover:shadow-md';
-                        stepEl.style.backgroundColor=config.bgColor; stepEl.style.borderColor=config.color+'40';
+                        stepEl.className=`${config.panelClass} panel-emphasis p-3 space-y-2 transition-all duration-200 hover:shadow-md`;
                         stepEl.innerHTML=`
-                            <div class="flex items-center justify-between mb-2">
-                                <span class="text-xs font-medium" style="color: ${config.color}">${strategy==='autoregressive' ? 'Prediction Step' : 'Mask'} ${step.step}</span>
-                                <span class="text-xs ${confidenceColor} font-medium">${confidence}% confidence</span>
+                            <div class="flex items-center justify-between text-xs font-medium">
+                                <span>${strategy==='autoregressive' ? 'Prediction Step' : 'Mask'} ${step.step}</span>
+                                <span class="${confidenceClass}">${confidence}% confidence</span>
                             </div>
-                            <div class="font-mono text-sm mb-2"><span class="text-gray-600">Context:</span> "${step.context}"</div>
-                            <div class="font-mono text-sm"><span class="text-gray-600">Predict:</span> <span class="font-bold" style="color: ${config.color}">"${step.prediction}"</span></div>
-                            <div class="mt-2 text-[10px] inline-flex items-center gap-1">
-                                <span class="px-1 rounded bg-blue-100 text-blue-800">${strategy==='autoregressive' ? 'Causal mask' : 'Bidirectional'}</span>
-                                ${strategy==='masked' ? `<span class="px-1 rounded bg-purple-100 text-purple-800">${spanToggle?.checked ? 'Masked span' : 'Masked token'}</span>` : ''}
+                            <div class="font-mono text-sm panel-muted">Context: "${step.context}"</div>
+                            <div class="font-mono text-sm"><span class="panel-muted">Predict:</span> <span class="font-bold">"${step.prediction}"</span></div>
+                            <div class="mt-2 flex flex-wrap items-center gap-2 text-[10px]">
+                                <span class="${config.chipClass}">${strategy==='autoregressive' ? 'Causal mask' : 'Bidirectional'}</span>
+                                ${strategy==='masked' ? `<span class="chip chip-accent">${spanToggle?.checked ? 'Masked span' : 'Masked token'}</span>` : ''}
                             </div>`;
                         stepEl.title = strategy==='autoregressive' ? 'Autoregressive: Predict next token based on previous context' : 'Masked LM: Predict masked token using bidirectional context';
                         stepsContainer.appendChild(stepEl);
@@ -237,35 +252,38 @@ const interactiveScript = () => {
                 } else if(strategy==='masked' && steps.length>0){
                     extraMetricLabel='Recovery rate'; extraMetricValue=avgConfidence+'%';
                 }
-                const statsEl=document.createElement('div'); statsEl.className='grid grid-cols-2 md:grid-cols-4 gap-3 p-3 bg-white rounded border mt-4 text-sm';
+                const statsEl=document.createElement('div');
+                statsEl.className='panel panel-neutral-soft grid grid-cols-2 md:grid-cols-4 gap-3 mt-4 text-sm';
                 statsEl.innerHTML=`
-                    <div class="text-center"><div class="text-lg font-bold" style="color: ${config.color}">${steps.length}</div><div class="text-gray-600 text-xs">Training Steps</div></div>
-                    <div class="text-center"><div class="text-lg font-bold text-blue-600">${tokens.length}</div><div class="text-gray-600 text-xs">Total Tokens</div></div>
-                    <div class="text-center"><div class="text-lg font-bold text-green-600">${avgConfidence}%</div><div class="text-gray-600 text-xs">Avg Confidence</div></div>
-                    <div class="text-center"><div class="text-lg font-bold text-purple-600">${extraMetricValue || (strategy==='autoregressive' ? 'Sequential' : 'Parallel')}</div><div class="text-gray-600 text-xs">${extraMetricLabel || 'Processing'}</div></div>`;
+                    <div class="text-center space-y-1"><div class="text-lg font-bold">${steps.length}</div><div class="text-xs panel-muted">Training Steps</div></div>
+                    <div class="text-center space-y-1"><div class="text-lg font-bold text-info">${tokens.length}</div><div class="text-xs panel-muted">Total Tokens</div></div>
+                    <div class="text-center space-y-1"><div class="text-lg font-bold text-success">${avgConfidence}%</div><div class="text-xs panel-muted">Avg Confidence</div></div>
+                    <div class="text-center space-y-1"><div class="text-lg font-bold text-accent">${extraMetricValue || (strategy==='autoregressive' ? 'Sequential' : 'Parallel')}</div><div class="text-xs panel-muted">${extraMetricLabel || 'Processing'}</div></div>`;
                 container.appendChild(statsEl);
 
                 // Legend and explanation only on single view
         if(container===output && legend){
                     legend.innerHTML=`
-            <div class="flex items-center justify-center space-x-4 text-xs">
-                            <div class="flex items-center space-x-1"><div class="w-3 h-3 rounded" style="background-color: ${config.color}"></div><span>${strategy==='autoregressive' ? 'Prediction Steps' : 'Masked Tokens'}</span></div>
-                            <div class="flex items-center space-x-1"><div class="w-3 h-3 rounded bg-green-500"></div><span>High Confidence (>80%)</span></div>
-                            <div class="flex items-center space-x-1"><div class="w-3 h-3 rounded bg-yellow-500"></div><span>Medium Confidence (60-80%)</span></div>
+            <div class="flex flex-wrap items-center justify-center gap-3 text-xs">
+                            <span class="${config.chipClass}">${strategy==='autoregressive' ? 'Prediction steps' : 'Masked tokens'}</span>
+                            <span class="chip chip-success">High confidence (&gt;80%)</span>
+                            <span class="chip chip-warning">Medium confidence (60-80%)</span>
+                            <span class="chip chip-neutral">Low confidence (&lt;60%)</span>
             </div>
-            <div class="text-center text-[10px] text-gray-500 mt-1">Sorted by confidence (high → low)</div>`;
+            <div class="text-center text-[10px] panel-muted mt-1">Sorted by confidence (high to low)</div>`;
                 }
-                if(container===output) updateExplanation(strategy);
+                if(container===output && !compareToggle?.checked) updateExplanation(strategy);
             }
 
             function processAndDisplay(){
                 const text=(input.value||'').trim();
                 updateStrategyVisuals();
-                if(!text){ output.innerHTML='<div class="text-gray-500 text-center py-8">Choose a sentence to see the simulation</div>'; if(legend) legend.innerHTML=''; return; }
+                if(!text){ output.innerHTML='<div class="panel panel-neutral-soft text-center py-8">Choose a sentence to see the simulation</div>'; if(legend) legend.innerHTML=''; return; }
                 if(compareToggle?.checked){
                     output.classList.add('hidden'); if(legend) legend.innerHTML=''; compareGrid.classList.remove('hidden'); outputAR.innerHTML=''; outputMLM.innerHTML='';
                     renderOne('autoregressive', text, outputAR); renderOne('masked', text, outputMLM);
                     highlightCompareSelection();
+                    updateComparisonExplanation();
                     // Show continuation in compare mode under AR pane if enabled
                     if(freeRunToggle?.checked){
                         const rng=getRngFor(text,'gen');
@@ -273,15 +291,16 @@ const interactiveScript = () => {
                         const vocab=['model','learns','tokens','context','predicts','sequence','language','data','text','understanding'];
                         const gen=[]; for(let i=0;i<8;i++){ const pick = rng()<0.6 && toks[i%toks.length] ? toks[i%toks.length] : vocab[Math.floor(rng()*vocab.length)]; gen.push(pick);} 
                         const genEl=document.createElement('div');
-                        genEl.className='mt-3 p-2 bg-green-50 border border-green-200 rounded text-xs';
-                        genEl.innerHTML=`<span class="font-medium text-green-800">Continuation (demo):</span> ${gen.join(' ')}`;
+                        genEl.className='mt-3 panel panel-success p-3 text-xs';
+                        genEl.innerHTML=`<span class="font-medium">Continuation (demo):</span> ${gen.join(' ')}`;
                         outputAR.appendChild(genEl);
                     }
                 } else {
                     compareGrid.classList.add('hidden'); output.classList.remove('hidden'); output.innerHTML=''; if(legend) legend.innerHTML=''; const strategy=getCurrentStrategy(); renderOne(strategy, text, output);
+                    updateExplanation(strategy);
                 }
                 if(!compareToggle?.checked && freeRunToggle?.checked && getCurrentStrategy()==='autoregressive'){
-                    const rng=getRngFor(text,'gen'); const toks=tokenize(text); const vocab=['model','learns','tokens','context','predicts','sequence','language','data','text','understanding']; const gen=[]; for(let i=0;i<8;i++){ const pick = rng()<0.6 && toks[i%toks.length] ? toks[i%toks.length] : vocab[Math.floor(rng()*vocab.length)]; gen.push(pick);} const genEl=document.createElement('div'); genEl.className='mt-3 p-2 bg-green-50 border border-green-200 rounded text-xs'; genEl.innerHTML=`<span class="font-medium text-green-800">Continuation (demo):</span> ${gen.join(' ')}`; output.appendChild(genEl);
+                    const rng=getRngFor(text,'gen'); const toks=tokenize(text); const vocab=['model','learns','tokens','context','predicts','sequence','language','data','text','understanding']; const gen=[]; for(let i=0;i<8;i++){ const pick = rng()<0.6 && toks[i%toks.length] ? toks[i%toks.length] : vocab[Math.floor(rng()*vocab.length)]; gen.push(pick);} const genEl=document.createElement('div'); genEl.className='mt-3 panel panel-success p-3 text-xs'; genEl.innerHTML=`<span class="font-medium">Continuation (demo):</span> ${gen.join(' ')}`; output.appendChild(genEl);
                 }
             }
 
@@ -332,3 +351,8 @@ if (typeof module !== 'undefined') {
 } else if (typeof window !== 'undefined') {
   window.question09Interactive = interactiveScript;
 }
+
+
+
+
+

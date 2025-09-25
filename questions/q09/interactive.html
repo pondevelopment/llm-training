@@ -1,23 +1,23 @@
 <div class="space-y-6">
             <!-- How it works -->
-            <div class="bg-sky-50 border border-sky-200 rounded-lg p-4">
+            <div class="panel panel-info p-4 space-y-3">
                 <div class="flex items-start justify-between gap-2">
                     <div>
-                        <h4 class="font-semibold text-sky-900 mb-1">🎓 How this simulator works</h4>
-                        <p class="text-sm text-sky-800">Two training paradigms: Autoregressive (predict next token with causal masking) and Masked LM (recover hidden tokens with bidirectional context). This demo visualizes steps, confidence, and summary stats.</p>
+                        <h4 class="font-semibold mb-1">🎓 How this simulator works</h4>
+                        <p class="text-sm">Two training paradigms: Autoregressive (predict next token with causal masking) and Masked LM (recover hidden tokens with bidirectional context). This demo visualizes steps, confidence, and summary stats.</p>
                     </div>
-                    <button id="q9-how-toggle" class="text-xs bg-sky-100 text-sky-800 px-2 py-1 rounded hover:bg-sky-200" aria-expanded="true">Hide</button>
+                    <button id="q9-how-toggle" class="chip chip-info text-xs cursor-pointer" aria-expanded="true">Hide</button>
                 </div>
-                <div id="q9-how-body" class="mt-3 grid md:grid-cols-3 gap-3 text-xs text-sky-900">
-                    <div class="bg-white/60 border border-sky-200 rounded p-2">
+                <div id="q9-how-body" class="grid md:grid-cols-3 gap-3 text-xs">
+                    <div class="panel panel-neutral-soft p-2">
                         <div class="font-semibold mb-1">Autoregressive</div>
                         <ul class="list-disc list-inside space-y-0.5">
-                            <li>Predict next token left→right</li>
+                            <li>Predict next token left?right</li>
                             <li>Causal attention mask</li>
                             <li>Great for generation</li>
                         </ul>
                     </div>
-                    <div class="bg-white/60 border border-sky-200 rounded p-2">
+                    <div class="panel panel-neutral-soft p-2">
                         <div class="font-semibold mb-1">Masked LM</div>
                         <ul class="list-disc list-inside space-y-0.5">
                             <li>Mask some tokens</li>
@@ -25,7 +25,7 @@
                             <li>Great for understanding</li>
                         </ul>
                     </div>
-                    <div class="bg-white/60 border border-sky-200 rounded p-2">
+                    <div class="panel panel-neutral-soft p-2">
                         <div class="font-semibold mb-1">What you’ll see</div>
                         <ul class="list-disc list-inside space-y-0.5">
                             <li>Steps + confidence</li>
@@ -37,114 +37,132 @@
             </div>
 
             <!-- Input Section (dropdown for controlled examples) -->
-            <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200">
-                <label for="q9-text-select" class="block text-sm font-medium text-gray-700 mb-2">📝 Choose a sentence</label>
-                <select id="q9-text-select" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+            <div class="panel panel-info p-4 space-y-2">
+                <label for="q9-text-select" class="block text-sm font-medium">📄 Choose a sentence</label>
+                <select id="q9-text-select" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
                     <option value="Large language models learn from text data" selected>Large language models learn from text data</option>
                     <option value="Machine learning models require extensive training data">Machine learning models require extensive training data</option>
                     <option value="The quick brown fox jumps over the lazy dog">The quick brown fox jumps over the lazy dog</option>
                     <option value="Natural language processing is fascinating and complex">Natural language processing is fascinating and complex</option>
                     <option value="I love programming in Python">I love programming in Python</option>
                 </select>
-                <div class="mt-2 flex flex-wrap items-center gap-2">
-                    <span class="text-xs text-gray-600">Or cycle examples:</span>
-                    <button id="q9-example-btn" class="text-xs bg-indigo-100 text-indigo-700 px-2 py-1 rounded hover:bg-indigo-200 transition-colors">Next example</button>
+                <div class="flex flex-wrap items-center gap-2">
+                    <span class="text-xs text-neutral-muted">Or cycle examples:</span>
+                    <button id="q9-example-btn" class="chip chip-info text-xs cursor-pointer">Next example</button>
                 </div>
             </div>
             
             <!-- Training paradigms (examples only) -->
-            <div class="bg-white border border-gray-200 rounded-lg p-4">
-                <label class="block text-sm font-medium text-gray-700 mb-3">🎯 Choose Training Paradigm (examples)</label>
+            <div class="panel panel-neutral p-4 space-y-4">
+                <label class="block text-sm font-medium">🧭 Choose Training Paradigm (examples)</label>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="border border-gray-200 rounded-lg p-4 bg-gray-50">
-                        <div class="font-medium text-gray-900 mb-1">Autoregressive (GPT-style)</div>
-                        <p class="text-xs text-gray-600 mb-2">Predicts next token sequentially, left-to-right</p>
-                        <ul class="text-xs text-gray-700 list-disc list-inside space-y-0.5 mb-2">
+                    <div class="panel panel-neutral-soft p-4 space-y-2">
+                        <div class="font-medium">Autoregressive (GPT-style)</div>
+                        <p class="text-xs panel-muted">Predicts next token sequentially, left-to-right</p>
+                        <ul class="text-xs list-disc list-inside space-y-0.5">
                             <li>Great for generation and continuation</li>
                             <li>Sequential (causal) attention</li>
                         </ul>
-                        <div class="text-xs font-mono bg-white px-2 py-1 rounded border">"The cat" → predict "sat"</div>
+                        <div class="text-xs font-mono panel panel-neutral px-2 py-1">“The cat” ? predict “sat”</div>
                     </div>
-                    <div class="border border-gray-200 rounded-lg p-4 bg-gray-50">
-                        <div class="font-medium text-gray-900 mb-1">Masked (BERT-style)</div>
-                        <p class="text-xs text-gray-600 mb-2">Predicts masked tokens using bidirectional context</p>
-                        <ul class="text-xs text-gray-700 list-disc list-inside space-y-0.5 mb-2">
+                    <div class="panel panel-neutral-soft p-4 space-y-2">
+                        <div class="font-medium">Masked LM</div>
+                        <p class="text-xs panel-muted">Predicts masked tokens using bidirectional context</p>
+                        <ul class="text-xs list-disc list-inside space-y-0.5">
                             <li>Great for understanding and classification</li>
                             <li>Sees full bidirectional context</li>
                         </ul>
-                        <div class="text-xs font-mono bg-white px-2 py-1 rounded border">"The [MASK] sat" → predict "cat"</div>
+                        <div class="text-xs font-mono panel panel-neutral px-2 py-1">“The [MASK] sat” ? predict “cat”</div>
                     </div>
                 </div>
-                <div class="text-[11px] text-gray-500 mt-2">You can switch paradigms directly in the simulation below.</div>
             </div>
-
-            <!-- Controls -->
-            <div class="bg-white border border-gray-200 rounded-lg p-4 space-y-3">
-                <div class="flex items-center justify-between">
-                    <label class="text-sm font-medium text-gray-700">🧪 Compare both paradigms</label>
-                    <input type="checkbox" id="q9-compare-toggle" class="h-4 w-4" checked>
-                </div>
-                <div class="grid md:grid-cols-2 gap-4 text-sm">
-                    <div class="bg-green-50 border border-green-200 rounded p-3">
-                        <div class="font-medium text-green-900 mb-2">Autoregressive controls</div>
-                        <div class="flex items-center gap-2 mb-2">
-                            <input type="checkbox" id="q9-free-run" class="h-4 w-4">
-                            <label for="q9-free-run" class="text-green-800">Generate short continuation</label>
-                        </div>
-                        <label class="block text-xs text-green-800">Max steps
-                            <input type="range" id="q9-max-steps" min="3" max="10" value="6" class="w-full">
-                        </label>
-                        <div class="mt-1 text-[11px] text-green-700">Shows up to N prediction steps.</div>
+            
+            <!-- Compare cards -->
+            <div class="panel panel-neutral p-4 space-y-3">
+                <div class="flex items-center justify-between gap-3">
+                    <div>
+                        <h4 class="font-semibold">🧮 Compare both paradigms</h4>
+                        <p class="text-xs text-neutral-muted">Toggle the controls below to switch between shaded summaries and detailed prediction steps.</p>
                     </div>
-                    <div class="bg-purple-50 border border-purple-200 rounded p-3">
-                        <div class="font-medium text-purple-900 mb-2">Masked LM controls</div>
-                        <label class="block text-xs text-purple-800">Mask rate (10–40%)
-                            <input type="range" id="q9-mask-rate" min="10" max="40" value="30" class="w-full">
+                    <label class="flex items-center gap-2 text-xs">
+                        <input type="checkbox" id="q9-compare-toggle" class="h-3 w-3" checked>
+                        <span>Show side-by-side view</span>
+                    </label>
+                </div>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="panel panel-success p-3 space-y-3">
+                        <label class="flex items-center gap-2 text-sm">
+                            <input type="checkbox" id="q9-free-run" class="h-4 w-4" checked>
+                            <span>Generate short continuation</span>
                         </label>
-                        <div class="flex items-center gap-2 mt-2">
-                            <input type="checkbox" id="q9-span-toggle" class="h-4 w-4">
-                            <label for="q9-span-toggle" class="text-purple-800 text-sm">Use span corruption</label>
+                        <div>
+                            <div class="flex items-center justify-between text-xs">
+                                <span>Max steps</span>
+                                <span id="q9-max-label">6 steps</span>
+                            </div>
+                            <input type="range" id="q9-max-steps" min="3" max="10" value="6" class="w-full accent-current">
+                            <div class="text-xs panel-muted mt-1">Shows up to N prediction steps.</div>
                         </div>
-                        <label class="block text-xs text-purple-800 mt-1">Span length (1–3)
-                            <input type="range" id="q9-span-length" min="1" max="3" value="2" class="w-full">
-                        </label>
-                        <div class="flex items-center gap-2 mt-2">
-                            <input type="checkbox" id="q9-stopwords" class="h-4 w-4">
-                            <label for="q9-stopwords" class="text-purple-800 text-sm">Avoid masking stopwords</label>
+                    </div>
+                    <div class="panel panel-accent p-3 space-y-3">
+                        <div class="flex items-center justify-between text-xs">
+                            <span>Masked LM controls</span>
+                            <span class="chip chip-accent">Mask rate (10–40%)</span>
+                        </div>
+                        <div class="space-y-3">
+                            <label class="block text-xs">
+                                <span class="block mb-1">Mask rate (10–40%)</span>
+                                <input type="range" id="q9-mask-rate" min="10" max="40" value="25" class="w-full accent-current">
+                            </label>
+                            <label class="flex items-center gap-2 text-xs">
+                                <input type="checkbox" id="q9-span-toggle" class="h-4 w-4">
+                                <span class="panel-muted">Use span corruption</span>
+                            </label>
+                            <label class="block text-xs">
+                                <span class="block mb-1">Span length (1–3)</span>
+                                <input type="range" id="q9-span-length" min="1" max="3" value="2" class="w-full accent-current" disabled>
+                            </label>
+                            <label class="flex items-center gap-2 text-xs">
+                                <input type="checkbox" id="q9-stopwords" class="h-4 w-4" checked>
+                                <span class="panel-muted">Avoid masking stopwords</span>
+                            </label>
                         </div>
                     </div>
                 </div>
             </div>
             
-            <!-- Results Section -->
-            <div class="bg-white border border-gray-200 rounded-lg p-4">
-                <div class="flex items-center justify-between mb-3">
-                    <h4 class="font-medium text-gray-900">🎨 Training Simulation</h4>
+            <!-- Strategy selection (single/compare view) -->
+            <div class="panel panel-neutral p-4 space-y-4">
+                <div class="flex items-center justify-between text-sm">
                     <div class="flex items-center gap-2">
-                        <div id="q9-view-toggle" class="hidden text-xs rounded border border-gray-300 overflow-hidden">
-                            <button data-strategy="autoregressive" class="px-2 py-1 bg-white hover:bg-gray-50">Autoregressive</button>
-                            <button data-strategy="masked" class="px-2 py-1 bg-white hover:bg-gray-50 border-l border-gray-300">Masked</button>
+                        <span class="font-medium">🧭 View mode:</span>
+                        <input type="radio" name="q9-strategy" value="autoregressive" class="sr-only" checked>
+                        <input type="radio" name="q9-strategy" value="masked" class="sr-only">
+                        <div id="q9-view-toggle" class="view-toggle flex gap-1">
+                            <button data-strategy="autoregressive" type="button">Autoregressive</button>
+                            <button data-strategy="masked" type="button">Masked</button>
                         </div>
-                        <div id="q9-strategy-indicator" class="text-xs bg-gray-100 px-2 py-1 rounded font-medium"></div>
                     </div>
+                    <div id="q9-strategy-indicator" class="chip chip-info text-xs"></div>
                 </div>
-                <div id="q9-output" class="min-h-[120px] p-3 bg-gray-50 rounded border-2 border-dashed border-gray-300"></div>
+                <div id="q9-output" class="min-h-[120px] panel panel-neutral-soft border-2 border-dashed border-transparent p-3"></div>
                 <div id="q9-legend" class="mt-3 text-xs"></div>
-                <div id="q9-compare-grid" class="hidden mt-3 grid md:grid-cols-2 gap-4">
+                <div id="q9-compare-grid" class="hidden mt-3 grid md:grid-cols-2 gap-6">
                     <div>
-                        <div class="flex items-center gap-2 text-xs font-medium text-gray-700 mb-1">Autoregressive <span id="q9-badge-ar" class="hidden px-1.5 py-0.5 rounded bg-indigo-100 text-indigo-700 border border-indigo-200">Selected</span></div>
-                        <div id="q9-output-ar" class="min-h-[120px] p-3 bg-gray-50 rounded border-2 border-dashed border-gray-300"></div>
+                        <div class="flex items-center gap-2 text-xs font-medium mb-1">Autoregressive <span id="q9-badge-ar" class="hidden chip chip-success">Selected</span></div>
+                        <div id="q9-output-ar" class="min-h-[120px] panel panel-neutral-soft border-2 border-dashed border-transparent p-3"></div>
                     </div>
                     <div>
-                        <div class="flex items-center gap-2 text-xs font-medium text-gray-700 mb-1">Masked LM <span id="q9-badge-mlm" class="hidden px-1.5 py-0.5 rounded bg-indigo-100 text-indigo-700 border border-indigo-200">Selected</span></div>
-                        <div id="q9-output-mlm" class="min-h-[120px] p-3 bg-gray-50 rounded border-2 border-dashed border-gray-300"></div>
+                        <div class="flex items-center gap-2 text-xs font-medium mb-1">Masked LM <span id="q9-badge-mlm" class="hidden chip chip-accent">Selected</span></div>
+                        <div id="q9-output-mlm" class="min-h-[120px] panel panel-neutral-soft border-2 border-dashed border-transparent p-3"></div>
                     </div>
                 </div>
             </div>
             
             <!-- Educational Comparison -->
-            <div id="q9-comparison" class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-                <h4 class="font-medium text-yellow-900 mb-2">📊 Training Paradigm Analysis</h4>
-                <div id="q9-explanation" class="text-sm text-yellow-800"></div>
+            <div id="q9-comparison" class="panel panel-warning p-4 space-y-2">
+                <h4 class="font-medium">📘 Training Paradigm Analysis</h4>
+                <div id="q9-explanation" class="text-sm"></div>
             </div>
         </div>
+

@@ -1,47 +1,47 @@
 ﻿<div id="p14-lab" class="space-y-6">
-  <div class="bg-gradient-to-r from-slate-50 via-indigo-50 to-slate-50 border border-indigo-100 rounded-lg p-4">
-    <h4 class="text-sm font-semibold text-indigo-900">Compare exposure vs adaptive capacity</h4>
+  <div class="bg-card border border-subtle rounded-lg p-4">
+    <h4 class="text-sm font-semibold text-heading">Compare exposure vs adaptive capacity</h4>
     <div id="p14-scenarios" class="grid md:grid-cols-3 gap-2 mt-3">
-      <button type="button" data-scenario="resilient" class="p14-scenario inline-flex flex-col items-start gap-1 px-3 py-2 text-xs font-medium border border-indigo-200 rounded-md bg-white text-indigo-700 hover:bg-indigo-100" aria-pressed="true">
+      <button type="button" data-scenario="resilient" class="p14-scenario inline-flex flex-col items-start gap-1 px-3 py-2 text-xs font-medium border border-subtle rounded-md bg-card text-accent hover:bg-subtle" aria-pressed="true">
         <span>High exposure / High capacity</span>
-        <span class="text-[10px] text-slate-500">21.5M workers</span>
+        <span class="text-[10px] text-muted-soft">21.5M workers</span>
       </button>
-      <button type="button" data-scenario="vulnerable" class="p14-scenario inline-flex flex-col items-start gap-1 px-3 py-2 text-xs font-medium border border-indigo-200 rounded-md bg-white text-indigo-700 hover:bg-indigo-100" aria-pressed="false">
+      <button type="button" data-scenario="vulnerable" class="p14-scenario inline-flex flex-col items-start gap-1 px-3 py-2 text-xs font-medium border border-subtle rounded-md bg-card text-accent hover:bg-subtle" aria-pressed="false">
         <span>High exposure / Low capacity</span>
-        <span class="text-[10px] text-slate-500">7.2M workers</span>
+        <span class="text-[10px] text-muted-soft">7.2M workers</span>
       </button>
-      <button type="button" data-scenario="emerging" class="p14-scenario inline-flex flex-col items-start gap-1 px-3 py-2 text-xs font-medium border border-indigo-200 rounded-md bg-white text-indigo-700 hover:bg-indigo-100" aria-pressed="false">
+      <button type="button" data-scenario="emerging" class="p14-scenario inline-flex flex-col items-start gap-1 px-3 py-2 text-xs font-medium border border-subtle rounded-md bg-card text-accent hover:bg-subtle" aria-pressed="false">
         <span>Medium exposure / Medium capacity</span>
-        <span class="text-[10px] text-slate-500">Bridge segment</span>
+        <span class="text-[10px] text-muted-soft">Bridge segment</span>
       </button>
     </div>
-    <p class="mt-2 text-xs text-indigo-700">Use the dataset&rsquo;s quadrants to tailor reskilling, financial supports, and mobility programs.</p>
+    <p class="mt-2 text-xs text-secondary">Use the dataset&rsquo;s quadrants to tailor reskilling, financial supports, and mobility programs.</p>
   </div>
 
   <div class="grid md:grid-cols-3 gap-4" id="p14-metrics">
-    <div class="bg-white border border-gray-200 rounded-lg p-4 space-y-2">
-      <div class="text-[11px] uppercase tracking-wide text-indigo-600 font-semibold">Exposure percentile</div>
-      <p id="p14-metric-exposure" class="text-2xl font-semibold text-gray-900">--</p>
-      <p class="text-xs text-gray-500">Share of tasks overlapping with current AI capabilities.</p>
+    <div class="bg-card border border-subtle rounded-lg p-4 space-y-2">
+      <div class="text-[11px] uppercase tracking-wide text-accent font-semibold">Exposure percentile</div>
+      <p id="p14-metric-exposure" class="text-2xl font-semibold text-heading">--</p>
+      <p class="text-xs text-muted-soft">Share of tasks overlapping with current AI capabilities.</p>
     </div>
-    <div class="bg-white border border-gray-200 rounded-lg p-4 space-y-2">
+    <div class="bg-card border border-subtle rounded-lg p-4 space-y-2">
       <div class="text-[11px] uppercase tracking-wide text-emerald-600 font-semibold">Adaptive capacity percentile</div>
-      <p id="p14-metric-capacity" class="text-2xl font-semibold text-gray-900">--</p>
-      <p class="text-xs text-gray-500">Composite of savings, skill transferability, job density, and age.</p>
+      <p id="p14-metric-capacity" class="text-2xl font-semibold text-heading">--</p>
+      <p class="text-xs text-muted-soft">Composite of savings, skill transferability, job density, and age.</p>
     </div>
-    <div class="bg-white border border-gray-200 rounded-lg p-4 space-y-2">
+    <div class="bg-card border border-subtle rounded-lg p-4 space-y-2">
       <div class="text-[11px] uppercase tracking-wide text-rose-600 font-semibold">Priority signal</div>
-      <p id="p14-metric-priority" class="text-2xl font-semibold text-gray-900">--</p>
-      <p class="text-xs text-gray-500">Policy urgency based on quadrant placement.</p>
+      <p id="p14-metric-priority" class="text-2xl font-semibold text-heading">--</p>
+      <p class="text-xs text-muted-soft">Policy urgency based on quadrant placement.</p>
     </div>
   </div>
 
-  <div class="bg-white border border-gray-200 rounded-lg p-5 space-y-3">
+  <div class="bg-card border border-subtle rounded-lg p-5 space-y-3">
     <div class="flex items-center justify-between gap-3">
-      <h4 class="text-sm font-semibold text-gray-900">Recommended response mix</h4>
-      <span id="p14-context-label" class="text-xs font-mono bg-indigo-50 text-indigo-700 px-2 py-1 rounded">--</span>
+      <h4 class="text-sm font-semibold text-heading">Recommended response mix</h4>
+      <span id="p14-context-label" class="text-xs font-mono bg-subtle text-accent px-2 py-1 rounded">--</span>
     </div>
-    <div id="p14-levers" class="grid md:grid-cols-2 gap-3 text-sm text-gray-700"></div>
+    <div id="p14-levers" class="grid md:grid-cols-2 gap-3 text-sm text-secondary"></div>
   </div>
 
   <div class="bg-amber-50 border border-amber-200 rounded-lg p-5 space-y-3">

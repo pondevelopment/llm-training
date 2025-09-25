@@ -29,6 +29,7 @@ Always consult these when creating or updating any question or paper. They are t
 ## Coding guidelines
 
 - Consistency over novelty: follow existing patterns, naming, and structure (per-question folders, manifest entries, UTF-8 files).
+- Prefer the shared semantic helpers (`panel…`, `chip…`, `view-toggle`) for theming; avoid raw Tailwind colour utilities.
 - Minimal dependencies: prefer standard APIs; if adding a dep, justify and pin versions.
 - Error handling: defensive DOM lookups; fail soft with clear messages in UI.
 - Accessibility: keyboard reachable, sufficient contrast, clear labels and helper text.

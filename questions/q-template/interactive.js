@@ -36,7 +36,7 @@
     const text = input.value.trim();
 
     indicator.textContent = config.label;
-    output.innerHTML = text ? `<p class="mb-2">${text}</p><p>${config.summary}</p>` : '<p class="text-gray-600">Provide an input to see the walkthrough.</p>';
+    output.innerHTML = text ? `<p class="mb-2">${text}</p><p>${config.summary}</p>` : '<p class="panel-muted">Provide an input to see the walkthrough.</p>';
     legend.innerHTML = `<ul class="list-disc ml-4 space-y-1">${config.legend.map(item => `<li>${item}</li>`).join('')}</ul>`;
   };
 

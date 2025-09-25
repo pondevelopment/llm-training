@@ -351,7 +351,7 @@ const interactiveScript = () => {
                     const nextExampleIndex = (currentExampleIndex + 1) % examples.length;
                     setTimeout(() => {
                         updateExampleDisplay(nextExampleIndex, scheduledStep);
-                    }, 2000); // Wait 2 seconds after showing feedback result
+                    }, 250); // Brief pause so the feedback message is readable
                 }
                 
                 // Auto-advance when enough feedback is collected
@@ -638,3 +638,4 @@ if (typeof module !== 'undefined') {
 } else if (typeof window !== 'undefined') {
   window.question08Interactive = interactiveScript;
 }
+

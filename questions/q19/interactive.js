@@ -195,6 +195,17 @@ const interactiveScript = () => {
       const isActive = radio.checked;
       card.classList.toggle('question-strategy-active', isActive);
       card.dataset.active = isActive ? 'true' : 'false';
+
+      const badge = card.querySelector('.selection-badge');
+      if (badge) {
+        badge.hidden = !isActive;
+        if (isActive) {
+          const toneClass = radio.value === 'generative' ? 'chip-success' : 'chip-accent';
+          badge.className = `chip ${toneClass} text-xs selection-badge`;
+        } else {
+          badge.className = 'chip chip-neutral text-xs selection-badge';
+        }
+      }
     });
 
     if (discriminativeTasks) {

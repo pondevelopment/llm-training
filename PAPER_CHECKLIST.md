@@ -5,8 +5,8 @@ Use this checklist whenever you add or update a paper explainer.
 ## Before you start
 
 - [ ] Read `PAPER_TEMPLATE_GUIDE.md` for structure and interactive expectations
-- [ ] Confirm the paperâ€™s core claim, key evidence, and intended audience (architects/PMs vs researchers)
-- [ ] Identify 2â€“3 related interview questions for cross-linking
+- [ ] Confirm the paper’s core claim, key evidence, and intended audience (architects/PMs vs researchers)
+- [ ] Identify 2–3 related interview questions for cross-linking
 
 ## File setup
 
@@ -21,9 +21,9 @@ Use this checklist whenever you add or update a paper explainer.
 ## Overview content
 
 - [ ] Executive quick take summarises the practical ceiling and governance signal
-- [ ] Business relevance block follows the quick take, includes 3â€“4 stakeholder bullets, and nests a white â€œDerivative exampleâ€ card with a runnable workflow
-- [ ] Include â€œHow top-k maps to retrieval resultsâ€ callout
-- [ ] Include â€œWhat counts as a documentâ€ callout (and doc chunking guidance)
+- [ ] Business relevance block follows the quick take, includes 3–4 stakeholder bullets, and nests a white “Derivative example” card with a runnable workflow
+- [ ] Include “How top-k maps to retrieval results” callout
+- [ ] Include “What counts as a document” callout (and doc chunking guidance)
 - [ ] Populate `Key insight`, `Method`, `Implication` cards with concise copy
 - [ ] Evidence list cites at least two concrete results (theorem, metric, dataset)
 - [ ] Roadmap bullets give actionable next steps for practitioners
@@ -33,7 +33,7 @@ Use this checklist whenever you add or update a paper explainer.
 - [ ] Dimension / corpus / k sliders match paper defaults and include helper text
 - [ ] Design tweaks: vectors-per-document slider, lexical reranker checkbox (with explanation), token retention slider
 - [ ] Coverage outlook shows single-vector, multi-vector, and reranker metrics with colour-coded bar
-- [ ] LIMIT-style simulator scenarios are realistic (â‰¥8 queries) with names, expected docs, and optional hints
+- [ ] LIMIT-style simulator scenarios are realistic (≥8 queries) with names, expected docs, and optional hints
 - [ ] Simulator summary explains observed vs expected recall and hints at mitigations
 - [ ] All DOM lookups guarded; `interactiveScript` does not leak globals
 - [ ] MathJax re-typeset if the interactive injects equations
@@ -52,7 +52,7 @@ Use this checklist whenever you add or update a paper explainer.
 - [ ] No console errors while interacting with the paper
 - [ ] Layout holds on mobile widths (overview and interactive stack cleanly)
 - [ ] Controls handle edge values (min/max sliders, toggling reranker, switching scenarios)
-- [ ] Interactive remains responsiveâ€”no long-running loops or blocking recalculations
+- [ ] Interactive remains responsive—no long-running loops or blocking recalculations
 - [ ] Files saved as UTF-8 with `\n` line endings; emoji and punctuation render correctly
 
 Tick every box before requesting review or publishing the paper explainer.

@@ -306,9 +306,9 @@ class LLMQuestionApp {
     exitPath(){ this.activePath=null; this.updatePathUI(); }
     syncActivePath(q){ if(!this.activePath) return; const i=this.activePath.sequence.indexOf(q); if(i===-1) this.activePath=null; else this.activePath.pos=i; }
         difficultyStars(level){
-                if(level==='beginner') return 'â˜…â˜†â˜†';
-                if(level==='intermediate') return 'â˜…â˜…â˜†';
-                if(level==='advanced') return 'â˜…â˜…â˜…';
+                if(level==='beginner') return '★☆☆';
+                if(level==='intermediate') return '★★☆';
+                if(level==='advanced') return '★★★';
                 return '';
         }
         buildBannerHTML(nice,pos,total,key){

@@ -1,126 +1,140 @@
+<div class="space-y-6 q16-interactive">
+  <style>
+    .q16-interactive .question-strategy.question-strategy-active[data-tone="success"] {
+      border-color: color-mix(in srgb, var(--tone-emerald-strong) 45%, transparent);
+      background: color-mix(in srgb, var(--tone-emerald-soft) 55%, var(--color-card) 45%);
+    }
+    .q16-interactive .question-strategy.question-strategy-active[data-tone="accent"] {
+      border-color: color-mix(in srgb, var(--tone-purple-strong) 45%, transparent);
+      background: color-mix(in srgb, var(--tone-purple-soft) 55%, var(--color-card) 45%);
+    }
+    .q16-interactive .question-strategy.question-strategy-active[data-tone="warning"] {
+      border-color: color-mix(in srgb, var(--tone-amber-strong) 45%, transparent);
+      background: color-mix(in srgb, var(--tone-amber-soft) 55%, var(--color-card) 45%);
+    }
+    .q16-interactive .question-strategy-active .chip {
+      box-shadow: none;
+    }
+    .q16-token-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+    .q16-token {
+      margin: 0;
+    }
+  </style>
+  <div class="question-card space-y-2">
+    <label for="q16-text-select" class="block text-sm font-medium text-heading">📝 Choose sample text (controlled)</label>
+    <select id="q16-text-select" class="field-select w-full max-w-xs"></select>
+    <p id="q16-example-desc" class="small-caption panel-muted"></p>
+    <div id="q16-sample-text" class="panel panel-neutral-soft text-sm font-mono whitespace-pre-wrap leading-relaxed p-3">Sample text will appear here&hellip;</div>
+  </div>
 
-            <div class="space-y-6">
-                <!-- Example Selector -->
-                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200">
-                    <label for="q16-text-select" class="block text-sm font-medium text-gray-700 mb-2">📝 Choose Sample Text (controlled)</label>
-                    <select id="q16-text-select" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"></select>
-                    <p id="q16-example-desc" class="text-xs text-gray-600 mt-1"></p>
-                </div>
-                
-                <!-- Tokenization Strategy Selection -->
-                <div class="bg-white border border-gray-200 rounded-lg p-4">
-                    <label class="block text-sm font-medium text-gray-700 mb-3">🎯 Tokenization Strategy</label>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                        <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer">
-                            <input type="radio" name="q16-strategy" value="bpe" class="mr-3" checked>
-                            <div>
-                                <div class="font-medium text-sm">Byte-Pair Encoding</div>
-                                <div class="text-xs text-gray-500">Frequent pair merging</div>
-                                <div class="text-xs bg-green-100 text-green-700 px-1 rounded mt-1">Standard</div>
-                            </div>
-                        </label>
-                        
-                        <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer">
-                            <input type="radio" name="q16-strategy" value="sentencepiece" class="mr-3">
-                            <div>
-                                <div class="font-medium text-sm">SentencePiece</div>
-                                <div class="text-xs text-gray-500">Language-agnostic</div>
-                                <div class="text-xs bg-purple-100 text-purple-700 px-1 rounded mt-1">Universal</div>
-                            </div>
-                        </label>
-                        
-                        <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer">
-                            <input type="radio" name="q16-strategy" value="wordpiece" class="mr-3">
-                            <div>
-                                <div class="font-medium text-sm">WordPiece</div>
-                                <div class="text-xs text-gray-500">Likelihood-based</div>
-                                <div class="text-xs bg-orange-100 text-orange-700 px-1 rounded mt-1">Optimized</div>
-                            </div>
-                        </label>
-                    </div>
-                </div>
+  <div class="question-card space-y-3">
+    <label class="block text-sm font-medium text-heading">🎯 Tokenization strategy</label>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+      <label class="question-strategy" data-tone="success">
+        <input type="radio" name="q16-strategy" value="bpe" checked>
+        <div class="stacked-card space-y-1">
+          <span class="font-medium text-heading">Byte-Pair Encoding</span>
+          <p class="small-caption panel-muted">Frequent pair merging</p>
+          <span class="chip chip-success text-xs mt-1">Standard</span>
+        </div>
+      </label>
 
-                <!-- Vocabulary Size Control -->
-                <div class="bg-white border border-gray-200 rounded-lg p-4">
-                    <h4 class="font-medium text-gray-900 mb-3">⚙️ Tokenization Parameters</h4>
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <div>
-                            <label for="q16-vocab-size" class="block text-sm font-medium text-gray-700 mb-2">Vocabulary Size</label>
-                            <input type="range" id="q16-vocab-size" min="1000" max="100000" step="5000" value="50000" class="w-full">
-                            <div class="flex justify-between text-xs text-gray-500 mt-1">
-                                <span>1K</span>
-                                <span id="q16-vocab-display" class="font-medium">50K</span>
-                                <span>100K</span>
-                            </div>
-                        </div>
-                        <div>
-                            <label for="q16-min-frequency" class="block text-sm font-medium text-gray-700 mb-2">Min Subword Frequency</label>
-                            <input type="range" id="q16-min-frequency" min="1" max="100" step="5" value="10" class="w-full">
-                            <div class="flex justify-between text-xs text-gray-500 mt-1">
-                                <span>1</span>
-                                <span id="q16-freq-display" class="font-medium">10</span>
-                                <span>100</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+      <label class="question-strategy" data-tone="accent">
+        <input type="radio" name="q16-strategy" value="sentencepiece">
+        <div class="stacked-card space-y-1">
+          <span class="font-medium text-heading">SentencePiece</span>
+          <p class="small-caption panel-muted">Language-agnostic</p>
+          <span class="chip chip-accent text-xs mt-1">Universal</span>
+        </div>
+      </label>
 
-                <!-- Quick Examples removed in favor of controlled dropdown -->
+      <label class="question-strategy" data-tone="warning">
+        <input type="radio" name="q16-strategy" value="wordpiece">
+        <div class="stacked-card space-y-1">
+          <span class="font-medium text-heading">WordPiece</span>
+          <p class="small-caption panel-muted">Likelihood-based</p>
+          <span class="chip chip-warning text-xs mt-1">Optimised</span>
+        </div>
+      </label>
+    </div>
+  </div>
 
-                <!-- Tokenization Results -->
-                <div class="bg-white border border-gray-200 rounded-lg p-4">
-                    <div class="flex items-center justify-between mb-3">
-                        <h4 class="font-medium text-gray-900">🎨 Tokenization Results</h4>
-                        <div id="q16-strategy-indicator" class="text-xs px-2 py-1 rounded font-medium">Byte-Pair Encoding</div>
-                    </div>
-                    
-                    <!-- Token Visualization -->
-                    <div id="q16-output" class="min-h-[100px] p-3 bg-gray-50 rounded border-2 border-dashed border-gray-300 mb-4">
-                        <div class="text-sm text-gray-500 text-center">Tokens will appear here...</div>
-                    </div>
-                    
-                    <!-- Statistics -->
-                    <div class="grid md:grid-cols-4 gap-4 mb-4">
-                        <div class="text-center">
-                            <div class="text-lg font-bold text-blue-600" id="q16-token-count">0</div>
-                            <div class="text-xs text-gray-500">Total Tokens</div>
-                        </div>
-                        <div class="text-center">
-                            <div class="text-lg font-bold text-green-600" id="q16-oov-count">0</div>
-                            <div class="text-xs text-gray-500">OOV Words Handled</div>
-                        </div>
-                        <div class="text-center">
-                            <div class="text-lg font-bold text-purple-600" id="q16-compression">1.0x</div>
-                            <div class="text-xs text-gray-500">Compression Ratio</div>
-                        </div>
-                        <div class="text-center">
-                            <div class="text-lg font-bold text-orange-600" id="q16-coverage">100%</div>
-                            <div class="text-xs text-gray-500">Vocabulary Coverage</div>
-                        </div>
-                    </div>
-                    
-                    <!-- Detailed Analysis -->
-                    <div class="bg-gray-50 p-3 rounded">
-                        <h5 class="text-sm font-medium text-gray-700 mb-2">Token Analysis</h5>
-                        <div id="q16-analysis" class="text-xs text-gray-600">
-                            <div class="grid md:grid-cols-2 gap-4">
-                                <div>
-                                    <strong>Subword Breakdown:</strong>
-                                    <ul id="q16-subword-list" class="mt-1 space-y-1"></ul>
-                                </div>
-                                <div>
-                                    <strong>OOV Handling:</strong>
-                                    <ul id="q16-oov-list" class="mt-1 space-y-1"></ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Educational Explanation -->
-                <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-                    <h4 class="font-medium text-yellow-900 mb-2">💡 Tokenization Strategy Analysis</h4>
-                    <div id="q16-explanation" class="text-sm text-yellow-800"></div>
-                </div>
-            </div>
-        
+  <div class="question-card space-y-4">
+    <h4 class="font-medium text-heading">⚙️ Tokenization parameters</h4>
+    <div class="grid md:grid-cols-2 gap-4">
+      <div class="space-y-2">
+        <label for="q16-vocab-size" class="block text-sm font-medium text-heading">Vocabulary size</label>
+        <input type="range" id="q16-vocab-size" min="1000" max="100000" step="5000" value="50000" class="w-full">
+        <div class="flex justify-between text-xs panel-muted">
+          <span>1K</span>
+          <span id="q16-vocab-display" class="font-medium text-heading">50K</span>
+          <span>100K</span>
+        </div>
+      </div>
+      <div class="space-y-2">
+        <label for="q16-min-frequency" class="block text-sm font-medium text-heading">Min subword frequency</label>
+        <input type="range" id="q16-min-frequency" min="1" max="100" step="5" value="10" class="w-full">
+        <div class="flex justify-between text-xs panel-muted">
+          <span>1</span>
+          <span id="q16-freq-display" class="font-medium text-heading">10</span>
+          <span>100</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="question-card space-y-4">
+    <div class="flex items-center justify-between gap-3">
+      <h4 class="font-medium text-heading">🎨 Tokenization results</h4>
+      <span id="q16-strategy-indicator" class="chip chip-info text-xs">Byte-Pair Encoding</span>
+    </div>
+
+    <div id="q16-output" class="min-h-[100px] panel panel-neutral-soft p-3 border border-dashed border-divider q16-token-cloud">
+      <div class="text-sm panel-muted text-center">Tokens will appear here&hellip;</div>
+    </div>
+
+    <div class="grid md:grid-cols-4 gap-4 text-center">
+      <div class="space-y-1">
+        <div class="text-lg font-bold text-info" id="q16-token-count">0</div>
+        <div class="text-xs panel-muted">Total tokens</div>
+      </div>
+      <div class="space-y-1">
+        <div class="text-lg font-bold text-success" id="q16-oov-count">0</div>
+        <div class="text-xs panel-muted">OOV words handled</div>
+      </div>
+      <div class="space-y-1">
+        <div class="text-lg font-bold text-accent" id="q16-compression">1.0&times;</div>
+        <div class="text-xs panel-muted">Compression ratio</div>
+      </div>
+      <div class="space-y-1">
+        <div class="text-lg font-bold text-warning" id="q16-coverage">100%</div>
+        <div class="text-xs panel-muted">Vocabulary coverage</div>
+      </div>
+    </div>
+
+    <div class="panel panel-neutral-soft p-3 space-y-2">
+      <h5 class="text-sm font-medium text-heading">Token analysis</h5>
+      <div id="q16-analysis" class="text-xs text-body">
+        <div class="grid md:grid-cols-2 gap-4">
+          <div>
+            <strong>Subword breakdown:</strong>
+            <ul id="q16-subword-list" class="mt-1 space-y-1"></ul>
+          </div>
+          <div>
+            <strong>OOV handling:</strong>
+            <ul id="q16-oov-list" class="mt-1 space-y-1"></ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-warning p-4 space-y-2">
+    <h4 class="font-medium text-heading">💡 Tokenization strategy analysis</h4>
+    <div id="q16-explanation" class="text-sm text-body"></div>
+  </div>
+</div>

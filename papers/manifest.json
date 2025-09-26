@@ -1,4 +1,26 @@
 {
+  "24": {
+    "title": "Quantifying Human-AI Synergy",
+    "authors": [
+      "Christoph Riedl",
+      "Ben Weidmann"
+    ],
+    "year": 2025,
+    "venue": "PsyArXiv (2025-09-22)",
+    "tags": [
+      "collaboration",
+      "evaluation",
+      "theory-of-mind"
+    ],
+    "summary": "Bayesian IRT separates solo skill, collaborative skill, and AI lift on ChatBench, revealing 29-point boosts from GPT-4o and the outsized role of Theory of Mind.",
+    "dir": "./papers/p24",
+    "interactiveTitle": "Human-AI synergy lab",
+    "relatedQuestions": [
+      8,
+      13,
+      45
+    ]
+  },
   "23": {
     "title": "GDPval: Evaluating AI Model Performance on Real-World Economically Valuable Tasks",
     "authors": [
@@ -560,5 +582,26 @@
     "dir": "./papers/p01",
     "interactiveTitle": "Embedding capacity stress tester",
     "summary": "Shows that single-vector embeddings cannot realize all top-k subsets; introduces the LIMIT dataset to expose the gap."
+  },
+  "25": {
+    "title": "On the Folly of Rewarding A, While Hoping for B",
+    "authors": [
+      "Steven Kerr"
+    ],
+    "year": 1995,
+    "venue": "The Academy of Management Executive (1995)",
+    "tags": [
+      "management",
+      "incentives",
+      "governance"
+    ],
+    "summary": "Classic management essay documenting how organizations buy the wrong behaviors when rewards favour easy-to-measure metrics and offering a playbook for incentive audits.",
+    "dir": "./papers/p25",
+    "interactiveTitle": "Incentive alignment lab",
+    "relatedQuestions": [
+      8,
+      45,
+      52
+    ]
   }
 }

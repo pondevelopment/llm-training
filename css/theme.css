@@ -2265,3 +2265,254 @@ html.dark .q10-output {
   display: block;
   white-space: pre-wrap;
 }
+/* Question 12 specific styling */
+.q12-option {
+  display: block;
+}
+
+.q12-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  height: 100%;
+  border-radius: 0.9rem;
+  padding: 1rem;
+  transition: border-color .2s ease, background-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+
+.q12-card-title {
+  font-weight: 600;
+  color: var(--color-heading);
+  transition: color .2s ease;
+}
+
+.q12-card-foot {
+  margin-top: auto;
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: center;
+  padding: 0.35rem 0.5rem;
+  border-radius: 0.45rem;
+  font-size: 0.75rem;
+  color: var(--color-muted);
+  background: color-mix(in srgb, var(--color-border-subtle) 22%, transparent);
+}
+
+.q12-card[data-active="true"] {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 36px -28px rgba(15, 23, 42, 0.55);
+}
+
+.q12-card[data-tone="emerald"][data-active="true"] {
+  border-color: color-mix(in srgb, var(--tone-emerald-strong) 40%, var(--panel-border) 60%);
+  background: color-mix(in srgb, var(--tone-emerald-strong) 18%, var(--panel-bg) 82%);
+}
+.q12-card[data-tone="emerald"][data-active="true"] .q12-card-title {
+  color: var(--tone-emerald-strong);
+}
+
+.q12-card[data-tone="purple"][data-active="true"] {
+  border-color: color-mix(in srgb, var(--tone-purple-strong) 40%, var(--panel-border) 60%);
+  background: color-mix(in srgb, var(--tone-purple-strong) 18%, var(--panel-bg) 82%);
+}
+.q12-card[data-tone="purple"][data-active="true"] .q12-card-title {
+  color: var(--tone-purple-strong);
+}
+
+.q12-card[data-tone="amber"][data-active="true"] {
+  border-color: color-mix(in srgb, var(--tone-amber-strong) 42%, var(--panel-border) 58%);
+  background: color-mix(in srgb, var(--tone-amber-strong) 22%, var(--panel-bg) 78%);
+}
+.q12-card[data-tone="amber"][data-active="true"] .q12-card-title {
+  color: var(--tone-amber-strong);
+}
+
+.q12-output {
+  border-style: dashed;
+  border-width: 1px;
+  border-color: color-mix(in srgb, var(--tone-indigo-strong) 28%, var(--color-border-subtle) 72%);
+  min-height: 220px;
+  padding: 1rem;
+  border-radius: 0.95rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  transition: border-color .25s ease, background-color .25s ease;
+}
+html.dark .q12-output {
+  border-color: color-mix(in srgb, var(--tone-indigo-strong) 45%, var(--color-border) 55%);
+}
+
+.q12-token-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+}
+
+.q12-token-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.75rem;
+}
+
+.q12-token {
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 0.85rem;
+  padding: 0.75rem;
+  background: var(--color-card);
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  transition: border-color .2s ease, background-color .2s ease, transform .2s ease, box-shadow .2s ease;
+}
+
+.q12-token:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 28px -26px rgba(15, 23, 42, 0.55);
+}
+
+.q12-token-term {
+  font-family: var(--font-mono, ui-monospace, SFMono-Regular, 'Cascadia Mono', 'Segoe UI Mono', monospace);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-heading);
+}
+
+.q12-token-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 0.75rem;
+  color: var(--color-muted);
+}
+
+.q12-token-value {
+  font-weight: 600;
+  color: var(--color-heading);
+}
+
+.q12-token--high {
+  border-color: color-mix(in srgb, var(--tone-emerald-strong) 42%, var(--color-border-subtle) 58%);
+  background: color-mix(in srgb, var(--tone-emerald-strong) 18%, var(--color-card) 82%);
+}
+.q12-token--medium {
+  border-color: color-mix(in srgb, var(--tone-sky-strong) 42%, var(--color-border-subtle) 58%);
+  background: color-mix(in srgb, var(--tone-sky-strong) 18%, var(--color-card) 82%);
+}
+.q12-token--low {
+  border-color: color-mix(in srgb, var(--tone-amber-strong) 42%, var(--color-border-subtle) 58%);
+  background: color-mix(in srgb, var(--tone-amber-strong) 18%, var(--color-card) 82%);
+}
+.q12-token--very-low {
+  border-color: color-mix(in srgb, var(--color-path-scaling-strong) 42%, var(--color-border-subtle) 58%);
+  background: color-mix(in srgb, var(--color-path-scaling-strong) 18%, var(--color-card) 82%);
+}
+
+.q12-stat-grid {
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+}
+
+.q12-metric {
+  border: 1px solid color-mix(in srgb, var(--color-border-subtle) 72%, transparent 28%);
+  border-radius: 0.85rem;
+  background: color-mix(in srgb, var(--color-card) 88%, transparent 12%);
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  align-items: center;
+  text-align: center;
+  transition: border-color .2s ease, background-color .2s ease;
+}
+
+.q12-metric-value {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--color-heading);
+}
+
+.q12-metric-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.q12-metric[data-tone="emerald"] .q12-metric-value {
+  color: var(--tone-emerald-strong);
+}
+.q12-metric[data-tone="indigo"] .q12-metric-value {
+  color: var(--tone-indigo-strong);
+}
+.q12-metric[data-tone="amber"] .q12-metric-value {
+  color: var(--tone-amber-strong);
+}
+
+.q12-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.q12-legend-note {
+  font-size: 0.7rem;
+  text-align: center;
+  color: var(--color-muted);
+}
+
+.q12-legend-scale {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem 1.25rem;
+  font-size: 0.75rem;
+  color: var(--color-muted);
+}
+
+.q12-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.q12-legend-swatch {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 9999px;
+  border: 1px solid color-mix(in srgb, var(--color-border) 65%, transparent 35%);
+}
+
+.q12-legend-swatch--high {
+  background: color-mix(in srgb, var(--tone-emerald-strong) 22%, var(--color-card) 78%);
+}
+.q12-legend-swatch--medium {
+  background: color-mix(in srgb, var(--tone-sky-strong) 22%, var(--color-card) 78%);
+}
+.q12-legend-swatch--low {
+  background: color-mix(in srgb, var(--tone-amber-strong) 22%, var(--color-card) 78%);
+}
+.q12-legend-swatch--very-low {
+  background: color-mix(in srgb, var(--color-path-scaling-strong) 22%, var(--color-card) 78%);
+}
+
+.q12-approach {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-height: 100%;
+}
+
+.q12-approach-foot {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.q12-approach-foot .chip {
+  align-self: flex-start;
+}

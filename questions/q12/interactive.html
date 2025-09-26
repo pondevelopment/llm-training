@@ -1,117 +1,102 @@
-<div class="space-y-6">
-            <!-- Context Input Section -->
-            <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200">
-                <label for="q12-context-input" class="block text-sm font-medium text-gray-700 mb-2">📝 Select Context for Text Generation</label>
-                <select id="q12-context-input" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                    <option value="0" selected>The mysterious door opened to reveal</option>
-                    <option value="1">The cat sat on the</option>
-                    <option value="2">In the future, artificial intelligence will</option>
-                    <option value="3">The scientist made a groundbreaking</option>
-                    <option value="4">Once upon a time, in a distant</option>
-                    <option value="5">The weather forecast predicted</option>
-                </select>
-                <p class="text-xs text-gray-600 mt-1">Select different contexts to see how sampling methods adapt to various probability distributions!</p>
-            </div>
-            
-            <!-- Sampling Method Selection -->
-            <div class="bg-white border border-gray-200 rounded-lg p-4">
-                <label class="block text-sm font-medium text-gray-700 mb-3">🎯 Choose Sampling Strategy</label>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                    <label class="relative border border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors">
-                        <input type="radio" name="q12-strategy" value="topk" checked class="absolute top-2 right-2">
-                        <div class="strategy-option">
-                            <div class="flex items-center justify-between mb-2">
-                                <span class="font-medium text-gray-900">Top-k Sampling</span>
-                                <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">Fixed Size</span>
-                            </div>
-                            <p class="text-xs text-gray-600">Select from k most probable tokens</p>
-                            <div class="text-xs mt-2 font-mono bg-gray-100 px-2 py-1 rounded">
-                                k=20 → top 20 tokens
-                            </div>
-                        </div>
-                    </label>
-                    
-                    <label class="relative border border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors">
-                        <input type="radio" name="q12-strategy" value="topp" class="absolute top-2 right-2">
-                        <div class="strategy-option">
-                            <div class="flex items-center justify-between mb-2">
-                                <span class="font-medium text-gray-900">Top-p Sampling</span>
-                                <span class="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded">Adaptive</span>
-                            </div>
-                            <p class="text-xs text-gray-600">Dynamic selection based on probability mass</p>
-                            <div class="text-xs mt-2 font-mono bg-gray-100 px-2 py-1 rounded">
-                                p=0.9 → 90% prob mass
-                            </div>
-                        </div>
-                    </label>
-                    
-                    <label class="relative border border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors">
-                        <input type="radio" name="q12-strategy" value="greedy" class="absolute top-2 right-2">
-                        <div class="strategy-option">
-                            <div class="flex items-center justify-between mb-2">
-                                <span class="font-medium text-gray-900">Greedy Decoding</span>
-                                <span class="text-xs bg-orange-100 text-orange-800 px-2 py-1 rounded">Deterministic</span>
-                            </div>
-                            <p class="text-xs text-gray-600">Always select most probable token</p>
-                            <div class="text-xs mt-2 font-mono bg-gray-100 px-2 py-1 rounded">
-                                max(probabilities)
-                            </div>
-                        </div>
-                    </label>
-                </div>
-            </div>
+﻿<div class="space-y-6" id="q12-interactive-root">
+  <div class="panel panel-info p-4 space-y-3">
+    <label for="q12-context-input" class="block text-sm font-medium text-heading">📝 Select context for text generation</label>
+    <select id="q12-context-input" class="select-control">
+      <option value="0" selected>The mysterious door opened to reveal</option>
+      <option value="1">The cat sat on the</option>
+      <option value="2">In the future, artificial intelligence will</option>
+      <option value="3">The scientist made a groundbreaking</option>
+      <option value="4">Once upon a time, in a distant</option>
+      <option value="5">The weather forecast predicted</option>
+    </select>
+    <p class="small-caption panel-muted">Switch contexts to see how the probability distribution shape changes the token pool each sampler can draw from.</p>
+  </div>
 
-            <!-- Parameter Controls -->
-            <div class="grid md:grid-cols-3 gap-4">
-                <div id="q12-topk-controls" class="bg-white border border-gray-200 rounded-lg p-4">
-                    <label for="q12-k-value" class="block text-sm font-medium text-gray-700 mb-2">🔢 Top-k Value (k)</label>
-                    <input type="range" id="q12-k-value" min="1" max="50" value="20" class="w-full">
-                    <div class="flex justify-between text-xs text-gray-500 mt-1">
-                        <span>1</span>
-                        <span id="q12-k-display" class="font-medium">20</span>
-                        <span>50</span>
-                    </div>
-                </div>
-                
-                <div id="q12-topp-controls" class="bg-white border border-gray-200 rounded-lg p-4">
-                    <label for="q12-p-value" class="block text-sm font-medium text-gray-700 mb-2">🎯 Top-p Value (p)</label>
-                    <input type="range" id="q12-p-value" min="0.1" max="1.0" step="0.05" value="0.9" class="w-full">
-                    <div class="flex justify-between text-xs text-gray-500 mt-1">
-                        <span>0.1</span>
-                        <span id="q12-p-display" class="font-medium">0.9</span>
-                        <span>1.0</span>
-                    </div>
-                </div>
-
-                <div id="q12-temp-controls" class="bg-white border border-gray-200 rounded-lg p-4">
-                    <label for="q12-temp-value" class="block text-sm font-medium text-gray-700 mb-2">🌡️ Temperature (τ)</label>
-                    <input type="range" id="q12-temp-value" min="0.5" max="2.0" step="0.1" value="1.0" class="w-full">
-                    <div class="flex justify-between text-xs text-gray-500 mt-1">
-                        <span>0.5</span>
-                        <span id="q12-temp-display" class="font-medium">1.0</span>
-                        <span>2.0</span>
-                    </div>
-                    <p class="text-[11px] text-gray-500 mt-2">Lower τ sharpens (more deterministic); higher τ flattens (more diverse).</p>
-                </div>
-            </div>
-
-            <!-- Results Section -->
-            <div class="bg-white border border-gray-200 rounded-lg p-4">
-                <div class="flex items-center justify-between mb-3">
-                    <h4 class="font-medium text-gray-900">🎨 Token Selection Results</h4>
-                    <div id="q12-strategy-indicator" class="text-xs bg-gray-100 px-2 py-1 rounded font-medium">Top-k Sampling</div>
-                </div>
-                <div id="q12-output" class="min-h-[200px] p-3 bg-gray-50 rounded border-2 border-dashed border-gray-300">
-                    <div class="text-gray-500 text-center py-8">Enter context above to see token selection simulation</div>
-                </div>
-                <div id="q12-legend" class="mt-3 text-xs"></div>
-            </div>
-            
-            <!-- Educational Comparison -->
-            <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-                <h4 class="font-medium text-yellow-900 mb-2">📊 Understanding the Strategy</h4>
-                <div id="q12-explanation" class="text-sm text-yellow-800">
-                    Choose a sampling strategy above to see how it affects token selection and text generation quality.
-                </div>
-            </div>
+  <div class="panel panel-neutral p-4 space-y-4">
+    <span class="text-sm font-medium text-heading">🎯 Choose sampling strategy</span>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+      <label class="q12-option" data-tone="emerald">
+        <input type="radio" name="q12-strategy" value="topk" class="sr-only" checked>
+        <div class="q12-card panel panel-neutral-soft" data-tone="emerald">
+          <div class="flex items-start justify-between gap-2">
+            <span class="q12-card-title">Top-k Sampling</span>
+            <span class="chip chip-success text-xs">Fixed size</span>
+          </div>
+          <p class="small-caption text-muted">Select from the k most probable tokens for controlled diversity.</p>
+          <div class="q12-card-foot font-mono text-xs">k=20 → top 20 tokens</div>
         </div>
+      </label>
+      <label class="q12-option" data-tone="purple">
+        <input type="radio" name="q12-strategy" value="topp" class="sr-only">
+        <div class="q12-card panel panel-neutral-soft" data-tone="purple">
+          <div class="flex items-start justify-between gap-2">
+            <span class="q12-card-title">Top-p Sampling</span>
+            <span class="chip chip-accent text-xs">Adaptive</span>
+          </div>
+          <p class="small-caption text-muted">Expand the pool until cumulative probability reaches threshold p.</p>
+          <div class="q12-card-foot font-mono text-xs">p=0.9 → 90% probability mass</div>
+        </div>
+      </label>
+      <label class="q12-option" data-tone="amber">
+        <input type="radio" name="q12-strategy" value="greedy" class="sr-only">
+        <div class="q12-card panel panel-neutral-soft" data-tone="amber">
+          <div class="flex items-start justify-between gap-2">
+            <span class="q12-card-title">Greedy Decoding</span>
+            <span class="chip chip-warning text-xs">Deterministic</span>
+          </div>
+          <p class="small-caption text-muted">Always return the single most probable next token.</p>
+          <div class="q12-card-foot font-mono text-xs">max(probabilities)</div>
+        </div>
+      </label>
+    </div>
+  </div>
+
+  <div class="grid md:grid-cols-3 gap-4">
+    <div id="q12-topk-controls" class="panel panel-neutral p-4 space-y-2">
+      <label for="q12-k-value" class="text-sm font-medium text-heading">🔢 Top-k value (k)</label>
+      <input type="range" id="q12-k-value" min="1" max="50" value="20" class="w-full accent-current" aria-describedby="q12-k-display">
+      <div class="flex justify-between text-xs text-muted">
+        <span>1</span>
+        <span id="q12-k-display" class="font-medium text-heading">20</span>
+        <span>50</span>
+      </div>
+    </div>
+    <div id="q12-topp-controls" class="panel panel-neutral p-4 space-y-2">
+      <label for="q12-p-value" class="text-sm font-medium text-heading">🎯 Top-p value (p)</label>
+      <input type="range" id="q12-p-value" min="0.1" max="1.0" step="0.05" value="0.9" class="w-full accent-current" aria-describedby="q12-p-display">
+      <div class="flex justify-between text-xs text-muted">
+        <span>0.1</span>
+        <span id="q12-p-display" class="font-medium text-heading">0.9</span>
+        <span>1.0</span>
+      </div>
+    </div>
+    <div id="q12-temp-controls" class="panel panel-neutral p-4 space-y-2">
+      <label for="q12-temp-value" class="text-sm font-medium text-heading">🌡️ Temperature (τ)</label>
+      <input type="range" id="q12-temp-value" min="0.5" max="2.0" step="0.1" value="1.0" class="w-full accent-current" aria-describedby="q12-temp-display q12-temp-help">
+      <div class="flex justify-between text-xs text-muted">
+        <span>0.5</span>
+        <span id="q12-temp-display" class="font-medium text-heading">1.0</span>
+        <span>2.0</span>
+      </div>
+      <p id="q12-temp-help" class="text-[11px] panel-muted">Lower τ sharpens (more deterministic); higher τ flattens (more diverse).</p>
+    </div>
+  </div>
+
+  <div class="panel panel-neutral p-4 space-y-4">
+    <div class="flex flex-wrap items-center justify-between gap-2">
+      <h4 class="font-medium text-heading">🎨 Token selection results</h4>
+      <span id="q12-strategy-indicator" class="chip chip-info text-xs">Top-k Sampling</span>
+    </div>
+    <div id="q12-output" class="q12-output panel panel-neutral-soft">
+      <div class="q12-output-empty text-sm text-muted text-center py-8">Enter a context above to see how each strategy filters the token pool.</div>
+    </div>
+    <div id="q12-legend" class="q12-legend text-xs panel-muted"></div>
+  </div>
+
+  <div class="panel panel-warning p-4 space-y-2">
+    <h4 class="font-medium text-heading">📘 Understanding the strategy</h4>
+    <div id="q12-explanation" class="text-sm text-body">
+      Choose a sampling strategy to see how it affects token selection and text generation quality.
+    </div>
+  </div>
+</div>

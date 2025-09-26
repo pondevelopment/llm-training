@@ -102,33 +102,50 @@ const interactiveScript = () => {
         const p = problems[problemEl.value];
         probText.textContent = p.text;
 
-        // Base task difficulty → direct accuracy
+        // Base task difficulty -> direct accuracy
         const baseAcc = problemEl.value === 'sum' ? 0.78 : problemEl.value === 'apples' ? 0.70 : 0.85;
 
-        const est = estimate(baseAcc, parseFloat(tempEl.value), parseInt(mEl.value,10), stratEl.value);
+        const est = estimate(baseAcc, parseFloat(tempEl.value), parseInt(mEl.value, 10), stratEl.value);
         const acc = est.p;
-        const tokens = tokenCost(p.baseTokens, p.stepTokens* p.steps.length, stratEl.value, parseInt(mEl.value,10));
+        const tokens = tokenCost(p.baseTokens, p.stepTokens * p.steps.length, stratEl.value, parseInt(mEl.value, 10));
 
         metricsEl.innerHTML = `
-          <div><strong>Strategy:</strong> ${stratEl.options[stratEl.selectedIndex].text}</div>
-          <div><strong>Estimated accuracy:</strong> ${(acc*100).toFixed(2)}%</div>
-          <div><strong>Token estimate:</strong> ~${Math.round(tokens)} tokens</div>
-          <div><strong>Temp:</strong> ${parseFloat(tempEl.value).toFixed(2)} ${stratEl.value==='sc'?` • <strong>Samples m:</strong> ${mEl.value}`:''}</div>
+          <dl class="space-y-2 text-sm" role="group" aria-label="Strategy metrics">
+            <div class="flex items-baseline justify-between gap-3">
+              <dt class="text-xs text-muted">Strategy</dt>
+              <dd class="font-medium text-heading">${stratEl.options[stratEl.selectedIndex].text}</dd>
+            </div>
+            <div class="flex items-baseline justify-between gap-3">
+              <dt class="text-xs text-muted">Estimated accuracy</dt>
+              <dd class="font-mono text-heading">${(acc * 100).toFixed(2)}%</dd>
+            </div>
+            <div class="flex items-baseline justify-between gap-3">
+              <dt class="text-xs text-muted">Token estimate</dt>
+              <dd class="font-mono text-heading">~${Math.round(tokens)} tokens</dd>
+            </div>
+            <div class="flex items-baseline justify-between gap-3">
+              <dt class="text-xs text-muted">Temperature</dt>
+              <dd class="font-mono text-heading">${parseFloat(tempEl.value).toFixed(2)}${stratEl.value === 'sc' ? ` (m=${mEl.value})` : ''}</dd>
+            </div>
+          </dl>
         `;
 
         // Output section
-        const bars = (label,val,color='indigo') => {
-          const pct = Math.max(0, Math.min(100, val*100));
-          return `<div role=\"group\" aria-label=\"${label} ${pct.toFixed(0)} percent\">
-            <div class=\"flex justify-between text-xs mb-0.5\"><span>${label}</span><span>${pct.toFixed(0)}%</span></div>
-            <div class=\"w-full h-3 bg-${color}-200 rounded\" aria-hidden=\"true\"><div class=\"h-3 bg-${color}-600\" style=\"width:${pct}%\" role=\"progressbar\" aria-valuenow=\"${pct.toFixed(0)}\" aria-valuemin=\"0\" aria-valuemax=\"100\" aria-label=\"${label}\"></div></div>
+        const bars = (label, val, tone = 'emerald') => {
+          const pct = Math.max(0, Math.min(100, val * 100));
+          const rounded = pct.toFixed(0);
+          return `<div class="space-y-1">
+            <div class="flex justify-between text-xs text-muted"><span>${label}</span><span class="font-mono text-heading">${rounded}%</span></div>
+            <div class="context-meter" data-tone="${tone}" role="progressbar" aria-label="${label}" aria-valuenow="${rounded}" aria-valuemin="0" aria-valuemax="100">
+              <div class="context-meter-fill" style="width:${pct}%"></div>
+            </div>
           </div>`;
         };
 
         const explain = `
-          <p>CoT reveals intermediate steps. Self‑consistency samples multiple chains and takes a majority (ties count half) to reduce variance from any single flawed chain.</p>
+          <p class="text-sm text-body">Chain-of-thought reveals intermediate steps. Self-consistency samples multiple chains and takes a majority (ties count half) to reduce variance from any single flawed chain.</p>
           <div id="q38-explain-math" class="math-display text-xs font-mono mt-1"></div>
-          <div class="text-xs text-gray-600 mt-1">We treat chains as independent with single‑chain correctness <span class="font-mono">p</span>. For even <span class="font-mono">m</span>, a tie contributes half its probability mass so accuracy is non‑decreasing as <span class="font-mono">m</span> grows.</div>
+          <p class="text-xs panel-muted mt-1">We treat chains as independent with single-chain correctness <span class="font-mono">p</span>. For even <span class="font-mono">m</span>, a tie contributes half its probability mass so accuracy is non-decreasing as <span class="font-mono">m</span> grows.</p>
         `;
 
         explainEl.innerHTML = explain;
@@ -148,13 +165,14 @@ const interactiveScript = () => {
         }
 
         const showSteps = stratEl.value !== 'direct';
-        const stepsHtml = showSteps ? `<ol class=\"list-decimal list-inside space-y-1\">${p.steps.map(s=>`<li>${s}</li>`).join('')}</ol>` : '';
-        const finalLine = `<div class=\"mt-2\"><span class=\"font-semibold\">Answer:</span> <span class=\"font-mono\">${p.answer}</span></div>`;
+        const stepsHtml = showSteps ? `<ol class="list-decimal list-inside space-y-1">${p.steps.map((s) => `<li>${s}</li>`).join('')}</ol>` : '';
+        const finalLine = `<div class="mt-2"><span class="font-semibold">Answer:</span> <span class="font-mono">${p.answer}</span></div>`;
+
 
         outputEl.innerHTML = `
           ${bars('Estimated accuracy', acc, 'emerald')}
           ${bars('Diversity (temp)', Math.min(1, parseFloat(tempEl.value)), 'purple')}
-          <div class=\"mt-3\">${stepsHtml}${finalLine}</div>
+          <div class="mt-3">${stepsHtml}${finalLine}</div>
         `;
 
         // Typeset math in this section

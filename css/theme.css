@@ -362,6 +362,62 @@ body {
 }
 
 .select-control {
+  display: block;
+  width: 100%;
+  padding: 0.55rem 0.9rem;
+  border-radius: 0.85rem;
+  border: 1px solid var(--color-border-subtle);
+  background-color: var(--color-card);
+  color: var(--color-body);
+  font-size: 0.95rem;
+  line-height: 1.4;
+  transition: border-color .2s ease, box-shadow .2s ease, background-color .2s ease;
+  appearance: none;
+  padding-right: 2.6rem;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--color-muted) 50%),
+    linear-gradient(135deg, var(--color-muted) 50%, transparent 50%),
+    linear-gradient(var(--color-muted) 0 0);
+  background-position:
+    calc(100% - 1.8rem) calc(50% - 0.3rem),
+    calc(100% - 1.2rem) calc(50% - 0.3rem),
+    calc(100% - 1.5rem) 50%;
+  background-size: 8px 8px, 8px 8px, 1px 60%;
+  background-repeat: no-repeat;
+}
+.select-control:hover {
+  border-color: color-mix(in srgb, var(--accent-border) 35%, var(--color-border-subtle));
+  background-color: color-mix(in srgb, var(--color-card) 94%, var(--accent-soft) 6%);
+}
+.select-control:focus,
+.select-control:focus-visible {
+  outline: none;
+  border-color: color-mix(in srgb, var(--accent-border) 60%, transparent 40%);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-soft) 45%, transparent 55%);
+}
+.select-control option {
+  background-color: var(--color-card);
+  color: var(--color-body);
+}
+html.dark .select-control {
+  border-color: var(--color-border);
+  background-color: color-mix(in srgb, var(--color-card) 82%, transparent 18%);
+  color: var(--color-body);
+}
+html.dark .select-control:hover {
+  border-color: color-mix(in srgb, var(--accent-border) 45%, transparent 55%);
+}
+html.dark .select-control:focus,
+html.dark .select-control:focus-visible {
+  border-color: color-mix(in srgb, var(--accent-border) 70%, transparent 30%);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-soft) 55%, transparent 45%);
+}
+html.dark .select-control option {
+  background-color: color-mix(in srgb, #0f172a 82%, var(--color-card) 18%);
+  color: var(--color-body);
+}
+
+.select-control {
   width: 100%;
   padding: 0.55rem 0.8rem;
   border-radius: 0.65rem;

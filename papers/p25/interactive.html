@@ -1,0 +1,93 @@
+<div id="p25-lab" class="space-y-6">
+  <section class="bg-gradient-to-r from-slate-50 via-indigo-50 to-slate-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 border border-indigo-100 dark:border-slate-700 rounded-xl p-4 space-y-4">
+    <div class="grid md:grid-cols-3 gap-4">
+      <div>
+        <label for="p25-scenario" class="block text-sm font-semibold text-indigo-900 dark:text-indigo-200">Organizational focus</label>
+        <select id="p25-scenario" class="mt-1 w-full px-3 py-2 border border-indigo-200 dark:border-slate-600 rounded-md text-sm bg-card text-heading focus:outline-none focus:ring-2 focus:ring-indigo-500">
+          <option value="sales">Enterprise sales quotas</option>
+          <option value="product">Product roadmap velocity</option>
+          <option value="support">Customer support SLAs</option>
+          <option value="compliance">Regulatory compliance</option>
+        </select>
+        <p class="text-[11px] text-indigo-800 dark:text-indigo-200 mt-2">Pick the area where leadership signals may not match the rewards.</p>
+      </div>
+      <div>
+        <label for="p25-immediacy" class="block text-sm font-semibold text-indigo-900 dark:text-indigo-200">Reward immediacy</label>
+        <input id="p25-immediacy" type="range" min="0" max="2" step="1" value="2" class="w-full accent-indigo-600 mt-2">
+        <p class="text-[11px] text-indigo-800 dark:text-indigo-200 mt-1">0 = long-term milestones, 1 = balanced, 2 = short-term payouts tied to metric A.</p>
+      </div>
+      <div>
+        <label for="p25-visibility" class="block text-sm font-semibold text-indigo-900 dark:text-indigo-200">Visibility of desired behavior (B)</label>
+        <input id="p25-visibility" type="range" min="0" max="2" step="1" value="1" class="w-full accent-indigo-600 mt-2">
+        <p class="text-[11px] text-indigo-800 dark:text-indigo-200 mt-1">Higher settings mean leaders regularly showcase the behavior they hope for.</p>
+      </div>
+    </div>
+    <div class="grid md:grid-cols-3 gap-4">
+      <div>
+        <label for="p25-payout" class="block text-sm font-semibold text-indigo-900 dark:text-indigo-200">Payout concentration</label>
+        <input id="p25-payout" type="range" min="0" max="2" step="1" value="2" class="w-full accent-indigo-600 mt-2">
+        <p class="text-[11px] text-indigo-800 dark:text-indigo-200 mt-1">0 = diversified rewards (B linked), 2 = all cash/recognition tied to metric A.</p>
+      </div>
+      <div class="md:col-span-2">
+        <p class="text-xs font-semibold uppercase tracking-wide text-indigo-900 dark:text-indigo-200 mb-2">Mitigation levers</p>
+        <div class="flex flex-wrap gap-4 text-xs text-indigo-800 dark:text-indigo-200">
+          <label class="inline-flex items-center gap-2">
+            <input id="p25-leading" type="checkbox" class="accent-indigo-600" checked>
+            <span>Publish leading indicators for B</span>
+          </label>
+          <label class="inline-flex items-center gap-2">
+            <input id="p25-recognition" type="checkbox" class="accent-indigo-600">
+            <span>Peer recognition tied to B</span>
+          </label>
+          <label class="inline-flex items-center gap-2">
+            <input id="p25-debrief" type="checkbox" class="accent-indigo-600">
+            <span>After-action reviews on misses</span>
+          </label>
+        </div>
+        <p class="text-[11px] text-indigo-800 dark:text-indigo-200 mt-2">Toggle the practices you actually run today; the model shows what behavior you are really buying.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="grid md:grid-cols-3 gap-4">
+    <article class="bg-card border border-subtle rounded-lg p-4 space-y-2">
+      <h4 class="text-xs font-semibold uppercase tracking-wide text-muted">Behavior being reinforced</h4>
+      <p id="p25-behavior" class="text-sm font-semibold text-heading">--</p>
+      <p class="text-xs text-muted-soft">Most visible payoff employees perceive given the current reward stack.</p>
+    </article>
+    <article class="bg-card border border-subtle rounded-lg p-4 space-y-2">
+      <h4 class="text-xs font-semibold uppercase tracking-wide text-muted">Misalignment risk</h4>
+      <div class="flex items-baseline gap-2">
+        <p id="p25-risk" class="text-2xl font-semibold text-heading">--</p>
+        <span id="p25-risk-chip" class="chip chip-warning uppercase tracking-wide">&nbsp;</span>
+      </div>
+      <p class="text-xs text-muted-soft">Probability that incentives deliver A while leaders still hope for B.</p>
+    </article>
+    <article class="bg-card border border-subtle rounded-lg p-4 space-y-2">
+      <h4 class="text-xs font-semibold uppercase tracking-wide text-muted">Culture drift horizon</h4>
+      <p id="p25-horizon" class="text-sm font-semibold text-heading">--</p>
+      <p class="text-xs text-muted-soft">Months before the wrong behavior becomes “how we do things here”.</p>
+    </article>
+  </section>
+
+  <section class="bg-card border border-subtle rounded-xl p-5 space-y-3">
+    <header class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+      <div>
+        <h3 class="text-sm font-semibold text-heading">Red flags to monitor</h3>
+        <p class="text-xs text-muted-soft">Signals drawn from Kerr’s case studies and modern OKR rollouts.</p>
+      </div>
+      <span id="p25-signal" class="text-xs font-semibold uppercase tracking-wide text-muted-soft"></span>
+    </header>
+    <ul id="p25-flags" class="list-disc ml-5 text-sm text-secondary space-y-1"></ul>
+  </section>
+
+  <section class="bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-500 rounded-xl p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-emerald-900 dark:text-emerald-100">Summary</h3>
+    <div id="p25-summary" class="text-sm text-emerald-800 dark:text-emerald-100 space-y-2"></div>
+  </section>
+
+  <section class="bg-rose-50 dark:bg-rose-900/30 border border-rose-200 dark:border-rose-500 rounded-xl p-5 space-y-2">
+    <h3 class="text-sm font-semibold text-rose-900 dark:text-rose-100">Next best actions</h3>
+    <ul id="p25-actions" class="list-disc ml-5 text-sm text-rose-800 dark:text-rose-100 space-y-1"></ul>
+  </section>
+</div>

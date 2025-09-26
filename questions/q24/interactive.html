@@ -1,88 +1,82 @@
-<div class="space-y-6">
-            <!-- Vector Input Section -->
-            <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200">
-                <label for="q24-vectors-select" class="block text-sm font-medium text-gray-700 mb-2">📝 Select Word Pairs for Attention Analysis</label>
-                <select id="q24-vectors-select" aria-label="Word pair vectors for attention analysis" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                    <option value="[0.8, 0.6, 0.2, 0.9]; [0.7, 0.5, 0.3, 0.8]">"king" → "queen" (royal, similar roles)</option>
-                    <option value="[0.9, 0.1, 0.8, 0.3]; [0.8, 0.2, 0.9, 0.2]">"running" → "jogging" (both physical activities)</option>
-                    <option value="[0.2, 0.1, 0.1, 0.8]; [0.1, 0.2, 0.8, 0.1]">"the" → "elephant" (function word vs concrete noun)</option>
-                    <option value="[0.6, 0.9, 0.3, 0.2]; [0.5, -0.8, 0.2, 0.3]">"happy" → "sad" (opposite emotions)</option>
-                    <option value="[0.4, 0.7, 0.8, 0.6]; [0.5, 0.6, 0.9, 0.7]">"quickly" → "fast" (similar speed concepts)</option>
-                    <option value="[0.9, 0.2, 0.7, 0.4]; [0.3, 0.8, 0.2, 0.6]">"doctor" → "patient" (related but different roles)</option>
-                    <option value="[0.5, 0.8, 0.1, 0.9]; [-0.4, -0.7, 0.2, -0.8]">"hot" → "cold" (temperature opposites)</option>
-                    <option value="[0.3, 0.4, 0.9, 0.5]; [0.2, 0.3, 0.8, 0.6]">"writing" → "pencil" (action and tool)</option>
-                </select>
-                <p class="text-xs text-gray-600 mt-1">Each word is represented by a 4D vector: [semantic_category, emotional_tone, concreteness, action_relatedness]</p>
-            </div>
-            
-            <!-- Scaling Control -->
-            <div class="bg-white border border-gray-200 rounded-lg p-4">
-                <h4 class="font-medium text-gray-900 mb-3">⚙️ Attention Parameters</h4>
-                <div class="grid md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="flex items-center">
-                            <input type="checkbox" id="q24-apply-scaling" checked class="mr-2">
-                            <span class="text-sm font-medium text-gray-700">Apply √d<sub>k</sub> Scaling</span>
-                        </label>
-                        <p class="text-xs text-gray-600 mt-1">Divides dot product by square root of key dimension</p>
-                    </div>
-                    <div>
-                        <label class="flex items-center">
-                            <input type="checkbox" id="q24-apply-softmax" checked class="mr-2">
-                            <span class="text-sm font-medium text-gray-700">Apply Softmax</span>
-                        </label>
-                        <p class="text-xs text-gray-600 mt-1">Converts scores to probability distribution</p>
-                    </div>
-                </div>
-            </div>
+<div class="q24-interactive space-y-6">
+  <div class="panel panel-info p-4 space-y-3">
+    <h4 class="font-semibold">📝 Select word pairs for attention analysis</h4>
+    <select id="q24-vectors-select" aria-label="Word pair vectors for attention analysis" class="q9-select">
+      <option value="[0.8, 0.6, 0.2, 0.9]; [0.7, 0.5, 0.3, 0.8]">"king" → "queen" (royal, similar roles)</option>
+      <option value="[0.9, 0.1, 0.8, 0.3]; [0.8, 0.2, 0.9, 0.2]">"running" → "jogging" (both physical activities)</option>
+      <option value="[0.2, 0.1, 0.1, 0.8]; [0.1, 0.2, 0.8, 0.1]">"the" → "elephant" (function word vs concrete noun)</option>
+      <option value="[0.6, 0.9, 0.3, 0.2]; [0.5, -0.8, 0.2, 0.3]">"happy" → "sad" (opposite emotions)</option>
+      <option value="[0.4, 0.7, 0.8, 0.6]; [0.5, 0.6, 0.9, 0.7]">"quickly" → "fast" (similar speed concepts)</option>
+      <option value="[0.9, 0.2, 0.7, 0.4]; [0.3, 0.8, 0.2, 0.6]">"doctor" → "patient" (related but different roles)</option>
+      <option value="[0.5, 0.8, 0.1, 0.9]; [-0.4, -0.7, 0.2, -0.8]">"hot" → "cold" (temperature opposites)</option>
+      <option value="[0.3, 0.4, 0.9, 0.5]; [0.2, 0.3, 0.8, 0.6]">"writing" → "pencil" (action and tool)</option>
+    </select>
+    <p class="text-xs panel-muted">Each vector captures [semantic_category, emotional_tone, concreteness, action_relatedness].</p>
+  </div>
 
-            <!-- Visualization Mode -->
-            <div class="bg-white border border-gray-200 rounded-lg p-4">
-                <label class="block text-sm font-medium text-gray-700 mb-3">📊 Visualization Mode</label>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    <label class="relative border border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors">
-                        <input type="radio" name="q24-mode" value="calculation" checked class="absolute top-2 right-2">
-                        <div>
-                            <div class="flex items-center justify-between mb-2">
-                                <span class="font-medium text-gray-900">Step-by-Step</span>
-                                <span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">Detailed</span>
-                            </div>
-                            <p class="text-xs text-gray-600">Show mathematical computation breakdown</p>
-                        </div>
-                    </label>
-                    
-                    <label class="relative border border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors">
-                        <input type="radio" name="q24-mode" value="visualization" class="absolute top-2 right-2">
-                        <div>
-                            <div class="flex items-center justify-between mb-2">
-                                <span class="font-medium text-gray-900">Vector Plot</span>
-                                <span class="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded">Visual</span>
-                            </div>
-                            <p class="text-xs text-gray-600">Show geometric relationship between vectors</p>
-                        </div>
-                    </label>
-                </div>
-            </div>
-
-            <!-- Quick Examples -->
-            <div class="flex flex-wrap gap-2">
-                <span class="text-sm font-medium text-gray-700">💡 Quick Examples:</span>
-                <button id="q24-example-btn" class="text-xs bg-indigo-100 text-indigo-700 px-2 py-1 rounded hover:bg-indigo-200 transition-colors">Similar meanings - High attention</button>
-            </div>
-            
-            <!-- Results Section -->
-            <div class="bg-white border border-gray-200 rounded-lg p-4">
-                <div class="flex items-center justify-between mb-3">
-                    <h4 class="font-medium text-gray-900">🎨 Attention Score Results</h4>
-                    <div id="q24-mode-indicator" class="text-xs bg-gray-100 px-2 py-1 rounded font-medium">Step-by-Step</div>
-                </div>
-                <div id="q24-output" class="min-h-[200px]" aria-live="polite"></div>
-                <div id="q24-legend" class="mt-3 text-xs text-gray-600" aria-live="polite"></div>
-            </div>
-            
-            <!-- Educational Analysis -->
-            <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-                <h4 class="font-medium text-yellow-900 mb-2">📊 Attention Analysis</h4>
-                <div id="q24-explanation" class="text-sm text-yellow-800" aria-live="polite"></div>
-            </div>
+  <div class="panel panel-neutral p-4 space-y-3">
+    <h4 class="font-semibold">⚙️ Attention parameters</h4>
+    <div class="grid md:grid-cols-2 gap-4">
+      <label class="q24-toggle panel panel-neutral-soft">
+        <input type="checkbox" id="q24-apply-scaling" checked>
+        <div class="q24-toggle-text">
+          <span class="text-sm font-medium">Apply √d<sub>k</sub> scaling</span>
+          <p class="text-xs panel-muted">Divides the dot product by the square root of the key dimension.</p>
         </div>
+      </label>
+      <label class="q24-toggle panel panel-neutral-soft">
+        <input type="checkbox" id="q24-apply-softmax" checked>
+        <div class="q24-toggle-text">
+          <span class="text-sm font-medium">Apply softmax</span>
+          <p class="text-xs panel-muted">Converts similarity scores into attention weights.</p>
+        </div>
+      </label>
+    </div>
+  </div>
+
+  <div class="panel panel-neutral p-4 space-y-3">
+    <h4 class="font-semibold">📊 Visualisation mode</h4>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+      <label class="q24-mode-card panel panel-neutral-soft" data-mode="calculation">
+        <input type="radio" name="q24-mode" value="calculation" class="sr-only" checked>
+        <div class="q24-mode-card-body">
+          <div class="flex items-center justify-between gap-2">
+            <span class="font-medium">Step-by-step</span>
+            <span class="chip chip-info text-xs">Detailed</span>
+          </div>
+          <p class="text-xs panel-muted">Show the dot product, scaling, and softmax breakdown.</p>
+        </div>
+      </label>
+      <label class="q24-mode-card panel panel-neutral-soft" data-mode="visualisation">
+        <input type="radio" name="q24-mode" value="visualisation" class="sr-only">
+        <div class="q24-mode-card-body">
+          <div class="flex items-center justify-between gap-2">
+            <span class="font-medium">Vector plot</span>
+            <span class="chip chip-accent text-xs">Visual</span>
+          </div>
+          <p class="text-xs panel-muted">Project the first two dimensions and compare directions.</p>
+        </div>
+      </label>
+    </div>
+  </div>
+
+  <div class="flex flex-wrap items-center gap-2 text-sm">
+    <span class="font-medium">💡 Quick examples:</span>
+    <button id="q24-example-btn" type="button" class="chip chip-info text-xs cursor-pointer">Similar meanings - high attention</button>
+  </div>
+
+  <div class="panel panel-neutral p-4 space-y-3">
+    <div class="flex items-center justify-between">
+      <h4 class="font-semibold">🎨 Attention score results</h4>
+      <span id="q24-mode-indicator" class="chip chip-neutral text-xs">Step-by-step</span>
+    </div>
+    <div id="q24-output" class="q24-output" aria-live="polite"></div>
+    <div id="q24-legend" class="q24-legend text-xs" aria-live="polite"></div>
+  </div>
+
+  <div class="panel panel-warning p-4 space-y-2">
+    <h4 class="font-semibold">📊 Attention analysis</h4>
+    <div id="q24-explanation" class="text-sm space-y-2" aria-live="polite"></div>
+  </div>
+</div>
+

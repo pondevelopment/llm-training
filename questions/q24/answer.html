@@ -1,125 +1,114 @@
 <div class="space-y-4">
-        <!-- Recommended Reading (Top) -->
-        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
-            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading</h4>
-            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
-                <li><a href="#question-2" class="text-indigo-700 underline hover:text-indigo-900">Question 2: How does the attention mechanism function in transformer models?</a></li>
-                <li><a href="#question-23" class="text-indigo-700 underline hover:text-indigo-900">Question 23: How is the softmax function applied in attention mechanisms?</a></li>
-                <li><a href="#question-32" class="text-indigo-700 underline hover:text-indigo-900">Question 32: How are attention scores calculated in transformers?</a></li>
-                <li><a href="#question-22" class="text-indigo-700 underline hover:text-indigo-900">Question 22: What is multi-head attention, and how does it enhance LLMs?</a></li>
-            </ul>
-        </div>
+  <div class="panel panel-info p-3 space-y-2">
+    <h4 class="font-semibold">📚 Recommended reading</h4>
+    <ul class="list-disc ml-5 text-sm space-y-1">
+      <li><a href="#question-2" class="underline">Question 2: How does the attention mechanism function in transformer models?</a></li>
+      <li><a href="#question-23" class="underline">Question 23: How is the softmax function applied in attention mechanisms?</a></li>
+      <li><a href="#question-32" class="underline">Question 32: How are attention scores calculated in transformers?</a></li>
+      <li><a href="#question-22" class="underline">Question 22: What is multi-head attention, and how does it enhance LLMs?</a></li>
+    </ul>
+  </div>
 
-        <!-- Main Concept Box -->
-        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
-            <h4 class="font-semibold text-blue-900 mb-2">🎯 What is the Dot Product in Self-Attention?</h4>
-            <p class="text-blue-800">The dot product in self-attention is like asking "How similar are these two words?" For example, when processing "The cat sat on the mat", the word "cat" might pay more attention to "sat" (what cats do) than to "the" (just a determiner). The dot product mathematically measures this similarity by comparing the semantic vectors representing each word.</p>
-        </div>
-        
-        <!-- Intuitive Example -->
-        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400">
-            <h4 class="font-semibold text-green-900 mb-2">💡 Real-World Analogy</h4>
-            <p class="text-green-800">Think of word vectors as "personality profiles" with dimensions like [formal, emotional, action-related, concrete, temporal]. When computing attention:</p>
-            <ul class="text-green-700 mt-2 space-y-1">
-                <li>• <strong>"running" · "jogging"</strong> = high score (both are physical activities)</li>
-                <li>• <strong>"happy" · "sad"</strong> = low/negative score (opposite emotions)</li>
-                <li>• <strong>"quickly" · "fast"</strong> = high score (similar concepts of speed)</li>
-                <li>• <strong>"the" · "elephant"</strong> = low score (function word vs. concrete noun)</li>
-            </ul>
-        </div>
-        
-        <!-- Mathematical Formula -->
-        <div class="bg-gray-50 p-4 rounded-lg border border-gray-300">
-            <h4 class="font-semibold text-gray-900 mb-2">📐 The Attention Score Formula</h4>
-            <div class="math-display">$$ s = \frac{Q \cdot K}{\sqrt{d_k}} $$</div>
-            <p class="text-sm text-gray-600 mt-2">Where Q is the query vector, K is the key vector, and d<sub>k</sub> is the dimension of the key vectors (for scaling).</p>
-        </div>
-        
-        <!-- Dot Product Properties Grid -->
-        <div class="grid md:grid-cols-3 gap-4">
-            <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
-                <h5 class="font-medium text-green-900">High Similarity</h5>
-                <p class="text-sm text-green-700">Words with related meanings have high attention</p>
-                <code class="text-xs bg-green-100 px-1 rounded">"king" → "queen" (high attention)</code>
-                <div class="text-xs text-green-600 mt-1">Math: [royal, male] · [royal, female] = positive</div>
-            </div>
-            
-            <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
-                <h5 class="font-medium text-purple-900">Low Similarity</h5>
-                <p class="text-sm text-purple-700">Unrelated words have minimal attention</p>
-                <code class="text-xs bg-purple-100 px-1 rounded">"the" → "elephant" (low attention)</code>
-                <div class="text-xs text-purple-600 mt-1">Math: [function] · [concrete] ≈ 0</div>
-            </div>
-            
-            <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
-                <h5 class="font-medium text-orange-900">Opposite Meaning</h5>
-                <p class="text-sm text-orange-700">Contradictory words may have negative attention</p>
-                <code class="text-xs bg-orange-100 px-1 rounded">"hot" → "cold" (negative attention)</code>
-                <div class="text-xs text-orange-600 mt-1">Math: [warm] · [cool] = negative</div>
-            </div>
-        </div>
-        
-        <!-- Scaling and Normalization -->
-        <div class="bg-indigo-50 p-4 rounded-lg">
-            <h4 class="font-semibold text-indigo-900 mb-2">📏 Why Scale by √d<sub>k</sub>?</h4>
-            <div class="grid md:grid-cols-2 gap-4 text-sm">
-                <div>
-                    <h6 class="font-medium text-indigo-800 mb-2">Without Scaling:</h6>
-                    <ul class="text-indigo-700 space-y-1">
-                        <li>• Dot products grow with vector dimension</li>
-                        <li>• Higher dimensions → larger attention scores</li>
-                        <li>• Softmax becomes too "sharp" and concentrated</li>
-                        <li>• Gradients become very small (vanishing)</li>
-                    </ul>
-                </div>
-                <div>
-                    <h6 class="font-medium text-indigo-800 mb-2">With Scaling:</h6>
-                    <ul class="text-indigo-700 space-y-1">
-                        <li>• Normalizes scores regardless of dimension</li>
-                        <li>• Maintains stable softmax distribution</li>
-                        <li>• Prevents saturation in high dimensions</li>
-                        <li>• Enables effective gradient flow during training</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Complexity Analysis -->
-        <div class="bg-red-50 p-4 rounded-lg border-l-4 border-red-400">
-            <h4 class="font-semibold text-red-900 mb-2">⚡ Computational Complexity</h4>
-            <div class="text-sm text-red-800 space-y-2">
-                <p><strong>Quadratic Complexity O(n²):</strong> For a sequence of length n, we compute n×n dot products (every position attends to every position).</p>
-                <p><strong>Memory Impact:</strong> Attention matrix grows quadratically with sequence length, making long sequences computationally expensive.</p>
-                <p><strong>Scaling Challenge:</strong> Doubling sequence length quadruples computation, leading to research in sparse attention alternatives.</p>
-            </div>
-        </div>
-        
-        <!-- Why It Matters Section -->
-        <div class="bg-yellow-50 p-4 rounded-lg">
-            <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why Dot Product Matters in Language Understanding</h4>
-            <ul class="text-sm text-yellow-800 space-y-2">
-                <li>• <strong>Semantic Similarity:</strong> "The dog barked loudly" - "dog" and "barked" get high attention (subjects do actions)</li>
-                <li>• <strong>Contextual Relevance:</strong> "I went to the bank" - "bank" attends to context words that disambiguate meaning</li>
-                <li>• <strong>Grammatical Relations:</strong> Adjectives attend to their nouns, verbs to their subjects and objects</li>
-                <li>• <strong>Long-range Dependencies:</strong> "The book that I read yesterday was..." - "book" and "was" connect across distance</li>
-                <li>• <strong>Computational Efficiency:</strong> One mathematical operation captures complex linguistic relationships</li>
-            </ul>
-        </div>
-        
-        <!-- Alternative Approaches -->
-        <div class="bg-teal-50 p-4 rounded-lg">
-            <h4 class="font-semibold text-teal-900 mb-2">🔄 Alternative Similarity Functions</h4>
-            <div class="grid md:grid-cols-2 gap-4 text-sm">
-                <div>
-                    <h6 class="font-medium text-teal-800 mb-2">Additive Attention:</h6>
-                    <p class="text-teal-700">Uses learned weights: W[Q; K] + b</p>
-                    <p class="text-xs text-teal-600 mt-1">More parameters but can capture complex relationships</p>
-                </div>
-                <div>
-                    <h6 class="font-medium text-teal-800 mb-2">Cosine Similarity:</h6>
-                    <p class="text-teal-700">Normalized dot product: (Q·K)/(||Q||·||K||)</p>
-                    <p class="text-xs text-teal-600 mt-1">Focuses purely on direction, ignoring magnitude</p>
-                </div>
-            </div>
-        </div>
+  <div class="panel panel-info panel-emphasis p-4 space-y-2">
+    <h4 class="font-semibold">🎯 What is the dot product in self-attention?</h4>
+    <p>The dot product in self-attention asks “How similar are these two tokens?” When a transformer reads “The cat sat on the mat”, the token “cat” attends strongly to “sat” (an action) and weakly to “the” (a determiner). The dot product scores that similarity using each token’s embedding.</p>
+  </div>
+
+  <div class="panel panel-success panel-emphasis p-4 space-y-2">
+    <h4 class="font-semibold">💡 Real-world analogy</h4>
+    <p>Think of word vectors as personality profiles with traits like <em>formality</em>, <em>emotion</em>, <em>action</em>, <em>concreteness</em>, and <em>time</em>. Dot products check how aligned these traits are.</p>
+    <ul class="list-disc ml-5 text-sm space-y-1">
+      <li><strong>"running" · "jogging"</strong> → high score (nearly identical activities)</li>
+      <li><strong>"happy" · "sad"</strong> → negative score (opposite emotions)</li>
+      <li><strong>"quickly" · "fast"</strong> → high score (shared notion of speed)</li>
+      <li><strong>"the" · "elephant"</strong> → low score (function word vs concrete noun)</li>
+    </ul>
+  </div>
+
+  <div class="panel panel-neutral p-4 space-y-2">
+    <h4 class="font-semibold">📐 The attention score formula</h4>
+    <div class="math-display" id="q24-formula">$$ s = \frac{Q \cdot K}{\sqrt{d_k}} $$</div>
+    <p class="panel-muted text-sm">Q is the query vector, K is the key vector, and d<sub>k</sub> is the key dimension used for scaling.</p>
+  </div>
+
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="panel panel-success panel-emphasis p-3 space-y-2 stacked-card">
+      <h5 class="font-medium">High similarity</h5>
+      <p class="text-sm">Semantically related words reinforce each other.</p>
+      <span class="chip chip-success font-mono text-xs">"king" → "queen"</span>
+      <div class="text-xs panel-muted">Dot product &gt; 0 → aligned traits.</div>
     </div>
+    <div class="panel panel-neutral-soft p-3 space-y-2 stacked-card">
+      <h5 class="font-medium">Low similarity</h5>
+      <p class="text-sm">Unrelated tokens barely interact.</p>
+      <span class="chip chip-neutral font-mono text-xs">"the" → "elephant"</span>
+      <div class="text-xs panel-muted">Dot product ≈ 0 → minimal overlap.</div>
+    </div>
+    <div class="panel panel-warning panel-emphasis p-3 space-y-2 stacked-card">
+      <h5 class="font-medium">Opposite meaning</h5>
+      <p class="text-sm">Contradictory words can oppose attention.</p>
+      <span class="chip chip-warning font-mono text-xs">"hot" → "cold"</span>
+      <div class="text-xs panel-muted">Dot product &lt; 0 → traits negate each other.</div>
+    </div>
+  </div>
+
+  <div class="panel panel-info p-4 space-y-3">
+    <h4 class="font-semibold">📏 Why scale by √d<sub>k</sub>?</h4>
+    <div class="grid md:grid-cols-2 gap-4 text-sm">
+      <div class="space-y-1">
+        <h6 class="font-medium">Without scaling</h6>
+        <ul class="list-disc ml-5 space-y-1">
+          <li>Dot products grow with embedding dimension.</li>
+          <li>Softmax becomes extremely peaked.</li>
+          <li>Gradients shrink and training destabilises.</li>
+          <li>Longer vectors overpower shorter ones.</li>
+        </ul>
+      </div>
+      <div class="space-y-1">
+        <h6 class="font-medium">With scaling</h6>
+        <ul class="list-disc ml-5 space-y-1">
+          <li>Normalises scores across dimensions.</li>
+          <li>Keeps softmax smooth and interpretable.</li>
+          <li>Prevents saturation in high dimensions.</li>
+          <li>Maintains healthy gradient flow.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-warning panel-emphasis p-4 space-y-2">
+    <h4 class="font-semibold">⚡ Computational complexity</h4>
+    <div class="text-sm space-y-1">
+      <p><strong>Quadratic cost O(n²):</strong> Every token compares with every other token (n × n dot products).</p>
+      <p><strong>Memory impact:</strong> The attention matrix grows with n², limiting very long contexts.</p>
+      <p><strong>Scaling challenge:</strong> Doubling sequence length quadruples compute, inspiring sparse and linear attention research.</p>
+    </div>
+  </div>
+
+  <div class="panel panel-warning p-4 space-y-2">
+    <h4 class="font-semibold">🎯 Why dot-product attention matters</h4>
+    <ul class="list-disc ml-5 text-sm space-y-1">
+      <li><strong>Semantic similarity:</strong> Links tokens like "dog" ↔ "barked".</li>
+      <li><strong>Context disambiguation:</strong> Resolves meanings ("bank" ↔ "river").</li>
+      <li><strong>Grammatical structure:</strong> Connects subjects, verbs, and modifiers.</li>
+      <li><strong>Long-range links:</strong> Keeps distant references coherent.</li>
+      <li><strong>Efficient maths:</strong> One operation captures rich structure.</li>
+    </ul>
+  </div>
+
+  <div class="panel panel-accent p-4 space-y-3">
+    <h4 class="font-semibold">🔄 Alternative similarity functions</h4>
+    <div class="grid md:grid-cols-2 gap-4 text-sm">
+      <div class="space-y-1">
+        <h6 class="font-medium">Additive attention</h6>
+        <p>Uses a small feed-forward network on [Q; K] to learn non-linear similarity.</p>
+        <p class="text-xs panel-muted">Flexible but slower at inference.</p>
+      </div>
+      <div class="space-y-1">
+        <h6 class="font-medium">Cosine similarity</h6>
+        <p>Normalised dot product (Q·K)/(∥Q∥·∥K∥) that focuses on direction.</p>
+        <p class="text-xs panel-muted">Ignores vector magnitude; good for normalised embeddings.</p>
+      </div>
+    </div>
+  </div>
+</div>

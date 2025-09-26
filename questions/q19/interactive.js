@@ -1,464 +1,489 @@
 const interactiveScript = () => {
-            // Get DOM elements with error checking
-            const textSelect = document.getElementById('q19-text-select');
-            const output = document.getElementById('q19-output');
-            const modelTypeRadios = document.querySelectorAll('input[name="q19-model-type"]');
-            const taskRadios = document.querySelectorAll('input[name="q19-task"]');
-            const discriminativeTasksDiv = document.getElementById('q19-discriminative-tasks');
-            const exampleBtn = document.getElementById('q19-example-btn');
-            const modelIndicator = document.getElementById('q19-model-indicator');
-            const legend = document.getElementById('q19-legend');
-            const explanation = document.getElementById('q19-explanation');
+  const textSelect = document.getElementById('q19-text-select');
+  const output = document.getElementById('q19-output');
+  const modelTypeRadios = Array.from(document.querySelectorAll('input[name="q19-model-type"]'));
+  const taskToggle = document.getElementById('q19-task-toggle');
+  const taskButtons = taskToggle ? Array.from(taskToggle.querySelectorAll('button')) : [];
+  const discriminativeTasks = document.getElementById('q19-discriminative-tasks');
+  const exampleBtn = document.getElementById('q19-example-btn');
+  const modelIndicator = document.getElementById('q19-model-indicator');
+  const legend = document.getElementById('q19-legend');
+  const explanation = document.getElementById('q19-explanation');
 
-            // Check if required elements exist
-            if (!textSelect || !output) {
-                console.error('Required DOM elements not found');
-                return;
-            }
+  if (!textSelect || !output) {
+    console.error('q19 interactive: required DOM nodes are missing');
+    return;
+  }
 
-            // Model configurations
-            const modelData = {
-                generative: {
-                    name: 'Generative Model (GPT-style)',
-                    description: 'Generates new text by modeling P(X,Y) - the joint probability of input and output',
-                    color: 'green'
-                },
-                discriminative: {
-                    name: 'Discriminative Model (BERT-style)',
-                    description: 'Classifies text by modeling P(Y|X) - the conditional probability of output given input',
-                    color: 'purple'
-                }
-            };
+  const modelData = {
+    generative: {
+      name: 'Generative model (GPT-style)',
+      description: 'Generates new text by modelling P(X, Y) - the joint probability of input and output.',
+      indicatorClass: 'chip chip-success text-xs font-medium'
+    },
+    discriminative: {
+      name: 'Discriminative model (BERT-style)',
+      description: 'Classifies text by modelling P(Y | X) - the conditional probability of output given input.',
+      indicatorClass: 'chip chip-accent text-xs font-medium'
+    }
+  };
 
-            // Simulated model responses
-            const generativeTemplates = [
-                "will likely continue to evolve with new innovations.",
-                "represents a significant step forward in technology.",
-                "brings exciting possibilities for the future.",
-                "could revolutionize how we approach this domain.",
-                "offers tremendous potential for improvement.",
-                "demonstrates the power of modern innovation."
-            ];
+  const emotionResponses = ['Joy', 'Excitement', 'Satisfaction', 'Anger', 'Sadness', 'Fear', 'Surprise', 'Trust', 'Anticipation'];
+  const topicResponses = ['Technology', 'Entertainment', 'Business', 'Sports', 'Politics', 'Science', 'Health', 'Education'];
 
-            const sentimentResponses = {
-                positive: ['Positive', 'Very Positive', 'Extremely Positive'],
-                negative: ['Negative', 'Very Negative', 'Extremely Negative'],
-                neutral: ['Neutral', 'Slightly Positive', 'Slightly Negative']
-            };
+  const taskCopy = {
+    sentiment: 'Sentiment',
+    emotion: 'Emotion',
+    topic: 'Topic'
+  };
 
-            const emotionResponses = ['Joy', 'Excitement', 'Satisfaction', 'Anger', 'Sadness', 'Fear', 'Surprise', 'Trust', 'Anticipation'];
-            const topicResponses = ['Technology', 'Entertainment', 'Business', 'Sports', 'Politics', 'Science', 'Health', 'Education'];
+  const toneToChipClass = {
+    success: 'chip chip-success text-xs',
+    accent: 'chip chip-accent text-xs',
+    warning: 'chip chip-warning text-xs',
+    info: 'chip chip-info text-xs',
+    neutral: 'chip chip-neutral text-xs'
+  };
 
-            // Helper function to get current model type
-            function getCurrentModelType() {
-                const selectedRadio = document.querySelector('input[name="q19-model-type"]:checked');
-                return selectedRadio ? selectedRadio.value : 'generative';
-            }
+  let currentTask = 'sentiment';
 
-            // Helper function to get current task
-            function getCurrentTask() {
-                const selectedRadio = document.querySelector('input[name="q19-task"]:checked');
-                return selectedRadio ? selectedRadio.value : 'sentiment';
-            }
+  function getCurrentModelType() {
+    const selected = document.querySelector('input[name="q19-model-type"]:checked');
+    return selected ? selected.value : 'generative';
+  }
 
-            // Simulate generative model output with more sophisticated responses
-            function generateText(inputText) {
-                const text = inputText.toLowerCase();
-                
-                // More specific continuations based on input patterns
-                if (text.includes('breaking news: technology companies report')) {
-                    return inputText + " record-breaking quarterly earnings, driven by increased demand for AI solutions and cloud services.";
-                } else if (text.includes('scientists discover new treatment for')) {
-                    return inputText + " Alzheimer's disease using advanced gene therapy techniques that show promising results in early trials.";
-                } else if (text.includes('artificial intelligence will transform')) {
-                    return inputText + " industries by automating complex tasks, enhancing decision-making, and creating new opportunities for innovation.";
-                } else if (text.includes('the company\'s quarterly earnings exceeded')) {
-                    return inputText + " analyst expectations by 15%, demonstrating strong performance across all business segments.";
-                } else if (text.includes('love') && text.includes('product')) {
-                    return inputText + " The innovative design and user-friendly interface make it a standout choice in the market.";
-                } else if (text.includes('terrible') && text.includes('movie')) {
-                    return inputText + " However, the cinematography was decent and some scenes showed potential for what could have been.";
-                } else if (text.includes('weather') && text.includes('nice')) {
-                    return inputText + " The clear skies and gentle breeze create perfect conditions for outdoor activities.";
-                } else if (text.includes('excited') && text.includes('concert')) {
-                    return inputText + " The venue is amazing and I've heard they put on an incredible live show.";
-                } else if (text.includes('anxious') && text.includes('presentation')) {
-                    return inputText + " But I've prepared thoroughly and practiced multiple times to build my confidence.";
-                } else if (text.includes('restaurant') && text.includes('decent')) {
-                    return inputText + " The atmosphere is cozy though, and the prices are reasonable for the portion sizes.";
-                } else {
-                    // Fallback to original template system
-                    const templates = [
-                        "will likely continue to evolve with new innovations.",
-                        "represents a significant step forward in technology.",
-                        "brings exciting possibilities for the future.",
-                        "could revolutionize how we approach this domain.",
-                        "offers tremendous potential for improvement.",
-                        "demonstrates the power of modern innovation."
-                    ];
-                    const template = templates[Math.floor(Math.random() * templates.length)];
-                    return inputText + " " + template.charAt(0).toUpperCase() + template.slice(1);
-                }
-            }
+  function getCurrentTask() {
+    return currentTask;
+  }
 
-            // Simulate discriminative model classification with improved accuracy
-            function classifyText(inputText, task) {
-                const text = inputText.toLowerCase();
-                let result = {};
-                
-                switch(task) {
-                    case 'sentiment':
-                        if (text.includes('love') || text.includes('amazing') || text.includes('great') || text.includes('excellent') || text.includes('wonderful') || text.includes('excited')) {
-                            result = { label: 'Positive', confidence: 0.95, color: 'green' };
-                        } else if (text.includes('hate') || text.includes('terrible') || text.includes('awful') || text.includes('horrible') || text.includes('boring') || text.includes('anxious')) {
-                            result = { label: 'Negative', confidence: 0.92, color: 'red' };
-                        } else if (text.includes('decent') || text.includes('nice') || text.includes('weather')) {
-                            result = { label: 'Neutral', confidence: 0.85, color: 'gray' };
-                        } else if (text.includes('breaking news') || text.includes('scientists') || text.includes('earnings') || text.includes('companies')) {
-                            result = { label: 'Neutral', confidence: 0.78, color: 'gray' };
-                        } else {
-                            result = { label: 'Neutral', confidence: 0.72, color: 'gray' };
-                        }
-                        break;
-                        
-                    case 'emotion':
-                        if (text.includes('love') || text.includes('amazing') || text.includes('excited')) {
-                            result = { label: 'Joy', confidence: 0.94, color: 'yellow' };
-                        } else if (text.includes('excited') || text.includes('concert')) {
-                            result = { label: 'Excitement', confidence: 0.91, color: 'orange' };
-                        } else if (text.includes('terrible') || text.includes('hate') || text.includes('boring')) {
-                            result = { label: 'Anger', confidence: 0.89, color: 'red' };
-                        } else if (text.includes('anxious') || text.includes('presentation')) {
-                            result = { label: 'Anxiety', confidence: 0.88, color: 'orange' };
-                        } else if (text.includes('decent') || text.includes('nice')) {
-                            result = { label: 'Satisfaction', confidence: 0.82, color: 'green' };
-                        } else {
-                            result = { label: 'Neutral', confidence: 0.75, color: 'gray' };
-                        }
-                        break;
-                        
-                    case 'topic':
-                        if (text.includes('product') || text.includes('technology') || text.includes('software') || text.includes('artificial intelligence') || text.includes('companies report')) {
-                            result = { label: 'Technology', confidence: 0.93, color: 'blue' };
-                        } else if (text.includes('movie') || text.includes('concert') || text.includes('show')) {
-                            result = { label: 'Entertainment', confidence: 0.95, color: 'purple' };
-                        } else if (text.includes('business') || text.includes('company') || text.includes('earnings') || text.includes('quarterly')) {
-                            result = { label: 'Business', confidence: 0.90, color: 'green' };
-                        } else if (text.includes('scientists') || text.includes('treatment') || text.includes('discover')) {
-                            result = { label: 'Science', confidence: 0.92, color: 'teal' };
-                        } else if (text.includes('breaking news') || text.includes('report')) {
-                            result = { label: 'News', confidence: 0.87, color: 'red' };
-                        } else if (text.includes('restaurant') || text.includes('food')) {
-                            result = { label: 'Food & Dining', confidence: 0.89, color: 'orange' };
-                        } else if (text.includes('weather') || text.includes('walk')) {
-                            result = { label: 'Weather/Lifestyle', confidence: 0.84, color: 'blue' };
-                        } else if (text.includes('presentation') || text.includes('anxious')) {
-                            result = { label: 'Education/Work', confidence: 0.81, color: 'indigo' };
-                        } else {
-                            result = { label: 'General', confidence: 0.70, color: 'gray' };
-                        }
-                        break;
-                }
-                
-                return result;
-            }
+  function generateText(inputText) {
+    const text = inputText.toLowerCase();
 
-            // Update visual indicators for model type selection
-            function updateModelTypeVisuals() {
-                const selectedModelType = getCurrentModelType();
-                
-                // Update radio button containers
-                document.querySelectorAll('input[name="q19-model-type"]').forEach((radio) => {
-                    const container = radio.closest('label');
-                    
-                    if (radio.checked) {
-                        if (radio.value === 'generative') {
-                            container.classList.add('ring-2', 'ring-green-500', 'bg-green-50');
-                        } else {
-                            container.classList.add('ring-2', 'ring-purple-500', 'bg-purple-50');
-                        }
-                        container.classList.remove('border-gray-200');
-                    } else {
-                        container.classList.remove('ring-2', 'ring-green-500', 'ring-purple-500', 'bg-green-50', 'bg-purple-50');
-                        container.classList.add('border-gray-200');
-                    }
-                });
-                
-                // Show/hide discriminative tasks
-                if (discriminativeTasksDiv) {
-                    discriminativeTasksDiv.style.display = selectedModelType === 'discriminative' ? 'block' : 'none';
-                }
-                
-                // Update model indicator
-                if (modelIndicator) {
-                    modelIndicator.textContent = modelData[selectedModelType].name;
-                    const map = {
-                        green: 'bg-green-100 text-green-800',
-                        purple: 'bg-purple-100 text-purple-800'
-                    };
-                    modelIndicator.className = `text-xs ${map[modelData[selectedModelType].color] || 'bg-gray-100 text-gray-800'} px-2 py-1 rounded font-medium`;
-                }
-            }
+    if (text.includes('breaking news: technology companies report')) {
+      return `${inputText} record-breaking quarterly earnings, driven by increased demand for AI solutions and cloud services.`;
+    }
+    if (text.includes('scientists discover new treatment for')) {
+      return `${inputText} Alzheimer's disease using advanced gene therapy techniques that show promising results in early trials.`;
+    }
+    if (text.includes('artificial intelligence will transform')) {
+      return `${inputText} industries by automating complex tasks, enhancing decision-making, and creating new opportunities for innovation.`;
+    }
+    if (text.includes("the company's quarterly earnings exceeded")) {
+      return `${inputText} analyst expectations by 15%, demonstrating strong performance across all business segments.`;
+    }
+    if (text.includes('love') && text.includes('product')) {
+      return `${inputText} The innovative design and user-friendly interface make it a standout choice in the market.`;
+    }
+    if (text.includes('terrible') && text.includes('movie')) {
+      return `${inputText} However, the cinematography was decent and some scenes showed potential for what could have been.`;
+    }
+    if (text.includes('weather') && text.includes('nice')) {
+      return `${inputText} The clear skies and gentle breeze create perfect conditions for outdoor activities.`;
+    }
+    if (text.includes('excited') && text.includes('concert')) {
+      return `${inputText} The venue is amazing and I've heard they put on an incredible live show.`;
+    }
+    if (text.includes('anxious') && text.includes('presentation')) {
+      return `${inputText} But I've prepared thoroughly and practiced multiple times to build my confidence.`;
+    }
+    if (text.includes('restaurant') && text.includes('decent')) {
+      return `${inputText} The atmosphere is cosy though, and the prices are reasonable for the portion sizes.`;
+    }
 
-            // Update task selection visuals
-            function updateTaskVisuals() {
-                const selectedTask = getCurrentTask();
-                
-                document.querySelectorAll('input[name="q19-task"]').forEach((radio) => {
-                    const container = radio.parentElement.querySelector('div');
-                    
-                    if (radio.checked) {
-                        container.classList.add('bg-purple-100', 'border-purple-400');
-                        container.classList.remove('border-gray-200');
-                    } else {
-                        container.classList.remove('bg-purple-100', 'border-purple-400');
-                        container.classList.add('border-gray-200');
-                    }
-                });
-            }
+    const templates = [
+      'will likely continue to evolve with new innovations.',
+      'represents a significant step forward in technology.',
+      'brings exciting possibilities for the future.',
+      'could revolutionise how we approach this domain.',
+      'offers tremendous potential for improvement.',
+      'demonstrates the power of modern innovation.'
+    ];
+    const template = templates[Math.floor(Math.random() * templates.length)];
+    return `${inputText} ${template.charAt(0).toUpperCase()}${template.slice(1)}`;
+  }
 
-            // Main processing function
-            const processAndDisplay = () => {
-                const text = textSelect.value.trim();
-                const modelType = getCurrentModelType();
-                const task = getCurrentTask();
-                
-                // Clear previous results
-                output.innerHTML = '';
-                if (legend) legend.innerHTML = '';
-                
-                updateModelTypeVisuals();
-                updateTaskVisuals();
+  function classifyText(inputText, task) {
+    const text = inputText.toLowerCase();
 
-                if (!text) {
-                    output.innerHTML = '<div class="text-gray-500 text-center py-8">Select text to see how the model processes it...</div>';
-                    return;
-                }
+    const makeResult = (label, confidence, tone) => ({ label, confidence, tone });
 
-                // Create results display
-                const resultsContainer = document.createElement('div');
-                resultsContainer.className = 'space-y-4';
-                
-                if (modelType === 'generative') {
-                    // Generative model output
-                    const generated = generateText(text);
-                    
-                    // Input section
-                    const inputSection = document.createElement('div');
-                    inputSection.innerHTML = `
-                        <div class="text-sm font-medium text-gray-700 mb-2">📝 Input Text:</div>
-                        <div class="p-3 bg-gray-100 rounded border text-sm">${text}</div>
-                    `;
-                    resultsContainer.appendChild(inputSection);
-                    
-                    // Generated section
-                    const generatedSection = document.createElement('div');
-                    generatedSection.innerHTML = `
-                        <div class="text-sm font-medium text-green-700 mb-2">🎨 Generated Continuation:</div>
-                        <div class="p-3 bg-green-50 border border-green-200 rounded text-sm">
-                            <span class="text-gray-600">${text}</span>
-                            <span class="text-green-700 font-medium">${generated.slice(text.length)}</span>
-                        </div>
-                    `;
-                    resultsContainer.appendChild(generatedSection);
-                    
-                    // Stats
-                    const statsSection = document.createElement('div');
-                    statsSection.className = 'grid grid-cols-3 gap-3 p-3 bg-white rounded border text-sm';
-                    statsSection.innerHTML = `
-                        <div class="text-center">
-                            <div class="text-lg font-bold text-green-600">${text.split(' ').length}</div>
-                            <div class="text-gray-600 text-xs">Input Tokens</div>
-                        </div>
-                        <div class="text-center">
-                            <div class="text-lg font-bold text-blue-600">${generated.split(' ').length}</div>
-                            <div class="text-gray-600 text-xs">Total Tokens</div>
-                        </div>
-                        <div class="text-center">
-                            <div class="text-lg font-bold text-purple-600">${(generated.split(' ').length - text.split(' ').length)}</div>
-                            <div class="text-gray-600 text-xs">Generated</div>
-                        </div>
-                    `;
-                    resultsContainer.appendChild(statsSection);
-                    
-                } else {
-                    // Discriminative model output
-                    const classification = classifyText(text, task);
-                    
-                    // Input section
-                    const inputSection = document.createElement('div');
-                    inputSection.innerHTML = `
-                        <div class="text-sm font-medium text-gray-700 mb-2">📝 Input Text:</div>
-                        <div class="p-3 bg-gray-100 rounded border text-sm">${text}</div>
-                    `;
-                    resultsContainer.appendChild(inputSection);
-                    
-                    // Classification section
-                    const classificationSection = document.createElement('div');
-                    const colorMap = {
-                        gray:  { label: 'text-gray-600',   badgeBg: 'bg-gray-100',   badgeText: 'text-gray-800',   bar: 'bg-gray-500' },
-                        red:   { label: 'text-red-600',    badgeBg: 'bg-red-100',    badgeText: 'text-red-800',    bar: 'bg-red-500' },
-                        green: { label: 'text-green-600',  badgeBg: 'bg-green-100',  badgeText: 'text-green-800',  bar: 'bg-green-500' },
-                        yellow:{ label: 'text-yellow-600', badgeBg: 'bg-yellow-100', badgeText: 'text-yellow-800', bar: 'bg-yellow-500' },
-                        orange:{ label: 'text-orange-600', badgeBg: 'bg-orange-100', badgeText: 'text-orange-800', bar: 'bg-orange-500' },
-                        blue:  { label: 'text-blue-600',   badgeBg: 'bg-blue-100',   badgeText: 'text-blue-800',   bar: 'bg-blue-500' },
-                        teal:  { label: 'text-teal-600',   badgeBg: 'bg-teal-100',   badgeText: 'text-teal-800',   bar: 'bg-teal-500' },
-                        indigo:{ label: 'text-indigo-600', badgeBg: 'bg-indigo-100', badgeText: 'text-indigo-800', bar: 'bg-indigo-500' },
-                        purple:{ label: 'text-purple-600', badgeBg: 'bg-purple-100', badgeText: 'text-purple-800', bar: 'bg-purple-500' }
-                    };
-                    const c = colorMap[classification.color] || colorMap.gray;
-                    classificationSection.innerHTML = `
-                        <div class="text-sm font-medium text-purple-700 mb-2">🎯 ${task.charAt(0).toUpperCase() + task.slice(1)} Classification:</div>
-                        <div class="p-4 bg-purple-50 border border-purple-200 rounded">
-                            <div class="flex items-center justify-between mb-2">
-                                <span class="text-lg font-bold ${c.label}">${classification.label}</span>
-                                <span class="text-xs ${c.badgeBg} ${c.badgeText} px-2 py-1 rounded">
-                                    ${(classification.confidence * 100).toFixed(1)}% confident
-                                </span>
-                            </div>
-                            <div class="w-full bg-gray-200 rounded-full h-2">
-                                <div class="${c.bar} h-2 rounded-full transition-all duration-500" style="width: ${classification.confidence * 100}%"></div>
-                            </div>
-                        </div>
-                    `;
-                    resultsContainer.appendChild(classificationSection);
-                    
-                    // Alternative predictions
-                    const alternativesSection = document.createElement('div');
-                    alternativesSection.innerHTML = `
-                        <div class="text-sm font-medium text-gray-700 mb-2">🔄 Alternative Predictions:</div>
-                        <div class="space-y-1">
-                            ${task === 'sentiment' ? 
-                                ['Positive', 'Negative', 'Neutral'].filter(s => s !== classification.label).map(s => 
-                                    `<div class="flex justify-between text-xs p-2 bg-gray-50 rounded">
-                                        <span>${s}</span>
-                                        <span>${((1 - classification.confidence) * Math.random() * 100).toFixed(1)}%</span>
-                                    </div>`
-                                ).join('') :
-                                task === 'emotion' ?
-                                emotionResponses.filter(e => e !== classification.label).slice(0, 3).map(e =>
-                                    `<div class="flex justify-between text-xs p-2 bg-gray-50 rounded">
-                                        <span>${e}</span>
-                                        <span>${((1 - classification.confidence) * Math.random() * 100).toFixed(1)}%</span>
-                                    </div>`
-                                ).join('') :
-                                topicResponses.filter(t => t !== classification.label).slice(0, 3).map(t =>
-                                    `<div class="flex justify-between text-xs p-2 bg-gray-50 rounded">
-                                        <span>${t}</span>
-                                        <span>${((1 - classification.confidence) * Math.random() * 100).toFixed(1)}%</span>
-                                    </div>`
-                                ).join('')
-                            }
-                        </div>
-                    `;
-                    resultsContainer.appendChild(alternativesSection);
-                }
+    switch (task) {
+      case 'sentiment': {
+        if (text.includes('love') || text.includes('amazing') || text.includes('excited')) {
+          return makeResult('Positive', 0.95, 'success');
+        }
+        if (text.includes('terrible') || text.includes('boring') || text.includes('awful') || text.includes('hate')) {
+          return makeResult('Negative', 0.92, 'warning');
+        }
+        return makeResult('Neutral', 0.82, 'neutral');
+      }
+      case 'emotion': {
+        if (text.includes('love') || text.includes('amazing')) {
+          return makeResult('Joy', 0.94, 'success');
+        }
+        if (text.includes('excited') || text.includes('concert')) {
+          return makeResult('Excitement', 0.91, 'accent');
+        }
+        if (text.includes('terrible') || text.includes('boring')) {
+          return makeResult('Anger', 0.89, 'warning');
+        }
+        if (text.includes('anxious') || text.includes('presentation')) {
+          return makeResult('Anxiety', 0.88, 'warning');
+        }
+        return makeResult('Neutral', 0.78, 'neutral');
+      }
+      case 'topic': {
+        if (text.includes('technology') || text.includes('ai') || text.includes('artificial intelligence')) {
+          return makeResult('Technology', 0.93, 'info');
+        }
+        if (text.includes('movie') || text.includes('concert') || text.includes('show')) {
+          return makeResult('Entertainment', 0.95, 'accent');
+        }
+        if (text.includes('company') || text.includes('earnings') || text.includes('business')) {
+          return makeResult('Business', 0.9, 'success');
+        }
+        if (text.includes('scientists') || text.includes('treatment') || text.includes('discover')) {
+          return makeResult('Science', 0.92, 'info');
+        }
+        if (text.includes('restaurant') || text.includes('food')) {
+          return makeResult('Food & Dining', 0.89, 'accent');
+        }
+        if (text.includes('weather') || text.includes('walk')) {
+          return makeResult('Lifestyle', 0.84, 'neutral');
+        }
+        return makeResult('General', 0.75, 'neutral');
+      }
+      default:
+        return makeResult('Unknown', 0.5, 'neutral');
+    }
+  }
 
-                output.appendChild(resultsContainer);
+  function buildAlternatives(task, primaryLabel, primaryConfidence) {
+    const remainder = Math.max(0.05, 1 - primaryConfidence);
+    const randomConfidence = () => (remainder * (0.5 + Math.random() * 0.4) * 100).toFixed(1);
 
-                // Update educational explanation
-                updateExplanation(modelType, task);
-            };
+    if (task === 'sentiment') {
+      return ['Positive', 'Negative', 'Neutral']
+        .filter(label => label !== primaryLabel)
+        .map(label => ({ label, percent: randomConfidence() }));
+    }
+    if (task === 'emotion') {
+      return emotionResponses
+        .filter(label => label !== primaryLabel)
+        .slice(0, 3)
+        .map(label => ({ label, percent: randomConfidence() }));
+    }
+    return topicResponses
+      .filter(label => label !== primaryLabel)
+      .slice(0, 3)
+      .map(label => ({ label, percent: randomConfidence() }));
+  }
 
-            // Update the educational explanation based on selected model type
-            function updateExplanation(modelType, task) {
-                if (!explanation) return;
-                
-                const explanations = {
-                    'generative': `
-                        <strong>🎨 Generative Model (like GPT)</strong> works by learning the joint probability P(X,Y) of text sequences.
-                        <br><br>• <strong>How it works:</strong> The model predicts the next word based on all previous words, building text token by token
-                        <br>• <strong>Training:</strong> Learns from massive text corpora to understand language patterns and continue text naturally
-                        <br>• <strong>Strength:</strong> Can create entirely new, coherent content that didn't exist in training data
-                        <br>• <strong>Use cases:</strong> Content generation, creative writing, translation, summarization, conversation
-                        <br>• <strong>Example models:</strong> OpenAI: GPT-4.1/4o, o1/o3; Anthropic: Claude 3.7/4; Google: Gemini 2.5 Pro/Flash; Meta: Llama 3.1/4; Mistral: Large 2, Mixtral, Magistral
-                        <br>• <strong>Note:</strong> ChatGPT is an application using GPT models; cite the underlying model when possible
-                    `,
-                    'discriminative': `
-                        <strong>🎯 Discriminative Model (like BERT)</strong> works by learning conditional probability P(Y|X) to classify inputs.
-                        <br><br>• <strong>How it works:</strong> The model learns decision boundaries to separate different categories of text
-                        <br>• <strong>Training:</strong> Uses labeled data to learn patterns that distinguish between classes (positive/negative, topics, etc.)
-                        <br>• <strong>Strength:</strong> Highly accurate at classification and analysis tasks with clear categories
-                        <br>• <strong>Current task:</strong> ${task.charAt(0).toUpperCase() + task.slice(1)} analysis - determining the ${task} of input text
-                        <br>• <strong>Example models:</strong> BERT, RoBERTa, DistilBERT, ELECTRA
-                    `
-                };
-                
-                explanation.innerHTML = explanations[modelType] || '';
-            }
+  function updateModelIndicator(modelType) {
+    if (!modelIndicator) return;
+    const config = modelData[modelType];
+    modelIndicator.className = config.indicatorClass;
+    modelIndicator.textContent = config.name;
+  }
 
-            // Example cycling functionality - now cycles through dropdown options
-            const examples = [
-                { 
-                    value: 'This movie was terrible and completely boring.', 
-                    modelType: 'discriminative', 
-                    task: 'sentiment',
-                    note: 'Perfect for sentiment analysis - clear negative emotion' 
-                },
-                { 
-                    value: 'Breaking news: Technology companies report', 
-                    modelType: 'generative', 
-                    task: 'sentiment',
-                    note: 'Great for text generation - incomplete sentence to continue' 
-                },
-                { 
-                    value: "I'm so excited about this upcoming concert!", 
-                    modelType: 'discriminative', 
-                    task: 'emotion',
-                    note: 'Shows strong positive emotion - good for emotion classification' 
-                },
-                { 
-                    value: 'Artificial intelligence will transform', 
-                    modelType: 'generative', 
-                    task: 'topic',
-                    note: 'AI topic starter - perfect for text generation' 
-                },
-                { 
-                    value: 'Scientists discover new treatment for', 
-                    modelType: 'generative', 
-                    task: 'topic',
-                    note: 'Science news starter - excellent for continuation' 
-                }
-            ];
-            
-            let exampleIndex = 0;
-            if (exampleBtn) {
-                exampleBtn.addEventListener('click', () => {
-                    const example = examples[exampleIndex % examples.length];
-                    textSelect.value = example.value;
-                    document.querySelector(`input[name="q19-model-type"][value="${example.modelType}"]`).checked = true;
-                    document.querySelector(`input[name="q19-task"][value="${example.task}"]`).checked = true;
-                    processAndDisplay();
-                    exampleIndex++;
-                    
-                    // Update button text for next example
-                    const nextExample = examples[exampleIndex % examples.length];
-                    const shortText = nextExample.value.length > 25 ? nextExample.value.substring(0, 25) + '...' : nextExample.value;
-                    exampleBtn.innerHTML = `Try: "${shortText}"`;
-                    exampleBtn.title = nextExample.note;
-                });
-            }
+  function updateModelTypeVisuals() {
+    const modelType = getCurrentModelType();
 
-            // Event listeners
-            textSelect.addEventListener('change', processAndDisplay);
-            modelTypeRadios.forEach(radio => {
-                radio.addEventListener('change', () => {
-                    updateModelTypeVisuals();
-                    processAndDisplay();
-                });
-            });
-            taskRadios.forEach(radio => {
-                radio.addEventListener('change', () => {
-                    updateTaskVisuals();
-                    processAndDisplay();
-                });
-            });
-            
-            // Initial setup
-            updateModelTypeVisuals();
-            updateTaskVisuals();
-            processAndDisplay();
-        };
+    modelTypeRadios.forEach(radio => {
+      const card = radio.closest('.question-strategy');
+      if (!card) return;
+      const isActive = radio.checked;
+      card.classList.toggle('question-strategy-active', isActive);
+      card.dataset.active = isActive ? 'true' : 'false';
+    });
+
+    if (discriminativeTasks) {
+      if (modelType === 'discriminative') {
+        discriminativeTasks.classList.remove('hidden');
+      } else {
+        discriminativeTasks.classList.add('hidden');
+      }
+    }
+
+    updateModelIndicator(modelType);
+  }
+
+  function updateTaskVisuals() {
+    if (!taskButtons.length) return;
+    const activeTask = getCurrentTask();
+
+    taskButtons.forEach(button => {
+      const isActive = button.dataset.task === activeTask;
+      button.classList.toggle('toggle-active', isActive);
+      button.classList.toggle('toggle-inactive', !isActive);
+      button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+    });
+  }
+
+  function renderGenerativeResults(text) {
+    const generated = generateText(text);
+    const wrapper = document.createElement('div');
+    wrapper.className = 'space-y-3';
+
+    const inputCard = document.createElement('div');
+    inputCard.className = 'panel panel-neutral p-3 space-y-2';
+    inputCard.innerHTML = `
+      <div class="text-sm font-medium text-heading">📝 Input text</div>
+      <p class="text-sm text-body">${text}</p>
+    `;
+    wrapper.appendChild(inputCard);
+
+    const outputCard = document.createElement('div');
+    outputCard.className = 'panel panel-success p-3 space-y-2';
+    outputCard.innerHTML = `
+      <div class="text-sm font-medium text-heading">🎨 Generated continuation</div>
+      <p class="text-sm text-body">${generated}</p>
+    `;
+    wrapper.appendChild(outputCard);
+
+    const statsCard = document.createElement('div');
+    statsCard.className = 'grid grid-cols-1 md:grid-cols-3 gap-3';
+    const inputTokens = text.split(/\s+/).filter(Boolean).length;
+    const totalTokens = generated.split(/\s+/).filter(Boolean).length;
+    const generatedTokens = Math.max(0, totalTokens - inputTokens);
+    const statItems = [
+      { label: 'Input tokens', value: inputTokens },
+      { label: 'Total tokens', value: totalTokens },
+      { label: 'Generated', value: generatedTokens }
+    ];
+
+    statItems.forEach(({ label, value }) => {
+      const stat = document.createElement('div');
+      stat.className = 'panel panel-neutral p-3 text-center space-y-1';
+      stat.innerHTML = `
+        <div class="text-lg font-semibold text-heading">${value}</div>
+        <div class="text-xs text-muted uppercase tracking-wide">${label}</div>
+      `;
+      statsCard.appendChild(stat);
+    });
+
+    wrapper.appendChild(statsCard);
+    return wrapper;
+  }
+
+  function renderDiscriminativeResults(text, task) {
+    const classification = classifyText(text, task);
+    const wrapper = document.createElement('div');
+    wrapper.className = 'space-y-3';
+
+    const inputCard = document.createElement('div');
+    inputCard.className = 'panel panel-neutral p-3 space-y-2';
+    inputCard.innerHTML = `
+      <div class="text-sm font-medium text-heading">📝 Input text</div>
+      <p class="text-sm text-body">${text}</p>
+    `;
+    wrapper.appendChild(inputCard);
+
+    const resultCard = document.createElement('div');
+    resultCard.className = 'panel panel-accent p-3 space-y-2';
+    const chipClass = toneToChipClass[classification.tone] || toneToChipClass.neutral;
+    resultCard.innerHTML = `
+      <div class="flex items-center justify-between gap-2">
+        <div class="text-sm font-medium text-heading">🎯 ${taskCopy[task] || 'Classification'} result</div>
+        <span class="${chipClass}">${classification.label}</span>
+      </div>
+      <p class="text-sm text-body">The model predicts <strong>${classification.label}</strong> with ${(classification.confidence * 100).toFixed(1)}% confidence.</p>
+    `;
+    wrapper.appendChild(resultCard);
+
+    const alternatives = buildAlternatives(task, classification.label, classification.confidence);
+    const alternativesCard = document.createElement('div');
+    alternativesCard.className = 'panel panel-neutral p-3 space-y-2';
+    alternativesCard.innerHTML = `
+      <div class="text-sm font-medium text-heading">🔄 Alternative predictions</div>
+      <div class="space-y-1">
+        ${alternatives.map(item => `
+          <div class="flex items-center justify-between text-xs text-body border border-subtle rounded px-2 py-1 bg-subtle">
+            <span>${item.label}</span>
+            <span>${item.percent}%</span>
+          </div>
+        `).join('')}
+      </div>
+    `;
+    wrapper.appendChild(alternativesCard);
+
+    return wrapper;
+  }
+
+  function updateLegend(modelType, task) {
+    if (!legend) return;
+
+    const description = modelData[modelType]?.description || '';
+
+    if (modelType === 'generative') {
+      legend.innerHTML = `
+        <div class="panel panel-neutral p-3 space-y-2">
+          <div class="font-semibold text-heading text-sm">How to read this</div>
+          ${description ? `<p class="text-xs text-body">${description}</p>` : ''}
+          <ul class="list-disc ml-4 text-xs text-body space-y-1">
+            <li>Samples the next token from the joint distribution P(X, Y).</li>
+            <li>Needs broad, diverse data and large compute budgets.</li>
+            <li>Best for writing, translating, or summarising new content.</li>
+          </ul>
+        </div>
+      `;
+      return;
+    }
+
+    const taskDetails = {
+      sentiment: 'Scores the tone of the text on a positive vs. negative scale.',
+      emotion: 'Maps the text to common emotions such as joy, anger, or fear.',
+      topic: 'Assigns the text to a coarse topic bucket (technology, business, etc.).'
+    };
+
+    legend.innerHTML = `
+      <div class="panel panel-neutral p-3 space-y-2">
+        <div class="font-semibold text-heading text-sm">How to read this</div>
+        ${description ? `<p class="text-xs text-body">${description}</p>` : ''}
+        <ul class="list-disc ml-4 text-xs text-body space-y-1">
+          <li>Examines features of the input to predict ${taskCopy[task] || 'the label'}.</li>
+          <li>${taskDetails[task] || 'Uses labelled examples to learn decision boundaries.'}</li>
+          <li>Confidence reflects how strongly the model favours the predicted label.</li>
+        </ul>
+      </div>
+    `;
+  }
+
+  function updateExplanation(modelType, task) {
+    if (!explanation) return;
+
+    if (modelType === 'generative') {
+      explanation.innerHTML = `
+        <p><strong>Generative models</strong> learn the joint probability P(X, Y) so they can sample new text token by token.</p>
+        <ul class="list-disc ml-4 space-y-1">
+          <li><strong>How it works:</strong> Predicts the next token given everything seen so far.</li>
+          <li><strong>Training:</strong> Massive text corpora teach it grammar, facts, and style.</li>
+          <li><strong>Strength:</strong> Creates coherent continuations, translations, or summaries.</li>
+          <li><strong>Examples:</strong> GPT-4.1, Claude 3.7, Gemini 2.5, Llama 3.1, Mixtral.</li>
+        </ul>
+      `;
+      return;
+    }
+
+    explanation.innerHTML = `
+      <p><strong>Discriminative models</strong> learn the conditional probability P(Y | X) so they can classify existing text.</p>
+      <ul class="list-disc ml-4 space-y-1">
+        <li><strong>How it works:</strong> Learns decision boundaries that separate classes.</li>
+        <li><strong>Training:</strong> Needs labelled examples for each category.</li>
+        <li><strong>Strength:</strong> High accuracy on analysis tasks with clear labels.</li>
+        <li><strong>Current task:</strong> ${taskCopy[task] || 'Classification'} - determining the ${task} of the input.</li>
+        <li><strong>Examples:</strong> BERT, RoBERTa, DistilBERT, ELECTRA.</li>
+      </ul>
+    `;
+  }
+
+  function processAndDisplay() {
+    const text = textSelect.value.trim();
+    const modelType = getCurrentModelType();
+    const task = getCurrentTask();
+
+    output.innerHTML = '';
+    if (legend) legend.innerHTML = '';
+
+    updateModelTypeVisuals();
+    updateTaskVisuals();
+    updateLegend(modelType, task);
+    updateExplanation(modelType, task);
+
+    if (!text) {
+      const placeholder = document.createElement('div');
+      placeholder.className = 'panel panel-neutral p-4 text-center text-muted';
+      placeholder.textContent = 'Select text to see how the model processes it.';
+      output.appendChild(placeholder);
+      return;
+    }
+
+    const results = modelType === 'generative'
+      ? renderGenerativeResults(text)
+      : renderDiscriminativeResults(text, task);
+
+    output.appendChild(results);
+  }
+
+  textSelect.addEventListener('change', processAndDisplay);
+
+  modelTypeRadios.forEach(radio => {
+    radio.addEventListener('change', () => {
+      if (radio.value !== 'discriminative') {
+        currentTask = 'sentiment';
+      }
+      processAndDisplay();
+    });
+  });
+
+  taskButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      currentTask = button.dataset.task || 'sentiment';
+      processAndDisplay();
+    });
+  });
+
+  const examples = [
+    {
+      value: 'This movie was terrible and completely boring.',
+      modelType: 'discriminative',
+      task: 'sentiment',
+      note: 'Perfect for sentiment analysis - clear negative tone.'
+    },
+    {
+      value: 'Breaking news: Technology companies report',
+      modelType: 'generative',
+      task: 'sentiment',
+      note: 'Great for text generation - incomplete sentence to continue.'
+    },
+    {
+      value: "I'm so excited about this upcoming concert!",
+      modelType: 'discriminative',
+      task: 'emotion',
+      note: 'Shows strong positive emotion - useful for emotion classification.'
+    },
+    {
+      value: 'Artificial intelligence will transform',
+      modelType: 'generative',
+      task: 'topic',
+      note: 'AI topic starter - ideal for generative continuation.'
+    },
+    {
+      value: 'Scientists discover new treatment for',
+      modelType: 'generative',
+      task: 'topic',
+      note: 'Science headline starter - excellent for continuation.'
+    }
+  ];
+
+  let exampleIndex = 0;
+  if (exampleBtn) {
+    exampleBtn.addEventListener('click', () => {
+      const example = examples[exampleIndex % examples.length];
+      exampleIndex += 1;
+
+      textSelect.value = example.value;
+
+      const targetRadio = document.querySelector(`input[name="q19-model-type"][value="${example.modelType}"]`);
+      if (targetRadio) {
+        targetRadio.checked = true;
+      }
+
+      currentTask = example.task;
+
+      const nextExample = examples[exampleIndex % examples.length];
+      const shortText = nextExample.value.length > 30
+        ? `${nextExample.value.slice(0, 30)}...`
+        : nextExample.value;
+      exampleBtn.textContent = `Try: "${shortText}"`;
+      exampleBtn.title = nextExample.note;
+
+      processAndDisplay();
+    });
+  }
+
+  processAndDisplay();
+};
 
 if (typeof module !== 'undefined') {
   module.exports = interactiveScript;

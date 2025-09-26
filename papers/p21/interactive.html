@@ -1,0 +1,93 @@
+<div id="p21-lab" class="space-y-6">
+  <section class="bg-gradient-to-r from-slate-50 via-indigo-50 to-slate-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 border border-indigo-100 dark:border-slate-700 rounded-xl p-4 space-y-3">
+    <div class="flex flex-col md:flex-row md:items-end gap-4">
+      <div class="flex-1">
+        <label for="p21-scenario" class="block text-sm font-semibold text-indigo-900 dark:text-indigo-200">Preset scenario</label>
+        <select id="p21-scenario" class="mt-1 w-full px-3 py-2 border border-indigo-200 dark:border-slate-600 rounded-md text-sm bg-card text-heading focus:outline-none focus:ring-2 focus:ring-indigo-500">
+          <option value="baseline">Baseline (paper setup)</option>
+          <option value="prompting">Prompt engineer assists</option>
+          <option value="toolchain">Tool-augmented lab</option>
+        </select>
+      </div>
+      <p class="text-xs text-indigo-800 dark:text-indigo-200 max-w-lg">
+        Presets load token budgets, prompt scaffolding, and tooling so you can compare against the authors&apos; original run or a more instrumented workflow.
+      </p>
+    </div>
+    <div class="flex flex-wrap gap-3 text-[11px] text-indigo-700 dark:text-indigo-200">
+      <span class="inline-flex items-center gap-1 px-2 py-0.5 border border-indigo-200 dark:border-slate-600 rounded-full bg-card">🧪 5 conjectures</span>
+      <span class="inline-flex items-center gap-1 px-2 py-0.5 border border-indigo-200 dark:border-slate-600 rounded-full bg-card">🎯 Goal: correct proofs</span>
+      <span class="inline-flex items-center gap-1 px-2 py-0.5 border border-indigo-200 dark:border-slate-600 rounded-full bg-card">⚠️ Beware polished but wrong steps</span>
+    </div>
+  </section>
+
+  <section class="grid md:grid-cols-2 gap-4">
+    <article class="bg-card border border-subtle rounded-lg p-4 space-y-3">
+      <div>
+        <label for="p21-analysis" class="block text-xs font-semibold uppercase tracking-wide text-muted">Analysis tokens</label>
+        <input id="p21-analysis" type="range" min="500" max="4000" step="100" value="1200" class="w-full accent-indigo-600 mt-2">
+        <p class="text-xs text-muted-soft">Controls how long the model can reason before finalising the proof. Higher budgets help with longer derivations.</p>
+        <p class="text-xs text-secondary"><span id="p21-analysis-display" class="font-semibold text-heading">1200</span> tokens allocated.</p>
+      </div>
+      <div>
+        <label for="p21-prompt" class="block text-xs font-semibold uppercase tracking-wide text-muted">Prompt scaffolding</label>
+        <input id="p21-prompt" type="range" min="0" max="3" step="1" value="1" class="w-full accent-indigo-600 mt-2">
+        <p class="text-xs text-muted-soft">0 = single request, 3 = fully structured proof outline with explicit checkpoints.</p>
+        <p class="text-xs text-secondary">Current level: <span id="p21-prompt-label" class="font-semibold text-heading">Light</span>.</p>
+      </div>
+    </article>
+    <article class="bg-card border border-subtle rounded-lg p-4 space-y-3">
+      <fieldset class="space-y-2">
+        <legend class="text-xs font-semibold uppercase tracking-wide text-muted">Enable supports</legend>
+        <label class="flex items-start gap-3 text-sm text-secondary">
+          <input id="p21-cross" type="checkbox" class="mt-0.5 accent-indigo-600">
+          <span>Cross-paper retrieval agent <span class="block text-xs text-muted-soft">Lets the model weave lemmas from multiple sources (critical for Problem 4).</span></span>
+        </label>
+        <label class="flex items-start gap-3 text-sm text-secondary">
+          <input id="p21-proofcheck" type="checkbox" class="mt-0.5 accent-indigo-600">
+          <span>Automated proof checker <span class="block text-xs text-muted-soft">Catches algebraic slips before humans review.</span></span>
+        </label>
+        <label class="flex items-start gap-3 text-sm text-secondary">
+          <input id="p21-cas" type="checkbox" class="mt-0.5 accent-indigo-600">
+          <span>Symbolic math toolbox <span class="block text-xs text-muted-soft">Provides exact simplifications for tricky inequalities.</span></span>
+        </label>
+      </fieldset>
+      <p class="text-xs text-muted-soft">Toggle tooling to see how readiness shifts. The authors ran without proof checkers; only references were provided.</p>
+    </article>
+  </section>
+
+  <section class="grid md:grid-cols-3 gap-4" id="p21-metrics">
+    <article class="bg-card border border-subtle rounded-lg p-4 space-y-2">
+      <h4 class="text-xs font-semibold uppercase tracking-wide text-muted">Godel readiness index</h4>
+      <p id="p21-readiness" class="text-2xl font-semibold text-heading">--</p>
+      <p class="text-xs text-muted-soft">Share of conjectures likely to receive correct, verifiable proofs.</p>
+    </article>
+    <article class="bg-card border border-subtle rounded-lg p-4 space-y-2">
+      <h4 class="text-xs font-semibold uppercase tracking-wide text-muted">Review load</h4>
+      <p id="p21-review" class="text-lg font-semibold text-heading">--</p>
+      <p class="text-xs text-muted-soft">Estimated proportion of proofs needing manual reconstruction.</p>
+    </article>
+    <article class="bg-card border border-subtle rounded-lg p-4 space-y-2">
+      <h4 class="text-xs font-semibold uppercase tracking-wide text-muted">False confidence risk</h4>
+      <p id="p21-risk" class="text-sm font-semibold text-heading">--</p>
+      <p class="text-xs text-muted-soft">High when outputs look polished yet tools can&apos;t verify the steps.</p>
+    </article>
+  </section>
+
+  <section class="bg-card border border-subtle rounded-xl p-5 space-y-4">
+    <header class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+      <h3 class="text-sm font-semibold text-heading">Problem-by-problem outlook</h3>
+      <p class="text-xs text-muted-soft">Statuses mirror the five conjectures from the paper.</p>
+    </header>
+    <div id="p21-problems" class="grid sm:grid-cols-2 gap-3"></div>
+  </section>
+
+  <section class="bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-500 rounded-xl p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-amber-900 dark:text-amber-200">Narrative</h3>
+    <div id="p21-narrative" class="text-sm text-amber-800 dark:text-amber-100 space-y-2"></div>
+  </section>
+
+  <section class="bg-rose-50 dark:bg-rose-900/30 border border-rose-200 dark:border-rose-500 rounded-xl p-5 space-y-2">
+    <h3 class="text-sm font-semibold text-rose-900 dark:text-rose-100">Next moves</h3>
+    <ul id="p21-actions" class="list-disc ml-5 text-sm text-rose-800 dark:text-rose-100 space-y-1"></ul>
+  </section>
+</div>

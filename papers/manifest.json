@@ -1,4 +1,26 @@
 {
+  "21": {
+    "title": "Godel Test: Can Large Language Models Solve Easy Conjectures?",
+    "authors": [
+      "Moran Feldman",
+      "Amin Karbasi"
+    ],
+    "year": 2025,
+    "venue": "arXiv cs.AI (2025-09-22)",
+    "tags": [
+      "reasoning",
+      "math",
+      "evaluation"
+    ],
+    "summary": "Benchmarks GPT-5 on fresh, easy conjectures; shows progress on routine proofs but fragility on cross-paper synthesis and verification.",
+    "dir": "./papers/p21",
+    "interactiveTitle": "Godel readiness lab",
+    "relatedQuestions": [
+      38,
+      45,
+      56
+    ]
+  },
   "20": {
     "title": "The Coasean Singularity? Demand, Supply, and Market Design with AI Agents",
     "authors": [

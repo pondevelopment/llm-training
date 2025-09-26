@@ -85,38 +85,32 @@ const interactiveScript = () => {
             const strategyConfig = {
                 basic: {
                     name: "Basic",
-                    color: "text-red-700",
-                    bgColor: "bg-red-100",
+                    chipTone: "chip-warning",
                     explanation: "Basic prompts are too vague and lack context. They often lead to inconsistent results because the model has to guess what you want. This approach wastes tokens and produces unreliable outputs."
                 },
                 "zero-shot": {
                     name: "Zero-Shot",
-                    color: "text-yellow-700", 
-                    bgColor: "bg-yellow-100",
+                    chipTone: "chip-info",
                     explanation: "Zero-shot prompts provide clear instructions and context without examples. They work well for straightforward tasks and are token-efficient. The model relies on its training to understand the task format."
                 },
                 "few-shot": {
                     name: "Few-Shot",
-                    color: "text-blue-700",
-                    bgColor: "bg-blue-100", 
+                    chipTone: "chip-success",
                     explanation: "Few-shot prompts include 2-5 examples that demonstrate the desired input-output pattern. This dramatically improves consistency and accuracy by showing the model exactly what format and style you want."
                 },
                 "chain-of-thought": {
                     name: "Chain-of-Thought",
-                    color: "text-green-700",
-                    bgColor: "bg-green-100",
+                    chipTone: "chip-accent",
                     explanation: "Chain-of-thought prompting guides the model to show its reasoning process. This improves accuracy on complex tasks by breaking them into logical steps, though it uses more tokens."
                 },
                 "structured-json": {
                     name: "Structured JSON",
-                    color: "text-indigo-700",
-                    bgColor: "bg-indigo-100",
+                    chipTone: "chip-accent",
                     explanation: "Schema-constrained prompting requests strict JSON so outputs are machine-parseable. Define fields, types, and allowed values; forbid extra keys. Great for integrations and evaluation."
                 },
                 grounded: {
                     name: "Grounded",
-                    color: "text-purple-700",
-                    bgColor: "bg-purple-100",
+                    chipTone: "chip-neutral",
                     explanation: "Grounded prompting restricts answers to supplied context and requires citations or 'NOT FOUND' when information is missing. This reduces hallucinations and improves trust."
                 }
             };
@@ -166,7 +160,7 @@ const interactiveScript = () => {
                 // Update strategy indicator
                 if (strategyIndicator) {
                     strategyIndicator.textContent = config.name;
-                    strategyIndicator.className = `text-xs px-2 py-1 rounded font-medium ${config.color} ${config.bgColor}`;
+                    strategyIndicator.className = `chip ${config.chipTone} text-xs font-semibold`;
                 }
 
                 // Update performance metrics
@@ -188,17 +182,34 @@ const interactiveScript = () => {
                     else if (performance >= 70) performanceLabel = 'Good Performance';
                     else if (performance >= 55) performanceLabel = 'Fair Performance';
                     performanceText.textContent = performanceLabel;
+                    let performanceTone = 'chip-neutral';
+                    if (performance >= 85) {
+                        performanceTone = 'chip-success';
+                    } else if (performance >= 70) {
+                        performanceTone = 'chip-info';
+                    } else if (performance >= 55) {
+                        performanceTone = 'chip-warning';
+                    }
+                    performanceText.className = `chip ${performanceTone} text-xs font-semibold`;
+                    performanceText.style.boxShadow = '0 0 0 1px color-mix(in srgb, var(--color-border-subtle) 50%, transparent)';
                 }
 
                 // Update accuracy score
                 if (accuracyScore) {
                     accuracyScore.textContent = `Accuracy: ${performance}%`;
-                    accuracyScore.className = `text-xs px-2 py-1 rounded font-medium ${
-                        performance >= 85 ? 'bg-green-100 text-green-700' :
-                        performance >= 70 ? 'bg-blue-100 text-blue-700' :
-                        performance >= 55 ? 'bg-yellow-100 text-yellow-700' :
-                        'bg-red-100 text-red-700'
-                    }`;
+                    let accuracyTone = 'chip-neutral';
+                    let extraTone = '';
+                    if (performance >= 85) {
+                        accuracyTone = 'chip-success';
+                    } else if (performance >= 70) {
+                        accuracyTone = 'chip-info';
+                    } else if (performance >= 55) {
+                        accuracyTone = 'chip-warning';
+                    } else {
+                        accuracyTone = 'chip-neutral';
+                        extraTone = 'text-danger';
+                    }
+                    accuracyScore.className = `chip ${accuracyTone} text-xs font-semibold ${extraTone}`.trim();
                 }
 
                 // Update explanation

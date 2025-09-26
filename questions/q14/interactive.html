@@ -1,146 +1,279 @@
+﻿<div class="space-y-6">
+  <style>
+    .q14-slider-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
 
-            <div class="space-y-6">
-                <!-- Scenario Selection -->
-                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200">
-                    <label for="q14-scenario-select" class="block text-sm font-medium text-gray-700 mb-2">📋 Select Fine-tuning Scenario</label>
-                    <select id="q14-scenario-select" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                        <option value="0" selected>Medical Text Analysis (from General Language)</option>
-                        <option value="1">Code Generation (from Text Understanding)</option>
-                        <option value="2">Legal Document Processing (from General NLP)</option>
-                        <option value="3">Creative Writing (from Technical Documentation)</option>
-                        <option value="4">Customer Support (from Academic Text)</option>
-                        <option value="5">Translation (from Monolingual Tasks)</option>
-                    </select>
-                    <p class="text-xs text-gray-600 mt-1">Choose different scenarios to see how forgetting prevention strategies perform across various domain shifts!</p>
-                </div>
-                
-                <!-- Prevention Strategy Selection -->
-                <div class="bg-white border border-gray-200 rounded-lg p-4">
-                    <label class="block text-sm font-medium text-gray-700 mb-3">🛡️ Forgetting Prevention Strategy</label>
-                    <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
-                        <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer">
-                            <input type="radio" name="q14-strategy" value="naive" class="mr-3" checked>
-                            <div>
-                                <div class="font-medium text-sm">Naive Fine-tuning</div>
-                                <div class="text-xs text-gray-500">No protection</div>
-                                <div class="text-xs bg-red-100 text-red-700 px-1 rounded mt-1">High forgetting</div>
-                            </div>
-                        </label>
-                        
-                        <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer">
-                            <input type="radio" name="q14-strategy" value="rehearsal" class="mr-3">
-                            <div>
-                                <div class="font-medium text-sm">Rehearsal</div>
-                                <div class="text-xs text-gray-500">Mix old & new data</div>
-                                <div class="text-xs bg-yellow-100 text-yellow-700 px-1 rounded mt-1">Moderate protection</div>
-                            </div>
-                        </label>
-                        
-                        <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer">
-                            <input type="radio" name="q14-strategy" value="ewc" class="mr-3">
-                            <div>
-                                <div class="font-medium text-sm">EWC</div>
-                                <div class="text-xs text-gray-500">Weight importance</div>
-                                <div class="text-xs bg-blue-100 text-blue-700 px-1 rounded mt-1">Smart protection</div>
-                            </div>
-                        </label>
-                        
-                        <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer">
-                            <input type="radio" name="q14-strategy" value="lora" class="mr-3">
-                            <div>
-                                <div class="font-medium text-sm">LoRA</div>
-                                <div class="text-xs text-gray-500">Modular adaptation</div>
-                                <div class="text-xs bg-green-100 text-green-700 px-1 rounded mt-1">Best protection</div>
-                            </div>
-                        </label>
-                    </div>
-                    <p class="text-xs text-gray-500 mt-3">New to LoRA? See <a href="#question-4" class="text-indigo-600 underline hover:text-indigo-800">Question 4</a> for a quick primer on LoRA vs QLoRA and when to use each.</p>
-                </div>
+    .q14-slider-group label {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--color-heading);
+    }
 
-                <!-- Training Parameters -->
-                <div class="bg-white border border-gray-200 rounded-lg p-4">
-                    <h4 class="font-medium text-gray-900 mb-3">⚙️ Training Configuration</h4>
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <div>
-                            <label for="q14-learning-rate" class="block text-sm font-medium text-gray-700 mb-2">Learning Rate</label>
-                            <input type="range" id="q14-learning-rate" min="1" max="10" step="1" value="5" class="w-full">
-                            <div class="flex justify-between text-xs text-gray-500 mt-1">
-                                <span>1e-5</span>
-                                <span id="q14-lr-display" class="font-medium">5e-5</span>
-                                <span>1e-4</span>
-                            </div>
-                        </div>
-                        <div>
-                            <label for="q14-rehearsal-ratio" id="q14-rehearsal-label" class="block text-sm font-medium text-gray-700 mb-2">Old Data Ratio (%)</label>
-                            <input type="range" id="q14-rehearsal-ratio" min="0" max="50" step="5" value="30" class="w-full">
-                            <div class="flex justify-between text-xs text-gray-500 mt-1">
-                                <span>0%</span>
-                                <span id="q14-ratio-display" class="font-medium">30%</span>
-                                <span>50%</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    html.dark .q14-slider-group label {
+      color: var(--panel-neutral-strong);
+    }
 
-                <!-- Results Visualization -->
-                <div class="bg-white border border-gray-200 rounded-lg p-4">
-                    <div class="flex items-center justify-between mb-3">
-                        <h4 class="font-medium text-gray-900">📊 Performance Impact Simulation</h4>
-                        <div id="q14-strategy-indicator" class="text-xs px-2 py-1 rounded font-medium">Naive Fine-tuning</div>
-                    </div>
-                    
-                    <!-- Performance Metrics -->
-                    <div class="grid md:grid-cols-3 gap-4 mb-4">
-                        <div class="text-center">
-                            <div class="text-lg font-bold text-blue-600" id="q14-new-task">85%</div>
-                            <div class="text-xs text-gray-500">New Task Performance</div>
-                            <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
-                                <div id="q14-new-task-bar" class="h-full bg-blue-500 rounded-full" style="width: 85%"></div>
-                            </div>
-                        </div>
-                        <div class="text-center">
-                            <div class="text-lg font-bold text-red-600" id="q14-retention">45%</div>
-                            <div class="text-xs text-gray-500">Knowledge Retention</div>
-                            <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
-                                <div id="q14-retention-bar" class="h-full bg-red-500 rounded-full" style="width: 45%"></div>
-                            </div>
-                        </div>
-                        <div class="text-center">
-                            <div class="text-lg font-bold text-green-600" id="q14-efficiency">Medium</div>
-                            <div class="text-xs text-gray-500">Training Efficiency</div>
-                            <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
-                                <div id="q14-efficiency-bar" class="h-full bg-green-500 rounded-full" style="width: 60%"></div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Forgetting Visualization -->
-                    <div class="bg-gray-50 p-3 rounded">
-                        <h5 class="text-sm font-medium text-gray-700 mb-2">Knowledge Retention Over Training Steps</h5>
-                        <div class="flex items-end justify-between h-20 space-x-1">
-                            <div class="bg-blue-400 rounded-t" style="height: 100%" title="Step 0: 100%"></div>
-                            <div id="q14-step1" class="bg-blue-400 rounded-t" style="height: 95%" title="Step 1"></div>
-                            <div id="q14-step2" class="bg-blue-400 rounded-t" style="height: 90%" title="Step 2"></div>
-                            <div id="q14-step3" class="bg-blue-400 rounded-t" style="height: 85%" title="Step 3"></div>
-                            <div id="q14-step4" class="bg-blue-400 rounded-t" style="height: 80%" title="Step 4"></div>
-                            <div id="q14-step5" class="bg-blue-400 rounded-t" style="height: 75%" title="Step 5"></div>
-                            <div id="q14-step6" class="bg-blue-400 rounded-t" style="height: 70%" title="Step 6"></div>
-                            <div id="q14-step7" class="bg-blue-400 rounded-t" style="height: 65%" title="Step 7"></div>
-                            <div id="q14-step8" class="bg-blue-400 rounded-t" style="height: 60%" title="Step 8"></div>
-                            <div id="q14-final" class="bg-blue-400 rounded-t" style="height: 55%" title="Final"></div>
-                        </div>
-                        <div class="flex justify-between text-xs text-gray-500 mt-1">
-                            <span>Start</span>
-                            <span>Training Progress</span>
-                            <span>End</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Educational Explanation -->
-                <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-                    <h4 class="font-medium text-yellow-900 mb-2">💡 Strategy Analysis</h4>
-                    <div id="q14-explanation" class="text-sm text-yellow-800"></div>
-                </div>
-            </div>
-        
+    .q14-slider-group input[type="range"] {
+      width: 100%;
+      accent-color: var(--tone-indigo-strong);
+    }
+
+    .q14-slider-hints {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: var(--color-muted);
+    }
+
+    html.dark .q14-slider-hints {
+      color: color-mix(in srgb, var(--color-muted) 82%, transparent);
+    }
+
+    .q14-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      align-items: stretch;
+      border-radius: 0.85rem;
+      border: 1px solid color-mix(in srgb, var(--color-border-subtle) 70%, transparent);
+      background: color-mix(in srgb, var(--color-card) 92%, transparent 8%);
+      padding: 1rem;
+    }
+
+    html.dark .q14-stat {
+      background: color-mix(in srgb, var(--color-card) 78%, transparent 22%);
+      border-color: color-mix(in srgb, var(--color-border) 58%, transparent 42%);
+    }
+
+    .q14-stat-value {
+      font-size: 1.55rem;
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--color-heading);
+      text-align: center;
+    }
+
+    html.dark .q14-stat-value {
+      color: var(--panel-neutral-strong);
+    }
+
+    .q14-meter {
+      height: 0.5rem;
+      width: 100%;
+      border-radius: 9999px;
+      background: color-mix(in srgb, var(--color-border-subtle) 65%, transparent);
+      overflow: hidden;
+    }
+
+    html.dark .q14-meter {
+      background: color-mix(in srgb, var(--color-border) 55%, transparent);
+    }
+
+    .q14-meter-fill {
+      height: 100%;
+      width: var(--q14-meter-width, 0%);
+      max-width: 100%;
+      background: var(--q14-meter-color, var(--tone-sky-strong));
+      border-radius: inherit;
+      transition: width 0.3s ease, background-color 0.3s ease;
+    }
+
+    .q14-trend {
+      display: flex;
+      align-items: flex-end;
+      gap: 0.35rem;
+      height: 5rem;
+    }
+
+    .q14-trend-bar {
+      flex: 1;
+      border-radius: 0.6rem 0.6rem 0 0;
+      height: var(--q14-trend-height, 50%);
+      background: var(--q14-trend-color, color-mix(in srgb, var(--tone-sky-strong) 20%, var(--color-card) 80%));
+      transition: height 0.3s ease, background-color 0.3s ease;
+    }
+
+    .q14-trend-bar:first-child {
+      flex: 0.9;
+    }
+
+    .q14-disabled {
+      opacity: 0.55;
+      pointer-events: none;
+    }
+
+    html.dark .q14-disabled {
+      opacity: 0.45;
+    }
+
+    .q14-strategy .stacked-card {
+      gap: 0.65rem;
+      justify-content: space-between;
+      height: 100%;
+    }
+
+    .q14-strategy .stacked-card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .q14-strategy .stacked-card-header .chip {
+      flex-shrink: 0;
+    }
+  </style>
+
+  <div class="panel panel-info p-4 space-y-3">
+    <div class="flex flex-col gap-2">
+      <label for="q14-scenario-select" class="text-sm font-medium text-heading">📋 Select fine-tuning scenario</label>
+      <p class="small-caption text-muted">Compare domain shifts to see how forgetting prevention strategies respond.</p>
+    </div>
+    <select id="q14-scenario-select" class="select-control">
+      <option value="0" selected>Medical Text Analysis (from General Language)</option>
+      <option value="1">Code Generation (from Text Understanding)</option>
+      <option value="2">Legal Document Processing (from General NLP)</option>
+      <option value="3">Creative Writing (from Technical Documentation)</option>
+      <option value="4">Customer Support (from Academic Text)</option>
+      <option value="5">Translation (from Monolingual Tasks)</option>
+    </select>
+  </div>
+
+  <div class="panel panel-neutral p-4 space-y-3">
+    <div class="flex flex-col gap-1">
+      <span class="text-sm font-medium text-heading">🛡️ Forgetting prevention strategy</span>
+      <p class="small-caption text-muted">Pick an approach to balance new skill acquisition with retention of the base model.</p>
+    </div>
+    <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-3">
+      <label class="question-strategy q14-strategy" data-tone="warning">
+        <input type="radio" name="q14-strategy" value="naive" class="sr-only" checked>
+        <div class="stacked-card">
+          <div class="stacked-card-header">
+            <span class="font-medium text-heading">Naive fine-tuning</span>
+            <span class="chip chip-warning text-xs">High forgetting</span>
+          </div>
+          <p class="small-caption text-muted">Fastest updates but overwrites previous tasks with no protection.</p>
+        </div>
+      </label>
+
+      <label class="question-strategy q14-strategy" data-tone="info">
+        <input type="radio" name="q14-strategy" value="rehearsal" class="sr-only">
+        <div class="stacked-card">
+          <div class="stacked-card-header">
+            <span class="font-medium text-heading">Rehearsal</span>
+            <span class="chip chip-info text-xs">Moderate protection</span>
+          </div>
+          <p class="small-caption text-muted">Blend old and new mini-batches so the model keeps revisiting core knowledge.</p>
+        </div>
+      </label>
+
+      <label class="question-strategy q14-strategy" data-tone="accent">
+        <input type="radio" name="q14-strategy" value="ewc" class="sr-only">
+        <div class="stacked-card">
+          <div class="stacked-card-header">
+            <span class="font-medium text-heading">Elastic Weight Consolidation</span>
+            <span class="chip chip-accent text-xs">Smart protection</span>
+          </div>
+          <p class="small-caption text-muted">Regularises important weights using Fisher scores to resist drift.</p>
+        </div>
+      </label>
+
+      <label class="question-strategy q14-strategy" data-tone="success">
+        <input type="radio" name="q14-strategy" value="lora" class="sr-only">
+        <div class="stacked-card">
+          <div class="stacked-card-header">
+            <span class="font-medium text-heading">LoRA (modular)</span>
+            <span class="chip chip-success text-xs">Best retention</span>
+          </div>
+          <p class="small-caption text-muted">Train lightweight adapters while the backbone stays frozen and stable.</p>
+        </div>
+      </label>
+    </div>
+    <p class="small-caption text-muted">New to LoRA? See <a class="underline" href="#question-4">Question 4</a> for a refresher on LoRA vs QLoRA.</p>
+  </div>
+
+  <div class="panel panel-neutral p-4 space-y-4">
+    <h4 class="font-medium text-heading flex items-center gap-2">⚙️ Training configuration</h4>
+    <div class="grid md:grid-cols-2 gap-4">
+      <div class="q14-slider-group">
+        <label for="q14-learning-rate">Learning rate</label>
+        <input type="range" id="q14-learning-rate" min="1" max="10" step="1" value="5">
+        <div class="q14-slider-hints">
+          <span>1e-5</span>
+          <span id="q14-lr-display" class="font-medium text-heading">5e-5</span>
+          <span>1e-4</span>
+        </div>
+      </div>
+      <div class="q14-slider-group" id="q14-ratio-group">
+        <label for="q14-rehearsal-ratio" id="q14-rehearsal-label">Old data ratio (%)</label>
+        <input type="range" id="q14-rehearsal-ratio" min="0" max="50" step="5" value="30">
+        <div class="q14-slider-hints">
+          <span>0%</span>
+          <span id="q14-ratio-display" class="font-medium text-heading">30%</span>
+          <span>50%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-neutral p-4 space-y-4">
+    <div class="flex items-center justify-between gap-3">
+      <h4 class="font-medium text-heading flex items-center gap-2">📊 Performance impact simulation</h4>
+      <span id="q14-strategy-indicator" class="chip chip-warning text-xs">Naive fine-tuning</span>
+    </div>
+    <div class="grid md:grid-cols-3 gap-4">
+      <div class="q14-stat">
+        <div class="q14-stat-value" id="q14-new-task">85%</div>
+        <p class="small-caption text-muted">New task performance</p>
+        <div class="q14-meter">
+          <div id="q14-new-task-bar" class="q14-meter-fill" style="--q14-meter-width:85%"></div>
+        </div>
+      </div>
+      <div class="q14-stat">
+        <div class="q14-stat-value" id="q14-retention">45%</div>
+        <p class="small-caption text-muted">Knowledge retention</p>
+        <div class="q14-meter">
+          <div id="q14-retention-bar" class="q14-meter-fill" style="--q14-meter-width:45%"></div>
+        </div>
+      </div>
+      <div class="q14-stat">
+        <div class="q14-stat-value" id="q14-efficiency">Medium</div>
+        <p class="small-caption text-muted">Training efficiency</p>
+        <div class="q14-meter">
+          <div id="q14-efficiency-bar" class="q14-meter-fill" style="--q14-meter-width:60%"></div>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-neutral-soft p-3 space-y-3">
+      <div class="flex items-center justify-between gap-2">
+        <h5 class="font-medium text-heading">🪜 Knowledge retention over training steps</h5>
+        <span class="small-caption text-muted">Lower bars flag stronger catastrophic forgetting.</span>
+      </div>
+      <div class="q14-trend" aria-label="Retention percentage across training steps">
+        <div class="q14-trend-bar" style="--q14-trend-height:100%" title="Baseline: 100% retention"></div>
+        <div class="q14-trend-bar" id="q14-step1" title="Step 1"></div>
+        <div class="q14-trend-bar" id="q14-step2" title="Step 2"></div>
+        <div class="q14-trend-bar" id="q14-step3" title="Step 3"></div>
+        <div class="q14-trend-bar" id="q14-step4" title="Step 4"></div>
+        <div class="q14-trend-bar" id="q14-step5" title="Step 5"></div>
+        <div class="q14-trend-bar" id="q14-step6" title="Step 6"></div>
+        <div class="q14-trend-bar" id="q14-step7" title="Step 7"></div>
+        <div class="q14-trend-bar" id="q14-step8" title="Step 8"></div>
+        <div class="q14-trend-bar" id="q14-final" title="Final"></div>
+      </div>
+      <div class="flex justify-between text-xs text-muted">
+        <span>Start</span>
+        <span>Training progress</span>
+        <span>End</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-warning p-4 space-y-2">
+    <h4 class="font-medium text-heading">💡 Strategy analysis</h4>
+    <div id="q14-explanation" class="text-sm text-body"></div>
+  </div>
+</div>

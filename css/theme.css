@@ -2516,3 +2516,63 @@ html.dark .q12-output {
 .q12-approach-foot .chip {
   align-self: flex-start;
 }
+.math-display {
+  display: block;
+  margin: 0.5rem auto;
+  text-align: center;
+  overflow-x: auto;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.75rem;
+  background-color: var(--panel-bg, var(--color-card));
+  border: 1px solid var(--panel-border, var(--color-border-subtle));
+  color: inherit;
+}
+html.dark .math-display {
+  background-color: var(--panel-bg, var(--color-card));
+  border-color: var(--panel-border, var(--color-border));
+}
+.math-display mjx-container {
+  margin: 0 auto !important;
+  color: inherit;
+  background: transparent !important;
+}
+mjx-container[display="true"] {
+  display: block !important;
+  margin: 0.5rem auto;
+  text-align: center;
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+mjx-container[display="true"] > svg {
+  display: block;
+  margin: 0 auto;
+}
+
+.q21-encoding-card {
+  cursor: pointer;
+  transition: border-color .2s ease, box-shadow .2s ease, background-color .2s ease;
+}
+.q21-encoding-card:hover {
+  border-color: color-mix(in srgb, var(--color-border-subtle) 70%, transparent 30%);
+}
+.q21-encoding-card--active {
+  background-color: color-mix(in srgb, var(--color-card) 82%, var(--color-subtle-bg) 18%);
+  border-color: color-mix(in srgb, var(--panel-info-border-strong) 55%, transparent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--panel-info-border-strong) 25%, transparent);
+}
+.q21-encoding-card--success {
+  background-color: color-mix(in srgb, var(--panel-success-bg) 45%, var(--color-card) 55%);
+  border-color: color-mix(in srgb, var(--panel-success-border-strong) 60%, transparent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--panel-success-border-strong) 30%, transparent);
+}
+.q21-encoding-card--accent {
+  background-color: color-mix(in srgb, var(--panel-accent-bg) 45%, var(--color-card) 55%);
+  border-color: color-mix(in srgb, var(--panel-accent-border-strong) 60%, transparent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--panel-accent-border-strong) 30%, transparent);
+}
+.q21-encoding-card--warning {
+  background-color: color-mix(in srgb, var(--panel-warning-bg) 45%, var(--color-card) 55%);
+  border-color: color-mix(in srgb, var(--panel-warning-border-strong) 60%, transparent);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--panel-warning-border-strong) 30%, transparent);
+}

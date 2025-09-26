@@ -1,153 +1,170 @@
+<div class="space-y-6">
+  <!-- Teacher Model Selection -->
+  <div class="panel panel-info p-4 space-y-3">
+    <label for="q15-teacher-select" class="block text-sm font-medium text-heading">👨‍🏫 Select Teacher Model</label>
+    <select id="q15-teacher-select" class="q9-select">
+      <option value="0" selected>GPT-Large (175B parameters)</option>
+      <option value="1">T5-XXL (11B parameters)</option>
+      <option value="2">BERT-Large (340M parameters)</option>
+      <option value="3">PaLM-62B (62B parameters)</option>
+      <option value="4">LLaMA-70B (70B parameters)</option>
+    </select>
+    <p class="small-caption text-neutral-muted">Choose a teacher to see how architecture and scale affect what the student can learn.</p>
+  </div>
 
-            <div class="space-y-6">
-                <!-- Teacher Model Selection -->
-                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200">
-                    <label for="q15-teacher-select" class="block text-sm font-medium text-gray-700 mb-2">👨‍🏫 Select Teacher Model</label>
-                    <select id="q15-teacher-select" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                        <option value="0" selected>GPT-Large (175B parameters)</option>
-                        <option value="1">T5-XXL (11B parameters)</option>
-                        <option value="2">BERT-Large (340M parameters)</option>
-                        <option value="3">PaLM-62B (62B parameters)</option>
-                        <option value="4">LLaMA-70B (70B parameters)</option>
-                    </select>
-                    <p class="text-xs text-gray-600 mt-1">Choose your teacher model to see how different architectures affect distillation outcomes!</p>
-                </div>
-                
-                <!-- Distillation Strategy Selection -->
-                <div class="bg-white border border-gray-200 rounded-lg p-4">
-                    <label class="block text-sm font-medium text-gray-700 mb-3">🎯 Distillation Strategy</label>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                        <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer">
-                            <input type="radio" name="q15-strategy" value="knowledge" class="mr-3" checked>
-                            <div>
-                                <div class="font-medium text-sm">Knowledge Distillation</div>
-                                <div class="text-xs text-gray-500">Soft probabilities</div>
-                                <div class="text-xs bg-green-100 text-green-700 px-1 rounded mt-1">Balanced</div>
-                            </div>
-                        </label>
-                        
-                        <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer">
-                            <input type="radio" name="q15-strategy" value="progressive" class="mr-3">
-                            <div>
-                                <div class="font-medium text-sm">Progressive</div>
-                                <div class="text-xs text-gray-500">Multi-stage reduction</div>
-                                <div class="text-xs bg-blue-100 text-blue-700 px-1 rounded mt-1">Gradual</div>
-                            </div>
-                        </label>
-                        
-                        <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer">
-                            <input type="radio" name="q15-strategy" value="task-specific" class="mr-3">
-                            <div>
-                                <div class="font-medium text-sm">Task-Specific</div>
-                                <div class="text-xs text-gray-500">Specialized focus</div>
-                                <div class="text-xs bg-purple-100 text-purple-700 px-1 rounded mt-1">Targeted</div>
-                            </div>
-                        </label>
-                    </div>
-                </div>
+  <!-- Distillation strategy selection -->
+  <div class="panel panel-neutral p-4 space-y-3">
+    <h4 class="font-medium text-heading">🎯 Distillation Strategy</h4>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+      <label class="q15-strategy-option panel panel-neutral-soft p-3 flex items-start gap-3 cursor-pointer">
+        <input type="radio" name="q15-strategy" value="knowledge" class="mt-1" checked>
+        <div class="space-y-1">
+          <div class="font-medium text-heading text-sm">Knowledge Distillation</div>
+          <p class="text-xs text-neutral-muted">Soft probabilities</p>
+          <span class="chip chip-success text-xs">Balanced</span>
+        </div>
+      </label>
 
-                <!-- Training Parameters -->
-                <div class="bg-white border border-gray-200 rounded-lg p-4">
-                    <h4 class="font-medium text-gray-900 mb-3">⚙️ Distillation Configuration</h4>
-                    <div class="grid md:grid-cols-3 gap-4">
-                        <div>
-                            <label for="q15-temperature" class="block text-sm font-medium text-gray-700 mb-2">Temperature (T)</label>
-                            <input type="range" id="q15-temperature" min="1" max="10" step="1" value="4" class="w-full">
-                            <div class="flex justify-between text-xs text-gray-500 mt-1">
-                                <span>1</span>
-                                <span id="q15-temp-display" class="font-medium">4</span>
-                                <span>10</span>
-                            </div>
-                        </div>
-                        <div>
-                            <label for="q15-alpha" class="block text-sm font-medium text-gray-700 mb-2">Soft Loss Weight (α)</label>
-                            <input type="range" id="q15-alpha" min="0" max="10" step="1" value="7" class="w-full">
-                            <div class="flex justify-between text-xs text-gray-500 mt-1">
-                                <span>0.0</span>
-                                <span id="q15-alpha-display" class="font-medium">0.7</span>
-                                <span>1.0</span>
-                            </div>
-                        </div>
-                        <div>
-                            <label for="q15-compression" class="block text-sm font-medium text-gray-700 mb-2">Compression Ratio</label>
-                            <input type="range" id="q15-compression" min="2" max="100" step="2" value="10" class="w-full">
-                            <div class="flex justify-between text-xs text-gray-500 mt-1">
-                                <span>2x</span>
-                                <span id="q15-compression-display" class="font-medium">10x</span>
-                                <span>100x</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+      <label class="q15-strategy-option panel panel-neutral-soft p-3 flex items-start gap-3 cursor-pointer">
+        <input type="radio" name="q15-strategy" value="progressive" class="mt-1">
+        <div class="space-y-1">
+          <div class="font-medium text-heading text-sm">Progressive</div>
+          <p class="text-xs text-neutral-muted">Multi-stage reduction</p>
+          <span class="chip chip-info text-xs">Gradual</span>
+        </div>
+      </label>
 
-                <!-- Quick Examples -->
-                <div class="flex flex-wrap gap-2">
-                    <span class="text-sm font-medium text-gray-700">💡 Quick Examples:</span>
-                    <button id="q15-example-btn" class="text-xs bg-indigo-100 text-indigo-700 px-2 py-1 rounded hover:bg-indigo-200 transition-colors">Mobile Deployment</button>
-                </div>
+      <label class="q15-strategy-option panel panel-neutral-soft p-3 flex items-start gap-3 cursor-pointer">
+        <input type="radio" name="q15-strategy" value="task-specific" class="mt-1">
+        <div class="space-y-1">
+          <div class="font-medium text-heading text-sm">Task-Specific</div>
+          <p class="text-xs text-neutral-muted">Specialised focus</p>
+          <span class="chip chip-accent text-xs">Targeted</span>
+        </div>
+      </label>
+    </div>
+  </div>
 
-                <!-- Results Visualization -->
-                <div class="bg-white border border-gray-200 rounded-lg p-4">
-                    <div class="flex items-center justify-between mb-3">
-                        <h4 class="font-medium text-gray-900">📊 Distillation Results</h4>
-                        <div id="q15-strategy-indicator" class="text-xs px-2 py-1 rounded font-medium">Knowledge Distillation</div>
-                    </div>
-                    
-                    <!-- Performance Metrics -->
-                    <div class="grid md:grid-cols-4 gap-4 mb-4">
-                        <div class="text-center">
-                            <div class="text-lg font-bold text-blue-600" id="q15-performance">92%</div>
-                            <div class="text-xs text-gray-500">Performance Retention</div>
-                            <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
-                                <div id="q15-performance-bar" class="h-full bg-blue-500 rounded-full" style="width: 92%"></div>
-                            </div>
-                        </div>
-                        <div class="text-center">
-                            <div class="text-lg font-bold text-green-600" id="q15-size-reduction">10x</div>
-                            <div class="text-xs text-gray-500">Size Reduction</div>
-                            <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
-                                <div id="q15-size-bar" class="h-full bg-green-500 rounded-full" style="width: 70%"></div>
-                            </div>
-                        </div>
-                        <div class="text-center">
-                            <div class="text-lg font-bold text-purple-600" id="q15-speed">8.5x</div>
-                            <div class="text-xs text-gray-500">Speed Improvement</div>
-                            <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
-                                <div id="q15-speed-bar" class="h-full bg-purple-500 rounded-full" style="width: 85%"></div>
-                            </div>
-                        </div>
-                        <div class="text-center">
-                            <div class="text-lg font-bold text-orange-600" id="q15-memory">85%</div>
-                            <div class="text-xs text-gray-500">Memory Savings</div>
-                            <div class="w-full bg-gray-200 rounded-full h-2 mt-1">
-                                <div id="q15-memory-bar" class="h-full bg-orange-500 rounded-full" style="width: 85%"></div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Model Comparison Visualization -->
-                    <div class="bg-gray-50 p-3 rounded">
-                        <h5 class="text-sm font-medium text-gray-700 mb-2">Model Size Comparison</h5>
-                        <div class="flex items-end justify-between h-20 space-x-2">
-                            <div class="flex flex-col items-center">
-                                <div id="q15-teacher-bar" class="bg-red-400 rounded-t" style="width: 40px; height: 100%" title="Teacher Model"></div>
-                                <span class="text-xs text-gray-600 mt-1">Teacher</span>
-                            </div>
-                            <div class="flex flex-col items-center">
-                                <div id="q15-student-bar" class="bg-blue-400 rounded-t" style="width: 40px; height: 10%" title="Student Model"></div>
-                                <span class="text-xs text-gray-600 mt-1">Student</span>
-                            </div>
-                        </div>
-                        <div class="text-center text-xs text-gray-500 mt-2">
-                            <span id="q15-teacher-size">175B</span> → <span id="q15-student-size">17.5B</span> parameters
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Educational Explanation -->
-                <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-                    <h4 class="font-medium text-yellow-900 mb-2">💡 Distillation Analysis</h4>
-                    <div id="q15-explanation" class="text-sm text-yellow-800"></div>
-                </div>
-            </div>
-        
+  <!-- Training Parameters -->
+  <div class="panel panel-neutral p-4 space-y-4">
+    <h4 class="font-medium text-heading">⚙️ Distillation Configuration</h4>
+    <div class="grid md:grid-cols-3 gap-4">
+      <div class="space-y-2">
+        <label for="q15-temperature" class="block text-sm font-medium text-heading">Temperature (T)</label>
+        <input type="range" id="q15-temperature" min="1" max="10" step="1" value="4" class="w-full">
+        <div class="flex justify-between text-xs text-neutral-muted">
+          <span>1</span>
+          <span id="q15-temp-display" class="font-semibold text-heading">4</span>
+          <span>10</span>
+        </div>
+      </div>
+      <div class="space-y-2">
+        <label for="q15-alpha" class="block text-sm font-medium text-heading">Soft Loss Weight (α)</label>
+        <input type="range" id="q15-alpha" min="0" max="10" step="1" value="7" class="w-full">
+        <div class="flex justify-between text-xs text-neutral-muted">
+          <span>0.0</span>
+          <span id="q15-alpha-display" class="font-semibold text-heading">0.7</span>
+          <span>1.0</span>
+        </div>
+      </div>
+      <div class="space-y-2">
+        <label for="q15-compression" class="block text-sm font-medium text-heading">Compression Ratio</label>
+        <input type="range" id="q15-compression" min="2" max="100" step="2" value="10" class="w-full">
+        <div class="flex justify-between text-xs text-neutral-muted">
+          <span>2x</span>
+          <span id="q15-compression-display" class="font-semibold text-heading">10x</span>
+          <span>100x</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Quick Examples -->
+  <div class="flex flex-wrap items-center gap-2 text-sm">
+    <span class="font-medium text-heading">💡 Quick examples:</span>
+    <button id="q15-example-btn" class="chip chip-info text-xs cursor-pointer">Mobile Deployment</button>
+    <span class="small-caption text-neutral-muted">Tap to cycle scenarios.</span>
+  </div>
+
+  <!-- Results Visualisation -->
+  <div class="panel panel-neutral p-4 space-y-4">
+    <div class="flex items-center justify-between">
+      <h4 class="font-medium text-heading">📊 Distillation Results</h4>
+      <div id="q15-strategy-indicator" class="chip chip-success text-xs">Knowledge Distillation</div>
+    </div>
+
+    <div class="grid md:grid-cols-4 gap-3">
+      <div class="panel panel-neutral-soft p-3 space-y-2" data-accent="training">
+        <div class="flex items-center justify-between text-xs text-neutral-muted">
+          <span>Performance Retention</span>
+          <span id="q15-performance" class="font-semibold text-heading">92%</span>
+        </div>
+        <div class="path-progress">
+          <div id="q15-performance-bar" class="path-progress-bar" style="width: 92%"></div>
+        </div>
+      </div>
+      <div class="panel panel-neutral-soft p-3 space-y-2" data-accent="scaling">
+        <div class="flex items-center justify-between text-xs text-neutral-muted">
+          <span>Size Reduction</span>
+          <span id="q15-size-reduction" class="font-semibold text-heading">10x</span>
+        </div>
+        <div class="path-progress">
+          <div id="q15-size-bar" class="path-progress-bar" style="width: 70%"></div>
+        </div>
+      </div>
+      <div class="panel panel-neutral-soft p-3 space-y-2" data-accent="generation">
+        <div class="flex items-center justify-between text-xs text-neutral-muted">
+          <span>Speed Improvement</span>
+          <span id="q15-speed" class="font-semibold text-heading">8.5x</span>
+        </div>
+        <div class="path-progress">
+          <div id="q15-speed-bar" class="path-progress-bar" style="width: 85%"></div>
+        </div>
+      </div>
+      <div class="panel panel-neutral-soft p-3 space-y-2" data-accent="alignment">
+        <div class="flex items-center justify-between text-xs text-neutral-muted">
+          <span>Memory Savings</span>
+          <span id="q15-memory" class="font-semibold text-heading">85%</span>
+        </div>
+        <div class="path-progress">
+          <div id="q15-memory-bar" class="path-progress-bar" style="width: 85%"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel panel-neutral-soft p-3 space-y-4" data-accent="scaling">
+      <div class="flex items-center justify-between gap-2">
+        <h5 class="text-sm font-medium text-heading">Model Size Comparison</h5>
+        <span id="q15-size-ratio" class="chip chip-neutral text-xs">10x smaller</span>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+        <div class="panel panel-neutral p-3 space-y-2">
+          <div class="flex items-center justify-between text-xs text-neutral-muted">
+            <span>Teacher</span>
+            <span id="q15-teacher-size" class="font-semibold text-heading text-sm">175B</span>
+          </div>
+          <div class="path-progress" aria-hidden="true">
+            <div class="path-progress-bar" style="width: 100%"></div>
+          </div>
+          <div class="small-caption text-neutral-muted">Baseline model</div>
+        </div>
+        <div class="panel panel-neutral p-3 space-y-2" data-accent="scaling">
+          <div class="flex items-center justify-between text-xs text-neutral-muted">
+            <span>Student</span>
+            <span id="q15-student-size" class="font-semibold text-heading text-sm">17.5B</span>
+          </div>
+          <div class="path-progress" aria-hidden="true">
+            <div id="q15-student-meter" class="path-progress-bar" style="width: 10%"></div>
+          </div>
+          <div id="q15-student-note" class="small-caption text-neutral-muted">10x smaller · 90% reduction</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Educational Explanation -->
+  <div class="panel panel-warning p-4 space-y-2">
+    <h4 class="font-medium text-heading">💡 Distillation Analysis</h4>
+    <div id="q15-explanation" class="text-sm space-y-2"></div>
+  </div>
+</div>

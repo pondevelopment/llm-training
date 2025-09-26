@@ -241,17 +241,22 @@
 
         /* Enhanced Mathematical notation styles */
         .math-display {
-            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 24px;
-            margin: 24px 0;
+            display: block;
+            background-color: var(--panel-bg, var(--color-card));
+            border: 1px solid var(--panel-border, var(--color-border-subtle));
+            border-radius: 0.75rem;
+            padding: 0.5rem 0.75rem;
+            margin: 0.5rem 0;
             text-align: center;
-            font-size: 1.125rem;
+            font-size: 1.05rem;
             overflow-x: auto;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
-            color: var(--math-color);
+            box-shadow: none;
+            backdrop-filter: none;
+            color: inherit;
+        }
+        html.dark .math-display {
+            background-color: var(--panel-bg, var(--color-card));
+            border-color: var(--panel-border, var(--color-border));
         }
 
         .math-inline {
@@ -440,12 +445,19 @@
             display: inline-block !important;
             vertical-align: middle;
         }
-        /* But for display equations, allow block layout and horizontal scroll if needed */
+        /* But for display equations, center them with block layout and horizontal scroll if needed */
         mjx-container[display="true"] {
             display: block !important;
+            margin: 0.5rem auto;
+            text-align: center;
             max-width: 100%;
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
+        }
+
+        mjx-container[display="true"] > svg {
+            display: block;
+            margin: 0 auto;
         }
     </style>
 </head>

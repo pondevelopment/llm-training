@@ -47,8 +47,8 @@ const interactiveScript = () => {
             const strategyConfig = {
                 knowledge: {
                     name: "Knowledge Distillation",
-                    color: "text-green-700",
-                    bgColor: "bg-green-100",
+                    chipClass: "chip chip-success",
+                    accent: "alignment",
                     performanceRetention: 0.88,
                     efficiencyGain: 1.0,
                     trainingTime: 1.0,
@@ -56,8 +56,8 @@ const interactiveScript = () => {
                 },
                 progressive: {
                     name: "Progressive Distillation",
-                    color: "text-blue-700",
-                    bgColor: "bg-blue-100",
+                    chipClass: "chip chip-info",
+                    accent: "training",
                     performanceRetention: 0.94,
                     efficiencyGain: 0.7,
                     trainingTime: 2.5,
@@ -65,8 +65,8 @@ const interactiveScript = () => {
                 },
                 "task-specific": {
                     name: "Task-Specific Distillation",
-                    color: "text-purple-700",
-                    bgColor: "bg-purple-100",
+                    chipClass: "chip chip-accent",
+                    accent: "generation",
                     performanceRetention: 0.82,
                     efficiencyGain: 1.3,
                     trainingTime: 1.2,
@@ -126,6 +126,7 @@ const interactiveScript = () => {
             // DOM elements
             const teacherSelect = document.getElementById('q15-teacher-select');
             const strategyRadios = document.querySelectorAll('input[name="q15-strategy"]');
+            const strategyOptions = Array.from(strategyRadios, radio => radio.closest('.q15-strategy-option'));
             const strategyIndicator = document.getElementById('q15-strategy-indicator');
             const temperatureSlider = document.getElementById('q15-temperature');
             const alphaSlider = document.getElementById('q15-alpha');
@@ -232,8 +233,20 @@ const interactiveScript = () => {
                 // Update strategy indicator
                 if (strategyIndicator) {
                     strategyIndicator.textContent = config.name;
-                    strategyIndicator.className = `text-xs px-2 py-1 rounded font-medium ${config.color} ${config.bgColor}`;
+                    strategyIndicator.className = `${config.chipClass} text-xs`;
                 }
+
+                strategyOptions.forEach(option => {
+                    if (!option) return;
+                    const input = option.querySelector('input[name="q15-strategy"]');
+                    const optionConfig = strategyConfig[input?.value];
+                    option.classList.toggle('panel-emphasis', input?.value === strategy);
+                    if (input?.value === strategy && optionConfig?.accent) {
+                        option.setAttribute('data-accent', optionConfig.accent);
+                    } else {
+                        option.removeAttribute('data-accent');
+                    }
+                });
 
                 // Calculate metrics
                 const metrics = calculateMetrics(teacher, strategy, temperature, alpha, compression);
@@ -261,19 +274,29 @@ const interactiveScript = () => {
                 if (memoryBar) memoryBar.style.width = `${metrics.memorySavings}%`;
 
                 // Update model comparison
-                const teacherBar = document.getElementById('q15-teacher-bar');
-                const studentBar = document.getElementById('q15-student-bar');
+                const studentMeter = document.getElementById('q15-student-meter');
                 const teacherSizeSpan = document.getElementById('q15-teacher-size');
                 const studentSizeSpan = document.getElementById('q15-student-size');
+                const sizeRatioChip = document.getElementById('q15-size-ratio');
+                const studentNote = document.getElementById('q15-student-note');
 
-                if (teacherBar) teacherBar.style.height = '100%';
-                if (studentBar) studentBar.style.height = `${Math.max(5, 100 / metrics.sizeReduction)}%`;
+                if (studentMeter) {
+                    const width = Math.max(4, Math.min(100, 100 / metrics.sizeReduction));
+                    studentMeter.style.width = `${width}%`;
+                }
                 if (teacherSizeSpan) teacherSizeSpan.textContent = teacher.parameters;
                 if (studentSizeSpan) {
                     const studentSize = metrics.studentParams >= 1 ? 
                         `${metrics.studentParams.toFixed(1)}B` : 
                         `${(metrics.studentParams * 1000).toFixed(0)}M`;
                     studentSizeSpan.textContent = studentSize;
+                }
+
+                const ratioText = `${metrics.sizeReduction}x smaller`;
+                if (sizeRatioChip) sizeRatioChip.textContent = ratioText;
+                if (studentNote) {
+                    const reductionPct = Math.min(99, Math.round((1 - (1 / metrics.sizeReduction)) * 100));
+                    studentNote.textContent = `${ratioText} · ${reductionPct}% reduction`;
                 }
 
                 // Update explanation

@@ -220,25 +220,30 @@ const interactiveScript = () => {
             function updateHeadsVisuals() {
                 const selected = document.querySelector('input[name="q22-heads"]:checked');
                 if (!selected) return;
-                
+
                 const selectedValue = selected.value;
-                
-                // Update radio button containers
-                document.querySelectorAll('input[name="q22-heads"]').forEach((radio) => {
-                    const container = radio.closest('label');
-                    
+
+                headsRadios.forEach((radio) => {
+                    const option = radio.closest('.q22-head-option');
+                    const card = option ? option.querySelector('.q22-head-card') : null;
+
+                    if (!card) {
+                        return;
+                    }
+
                     if (radio.checked) {
-                        container.classList.add('ring-2', 'ring-blue-500', 'bg-blue-50');
-                        container.classList.remove('border-gray-200');
+                        card.classList.add('panel-info', 'panel-emphasis');
+                        card.classList.remove('panel-neutral-soft');
+                        if (option) option.setAttribute('data-active', 'true');
                     } else {
-                        container.classList.remove('ring-2', 'ring-blue-500', 'bg-blue-50');
-                        container.classList.add('border-gray-200');
+                        card.classList.add('panel-neutral-soft');
+                        card.classList.remove('panel-info', 'panel-emphasis');
+                        if (option) option.removeAttribute('data-active');
                     }
                 });
-                
-                // Update heads indicator
+
                 if (headsIndicator) {
-                    headsIndicator.textContent = `${selectedValue} Heads`;
+                    headsIndicator.textContent = `${selectedValue} heads`;
                 }
             }
 
@@ -247,14 +252,13 @@ const interactiveScript = () => {
                 const container = document.createElement('div');
                 container.className = 'space-y-6';
 
-                // Create sentence display
                 const sentenceDisplay = document.createElement('div');
-                sentenceDisplay.className = 'bg-white border border-gray-200 rounded-lg p-4';
+                sentenceDisplay.className = 'panel panel-neutral p-4 space-y-3';
                 sentenceDisplay.innerHTML = `
-                    <h5 class="font-medium text-gray-900 mb-3">Input Sentence</h5>
+                    <h5 class="font-medium text-heading">Input sentence</h5>
                     <div class="flex flex-wrap gap-2">
                         ${tokens.map((token, i) => `
-                            <span class="px-2 py-1 bg-gray-100 rounded text-sm font-mono border" id="token-${i}">
+                            <span class="chip chip-neutral font-mono text-xs" id="token-${i}">
                                 ${token}
                             </span>
                         `).join('')}
@@ -262,7 +266,6 @@ const interactiveScript = () => {
                 `;
                 container.appendChild(sentenceDisplay);
 
-                // Create heads grid with better responsive layout
                 const headsGrid = document.createElement('div');
                 const gridCols = numHeads <= 4 ? numHeads : (numHeads <= 8 ? 4 : 3);
                 headsGrid.className = `grid grid-cols-1 md:grid-cols-${gridCols} gap-4`;
@@ -270,102 +273,97 @@ const interactiveScript = () => {
                 for (let h = 0; h < numHeads; h++) {
                     const specialization = headSpecializations[h % 12];
                     const weights = generateAttentionWeights(tokens, h, numHeads);
-                    
+
                     const headCard = document.createElement('div');
-                    headCard.className = 'bg-white border border-gray-200 rounded-lg p-3';
-                    
-                    // Head header
+                    headCard.className = 'panel panel-neutral-soft p-3 space-y-3 h-full';
+
                     const header = document.createElement('div');
-                    header.className = 'flex items-center justify-between mb-3';
+                    header.className = 'flex flex-col gap-1 mb-3';
                     header.innerHTML = `
                         <div class="flex items-center gap-2">
-                            <div class="w-3 h-3 rounded" style="background-color: ${specialization.color}"></div>
-                            <span class="font-medium text-sm">Head ${h + 1}</span>
+                            <span class="inline-flex w-3 h-3 rounded-full" style="background-color: ${specialization.color}"></span>
+                            <span class="font-medium text-sm text-heading">Head ${h + 1}</span>
                         </div>
-                        <span class="text-xs text-gray-500">${specialization.name}</span>
+                        <span class="text-xs text-muted">${specialization.name}</span>
                     `;
-                    
-                    // Create attention matrix visualization (simplified but readable)
+
                     const matrixViz = document.createElement('div');
                     matrixViz.className = 'space-y-1';
-                    
-                    // Only show matrix if we have reasonable number of tokens
+
                     if (tokens.length <= 8) {
                         tokens.forEach((fromToken, i) => {
                             const row = document.createElement('div');
                             row.className = 'flex gap-1';
-                            
+
                             tokens.forEach((toToken, j) => {
                                 const cell = document.createElement('div');
                                 const cellSize = tokens.length <= 6 ? 'w-8 h-8' : 'w-6 h-6';
                                 cell.className = `${cellSize} rounded text-xs flex items-center justify-center cursor-pointer transition-all hover:scale-110`;
                                 const attention = weights[i][j];
-                                
-                                // Better color intensity and contrast
+
                                 const opacity = Math.max(0.15, Math.min(0.95, attention * 1.2));
                                 cell.style.backgroundColor = specialization.color;
                                 cell.style.opacity = opacity;
                                 cell.title = `${fromToken} → ${toToken}: ${(attention * 100).toFixed(1)}%`;
-                                
-                                // Better visibility for high attention
+
                                 if (attention > 0.25) {
-                                    cell.style.color = opacity > 0.6 ? 'white' : '#333';
+                                    cell.style.color = opacity > 0.6 ? '#ffffff' : 'var(--color-heading)';
                                     cell.style.fontWeight = 'bold';
-                                    cell.textContent = attention > 0.4 ? '●' : '•';
+                                    cell.textContent = attention > 0.4 ? '' : '';
+                                } else {
+                                    cell.textContent = '';
                                 }
-                                
+
                                 row.appendChild(cell);
                             });
-                            
+
                             matrixViz.appendChild(row);
                         });
                     } else {
-                        // For longer sentences, show simplified representation
                         const simplifiedViz = document.createElement('div');
-                        simplifiedViz.className = 'text-xs text-gray-600 p-2 bg-gray-50 rounded';
+                        simplifiedViz.className = 'panel panel-neutral-soft p-2 text-xs text-muted';
                         simplifiedViz.textContent = `Matrix too large to display (${tokens.length}×${tokens.length}). See key attention pairs below.`;
                         matrixViz.appendChild(simplifiedViz);
                     }
-                    
-                    // Add top attention pairs for this head
+
                     const topAttentions = [];
                     weights.forEach((row, i) => {
                         row.forEach((weight, j) => {
-                            if (i !== j && weight > 0.3) { // Lower threshold for more examples
+                            if (i !== j && weight > 0.3) {
                                 topAttentions.push({
                                     from: tokens[i],
                                     to: tokens[j],
-                                    weight: weight,
+                                    weight,
                                     fromIdx: i,
-                                    toIdx: j
+                                    toIdx: j,
                                 });
                             }
                         });
                     });
-                    
+
                     topAttentions.sort((a, b) => b.weight - a.weight);
-                    
+
                     const topPairs = document.createElement('div');
-                    topPairs.className = 'mt-2 text-xs';
+                    topPairs.className = 'space-y-1 text-xs text-muted';
                     if (topAttentions.length > 0) {
                         const maxPairs = Math.min(3, topAttentions.length);
                         topPairs.innerHTML = `
-                            <div class="font-medium text-gray-700 mb-1">Top Attention:</div>
-                            ${topAttentions.slice(0, maxPairs).map((att, idx) => 
-                                `<div class="text-gray-600">
-                                    ${idx + 1}. ${att.from} → ${att.to} <span class="font-medium">(${(att.weight * 100).toFixed(0)}%)</span>
-                                </div>`
-                            ).join('')}
+                            <div class="font-medium text-heading mb-1">Top attention</div>
+                            <ul class="space-y-1">
+                                ${topAttentions.slice(0, maxPairs).map((att, idx) => `
+                                    <li>${idx + 1}. ${att.from} → ${att.to} <span class="font-medium text-heading">(${(att.weight * 100).toFixed(0)}%)</span></li>
+                                `).join('')}
+                            </ul>
                         `;
                     } else {
                         topPairs.innerHTML = `
-                            <div class="text-gray-500">
-                                <div class="font-medium mb-1">Attention Pattern:</div>
-                                <div>Diffuse attention across all tokens</div>
+                            <div class="text-muted">
+                                <div class="font-medium text-heading mb-1">Attention pattern</div>
+                                <div>Diffuse focus across tokens</div>
                             </div>
                         `;
                     }
-                    
+
                     headCard.appendChild(header);
                     headCard.appendChild(matrixViz);
                     headCard.appendChild(topPairs);
@@ -374,17 +372,16 @@ const interactiveScript = () => {
 
                 container.appendChild(headsGrid);
 
-                // Add combined attention analysis
                 const analysisCard = document.createElement('div');
-                analysisCard.className = 'bg-blue-50 p-4 rounded border-l-4 border-blue-400';
+                analysisCard.className = 'panel panel-info p-4 space-y-2';
                 analysisCard.innerHTML = `
-                    <h5 class="font-medium text-blue-900 mb-2">Multi-Head Analysis</h5>
-                    <div class="text-sm text-blue-800">
+                    <h5 class="font-medium text-heading">Multi-head analysis</h5>
+                    <div class="text-sm text-body">
                         With ${numHeads} heads, the model can simultaneously capture:
                         <ul class="mt-2 space-y-1">
-                            ${Array.from({length: numHeads}, (_, i) => {
+                            ${Array.from({ length: numHeads }, (_, i) => {
                                 const spec = headSpecializations[i % 12];
-                                return `<li>• <strong>Head ${i + 1}:</strong> ${spec.name.toLowerCase()}</li>`;
+                                return `<li><strong>Head ${i + 1}:</strong> ${spec.name.toLowerCase()}</li>`;
                             }).join('')}
                         </ul>
                     </div>
@@ -397,31 +394,31 @@ const interactiveScript = () => {
             // Add statistics display
             function createStatistics(tokens, numHeads) {
                 const stats = document.createElement('div');
-                stats.className = 'grid grid-cols-2 md:grid-cols-4 gap-4 p-3 bg-white rounded border text-sm mt-4';
-                
-                const dModel = 768; // Standard BERT/GPT model dimension
+                stats.className = 'panel panel-neutral p-4 grid grid-cols-2 md:grid-cols-4 gap-4 text-sm mt-4';
+
+                const dModel = 768;
                 const dHead = Math.floor(dModel / numHeads);
-                const totalParams = numHeads * 3 * dModel * dHead; // 3 for Q, K, V projections
-                
+                const totalParams = numHeads * 3 * dModel * dHead;
+
                 stats.innerHTML = `
-                    <div class="text-center">
-                        <div class="text-2xl font-bold text-blue-600">${tokens.length}</div>
-                        <div class="text-gray-600">Tokens</div>
+                    <div class="text-center space-y-1">
+                        <div class="text-2xl font-bold text-heading">${tokens.length}</div>
+                        <div class="small-caption text-muted">Tokens</div>
                     </div>
-                    <div class="text-center">
-                        <div class="text-2xl font-bold text-green-600">${numHeads}</div>
-                        <div class="text-gray-600">Heads</div>
+                    <div class="text-center space-y-1">
+                        <div class="text-2xl font-bold text-heading">${numHeads}</div>
+                        <div class="small-caption text-muted">Heads</div>
                     </div>
-                    <div class="text-center">
-                        <div class="text-2xl font-bold text-purple-600">${dHead}</div>
-                        <div class="text-gray-600">Head Dim</div>
+                    <div class="text-center space-y-1">
+                        <div class="text-2xl font-bold text-heading">${dHead}</div>
+                        <div class="small-caption text-muted">Head dim</div>
                     </div>
-                    <div class="text-center">
-                        <div class="text-2xl font-bold text-orange-600">${(totalParams / 1000000).toFixed(1)}M</div>
-                        <div class="text-gray-600">Parameters</div>
+                    <div class="text-center space-y-1">
+                        <div class="text-2xl font-bold text-heading">${(totalParams / 1000000).toFixed(1)}M</div>
+                        <div class="small-caption text-muted">Parameters</div>
                     </div>
                 `;
-                
+
                 return stats;
             }
 
@@ -445,7 +442,7 @@ const interactiveScript = () => {
                 updateHeadsVisuals();
 
                 if (!text) {
-                    output.innerHTML = '<div class="text-gray-500 text-center py-8">Select a sentence to analyze multi-head attention...</div>';
+                    output.innerHTML = '<div class="text-muted text-center py-8">Select a sentence to explore multi-head attention.</div>';
                     return;
                 }
 
@@ -453,7 +450,7 @@ const interactiveScript = () => {
                 const tokens = tokenizeText(text);
 
                 if (tokens.length === 0) {
-                    output.innerHTML = '<div class="text-gray-500 text-center py-8">No valid tokens found...</div>';
+                    output.innerHTML = '<div class="text-muted text-center py-8">No valid tokens found.</div>';
                     return;
                 }
 
@@ -468,15 +465,15 @@ const interactiveScript = () => {
                 // Update legend
                 if (legend) {
                     legend.innerHTML = `
-                        <div class="flex items-center gap-4 text-gray-600 flex-wrap">
-                            <div class="text-xs">Matrix cells are tinted by head color; opacity encodes attention strength.</div>
+                        <div class="flex flex-wrap items-center gap-4 text-xs text-muted">
+                            <span>Matrix cells tint to the head colour; opacity encodes focus.</span>
                             <div class="flex items-center gap-2">
-                                <span class="w-3 h-3 inline-block rounded" style="background-color:#000;opacity:0.2"></span>
-                                <span class="text-xs">Low</span>
-                                <span class="w-3 h-3 inline-block rounded ml-3" style="background-color:#000;opacity:0.8"></span>
-                                <span class="text-xs">High</span>
+                                <span class="inline-block w-3 h-3 rounded-full" style="background-color: var(--color-heading); opacity: 0.2;"></span>
+                                <span>Low</span>
+                                <span class="inline-block w-3 h-3 rounded-full ml-3" style="background-color: var(--color-heading); opacity: 0.8;"></span>
+                                <span>High</span>
                             </div>
-                            <div class="text-xs">• / ● marks strong connections</div>
+                            <span> /  highlight strong connections</span>
                         </div>`;
                 }
 
@@ -499,23 +496,23 @@ const interactiveScript = () => {
                 if (numHeads === 4) {
                     explanationText += `
                         With 4 heads, the model has basic multi-perspective processing:
-                        <br>• <strong>Pros:</strong> Faster computation, fewer parameters, good for simple tasks
-                        <br>• <strong>Cons:</strong> Limited specialization, may miss complex patterns
-                        <br>• <strong>Best for:</strong> Short sequences, simple linguistic structures, resource-constrained environments
+                        <br> • <strong>Pros:</strong> Faster computation, fewer parameters, good for simple tasks
+                        <br> • <strong>Cons:</strong> Limited specialization, may miss complex patterns
+                        <br> • <strong>Best for:</strong> Short sequences, simple linguistic structures, resource-constrained environments
                     `;
                 } else if (numHeads === 8) {
                     explanationText += `
                         With 8 heads, the model achieves balanced multi-perspective analysis:
-                        <br>• <strong>Pros:</strong> Good balance of specialization and efficiency, captures diverse patterns
-                        <br>• <strong>Cons:</strong> Moderate computational cost
-                        <br>• <strong>Best for:</strong> General-purpose language understanding, most NLP tasks
+                        <br> • <strong>Pros:</strong> Good balance of specialization and efficiency, captures diverse patterns
+                        <br> • <strong>Cons:</strong> Moderate computational cost
+                        <br> • <strong>Best for:</strong> General-purpose language understanding, most NLP tasks
                     `;
                 } else {
                     explanationText += `
                         With 12 heads, the model has highly specialized attention mechanisms:
-                        <br>• <strong>Pros:</strong> Maximum pattern diversity, excellent for complex linguistic phenomena
-                        <br>• <strong>Cons:</strong> Higher computational cost, potential redundancy
-                        <br>• <strong>Best for:</strong> Complex reasoning tasks, long sequences, nuanced language understanding
+                        <br> • <strong>Pros:</strong> Maximum pattern diversity, excellent for complex linguistic phenomena
+                        <br> • <strong>Cons:</strong> Higher computational cost, potential redundancy
+                        <br> • <strong>Best for:</strong> Complex reasoning tasks, long sequences, nuanced language understanding
                     `;
                 }
                 

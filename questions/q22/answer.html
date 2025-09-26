@@ -1,50 +1,53 @@
 <div class="space-y-4">
-        <!-- Recommended Reading -->
-        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
-            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related topics)</h4>
-            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
-                <li><a href="#question-21" class="text-indigo-700 underline hover:text-indigo-900">Question 21: Positional encodings</a></li>
-                <li><a href="#question-23" class="text-indigo-700 underline hover:text-indigo-900">Question 23: Softmax in attention</a></li>
-                <li><a href="#question-24" class="text-indigo-700 underline hover:text-indigo-900">Question 24: Dot product in self-attention</a></li>
-                <li><a href="#question-32" class="text-indigo-700 underline hover:text-indigo-900">Question 32: Attention score calculation</a></li>
-            </ul>
-        </div>
-        <!-- Main Concept Box -->
-        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
-            <h4 class="font-semibold text-blue-900 mb-2">🎯 What is Multi-Head Attention?</h4>
-            <p class="text-blue-800">Multi-head attention is like having multiple specialized experts examining the same text simultaneously. Instead of one attention mechanism, the model splits queries, keys, and values into multiple "heads" - each focusing on different aspects like syntax, semantics, or relationships. Think of it as having multiple translators, each specializing in different nuances of language.</p>
-        </div>
-        
-    <!-- How It Works -->
-        <div class="grid md:grid-cols-3 gap-4">
-            <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
-                <h5 class="font-medium text-green-900">Split into Heads</h5>
-                <p class="text-sm text-green-700">Divide the embedding dimension into multiple smaller subspaces, each representing one attention head.</p>
-    <div class="math-display">$$ d_{model} = h , d_{head} $$</div>
-            <div class="math-display mt-1">$$ head_i = A(Q W_i^{Q}, K W_i^{K}, V W_i^{V}) $$</div>
-            </div>
-            
-            <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
-                <h5 class="font-medium text-purple-900">Parallel Processing</h5>
-                <p class="text-sm text-purple-700">Each head independently computes attention weights, focusing on different patterns and relationships.</p>
-                <div class="math-display">$$ A(Q,K,V) = softmax((QK^{T})/sqrt{d_k}),V $$</div>
-            </div>
-            
-            <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
-                <h5 class="font-medium text-orange-900">Concatenate & Project</h5>
-                <p class="text-sm text-orange-700">Combine outputs from all heads and apply a final linear transformation to integrate insights.</p>
-                <div class="math-display">$$ MHA(Q,K,V) = Concat(head_1,ldots,head_h), W^{O} $$</div>
-            </div>
-        </div>
-        
-        <!-- Why It Matters Section -->
-        <div class="bg-yellow-50 p-4 rounded-lg">
-            <h4 class="font-semibold text-yellow-900 mb-2">🚀 Why Multi-Head Attention Enhances LLMs</h4>
-            <ul class="text-sm text-yellow-800 space-y-1">
-                <li>• <strong>Specialized Focus:</strong> Different heads can specialize in syntax, semantics, long-range dependencies, or local patterns</li>
-                <li>• <strong>Redundancy & Robustness:</strong> Multiple perspectives reduce the risk of missing important relationships</li>
-                <li>• <strong>Parallel Processing:</strong> Heads operate independently, enabling efficient computation and diverse pattern recognition</li>
-                <li>• <strong>Rich Representations:</strong> Combining multiple attention patterns creates more nuanced understanding of context</li>
-            </ul>
-        </div>
+  <div class="panel panel-info p-3 space-y-2">
+    <h4 class="font-semibold text-heading">📚 Recommended reading (related topics)</h4>
+    <ul class="list-disc ml-5 text-sm text-muted space-y-1">
+      <li><a href="#question-21" class="underline">Question 21: Positional encodings</a></li>
+      <li><a href="#question-23" class="underline">Question 23: Softmax in attention</a></li>
+      <li><a href="#question-24" class="underline">Question 24: Dot product in self-attention</a></li>
+      <li><a href="#question-32" class="underline">Question 32: Attention score calculation</a></li>
+    </ul>
+  </div>
+
+  <div class="panel panel-info panel-emphasis p-4 space-y-2">
+    <h4 class="font-semibold text-heading">🎯 What is multi-head attention?</h4>
+    <p class="text-body">Multi-head attention is like consulting a room of specialists at once. The model splits the query, key, and value projections into multiple heads so each one can track a different relationship—syntax, semantics, long-distance context, or entity references—before fusing their perspectives back together.</p>
+  </div>
+
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="panel panel-success p-4 flex flex-col gap-3 h-full">
+      <h5 class="font-medium text-heading">Split into heads</h5>
+      <p class="text-sm text-body">Partition the embedding dimension across <em>h</em> heads so each works in a smaller subspace with its own learned projections.</p>
+      <div class="mt-auto space-y-2">
+        <div class="math-display">$$ d_{model} = h \times d_{head} $$</div>
+        <div class="math-display">$$ head_i = A\big(Q W_i^{Q},\; K W_i^{K},\; V W_i^{V}\big) $$</div>
+      </div>
     </div>
+
+    <div class="panel panel-accent p-4 flex flex-col gap-3 h-full">
+      <h5 class="font-medium text-heading">Process in parallel</h5>
+      <p class="text-sm text-body">Each head runs scaled dot-product attention independently, discovering patterns that match its specialization.</p>
+      <div class="mt-auto">
+        <div class="math-display">$$ A(Q,K,V) = \operatorname{softmax}\left(\frac{QK^{\top}}{\sqrt{d_k}}\right)V $$</div>
+      </div>
+    </div>
+
+    <div class="panel panel-warning p-4 flex flex-col gap-3 h-full">
+      <h5 class="font-medium text-heading">Concatenate &amp; project</h5>
+      <p class="text-sm text-body">Combine the head outputs and apply a final linear projection so the model can blend the insights into the next layer.</p>
+      <div class="mt-auto">
+        <div class="math-display">$$ \operatorname{MHA}(Q,K,V) = \operatorname{Concat}(head_1,\ldots,head_h) W^{O} $$</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-warning p-4 space-y-2">
+    <h4 class="font-semibold text-heading">🚀 Why multi-head attention enhances LLMs</h4>
+    <ul class="text-sm text-body space-y-1">
+      <li><strong>Specialized focus:</strong> Different heads home in on syntax, semantics, long-range dependencies, or local patterns.</li>
+      <li><strong>Redundancy &amp; robustness:</strong> Multiple perspectives reduce the odds of missing critical relationships.</li>
+      <li><strong>Parallel processing:</strong> Independent heads keep computation efficient while widening the model’s field of view.</li>
+      <li><strong>Rich representations:</strong> Fusing diverse attention maps yields nuanced, context-aware embeddings.</li>
+    </ul>
+  </div>
+</div>

@@ -1,72 +1,78 @@
 <div class="space-y-4">
-        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
-            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related)</h4>
-            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
-                <li><a href="#question-07" class="text-indigo-700 underline hover:text-indigo-900">Question 7: What are embeddings and how do they enable semantic meaning?</a></li>
-                <li><a href="#question-09" class="text-indigo-700 underline hover:text-indigo-900">Question 9: How do autoregressive and masked models differ in LLM training?</a></li>
-                <li><a href="#question-14" class="text-indigo-700 underline hover:text-indigo-900">Question 14: What are embeddings and why do they matter?</a></li>
-                <li><a href="#question-25" class="text-indigo-700 underline hover:text-indigo-900">Question 25: Why is cross-entropy loss used in language modeling?</a></li>
-            </ul>
-        </div>
-        <!-- Main Concept Box -->
-        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
-            <h4 class="font-semibold text-blue-900 mb-2">🎯 What are Embeddings?</h4>
-            <p class="text-blue-800">Embeddings are dense numerical vectors that represent tokens (words, subwords, or characters) in a continuous mathematical space. Think of them as coordinates that place each word in a multi-dimensional map where similar words are positioned closer together. Each dimension captures different semantic or syntactic properties.</p>
-        </div>
-        
-        <!-- Initialization Strategies Grid -->
-        <div class="grid md:grid-cols-3 gap-4">
-            <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
-                <h5 class="font-medium text-green-900 mb-2">🎲 Random Initialization</h5>
-                <p class="text-sm text-green-700 mb-2">Start with random values and learn everything from scratch during training.</p>
-                <div class="text-xs space-y-1">
-                    <div><strong>Pros:</strong> No bias, learns task-specific patterns</div>
-                    <div><strong>Cons:</strong> Requires more training data and time</div>
-                </div>
-                <code class="text-xs bg-green-100 px-1 rounded block mt-2">torch.randn(vocab_size, embed_dim)</code>
-            </div>
-            <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
-                <h5 class="font-medium text-purple-900 mb-2">📚 Pre-trained Initialization</h5>
-                <p class="text-sm text-purple-700 mb-2">Use embeddings from models like Word2Vec, GloVe, or FastText as starting points.</p>
-                <div class="text-xs space-y-1">
-                    <div><strong>Pros:</strong> Rich semantic knowledge, faster convergence</div>
-                    <div><strong>Cons:</strong> May have domain bias, larger memory</div>
-                </div>
-                <code class="text-xs bg-purple-100 px-1 rounded block mt-2">load_pretrained_embeddings("glove.6B.300d")</code>
-            </div>
-            <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
-                <h5 class="font-medium text-orange-900 mb-2">🔧 Hybrid Initialization</h5>
-                <p class="text-sm text-orange-700 mb-2">Combine pre-trained embeddings with random initialization for new vocabulary.</p>
-                <div class="text-xs space-y-1">
-                    <div><strong>Pros:</strong> Best of both worlds, handles new words</div>
-                    <div><strong>Cons:</strong> More complex setup, potential inconsistencies</div>
-                </div>
-                <code class="text-xs bg-orange-100 px-1 rounded block mt-2">merge_embeddings(pretrained, random)</code>
-            </div>
-        </div>
+  <div class="panel panel-info p-3 space-y-2">
+    <h4 class="font-semibold">📚 Recommended reading (related)</h4>
+    <ul class="list-disc ml-5 text-sm space-y-1">
+      <li><a href="#question-07" class="underline">Question 7: What are embeddings and how do they enable semantic meaning?</a></li>
+      <li><a href="#question-09" class="underline">Question 9: How do autoregressive and masked models differ in LLM training?</a></li>
+      <li><a href="#question-14" class="underline">Question 14: What are embeddings and why do they matter?</a></li>
+      <li><a href="#question-25" class="underline">Question 25: Why is cross-entropy loss used in language modeling?</a></li>
+    </ul>
+  </div>
 
-        <!-- How Embeddings Evolve -->
-        <div class="bg-indigo-50 p-4 rounded-lg border-l-4 border-indigo-400">
-            <h4 class="font-semibold text-indigo-900 mb-2">🌱 How Embeddings Evolve During Training</h4>
-            <div class="text-sm text-indigo-800 space-y-2">
-                <p><strong>Initial State:</strong> Random vectors or pre-trained representations with general knowledge</p>
-                <p><strong>Training Process:</strong> Backpropagation adjusts embedding values based on prediction errors</p>
-                <p><strong>Final State:</strong> Task-specific representations that capture relevant semantic relationships</p>
-                <div class="bg-indigo-100 p-2 rounded mt-2">
-                    <strong>Example:</strong> The embedding for "dog" might start neutral but evolve to be closer to "pet", "animal", "loyal" in a pet care application, or closer to "guide", "service", "working" in an assistance context.
-                </div>
-            </div>
-        </div>
-        
-        <!-- Why This Matters -->
-        <div class="bg-yellow-50 p-4 rounded-lg">
-            <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why Embedding Initialization Matters</h4>
-            <ul class="text-sm text-yellow-800 space-y-1">
-                <li>• <strong>Training Speed:</strong> Good initialization can reduce training time by 30-50%</li>
-                <li>• <strong>Final Performance:</strong> Starting point affects the model's ability to capture semantic relationships</li>
-                <li>• <strong>Transfer Learning:</strong> Pre-trained embeddings enable knowledge transfer across domains</li>
-                <li>• <strong>Data Efficiency:</strong> Better initialization requires less training data for good performance</li>
-                <li>• <strong>Convergence:</strong> Proper initialization helps avoid local minima and training instability</li>
-            </ul>
-        </div>
+  <div class="panel panel-info panel-emphasis p-4 space-y-2">
+    <h4 class="font-semibold">🎯 What are Embeddings?</h4>
+    <p>Embeddings map tokens (words, subwords, or characters) to dense numerical vectors so similar items land near one another in a multi-dimensional space. Think of it as giving every word coordinates on a semantic map where distance reflects meaning and usage.</p>
+  </div>
+
+  <div class="grid gap-4 md:grid-cols-3">
+    <div class="panel panel-success p-4 flex flex-col gap-3 h-full">
+      <div class="flex items-center justify-between gap-2">
+        <h5 class="font-medium">🎲 Random Initialization</h5>
+        <span class="chip chip-success text-xs">Fresh start</span>
+      </div>
+      <p class="text-sm">Start from scratch with random values and let training sculpt the vector space.</p>
+      <div class="text-xs space-y-1">
+        <div><strong>Pros:</strong> No inherited bias, learns task-specific patterns</div>
+        <div><strong>Cons:</strong> Needs more data and training time</div>
+      </div>
+      <div class="panel panel-neutral-soft font-mono text-xs p-2 q10-snippet mt-auto"><code>torch.randn(vocab_size, embed_dim)</code></div>
     </div>
+    <div class="panel panel-accent p-4 flex flex-col gap-3 h-full">
+      <div class="flex items-center justify-between gap-2">
+        <h5 class="font-medium">📦 Pre-trained Initialization</h5>
+        <span class="chip chip-accent text-xs">Knowledge transfer</span>
+      </div>
+      <p class="text-sm">Warm-start with embeddings like Word2Vec, GloVe, or FastText to borrow prior knowledge.</p>
+      <div class="text-xs space-y-1">
+        <div><strong>Pros:</strong> Rich semantics, faster convergence</div>
+        <div><strong>Cons:</strong> Bakes in source-domain bias, larger footprint</div>
+      </div>
+      <div class="panel panel-neutral-soft font-mono text-xs p-2 q10-snippet mt-auto"><code>load_pretrained_embeddings("glove.6B.300d")</code></div>
+    </div>
+    <div class="panel panel-warning p-4 flex flex-col gap-3 h-full">
+      <div class="flex items-center justify-between gap-2">
+        <h5 class="font-medium">⚙️ Hybrid Initialization</h5>
+        <span class="chip chip-warning text-xs">Balanced blend</span>
+      </div>
+      <p class="text-sm">Blend pre-trained vectors for known tokens with random init for new vocabulary.</p>
+      <div class="text-xs space-y-1">
+        <div><strong>Pros:</strong> Balances coverage and adaptability</div>
+        <div><strong>Cons:</strong> Adds setup complexity, must align spaces</div>
+      </div>
+      <div class="panel panel-neutral-soft font-mono text-xs p-2 q10-snippet mt-auto"><code>merge_embeddings(pretrained, random)</code></div>
+    </div>
+  </div>
+
+  <div class="panel panel-neutral p-4 space-y-3">
+    <h4 class="font-semibold">🌱 How Embeddings Evolve During Training</h4>
+    <div class="text-sm space-y-2">
+      <p><strong>Initial state:</strong> Random vectors or pre-trained representations with broad knowledge</p>
+      <p><strong>Training:</strong> Backpropagation nudges vectors whenever the model mispredicts, aligning them with context cues</p>
+      <p><strong>Final state:</strong> Task-tuned representations that capture semantic relationships relevant to your objective</p>
+      <div class="panel panel-neutral-soft p-3 space-y-1">
+        <strong>Example:</strong> The embedding for “dog” may move closer to “pet”, “loyal”, and “adopt” in a pet-care product, yet gravitate toward “guide”, “service”, and “assist” in an accessibility assistant.
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-warning p-4 space-y-2">
+    <h4 class="font-semibold">🎯 Why Embedding Initialization Matters</h4>
+    <ul class="text-sm space-y-1">
+      <li>• <strong>Training speed:</strong> Better starting points can shave 30–50% off convergence time</li>
+      <li>• <strong>Final performance:</strong> Initialization influences how well semantic structure emerges</li>
+      <li>• <strong>Transfer learning:</strong> Pre-trained vectors carry knowledge across domains</li>
+      <li>• <strong>Data efficiency:</strong> Smart seeds demand less labelled data</li>
+      <li>• <strong>Stability:</strong> Good initialization reduces the odds of poor local minima</li>
+    </ul>
+  </div>
+</div>

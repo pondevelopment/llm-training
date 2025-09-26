@@ -1,147 +1,342 @@
+<div class="space-y-6">
 
-            <div class="space-y-6">
-                <!-- Input Section -->
-                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200">
-                    <label for="q10-word-select" class="block text-sm font-medium text-gray-700 mb-2">📝 Select Words to Explore</label>
-                    <select id="q10-word-select" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
-                        <option value="dog cat animal pet">Animals & Pets (dog cat animal pet)</option>
-                        <option value="king queen royal monarch">Royalty & Hierarchy (king queen royal monarch)</option>
-                        <option value="happy sad joyful depressed">Emotions (happy sad joyful depressed)</option>
-                        <option value="heart brain medicine doctor">Medical Terms (heart brain medicine doctor)</option>
-                        <option value="therapy treatment diagnosis prescription">Medical Procedures (therapy treatment diagnosis prescription)</option>
-                        <option value="computer software algorithm data">Technology (computer software algorithm data)</option>
-                        <option value="book read write author">Literature (book read write author)</option>
-                        <option value="car drive road traffic">Transportation (car drive road traffic)</option>
-                    </select>
-                    <p class="text-xs text-gray-600 mt-1">Choose a word set to see how their embeddings might evolve during training</p>
-                </div>
-                
-                <!-- Initialization Strategy Selection -->
-                <div class="bg-white border border-gray-200 rounded-lg p-4">
-                    <label class="block text-sm font-medium text-gray-700 mb-3">🎲 Choose Initialization Strategy</label>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                        <label class="relative cursor-pointer">
-                            <input type="radio" name="q10-strategy" value="random" class="sr-only" checked>
-                            <div class="q10-card border-2 border-green-200 rounded-lg p-3 hover:bg-green-50 transition-colors">
-                                <div class="flex items-center justify-between mb-2">
-                                    <span class="font-medium text-green-700">Random Init</span>
-                                    <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded">Fresh Start</span>
-                                </div>
-                                <p class="text-xs text-green-600">Start from scratch with random values</p>
-                            </div>
-                        </label>
-                        <label class="relative cursor-pointer">
-                            <input type="radio" name="q10-strategy" value="pretrained" class="sr-only">
-                            <div class="q10-card border-2 border-purple-200 rounded-lg p-3 hover:bg-purple-50 transition-colors">
-                                <div class="flex items-center justify-between mb-2">
-                                    <span class="font-medium text-purple-700">Pre-trained</span>
-                                    <span class="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded">Knowledge Transfer</span>
-                                </div>
-                                <p class="text-xs text-purple-600">Use existing embeddings (Word2Vec, GloVe)</p>
-                            </div>
-                        </label>
-                        <label class="relative cursor-pointer">
-                            <input type="radio" name="q10-strategy" value="hybrid" class="sr-only">
-                            <div class="q10-card border-2 border-orange-200 rounded-lg p-3 hover:bg-orange-50 transition-colors">
-                                <div class="flex items-center justify-between mb-2">
-                                    <span class="font-medium text-orange-700">Hybrid</span>
-                                    <span class="text-xs bg-orange-100 text-orange-700 px-2 py-1 rounded">Best of Both</span>
-                                </div>
-                                <p class="text-xs text-orange-600">Combine pre-trained + random</p>
-                            </div>
-                        </label>
-                    </div>
-                </div>
+  <div class="panel panel-info p-4 space-y-3">
 
-                <!-- Training Context -->
-                <div class="bg-white border border-gray-200 rounded-lg p-4">
-                    <label class="block text-sm font-medium text-gray-700 mb-3">🎯 Training Context</label>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-                        <label class="relative cursor-pointer">
-                            <input type="radio" name="q10-context" value="general" class="sr-only" checked>
-                            <div class="q10-card border-2 border-blue-200 rounded-lg p-3 hover:bg-blue-50 transition-colors">
-                                <div class="flex items-center justify-between mb-2">
-                                    <span class="font-medium text-blue-700">General Language</span>
-                                    <span class="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded">Broad</span>
-                                </div>
-                                <p class="text-xs text-blue-600">General purpose language understanding</p>
-                            </div>
-                        </label>
-                        <label class="relative cursor-pointer">
-                            <input type="radio" name="q10-context" value="specialized" class="sr-only">
-                            <div class="q10-card border-2 border-purple-200 rounded-lg p-3 hover:bg-purple-50 transition-colors">
-                                <div class="flex items-center justify-between mb-2">
-                                    <span class="font-medium text-purple-700" id="q10-specialized-name">Specialized Domain</span>
-                                    <span class="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded">Focused</span>
-                                </div>
-                                <p class="text-xs text-purple-600" id="q10-specialized-desc">Domain-specific training with specialized terminology</p>
-                            </div>
-                        </label>
-                    </div>
-                </div>
+    <div class="flex items-start justify-between gap-3">
 
-                <!-- Quick Examples -->
-                <div class="flex flex-wrap gap-2">
-                    <span class="text-sm font-medium text-gray-700">💡 Quick Examples:</span>
-                    <button id="q10-example-btn" class="text-xs bg-indigo-100 text-indigo-700 px-2 py-1 rounded hover:bg-indigo-200 transition-colors">Try: "heart brain..."</button>
-                </div>
+      <div>
 
-                <!-- Controls: Sort and Compare -->
-                <div class="bg-white border border-gray-200 rounded-lg p-4">
-                    <div class="grid md:grid-cols-3 gap-3 items-start">
-                            <label class="block text-sm font-medium text-gray-700">🔎 Sort results
-                                <select id="q10-sort-select" class="mt-1 w-full h-10 px-3 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                                    <option value="final" selected>Final similarity (high → low)</option>
-                                    <option value="improvement">Improvement (high → low)</option>
-                                    <option value="alpha">Alphabetical (A → Z)</option>
-                                </select>
-                            </label>
-                            <div>
-                                <label class="flex items-center gap-2 text-sm font-medium text-gray-700">
-                                    <input type="checkbox" id="q10-compare-toggle" class="h-4 w-4">
-                                    Compare two strategies
-                                </label>
-                                <select id="q10-compare-strategy" class="mt-2 md:mt-0 md:w-56 h-10 px-3 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                                    <option value="pretrained" selected>Pre-trained</option>
-                                    <option value="random">Random</option>
-                                    <option value="hybrid">Hybrid</option>
-                                </select>
-                                <div class="text-[11px] text-gray-500 mt-1">Compares with currently selected strategy</div>
-                            </div>
-                            <div class="lg:justify-self-end">
-                                <button id="q10-reset-btn" class="px-3 py-2 h-10 text-sm bg-gray-100 border border-gray-300 rounded hover:bg-gray-200">Reset</button>
-                            </div>
-                        </div>
-                    </div>
-                
-                <!-- Results -->
-                <div class="bg-white border border-gray-200 rounded-lg p-4">
-                    <div class="flex items-center justify-between mb-3">
-                        <h4 class="font-medium text-gray-900">🎨 Embedding Evolution Simulation</h4>
-                        <div id="q10-strategy-indicator" class="text-xs bg-gray-100 px-2 py-1 rounded font-medium">Random Initialization</div>
-                    </div>
-                    <div id="q10-output" class="min-h-[200px] p-3 bg-gray-50 rounded border-2 border-dashed border-gray-300">
-                        <div class="text-gray-500 text-center py-8">Select words above to see how their embeddings evolve</div>
-                    </div>
-                    <div id="q10-compare-grid" class="hidden mt-3 grid md:grid-cols-2 gap-4">
-                        <div>
-                            <div id="q10-compare-title-a" class="text-xs font-medium text-gray-700 mb-1">Strategy A</div>
-                            <div id="q10-output-a" class="min-h-[180px] p-3 bg-gray-50 rounded border-2 border-dashed border-gray-300"></div>
-                        </div>
-                        <div>
-                            <div id="q10-compare-title-b" class="text-xs font-medium text-gray-700 mb-1">Strategy B</div>
-                            <div id="q10-output-b" class="min-h-[180px] p-3 bg-gray-50 rounded border-2 border-dashed border-gray-300"></div>
-                        </div>
-                    </div>
-                    <div id="q10-legend" class="mt-3 text-xs"></div>
-                </div>
-                
-                <!-- Educational Explanation -->
-                <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-                    <h4 class="font-medium text-yellow-900 mb-2">📊 Understanding the Evolution</h4>
-                    <div id="q10-explanation" class="text-sm text-yellow-800">
-                        Choose an initialization strategy above to see how different approaches affect embedding evolution during training.
-                    </div>
-                </div>
-            </div>
-        
+        <h4 class="font-semibold text-heading">🎓 How this simulator works</h4>
+
+        <p class="small-caption text-muted">Compare initialization strategies (random, pre-trained, hybrid) and see how context changes embedding evolution. Follow the panels below and watch the results update instantly.</p>
+
+      </div>
+
+      <button id="q10-how-toggle" class="chip chip-info text-xs" aria-expanded="true">Hide</button>
+
+    </div>
+
+    <div id="q10-how-body" class="grid gap-3 text-xs md:grid-cols-3">
+
+      <div class="panel panel-neutral-soft p-3 space-y-1">
+
+        <div class="font-semibold text-heading">Autoregressive view</div>
+
+        <ul class="list-disc list-inside space-y-0.5 text-muted">
+
+          <li>Predict next token left to right</li>
+
+          <li>Great for generation scenarios</li>
+
+          <li>Shows convergence across epochs</li>
+
+        </ul>
+
+      </div>
+
+      <div class="panel panel-neutral-soft p-3 space-y-1">
+
+        <div class="font-semibold text-heading">Masked LM view</div>
+
+        <ul class="list-disc list-inside space-y-0.5 text-muted">
+
+          <li>Recover masked spans with full context</li>
+
+          <li>Great for understanding tasks</li>
+
+          <li>Highlights recovery confidence</li>
+
+        </ul>
+
+      </div>
+
+      <div class="panel panel-neutral-soft p-3 space-y-1">
+
+        <div class="font-semibold text-heading">What updates</div>
+
+        <ul class="list-disc list-inside space-y-0.5 text-muted">
+
+          <li>Initialization cards highlight the active choice</li>
+
+          <li>Results list related terms before/after training</li>
+
+          <li>Legend and explanation adapt to your context</li>
+
+        </ul>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="panel panel-info p-4 space-y-3">
+
+    <label for="q10-word-select" class="text-sm font-medium text-heading">🗂️ Select words to explore</label>
+
+    <select id="q10-word-select" class="select-control">
+
+      <option value="dog cat animal pet">Animals & Pets (dog cat animal pet)</option>
+
+      <option value="king queen royal monarch">Royalty & Hierarchy (king queen royal monarch)</option>
+
+      <option value="happy sad joyful depressed">Emotions (happy sad joyful depressed)</option>
+
+      <option value="heart brain medicine doctor">Medical Terms (heart brain medicine doctor)</option>
+
+      <option value="therapy treatment diagnosis prescription">Medical Procedures (therapy treatment diagnosis prescription)</option>
+
+      <option value="computer software algorithm data">Technology (computer software algorithm data)</option>
+
+      <option value="book read write author">Literature (book read write author)</option>
+
+      <option value="car drive road traffic">Transportation (car drive road traffic)</option>
+
+    </select>
+
+    <div class="flex flex-wrap items-center gap-2 text-xs text-muted">
+
+      <span>Or cycle curated examples:</span>
+
+      <button id="q10-example-btn" class="chip chip-info text-xs">Next example</button>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="panel panel-neutral p-4 space-y-3">
+
+    <label class="text-sm font-medium text-heading">🎯 Choose initialization strategy</label>
+
+    <div class="grid gap-3 md:grid-cols-3">
+
+      <label class="q10-option" data-tone="emerald">
+
+        <input type="radio" name="q10-strategy" value="random" class="sr-only" checked>
+
+        <div class="q10-card" data-tone="emerald">
+
+          <div class="flex items-start justify-between gap-2">
+
+            <span class="q10-card-title">Random init</span>
+
+            <span class="chip chip-success text-xs">Fresh start</span>
+
+          </div>
+
+          <p class="small-caption text-muted">Start from scratch with random vectors and learn purely from your training data.</p>
+
+        </div>
+
+      </label>
+
+      <label class="q10-option" data-tone="purple">
+
+        <input type="radio" name="q10-strategy" value="pretrained" class="sr-only">
+
+        <div class="q10-card" data-tone="purple">
+
+          <div class="flex items-start justify-between gap-2">
+
+            <span class="q10-card-title">Pre-trained</span>
+
+            <span class="chip chip-accent text-xs">Knowledge transfer</span>
+
+          </div>
+
+          <p class="small-caption text-muted">Reuse embeddings such as Word2Vec or GloVe to kick-start training.</p>
+
+        </div>
+
+      </label>
+
+      <label class="q10-option" data-tone="amber">
+
+        <input type="radio" name="q10-strategy" value="hybrid" class="sr-only">
+
+        <div class="q10-card" data-tone="amber">
+
+          <div class="flex items-start justify-between gap-2">
+
+            <span class="q10-card-title">Hybrid</span>
+
+            <span class="chip chip-warning text-xs">Best of both</span>
+
+          </div>
+
+          <p class="small-caption text-muted">Combine pre-trained vectors for known tokens and random init for new terms.</p>
+
+        </div>
+
+      </label>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="panel panel-neutral p-4 space-y-3">
+
+    <label class="text-sm font-medium text-heading">🧭 Training context</label>
+
+    <div class="grid gap-3 md:grid-cols-2">
+
+      <label class="q10-option" data-tone="indigo">
+
+        <input type="radio" name="q10-context" value="general" class="sr-only" checked>
+
+        <div class="q10-card" data-tone="indigo">
+
+          <div class="flex items-start justify-between gap-2">
+
+            <span class="q10-card-title">General language</span>
+
+            <span class="chip chip-info text-xs">Web & books</span>
+
+          </div>
+
+          <p class="small-caption text-muted">Broad corpora such as Wikipedia or Common Crawl with diverse vocabulary.</p>
+
+        </div>
+
+      </label>
+
+      <label class="q10-option" data-tone="rose">
+
+        <input type="radio" name="q10-context" value="specialized" class="sr-only">
+
+        <div class="q10-card" data-tone="rose">
+
+          <div class="flex items-start justify-between gap-2">
+
+            <span class="q10-card-title">Specialized domain</span>
+
+            <span class="chip chip-warning text-xs">Narrow focus</span>
+
+          </div>
+
+          <p class="small-caption text-muted">Domain data (legal, medical, finance) where terminology shifts over time.</p>
+
+        </div>
+
+      </label>
+
+    </div>
+
+    <div id="q10-context-summary" class="panel panel-neutral-soft p-3 space-y-1 text-xs">
+
+      <div class="flex items-center justify-between gap-2">
+
+        <span class="font-medium text-heading">Context focus</span>
+
+        <span id="q10-specialized-name" class="chip chip-info text-xs">General language</span>
+
+      </div>
+
+      <p id="q10-specialized-desc" class="text-muted">Broad corpora such as Wikipedia or Common Crawl with diverse vocabulary.</p>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="panel panel-neutral p-4 space-y-4">
+
+    <div class="flex flex-wrap items-center gap-2 text-xs">
+
+      <label class="flex items-center gap-2">
+
+        <input type="checkbox" id="q10-compare-toggle" class="h-4 w-4">
+
+        <span class="small-caption text-muted">Compare with another strategy</span>
+
+      </label>
+
+      <select id="q10-compare-strategy" class="select-control max-w-[14rem]" disabled>
+
+        <option value="pretrained">Pre-trained</option>
+
+        <option value="random">Random init</option>
+
+        <option value="hybrid">Hybrid</option>
+
+      </select>
+
+      <select id="q10-sort-select" class="select-control max-w-[12rem]">
+
+        <option value="final">Sort by final similarity</option>
+
+        <option value="delta">Sort by improvement</option>
+
+        <option value="alpha">Sort alphabetically</option>
+
+      </select>
+
+      <button id="q10-reset-btn" class="chip chip-neutral text-xs">Reset view</button>
+
+    </div>
+
+    <div class="panel panel-neutral-soft p-4 space-y-3">
+
+      <div class="flex flex-wrap items-center justify-between gap-2 text-sm">
+
+        <div class="flex items-center gap-2">
+
+          <span class="font-medium text-heading">🎛️ View mode:</span>
+
+          <div id="q10-strategy-indicator" class="chip chip-info text-xs"></div>
+
+        </div>
+
+        <div id="q10-legend" class="text-xs"></div>
+
+      </div>
+
+      <div id="q10-output" class="q10-output p-3"></div>
+
+      <div id="q10-compare-grid" class="hidden grid gap-4 md:grid-cols-2">
+
+        <div>
+
+          <div id="q10-compare-title-a" class="text-xs font-medium text-heading mb-1">Strategy A</div>
+
+          <div id="q10-output-a" class="q10-output p-3"></div>
+
+        </div>
+
+        <div>
+
+          <div id="q10-compare-title-b" class="text-xs font-medium text-heading mb-1">Strategy B</div>
+
+          <div id="q10-output-b" class="q10-output p-3"></div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+  <div class="panel panel-warning p-4 space-y-2">
+
+    <h4 class="font-medium text-heading">📊 Training paradigm analysis</h4>
+
+    <div id="q10-explanation" class="text-sm text-body">
+
+      Choose an initialization strategy above to see how different approaches affect embedding evolution during training.
+
+    </div>
+
+  </div>
+
+</div>
+

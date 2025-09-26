@@ -2174,3 +2174,94 @@ html.dark .q9-select-light {
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-border) 25%, transparent);
 }
 
+.q10-option {
+  display: block;
+}
+.q10-card {
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 0.9rem;
+  background: var(--color-card);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  height: 100%;
+  transition: border-color .2s ease, background-color .2s ease, box-shadow .2s ease;
+}
+.q10-card-title {
+  font-weight: 600;
+  color: var(--color-heading);
+  transition: color .2s ease;
+}
+.q10-card[data-active="true"] {
+  box-shadow: 0 20px 44px -32px rgba(15, 23, 42, 0.55);
+}
+.q10-card[data-tone="emerald"][data-active="true"] {
+  border-color: color-mix(in srgb, var(--tone-emerald-strong) 35%, var(--color-border-subtle) 65%);
+  background: color-mix(in srgb, var(--tone-emerald-strong) 14%, var(--color-card) 86%);
+}
+.q10-card[data-tone="emerald"][data-active="true"] .q10-card-title {
+  color: var(--tone-emerald-strong);
+}
+.q10-card[data-tone="purple"][data-active="true"] {
+  border-color: color-mix(in srgb, var(--tone-purple-strong) 35%, var(--color-border-subtle) 65%);
+  background: color-mix(in srgb, var(--tone-purple-strong) 14%, var(--color-card) 86%);
+}
+.q10-card[data-tone="purple"][data-active="true"] .q10-card-title {
+  color: var(--tone-purple-strong);
+}
+.q10-card[data-tone="amber"][data-active="true"] {
+  border-color: color-mix(in srgb, var(--tone-amber-strong) 35%, var(--color-border-subtle) 65%);
+  background: color-mix(in srgb, var(--tone-amber-strong) 16%, var(--color-card) 84%);
+}
+.q10-card[data-tone="amber"][data-active="true"] .q10-card-title {
+  color: var(--tone-amber-strong);
+}
+.q10-card[data-tone="indigo"][data-active="true"] {
+  border-color: color-mix(in srgb, var(--tone-indigo-strong) 32%, var(--color-border-subtle) 68%);
+  background: color-mix(in srgb, var(--tone-indigo-strong) 14%, var(--color-card) 86%);
+}
+.q10-card[data-tone="indigo"][data-active="true"] .q10-card-title {
+  color: var(--tone-indigo-strong);
+}
+.q10-card[data-tone="rose"][data-active="true"] {
+  border-color: color-mix(in srgb, var(--tone-rose-strong) 32%, var(--color-border-subtle) 68%);
+  background: color-mix(in srgb, var(--tone-rose-strong) 16%, var(--color-card) 84%);
+}
+.q10-card[data-tone="rose"][data-active="true"] .q10-card-title {
+  color: var(--tone-rose-strong);
+}
+.q10-output {
+  min-height: 160px;
+  border: 1px dashed color-mix(in srgb, var(--tone-indigo-strong) 22%, var(--color-border-subtle) 78%);
+  border-radius: 0.85rem;
+  background: var(--color-card);
+  transition: border-color .2s ease, background-color .2s ease;
+}
+html.dark .q10-output {
+  border-color: color-mix(in srgb, var(--tone-indigo-strong) 40%, var(--color-border) 60%);
+}
+.q10-legend-dot {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 9999px;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-border-subtle) 65%, transparent);
+}
+.q10-legend-dot--initial {
+  background: color-mix(in srgb, var(--tone-rose-strong) 30%, var(--color-card) 70%);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--tone-rose-strong) 45%, var(--color-border) 55%);
+}
+.q10-legend-dot--final {
+  background: color-mix(in srgb, var(--tone-emerald-strong) 30%, var(--color-card) 70%);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--tone-emerald-strong) 45%, var(--color-border) 55%);
+}
+.q10-snippet {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  max-width: 100%;
+}
+.q10-snippet code {
+  display: block;
+  white-space: pre-wrap;
+}

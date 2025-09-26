@@ -1,140 +1,274 @@
-<div class="space-y-6">
-            <!-- Network Configuration -->
-            <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200">
-                <label class="block text-sm font-medium text-gray-700 mb-3">🧠 Neural Network Configuration</label>
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div>
-            <label for="q31-input-value" class="text-xs text-gray-600">Input (x)</label>
-            <input type="range" id="q31-input-value" min="-2" max="2" step="0.1" value="1.0" class="w-full" aria-describedby="q31-input-display" aria-label="Input value x">
-            <span id="q31-input-display" class="text-xs font-medium" aria-live="polite">1.0</span>
-                    </div>
-                    <div>
-            <label for="q31-weight1" class="text-xs text-gray-600">Weight W₁</label>
-            <input type="range" id="q31-weight1" min="-2" max="2" step="0.1" value="0.5" class="w-full" aria-describedby="q31-weight1-display" aria-label="Weight w1">
-            <span id="q31-weight1-display" class="text-xs font-medium" aria-live="polite">0.5</span>
-                    </div>
-                    <div>
-            <label for="q31-weight2" class="text-xs text-gray-600">Weight W₂</label>
-            <input type="range" id="q31-weight2" min="-2" max="2" step="0.1" value="0.8" class="w-full" aria-describedby="q31-weight2-display" aria-label="Weight w2">
-            <span id="q31-weight2-display" class="text-xs font-medium" aria-live="polite">0.8</span>
-                    </div>
-                    <div>
-            <label for="q31-target" class="text-xs text-gray-600">Target (y)</label>
-            <input type="range" id="q31-target" min="0" max="1" step="0.1" value="0.7" class="w-full" aria-describedby="q31-target-display" aria-label="Target value y">
-            <span id="q31-target-display" class="text-xs font-medium" aria-live="polite">0.7</span>
-                    </div>
-                </div>
-                <p class="text-xs text-gray-600 mt-2">Adjust parameters to see how gradients flow through the network!</p>
-            </div>
-            
-            <!-- Activation Function Selection -->
-            <div class="bg-white border border-gray-200 rounded-lg p-4">
-                <label class="block text-sm font-medium text-gray-700 mb-3">⚡ Choose Activation Function</label>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                    <label class="relative border border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors">
-                        <input type="radio" name="q31-activation" value="sigmoid" checked class="absolute top-2 right-2">
-                        <div class="activation-option">
-                            <div class="flex items-center justify-between mb-2">
-                                <span class="font-medium text-gray-900">Sigmoid</span>
-                                <span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">Smooth</span>
-                            </div>
-                            <p class="text-xs text-gray-600">σ(x) = 1/(1 + e^(-x))</p>
-                            <p class="text-xs text-gray-500 mt-1">Classic activation with smooth gradients</p>
-                        </div>
-                    </label>
-                    
-                    <label class="relative border border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors">
-                        <input type="radio" name="q31-activation" value="tanh" class="absolute top-2 right-2">
-                        <div class="activation-option">
-                            <div class="flex items-center justify-between mb-2">
-                                <span class="font-medium text-gray-900">Tanh</span>
-                                <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">Centered</span>
-                            </div>
-                            <p class="text-xs text-gray-600">tanh(x) = (e^x - e^(-x))/(e^x + e^(-x))</p>
-                            <p class="text-xs text-gray-500 mt-1">Zero-centered with stronger gradients</p>
-                        </div>
-                    </label>
-                    
-                    <label class="relative border border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors">
-                        <input type="radio" name="q31-activation" value="relu" class="absolute top-2 right-2">
-                        <div class="activation-option">
-                            <div class="flex items-center justify-between mb-2">
-                                <span class="font-medium text-gray-900">ReLU</span>
-                                <span class="text-xs bg-orange-100 text-orange-800 px-2 py-1 rounded">Modern</span>
-                            </div>
-                            <p class="text-xs text-gray-600">ReLU(x) = max(0, x)</p>
-                            <p class="text-xs text-gray-500 mt-1">Prevents vanishing gradients</p>
-                        </div>
-                    </label>
-                </div>
-            </div>
+﻿<style>
+  .q31-interactive .q31-network-diagram {
+    position: relative;
+    height: 12rem;
+    border-radius: 1rem;
+    border: 1px solid var(--color-border-subtle);
+    background: linear-gradient(135deg,
+      color-mix(in srgb, var(--tone-indigo-strong) 12%, var(--color-card) 88%),
+      color-mix(in srgb, var(--tone-sky-strong) 8%, var(--color-card) 92%));
+    overflow: hidden;
+  }
+  html.dark .q31-interactive .q31-network-diagram {
+    border-color: color-mix(in srgb, var(--color-border) 65%, transparent);
+    background: linear-gradient(135deg,
+      color-mix(in srgb, var(--tone-indigo-strong) 22%, var(--color-card) 78%),
+      color-mix(in srgb, var(--tone-sky-strong) 18%, var(--color-card) 82%));
+  }
+  .q31-interactive .q31-legend {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    color: var(--color-muted);
+  }
+  .q31-interactive .q31-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .q31-interactive .q31-legend-dot {
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 9999px;
+    border: 1px solid color-mix(in srgb, var(--color-border) 60%, transparent 40%);
+  }
+  .q31-interactive .q31-legend-dot--forward {
+    background: color-mix(in srgb, var(--tone-sky-strong) 35%, var(--color-card) 65%);
+  }
+  html.dark .q31-interactive .q31-legend-dot--forward {
+    background: color-mix(in srgb, var(--tone-sky-strong) 50%, var(--color-card) 50%);
+  }
+  .q31-interactive .q31-legend-dot--backward {
+    background: color-mix(in srgb, var(--color-path-scaling-strong) 35%, var(--color-card) 65%);
+  }
+  html.dark .q31-interactive .q31-legend-dot--backward {
+    background: color-mix(in srgb, var(--color-path-scaling-strong) 50%, var(--color-card) 50%);
+  }
+  .q31-interactive .q31-legend-bar {
+    width: 2.75rem;
+    height: 0.45rem;
+    border-radius: 9999px;
+    border: 1px solid color-mix(in srgb, var(--color-border) 60%, transparent 40%);
+    background: linear-gradient(90deg,
+      color-mix(in srgb, var(--tone-emerald-strong) 26%, transparent 74%),
+      color-mix(in srgb, var(--color-path-scaling-strong) 26%, transparent 74%));
+  }
+  .q31-interactive .q31-flow-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.35rem;
+    text-align: center;
+    border-radius: 1rem;
+    padding: 0.9rem 1rem;
+    min-width: 6rem;
+    min-height: 6.5rem;
+    flex: 1 1 6.4rem;
+    max-width: 7.2rem;
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
 
-            <!-- Integrated Network Flow & Calculations -->
-            <div class="bg-white border border-gray-200 rounded-lg p-4">
-                <h4 class="font-medium text-gray-900 mb-4">🌐 Network Flow & Calculation</h4>
-                
-                <!-- Network Visualization -->
-                <div id="q31-network-diagram" class="relative h-48 bg-gradient-to-r from-gray-50 to-blue-50 rounded-lg overflow-hidden mb-6" role="img" aria-label="Neural network diagram showing forward and backward passes with gradients" aria-describedby="q31-network-diagram-desc">
-                    <!-- Network diagram will be drawn here -->
-                </div>
-                <p class="sr-only" id="q31-network-diagram-desc">Diagram visually represents input, hidden, output and target nodes with animated dots for forward (blue) and backward (red) passes.</p>
-                
-                <!-- Legend -->
-                <div class="mt-3 grid grid-cols-1 md:grid-cols-3 gap-2 text-xs text-gray-600 mb-6">
-                    <div class="flex items-center">
-                        <div class="w-3 h-3 bg-blue-500 rounded-full mr-2"></div>
-                        <span>Forward Pass (Data Flow)</span>
-                    </div>
-                    <div class="flex items-center">
-                        <div class="w-3 h-3 bg-red-500 rounded-full mr-2"></div>
-                        <span>Backward Pass (Gradient Flow)</span>
-                    </div>
-                    <div class="flex items-center">
-                        <div class="w-8 h-1 bg-gray-300 mr-2"></div>
-                        <span>Gradient Strength</span>
-                    </div>
-                </div>
 
-                <!-- Forward Pass Section -->
-                <h5 class="font-medium text-gray-900 mb-3 border-t pt-4 flex items-center">
-                    <span class="text-xl mr-2">➡️</span>
-                    Forward Pass
-                    <span class="ml-2 text-sm text-gray-500">(Data flows left to right)</span>
-                </h5>
-                <div id="q31-forward-pass" class="space-y-3 mb-6" aria-live="polite" aria-atomic="false">
-                    <!-- Forward pass steps will be displayed here -->
-                </div>
 
-                <!-- Backward Pass Section -->
-                <h5 class="font-medium text-gray-900 mb-3 border-t pt-4 flex items-center">
-                    <span class="text-xl mr-2">⬅️</span>
-                    Backward Pass (Chain Rule in Action)
-                    <span class="ml-2 text-sm text-gray-500">(Gradients flow right to left)</span>
-                </h5>
-                <div id="q31-backward-pass" class="space-y-3" aria-live="polite" aria-atomic="false">
-                    <!-- Backward pass steps will be displayed here -->
-                </div>
-            </div>
-            
-            <!-- Gradient Summary -->
-            <div class="bg-white border border-gray-200 rounded-lg p-4">
-                <h4 class="font-medium text-gray-900 mb-3">📊 Gradient Summary</h4>
-                <div id="q31-gradients" class="grid grid-cols-1 md:grid-cols-3 gap-4" aria-live="polite" aria-atomic="false">
-                    <!-- Gradient values will be displayed here -->
-                </div>
-            </div>
-            
-            <!-- Quick Examples -->
-            <div class="flex flex-wrap gap-2 items-center">
-                <span class="text-sm font-medium text-gray-700">💡 Quick Tests:</span>
-                <button id="q31-example-1" class="text-xs bg-indigo-100 text-indigo-700 px-2 py-1 rounded hover:bg-indigo-200 transition-colors">Large Error</button>
-                <button id="q31-example-2" class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded hover:bg-green-200 transition-colors">Small Error</button>
-                <button id="q31-example-3" class="text-xs bg-orange-100 text-orange-700 px-2 py-1 rounded hover:bg-orange-200 transition-colors">Zero Gradients</button>
-            </div>
-            
-            <!-- Educational Explanation -->
-            <div id="q31-explanation" class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-                <h4 class="font-medium text-yellow-900 mb-2">🎓 Understanding the Process</h4>
-                <div id="q31-explanation-content" class="text-sm text-yellow-800" aria-live="polite" aria-atomic="false"></div>
-            </div>
+  .q31-interactive .q31-flow-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 40px -28px rgba(15, 23, 42, 0.6);
+  }
+
+  html.dark .q31-interactive .q31-flow-card:hover {
+    box-shadow: 0 22px 48px -32px rgba(2, 6, 23, 0.75);
+  }
+
+  .q31-interactive .q31-flow-arrow {
+    display: flex;
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    min-width: 1.8rem;
+    gap: 0.15rem;
+    color: var(--color-muted);
+    font-size: 1.1rem;
+  }
+
+
+
+
+  .q31-interactive .q31-flow-arrow small {
+    font-size: 0.6rem;
+    color: var(--color-muted-soft);
+  }
+
+
+  .q31-interactive .q31-gradient-card {
+    text-align: center;
+    border-radius: 0.85rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .q31-interactive .q31-gradient-bar {
+    position: relative;
+    width: 100%;
+    height: 0.45rem;
+    border-radius: 9999px;
+    background: color-mix(in srgb, var(--color-border-subtle) 70%, transparent 30%);
+    overflow: hidden;
+  }
+  .q31-interactive .q31-gradient-fill {
+    position: absolute;
+    inset: 0;
+    width: var(--q31-bar-fill, 0%);
+    border-radius: inherit;
+    background: var(--q31-bar-color, var(--tone-indigo-strong));
+    transition: width .3s ease;
+  }
+  .q31-interactive .q31-chain-connector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: var(--color-muted);
+    font-size: 0.85rem;
+  }
+  .q31-interactive .q31-chain-connector span {
+    font-size: 1.5rem;
+    line-height: 1;
+  }
+  .q31-interactive .q31-flow-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    align-items: stretch;
+  }
+
+
+  @media (min-width: 960px) {
+    .q31-interactive .q31-flow-row {
+      flex-wrap: nowrap;
+    }
+  }
+</style>
+<div class="space-y-6 q31-interactive" id="q31-interactive-root">
+  <div class="question-card space-y-3">
+    <label for="q31-input-value" class="block text-sm font-medium text-heading">🧠 Neural network configuration</label>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="space-y-1">
+        <label for="q31-input-value" class="text-xs text-muted">Input (x)</label>
+        <input type="range" id="q31-input-value" min="-2" max="2" step="0.1" value="1.0" class="w-full" aria-describedby="q31-input-display" aria-label="Input value x">
+        <span id="q31-input-display" class="chip chip-neutral text-xs font-mono" aria-live="polite">1.0</span>
+      </div>
+      <div class="space-y-1">
+        <label for="q31-weight1" class="text-xs text-muted">Weight w₁</label>
+        <input type="range" id="q31-weight1" min="-2" max="2" step="0.1" value="0.5" class="w-full" aria-describedby="q31-weight1-display" aria-label="Weight w1">
+        <span id="q31-weight1-display" class="chip chip-neutral text-xs font-mono" aria-live="polite">0.5</span>
+      </div>
+      <div class="space-y-1">
+        <label for="q31-weight2" class="text-xs text-muted">Weight w₂</label>
+        <input type="range" id="q31-weight2" min="-2" max="2" step="0.1" value="0.8" class="w-full" aria-describedby="q31-weight2-display" aria-label="Weight w2">
+        <span id="q31-weight2-display" class="chip chip-neutral text-xs font-mono" aria-live="polite">0.8</span>
+      </div>
+      <div class="space-y-1">
+        <label for="q31-target" class="text-xs text-muted">Target (y)</label>
+        <input type="range" id="q31-target" min="0" max="1" step="0.1" value="0.7" class="w-full" aria-describedby="q31-target-display" aria-label="Target value y">
+        <span id="q31-target-display" class="chip chip-neutral text-xs font-mono" aria-live="polite">0.7</span>
+      </div>
+    </div>
+    <p class="text-xs text-muted">Adjust parameters to see how gradients flow through the network.</p>
+  </div>
+
+  <div class="question-card space-y-3">
+    <label class="block text-sm font-medium text-heading">⚡ Choose activation function</label>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+      <label class="question-strategy" data-activation="sigmoid">
+        <input type="radio" name="q31-activation" value="sigmoid" checked>
+        <div class="stacked-card space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="font-medium text-heading">Sigmoid</span>
+            <span class="chip chip-info text-xs">Smooth</span>
+          </div>
+          <p class="text-xs text-muted font-mono">σ(x) = 1 / (1 + e<sup>−x</sup>)</p>
+          <p class="text-xs text-muted-soft">Classic activation with smooth gradients.</p>
         </div>
+      </label>
+      <label class="question-strategy" data-activation="tanh">
+        <input type="radio" name="q31-activation" value="tanh">
+        <div class="stacked-card space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="font-medium text-heading">Tanh</span>
+            <span class="chip chip-success text-xs">Centered</span>
+          </div>
+          <p class="text-xs text-muted font-mono">tanh(x) = (e<sup>x</sup> − e<sup>−x</sup>)/(e<sup>x</sup> + e<sup>−x</sup>)</p>
+          <p class="text-xs text-muted-soft">Zero-centred outputs strengthen gradient flow.</p>
+        </div>
+      </label>
+      <label class="question-strategy" data-activation="relu">
+        <input type="radio" name="q31-activation" value="relu">
+        <div class="stacked-card space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="font-medium text-heading">ReLU</span>
+            <span class="chip chip-warning text-xs">Modern</span>
+          </div>
+          <p class="text-xs text-muted font-mono">ReLU(x) = max(0, x)</p>
+          <p class="text-xs text-muted-soft">Keeps gradients alive while avoiding saturation.</p>
+        </div>
+      </label>
+    </div>
+  </div>
+
+  <div class="question-card space-y-4">
+    <h4 class="font-medium text-heading flex items-center gap-2">🌐 Network flow &amp; calculation</h4>
+    <div id="q31-network-diagram" class="q31-network-diagram" role="img" aria-label="Neural network diagram showing forward and backward flow"></div>
+    <p class="sr-only" id="q31-network-diagram-desc">Diagram shows input, hidden, prediction, and target nodes with animated arrows for forward (blue) and backward (red) passes.</p>
+    <div class="q31-legend" aria-describedby="q31-network-diagram-desc">
+      <div class="q31-legend-item"><span class="q31-legend-dot q31-legend-dot--forward"></span>Forward pass (data flow)</div>
+      <div class="q31-legend-item"><span class="q31-legend-dot q31-legend-dot--backward"></span>Backward pass (gradient flow)</div>
+      <div class="q31-legend-item"><span class="q31-legend-bar"></span>Gradient strength</div>
+    </div>
+    <h5 class="font-medium text-heading border-t border-subtle pt-4 flex items-center gap-2">
+      <span class="text-xl" aria-hidden="true">➡️</span>
+      Forward pass
+      <span class="text-sm text-muted">Data moves left → right</span>
+    </h5>
+    <div id="q31-forward-pass" class="space-y-3" aria-live="polite" aria-atomic="false"></div>
+    <h5 class="font-medium text-heading border-t border-subtle pt-4 flex items-center gap-2">
+      <span class="text-xl" aria-hidden="true">⬅️</span>
+      Backward pass (chain rule)
+      <span class="text-sm text-muted">Gradients move right → left</span>
+    </h5>
+    <div id="q31-backward-pass" class="space-y-3" aria-live="polite" aria-atomic="false"></div>
+  </div>
+
+  <div class="question-card space-y-3">
+    <h4 class="font-medium text-heading">📊 Gradient summary</h4>
+    <div id="q31-gradients" class="grid grid-cols-1 md:grid-cols-3 gap-4" aria-live="polite" aria-atomic="false"></div>
+  </div>
+
+  <div class="question-card flex flex-wrap items-center gap-2">
+    <span class="text-sm font-medium text-heading">💡 Quick tests:</span>
+    <button id="q31-example-1" class="btn-soft text-xs">Large error</button>
+    <button id="q31-example-2" class="btn-soft text-xs">Small error</button>
+    <button id="q31-example-3" class="btn-soft text-xs">Zero gradients</button>
+  </div>
+
+  <div id="q31-explanation" class="panel panel-warning p-4 space-y-2">
+    <h4 class="font-medium text-heading mb-1">🎓 Understanding the process</h4>
+    <div id="q31-explanation-content" class="text-sm space-y-2" aria-live="polite" aria-atomic="false"></div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+

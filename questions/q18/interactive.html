@@ -1,138 +1,372 @@
+<style>
+.q18-technique {
+  display: block;
+}
+.q18-technique-card {
+  border: 1px solid var(--panel-border, var(--color-border-subtle));
+  background: var(--panel-bg, var(--color-card));
+  border-radius: 0.95rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-height: 100%;
+  transition: border-color .2s ease, background-color .2s ease, box-shadow .2s ease, transform .2s ease;
+}
+.q18-technique[data-enabled="false"] .q18-technique-card {
+  opacity: 0.85;
+}
+.q18-technique[data-enabled="true"] .q18-technique-card {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 36px -28px rgba(15, 23, 42, 0.35);
+}
+.q18-technique-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+.q18-technique-title {
+  font-weight: 600;
+  color: var(--color-heading);
+}
+.q18-technique-copy {
+  font-size: 0.85rem;
+  color: var(--color-muted);
+}
+.q18-technique[data-enabled="true"] .q18-technique-title {
+  color: var(--q18-tone-strong, var(--accent-strong));
+}
+.q18-technique[data-tone="emerald"] {
+  --q18-tone-strong: var(--tone-emerald-strong);
+  --q18-tone-border: color-mix(in srgb, var(--tone-emerald-strong) 35%, var(--panel-border, var(--color-border-subtle)) 65%);
+}
+.q18-technique[data-tone="purple"] {
+  --q18-tone-strong: var(--tone-purple-strong);
+  --q18-tone-border: color-mix(in srgb, var(--tone-purple-strong) 35%, var(--panel-border, var(--color-border-subtle)) 65%);
+}
+.q18-technique[data-tone="amber"] {
+  --q18-tone-strong: var(--tone-amber-strong);
+  --q18-tone-border: color-mix(in srgb, var(--tone-amber-strong) 35%, var(--panel-border, var(--color-border-subtle)) 65%);
+}
+.q18-technique[data-enabled="true"] .q18-technique-card {
+  border-color: var(--q18-tone-border, var(--panel-border, var(--color-border-subtle)));
+  background: color-mix(in srgb, var(--q18-tone-strong, var(--accent-strong)) 16%, var(--panel-bg, var(--color-card)) 84%);
+}
+.q18-technique-status {
+  line-height: 1;
+}
+.q18-slider {
+  width: 100%;
+  accent-color: var(--q18-tone-strong, var(--accent-strong));
+}
+.q18-slider--disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.q18-status-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 0.75rem;
+}
+.q18-status-item {
+  border: 1px dashed color-mix(in srgb, var(--color-border-subtle) 70%, transparent 30%);
+  background: color-mix(in srgb, var(--color-card) 92%, transparent 8%);
+  border-radius: 0.85rem;
+  padding: 0.75rem 0.9rem;
+  font-size: 0.85rem;
+  color: var(--color-muted);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.q18-status-item strong {
+  color: var(--color-heading);
+}
+.q18-status-item[data-state="on"] {
+  border-color: color-mix(in srgb, var(--tone-emerald-strong) 45%, var(--panel-border, var(--color-border-subtle)) 55%);
+  background: color-mix(in srgb, var(--tone-emerald-strong) 18%, var(--panel-bg, var(--color-card)) 82%);
+  color: var(--color-body);
+}
+.q18-results {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.q18-output {
+  border: 1px dashed color-mix(in srgb, var(--tone-indigo-strong) 30%, var(--color-border-subtle) 70%);
+  background: var(--panel-bg, var(--color-card));
+  border-radius: 1rem;
+  padding: 1.25rem;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  transition: border-color .25s ease, background-color .25s ease;
+}
+html.dark .q18-output {
+  border-color: color-mix(in srgb, var(--tone-indigo-strong) 45%, var(--color-border) 55%);
+}
+.q18-empty {
+  margin: auto;
+  text-align: center;
+  font-size: 0.95rem;
+  color: var(--color-muted);
+}
+.q18-chart {
+  --q18-train-color: var(--tone-sky-strong);
+  --q18-validation-color: var(--color-path-scaling-strong);
+  --q18-earlystop-color: var(--tone-amber-strong);
+  --q18-chart-grid: color-mix(in srgb, var(--color-border-subtle) 70%, transparent 30%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+html.dark .q18-chart {
+  --q18-chart-grid: color-mix(in srgb, var(--color-border) 55%, transparent 45%);
+}
+.q18-section-title {
+  font-weight: 600;
+  color: var(--color-heading);
+  font-size: 0.95rem;
+}
+.q18-chart-surface {
+  background: var(--panel-bg, var(--color-card));
+  border: 1px solid var(--panel-border, var(--color-border-subtle));
+  border-radius: 0.9rem;
+  padding: 1rem;
+}
+.q18-chart-svg {
+  width: 100%;
+  height: auto;
+}
+.q18-legend-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  align-items: center;
+  font-size: 0.85rem;
+  color: var(--color-muted);
+}
+.q18-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.q18-legend-swatch {
+  width: 1.5rem;
+  height: 0.4rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-border-subtle) 60%, transparent 40%);
+}
+.q18-legend-swatch--train {
+  background: var(--q18-train-color);
+}
+.q18-legend-swatch--validation {
+  background-image: repeating-linear-gradient(90deg, transparent 0 6px, var(--q18-validation-color) 6px 12px);
+  border: 1px solid color-mix(in srgb, var(--q18-validation-color) 45%, transparent 55%);
+  background-color: transparent;
+}
+.q18-legend-swatch--early {
+  background: var(--q18-earlystop-color);
+}
+.q18-effect {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.q18-effect-grid {
+  display: grid;
+  gap: 0.85rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+.q18-effect-card {
+  border: 1px solid var(--panel-border, var(--color-border-subtle));
+  background: var(--panel-bg, var(--color-card));
+  border-radius: 0.85rem;
+  padding: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: border-color .2s ease, background-color .2s ease, box-shadow .2s ease;
+}
+.q18-effect-card[data-tone="emerald"][data-active="true"] {
+  border-color: color-mix(in srgb, var(--tone-emerald-strong) 45%, var(--panel-border, var(--color-border-subtle)) 55%);
+  background: color-mix(in srgb, var(--tone-emerald-strong) 16%, var(--panel-bg, var(--color-card)) 84%);
+}
+.q18-effect-card[data-tone="purple"][data-active="true"] {
+  border-color: color-mix(in srgb, var(--tone-purple-strong) 45%, var(--panel-border, var(--color-border-subtle)) 55%);
+  background: color-mix(in srgb, var(--tone-purple-strong) 16%, var(--panel-bg, var(--color-card)) 84%);
+}
+.q18-effect-card[data-tone="amber"][data-active="true"] {
+  border-color: color-mix(in srgb, var(--tone-amber-strong) 45%, var(--panel-border, var(--color-border-subtle)) 55%);
+  background: color-mix(in srgb, var(--tone-amber-strong) 18%, var(--panel-bg, var(--color-card)) 82%);
+}
+.q18-effect-title {
+  font-weight: 600;
+  color: var(--color-heading);
+  font-size: 0.95rem;
+}
+.q18-effect-status {
+  font-size: 0.8rem;
+  color: var(--color-muted);
+}
+.q18-effect-copy {
+  font-size: 0.85rem;
+  color: var(--color-body);
+}
+.q18-explanation-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.q18-explanation-list {
+  padding-left: 1rem;
+  display: grid;
+  gap: 0.25rem;
+  font-size: 0.9rem;
+  color: var(--color-body);
+  list-style: disc;
+}
+.q18-explanation-active {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid color-mix(in srgb, var(--panel-border, var(--color-border-subtle)) 80%, transparent 20%);
+  font-size: 0.85rem;
+  color: var(--color-muted);
+}
+.q18-explanation[data-level="high"] {
+  border: 1px solid color-mix(in srgb, var(--tone-amber-strong) 40%, var(--panel-border, var(--color-border-subtle)) 60%);
+  border-radius: 0.85rem;
+  padding: 1rem;
+  background: color-mix(in srgb, var(--tone-amber-strong) 12%, var(--panel-bg, var(--color-card)) 88%);
+}
+.q18-explanation[data-level="medium"] {
+  border: 1px solid color-mix(in srgb, var(--tone-indigo-strong) 40%, var(--panel-border, var(--color-border-subtle)) 60%);
+  border-radius: 0.85rem;
+  padding: 1rem;
+  background: color-mix(in srgb, var(--tone-indigo-strong) 10%, var(--panel-bg, var(--color-card)) 90%);
+}
+.q18-explanation[data-level="low"] {
+  border: 1px solid color-mix(in srgb, var(--tone-emerald-strong) 40%, var(--panel-border, var(--color-border-subtle)) 60%);
+  border-radius: 0.85rem;
+  padding: 1rem;
+  background: color-mix(in srgb, var(--tone-emerald-strong) 12%, var(--panel-bg, var(--color-card)) 88%);
+}
+</style>
 
-            <div class="space-y-6">
-                <!-- Model Configuration -->
-                <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200">
-                    <label class="block text-sm font-medium text-gray-700 mb-3">🤖 Model Training Configuration</label>
-                    <div class="grid md:grid-cols-3 gap-4">
-                        <div>
-                            <label for="q18-model-size" class="block text-xs text-gray-600 mb-1">Model Size (parameters)</label>
-                            <select id="q18-model-size" class="w-full px-2 py-1 border border-gray-300 rounded text-sm">
-                                <option value="small">Small (1M params)</option>
-                                <option value="medium" selected>Medium (10M params)</option>
-                                <option value="large">Large (100M params)</option>
-                                <option value="xlarge">XLarge (1B params)</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="q18-dataset-size" class="block text-xs text-gray-600 mb-1">Training Dataset Size</label>
-                            <select id="q18-dataset-size" class="w-full px-2 py-1 border border-gray-300 rounded text-sm">
-                                <option value="tiny">Tiny (1K samples)</option>
-                                <option value="small">Small (10K samples)</option>
-                                <option value="medium" selected>Medium (100K samples)</option>
-                                <option value="large">Large (1M samples)</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="q18-epochs" class="block text-xs text-gray-600 mb-1">Training Epochs</label>
-                            <input type="range" id="q18-epochs" min="1" max="100" value="20" class="w-full">
-                            <span id="q18-epochs-value" class="text-xs text-gray-600">20 epochs</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Regularization Techniques -->
-                <div class="bg-white border border-gray-200 rounded-lg p-4">
-                    <label class="block text-sm font-medium text-gray-700 mb-3">🛡️ Choose Regularization Techniques</label>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                        <label class="cursor-pointer">
-                            <input type="checkbox" id="q18-l2-reg" class="sr-only">
-                            <div class="border-2 border-green-200 rounded-lg p-3 hover:border-green-300 transition-colors bg-green-50">
-                                <div class="font-medium text-green-900">⭕ L2 Regularization <span class="text-xs text-gray-500">(DISABLED)</span></div>
-                                <div class="text-xs text-green-700 mt-1">
-                                    Weight decay λ = <span id="l2-value">0.01</span>
-                                </div>
-                                <input type="range" id="l2-strength" min="0" max="0.1" step="0.001" value="0.01" 
-                                       class="w-full h-1 bg-green-200 rounded-lg appearance-none cursor-pointer mt-2">
-                                <div class="text-xs bg-green-100 text-green-600 px-2 py-1 rounded mt-2 inline-block">Penalty: λ∑w²</div>
-                            </div>
-                        </label>
-                        
-                        <label class="cursor-pointer">
-                            <input type="checkbox" id="q18-dropout" class="sr-only">
-                            <div class="border-2 border-purple-200 rounded-lg p-3 hover:border-purple-300 transition-colors bg-purple-50">
-                                <div class="font-medium text-purple-900">⭕ Dropout <span class="text-xs text-gray-500">(DISABLED)</span></div>
-                                <div class="text-xs text-purple-700 mt-1">
-                                    Rate: <span id="dropout-value">0.3</span> (<span id="dropout-percent">30</span>% neurons)
-                                </div>
-                                <input type="range" id="dropout-rate" min="0" max="0.8" step="0.1" value="0.3" 
-                                       class="w-full h-1 bg-purple-200 rounded-lg appearance-none cursor-pointer mt-2">
-                                <div class="text-xs bg-purple-100 text-purple-600 px-2 py-1 rounded mt-2 inline-block">Random Disable</div>
-                            </div>
-                        </label>
-                        
-                        <label class="cursor-pointer">
-                            <input type="checkbox" id="q18-early-stop" class="sr-only">
-                            <div class="border-2 border-orange-200 rounded-lg p-3 hover:border-orange-300 transition-colors bg-orange-50">
-                                <div class="font-medium text-orange-900">⭕ Early Stopping <span class="text-xs text-gray-500">(DISABLED)</span></div>
-                                <div class="text-xs text-orange-700 mt-1">
-                                    Patience: <span id="patience-value">5</span> epochs
-                                </div>
-                                <input type="range" id="early-stop-patience" min="1" max="15" step="1" value="5" 
-                                       class="w-full h-1 bg-orange-200 rounded-lg appearance-none cursor-pointer mt-2">
-                                <div class="text-xs bg-orange-100 text-orange-600 px-2 py-1 rounded mt-2 inline-block">Auto Stop</div>
-                            </div>
-                        </label>
-                    </div>
-                </div>
-                
-                <!-- Regularization Status Summary -->
-                <div class="bg-blue-50 border border-blue-200 rounded-lg p-3">
-                    <div class="font-medium text-blue-900 mb-2">🎯 Current Regularization Status</div>
-                    <div id="q18-status-summary" class="text-sm text-blue-800">
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
-                            <div id="l2-status" class="flex items-center">
-                                <span class="mr-2">❌</span> L2 Regularization: OFF
-                            </div>
-                            <div id="dropout-status" class="flex items-center">
-                                <span class="mr-2">❌</span> Dropout: OFF
-                            </div>
-                            <div id="early-stop-status" class="flex items-center">
-                                <span class="mr-2">❌</span> Early Stopping: OFF
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<div class="paper-interactive-card space-y-6">
+  <div class="panel panel-info p-4 space-y-3">
+    <label class="block font-medium text-heading" for="q18-model-size">Model training configuration</label>
+    <div class="grid md:grid-cols-3 gap-4">
+      <div class="space-y-2">
+        <label for="q18-model-size" class="small-caption text-muted">Model size (parameters)</label>
+        <select id="q18-model-size" class="select-control">
+          <option value="small">Small (1M params)</option>
+          <option value="medium" selected>Medium (10M params)</option>
+          <option value="large">Large (100M params)</option>
+          <option value="xlarge">XLarge (1B params)</option>
+        </select>
+      </div>
+      <div class="space-y-2">
+        <label for="q18-dataset-size" class="small-caption text-muted">Training dataset size</label>
+        <select id="q18-dataset-size" class="select-control">
+          <option value="tiny">Tiny (1K samples)</option>
+          <option value="small">Small (10K samples)</option>
+          <option value="medium" selected>Medium (100K samples)</option>
+          <option value="large">Large (1M samples)</option>
+        </select>
+      </div>
+      <div class="space-y-2">
+        <label for="q18-epochs" class="small-caption text-muted">Training epochs</label>
+        <input type="range" id="q18-epochs" min="1" max="100" value="20" class="w-full accent-current" aria-describedby="q18-epochs-value">
+        <span id="q18-epochs-value" class="small-caption text-heading">20 epochs</span>
+      </div>
+    </div>
+  </div>
 
-                <!-- Training Simulation Controls -->
-                <div class="flex flex-wrap gap-4 items-center">
-                    <button id="q18-simulate-btn" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
-                        🎲 Simulate Training
-                    </button>
-                    <span class="text-sm font-medium text-gray-700">💡 Quick Scenarios:</span>
-                    <button id="q18-scenario-overfit" class="text-xs bg-red-100 text-red-700 px-2 py-1 rounded hover:bg-red-200 transition-colors">High Overfitting</button>
-                    <button id="q18-scenario-balanced" class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded hover:bg-green-200 transition-colors">Well Regularized</button>
-                </div>
-                
-                <!-- Training Results Visualization -->
-                <div class="bg-white border border-gray-200 rounded-lg p-4">
-                    <div class="flex items-center justify-between mb-3">
-                        <h4 class="font-medium text-gray-900">📊 Training Results</h4>
-                        <div id="q18-overfitting-indicator" class="text-xs bg-gray-100 px-2 py-1 rounded font-medium">Ready to simulate</div>
-                    </div>
-                    <div id="q18-output" class="min-h-[300px] p-3 bg-gray-50 rounded border-2 border-dashed border-gray-300">
-                        <div class="text-center text-gray-500 mt-20">
-                            Click "Simulate Training" to see overfitting analysis
-                        </div>
-                    </div>
-                    <div id="q18-legend" class="mt-3 text-xs">
-                        <!-- Legend will be generated here -->
-                    </div>
-                </div>
-                
-                <!-- Performance Metrics -->
-                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                    <h4 class="font-medium text-blue-900 mb-2">📈 Performance Analysis</h4>
-                    <div id="q18-metrics" class="text-sm text-blue-800">
-                        Configure your model and click simulate to see detailed metrics.
-                    </div>
-                </div>
-                
-                <!-- Educational Explanation -->
-                <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-                    <h4 class="font-medium text-yellow-900 mb-2">🎓 Regularization Analysis</h4>
-                    <div id="q18-explanation" class="text-sm text-yellow-800">
-                        Select regularization techniques and run a simulation to understand their effects on overfitting.
-                    </div>
-                </div>
-            </div>
-        
+  <div class="panel panel-neutral p-4 space-y-3">
+    <div class="flex items-center justify-between gap-2">
+      <span class="small-caption text-heading">Choose regularization techniques</span>
+      <span class="small-caption panel-muted">Toggle a card to enable it, then tune the slider.</span>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+      <label class="q18-technique" data-tone="emerald">
+        <input type="checkbox" id="q18-l2-reg" class="sr-only">
+        <div class="q18-technique-card">
+          <div class="q18-technique-head">
+            <span class="q18-technique-title">L2 regularization</span>
+            <span class="chip chip-neutral small-caption q18-technique-status" id="l2-status-chip">Off</span>
+          </div>
+          <p class="q18-technique-copy">Weight decay λ = <span id="l2-value">0.010</span></p>
+          <input type="range" id="l2-strength" min="0" max="0.1" step="0.001" value="0.01" class="q18-slider" aria-disabled="true" aria-describedby="l2-help">
+          <p id="l2-help" class="small-caption panel-muted">Penalty: λ‖w‖²</p>
+        </div>
+      </label>
+
+      <label class="q18-technique" data-tone="purple">
+        <input type="checkbox" id="q18-dropout" class="sr-only">
+        <div class="q18-technique-card">
+          <div class="q18-technique-head">
+            <span class="q18-technique-title">Dropout</span>
+            <span class="chip chip-neutral small-caption q18-technique-status" id="dropout-status-chip">Off</span>
+          </div>
+          <p class="q18-technique-copy">Rate: <span id="dropout-value">0.3</span> (<span id="dropout-percent">30</span>% neurons)</p>
+          <input type="range" id="dropout-rate" min="0" max="0.8" step="0.1" value="0.3" class="q18-slider" aria-disabled="true" aria-describedby="dropout-help">
+          <p id="dropout-help" class="small-caption panel-muted">Randomly disable activations</p>
+        </div>
+      </label>
+
+      <label class="q18-technique" data-tone="amber">
+        <input type="checkbox" id="q18-early-stop" class="sr-only">
+        <div class="q18-technique-card">
+          <div class="q18-technique-head">
+            <span class="q18-technique-title">Early stopping</span>
+            <span class="chip chip-neutral small-caption q18-technique-status" id="early-stop-status-chip">Off</span>
+          </div>
+          <p class="q18-technique-copy">Patience: <span id="patience-value">5</span>epochs</p>
+          <input type="range" id="early-stop-patience" min="1" max="15" step="1" value="5" class="q18-slider" aria-disabled="true" aria-describedby="patience-help">
+          <p id="patience-help" class="small-caption panel-muted">Auto-stop when validation stalls</p>
+        </div>
+      </label>
+    </div>
+  </div>
+
+  <div class="panel panel-info panel-emphasis p-4 space-y-3">
+    <h4 class="font-medium text-heading">Current regularization status</h4>
+    <div id="q18-status-summary" class="q18-status-grid">
+      <div id="l2-status" class="q18-status-item" data-label="L2 regularization" data-state="off">L2 regularization: <strong>Off</strong></div>
+      <div id="dropout-status" class="q18-status-item" data-label="Dropout" data-state="off">Dropout: <strong>Off</strong></div>
+      <div id="early-stop-status" class="q18-status-item" data-label="Early stopping" data-state="off">Early stopping: <strong>Off</strong></div>
+    </div>
+  </div>
+
+  <div class="flex flex-wrap items-center gap-3">
+    <button id="q18-simulate-btn" class="btn-accent">Simulate training</button>
+    <span class="small-caption text-heading">Quick scenarios:</span>
+    <button id="q18-scenario-overfit" class="btn-soft small-caption">High overfitting</button>
+    <button id="q18-scenario-balanced" class="btn-soft small-caption">Well regularized</button>
+  </div>
+
+  <div class="panel panel-neutral p-4 space-y-3">
+    <div class="flex items-center justify-between gap-2">
+      <h4 class="font-medium text-heading">Training results</h4>
+      <span id="q18-overfitting-indicator" class="chip chip-neutral small-caption">Ready to simulate</span>
+    </div>
+    <div id="q18-output" class="q18-output">
+      <div class="q18-empty">Click "Simulate training" to see overfitting analysis.</div>
+    </div>
+    <div id="q18-legend" class="q18-legend small-caption panel-muted"></div>
+  </div>
+
+  <div class="panel panel-info p-4 space-y-2">
+    <h4 class="font-medium text-heading">Performance analysis</h4>
+    <div id="q18-metrics" class="panel-muted">Configure your model and click simulate to see detailed metrics.</div>
+  </div>
+
+  <div class="panel panel-warning p-4 space-y-2">
+    <h4 class="font-medium text-heading">Regularization analysis</h4>
+    <div id="q18-explanation">Select regularization techniques and run a simulation to understand their effects on overfitting.</div>
+  </div>
+</div>

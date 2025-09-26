@@ -10,11 +10,43 @@ const interactiveScript = () => {
                 }
                 return Promise.resolve();
             }
+
+            function getCssVar(name, fallback = '') {
+                const value = getComputedStyle(document.documentElement).getPropertyValue(name);
+                return value ? value.trim() : fallback;
+            }
+
+            function mixColor(color, percentage, baseColor) {
+                const clamped = Math.min(100, Math.max(0, percentage));
+                const remainder = Math.max(0, 100 - clamped);
+                const base = baseColor || getCssVar('--color-card', '#1e293b');
+                return `color-mix(in srgb, ${color} ${clamped}%, ${base} ${remainder}%)`;
+            }
+
+            function applyStrategyStyles(container, accentColor) {
+                if (!container || !accentColor) return;
+                container.style.setProperty('background', mixColor(accentColor, 24));
+                container.style.setProperty('border-color', mixColor(accentColor, 42, getCssVar('--color-border-subtle', accentColor)));
+                container.style.setProperty('box-shadow', `0 18px 38px -26px color-mix(in srgb, ${accentColor} 55%, transparent)`);
+            }
+
+            function resetStrategyStyles(container) {
+                if (!container) return;
+                container.style.removeProperty('background');
+                container.style.removeProperty('border-color');
+                container.style.removeProperty('box-shadow');
+            }
+
+            function getAccentColor(func) {
+                if (!func) return '#64748b';
+                return getCssVar(func.toneVar, func.fallbackColor || '#64748b');
+            }
             // Get DOM elements with error checking
             const inputRange = document.getElementById('q30-input-range');
             const currentValue = document.getElementById('q30-current-value');
             const output = document.getElementById('q30-output');
             const functionRadios = document.querySelectorAll('input[name="q30-function"]');
+            const functionCards = Array.from(document.querySelectorAll('.q30-function-card'));
             const exampleBtn = document.getElementById('q30-example-btn');
             const negativeBtn = document.getElementById('q30-negative-btn');
             const zeroBtn = document.getElementById('q30-zero-btn');
@@ -34,18 +66,20 @@ const interactiveScript = () => {
                 relu: {
                     name: 'ReLU',
                     fn: (x) => Math.max(0, x),
-                    derivative: (x) => x > 0 ? 1 : 0,
+                    derivative: (x) => (x > 0 ? 1 : 0),
                     description: 'Simple, efficient, but can cause dead neurons',
-                    color: '#10b981', // green-500
-                    bgColor: '#dcfce7' // green-100
+                    toneVar: '--tone-emerald-strong',
+                    fallbackColor: '#10b981',
+                    chipClass: 'chip chip-success'
                 },
                 leaky_relu: {
                     name: 'Leaky ReLU',
                     fn: (x) => Math.max(0.1 * x, x),
-                    derivative: (x) => x > 0 ? 1 : 0.1,
+                    derivative: (x) => (x > 0 ? 1 : 0.1),
                     description: 'Prevents dead neurons with small negative slope',
-                    color: '#3b82f6', // blue-500
-                    bgColor: '#dbeafe' // blue-100
+                    toneVar: '--tone-sky-strong',
+                    fallbackColor: '#3b82f6',
+                    chipClass: 'chip chip-info'
                 },
                 sigmoid: {
                     name: 'Sigmoid',
@@ -55,8 +89,9 @@ const interactiveScript = () => {
                         return s * (1 - s);
                     },
                     description: 'Smooth but suffers from vanishing gradients',
-                    color: '#f59e0b', // orange-500
-                    bgColor: '#fed7aa' // orange-100
+                    toneVar: '--tone-amber-strong',
+                    fallbackColor: '#f59e0b',
+                    chipClass: 'chip chip-warning'
                 }
             };
 
@@ -151,11 +186,12 @@ const interactiveScript = () => {
                 
                 const { ctx, width, height } = setupCanvas(canvas);
                 const func = functions[funcType];
+                const accentColor = getAccentColor(func);
                 
                 drawAxes(ctx, width, height);
                 
                 // Plot the function
-                ctx.strokeStyle = func.color;
+                ctx.strokeStyle = accentColor;
                 ctx.lineWidth = 2;
                 ctx.beginPath();
                 
@@ -203,13 +239,13 @@ const interactiveScript = () => {
                 }
                 
                 // Draw current point
-                ctx.fillStyle = func.color;
+                ctx.fillStyle = accentColor;
                 ctx.beginPath();
                 ctx.arc(currentScreenX, currentScreenY, 4, 0, 2 * Math.PI);
                 ctx.fill();
                 
                 // Draw vertical line from current point to x-axis
-                ctx.strokeStyle = func.color;
+                ctx.strokeStyle = accentColor;
                 ctx.lineWidth = 1;
                 ctx.setLineDash([3, 3]);
                 ctx.beginPath();
@@ -222,9 +258,9 @@ const interactiveScript = () => {
             // Helper functions for gradient flow classification
             function getGradientFlowClass(funcType, derivative) {
                 const thresholds = getGradientThresholds(funcType);
-                if (derivative >= thresholds.strong) return 'text-green-600';
-                if (derivative >= thresholds.weak) return 'text-yellow-600';
-                return 'text-red-600';
+                if (derivative >= thresholds.strong) return 'text-success';
+                if (derivative >= thresholds.weak) return 'text-warning';
+                return 'text-danger';
             }
             
             function getGradientFlowText(funcType, derivative) {
@@ -254,27 +290,28 @@ const interactiveScript = () => {
 
             // Update visual indicators for function selection
             function updateFunctionVisuals() {
-                const selected = document.querySelector('input[name="q30-function"]:checked');
-                if (!selected) return;
-                
-                const selectedValue = selected.value;
+                const selectedValue = getCurrentFunction();
                 const func = functions[selectedValue];
-                
-                // Update radio button containers
-                document.querySelectorAll('input[name="q30-function"]').forEach((radio) => {
-                    const container = radio.closest('label');
-                    if (radio.checked) {
-                        container.classList.add('ring-2', 'ring-blue-500', 'bg-blue-50');
+
+                functionCards.forEach((card) => {
+                    const radio = card.querySelector('input[name="q30-function"]');
+                    if (!radio) return;
+                    const cardFunc = functions[radio.value];
+                    if (radio.value === selectedValue) {
+                        card.setAttribute('data-active', 'true');
+                        card.classList.add('question-strategy-active');
+                        applyStrategyStyles(card, getAccentColor(cardFunc));
                     } else {
-                        container.classList.remove('ring-2', 'ring-blue-500', 'bg-blue-50');
+                        card.removeAttribute('data-active');
+                        card.classList.remove('question-strategy-active');
+                        resetStrategyStyles(card);
                     }
                 });
-                
-                // Update function indicator
-                if (functionIndicator && func) {
-                    functionIndicator.textContent = func.name;
-                    functionIndicator.style.backgroundColor = func.bgColor;
-                    functionIndicator.style.color = func.color;
+
+                if (functionIndicator) {
+                    const chipClass = func?.chipClass || 'chip chip-neutral';
+                    functionIndicator.className = `${chipClass} text-xs`;
+                    functionIndicator.textContent = func?.name || '';
                 }
             }
 
@@ -301,21 +338,21 @@ const interactiveScript = () => {
 
                 // Create current values display
                 const resultsHTML = `
-                    <div class="text-center p-3 bg-blue-50 rounded border">
-                        <div class="text-sm text-blue-700 mb-1">Input</div>
-                        <div class="text-2xl font-bold text-blue-600">${x.toFixed(2)}</div>
+                    <div class="panel panel-info p-3 text-center space-y-1">
+                        <div class="small-caption text-neutral-muted">Input</div>
+                        <div class="text-2xl font-semibold text-heading">${x.toFixed(2)}</div>
                     </div>
-                    <div class="text-center p-3 bg-green-50 rounded border">
-                        <div class="text-sm text-green-700 mb-1">f(x)</div>
-                        <div class="text-2xl font-bold text-green-600">${functionValue.toFixed(3)}</div>
+                    <div class="panel panel-success p-3 text-center space-y-1">
+                        <div class="small-caption text-neutral-muted">f(x)</div>
+                        <div class="text-2xl font-semibold text-heading">${functionValue.toFixed(3)}</div>
                     </div>
-                    <div class="text-center p-3 bg-purple-50 rounded border">
-                        <div class="text-sm text-purple-700 mb-1">f'(x)</div>
-                        <div class="text-2xl font-bold text-purple-600">${derivativeValue.toFixed(3)}</div>
+                    <div class="panel panel-warning p-3 text-center space-y-1">
+                        <div class="small-caption text-neutral-muted">f'(x)</div>
+                        <div class="text-2xl font-semibold text-heading">${derivativeValue.toFixed(3)}</div>
                     </div>
-                    <div class="text-center p-3 bg-gray-50 rounded border">
-                        <div class="text-sm text-gray-700 mb-1">Gradient Flow</div>
-                        <div class="text-lg font-bold ${getGradientFlowClass(funcType, derivativeValue)}">
+                    <div class="panel panel-neutral p-3 text-center space-y-1">
+                        <div class="small-caption text-neutral-muted">Gradient flow</div>
+                        <div class="text-lg font-semibold ${getGradientFlowClass(funcType, derivativeValue)}">
                             ${getGradientFlowText(funcType, derivativeValue)}
                         </div>
                     </div>

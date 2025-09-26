@@ -1,4 +1,4 @@
-<div class="space-y-6">
+﻿<div class="space-y-6">
   <div class="question-card space-y-3">
     <label for="q19-text-select" class="block text-sm font-medium text-heading">💬 Choose example text to analyse or generate from</label>
     <select id="q19-text-select" class="w-full px-3 py-2 border border-subtle rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-card text-body shadow-sm">
@@ -19,32 +19,26 @@
   <div class="question-card space-y-3">
     <label class="block text-sm font-medium text-heading">🧠 Choose model type</label>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-      <label class="question-strategy" data-tone="success">
+      <label class="question-strategy" data-tone="emerald">
         <input type="radio" name="q19-model-type" value="generative" checked>
         <div class="stacked-card">
           <div class="flex items-center justify-between gap-2">
             <span class="font-medium text-heading">🎨 Generative model</span>
-            <div class="flex items-center gap-2">
-              <span class="chip chip-success text-xs">Creates</span>
-              <span class="chip chip-neutral text-xs selection-badge" hidden>Active</span>
-            </div>
+            <span class="chip chip-success text-xs">Creates</span>
           </div>
           <p class="text-xs space-y-2">Models P(X, Y) to generate new content.</p>
-          <div class="font-mono text-xs text-secondary bg-subtle border border-subtle rounded px-2 py-1">Input ? "Generated continuation..."</div>
+          <div class="font-mono text-xs text-secondary bg-subtle border border-subtle rounded px-2 py-1">Input → "Generated continuation..."</div>
         </div>
       </label>
-      <label class="question-strategy" data-tone="accent">
+      <label class="question-strategy" data-tone="purple">
         <input type="radio" name="q19-model-type" value="discriminative">
         <div class="stacked-card">
           <div class="flex items-center justify-between gap-2">
             <span class="font-medium text-heading">🎯 Discriminative model</span>
-            <div class="flex items-center gap-2">
-              <span class="chip chip-accent text-xs">Classifies</span>
-              <span class="chip chip-neutral text-xs selection-badge" hidden>Active</span>
-            </div>
+            <span class="chip chip-accent text-xs">Classifies</span>
           </div>
           <p class="text-xs space-y-2">Models P(Y | X) to analyse content.</p>
-          <div class="font-mono text-xs text-secondary bg-subtle border border-subtle rounded px-2 py-1">Input ? [Positive, confidence: 95%]</div>
+          <div class="font-mono text-xs text-secondary bg-subtle border border-subtle rounded px-2 py-1">Input → [Positive, confidence: 95%]</div>
         </div>
       </label>
     </div>

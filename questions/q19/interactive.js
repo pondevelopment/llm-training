@@ -196,15 +196,14 @@ const interactiveScript = () => {
       card.classList.toggle('question-strategy-active', isActive);
       card.dataset.active = isActive ? 'true' : 'false';
 
-      const badge = card.querySelector('.selection-badge');
-      if (badge) {
-        badge.hidden = !isActive;
-        if (isActive) {
-          const toneClass = radio.value === 'generative' ? 'chip-success' : 'chip-accent';
-          badge.className = `chip ${toneClass} text-xs selection-badge`;
-        } else {
-          badge.className = 'chip chip-neutral text-xs selection-badge';
-        }
+      card.style.background = '';
+      card.style.borderColor = '';
+      card.style.boxShadow = '';
+
+      if (isActive && card.dataset.tone === 'purple') {
+        card.style.background = 'color-mix(in srgb, var(--tone-purple-strong) 32%, var(--color-card) 68%)';
+        card.style.borderColor = 'color-mix(in srgb, var(--tone-purple-strong) 75%, var(--color-border) 25%)';
+        card.style.boxShadow = '0 18px 38px -24px color-mix(in srgb, var(--tone-purple-strong) 60%, transparent)';
       }
     });
 

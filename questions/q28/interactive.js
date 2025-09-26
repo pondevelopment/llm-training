@@ -22,7 +22,7 @@ const interactiveScript = () => {
             // Check if required elements exist
             if (!dataTypeSelect || !output || !originalDimSelect || !reducedDimSelect) {
                 if (output) {
-                    output.innerHTML = '<div class="text-red-500 p-4">Error: Could not initialize interactive components.</div>';
+                    output.innerHTML = '<div class="panel panel-warning p-3 text-sm">Error: Could not initialize interactive components.</div>';
                 }
                 return;
             }
@@ -121,7 +121,8 @@ const interactiveScript = () => {
                     config,
                     selectedComponents: kDims,
                     varianceRetained: cumulativeVariance[kDims - 1],
-                    compressionRatio: nDims / kDims
+                    compressionRatio: nDims / kDims,
+                    dimensionalityReduction: Math.round((1 - kDims / nDims) * 100)
                 };
             }
 
@@ -135,21 +136,27 @@ const interactiveScript = () => {
             function updateModeVisuals() {
                 const mode = getCurrentMode();
                 const modeNames = {
-                    'eigenvalues': 'Eigenvalue Analysis',
-                    'eigenvectors': 'Eigenvector Visualization',
-                    'projection': 'Data Projection'
+                    'eigenvalues': 'Eigenvalue analysis',
+                    'eigenvectors': 'Eigenvector visualization',
+                    'projection': 'Data projection'
                 };
                 
                 if (modeIndicator) {
                     modeIndicator.textContent = modeNames[mode];
                 }
 
-                document.querySelectorAll('input[name="q28-mode"]').forEach((radio) => {
-                    const container = radio.closest('label');
-                    if (radio.checked) {
-                        container.classList.add('ring-2', 'ring-purple-500', 'bg-purple-50');
-                    } else {
-                        container.classList.remove('ring-2', 'ring-purple-500', 'bg-purple-50');
+                document.querySelectorAll('.q28-mode-option').forEach((option) => {
+                    const radio = option.querySelector('input[name="q28-mode"]');
+                    if (!radio) {
+                        return;
+                    }
+                    const isActive = radio.checked;
+                    option.classList.toggle('q28-mode-option--active', isActive);
+
+                    const card = option.querySelector('.panel');
+                    if (card) {
+                        card.classList.toggle('panel-info', isActive);
+                        card.classList.toggle('panel-neutral-soft', !isActive);
                     }
                 });
             }
@@ -175,51 +182,57 @@ const interactiveScript = () => {
                     
                     // Header with key metrics
                     html += `
-                        <div class="bg-gray-50 p-3 rounded border">
-                            <h5 class="font-medium text-gray-700 mb-2">PCA Analysis Summary</h5>
-                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-                                <div><strong>Data Type:</strong> ${analysis.config.name}</div>
-                                <div><strong>Dimensions:</strong> ${originalDim}D → ${reducedDim}D</div>
-                                <div><strong>Variance Retained:</strong> ${(analysis.varianceRetained * 100).toFixed(1)}%</div>
-                                <div><strong>Compression:</strong> ${analysis.compressionRatio.toFixed(1)}x</div>
+                        <div class="panel panel-neutral-soft p-3 space-y-2">
+                            <h5 class="font-medium text-heading">PCA analysis summary</h5>
+                            <div class="grid grid-cols-2 gap-3 text-sm text-heading md:grid-cols-4">
+                                <div><span class="text-muted-soft">Data type:</span> ${analysis.config.name}</div>
+                                <div><span class="text-muted-soft">Dimensions:</span> ${originalDim}D &rarr; ${reducedDim}D</div>
+                                <div><span class="text-muted-soft">Variance retained:</span> ${(analysis.varianceRetained * 100).toFixed(1)}%</div>
+                                <div><span class="text-muted-soft">Compression:</span> ${analysis.compressionRatio.toFixed(1)}x</div>
                             </div>
                         </div>
                     `;
 
                     if (mode === 'eigenvalues') {
                         html += `
-                            <div class="bg-white border rounded p-4">
-                                <h5 class="font-medium text-gray-700 mb-3">Eigenvalue Spectrum</h5>
+                            <div class="panel panel-neutral p-4 space-y-4">
+                                <h5 class="font-medium text-heading">Eigenvalue spectrum</h5>
                                 <div class="space-y-3">
                         `;
-                        
+
                         analysis.eigenvalues.forEach((eigenval, i) => {
                             const isSelected = i < analysis.selectedComponents;
                             const percentage = (eigenval * 100).toFixed(1);
                             const cumulative = (analysis.cumulativeVariance[i] * 100).toFixed(1);
-                            
+                            const fillColor = isSelected ? 'var(--tone-purple-strong)' : 'var(--color-muted-soft)';
+
                             html += `
-                                <div class="flex items-center space-x-3">
-                                    <div class="w-16 text-sm font-mono">PC${i + 1}:</div>
-                                    <div class="flex-1">
-                                        <div class="flex justify-between text-xs mb-1">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-16 text-sm font-mono text-heading">PC${i + 1}:</div>
+                                    <div class="flex-1 space-y-1">
+                                        <div class="flex justify-between text-xs text-muted">
                                             <span>λ${i + 1} = ${eigenval.toFixed(3)}</span>
                                             <span>${percentage}% (cum: ${cumulative}%)</span>
                                         </div>
-                                        <div class="w-full bg-gray-200 rounded-full h-3">
-                                            <div class="h-3 rounded-full ${isSelected ? 'bg-purple-500' : 'bg-gray-400'}" 
-                                                 style="width: ${percentage}%"></div>
+                                        <div class="h-3 w-full rounded-full bg-subtle">
+                                            <div class="h-3 rounded-full" style="background: ${fillColor}; width: ${percentage}%;"></div>
                                         </div>
                                     </div>
                                 </div>
                             `;
                         });
-                        
+
                         html += `
                                 </div>
-                                <div class="mt-4 text-xs text-gray-600">
-                                    <span class="inline-block w-3 h-3 bg-purple-500 mr-1"></span>Selected components
-                                    <span class="inline-block w-3 h-3 bg-gray-400 mr-1 ml-4"></span>Discarded components
+                                <div class="flex flex-wrap items-center gap-4 text-xs text-muted">
+                                    <span class="flex items-center gap-2">
+                                        <span class="q28-legend-swatch" style="background: var(--tone-purple-strong);"></span>
+                                        Selected components
+                                    </span>
+                                    <span class="flex items-center gap-2">
+                                        <span class="q28-legend-swatch" style="background: var(--color-muted-soft);"></span>
+                                        Discarded components
+                                    </span>
                                 </div>
                             </div>
                         `;
@@ -227,91 +240,95 @@ const interactiveScript = () => {
                     
                     else if (mode === 'eigenvectors') {
                         html += `
-                            <div class="bg-white border rounded p-4">
-                                <h5 class="font-medium text-gray-700 mb-3">Principal Component Directions</h5>
+                            <div class="panel panel-neutral p-4 space-y-4">
+                                <h5 class="font-medium text-heading">Principal component directions</h5>
                                 <div class="space-y-4">
                         `;
-                        
+
                         for (let i = 0; i < Math.min(analysis.selectedComponents, 3); i++) {
                             const vector = analysis.eigenvectors[i];
                             const eigenvalue = analysis.eigenvalues[i];
-                            
+
                             html += `
-                                <div class="bg-gray-50 p-3 rounded">
-                                    <div class="flex justify-between items-center mb-2">
-                                        <h6 class="font-medium">PC${i + 1} (λ = ${eigenvalue.toFixed(3)})</h6>
-                                        <span class="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded">
-                                            ${(eigenvalue * 100).toFixed(1)}% variance
-                                        </span>
+                                <div class="panel panel-neutral-soft p-3 space-y-3">
+                                    <div class="flex items-center justify-between gap-2">
+                                        <h6 class="font-medium text-heading">PC${i + 1} (λ = ${eigenvalue.toFixed(3)})</h6>
+                                        <span class="chip chip-info text-xs">${(eigenvalue * 100).toFixed(1)}% variance</span>
                                     </div>
                                     <div class="grid grid-cols-${Math.min(parseInt(originalDim), 6)} gap-2">
                             `;
-                            
+
                             vector.slice(0, parseInt(originalDim)).forEach((component, j) => {
                                 const absValue = Math.abs(component);
-                                const color = component > 0 ? 'bg-blue-500' : 'bg-red-500';
                                 const intensity = Math.min(absValue * 2, 1);
-                                
+                                const color = component >= 0 ? 'var(--tone-sky-strong)' : 'var(--color-path-scaling-strong)';
+
                                 html += `
-                                    <div class="text-center">
-                                        <div class="w-8 h-8 ${color} rounded flex items-center justify-center text-white text-xs font-bold mx-auto mb-1" 
-                                             style="opacity: ${0.3 + intensity * 0.7}" 
-                                             title="v${i+1}[${j}] = ${component.toFixed(3)}">
+                                    <div class="text-center space-y-1">
+                                        <div class="q28-vector-cell" 
+                                             style="background: ${color}; opacity: ${0.3 + intensity * 0.7};" 
+                                             title="v${i + 1}[${j}] = ${component.toFixed(3)}">
                                             ${component.toFixed(1)}
                                         </div>
-                                        <div class="text-xs text-gray-600">x${j + 1}</div>
+                                        <div class="text-xs text-muted">x${j + 1}</div>
                                     </div>
                                 `;
                             });
-                            
+
                             html += `
                                     </div>
                                 </div>
                             `;
                         }
-                        
+
                         html += `
                                 </div>
-                                <div class="mt-4 text-xs text-gray-600">
-                                    <span class="inline-block w-3 h-3 bg-blue-500 mr-1"></span>Positive components
-                                    <span class="inline-block w-3 h-3 bg-red-500 mr-1 ml-4"></span>Negative components
+                                <div class="flex flex-wrap items-center gap-4 text-xs text-muted">
+                                    <span class="flex items-center gap-2">
+                                        <span class="q28-legend-swatch" style="background: var(--tone-sky-strong);"></span>
+                                        Positive components
+                                    </span>
+                                    <span class="flex items-center gap-2">
+                                        <span class="q28-legend-swatch" style="background: var(--color-path-scaling-strong);"></span>
+                                        Negative components
+                                    </span>
                                 </div>
+                                <p class="small-caption text-muted">Opacity tracks how much each original axis contributes to the component—dense colour means a stronger weight, while blue versus rose indicates the direction of influence.</p>
                             </div>
                         `;
                     }
                     
                     else if (mode === 'projection') {
                         html += `
-                            <div class="bg-white border rounded p-4">
-                                <h5 class="font-medium text-gray-700 mb-3">Dimensionality Reduction Impact</h5>
-                                <div class="grid md:grid-cols-2 gap-4">
-                                    <div class="bg-blue-50 p-3 rounded">
-                                        <h6 class="font-medium text-blue-900 mb-2">Original Space (${originalDim}D)</h6>
-                                        <div class="text-sm text-blue-800">
-                                            <div>• Full feature representation</div>
-                                            <div>• ${originalDim} dimensions</div>
-                                            <div>• 100% variance preserved</div>
-                                            <div>• Storage: ${originalDim} values per sample</div>
-                                        </div>
+                            <div class="panel panel-neutral p-4 space-y-4">
+                                <h5 class="font-medium text-heading">Dimensionality reduction impact</h5>
+                                <div class="grid gap-4 md:grid-cols-2">
+                                    <div class="panel panel-info p-3 space-y-2">
+                                        <h6 class="font-medium text-heading">Original space (${originalDim}D)</h6>
+                                        <ul class="text-sm text-muted space-y-1">
+                                            <li>• Full feature representation</li>
+                                            <li>• ${originalDim} dimensions</li>
+                                            <li>• 100% variance preserved</li>
+                                            <li>• Storage: ${originalDim} values per sample</li>
+                                        </ul>
                                     </div>
-                                    <div class="bg-green-50 p-3 rounded">
-                                        <h6 class="font-medium text-green-900 mb-2">Projected Space (${reducedDim}D)</h6>
-                                        <div class="text-sm text-green-800">
-                                            <div>• Compressed representation</div>
-                                            <div>• ${reducedDim} dimensions</div>
-                                            <div>• ${(analysis.varianceRetained * 100).toFixed(1)}% variance preserved</div>
-                                            <div>• Storage: ${reducedDim} values per sample</div>
-                                        </div>
+                                    <div class="panel panel-success p-3 space-y-2">
+                                        <h6 class="font-medium text-heading">Projected space (${reducedDim}D)</h6>
+                                        <ul class="text-sm text-muted space-y-1">
+                                            <li>• Compressed representation</li>
+                                            <li>• ${reducedDim} dimensions</li>
+                                            <li>• ${(analysis.varianceRetained * 100).toFixed(1)}% variance preserved</li>
+                                            <li>• Storage: ${reducedDim} values per sample</li>
+                                        </ul>
                                     </div>
                                 </div>
-                                
-                                <div class="mt-4 p-3 bg-yellow-50 rounded border border-yellow-200">
-                                    <h6 class="font-medium text-yellow-900 mb-2">Information Loss Analysis</h6>
-                                    <div class="text-sm text-yellow-800">
-                                        <div>• Information lost: ${((1 - analysis.varianceRetained) * 100).toFixed(1)}%</div>
-                                        <div>• Compression ratio: ${analysis.compressionRatio.toFixed(1)}:1</div>
-                                        <div>• Memory savings: ${(100 * (1 - 1/analysis.compressionRatio)).toFixed(1)}%</div>
-                                    </div>
+
+                                <div class="panel panel-warning p-3 space-y-1 text-sm text-heading">
+                                    <h6 class="font-medium text-heading">Information loss analysis</h6>
+                                    <div>• Information lost: ${((1 - analysis.varianceRetained) * 100).toFixed(1)}%</div>
+                                    <div>• Compression ratio: ${analysis.compressionRatio.toFixed(1)}:1</div>
+                                    <div>• Memory savings: ${(100 * (1 - 1 / analysis.compressionRatio)).toFixed(1)}%</div>
+                                    <div>• Dimensionality reduction: ${analysis.dimensionalityReduction}%</div>
                                 </div>
                             </div>
                         `;
@@ -324,22 +341,24 @@ const interactiveScript = () => {
 
                     if (legend) {
                         legend.innerHTML = `
-                            Data: ${analysis.config.name} | 
-                            Compression: ${originalDim}D → ${reducedDim}D | 
-                            Variance Retained: ${(analysis.varianceRetained * 100).toFixed(1)}% | 
-                            Top Eigenvalue: ${analysis.eigenvalues[0].toFixed(3)}
+                            <div class="flex flex-wrap items-center gap-3">
+                                <span><span class="text-muted-soft">Data:</span> ${analysis.config.name}</span>
+                                <span><span class="text-muted-soft">Compression:</span> ${originalDim}D &rarr; ${reducedDim}D</span>
+                                <span><span class="text-muted-soft">Variance retained:</span> ${(analysis.varianceRetained * 100).toFixed(1)}%</span>
+                                <span><span class="text-muted-soft">Top eigenvalue:</span> ${analysis.eigenvalues[0].toFixed(3)}</span>
+                            </div>
                         `;
                         typesetMath(legend);
                     }
 
                     if (explanation) {
                         explanation.innerHTML = `
-                            <div class="space-y-3">
-                                <p><strong>${analysis.config.name}:</strong> ${analysis.config.description}</p>
-                                <p><strong>Eigenvalue Pattern:</strong> ${analysis.config.eigenvaluePattern}</p>
-                                <p><strong>PCA Effectiveness:</strong> ${analysis.varianceRetained > 0.8 ? 'Excellent' : analysis.varianceRetained > 0.6 ? 'Good' : 'Moderate'} - retaining ${(analysis.varianceRetained * 100).toFixed(1)}% of variance with ${analysis.compressionRatio.toFixed(1)}x compression.</p>
-                                <p><strong>Practical Impact:</strong> This level of dimensionality reduction would ${'save ' + (100 * (1 - 1/analysis.compressionRatio)).toFixed(1) + '% memory'} while preserving most important patterns in the data.</p>
-                                ${parseInt(reducedDim) > parseInt(originalDim) ? '<p class="text-red-600"><strong>Note:</strong> Reduced dimension cannot exceed original; value clamped.</p>' : ''}
+                            <div class="space-y-3 text-muted">
+                                <p><strong class="text-heading">${analysis.config.name}:</strong> ${analysis.config.description}</p>
+                                <p><strong class="text-heading">Eigenvalue pattern:</strong> ${analysis.config.eigenvaluePattern}</p>
+                                <p><strong class="text-heading">PCA effectiveness:</strong> ${analysis.varianceRetained > 0.8 ? 'Excellent' : analysis.varianceRetained > 0.6 ? 'Good' : 'Moderate'} - retaining ${(analysis.varianceRetained * 100).toFixed(1)}% of variance with ${analysis.compressionRatio.toFixed(1)}x compression.</p>
+                                <p><strong class="text-heading">Practical impact:</strong> Saves ${(100 * (1 - 1 / analysis.compressionRatio)).toFixed(1)}% memory while keeping the dominant patterns.</p>
+                                ${parseInt(reducedDim) > parseInt(originalDim) ? '<p class="text-danger"><strong class="text-heading">Note:</strong> Reduced dimension cannot exceed original; value clamped.</p>' : ''}
                             </div>
                         `;
                         typesetMath(explanation);
@@ -348,7 +367,7 @@ const interactiveScript = () => {
                 } catch (error) {
                     console.error('Error in processAndDisplay:', error);
                     if (output) {
-                        output.innerHTML = '<div class="text-red-500 p-4">Error processing data. Please try again.</div>';
+                        output.innerHTML = '<div class="panel panel-warning p-3 text-sm">Error processing data. Please try again.</div>';
                     }
                 }
             };

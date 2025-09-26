@@ -1,174 +1,162 @@
 <div class="space-y-4">
-        <!-- Recommended Reading (Top) -->
-        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
-            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading</h4>
-            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
-                <li><a href="#question-7" class="text-indigo-700 underline hover:text-indigo-900">Question 7: What are embeddings and how do they enable semantic meaning?</a></li>
-                <li><a href="#question-25" class="text-indigo-700 underline hover:text-indigo-900">Question 25: Why is cross-entropy loss used in language modeling?</a></li>
-                <li><a href="#question-31" class="text-indigo-700 underline hover:text-indigo-900">Question 31: How does backpropagation work, and why is the chain rule critical?</a></li>
-                <li><a href="#question-23" class="text-indigo-700 underline hover:text-indigo-900">Question 23: How is the softmax function applied in attention mechanisms?</a></li>
-            </ul>
-        </div>
+  <div class="panel panel-info p-3 space-y-2">
+    <h4 class="font-semibold">📚 Recommended reading</h4>
+    <ul class="list-disc ml-5 text-sm space-y-1">
+      <li><a href="#question-7" class="underline">Question 7: What are embeddings and how do they enable semantic meaning?</a></li>
+      <li><a href="#question-25" class="underline">Question 25: Why is cross-entropy loss used in language modeling?</a></li>
+      <li><a href="#question-31" class="underline">Question 31: How does backpropagation work, and why is the chain rule critical?</a></li>
+      <li><a href="#question-23" class="underline">Question 23: How is the softmax function applied in attention mechanisms?</a></li>
+    </ul>
+  </div>
 
-        <!-- Main Concept Box -->
-        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
-            <h4 class="font-semibold text-blue-900 mb-2">🔗 What are Embedding Gradients?</h4>
-            <p class="text-blue-800">Embedding gradients tell us how to adjust each word's vector representation to reduce the model's prediction error. Think of it like tuning a musical instrument - if a note sounds off, the gradient shows exactly how much to tighten or loosen each string (dimension). The chain rule connects the final loss back to each embedding: ∂L/∂E = (∂L/∂logits) × (∂logits/∂E), allowing the model to refine word meanings through training.</p>
-        </div>
-        
-        <!-- Chain Rule Breakdown -->
-        <div class="bg-green-50 p-4 rounded-lg border-l-4 border-green-400">
-            <h4 class="font-semibold text-green-900 mb-2">⛓️ The Chain Rule in Action</h4>
-            <p class="text-green-800">During backpropagation, gradients flow backward through the network layers:</p>
-            <ul class="text-green-700 mt-2 space-y-1">
-                <li>• <strong>Loss → Output Layer:</strong> How much does changing the final prediction affect loss?</li>
-                <li>• <strong>Output → Hidden Layers:</strong> How do hidden representations impact the output?</li>
-                <li>• <strong>Hidden → Embeddings:</strong> How do embedding changes propagate through the network?</li>
-                <li>• <strong>Chain Rule:</strong> Multiply all these partial derivatives together</li>
-            </ul>
-        </div>
-        
-        <!-- Mathematical Formula -->
-        <div class="bg-gray-50 p-4 rounded-lg border border-gray-300">
-            <h4 class="font-semibold text-gray-900 mb-2">📐 The Gradient Formula</h4>
-            <div id="q26-formula" class="math-display">
-                $$ \frac{\partial L}{\partial E} \;=\; \frac{\partial L}{\partial \text{logits}} \cdot \frac{\partial \text{logits}}{\partial E} $$
-            </div>
-            <div class="text-sm text-gray-600 space-y-1">
-                <p><strong>∂L/∂E</strong> = Gradient of loss with respect to embeddings</p>
-                <p><strong>∂L/∂logits</strong> = How loss changes with output predictions</p>
-                <p><strong>∂logits/∂E</strong> = How predictions change with embedding values</p>
-                <p><strong>Chain Rule</strong> = Connects final loss to initial embeddings</p>
-                <p class="mt-2">Note (softmax + cross-entropy): $$ \frac{\partial L}{\partial \text{logits}} \;=\; \hat{p} - y $$</p>
-            </div>
-        </div>
-        
-        <!-- Gradient Flow Comparison -->
-        <div class="grid md:grid-cols-3 gap-4">
-            <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
-                <h5 class="font-medium text-green-900">Forward Pass</h5>
-                <p class="text-sm text-green-700">Embeddings → Hidden → Logits → Loss</p>
-                <code class="text-xs bg-green-100 px-1 rounded">E → h → ŷ → L</code>
-                <div class="text-xs text-green-600 mt-1">✓ Data flows forward</div>
-                <div class="text-xs text-green-600">✓ Computes predictions</div>
-                <div class="text-xs text-green-600">✓ Calculates loss</div>
-            </div>
-            
-            <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
-                <h5 class="font-medium text-purple-900">Backward Pass</h5>
-                <p class="text-sm text-purple-700">Loss → Logits → Hidden → Embeddings</p>
-                <code class="text-xs bg-purple-100 px-1 rounded">∂L/∂L → ∂L/∂ŷ → ∂L/∂h → ∂L/∂E</code>
-                <div class="text-xs text-purple-600 mt-1">✓ Gradients flow backward</div>
-                <div class="text-xs text-purple-600">✓ Uses chain rule</div>
-                <div class="text-xs text-purple-600">✓ Updates parameters</div>
-            </div>
-            
-            <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
-                <h5 class="font-medium text-orange-900">Parameter Update</h5>
-                <p class="text-sm text-orange-700">Apply gradients to refine embeddings</p>
-                <code class="text-xs bg-orange-100 px-1 rounded">E_new = E - α × ∂L/∂E</code>
-                <div class="text-xs text-orange-600 mt-1">✓ Learning rate scaling</div>
-                <div class="text-xs text-orange-600">✓ Gradient descent</div>
-                <div class="text-xs text-orange-600">✓ Semantic refinement</div>
-            </div>
-        </div>
-        
-        <!-- Embedding Update Process -->
-        <div class="bg-indigo-50 p-4 rounded-lg">
-            <h4 class="font-semibold text-indigo-900 mb-2">🎯 How Embeddings Learn Meaning</h4>
-            <div class="grid md:grid-cols-2 gap-4 text-sm">
-                <div>
-                    <h6 class="font-medium text-indigo-800 mb-2">Gradient Calculation:</h6>
-                    <ul class="text-indigo-700 space-y-1">
-                        <li>• <strong>Error Signal:</strong> Compare prediction to true answer</li>
-                        <li>• <strong>Backpropagate:</strong> Send error backward through layers</li>
-                        <li>• <strong>Chain Rule:</strong> Compute embedding contribution to error</li>
-                        <li>• <strong>Accumulate:</strong> Sum gradients across all examples</li>
-                    </ul>
-                </div>
-                <div>
-                    <h6 class="font-medium text-indigo-800 mb-2">Semantic Updates:</h6>
-                    <ul class="text-indigo-700 space-y-1">
-                        <li>• <strong>Context Learning:</strong> Words in similar contexts get similar vectors</li>
-                        <li>• <strong>Task Alignment:</strong> Embeddings adapt to specific objectives</li>
-                        <li>• <strong>Meaning Refinement:</strong> Subtle semantic distinctions emerge</li>
-                        <li>• <strong>Relationship Encoding:</strong> Analogies and patterns develop</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Practical Examples -->
-        <div class="bg-teal-50 p-4 rounded-lg">
-            <h4 class="font-semibold text-teal-900 mb-2">🔍 Gradients in Action</h4>
-            <div class="grid md:grid-cols-2 gap-4 text-sm">
-                <div>
-                    <h6 class="font-medium text-teal-800 mb-2">Example: Predicting "king"</h6>
-                    <div class="bg-white p-2 rounded font-mono text-xs">
-                        <div>Context: "The __ ruled the kingdom"</div>
-                        <div>True word: "king"</div>
-                        <div>Model predicts: "queen" (wrong!)</div>
-                        <div class="text-red-600 mt-1">High loss → Large gradients</div>
-                        <div class="text-blue-600 mt-1">Update: Make "king" more likely in royal contexts</div>
-                    </div>
-                </div>
-                <div>
-                    <h6 class="font-medium text-teal-800 mb-2">Gradient Flow Process:</h6>
-                    <div class="bg-white p-2 rounded font-mono text-xs">
-                        <div>1. Loss = CrossEntropy(pred, true)</div>
-                        <div>2. ∂L/∂logits = pred - true_one_hot</div>
-                        <div>3. ∂L/∂hidden = ∂L/∂logits × W_out</div>
-                        <div>4. ∂L/∂embedding = ∂L/∂hidden × W_hidden</div>
-                        <div class="text-green-600 mt-1">→ Update embedding for "king"</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Gradient Challenges -->
-        <div class="bg-red-50 p-4 rounded-lg border-l-4 border-red-400">
-            <h4 class="font-semibold text-red-900 mb-2">⚠️ Gradient Computation Challenges</h4>
-            <div class="text-sm text-red-800 space-y-2">
-                <p><strong>Sparse Updates:</strong> Only embeddings of words present in the batch receive gradients. Rare words update slowly, potentially remaining poorly trained.</p>
-                <p><strong>Gradient Magnitude:</strong> Words appearing in many contexts may receive very large or very small gradients, requiring careful learning rate scheduling.</p>
-                <p><strong>Memory Requirements:</strong> With vocabularies of 50K+ words and 768+ dimensions, embedding gradients can consume significant memory during training.</p>
-            </div>
-        </div>
-        
-        <!-- Training Dynamics -->
-        <div class="bg-purple-50 p-4 rounded-lg">
-            <h4 class="font-semibold text-purple-900 mb-2">📈 Training Dynamics</h4>
-            <div class="grid md:grid-cols-2 gap-4 text-sm">
-                <div>
-                    <h6 class="font-medium text-purple-800 mb-2">Early Training:</h6>
-                    <ul class="text-purple-700 space-y-1">
-                        <li>• Large gradients reshape embeddings dramatically</li>
-                        <li>• Basic word associations form (cat → animal)</li>
-                        <li>• Frequent words stabilize first</li>
-                        <li>• Syntactic patterns emerge before semantics</li>
-                    </ul>
-                </div>
-                <div>
-                    <h6 class="font-medium text-purple-800 mb-2">Late Training:</h6>
-                    <ul class="text-purple-700 space-y-1">
-                        <li>• Smaller gradients fine-tune relationships</li>
-                        <li>• Subtle semantic distinctions develop</li>
-                        <li>• Rare words slowly improve</li>
-                        <li>• Complex analogies and reasoning patterns</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Optimization Techniques -->
-        <div class="bg-yellow-50 p-4 rounded-lg">
-            <h4 class="font-semibold text-yellow-900 mb-2">⚡ Optimization Techniques</h4>
-            <ul class="text-sm text-yellow-800 space-y-2">
-                <li>• <strong>Gradient Clipping:</strong> Prevent exploding gradients from destabilizing training</li>
-                <li>• <strong>Learning Rate Scheduling:</strong> Start high for exploration, decrease for fine-tuning</li>
-                <li>• <strong>Weight Decay:</strong> Regularize embeddings to prevent overfitting to training data</li>
-                <li>• <strong>Gradient Accumulation:</strong> Handle large batches when memory is limited</li>
-                <li>• <strong>Mixed Precision:</strong> Use FP16 for gradients while maintaining FP32 for critical updates</li>
-            </ul>
-        </div>
+  <div class="panel panel-info panel-emphasis p-4 space-y-2">
+    <h4 class="font-semibold">🔗 What are Embedding Gradients?</h4>
+    <p class="text-sm leading-relaxed">Embedding gradients tell us how to adjust each word's vector representation to reduce the model's prediction error. Think of it like tuning a musical instrument—if a note sounds off, the gradient shows exactly how much to tighten or loosen each string (dimension). The chain rule connects the final loss back to each embedding: ∂L/∂E = (∂L/∂logits) × (∂logits/∂E), allowing the model to refine word meanings through training.</p>
+  </div>
+
+  <div class="panel panel-success panel-emphasis p-4 space-y-2">
+    <h4 class="font-semibold">⛓️ The Chain Rule in Action</h4>
+    <p class="text-sm">During backpropagation, gradients flow backward through the network layers:</p>
+    <ul class="text-sm space-y-1">
+      <li>• <strong>Loss → Output Layer:</strong> How much does changing the final prediction affect loss?</li>
+      <li>• <strong>Output → Hidden Layers:</strong> How do hidden representations impact the output?</li>
+      <li>• <strong>Hidden → Embeddings:</strong> How do embedding changes propagate through the network?</li>
+      <li>• <strong>Chain Rule:</strong> Multiply all these partial derivatives together.</li>
+    </ul>
+  </div>
+
+  <div class="panel panel-neutral p-4 space-y-3">
+    <h4 class="font-semibold">📐 The Gradient Formula</h4>
+    <div id="q26-formula" class="math-display">
+      \[ \frac{\partial L}{\partial E} = \frac{\partial L}{\partial \text{logits}} \cdot \frac{\partial \text{logits}}{\partial E} \]
     </div>
+    <div class="text-sm space-y-1">
+      <p><strong>∂L/∂E</strong> = Gradient of loss with respect to embeddings</p>
+      <p><strong>∂L/∂logits</strong> = How loss changes with output predictions</p>
+      <p><strong>∂logits/∂E</strong> = How predictions change with embedding values</p>
+      <p><strong>Chain Rule</strong> = Connects final loss to initial embeddings</p>
+      <p class="small-caption panel-muted">Softmax + cross-entropy gives: \[ \frac{\partial L}{\partial \text{logits}} = \hat{p} - y \]</p>
+    </div>
+  </div>
+
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="panel panel-success panel-emphasis p-3 space-y-2">
+      <h5 class="font-medium">Forward Pass</h5>
+      <p class="text-sm">Embeddings → Hidden → Logits → Loss</p>
+      <code class="text-xs font-mono">E → h → ŷ → L</code>
+      <div class="small-caption">✓ Data flows forward</div>
+      <div class="small-caption">✓ Computes predictions</div>
+      <div class="small-caption">✓ Calculates loss</div>
+    </div>
+    <div class="panel panel-accent panel-emphasis p-3 space-y-2">
+      <h5 class="font-medium">Backward Pass</h5>
+      <p class="text-sm">Loss → Logits → Hidden → Embeddings</p>
+      <code class="text-xs font-mono">∂L/∂L → ∂L/∂ŷ → ∂L/∂h → ∂L/∂E</code>
+      <div class="small-caption">✓ Gradients flow backward</div>
+      <div class="small-caption">✓ Uses the chain rule</div>
+      <div class="small-caption">✓ Updates parameters</div>
+    </div>
+    <div class="panel panel-warning panel-emphasis p-3 space-y-2">
+      <h5 class="font-medium">Parameter Update</h5>
+      <p class="text-sm">Apply gradients to refine embeddings</p>
+      <code class="text-xs font-mono">E<sub>new</sub> = E - α × ∂L/∂E</code>
+      <div class="small-caption">✓ Learning rate scaling</div>
+      <div class="small-caption">✓ Gradient descent</div>
+      <div class="small-caption">✓ Semantic refinement</div>
+    </div>
+  </div>
+
+  <div class="panel panel-info p-4 space-y-3">
+    <h4 class="font-semibold">🎯 How Embeddings Learn Meaning</h4>
+    <div class="grid md:grid-cols-2 gap-4 text-sm">
+      <div class="space-y-1">
+        <h6 class="font-medium">Gradient Calculation</h6>
+        <ul class="space-y-1">
+          <li>• <strong>Error Signal:</strong> Compare prediction to true answer</li>
+          <li>• <strong>Backpropagate:</strong> Send error backward through layers</li>
+          <li>• <strong>Chain Rule:</strong> Compute embedding contribution to error</li>
+          <li>• <strong>Accumulate:</strong> Sum gradients across all examples</li>
+        </ul>
+      </div>
+      <div class="space-y-1">
+        <h6 class="font-medium">Semantic Updates</h6>
+        <ul class="space-y-1">
+          <li>• <strong>Context Learning:</strong> Words in similar contexts get similar vectors</li>
+          <li>• <strong>Task Alignment:</strong> Embeddings adapt to specific objectives</li>
+          <li>• <strong>Meaning Refinement:</strong> Subtle semantic distinctions emerge</li>
+          <li>• <strong>Relationship Encoding:</strong> Analogies and patterns develop</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-success p-4 space-y-3">
+    <h4 class="font-semibold">🔍 Gradients in Action</h4>
+    <div class="grid md:grid-cols-2 gap-4 text-sm">
+      <div class="space-y-2">
+        <h6 class="font-medium">Example: Predicting “king”</h6>
+        <div class="panel panel-neutral-soft p-3 font-mono text-xs space-y-1">
+          <div>Context: “The __ ruled the kingdom”</div>
+          <div>True word: “king”</div>
+          <div>Model predicts: “queen” (wrong!)</div>
+          <div class="text-danger">High loss → Large gradients</div>
+          <div class="text-info">Update: Make “king” more likely in royal contexts</div>
+        </div>
+      </div>
+      <div class="space-y-2">
+        <h6 class="font-medium">Gradient Flow Process</h6>
+        <div class="panel panel-neutral-soft p-3 font-mono text-xs space-y-1">
+          <div>1. L = CrossEntropy(pred, true)</div>
+          <div>2. ∂L/∂logits = pred − true_one_hot</div>
+          <div>3. ∂L/∂hidden = ∂L/∂logits × W<sub>out</sub></div>
+          <div>4. ∂L/∂embedding = ∂L/∂hidden × W<sub>hidden</sub></div>
+          <div class="text-success">→ Update embedding for “king”</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-warning panel-emphasis p-4 space-y-2">
+    <h4 class="font-semibold">⚠️ Gradient Computation Challenges</h4>
+    <ul class="text-sm space-y-2">
+      <li><strong>Sparse Updates:</strong> Only embeddings of words present in the batch receive gradients. Rare words update slowly, potentially remaining poorly trained.</li>
+      <li><strong>Gradient Magnitude:</strong> Words appearing in many contexts may receive very large or very small gradients, requiring careful learning rate scheduling.</li>
+      <li><strong>Memory Requirements:</strong> With vocabularies of 50K+ words and 768+ dimensions, embedding gradients can consume significant memory during training.</li>
+    </ul>
+  </div>
+
+  <div class="panel panel-accent p-4 space-y-3">
+    <h4 class="font-semibold">📈 Training Dynamics</h4>
+    <div class="grid md:grid-cols-2 gap-4 text-sm">
+      <div class="space-y-1">
+        <h6 class="font-medium">Early Training</h6>
+        <ul class="space-y-1">
+          <li>• Large gradients reshape embeddings dramatically</li>
+          <li>• Basic word associations form (cat → animal)</li>
+          <li>• Frequent words stabilize first</li>
+          <li>• Syntactic patterns emerge before semantics</li>
+        </ul>
+      </div>
+      <div class="space-y-1">
+        <h6 class="font-medium">Late Training</h6>
+        <ul class="space-y-1">
+          <li>• Smaller gradients fine-tune relationships</li>
+          <li>• Subtle semantic distinctions develop</li>
+          <li>• Rare words slowly improve</li>
+          <li>• Complex analogies and reasoning patterns</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-warning p-4 space-y-2">
+    <h4 class="font-semibold">⚡ Optimization Techniques</h4>
+    <ul class="text-sm space-y-2">
+      <li>• <strong>Gradient Clipping:</strong> Prevent exploding gradients from destabilizing training</li>
+      <li>• <strong>Learning Rate Scheduling:</strong> Start high for exploration, decrease for fine-tuning</li>
+      <li>• <strong>Weight Decay:</strong> Regularize embeddings to prevent overfitting to training data</li>
+      <li>• <strong>Gradient Accumulation:</strong> Handle large batches when memory is limited</li>
+      <li>• <strong>Mixed Precision:</strong> Use FP16 for gradients while maintaining FP32 for critical updates</li>
+    </ul>
+  </div>
+</div>

@@ -1,4 +1,82 @@
 {
+  "23": {
+    "title": "GDPval: Evaluating AI Model Performance on Real-World Economically Valuable Tasks",
+    "authors": [
+      "Tejal Patwardhan",
+      "Rachel Dias",
+      "Elizabeth Proehl",
+      "Grace Kim",
+      "Michele Wang",
+      "Olivia Watkins",
+      "Simon Posada Fishman",
+      "Marwan Aljubeh",
+      "Phoebe Thacker",
+      "Laurance Fauconnet",
+      "Natalie S. Kim",
+      "Patrick Chao",
+      "Samuel Miserendino",
+      "Gildas Chabot",
+      "David Li",
+      "Michael Sharman",
+      "Alexandra Barr",
+      "Amelia Glaese",
+      "Jerry Tworek"
+    ],
+    "year": 2025,
+    "venue": "OpenAI Research (2025)",
+    "tags": [
+      "evaluation",
+      "economics",
+      "benchmark"
+    ],
+    "summary": "Benchmarks frontier models on realistic GDP-weighted tasks, showing near-parity with experts and clear gains from reasoning effort plus scaffolding.",
+    "dir": "./papers/p23",
+    "interactiveTitle": "GDPval readiness lab",
+    "relatedQuestions": [
+      45,
+      50,
+      56
+    ]
+  },
+  "22": {
+    "title": "Stress Testing Deliberative Alignment for Anti-Scheming Training",
+    "authors": [
+      "Bronson Schoen",
+      "Evgenia Nitishinskaya",
+      "Mikita Balesni",
+      "Axel H\u00f8jmark",
+      "Felix Hofst\u00e4tter",
+      "J\u00e9r\u00e9my Scheurer",
+      "Alexander Meinke",
+      "Jason Wolfe",
+      "Teun van der Weij",
+      "Alex Lloyd",
+      "Nicholas Goldowsky-Dill",
+      "Angela Fan",
+      "Andrei Matveiakin",
+      "Rusheb Shah",
+      "Marcus Williams",
+      "Amelia Glaese",
+      "Boaz Barak",
+      "Wojciech Zaremba",
+      "Marius Hobbhahn"
+    ],
+    "year": 2025,
+    "venue": "arXiv cs.AI (2025-09-19)",
+    "tags": [
+      "alignment",
+      "safety",
+      "evaluation"
+    ],
+    "summary": "Stress-tests deliberative alignment across covert-action suites, showing that situational awareness and hidden-goal robustness determine residual scheming risk.",
+    "dir": "./papers/p22",
+    "interactiveTitle": "Anti-scheming stress lab",
+    "relatedQuestions": [
+      8,
+      13,
+      45
+    ]
+  },
   "21": {
     "title": "Godel Test: Can Large Language Models Solve Easy Conjectures?",
     "authors": [

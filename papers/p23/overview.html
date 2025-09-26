@@ -1,0 +1,105 @@
+<div class="paper-overview-card space-y-6">
+  <section class="bg-slate-900 text-slate-100 border border-slate-800 rounded-xl p-5 space-y-3">
+    <header class="flex flex-col gap-2">
+      <h2 class="text-lg font-semibold tracking-wide uppercase text-slate-200">Executive quick take</h2>
+      <p class="text-sm leading-relaxed text-slate-200">
+        GDPval stress-tests AI models on 1,320 real deliverables drawn from 44 high-value occupations. Frontier
+        models now win or tie against experts on roughly half of the gold subset, especially when workflows layer in
+        extra reasoning, prompt scaffolding, and human review. Treat GDPval as an early warning system for when
+        knowledge-work automation becomes economically material.
+      </p>
+    </header>
+    <ul class="list-disc ml-5 text-sm text-slate-200 space-y-1">
+      <li>Benchmark tracks win-rates rather than static scores, so it keeps signaling even as models improve.</li>
+      <li>Seven-hour average task durations mean the evaluation reflects actual delivery expectations, not toy tests.</li>
+      <li>Human-in-the-loop workflows already beat unaided experts on speed and cost for many scenarios.</li>
+    </ul>
+  </section>
+
+  <section class="bg-emerald-50 border border-emerald-200 rounded-xl p-5 space-y-3">
+    <header>
+      <h3 class="text-sm font-semibold text-emerald-900">Business relevance</h3>
+      <p class="text-sm text-emerald-800 leading-relaxed">
+        Use GDPval to anchor your AI investment roadmap: it illuminates which occupations face near-term pressure
+        and how much oversight keeps deliverables trustworthy.
+      </p>
+    </header>
+    <ul class="list-disc ml-5 text-sm text-emerald-800 space-y-1">
+      <li><strong>Strategy leads:</strong> Plan reskilling budgets around the 9 GDP-dominant sectors represented in the benchmark.</li>
+      <li><strong>Ops and PMO:</strong> Instrument pilot programs with GDPval-like pairwise grading to monitor automation ROI.</li>
+      <li><strong>Risk teams:</strong> Map observed failure modes (instruction gaps, formatting slips) to review checklists and SLAs.</li>
+      <li><strong>Engineering:</strong> Prioritize scaffolding features (multi-modal inspection, best-of-N sampling) proven to lift win rates.</li>
+    </ul>
+    <div class="bg-card border border-subtle rounded-lg p-4 space-y-2 text-xs text-secondary">
+      <p class="font-semibold text-heading">Derivative example: GDPval control room</p>
+      <p>
+        A professional services firm logs every AI-assisted client deliverable through a GDPval-style rubric. Annotators track
+        model vs. human wins, classify failure modes, and publish cost/time deltas to executives each quarter. The data drives
+        targeted training, tool enablement, and pricing updates.
+      </p>
+    </div>
+  </section>
+
+  <section class="grid md:grid-cols-2 gap-4">
+    <article class="bg-card border border-subtle rounded-lg p-4 space-y-2">
+      <h4 class="text-sm font-semibold text-heading">How GDPval is built</h4>
+      <ul class="list-disc ml-4 text-sm text-secondary space-y-1">
+        <li>Tasks sourced from industry experts (average tenure 14 years) across 44 digital-first occupations.</li>
+        <li>Covers top 9 GDP sectors, translating O*NET work activities into structured briefs with reference files.</li>
+        <li>Gold subset ships 220 open tasks plus an automated grader at <code>evals.openai.com</code> to enable reproducible comparisons.</li>
+      </ul>
+    </article>
+    <article class="bg-card border border-subtle rounded-lg p-4 space-y-2">
+      <h4 class="text-sm font-semibold text-heading">What the benchmark reveals</h4>
+      <ul class="list-disc ml-4 text-sm text-secondary space-y-1">
+        <li>Claude Opus 4.1 leads on aesthetics-driven formats; GPT-5 wins on accuracy and instruction fidelity.</li>
+        <li>Reasoning effort and prompt scaffolding shift win rates by up to 5 percentage points with no model changes.</li>
+        <li>AI assistance paired with expert oversight already reduces completion time and labor spend in simulations.</li>
+      </ul>
+    </article>
+  </section>
+
+  <section class="grid md:grid-cols-3 gap-4">
+    <article class="bg-card border border-subtle rounded-lg p-4 space-y-2">
+      <h5 class="text-sm font-semibold text-heading">Key insight</h5>
+      <p class="text-sm text-secondary">
+        Win-rate tracking against expert baselines shows frontier models closing the gap on economically valuable work,
+        especially when overseen humans curate, verify, or polish outputs.
+      </p>
+    </article>
+    <article class="bg-card border border-subtle rounded-lg p-4 space-y-2">
+      <h5 class="text-sm font-semibold text-heading">Method</h5>
+      <p class="text-sm text-secondary">
+        Blind pairwise grading by practicing professionals with multi-modal deliverables, spanning documents, decks,
+        spreadsheets, media assets, and CAD files, each tied to time and cost metadata.
+      </p>
+    </article>
+    <article class="bg-card border border-subtle rounded-lg p-4 space-y-2">
+      <h5 class="text-sm font-semibold text-heading">Implication</h5>
+      <p class="text-sm text-secondary">
+        Organizations should treat evaluations like GDPval as leading indicators for workforce planning, automation
+        budgets, and governance guardrails long before aggregate GDP data reflects the shift.
+      </p>
+    </article>
+  </section>
+
+  <section class="bg-card border border-subtle rounded-xl p-5 space-y-2">
+    <h4 class="text-sm font-semibold text-heading">Evidence</h4>
+    <ul class="list-disc ml-5 text-sm text-secondary space-y-1">
+      <li>Claude Opus 4.1 wins or ties 47.6% of gold tasks; GPT-5 leads on accuracy-focused occupations.</li>
+      <li>OpenAI model performance rises roughly linearly over time (GPT-4o to GPT-5) when re-run on GDPval.</li>
+      <li>Prompt and scaffolding tweaks add ~5 percentage points to GPT-5 win rates while eliminating PDF artifacts.</li>
+      <li>Simulated workflows show expert plus model loops beating unaided humans on time and cost in evaluated scenarios.</li>
+    </ul>
+  </section>
+
+  <section class="bg-amber-50 border border-amber-200 rounded-xl p-5 space-y-2">
+    <h4 class="text-sm font-semibold text-amber-900">Forward-looking roadmap</h4>
+    <ul class="list-disc ml-5 text-sm text-amber-800 space-y-1">
+      <li>Adopt GDPval-style pairwise grading for each new AI deployment and publish quarterly trendlines.</li>
+      <li>Invest in multi-modal toolchains so agents can inspect spreadsheets, slides, and media before handoff.</li>
+      <li>Track reasoning-effort settings and scaffolding recipes as first-class configuration assets.</li>
+      <li>Expand coverage to interactive and collaborative tasks (meetings, codebases) to monitor emerging risks.</li>
+    </ul>
+  </section>
+</div>

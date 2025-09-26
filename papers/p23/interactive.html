@@ -1,0 +1,79 @@
+<div id="p23-lab" class="space-y-6">
+  <section class="bg-gradient-to-r from-slate-50 via-sky-50 to-slate-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 border border-sky-100 dark:border-slate-700 rounded-xl p-4 space-y-3">
+    <div class="grid md:grid-cols-3 gap-4">
+      <div>
+        <label for="p23-sector" class="block text-sm font-semibold text-sky-900 dark:text-sky-200">Occupational cluster</label>
+        <select id="p23-sector" class="mt-1 w-full px-3 py-2 border border-sky-200 dark:border-slate-600 rounded-md text-sm bg-card text-heading focus:outline-none focus:ring-2 focus:ring-sky-500">
+          <option value="analysis">Financial & analytics (clusters finance, insurance, professional services)</option>
+          <option value="creative">Marketing & communications (publishing, media, advertising)</option>
+          <option value="operations">Operations & compliance (manufacturing, healthcare, public sector)</option>
+        </select>
+        <p class="text-[11px] text-sky-800 dark:text-sky-200 mt-2">Clusters aggregate GDPval occupations with similar deliverables and grading styles.</p>
+      </div>
+      <div>
+        <label for="p23-model" class="block text-sm font-semibold text-sky-900 dark:text-sky-200">Model under review</label>
+        <select id="p23-model" class="mt-1 w-full px-3 py-2 border border-sky-200 dark:border-slate-600 rounded-md text-sm bg-card text-heading focus:outline-none focus:ring-2 focus:ring-sky-500">
+          <option value="gpt5">GPT-5 (high reasoning)</option>
+          <option value="claude">Claude Opus 4.1</option>
+          <option value="grok">Grok 4</option>
+        </select>
+        <p class="text-[11px] text-sky-800 dark:text-sky-200 mt-2">Choose the agent you plan to pair with GDPval-style oversight.</p>
+      </div>
+      <div>
+        <label for="p23-effort" class="block text-sm font-semibold text-sky-900 dark:text-sky-200">Reasoning effort</label>
+        <input id="p23-effort" type="range" min="0" max="2" step="1" value="1" class="w-full accent-sky-600 mt-2">
+        <p class="text-[11px] text-sky-800 dark:text-sky-200 mt-1">0 = quick draft, 1 = default, 2 = extended planning (longer traces, self-checks).</p>
+      </div>
+    </div>
+    <div class="flex flex-wrap gap-4 text-xs text-sky-800 dark:text-sky-200">
+      <label class="inline-flex items-center gap-2">
+        <input id="p23-scaffold" type="checkbox" class="accent-sky-600" checked>
+        <span>Prompt and layout checklist</span>
+      </label>
+      <label class="inline-flex items-center gap-2">
+        <input id="p23-judge" type="checkbox" class="accent-sky-600">
+        <span>Best-of-4 with automated judge</span>
+      </label>
+      <label class="inline-flex items-center gap-2">
+        <input id="p23-inspect" type="checkbox" class="accent-sky-600" checked>
+        <span>Force multi-modal self-inspection</span>
+      </label>
+    </div>
+  </section>
+
+  <section class="grid md:grid-cols-3 gap-4">
+    <article class="bg-card border border-subtle rounded-lg p-4 space-y-2">
+      <h4 class="text-xs font-semibold uppercase tracking-wide text-muted">Expected win or tie rate</h4>
+      <p id="p23-winrate" class="text-2xl font-semibold text-heading">--</p>
+      <p class="text-xs text-muted-soft">Share of GDPval gold tasks where the model matches or beats the human deliverable.</p>
+    </article>
+    <article class="bg-card border border-subtle rounded-lg p-4 space-y-2">
+      <h4 class="text-xs font-semibold uppercase tracking-wide text-muted">Projected time savings</h4>
+      <p id="p23-time" class="text-lg font-semibold text-heading">--</p>
+      <p class="text-xs text-muted-soft">Median reduction in expert hours when following the selected workflow.</p>
+    </article>
+    <article class="bg-card border border-subtle rounded-lg p-4 space-y-2">
+      <h4 class="text-xs font-semibold uppercase tracking-wide text-muted">Oversight load</h4>
+      <p id="p23-oversight" class="text-sm font-semibold text-heading">--</p>
+      <p class="text-xs text-muted-soft">How much review capacity you should reserve for instruction and formatting fixes.</p>
+    </article>
+  </section>
+
+  <section class="bg-card border border-subtle rounded-xl p-5 space-y-4">
+    <header class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+      <h3 class="text-sm font-semibold text-heading">Model posture diagnostic</h3>
+      <p class="text-xs text-muted-soft">Top reasons graders reject outputs and the recommended mitigations.</p>
+    </header>
+    <div id="p23-risks" class="grid sm:grid-cols-2 gap-3"></div>
+  </section>
+
+  <section class="bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-500 rounded-xl p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-amber-900 dark:text-amber-200">Summary</h3>
+    <div id="p23-summary" class="text-sm text-amber-800 dark:text-amber-100 space-y-2"></div>
+  </section>
+
+  <section class="bg-rose-50 dark:bg-rose-900/30 border border-rose-200 dark:border-rose-500 rounded-xl p-5 space-y-2">
+    <h3 class="text-sm font-semibold text-rose-900 dark:text-rose-100">Recommended actions</h3>
+    <ul id="p23-actions" class="list-disc ml-5 text-sm text-rose-800 dark:text-rose-100 space-y-1"></ul>
+  </section>
+</div>

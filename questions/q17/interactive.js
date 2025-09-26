@@ -1,508 +1,390 @@
 const interactiveScript = () => {
-            // Get DOM elements
-            const exampleSelect = document.getElementById('q17-example-select');
-            const output = document.getElementById('q17-output');
-            const legend = document.getElementById('q17-legend');
-            const explanation = document.getElementById('q17-explanation');
-            const metrics = document.getElementById('q17-metrics');
-            const indicator = document.getElementById('q17-architecture-indicator');
-            
-            if (!exampleSelect || !output || !explanation) return;
+  const exampleSelect = document.getElementById('q17-example-select');
+  const output = document.getElementById('q17-output');
+  const legend = document.getElementById('q17-legend');
+  const explanation = document.getElementById('q17-explanation');
+  const metrics = document.getElementById('q17-metrics');
+  const indicator = document.getElementById('q17-architecture-indicator');
+  const strategyCards = Array.from(document.querySelectorAll('#q17-architecture-options .question-strategy'));
 
-            // Example sentences
-            const examples = [
-                { label: 'Pangram (short)', text: "The quick brown fox jumps over the lazy dog" },
-                { label: 'Long sentence (dependencies)', text: "Machine translation has revolutionized how we communicate across language barriers in the modern digital world" },
-                { label: 'Story fragment', text: "When I was young, my grandmother told me stories that shaped my worldview" },
-                { label: 'Research phrase', text: "The research paper demonstrates significant improvements in neural network architectures" },
-                { label: 'Project outcome', text: "Despite the challenges, the team successfully completed the project on time" }
-            ];
+  if (!exampleSelect || !output || !legend || !explanation || !metrics || !indicator) {
+    return;
+  }
 
-            // Populate dropdown
-            examples.forEach((ex, idx) => {
-                const opt = document.createElement('option');
-                opt.value = String(idx);
-                opt.textContent = `${ex.label}: ${ex.text}`;
-                exampleSelect.appendChild(opt);
-            });
-            exampleSelect.value = '0';
+  const examples = [
+    { label: 'Pangram (short)', text: 'The quick brown fox jumps over the lazy dog' },
+    { label: 'Long sentence (dependencies)', text: 'Machine translation has revolutionized how we communicate across language barriers in the modern digital world' },
+    { label: 'Story fragment', text: 'When I was young, my grandmother told me stories that shaped my worldview' },
+    { label: 'Research phrase', text: 'The research paper demonstrates significant improvements in neural network architectures' },
+    { label: 'Project outcome', text: 'Despite the challenges, the team successfully completed the project on time' }
+  ];
 
-            // Architecture configurations
-            const architectureConfig = {
-                seq2seq: {
-                    name: 'Traditional Seq2Seq',
-                    color: 'red',
-                    description: 'RNN-based encoder-decoder with sequential processing'
-                },
-                transformer: {
-                    name: 'Transformer',
-                    color: 'green',
-                    description: 'Self-attention based with parallel processing'
-                },
-                comparison: {
-                    name: 'Side-by-Side Comparison',
-                    color: 'purple',
-                    description: 'Direct architecture comparison'
-                }
-            };
+  examples.forEach((example, index) => {
+    const option = document.createElement('option');
+    option.value = String(index);
+    option.textContent = example.label;
+    exampleSelect.append(option);
+  });
+  exampleSelect.value = '0';
 
-            // Process input and visualize
-            const processInput = () => {
-                const idx = parseInt(exampleSelect.value, 10) || 0;
-                const text = examples[idx].text.trim();
-                if (!text) return;
+  const architectureConfig = {
+    seq2seq: {
+      name: 'Traditional Seq2Seq',
+      chipClass: 'chip-warning'
+    },
+    transformer: {
+      name: 'Transformer',
+      chipClass: 'chip-success'
+    },
+    comparison: {
+      name: 'Side-by-side comparison',
+      chipClass: 'chip-info'
+    }
+  };
 
-                const selectedArch = document.querySelector('input[name="q17-architecture"]:checked');
-                if (!selectedArch) return;
+  const architectureLegend = {
+    seq2seq: [
+      { label: 'Hidden state chain', tone: 'warning' },
+      { label: 'Single context vector', tone: 'neutral' },
+      { label: 'Step-by-step decoder', tone: 'accent' }
+    ],
+    transformer: [
+      { label: 'Self-attention weights', tone: 'success' },
+      { label: 'Feed-forward mixing', tone: 'info' },
+      { label: 'Positional encoding', tone: 'accent' }
+    ],
+    comparison: [
+      { label: 'Sequential vs parallel', tone: 'info' },
+      { label: 'Context retention', tone: 'success' },
+      { label: 'Compute cost', tone: 'warning' }
+    ]
+  };
 
-                const architecture = selectedArch.value;
-                const config = architectureConfig[architecture];
-                
-                // Update indicator
-                indicator.textContent = config.name;
-                indicator.className = `text-xs bg-${config.color}-100 text-${config.color}-700 px-2 py-1 rounded font-medium`;
+  const toneToChip = {
+    warning: 'chip-warning',
+    success: 'chip-success',
+    info: 'chip-info',
+    accent: 'chip-accent',
+    neutral: 'chip-neutral'
+  };
 
-                // Clear previous results
-                output.innerHTML = '';
-                legend.innerHTML = '';
+  const escapeHtml = (value = '') => value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 
-                // Tokenize the input
-                const tokens = text.split(' ');
-                
-                if (architecture === 'seq2seq') {
-                    visualizeSeq2Seq(tokens);
-                } else if (architecture === 'transformer') {
-                    visualizeTransformer(tokens);
-                } else {
-                    visualizeComparison(tokens);
-                }
+  const normalise = (values) => {
+    const total = values.reduce((sum, value) => sum + value, 0) || 1;
+    return values.map((value) => value / total);
+  };
 
-                updateMetrics(tokens, architecture);
-                updateExplanation(architecture, tokens.length);
-            };
+  const updateStrategyHighlight = () => {
+    strategyCards.forEach((card) => {
+      const input = card.querySelector('input[name="q17-architecture"]');
+      if (!input) {
+        return;
+      }
+      if (input.checked) {
+        card.classList.add('question-strategy-active');
+        card.setAttribute('data-active', 'true');
+      } else {
+        card.classList.remove('question-strategy-active');
+        card.removeAttribute('data-active');
+      }
+    });
+  };
 
-            // Visualize traditional Seq2Seq processing
-            const visualizeSeq2Seq = (tokens) => {
-                const container = document.createElement('div');
-                container.className = 'space-y-4';
+  const buildSeq2SeqVisualization = (context) => {
+    const { displayTokens, truncated, totalTokens } = context;
+    const tokenFlow = displayTokens
+      .map((token, index) => `
+        <div class="flex items-center gap-1">
+          <span class="chip chip-warning text-xs font-mono">${escapeHtml(token)}</span>
+          <span class="small-caption text-muted">h<sub>${index + 1}</sub></span>
+          ${index < displayTokens.length - 1 ? '<span class="text-muted text-xs">&rarr;</span>' : ''}
+        </div>
+      `)
+      .join('');
 
-                // Encoder section
-                const encoderDiv = document.createElement('div');
-                encoderDiv.innerHTML = `
-                    <h5 class="font-medium text-red-900 mb-2">📥 RNN Encoder (Sequential Processing)</h5>
-                    <div class="mb-3 text-xs text-red-700">
-                        <strong>RNN Process:</strong> Each word updates the hidden state sequentially: h₀ → h₁ → h₂ → h₃...
-                    </div>
-            <div class="flex flex-wrap items-center gap-2 mb-2">
-                        ${tokens.map((token, i) => `
-                            <div class="relative">
-                                <div class="bg-red-100 border border-red-300 px-2 py-1 rounded text-xs">${token}</div>
-                                <div class="text-xs text-red-600 mt-1 text-center">
-                                    <div>h${i + 1}</div>
-                                    <div class="text-[10px]">step ${i + 1}</div>
-                                </div>
-                            </div>
-                ${i < tokens.length - 1 ? '<div class="text-red-400 text-xs">→</div>' : ''}
-                        `).join('')}
-                    </div>
-                    <div class="bg-red-200 p-2 rounded text-xs text-red-800">
-                        <strong>Final Context Vector:</strong> All sequence information compressed into h${tokens.length}
-                        <div class="text-[10px] mt-1">Problem: Early token information may be lost!</div>
-                    </div>
-                `;
+    const truncatedChip = truncated
+      ? `<span class="chip chip-neutral text-xs">+${totalTokens - displayTokens.length} more tokens</span>`
+      : '';
 
-                // Decoder section
-                const decoderDiv = document.createElement('div');
-                decoderDiv.innerHTML = `
-                    <h5 class="font-medium text-red-900 mb-2">📤 RNN Decoder (Sequential Generation)</h5>
-                    <div class="mb-2 text-xs text-red-700">
-                        <strong>RNN Limitation:</strong> Decoder can only use the fixed context vector + its own hidden state
-                    </div>
-                    <div class="flex flex-wrap items-center gap-2">
-                        <div class="bg-red-200 px-2 py-1 rounded text-xs">
-                            <div>Context h${tokens.length}</div>
-                            <div class="text-[10px]">Fixed!</div>
-                        </div>
-                        <div class="text-red-400">→</div>
-                        <div class="bg-red-100 border border-red-300 px-2 py-1 rounded text-xs">Output₁</div>
-                        <div class="text-red-400">→</div>
-                        <div class="bg-red-100 border border-red-300 px-2 py-1 rounded text-xs">Output₂</div>
-                        <div class="text-red-400">→</div>
-                        <div class="text-red-400">...</div>
-                    </div>
-                    <div class="mt-2 text-xs text-red-600">
-                        ⚠️ No direct access to individual input tokens - everything must go through the context vector!
-                    </div>
-                `;
+    return `
+      <div class="panel panel-warning panel-emphasis p-3 space-y-3">
+        <h5 class="font-medium text-heading">&#128229; Encoder hidden-state flow</h5>
+        <p class="small-caption text-muted">Each token updates the hidden state sequentially: h<sub>0</sub> &rarr; h<sub>1</sub> &rarr; &hellip; &rarr; h<sub>${totalTokens}</sub>.</p>
+        <div class="flex flex-wrap items-center gap-2">${tokenFlow}</div>
+        ${truncatedChip ? `<div class="flex flex-wrap gap-2">${truncatedChip}</div>` : ''}
+        <div class="panel panel-neutral-soft p-3 text-xs rounded-md">
+          <strong>Context bottleneck:</strong> all meaning is compressed into <code>h<sub>${totalTokens}</sub></code> before decoding.
+        </div>
+      </div>
+      <div class="panel panel-warning p-3 space-y-3">
+        <h5 class="font-medium text-heading">&#128228; Decoder steps</h5>
+        <p class="small-caption text-muted">Outputs reuse the same context vector, so long-distance memories can fade.</p>
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="chip chip-neutral text-xs font-mono">context h<sub>${totalTokens}</sub></span>
+          <span class="text-muted text-xs">&rarr;</span>
+          <span class="chip chip-warning text-xs font-mono">Output&nbsp;1</span>
+          <span class="text-muted text-xs">&rarr;</span>
+          <span class="chip chip-warning text-xs font-mono">Output&nbsp;2</span>
+          <span class="text-muted text-xs">&rarr;</span>
+          <span class="text-muted text-xs">&hellip;</span>
+        </div>
+      </div>
+    `;
+  };
 
-                container.appendChild(encoderDiv);
-                container.appendChild(decoderDiv);
-                output.appendChild(container);
+  const computeAttentionRows = (tokens) => {
+    return tokens.map((_, rowIndex) => {
+      const weights = tokens.map((__, colIndex) => {
+        const distance = Math.abs(rowIndex - colIndex);
+        return 1 / (1 + distance);
+      });
+      return normalise(weights);
+    });
+  };
 
-                // Legend
-                legend.innerHTML = `
-                    <div class="flex flex-wrap gap-4">
-                        <div class="flex items-center space-x-2">
-                            <div class="w-3 h-3 bg-red-100 border border-red-300 rounded"></div>
-                            <span>Sequential Processing</span>
-                        </div>
-                        <div class="flex items-center space-x-2">
-                            <div class="w-3 h-3 bg-red-200 rounded"></div>
-                            <span>Context Vector</span>
-                        </div>
-                    </div>
-                `;
-            };
+  const buildTransformerVisualization = (context) => {
+    const { displayTokens, truncated, totalTokens } = context;
+    const attentionRows = computeAttentionRows(displayTokens);
 
-            // Visualize Transformer processing
-            const visualizeTransformer = (tokens) => {
-                const container = document.createElement('div');
-                container.className = 'space-y-4';
+    const attentionLines = displayTokens
+      .map((token, rowIndex) => {
+        const row = attentionRows[rowIndex];
+        const topTargets = row
+          .map((value, index) => ({ value, index }))
+          .sort((a, b) => b.value - a.value)
+          .slice(0, Math.min(3, displayTokens.length))
+          .map(({ value, index }) => `
+            <span class="chip chip-neutral text-xs font-mono">${escapeHtml(displayTokens[index])} &middot; ${(value * 100).toFixed(0)}%</span>
+          `)
+          .join('');
 
-                // Self-attention visualization with clearer matrix representation
-                const attentionDiv = document.createElement('div');
-                attentionDiv.innerHTML = `
-                    <h5 class="font-medium text-green-900 mb-2">🎯 Self-Attention Matrix (All tokens process simultaneously)</h5>
-                    <div class="mb-3 text-xs text-green-700">
-                        <strong>Key Innovation:</strong> Every token can directly attend to every other token in parallel
-                    </div>
-                    <div class="overflow-x-auto">
-                        <table class="border-collapse border border-green-300 text-xs">
-                            <thead>
-                                <tr class="bg-green-100">
-                                    <th class="border border-green-300 p-1 text-green-800">Query →</th>
-                                    ${tokens.map(token => `
-                                        <th class="border border-green-300 p-1 text-green-800 min-w-12">${token.slice(0,4)}</th>
-                                    `).join('')}
-                                </tr>
-                            </thead>
-                            <tbody>
-                                ${tokens.map((queryToken, i) => `
-                                    <tr>
-                                        <td class="border border-green-300 p-1 bg-green-100 font-medium text-green-800">${queryToken.slice(0,4)}</td>
-                                        ${tokens.map((keyToken, j) => {
-                                            // Create realistic attention patterns
-                                            let attention = 0.1; // base attention
-                                            if (i === j) attention = 0.8; // self-attention
-                                            else if (Math.abs(i - j) === 1) attention = 0.6; // adjacent words
-                                            else if (Math.abs(i - j) === 2) attention = 0.3; // nearby words
-                                            else attention = 0.1 + Math.random() * 0.2; // distant words
-                                            
-                                            const intensity = Math.round(attention * 100);
-                                            const bgColor = attention > 0.7 ? 'bg-green-600' : 
-                                                          attention > 0.5 ? 'bg-green-500' :
-                                                          attention > 0.3 ? 'bg-green-400' :
-                                                          attention > 0.2 ? 'bg-green-300' : 'bg-green-200';
-                                            return `
-                                                <td class="border border-green-300 p-1 ${bgColor} text-center text-white text-xs font-bold">
-                                                    ${intensity}
-                                                </td>
-                                            `;
-                                        }).join('')}
-                                    </tr>
-                                `).join('')}
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="text-xs text-green-700 mt-2">
-                        <strong>Attention scores (%):</strong> Higher values = stronger relationships. Each row shows how much one word attends to all others.
-                    </div>
-                `;
+        return `
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="chip chip-success text-xs font-mono">${escapeHtml(token)}</span>
+            <span class="text-muted text-xs">attends to</span>
+            ${topTargets || '<span class="text-muted text-xs">no strong links</span>'}
+          </div>
+        `;
+      })
+      .join('');
 
-                // Parallel processing demonstration
-                const parallelDiv = document.createElement('div');
-                parallelDiv.innerHTML = `
-                    <h5 class="font-medium text-green-900 mb-2">⚡ Parallel Processing Advantage</h5>
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="bg-red-50 p-3 rounded border">
-                            <div class="font-medium text-red-800 mb-2">❌ RNN: Sequential (${tokens.length} steps)</div>
-                <div class="flex flex-wrap gap-2">
-                                ${tokens.map((token, i) => `
-                    <div class="flex items-center gap-2 text-xs">
-                                        <div class="w-4 h-4 bg-red-200 rounded flex items-center justify-center font-bold">${i+1}</div>
-                                        <div class="bg-red-100 px-2 py-1 rounded">${token}</div>
-                                        <div class="text-red-600">→ h${i+1}</div>
-                                    </div>
-                                `).join('')}
-                            </div>
-                            <div class="text-red-600 text-xs mt-2">⏱️ Total time: ${tokens.length} steps</div>
-                        </div>
-                        
-                        <div class="bg-green-50 p-3 rounded border">
-                            <div class="font-medium text-green-800 mb-2">✅ Transformer: Parallel (1 step)</div>
-                            <div class="flex flex-wrap gap-2">
-                                ${tokens.map((token, i) => `
-                                    <div class="flex items-center space-x-1 text-xs">
-                                        <div class="w-4 h-4 bg-green-500 rounded flex items-center justify-center font-bold text-white">∀</div>
-                                        <div class="bg-green-100 px-2 py-1 rounded whitespace-nowrap">${token}</div>
-                                    </div>
-                                `).join('')}
-                            </div>
-                            <div class="text-green-600 text-xs mt-2">⚡ Total time: 1 step (all parallel)</div>
-                        </div>
-                    </div>
-                `;
+    const positionalSamples = displayTokens.slice(0, 3)
+      .map((token, index) => {
+        const base = Math.max(1, totalTokens);
+        const sinVal = Math.sin(index / base).toFixed(2);
+        const cosVal = Math.cos(index / base).toFixed(2);
+        return `
+          <div class="flex items-center justify-between text-xs font-mono">
+            <span>${escapeHtml(token)}</span>
+            <span>sin=${sinVal}, cos=${cosVal}</span>
+          </div>
+        `;
+      })
+      .join('');
 
-                // Positional encoding explanation
-                const positionDiv = document.createElement('div');
-                positionDiv.innerHTML = `
-                    <h5 class="font-medium text-green-900 mb-2">📍 Positional Encoding Solution</h5>
-                    <div class="mb-2 text-xs text-green-700">
-                        <strong>Problem:</strong> Without sequential processing, how does the model know word order?<br>
-                        <strong>Solution:</strong> Add position information to each token embedding
-                    </div>
-                    <div class="grid grid-cols-${Math.min(tokens.length, 4)} gap-2">
-                        ${tokens.slice(0, 4).map((token, i) => `
-                            <div class="text-center">
-                                <div class="bg-green-100 border border-green-300 px-2 py-2 rounded text-xs mb-1">
-                                    <div class="font-medium">${token}</div>
-                                    <div class="text-green-600">+</div>
-                                    <div class="bg-green-200 px-1 py-1 rounded mt-1">pos${i}</div>
-                                </div>
-                                <div class="text-xs text-green-600">Position ${i}</div>
-                            </div>
-                        `).join('')}
-                        ${tokens.length > 4 ? '<div class="text-green-400 text-center text-xs self-center">...</div>' : ''}
-                    </div>
-                    <div class="text-xs text-green-700 mt-2">
-                        Each token = word embedding + positional encoding (preserves order without sequential processing)
-                    </div>
-                `;
+    const truncatedChip = truncated
+      ? `<span class="chip chip-neutral text-xs">+${totalTokens - displayTokens.length} more tokens</span>`
+      : '';
 
-                container.appendChild(attentionDiv);
-                container.appendChild(parallelDiv);
-                container.appendChild(positionDiv);
-                output.appendChild(container);
+    return `
+      <div class="panel panel-success panel-emphasis p-3 space-y-3">
+        <h5 class="font-medium text-heading">&#128200; Self-attention snapshot</h5>
+        <p class="small-caption text-muted">Every token can reference any other token in one parallel step.</p>
+        <div class="space-y-2">${attentionLines}</div>
+        ${truncatedChip ? `<div class="flex flex-wrap gap-2">${truncatedChip}</div>` : ''}
+      </div>
+      <div class="panel panel-neutral p-3 space-y-3">
+        <h5 class="font-medium text-heading">&#128205; Positional signals</h5>
+        <p class="small-caption text-muted">Sine and cosine patterns encode order so self-attention remains position aware.</p>
+        <div class="panel panel-neutral-soft p-3 space-y-1 rounded-md">${positionalSamples}</div>
+      </div>
+    `;
+  };
 
-                // Enhanced legend
-                legend.innerHTML = `
-                    <div class="grid grid-cols-2 gap-4 text-xs">
-                        <div>
-                            <div class="font-medium text-green-900 mb-1">Attention Intensity:</div>
-                            <div class="flex items-center space-x-2">
-                                <div class="w-3 h-3 bg-green-600 rounded"></div>
-                                <span>Strong (70-100%)</span>
-                            </div>
-                            <div class="flex items-center space-x-2">
-                                <div class="w-3 h-3 bg-green-400 rounded"></div>
-                                <span>Medium (30-70%)</span>
-                            </div>
-                            <div class="flex items-center space-x-2">
-                                <div class="w-3 h-3 bg-green-200 rounded"></div>
-                                <span>Weak (0-30%)</span>
-                            </div>
-                        </div>
-                        <div>
-                            <div class="font-medium text-green-900 mb-1">Components:</div>
-                            <div class="flex items-center space-x-2">
-                                <div class="w-3 h-3 bg-green-100 border border-green-300 rounded"></div>
-                                <span>Token + Position</span>
-                            </div>
-                            <div class="flex items-center space-x-2">
-                                <div class="w-3 h-3 bg-green-500 rounded text-white text-center text-[8px] font-bold">∀</div>
-                                <span>Parallel Processing</span>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            };
+  const buildComparisonVisualization = (context) => {
+    const { displayTokens, truncated, totalTokens } = context;
+    const seqSteps = displayTokens
+      .map((token, index) => `
+        <li class="flex items-center gap-2">
+          <span class="chip chip-warning text-xs font-mono">${escapeHtml(token)}</span>
+          <span class="small-caption text-muted">h<sub>${index + 1}</sub></span>
+        </li>
+      `)
+      .join('');
 
-            // Visualize side-by-side comparison
-            const visualizeComparison = (tokens) => {
-                const container = document.createElement('div');
-                container.className = 'grid md:grid-cols-2 gap-4';
+    const transformerSteps = displayTokens
+      .map((token) => `
+        <li class="flex items-center gap-2">
+          <span class="chip chip-success text-xs font-mono">${escapeHtml(token)}</span>
+          <span class="small-caption text-muted">attends across full context</span>
+        </li>
+      `)
+      .join('');
 
-                // Seq2Seq side
-                const seq2seqDiv = document.createElement('div');
-                seq2seqDiv.className = 'border border-red-200 rounded-lg p-3 bg-red-50';
-                seq2seqDiv.innerHTML = `
-                    <h5 class="font-medium text-red-900 mb-2">Traditional Seq2Seq</h5>
-                    <div class="space-y-2">
-                        <div class="text-xs text-red-700">
-                            <strong>Processing:</strong> Sequential (${tokens.length} steps)
-                        </div>
-                        <div class="flex flex-wrap items-center gap-1">
-                            ${tokens.map((token, i) => `
-                                <div class="bg-red-100 px-1 py-1 rounded text-xs">${token.slice(0, 3)}${token.length > 3 ? '...' : ''}</div>
-                                ${i < tokens.length - 1 ? '<div class="text-red-400 text-xs">→</div>' : ''}
-                            `).join('')}
-                        </div>
-                        <div class="bg-red-200 p-2 rounded text-xs">
-                            Context Vector (fixed size)
-                        </div>
-                        <div class="text-xs text-red-600">
-                            ⚠️ Information bottleneck<br>
-                            ⚠️ Vanishing gradients<br>
-                            ⚠️ No parallelization
-                        </div>
-                    </div>
-                `;
+    const truncatedChip = truncated
+      ? `<span class="chip chip-neutral text-xs">+${totalTokens - displayTokens.length} more tokens</span>`
+      : '';
 
-                // Transformer side
-                const transformerDiv = document.createElement('div');
-                transformerDiv.className = 'border border-green-200 rounded-lg p-3 bg-green-50';
-                transformerDiv.innerHTML = `
-                    <h5 class="font-medium text-green-900 mb-2">Transformer</h5>
-                    <div class="space-y-2">
-                        <div class="text-xs text-green-700">
-                            <strong>Processing:</strong> Parallel (1 step)
-                        </div>
-                        <div class="grid grid-cols-${Math.min(tokens.length, 4)} gap-1">
-                            ${tokens.slice(0, 4).map((token, i) => `
-                                <div class="bg-green-100 px-1 py-1 rounded text-xs text-center">${token.slice(0, 3)}${token.length > 3 ? '...' : ''}</div>
-                            `).join('')}
-                            ${tokens.length > 4 ? '<div class="text-green-400 text-xs">...</div>' : ''}
-                        </div>
-                        <div class="bg-green-200 p-2 rounded text-xs">
-                            Self-Attention Matrix (${tokens.length}×${tokens.length})
-                        </div>
-                        <div class="text-xs text-green-600">
-                            ✅ Direct connections<br>
-                            ✅ Parallel processing<br>
-                            ✅ Scalable training
-                        </div>
-                    </div>
-                `;
+    return `
+      <div class="grid md:grid-cols-2 gap-3">
+        <div class="panel panel-warning p-3 space-y-2">
+          <h5 class="font-medium text-heading">Seq2Seq pipeline</h5>
+          <ul class="space-y-1 text-xs">${seqSteps}</ul>
+        </div>
+        <div class="panel panel-success p-3 space-y-2">
+          <h5 class="font-medium text-heading">Transformer pipeline</h5>
+          <ul class="space-y-1 text-xs">${transformerSteps}</ul>
+        </div>
+      </div>
+      ${truncatedChip ? `<div class="flex flex-wrap gap-2 mt-2">${truncatedChip}</div>` : ''}
+      <div class="panel panel-accent p-3 text-xs">
+        Transformers trade quadratic attention cost for a single parallel pass that keeps every token reachable during decoding.
+      </div>
+    `;
+  };
 
-                container.appendChild(seq2seqDiv);
-                container.appendChild(transformerDiv);
-                output.appendChild(container);
+  const renderVisualization = (architecture, context) => {
+    if (architecture === 'seq2seq') {
+      output.innerHTML = buildSeq2SeqVisualization(context);
+    } else if (architecture === 'transformer') {
+      output.innerHTML = buildTransformerVisualization(context);
+    } else {
+      output.innerHTML = buildComparisonVisualization(context);
+    }
+  };
 
-                // Legend
-                legend.innerHTML = `
-                    <div class="flex flex-wrap gap-4">
-                        <div class="flex items-center space-x-2">
-                            <div class="w-3 h-3 bg-red-100 rounded"></div>
-                            <span>Seq2Seq Processing</span>
-                        </div>
-                        <div class="flex items-center space-x-2">
-                            <div class="w-3 h-3 bg-green-100 rounded"></div>
-                            <span>Transformer Processing</span>
-                        </div>
-                    </div>
-                `;
-            };
+  const renderLegend = (architecture) => {
+    const legendItems = architectureLegend[architecture] || [];
+    legend.className = 'flex flex-wrap gap-2 text-xs';
+    legend.innerHTML = legendItems
+      .map((item) => `<span class="chip ${toneToChip[item.tone] || 'chip-neutral'}">${item.label}</span>`)
+      .join('');
+  };
 
-            // Update performance metrics
-            const updateMetrics = (tokens, architecture) => {
-                const seqLength = tokens.length;
-                const transformerComplexity = seqLength * seqLength; // O(n^2) compute & memory for full attention
-                const seq2seqComplexity = seqLength; // O(n)
+  const renderMetrics = (architecture, context) => {
+    const tokenCount = Math.max(1, context.totalTokens);
+    const seq2seqComplexity = `${tokenCount} &times; d`;
+    const transformerComplexity = `${tokenCount}&sup2; &times; d`;
 
-                if (architecture === 'seq2seq') {
-                    metrics.innerHTML = `
-                        <div class="grid md:grid-cols-2 gap-4">
-                            <div>
-                                <div class="font-medium text-red-900">Parallel rounds</div>
-                                <div class="text-red-700">${seqLength} (sequential steps)</div>
-                            </div>
-                            <div>
-                                <div class="font-medium text-red-900">Compute complexity</div>
-                                <div class="text-red-700">O(${seq2seqComplexity})</div>
-                            </div>
-                        </div>
-                        <div class="grid md:grid-cols-2 gap-4 mt-2">
-                            <div>
-                                <div class="font-medium text-red-900">Memory</div>
-                                <div class="text-red-700">O(${seq2seqComplexity})</div>
-                            </div>
-                        </div>
-                        <div class="mt-2 text-red-600 text-xs">Processing is inherently sequential; limited parallelism.</div>
-                    `;
-                } else if (architecture === 'transformer') {
-                    metrics.innerHTML = `
-                        <div class="grid md:grid-cols-2 gap-4">
-                            <div>
-                                <div class="font-medium text-green-900">Parallel rounds</div>
-                                <div class="text-green-700">1 (idealized, per layer)</div>
-                            </div>
-                            <div>
-                                <div class="font-medium text-green-900">Compute complexity</div>
-                                <div class="text-green-700">O(${transformerComplexity})</div>
-                            </div>
-                        </div>
-                        <div class="grid md:grid-cols-2 gap-4 mt-2">
-                            <div>
-                                <div class="font-medium text-green-900">Memory</div>
-                                <div class="text-green-700">O(${transformerComplexity})</div>
-                            </div>
-                        </div>
-                        <div class="mt-2 text-green-600 text-xs">Highly parallelizable with quadratic compute/memory for full attention.</div>
-                    `;
-                } else {
-                    metrics.innerHTML = `
-                        <div class="grid md:grid-cols-2 gap-4">
-                            <div class="bg-red-100 p-2 rounded">
-                                <div class="font-medium text-red-900">Seq2Seq</div>
-                                <div class="text-red-700 text-xs">Parallel rounds: ${seqLength}; Compute: O(${seq2seqComplexity}); Memory: O(${seq2seqComplexity})</div>
-                            </div>
-                            <div class="bg-green-100 p-2 rounded">
-                                <div class="font-medium text-green-900">Transformer</div>
-                                <div class="text-green-700 text-xs">Parallel rounds: 1; Compute: O(${transformerComplexity}); Memory: O(${transformerComplexity})</div>
-                            </div>
-                        </div>
-                        <div class="mt-2 text-purple-600 text-xs">Transformer trades memory/compute for massive parallelization gains.</div>
-                    `;
-                }
-            };
+    const comparisonGrid = `
+      <div class="grid md:grid-cols-2 gap-3">
+        <div class="panel panel-warning p-3 space-y-1">
+          <div class="small-caption text-muted">Seq2Seq</div>
+          <div class="text-lg font-semibold text-heading">Parallel rounds: ${tokenCount}</div>
+          <p class="small-caption text-muted">Compute: O(${seq2seqComplexity})</p>
+          <p class="small-caption text-muted">Memory: O(${seq2seqComplexity})</p>
+        </div>
+        <div class="panel panel-success p-3 space-y-1">
+          <div class="small-caption text-muted">Transformer</div>
+          <div class="text-lg font-semibold text-heading">Parallel rounds: 1</div>
+          <p class="small-caption text-muted">Compute: O(${transformerComplexity})</p>
+          <p class="small-caption text-muted">Memory: O(${transformerComplexity})</p>
+        </div>
+      </div>
+    `;
 
-            // Update educational explanation
-            const updateExplanation = (architecture, length) => {
-                const explanations = {
-                    seq2seq: `
-                        <strong>How RNN-based Seq2Seq Works:</strong>
-                        <ul class="mt-2 space-y-1 list-disc list-inside">
-                            <li><strong>RNN Basics:</strong> Processes one word at a time, updating hidden state h₁ → h₂ → h₃...</li>
-                            <li><strong>Sequential Constraint:</strong> Cannot process your ${length}-token sequence in parallel - must wait for each step</li>
-                            <li><strong>Information Loss:</strong> By step ${length}, information from step 1 may have faded significantly</li>
-                            <li><strong>Context Bottleneck:</strong> Entire sequence meaning squeezed into one fixed-size vector</li>
-                            <li><strong>Training Slowness:</strong> GPU cores sit idle since they can't parallelize sequential RNN steps</li>
-                        </ul>
-                        <div class="mt-2 text-red-600 text-xs">
-                            This is why RNN Seq2Seq struggles with long sentences - early words get "forgotten"!
-                        </div>
-                    `,
-                    transformer: `
-                        <strong>Transformer Advantages:</strong>
-                        <ul class="mt-2 space-y-1 list-disc list-inside">
-                            <li>Processes all ${length} tokens simultaneously in parallel</li>
-                            <li>Each token can directly attend to any other token via self-attention</li>
-                            <li>Positional encodings preserve sequence order without sequential processing</li>
-                            <li>Scales efficiently with modern GPU architectures</li>
-                            <li>Enables much larger models and datasets</li>
-                        </ul>
-                        <div class="mt-2 text-green-600 text-xs">
-                            The attention mechanism creates a ${length}×${length} matrix showing how each token relates to every other token.
-                        </div>
-                    `,
-                    comparison: `
-                        <strong>RNN vs Transformer Architecture:</strong>
-                        <ul class="mt-2 space-y-1 list-disc list-inside">
-                            <li><strong>Processing Model:</strong> RNN sequential steps (h₁→h₂→h₃) vs Transformer parallel self-attention</li>
-                            <li><strong>Information Flow:</strong> RNN hidden state chain vs Direct token-to-token connections</li>
-                            <li><strong>Memory:</strong> RNN fixed hidden state size vs Attention matrix stores all relationships</li>
-                            <li><strong>Training Speed:</strong> RNN sequential bottleneck vs Transformer massive parallelization</li>
-                            <li><strong>Long Dependencies:</strong> RNN information decay vs Transformer direct access to any position</li>
-                        </ul>
-                        <div class="mt-2 text-purple-600 text-xs">
-                            The transformer's "attention is all you need" breakthrough eliminated RNN's fundamental sequential constraint.
-                        </div>
-                    `
-                };
+    let note = 'Compare the trade-offs between sequential bottlenecks and parallel attention.';
+    if (architecture === 'seq2seq') {
+      note = 'Sequential updates limit GPU utilisation and make long dependencies fragile.';
+    } else if (architecture === 'transformer') {
+      note = 'Quadratic attention cost buys full-context reasoning with massive parallelism.';
+    }
 
-                explanation.innerHTML = explanations[architecture];
-            };
+    metrics.innerHTML = `${comparisonGrid}<p class="small-caption text-muted">${note}</p>`;
+  };
 
-            // Example cycling
-            // Event listeners
-            exampleSelect.addEventListener('change', processInput);
-            document.querySelectorAll('input[name="q17-architecture"]').forEach(radio => {
-                radio.addEventListener('change', processInput);
-            });
+  const renderExplanation = (architecture, length) => {
+    const explanations = {
+      seq2seq: `
+        <div class="space-y-2">
+          <strong class="text-heading">How RNN-based Seq2Seq works</strong>
+          <ul class="list-disc list-inside space-y-1">
+            <li><strong>Sequential constraint:</strong> Processes one token at a time, so your ${length}-token sequence needs ${length} passes.</li>
+            <li><strong>Information decay:</strong> Early words fade as the hidden state is repeatedly overwritten.</li>
+            <li><strong>Context bottleneck:</strong> Meaning is squeezed into a single vector before decoding.</li>
+            <li><strong>Training cost:</strong> GPUs cannot parallelise the time axis, limiting throughput.</li>
+          </ul>
+          <p class="small-caption text-muted">Long sentences overload the context vector, so early facts are often forgotten.</p>
+        </div>
+      `,
+      transformer: `
+        <div class="space-y-2">
+          <strong class="text-heading">Why transformers win</strong>
+          <ul class="list-disc list-inside space-y-1">
+            <li><strong>Parallel attention:</strong> All ${length} tokens interact in one layer step.</li>
+            <li><strong>Direct references:</strong> Each position attends to any other token with learned weights.</li>
+            <li><strong>Position aware:</strong> Sinusoidal or learned encodings inject order information.</li>
+            <li><strong>Scales up:</strong> Works with very deep stacks and large batches on GPUs.</li>
+          </ul>
+          <p class="small-caption text-muted">Attention matrices grow with ${length}&sup2;, but the parallelism unlocks large model capacity.</p>
+        </div>
+      `,
+      comparison: `
+        <div class="space-y-2">
+          <strong class="text-heading">Key trade-offs</strong>
+          <ul class="list-disc list-inside space-y-1">
+            <li><strong>Context access:</strong> Seq2Seq relies on a single vector; transformers keep full context throughout.</li>
+            <li><strong>Latency vs throughput:</strong> RNNs stream tokens, transformers amortise cost via parallel batches.</li>
+            <li><strong>Compute profile:</strong> Transformers pay O(${length}&sup2;) per layer but align better with modern hardware.</li>
+          </ul>
+          <p class="small-caption text-muted">Pick Seq2Seq only when strict streaming or tight memory budgets dominate.</p>
+        </div>
+      `
+    };
 
-            // Initial processing
-            processInput();
-        };
+    explanation.innerHTML = explanations[architecture] || '';
+  };
+
+  const processInput = () => {
+    const idx = parseInt(exampleSelect.value, 10) || 0;
+    const text = examples[idx]?.text?.trim() || '';
+    const selected = document.querySelector('input[name="q17-architecture"]:checked');
+
+    if (!text || !selected) {
+      return;
+    }
+
+    const architecture = selected.value;
+    const config = architectureConfig[architecture];
+    if (!config) {
+      return;
+    }
+
+    const tokens = text.split(/\s+/).filter(Boolean);
+    const displayTokens = tokens.slice(0, 12);
+    const context = {
+      tokens,
+      displayTokens,
+      totalTokens: tokens.length,
+      truncated: tokens.length > displayTokens.length
+    };
+
+    indicator.textContent = config.name;
+    indicator.className = `chip text-xs ${config.chipClass}`;
+
+    updateStrategyHighlight();
+    renderVisualization(architecture, context);
+    renderLegend(architecture);
+    renderMetrics(architecture, context);
+    renderExplanation(architecture, tokens.length);
+
+    window.MathJax?.typesetPromise?.([output]);
+  };
+
+  exampleSelect.addEventListener('change', processInput);
+  document.querySelectorAll('input[name="q17-architecture"]').forEach((radio) => {
+    radio.addEventListener('change', processInput);
+  });
+
+  updateStrategyHighlight();
+  processInput();
+};
 
 if (typeof module !== 'undefined') {
   module.exports = interactiveScript;

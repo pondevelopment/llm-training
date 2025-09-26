@@ -18,7 +18,10 @@ const interactiveScript = () => {
             const modelData = {
                 gpt3: {
                     name: 'GPT-3 (2020)',
-                    color: 'orange',
+                    cardActiveClass: 'panel-warning panel-emphasis',
+                    indicatorClass: 'chip chip-warning',
+                    panelClass: 'panel-warning panel-emphasis',
+                    barColor: 'var(--panel-warning-border-strong)',
                     capabilities: {
                         text: 'Good',
                         visual: 'Not Supported',
@@ -31,7 +34,10 @@ const interactiveScript = () => {
                 },
                 gpt4: {
                     name: 'GPT-4 (2023)',
-                    color: 'green',
+                    cardActiveClass: 'panel-success panel-emphasis',
+                    indicatorClass: 'chip chip-success',
+                    panelClass: 'panel-success panel-emphasis',
+                    barColor: 'var(--panel-success-border-strong)',
                     capabilities: {
                         text: 'Excellent',
                         visual: 'Supported',
@@ -44,7 +50,10 @@ const interactiveScript = () => {
                 },
                 gpt5: {
                     name: 'GPT-5 (2025)',
-                    color: 'blue',
+                    cardActiveClass: 'panel-info panel-emphasis',
+                    indicatorClass: 'chip chip-info',
+                    panelClass: 'panel-info panel-emphasis',
+                    barColor: 'var(--panel-info-border-strong)',
                     capabilities: {
                         text: 'Excellent+',
                         visual: 'Advanced',
@@ -283,49 +292,32 @@ const interactiveScript = () => {
             // Update visual indicators
             function updateModelVisuals() {
                 const selectedModel = getCurrentModel();
-                
-                // Update radio button containers
-                document.querySelectorAll('input[name="q20-model"]').forEach((radio) => {
-                    const container = radio.closest('label');
-                    
-                    if (radio.checked) {
-                        if (radio.value === 'gpt3') {
-                            container.classList.add('ring-2', 'ring-orange-500', 'bg-orange-50');
-                        } else if (radio.value === 'gpt4') {
-                            container.classList.add('ring-2', 'ring-green-500', 'bg-green-50');
-                        } else if (radio.value === 'gpt5') {
-                            container.classList.add('ring-2', 'ring-blue-500', 'bg-blue-50');
-                        }
-                        container.classList.remove('border-gray-200');
-                    } else {
-                        container.classList.remove('ring-2', 'ring-orange-500', 'ring-green-500', 'ring-blue-500', 'bg-orange-50', 'bg-green-50', 'bg-blue-50');
-                        container.classList.add('border-gray-200');
-                    }
-                });
-                
-                // Update model indicator
-                if (modelIndicator) {
-                    modelIndicator.textContent = modelData[selectedModel].name;
-                    const color = modelData[selectedModel].color;
-                    modelIndicator.className = `text-xs bg-${color}-100 text-${color}-800 px-2 py-1 rounded font-medium`;
-                }
-            }
 
-            // Update task selection visuals
-            function updateTaskVisuals() {
-                const selectedTask = getCurrentTask();
-                
-                document.querySelectorAll('input[name="q20-task"]').forEach((radio) => {
-                    const container = radio.parentElement.querySelector('div');
-                    
+                modelRadios.forEach((radio) => {
+                    const card = radio.closest('.q20-model-card');
+                    if (!card) return;
+
+                    const config = modelData[radio.value] || {};
+
+                    card.classList.remove('panel-warning', 'panel-success', 'panel-info', 'panel-emphasis', 'panel-neutral-soft');
+                    card.classList.add('panel-neutral-soft');
+                    card.setAttribute('aria-checked', radio.checked ? 'true' : 'false');
+
                     if (radio.checked) {
-                        container.classList.add('bg-blue-100', 'border-blue-400');
-                        container.classList.remove('border-gray-200');
-                    } else {
-                        container.classList.remove('bg-blue-100', 'border-blue-400');
-                        container.classList.add('border-gray-200');
+                        card.classList.remove('panel-neutral-soft');
+                        (config.cardActiveClass || '').split(' ').forEach((cls) => {
+                            if (cls) card.classList.add(cls);
+                        });
                     }
                 });
+
+                if (modelIndicator) {
+                    const config = modelData[selectedModel];
+                    if (config) {
+                        modelIndicator.className = `${config.indicatorClass} text-xs`;
+                        modelIndicator.textContent = config.name;
+                    }
+                }
             }
 
             // Main processing function
@@ -345,57 +337,58 @@ const interactiveScript = () => {
                 // Create results display
                 const resultsContainer = document.createElement('div');
                 resultsContainer.className = 'space-y-4';
-                
+
                 // Scenario header
                 const headerSection = document.createElement('div');
                 headerSection.innerHTML = `
                     <div class="flex items-center justify-between mb-3">
-                        <h5 class="font-medium text-gray-900">📋 ${scenarioData.name}</h5>
-                        <div class="text-xs bg-gray-100 px-2 py-1 rounded">Score: ${modelResponse.score}/100</div>
+                        <h5 class="font-medium">📋 ${scenarioData.name}</h5>
+                        <div class="chip chip-neutral text-xs">Score: ${modelResponse.score}/100</div>
                     </div>
                 `;
                 resultsContainer.appendChild(headerSection);
-                
+
                 // Performance visualization
                 const performanceSection = document.createElement('div');
-                const color = modelData[model]?.color || 'gray';
+                const barColor = modelData[model]?.barColor || 'var(--accent-strong)';
                 performanceSection.innerHTML = `
                     <div class="mb-3">
                         <div class="flex justify-between text-sm mb-1">
-                            <span>Performance Quality: <strong>${modelResponse.quality}</strong></span>
+                            <span>Performance quality: <strong>${modelResponse.quality}</strong></span>
                             <span>${modelResponse.score}%</span>
                         </div>
-                        <div class="w-full bg-gray-200 rounded-full h-3">
-                            <div class="bg-${color}-500 h-3 rounded-full transition-all duration-1000" style="width: ${modelResponse.score}%"></div>
+                        <div class="w-full h-3 rounded-full border border-divider bg-subtle overflow-hidden">
+                            <div class="h-full transition-all duration-700" style="width: ${modelResponse.score}%; background-color: ${barColor};"></div>
                         </div>
                     </div>
                 `;
                 resultsContainer.appendChild(performanceSection);
-                
+
                 // Model output simulation
                 const outputSection = document.createElement('div');
+                const panelClass = modelData[model]?.panelClass || 'panel-neutral';
                 outputSection.innerHTML = `
-                    <div class="text-sm font-medium text-gray-700 mb-2">🤖 Model Response:</div>
-                    <div class="p-3 bg-${color}-50 border border-${color}-200 rounded text-sm">
+                    <div class="text-sm font-medium mb-2">🤖 Model response:</div>
+                    <div class="panel ${panelClass} p-3 text-sm">
                         ${modelResponse.output}
                     </div>
                 `;
                 resultsContainer.appendChild(outputSection);
-                
+
                 // Strengths and weaknesses
                 const analysisSection = document.createElement('div');
                 analysisSection.innerHTML = `
                     <div class="grid md:grid-cols-2 gap-3">
                         <div>
-                            <div class="text-sm font-medium text-green-700 mb-2">✅ Strengths:</div>
+                            <div class="text-sm font-medium text-success mb-2">✅ Strengths:</div>
                             <ul class="text-xs space-y-1">
-                                ${modelResponse.strengths.map(strength => `<li class="flex items-start"><span class="text-green-500 mr-1">•</span>${strength}</li>`).join('')}
+                                ${modelResponse.strengths.map(strength => `<li>• ${strength}</li>`).join('')}
                             </ul>
                         </div>
                         <div>
-                            <div class="text-sm font-medium text-red-700 mb-2">❌ Limitations:</div>
+                            <div class="text-sm font-medium text-danger mb-2">❌ Limitations:</div>
                             <ul class="text-xs space-y-1">
-                                ${modelResponse.weaknesses.map(weakness => `<li class="flex items-start"><span class="text-red-500 mr-1">•</span>${weakness}</li>`).join('')}
+                                ${modelResponse.weaknesses.map(weakness => `<li>• ${weakness}</li>`).join('')}
                             </ul>
                         </div>
                     </div>

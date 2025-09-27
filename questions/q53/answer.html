@@ -1,79 +1,73 @@
-
 <div class="space-y-4">
-  <!-- Recommended Reading (aligned with Q1 style) -->
-  <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
-    <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related)</h4>
-    <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
-      <li><a href="#question-05" class="text-indigo-700 underline hover:text-indigo-900">Question 5: How does beam search improve text generation compared to greedy decoding?</a></li>
-      <li><a href="#question-06" class="text-indigo-700 underline hover:text-indigo-900">Question 6: What is temperature in text generation and how does it affect output?</a></li>
-      <li><a href="#question-12" class="text-indigo-700 underline hover:text-indigo-900">Question 12: How do top-k and top-p sampling differ in text generation?</a></li>
-      <li><a href="#question-25" class="text-indigo-700 underline hover:text-indigo-900">Question 25: Why is cross-entropy loss used in language modeling?</a></li>
-      <li><a href="#question-38" class="text-indigo-700 underline hover:text-indigo-900">Question 38: What is chain-of-thought prompting?</a></li>
-      <li><a href="#question-48" class="text-indigo-700 underline hover:text-indigo-900">Question 48: What are LLM hyperparameters?</a></li>
-      <li><a href="#question-54" class="text-indigo-700 underline hover:text-indigo-900">Question 54: What are logits, and why don't LLMs output probabilities directly?</a></li>
+  <div class="panel panel-info p-3">
+    <h4 class="font-semibold mb-1">📚 Recommended reading (related)</h4>
+    <ul class="list-disc ml-5 text-sm space-y-1">
+      <li><a href="#question-05" class="underline">Question 5: How does beam search improve text generation compared to greedy decoding?</a></li>
+      <li><a href="#question-06" class="underline">Question 6: What is temperature in text generation and how does it affect output?</a></li>
+      <li><a href="#question-12" class="underline">Question 12: How do top-k and top-p sampling differ in text generation?</a></li>
+      <li><a href="#question-25" class="underline">Question 25: Why is cross-entropy loss used in language modeling?</a></li>
+      <li><a href="#question-38" class="underline">Question 38: What is chain-of-thought prompting?</a></li>
+      <li><a href="#question-48" class="underline">Question 48: What are LLM hyperparameters?</a></li>
+      <li><a href="#question-54" class="underline">Question 54: What are logits, and why don't LLMs output probabilities directly?</a></li>
     </ul>
   </div>
 
-  <!-- Core Concept (accent border like Q1) -->
-  <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
-    <h4 class="font-semibold text-blue-900 mb-2">🧭 From Logits to a Chosen Token</h4>
-    <p class="text-blue-800 text-sm leading-relaxed">The model emits raw scores (logits) (mathbf{z}). A decoding strategy transforms them into a concrete next token while trading off <strong>quality</strong>, <strong>determinism</strong>, <strong>diversity</strong>, <strong>latency</strong>, and <strong>control</strong>.</p>
+  <div class="panel panel-info panel-emphasis p-4 space-y-2">
+    <h4 class="font-semibold">🧭 From Logits to a Chosen Token</h4>
+    <p class="text-sm">The model emits raw scores (logits) \(\mathbf{z}\). A decoding strategy transforms them into a concrete next token while trading off <strong>quality</strong>, <strong>determinism</strong>, <strong>diversity</strong>, <strong>latency</strong>, and <strong>control</strong>.</p>
     <div class="math-display">$$ p_i = \operatorname{softmax}(z)_i = \frac{e^{z_i}}{\sum_j e^{z_j}} $$</div>
-    <p class="text-xs text-blue-700">Everything after softmax is policy: filter, reweight, or resample before selecting.</p>
+    <p class="text-xs panel-muted">Everything after softmax is policy: filter, reweight, or resample before selecting.</p>
   </div>
 
-  <!-- Strategy Families -->
   <div class="grid md:grid-cols-3 gap-4">
-    <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
-      <h5 class="font-medium text-green-900 mb-1">1. Deterministic / Search</h5>
-      <ul class="text-xs text-green-800 space-y-1">
-        <li><b>Greedy:</b> (argmax_i p_i)</li>
-        <li><b>Beam:</b> Keep top <code>B</code> partial sequences</li>
-        <li><b>Diverse Beam:</b> Penalize similar beams</li>
-        <li><b>Pros:</b> Stable, reproducible</li>
-        <li><b>Cons:</b> Can collapse / lack creativity</li>
+    <div class="panel panel-success panel-emphasis p-3 space-y-1">
+      <h5 class="font-medium">1. Deterministic / Search</h5>
+      <ul class="text-xs space-y-1">
+        <li><strong>Greedy:</strong> \(\arg\max_i p_i\)</li>
+        <li><strong>Beam:</strong> Keep top <code>B</code> partial sequences</li>
+        <li><strong>Diverse Beam:</strong> Penalize similar beams</li>
+        <li><strong>Pros:</strong> Stable, reproducible</li>
+        <li><strong>Cons:</strong> Can collapse / lack creativity</li>
       </ul>
     </div>
-    <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
-      <h5 class="font-medium text-purple-900 mb-1">2. Probabilistic Sampling</h5>
-      <ul class="text-xs text-purple-800 space-y-1">
-        <li><b>Top-k:</b> Truncate to highest <code>k</code></li>
-        <li><b>Nucleus (Top-p):</b> Smallest set with cumulative (ge p)</li>
-        <li><b>Typical:</b> Focus near entropy band</li>
-        <li><b>Temperature:</b> Scale logits: (z_i/T)</li>
-        <li><b>Pros:</b> Diversity & controllable randomness</li>
+    <div class="panel panel-accent panel-emphasis p-3 space-y-1">
+      <h5 class="font-medium">2. Probabilistic Sampling</h5>
+      <ul class="text-xs space-y-1">
+        <li><strong>Top-k:</strong> Truncate to highest <code>k</code></li>
+        <li><strong>Nucleus (Top-p):</strong> Smallest set with cumulative \(\ge p\)</li>
+        <li><strong>Typical:</strong> Focus near entropy band</li>
+        <li><strong>Temperature:</strong> Scale logits: \(z_i / T\)</li>
+        <li><strong>Pros:</strong> Diversity &amp; controllable randomness</li>
       </ul>
     </div>
-    <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
-      <h5 class="font-medium text-orange-900 mb-1">3. Advanced / Controlled</h5>
-      <ul class="text-xs text-orange-800 space-y-1">
-        <li><b>Contrastive:</b> Large − (lambda)·small model</li>
-        <li><b>Speculative:</b> Draft + verify (speed)</li>
-        <li><b>Mirostat:</b> Target entropy adaptively</li>
-        <li><b>Constraints:</b> Grammar / JSON / regex</li>
-        <li><b>Penalties:</b> Repetition / presence / freq</li>
+    <div class="panel panel-warning panel-emphasis p-3 space-y-1">
+      <h5 class="font-medium">3. Advanced / Controlled</h5>
+      <ul class="text-xs space-y-1">
+        <li><strong>Contrastive:</strong> Large − &lambda;·small model</li>
+        <li><strong>Speculative:</strong> Draft + verify (speed)</li>
+        <li><strong>Mirostat:</strong> Target entropy adaptively</li>
+        <li><strong>Constraints:</strong> Grammar / JSON / regex</li>
+        <li><strong>Penalties:</strong> Repetition / presence / freq</li>
       </ul>
     </div>
   </div>
 
-  <!-- Why This Matters (match Q1 styling) -->
-  <div class="bg-yellow-50 p-4 rounded-lg">
-    <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why This Matters</h4>
-    <ul class="text-sm text-yellow-800 space-y-1">
+  <div class="panel panel-warning p-4 space-y-1">
+    <h4 class="font-semibold">🎯 Why This Matters</h4>
+    <ul class="list-disc ml-5 text-sm space-y-1">
       <li><strong>Product fit:</strong> Deterministic for support; sampling for creativity</li>
       <li><strong>Quality vs speed:</strong> Beam ↑ quality; speculative ↓ latency</li>
-      <li><strong>Safety & structure:</strong> Constrained decoding enforces valid outputs</li>
+      <li><strong>Safety &amp; structure:</strong> Constrained decoding enforces valid outputs</li>
       <li><strong>Cost:</strong> Efficient strategies reduce wasted tokens</li>
     </ul>
   </div>
 
-  <!-- Mathematical Snippets -->
-  <div class="bg-white border border-gray-200 rounded-lg p-5 space-y-4">
-    <h4 class="font-semibold text-gray-900">📐 Strategy Mechanics</h4>
-    <div class="grid md:grid-cols-2 gap-4 text-xs text-gray-700">
+  <div class="panel panel-neutral p-5 space-y-4">
+    <h4 class="font-semibold">📐 Strategy Mechanics</h4>
+    <div class="grid md:grid-cols-2 gap-4 text-xs">
       <div>
         <div class="font-medium mb-1">Top-k Filtering</div>
-        <div class="math-display">$$ S_k = \operatorname{arg\;topk}_i(p_i), quad p'_i = \frac{p_i \mathbf{1}[i in S_k]}{\sum_{j in S_k} p_j} $$</div>
+        <div class="math-display">$$ S_k = \operatorname{arg\;topk}_i(p_i), \quad p'_i = \frac{p_i \mathbf{1}[i \in S_k]}{\sum_{j \in S_k} p_j} $$</div>
       </div>
       <div>
         <div class="font-medium mb-1">Nucleus (Top-p)</div>
@@ -88,6 +82,6 @@
         <div class="math-display">$$ p_i(T) = \frac{e^{z_i / T}}{\sum_j e^{z_j / T}} $$</div>
       </div>
     </div>
-    <p class="text-xs text-gray-600">Contrastive: maximize (p_{	ext{large}} - lambda p_{	ext{small}}); Mirostat dynamically tunes effective temperature to keep surprise near target.</p>
+    <p class="text-xs panel-muted">Contrastive: maximize \(p_{\text{large}} - \lambda p_{\text{small}}\); Mirostat dynamically tunes effective temperature to keep surprise near target.</p>
   </div>
 </div>

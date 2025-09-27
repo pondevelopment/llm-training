@@ -2059,6 +2059,8 @@ html.dark .context-token--in {
 .context-meter[data-tone="emerald"] .context-meter-fill { background: var(--tone-emerald-strong); }
 .context-meter[data-tone="sky"] .context-meter-fill { background: var(--tone-sky-strong); }
 .context-meter[data-tone="rose"] .context-meter-fill { background: var(--tone-rose-strong); }
+.context-meter[data-tone="amber"] .context-meter-fill { background: var(--tone-amber-strong); }
+.context-meter[data-tone="violet"] .context-meter-fill { background: var(--tone-purple-strong); }
 
 .context-simulation-actions {
   display: flex;
@@ -2823,7 +2825,7 @@ html.dark #question-24 {
 }
 
 #question-24 .q24-legend-piece::before {
-  content: '�';
+  content: '\\2022';
   font-size: 0.9em;
   color: color-mix(in srgb, var(--color-muted) 70%, transparent 30%);
 }
@@ -3364,4 +3366,188 @@ html.dark .q26-bar-number--negative {
   font-size: 0.85rem;
   font-weight: 600;
   color: var(--panel-info-heading);
+}
+
+
+/* Question 37: metrics & bars layout (mirrors Q35 treatment) */
+.q37-metric-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.q37-metric-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+.q37-metric-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-muted);
+}
+.q37-metric-value {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.15rem;
+  font-weight: 600;
+  color: var(--color-heading);
+}
+html.dark .q37-metric-value {
+  color: var(--color-body);
+}
+.q37-metric-value-main {
+  font-family: var(--font-mono, "JetBrains Mono", "Fira Code", monospace);
+  font-size: 0.95rem;
+}
+.q37-metric-note {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: var(--color-muted);
+}
+
+.q37-bar-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.q37-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.q37-bar-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+.q37-bar-value {
+  font-family: var(--font-mono, "JetBrains Mono", "Fira Code", monospace);
+  font-weight: 600;
+  color: var(--color-heading);
+}
+html.dark .q37-bar-value {
+  color: var(--color-body);
+}
+
+/* Question 53 decoding explorer */
+.q53-keylist {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.q53-keyrow {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: 0.7rem 0.8rem;
+  border-radius: 0.9rem;
+  border: 1px solid color-mix(in srgb, var(--color-border-subtle) 70%, transparent 30%);
+  background: color-mix(in srgb, var(--color-card) 92%, transparent 8%);
+  transition: background-color .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+.q53-keyrow-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+.q53-keylabel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+.q53-keyindex {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-heading);
+}
+.q53-keymeta {
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+}
+.q53-keylogit {
+  font-family: var(--font-mono, 'Fira Mono', 'SFMono-Regular', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-heading);
+}
+.q53-keyvalue {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.2rem;
+}
+.q53-keyprob {
+  font-family: var(--font-mono, 'Fira Mono', 'SFMono-Regular', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace);
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--color-heading);
+}
+.q53-keycaption {
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.q53-bar {
+  position: relative;
+  height: 0.6rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-card) 55%, var(--color-border-subtle) 45%);
+  border: 1px solid color-mix(in srgb, var(--color-border-subtle) 70%, transparent 30%);
+  overflow: hidden;
+}
+.q53-bar-fill {
+  position: absolute;
+  inset: 0;
+  width: var(--q53-bar, 0%);
+  background: color-mix(in srgb, var(--color-muted) 42%, transparent 58%);
+  transition: width .25s ease, background-color .25s ease;
+}
+.q53-bar-fill--active {
+  background: var(--accent-strong);
+}
+
+.q53-keyrow--active {
+  border-color: color-mix(in srgb, var(--accent-border) 60%, transparent 40%);
+  background: color-mix(in srgb, var(--accent-soft) 48%, var(--color-card) 52%);
+  box-shadow: 0 14px 32px -28px rgba(79, 70, 229, 0.6);
+}
+.q53-keyvalue--active .q53-keyprob {
+  color: var(--accent-text);
+}
+.q53-keyvalue--active .q53-keycaption {
+  color: color-mix(in srgb, var(--accent-text) 65%, var(--color-muted) 35%);
+}
+
+html.dark .q53-keyrow {
+  border-color: color-mix(in srgb, var(--color-border) 68%, transparent 32%);
+  background: color-mix(in srgb, var(--color-card) 84%, transparent 16%);
+}
+html.dark .q53-keyindex,
+html.dark .q53-keylogit,
+html.dark .q53-keyprob {
+  color: var(--color-body);
+}
+html.dark .q53-bar {
+  background: color-mix(in srgb, var(--color-border) 52%, transparent 48%);
+  border-color: color-mix(in srgb, var(--color-border) 68%, transparent 32%);
+}
+html.dark .q53-bar-fill {
+  background: color-mix(in srgb, var(--color-muted) 68%, transparent 32%);
+}
+html.dark .q53-keyrow--active {
+  background: color-mix(in srgb, var(--accent-soft) 38%, var(--color-card) 62%);
 }

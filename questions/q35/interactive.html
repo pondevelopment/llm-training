@@ -1,4 +1,35 @@
 <div class="space-y-6">
+  <style>
+    .q35-metric-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .q35-metric-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: baseline;
+      font-size: 0.9rem;
+    }
+    .q35-metric-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--color-muted);
+    }
+    .q35-metric-value {
+      font-weight: 600;
+      color: var(--color-heading);
+      text-align: right;
+    }
+    .q35-metric-value small {
+      display: block;
+      font-weight: 400;
+      font-size: 0.7rem;
+      color: var(--color-muted);
+    }
+  </style>
   <div class="panel panel-info panel-emphasis p-4 space-y-4">
     <div class="grid md:grid-cols-4 gap-4 text-sm">
       <div class="space-y-1">

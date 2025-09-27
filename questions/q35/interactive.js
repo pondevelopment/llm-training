@@ -61,23 +61,29 @@ const interactiveScript = () => {
         </div>`;
       }
 
+      function metricRow(label, value, hint) {
+        const hintMarkup = hint ? `<small>${hint}</small>` : '';
+        return `<div class="q35-metric-row"><span class="q35-metric-label">${label}</span><span class="q35-metric-value">${value}${hintMarkup}</span></div>`;
+      }
+
       function render() {
         tasksVal.textContent = tasksEl.value;
         trainableVal.textContent = parseFloat(trainableEl.value).toFixed(1) + '%';
         const r = compute();
 
         const deviationNote = r.deviation > 4 ? 'very high' : r.deviation > 2 ? 'high' : r.deviation < 0.5 ? 'low' : 'typical';
+        const shiftLabel = r.shift === 'med' ? 'Medium' : r.shift.charAt(0).toUpperCase() + r.shift.slice(1);
         metricsEl.innerHTML = `
-          <dl class="space-y-1 text-sm">
-            <div><dt class="small-caption text-muted">Method</dt><dd class="text-heading font-semibold">${r.method.label}</dd></div>
-            <div><dt class="small-caption text-muted">Trainable % chosen</dt><dd>${r.chosenPct.toFixed(2)}% <span class="small-caption text-muted">(${deviationNote})</span></dd></div>
-            <div><dt class="small-caption text-muted">Recommended ~</dt><dd>${r.recommended.toFixed(2)}%</dd></div>
-            <div><dt class="small-caption text-muted">Tasks sequenced</dt><dd>${r.tasks}</dd></div>
-            <div><dt class="small-caption text-muted">Domain shift</dt><dd>${r.shift}</dd></div>
-            <div><dt class="small-caption text-muted">Per-task memory</dt><dd>${(r.memoryPerTask * 100).toFixed(2)}% of full</dd></div>
-            <div><dt class="small-caption text-muted">Cumulative memory</dt><dd>${(r.cumulativeMemory * 100).toFixed(2)}% (isolated)</dd></div>
-            <div><dt class="small-caption text-muted">Efficiency score</dt><dd>${r.efficiency.toFixed(2)}</dd></div>
-          </dl>
+          <div class="q35-metric-list">
+            ${metricRow('Method', r.method.label)}
+            ${metricRow('Trainable % chosen', `${r.chosenPct.toFixed(2)}%`, `(${deviationNote})`)}
+            ${metricRow('Recommended ~', `${r.recommended.toFixed(2)}%`)}
+            ${metricRow('Tasks sequenced', r.tasks)}
+            ${metricRow('Domain shift', shiftLabel)}
+            ${metricRow('Per-task memory', `${(r.memoryPerTask * 100).toFixed(2)}%`, 'of full')}
+            ${metricRow('Cumulative memory', `${(r.cumulativeMemory * 100).toFixed(2)}%`, '(isolated)')}
+            ${metricRow('Efficiency score', r.efficiency.toFixed(2))}
+          </div>
         `;
 
         barsEl.innerHTML = `

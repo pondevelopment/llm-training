@@ -1,137 +1,263 @@
-<div class="space-y-4">
-            <!-- Controls -->
-            <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200">
-                <div class="grid md:grid-cols-4 gap-3">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Primary priority</label>
-                        <select id="q50-priority" class="w-full px-2 py-2 border border-gray-300 rounded">
-                            <option selected>Latency</option>
-                            <option>Cost</option>
-                            <option>Privacy</option>
-                            <option>Safety</option>
-                            <option>Quality</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Infrastructure</label>
-                        <select id="q50-infra" class="w-full px-2 py-2 border border-gray-300 rounded">
-                            <option selected>Cloud GPU</option>
-                            <option>Cloud CPU</option>
-                            <option>On-Prem GPU</option>
-                            <option>Edge Device</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Alignment</label>
-                        <select id="q50-align" class="w-full px-2 py-2 border border-gray-300 rounded">
-                            <option>None</option>
-                            <option selected>Instruction-tuned</option>
-                            <option>RLHF</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Data sensitivity</label>
-                        <select id="q50-data" class="w-full px-2 py-2 border border-gray-300 rounded">
-                            <option>Low</option>
-                            <option selected>Medium</option>
-                            <option>High</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="grid md:grid-cols-4 gap-3 mt-3">
-                    <label class="flex items-center gap-2 text-sm"><input id="q50-quant4" type="checkbox" class="h-4 w-4" checked> <span>Quantization (4-bit)</span></label>
-                    <label class="flex items-center gap-2 text-sm"><input id="q50-distill" type="checkbox" class="h-4 w-4"> <span>Distillation</span></label>
-                    <label class="flex items-center gap-2 text-sm"><input id="q50-cache" type="checkbox" class="h-4 w-4" checked> <span>KV cache</span></label>
-                    <label class="flex items-center gap-2 text-sm"><input id="q50-rag" type="checkbox" class="h-4 w-4"> <span>RAG (guarded)</span></label>
-                </div>
-            </div>
+<style>
+  #q50-interactive-root .q50-impact-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.15rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border: 1px solid color-mix(in srgb, var(--color-border) 70%, transparent 30%);
+    background-color: color-mix(in srgb, var(--color-card) 75%, transparent 25%);
+    color: var(--color-heading);
+    transition: background-color .25s ease, color .25s ease, border-color .25s ease;
+  }
+  #q50-interactive-root .q50-impact-badge[data-tier="excellent"] {
+    background-color: color-mix(in srgb, var(--panel-success-bg) 85%, transparent 15%);
+    border-color: var(--panel-success-border);
+    color: var(--panel-success-heading);
+  }
+  #q50-interactive-root .q50-impact-badge[data-tier="good"] {
+    background-color: color-mix(in srgb, var(--panel-info-bg) 85%, transparent 15%);
+    border-color: var(--panel-info-border);
+    color: var(--panel-info-heading);
+  }
+  #q50-interactive-root .q50-impact-badge[data-tier="developing"] {
+    background-color: color-mix(in srgb, var(--panel-warning-bg) 85%, transparent 15%);
+    border-color: var(--panel-warning-border);
+    color: var(--panel-warning-heading);
+  }
+  #q50-interactive-root .q50-impact-badge[data-tier="basic"] {
+    background-color: color-mix(in srgb, var(--chip-danger-bg) 80%, transparent 20%);
+    border-color: var(--chip-danger-border);
+    color: var(--chip-danger-text);
+  }
 
-            <!-- Impact & Guidance -->
-            <div class="bg-white p-3 rounded-lg border">
-                <div class="grid md:grid-cols-3 gap-4 items-start">
-                    <div>
-                        <div class="text-sm font-medium text-gray-700 mb-1">Deployment readiness</div>
-                        <div id="q50-impact" class="text-xs">
-                            <span id="q50-impact-badge" class="inline-block px-2 py-0.5 rounded border" role="status" aria-live="polite"></span>
-                            <div class="h-2 mt-1 rounded bg-gray-200 overflow-hidden">
-                                <div id="q50-meter" class="h-full rounded" style="width:0%"></div>
-                            </div>
-                            <div id="q50-breakdown" class="mt-2 text-xs text-gray-600" aria-live="polite"></div>
-                        </div>
-                        <div class="text-xs text-gray-500 mt-1">Heuristic: balances latency, cost, safety, interpretability, and privacy.</div>
-                    </div>
-                    <div>
-                        <div class="text-sm font-medium text-green-700 mb-1">Strengths</div>
-                        <ul id="q50-pros" class="list-disc pl-5 text-xs text-gray-700 space-y-1"></ul>
-                    </div>
-                    <div>
-                        <div class="text-sm font-medium text-red-700 mb-1">Risks</div>
-                        <ul id="q50-cons" class="list-disc pl-5 text-xs text-gray-700 space-y-1"></ul>
-                    </div>
-                </div>
-                <!-- Phase 2 additions: dimension bars, next-step guidance, micro diff -->
-                <div class="mt-4 space-y-3">
-                    <div class="grid md:grid-cols-5 gap-2" id="q50-bars" aria-label="Dimension performance bars"></div>
-                    <div id="q50-next" class="text-xs text-indigo-700 min-h-[16px]" aria-live="polite"></div>
-                    <div id="q50-diff" class="text-xs text-gray-600 h-4" aria-live="polite"></div>
-                </div>
-            </div>
+  #q50-interactive-root .q50-meter {
+    width: 100%;
+    height: 0.625rem;
+    border-radius: 9999px;
+    border: 1px solid color-mix(in srgb, var(--color-border-subtle) 70%, transparent 30%);
+    background-color: color-mix(in srgb, var(--color-card) 90%, transparent 10%);
+    overflow: hidden;
+    transition: border-color .25s ease, background-color .25s ease;
+  }
+  #q50-interactive-root .q50-meter-fill {
+    height: 100%;
+    width: 0;
+    border-radius: inherit;
+    background-color: var(--panel-info-border-strong);
+    transition: width .3s ease, background-color .3s ease;
+  }
+  #q50-interactive-root .q50-meter[data-tier="excellent"] .q50-meter-fill { background-color: var(--panel-success-border-strong); }
+  #q50-interactive-root .q50-meter[data-tier="good"] .q50-meter-fill { background-color: var(--panel-info-border-strong); }
+  #q50-interactive-root .q50-meter[data-tier="developing"] .q50-meter-fill { background-color: var(--panel-warning-border-strong); }
+  #q50-interactive-root .q50-meter[data-tier="basic"] .q50-meter-fill { background-color: var(--chip-danger-text); }
 
-            <!-- Phase 3: Scenarios & Comparison -->
-            <div class="bg-white p-3 rounded-lg border space-y-4">
-                <div class="flex flex-wrap gap-2 text-xs items-center">
-                    <span class="text-gray-600">Presets:</span>
-                    <button class="q50-preset px-2 py-0.5 rounded border bg-gray-50 hover:bg-gray-100" data-preset="lowcost">Low-cost</button>
-                    <button class="q50-preset px-2 py-0.5 rounded border bg-gray-50 hover:bg-gray-100" data-preset="balanced">Balanced</button>
-                    <button class="q50-preset px-2 py-0.5 rounded border bg-gray-50 hover:bg-gray-100" data-preset="privacy">Privacy-first</button>
-                    <button class="q50-preset px-2 py-0.5 rounded border bg-gray-50 hover:bg-gray-100" data-preset="safety">High-safety</button>
-                </div>
-                <div class="grid md:grid-cols-3 gap-4 text-xs">
-                    <div class="space-y-2">
-                        <h4 class="font-medium text-gray-700 flex items-center gap-2">A/B Compare <span class="text-xs text-gray-400">capture</span></h4>
-                        <div class="flex flex-wrap gap-2">
-                            <button id="q50-capA" class="px-2 py-0.5 rounded bg-indigo-100 text-indigo-800 border border-indigo-300">Capture A</button>
-                            <button id="q50-capB" class="px-2 py-0.5 rounded bg-indigo-100 text-indigo-800 border border-indigo-300" disabled>Capture B</button>
-                            <button id="q50-capClear" class="px-2 py-0.5 rounded border" disabled>Clear</button>
-                        </div>
-                        <div id="q50-ab-status" class="h-4 text-indigo-600"></div>
-                        <div id="q50-ab-diff" class="text-gray-700 text-xs leading-snug"></div>
-                    </div>
-                    <div class="space-y-2">
-                        <h4 class="font-medium text-gray-700">Config Export</h4>
-                        <button id="q50-export" class="px-2 py-0.5 rounded border bg-green-50 hover:bg-green-100 text-green-700">Copy JSON</button>
-                        <div id="q50-export-status" class="h-4 text-green-600 text-xs"></div>
-                    </div>
-                    <div class="space-y-2">
-                        <h4 class="font-medium text-gray-700">Notes</h4>
-                        <div class="text-gray-600" id="q50-ab-note"></div>
-                    </div>
-                </div>
-            </div>
+  #q50-interactive-root .q50-dimension {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    text-align: center;
+  }
+  #q50-interactive-root .q50-dimension-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--color-muted);
+  }
+  #q50-interactive-root .q50-dimension-track {
+    position: relative;
+    width: 100%;
+    height: 0.45rem;
+    border-radius: 9999px;
+    border: 1px solid color-mix(in srgb, var(--color-border-subtle) 70%, transparent 30%);
+    background-color: color-mix(in srgb, var(--color-card) 92%, transparent 8%);
+    overflow: hidden;
+  }
+  #q50-interactive-root .q50-dimension-fill {
+    position: absolute;
+    inset: 0;
+    width: 0;
+    background-color: var(--panel-info-border-strong);
+    transition: width .3s ease, background-color .3s ease;
+  }
+  #q50-interactive-root .q50-dimension-track[data-level="high"] .q50-dimension-fill { background-color: var(--panel-success-border-strong); }
+  #q50-interactive-root .q50-dimension-track[data-level="mid"] .q50-dimension-fill { background-color: var(--panel-warning-border-strong); }
+  #q50-interactive-root .q50-dimension-track[data-level="low"] .q50-dimension-fill { background-color: var(--chip-danger-text); }
+  #q50-interactive-root .q50-dimension-score {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-heading);
+  }
 
-            <!-- Phase 4: Advanced Readiness Insights -->
-            <div class="bg-white p-3 rounded-lg border space-y-4">
-                <h4 class="font-medium text-gray-800 text-sm">Advanced Readiness Insights</h4>
-                <div class="grid md:grid-cols-3 gap-4 text-xs">
-                    <div class="space-y-2">
-                        <div class="font-medium text-gray-700">Readiness Ladder</div>
-                        <div id="q50-tier" class="text-gray-800"></div>
-                        <div id="q50-next-tier" class="text-gray-600"></div>
-                    </div>
-                    <div class="space-y-2 relative">
-                        <div class="font-medium text-gray-700">Capability Radar</div>
-                        <canvas id="q50-radar" width="140" height="140" class="border rounded bg-white" aria-hidden="true"></canvas>
-                        <div id="q50-radar-alt" class="sr-only" aria-live="polite"></div>
-                    </div>
-                    <div class="space-y-2">
-                        <div class="font-medium text-gray-700">Risk Clusters</div>
-                        <div id="q50-risks" class="flex flex-wrap gap-1"></div>
-                        <div class="font-medium text-gray-700 mt-2">Intervention Planner</div>
-                        <div id="q50-interventions" class="space-y-1"></div>
-                    </div>
-                </div>
-            </div>
+  #q50-interactive-root .q50-radar-canvas {
+    display: block;
+    border-radius: 0.85rem;
+    border: 1px solid color-mix(in srgb, var(--color-border-subtle) 70%, transparent 30%);
+    background-color: color-mix(in srgb, var(--color-card) 96%, transparent 4%);
+  }
+  html.dark #q50-interactive-root .q50-radar-canvas {
+    background-color: color-mix(in srgb, var(--color-card) 88%, transparent 12%);
+  }
 
-            <!-- Output -->
-            <div id="q50-expl" class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 text-sm text-yellow-900" aria-live="polite"></div>
+  #q50-interactive-root #q50-interventions > div {
+    padding: 0.35rem 0.5rem;
+    border-radius: 0.75rem;
+    border: 1px solid color-mix(in srgb, var(--color-border-subtle) 55%, transparent 45%);
+    background-color: color-mix(in srgb, var(--color-card) 94%, transparent 6%);
+  }
+  html.dark #q50-interactive-root #q50-interventions > div {
+    background-color: color-mix(in srgb, var(--color-card) 86%, transparent 14%);
+  }\n  #q50-interactive-root .q50-interventions-gain {\n    white-space: nowrap;\n  }
+</style>
+
+<div class="space-y-6" id="q50-interactive-root">
+  <div class="panel panel-info p-4 space-y-4">
+    <div class="flex flex-wrap items-center justify-between gap-2">
+      <h4 class="font-semibold text-heading text-sm">Deployment levers</h4>
+      <p class="small-caption text-muted">Adjust serving priorities, infra, and alignment to see readiness trade-offs.</p>
+    </div>
+    <div class="space-y-2">
+      <label for="q50-scenario" class="text-xs font-medium text-muted">Example scenario</label>
+      <select id="q50-scenario" class="select-control text-sm">
+        <option value="">Select an example...</option>
+        <option value="support-agent">Enterprise support assistant (safety-focused)</option>
+        <option value="cost-summarizer">Cost-efficient summariser pipeline</option>
+        <option value="privacy-healthcare">Healthcare PII assistant (on-prem)</option>
+        <option value="edge-field">Field device agent (edge latency)</option>
+      </select>
+      <p id="q50-scenario-note" class="small-caption text-muted"></p>
+    </div>
+    <div class="grid gap-3 md:grid-cols-4">
+      <div class="space-y-1">
+        <label for="q50-priority" class="text-xs font-medium text-muted">Primary priority</label>
+        <select id="q50-priority" class="select-control text-sm">
+          <option selected>Latency</option>
+          <option>Cost</option>
+          <option>Privacy</option>
+          <option>Safety</option>
+          <option>Quality</option>
+        </select>
+      </div>
+      <div class="space-y-1">
+        <label for="q50-infra" class="text-xs font-medium text-muted">Infrastructure</label>
+        <select id="q50-infra" class="select-control text-sm">
+          <option selected>Cloud GPU</option>
+          <option>Cloud CPU</option>
+          <option>On-Prem GPU</option>
+          <option>Edge Device</option>
+        </select>
+      </div>
+      <div class="space-y-1">
+        <label for="q50-align" class="text-xs font-medium text-muted">Alignment</label>
+        <select id="q50-align" class="select-control text-sm">
+          <option>None</option>
+          <option selected>Instruction-tuned</option>
+          <option>RLHF</option>
+        </select>
+      </div>
+      <div class="space-y-1">
+        <label for="q50-data" class="text-xs font-medium text-muted">Data sensitivity</label>
+        <select id="q50-data" class="select-control text-sm">
+          <option>Low</option>
+          <option selected>Medium</option>
+          <option>High</option>
+        </select>
+      </div>
+    </div>
+    <div class="flex flex-wrap gap-3 text-sm">
+      <label class="inline-flex items-center gap-2"><input id="q50-quant4" type="checkbox" class="h-4 w-4" checked><span>Quantisation (4-bit)</span></label>
+      <label class="inline-flex items-center gap-2"><input id="q50-distill" type="checkbox" class="h-4 w-4"><span>Distillation</span></label>
+      <label class="inline-flex items-center gap-2"><input id="q50-cache" type="checkbox" class="h-4 w-4" checked><span>KV cache</span></label>
+      <label class="inline-flex items-center gap-2"><input id="q50-rag" type="checkbox" class="h-4 w-4"><span>RAG (guarded)</span></label>
+    </div>
+  </div>
+
+  <div class="panel panel-neutral p-4 space-y-4">
+    <div class="grid gap-4 md:grid-cols-3 items-start">
+      <div class="space-y-2">
+        <div class="flex items-center justify-between gap-2">
+          <div class="text-sm font-medium text-heading">Deployment readiness</div>
+          <span id="q50-impact-badge" class="q50-impact-badge" role="status" aria-live="polite"></span>
         </div>
+        <div id="q50-meter-track" class="q50-meter" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+          <div id="q50-meter" class="q50-meter-fill"></div>
+        </div>
+        <div id="q50-breakdown" class="small-caption text-muted" aria-live="polite"></div>
+        <div class="small-caption text-muted">Balances latency, cost, safety, interpretability, and privacy heuristics.</div>
+      </div>
+      <div class="space-y-2">
+        <div class="flex items-center gap-2 text-xs">
+          <span class="chip chip-success text-xs">Strengths</span>
+        </div>
+        <ul id="q50-pros" class="list-disc pl-5 text-xs panel-muted space-y-1"></ul>
+      </div>
+      <div class="space-y-2">
+        <div class="flex items-center gap-2 text-xs">
+          <span class="chip chip-warning text-xs">Risks</span>
+        </div>
+        <ul id="q50-cons" class="list-disc pl-5 text-xs panel-muted space-y-1"></ul>
+      </div>
+    </div>
+    <div class="space-y-3">
+      <div class="grid gap-2 md:grid-cols-5" id="q50-bars" aria-label="Dimension performance bars"></div>
+      <div id="q50-next" class="chip chip-info text-xs" aria-live="polite"></div>
+      <div id="q50-diff" class="small-caption text-muted" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <div class="panel panel-neutral p-4 space-y-4">
+    <div class="flex flex-wrap items-center gap-2 text-xs text-muted">
+      <span>Presets:</span>
+      <button type="button" class="btn-soft text-xs" data-accent="training" data-preset="lowcost">Low-cost</button>
+      <button type="button" class="btn-soft text-xs" data-accent="foundations" data-preset="balanced">Balanced</button>
+      <button type="button" class="btn-soft text-xs" data-accent="alignment" data-preset="privacy">Privacy-first</button>
+      <button type="button" class="btn-soft text-xs" data-accent="scaling" data-preset="safety">High-safety</button>
+    </div>
+    <div class="grid gap-4 md:grid-cols-3 text-xs">
+      <div class="space-y-2">
+        <h4 class="font-medium text-heading flex items-center gap-2">A/B capture</h4>
+        <div class="flex flex-wrap gap-2">
+          <button id="q50-capA" type="button" class="btn-soft text-xs" data-accent="foundations">Capture A</button>
+          <button id="q50-capB" type="button" class="btn-soft text-xs" data-accent="foundations" disabled>Capture B</button>
+          <button id="q50-capClear" type="button" class="btn-soft text-xs" disabled>Clear</button>
+        </div>
+        <div id="q50-ab-status" class="small-caption text-muted"></div>
+        <div id="q50-ab-diff" class="text-sm text-body leading-snug"></div>
+      </div>
+      <div class="space-y-2">
+        <h4 class="font-medium text-heading">Config export</h4>
+        <button id="q50-export" type="button" class="btn-soft text-xs" data-accent="training">Copy JSON</button>
+        <div id="q50-export-status" class="small-caption text-muted"></div>
+      </div>
+      <div class="space-y-2">
+        <h4 class="font-medium text-heading">Notes</h4>
+        <div id="q50-ab-note" class="small-caption text-muted"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-neutral p-4 space-y-4">
+    <h4 class="font-medium text-heading text-sm">Advanced readiness insights</h4>
+    <div class="grid gap-4 md:grid-cols-3 text-xs">
+      <div class="space-y-1">
+        <div class="font-medium text-heading">Readiness ladder</div>
+        <div id="q50-tier" class="text-sm text-body"></div>
+        <div id="q50-next-tier" class="small-caption text-muted"></div>
+      </div>
+      <div class="space-y-2">
+        <div class="font-medium text-heading">Capability radar</div>
+        <canvas id="q50-radar" width="140" height="140" class="q50-radar-canvas" aria-hidden="true"></canvas>
+        <div id="q50-radar-alt" class="sr-only" aria-live="polite"></div>
+      </div>
+      <div class="space-y-2">
+        <div class="font-medium text-heading">Risk clusters</div>
+        <div id="q50-risks" class="flex flex-wrap gap-2"></div>
+        <div class="font-medium text-heading">Intervention planner</div>
+        <div id="q50-interventions" class="space-y-2"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="q50-expl" class="panel panel-neutral-soft p-4 text-sm space-y-2" aria-live="polite"></div>
+</div>

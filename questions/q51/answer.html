@@ -1,74 +1,70 @@
 <div class="space-y-4">
-    <!-- Recommended Reading Cross-links -->
-    <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
-      <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading</h4>
-      <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
-        <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-07">Question 7: What are embeddings?</a></li>
-        <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-12">Question 12: How do LLMs scale with parameters?</a></li>
-        <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-24">Question 24: What is parameter-efficient fine-tuning?</a></li>
-        <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-17">Question 17: RLHF & preference optimization</a></li>
-        <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-45">Question 45: Reducing bias & hallucinations</a></li>
-      </ul>
-      <p class="text-xs text-indigo-700 mt-2">Lifecycle drill-down: representation (embeddings), scaling laws, adaptation efficiency, alignment, risk mitigation.</p>
-    </div>
+  <div class="panel panel-info p-3">
+    <h4 class="font-semibold mb-1">📚 Recommended reading</h4>
+    <ul class="list-disc ml-5 text-sm space-y-1">
+      <li><a class="underline" href="#question-07">Question 7: What are embeddings?</a></li>
+      <li><a class="underline" href="#question-12">Question 12: How do LLMs scale with parameters?</a></li>
+      <li><a class="underline" href="#question-24">Question 24: What is parameter-efficient fine-tuning?</a></li>
+      <li><a class="underline" href="#question-17">Question 17: RLHF &amp; preference optimization</a></li>
+      <li><a class="underline" href="#question-45">Question 45: Reducing bias &amp; hallucinations</a></li>
+    </ul>
+    <p class="small-caption panel-muted mt-2">Lifecycle drill-down: embeddings, scaling laws, adaptation efficiency, alignment, and mitigation.</p>
+  </div>
 
-    <!-- Core Definition -->
-    <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
-      <h4 class="font-semibold text-blue-900 mb-2">🧠 What is a Large Language Model (LLM)?</h4>
-      <p class="text-blue-800">An LLM is a transformer-based neural network with billions of parameters trained (self-supervised) to predict the next token given prior context. Through scale (data + parameters + compute) it internalizes statistical structure of language and can generalize across tasks via prompting or light adaptation.</p>
-      <div class="math-display">$$\begin{aligned}
-        \text{Objective:}\quad & \max_{\theta} \; \mathbb{E}_{(x_1,\dots,x_T)\sim \mathcal{D}} \sum_{t=1}^{T} \log p_{\theta}(x_t \mid x_{\le t}) \\
-        \text{Tokenization:}\quad & x_t = \text{BPE}(\text{text}) \\
-        \text{Context Window:}\quad & (x_1, \dots, x_T),\; T \leq L_{\text{max}} \\
-        \text{Inference:}\quad & x_{t+1} \sim p_{\theta}(\cdot \mid x_{\leq t})
-      \end{aligned}$$</div>
-    </div>
-     
-    <!-- Pipeline Stages Grid -->
-    <div class="grid md:grid-cols-3 gap-4">
-      <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
-        <h5 class="font-medium text-green-900">1. Pre-training</h5>
-        <p class="text-sm text-green-700">Predict next token over massive diverse corpora (code, web, books). Self-supervised.</p>
-        <code class="text-xs bg-green-100 px-1 rounded">Trillions tokens → general world & syntax priors</code>
-      </div>
-      <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
-        <h5 class="font-medium text-purple-900">2. Adaptation</h5>
-        <p class="text-sm text-purple-700">Domain / task specialization via SFT or PEFT (LoRA, adapters, QLoRA) on curated data.</p>
-        <code class="text-xs bg-purple-100 px-1 rounded">"Base" → domain-tuned</code>
-      </div>
-      <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
-        <h5 class="font-medium text-orange-900">3. Alignment</h5>
-        <p class="text-sm text-orange-700">Human feedback stages: preference data → reward model → RLHF / DPO for helpfulness & safety.</p>
-        <code class="text-xs bg-orange-100 px-1 rounded">SFT → RLHF / DPO</code>
-      </div>
-    </div>
+  <div class="panel panel-info panel-emphasis p-4 space-y-3">
+    <h4 class="font-semibold">🧠 What is a Large Language Model (LLM)?</h4>
+    <p>An LLM is a transformer-based neural network with billions of parameters trained (self-supervised) to predict the next token given prior context. Scale across data, parameters, and compute lets it internalize the statistical structure of language and generalize via prompting or light adaptation.</p>
+    <div class="math-display">$$\begin{aligned}
+      \text{Objective:}\quad & \max_{\theta} \; \mathbb{E}_{(x_1,\dots,x_T)\sim \mathcal{D}} \sum_{t=1}^{T} \log p_{\theta}(x_t \mid x_{\le t}) \\
+      \text{Tokenization:}\quad & x_t = \text{BPE}(\text{text}) \\
+      \text{Context Window:}\quad & (x_1, \dots, x_T),\; T \leq L_{\text{max}} \\
+      \text{Inference:}\quad & x_{t+1} \sim p_{\theta}(\cdot \mid x_{\leq t})
+    \end{aligned}$$</div>
+  </div>
 
-    <div class="grid md:grid-cols-3 gap-4">
-      <div class="bg-emerald-50 p-3 rounded border-l-4 border-emerald-400">
-        <h5 class="font-medium text-emerald-900">4. Optimization</h5>
-        <p class="text-sm text-emerald-700">Quantization, pruning, KV cache, speculative decoding to cut latency & cost.</p>
-        <code class="text-xs bg-emerald-100 px-1 rounded">INT4 / sparsity / caching</code>
-      </div>
-      <div class="bg-amber-50 p-3 rounded border-l-4 border-amber-400">
-        <h5 class="font-medium text-amber-900">5. Guardrails</h5>
-        <p class="text-sm text-amber-700">Safety filters, retrieval grounding, policy + red-teaming reduce harmful or hallucinated outputs.</p>
-        <code class="text-xs bg-amber-100 px-1 rounded">RAG + filters</code>
-      </div>
-      <div class="bg-rose-50 p-3 rounded border-l-4 border-rose-400">
-        <h5 class="font-medium text-rose-900">6. Monitoring</h5>
-        <p class="text-sm text-rose-700">Usage, drift, bias, latency & cost metrics feed continuous evaluation loops.</p>
-        <code class="text-xs bg-rose-100 px-1 rounded">Eval + telemetry</code>
-      </div>
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="panel panel-success panel-emphasis p-3 stacked-card">
+      <h5 class="font-medium">1. Pre-training</h5>
+      <p class="text-sm panel-muted">Predict next tokens over massive, diverse corpora (code, web, books) using self-supervision.</p>
+      <span class="chip chip-success text-xs">Trillions of tokens → broad priors</span>
     </div>
-
-    <!-- Why This Matters -->
-    <div class="bg-yellow-50 p-4 rounded-lg">
-      <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why This Matters</h4>
-      <ul class="text-sm text-yellow-800 space-y-1">
-        <li>• <strong>Holistic View:</strong> Consolidates disparate lifecycle stages into one mental model.</li>
-        <li>• <strong>Cost Focus:</strong> Most compute in pre-training; adaptation & alignment multiply value.</li>
-        <li>• <strong>Risk Control:</strong> Guardrails & monitoring mitigate drift, bias, hallucination.</li>
-        <li>• <strong>Leverage:</strong> Efficient adapters & quantization let teams reuse frontier bases.</li>
-      </ul>
+    <div class="panel panel-accent panel-emphasis p-3 stacked-card">
+      <h5 class="font-medium">2. Adaptation</h5>
+      <p class="text-sm panel-muted">Domain or task specialization via SFT or PEFT (LoRA, adapters, QLoRA) on curated data.</p>
+      <span class="chip chip-accent text-xs">Base → domain tuned</span>
+    </div>
+    <div class="panel panel-warning panel-emphasis p-3 stacked-card">
+      <h5 class="font-medium">3. Alignment</h5>
+      <p class="text-sm panel-muted">Human feedback stages—preference data, reward models, RLHF/DPO—shape helpful and safe responses.</p>
+      <span class="chip chip-warning text-xs">SFT → RLHF / DPO</span>
     </div>
   </div>
+
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="panel panel-success panel-emphasis p-3 stacked-card">
+      <h5 class="font-medium">4. Optimization</h5>
+      <p class="text-sm panel-muted">Quantization, pruning, KV-cache, and speculative decoding cut latency and cost.</p>
+      <span class="chip chip-success text-xs">INT4 / sparsity / caching</span>
+    </div>
+    <div class="panel panel-info panel-emphasis p-3 stacked-card">
+      <h5 class="font-medium">5. Guardrails</h5>
+      <p class="text-sm panel-muted">Safety filters, retrieval grounding, policy checks, and red-teaming reduce harmful or hallucinated outputs.</p>
+      <span class="chip chip-info text-xs">RAG + policy filters</span>
+    </div>
+    <div class="panel panel-neutral panel-emphasis p-3 stacked-card">
+      <h5 class="font-medium">6. Monitoring</h5>
+      <p class="text-sm panel-muted">Usage, drift, bias, latency, and cost metrics feed continuous evaluation loops.</p>
+      <span class="chip chip-neutral text-xs">Eval + telemetry</span>
+    </div>
+  </div>
+
+  <div class="panel panel-warning p-4 space-y-2">
+    <h4 class="font-semibold">🎯 Why this matters</h4>
+    <ul class="list-disc ml-5 text-sm space-y-1">
+      <li><strong>Holistic view:</strong> Consolidates lifecycle stages into one mental model.</li>
+      <li><strong>Cost focus:</strong> Most compute sits in pre-training; adaptation and alignment multiply value.</li>
+      <li><strong>Risk control:</strong> Guardrails and monitoring mitigate drift, bias, and hallucination.</li>
+      <li><strong>Leverage:</strong> Efficient adapters and quantization let teams reuse frontier bases.</li>
+    </ul>
+  </div>
+</div>

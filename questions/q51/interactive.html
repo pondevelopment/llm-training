@@ -1,48 +1,242 @@
-<div class="space-y-6">
-      <style>
-        /* Explicit styling so active tab always has visible contrast (fallback if class toggling fails) */
-        .q51-rail .stage-btn[aria-selected="true"] {
-          background:#4f46e5 !important; /* indigo-600 */
-          color:#fff !important;
-          border-color:#4f46e5 !important;
-          box-shadow:0 0 0 1px #4338ca inset,0 1px 2px rgba(0,0,0,.08);
-        }
-        .q51-rail .stage-btn[aria-selected="true"]:hover { background:#4338ca !important; }
-        .q51-rail .stage-btn { transition:background .15s,border-color .15s,color .15s; }
-        /* Provide a subtle focus outline for accessibility */
-        .q51-rail .stage-btn:focus-visible { outline:2px solid #6366f1; outline-offset:2px; }
-      </style>
-      <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200">
-        <div class="flex items-center justify-between flex-wrap gap-3 mb-3">
-          <label class="block text-sm font-medium text-gray-700">🧪 Lifecycle Flow</label>
-          <div id="q51-step-label" class="text-[11px] font-mono px-2 py-0.5 rounded bg-white/70 border border-indigo-200 text-indigo-700"></div>
-        </div>
-        <!-- Segmented progress bar -->
-        <div class="flex items-center gap-1 mb-3" id="q51-progress" aria-hidden="true">
-          <span class="flex-1 h-1.5 rounded-full bg-indigo-100 progress-seg"></span><span class="flex-1 h-1.5 rounded-full bg-indigo-100 progress-seg"></span><span class="flex-1 h-1.5 rounded-full bg-indigo-100 progress-seg"></span><span class="flex-1 h-1.5 rounded-full bg-indigo-100 progress-seg"></span><span class="flex-1 h-1.5 rounded-full bg-indigo-100 progress-seg"></span><span class="flex-1 h-1.5 rounded-full bg-indigo-100 progress-seg"></span>
-        </div>
-        <!-- Horizontal ordered rail with arrows -->
-        <div class="q51-rail flex flex-wrap items-center gap-1" role="tablist" aria-label="LLM training lifecycle">
-          <button role="tab" data-stage="pretrain" aria-selected="false" title="Massive self-supervised objective builds general priors" class="q51-stage stage-btn px-2.5 py-1 rounded-md text-[11px] font-medium bg-white border border-indigo-200 hover:bg-indigo-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 transition-colors">1. Pre-train</button><span class="text-[10px] text-indigo-400 mx-0.5 select-none" aria-hidden="true">➜</span><button role="tab" data-stage="adapt" aria-selected="false" title="Supervised / PEFT specialization" class="q51-stage stage-btn px-2.5 py-1 rounded-md text-[11px] font-medium bg-white border border-indigo-200 hover:bg-indigo-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 transition-colors">2. Adapt</button><span class="text-[10px] text-indigo-400 mx-0.5 select-none" aria-hidden="true">➜</span><button role="tab" data-stage="align" aria-selected="false" title="Preference optimization (RLHF/DPO)" class="q51-stage stage-btn px-2.5 py-1 rounded-md text-[11px] font-medium bg-white border border-indigo-200 hover:bg-indigo-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 transition-colors">3. Align</button><span class="text-[10px] text-indigo-400 mx-0.5 select-none" aria-hidden="true">➜</span><button role="tab" data-stage="opt" aria-selected="false" title="Latency / cost efficiency improvements" class="q51-stage stage-btn px-2.5 py-1 rounded-md text-[11px] font-medium bg-white border border-indigo-200 hover:bg-indigo-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 transition-colors">4. Optimize</button><span class="text-[10px] text-indigo-400 mx-0.5 select-none" aria-hidden="true">➜</span><button role="tab" data-stage="guard" aria-selected="false" title="Safety & grounding controls" class="q51-stage stage-btn px-2.5 py-1 rounded-md text-[11px] font-medium bg-white border border-indigo-200 hover:bg-indigo-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 transition-colors">5. Guard</button><span class="text-[10px] text-indigo-400 mx-0.5 select-none" aria-hidden="true">➜</span><button role="tab" data-stage="monitor" aria-selected="false" title="Continuous evaluation & feedback" class="q51-stage stage-btn px-2.5 py-1 rounded-md text-[11px] font-medium bg-white border border-indigo-200 hover:bg-indigo-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 transition-colors">6. Monitor</button>
-        </div>
-        <p class="text-[11px] text-indigo-700 mt-1">Ordered flow from pre-training → monitoring. Use ←/→ or 1–6 keys to navigate. Tooltips give quick intent.</p>
-      </div>
+<div class="q51 space-y-6">
+  <style>
+    .q51-flow-card {
+      background: linear-gradient(135deg,
+        color-mix(in srgb, var(--tone-indigo-soft) 65%, var(--color-card) 35%),
+        color-mix(in srgb, var(--tone-sky-soft) 55%, var(--color-card) 45%));
+      border-color: color-mix(in srgb, var(--tone-indigo-border) 55%, var(--color-border-subtle) 45%);
+    }
+    html.dark .q51-flow-card {
+      background: linear-gradient(135deg,
+        color-mix(in srgb, var(--tone-indigo-soft) 48%, transparent 52%),
+        color-mix(in srgb, var(--tone-sky-soft) 44%, transparent 56%));
+      border-color: color-mix(in srgb, var(--tone-indigo-border) 58%, var(--color-border) 42%);
+    }
 
-      <div class="bg-white border border-gray-200 rounded-lg p-4">
-        <div class="flex items-center justify-between mb-3">
-          <h4 class="font-medium text-gray-900">📈 Stage Profile</h4>
-          <div id="q51-stage-indicator" class="text-xs bg-gray-100 px-2 py-1 rounded font-medium"></div>
-        </div>
-        <div id="q51-metrics" class="grid grid-cols-2 md:grid-cols-3 gap-4 text-xs"></div>
-      </div>
+    .q51-progress {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 0.4rem;
+      margin: 0.75rem 0;
+    }
+    .q51-progress-seg {
+      height: 0.35rem;
+      border-radius: 9999px;
+      background: color-mix(in srgb, var(--tone-indigo-soft) 70%, var(--color-card) 30%);
+      transition: background-color .2s ease, box-shadow .2s ease;
+    }
+    .q51-progress-seg.is-complete {
+      background: color-mix(in srgb, var(--tone-indigo-strong) 55%, transparent 45%);
+    }
+    .q51-progress-seg.is-active {
+      background: var(--tone-indigo-strong);
+      box-shadow: 0 0 0 1px color-mix(in srgb, var(--tone-indigo-border) 60%, transparent 40%) inset;
+    }
+    html.dark .q51-progress-seg {
+      background: color-mix(in srgb, var(--tone-indigo-soft) 38%, transparent 62%);
+    }
+    html.dark .q51-progress-seg.is-complete {
+      background: color-mix(in srgb, var(--tone-indigo-strong) 68%, transparent 32%);
+    }
+    html.dark .q51-progress-seg.is-active {
+      background: color-mix(in srgb, var(--tone-indigo-strong) 82%, transparent 18%);
+    }
 
-      <div class="bg-white border border-gray-200 rounded-lg p-4">
-        <h5 class="font-semibold text-gray-800 mb-2">🧠 Explanation</h5>
-        <div id="q51-explain" class="text-xs text-gray-700 space-y-2"></div>
-      </div>
+    .q51-stage {
+      cursor: pointer;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.35rem 0.75rem;
+      border-radius: 0.75rem;
+      border: 1px solid color-mix(in srgb, var(--tone-indigo-border) 55%, var(--color-border-subtle) 45%);
+      background: color-mix(in srgb, var(--color-card) 82%, var(--tone-indigo-soft) 18%);
+      color: color-mix(in srgb, var(--tone-indigo-text) 35%, var(--color-heading) 65%);
+      transition: background-color .2s ease, color .2s ease, border-color .2s ease, box-shadow .2s ease;
+    }
+    .q51-stage:hover {
+      background: color-mix(in srgb, var(--tone-indigo-soft) 65%, var(--color-card) 35%);
+    }
+    .q51-stage[aria-selected="true"] {
+      background: var(--tone-indigo-strong);
+      border-color: color-mix(in srgb, var(--tone-indigo-border) 70%, transparent 30%);
+      color: #ffffff;
+      box-shadow: 0 10px 28px -22px rgba(15, 23, 42, 0.85),
+        0 0 0 1px color-mix(in srgb, var(--tone-indigo-border) 48%, transparent 52%);
+    }
+    html.dark .q51-stage {
+      background: color-mix(in srgb, var(--color-card) 62%, transparent 38%);
+      color: color-mix(in srgb, var(--tone-indigo-text) 55%, var(--color-body) 45%);
+      border-color: color-mix(in srgb, var(--tone-indigo-border) 50%, var(--color-border) 50%);
+    }
+    html.dark .q51-stage:hover {
+      background: color-mix(in srgb, var(--tone-indigo-soft) 38%, transparent 62%);
+    }
+    html.dark .q51-stage[aria-selected="true"] {
+      color: #f8fafc;
+      box-shadow: 0 12px 30px -22px rgba(2, 6, 23, 0.85),
+        0 0 0 1px color-mix(in srgb, var(--tone-indigo-border) 60%, transparent 40%);
+    }
+    .q51-stage:focus-visible {
+      outline: 2px solid color-mix(in srgb, var(--tone-indigo-strong) 68%, transparent 32%);
+      outline-offset: 2px;
+    }
 
-      <div class="bg-green-50 border border-green-200 rounded-lg p-4">
-        <h5 class="font-semibold text-green-900 mb-1">💡 Insight</h5>
-        <div id="q51-insight" class="text-sm text-green-800" aria-live="polite"></div>
+    .q51-divider {
+      font-size: 0.7rem;
+      color: color-mix(in srgb, var(--tone-indigo-text) 45%, var(--color-muted) 55%);
+      user-select: none;
+    }
+    html.dark .q51-divider {
+      color: color-mix(in srgb, var(--tone-indigo-text) 65%, var(--color-muted) 35%);
+    }
+
+    .q51-metric-grid {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    }
+    .q51-metric {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    .q51-metric-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+    }
+    html.dark .q51-metric-label {
+      color: color-mix(in srgb, var(--color-muted) 65%, #e2e8f0 35%);
+    }
+    .q51-meter {
+      height: 0.45rem;
+      border-radius: 9999px;
+      background: color-mix(in srgb, var(--tone-indigo-soft) 58%, var(--color-card) 42%);
+      overflow: hidden;
+    }
+    html.dark .q51-meter {
+      background: color-mix(in srgb, var(--tone-indigo-soft) 34%, transparent 66%);
+    }
+    .q51-meter-fill {
+      height: 100%;
+      border-radius: inherit;
+      background: var(--tone-indigo-strong);
+      transition: width .25s ease;
+    }
+
+    .q51-explain {
+      font-size: 0.85rem;
+      color: var(--color-body);
+    }
+    html.dark .q51-explain {
+      color: color-mix(in srgb, var(--color-body) 80%, #f8fafc 20%);
+    }
+    .q51-explain p {
+      margin: 0;
+      line-height: 1.55;
+    }
+    .q51-explain ul {
+      list-style: disc;
+      padding-left: 1.1rem;
+      margin: 0;
+      display: grid;
+      gap: 0.35rem;
+      font-size: 0.78rem;
+    }
+
+    .q51-callout {
+      font-size: 0.78rem;
+      border-radius: 0.75rem;
+      padding: 0.75rem;
+      border: 1px solid var(--q51-callout-border, var(--color-border-subtle));
+      background: var(--q51-callout-bg, var(--color-card));
+      color: color-mix(in srgb, var(--q51-callout-text, var(--color-body)) 55%, var(--color-body) 45%);
+    }
+    .q51-callout strong {
+      display: block;
+      margin-bottom: 0.25rem;
+      color: var(--q51-callout-text, var(--color-heading));
+    }
+    .q51-callout[data-tone="indigo"] {
+      --q51-callout-bg: color-mix(in srgb, var(--tone-indigo-soft) 75%, var(--color-card) 25%);
+      --q51-callout-border: color-mix(in srgb, var(--tone-indigo-border) 60%, var(--color-border-subtle) 40%);
+      --q51-callout-text: var(--tone-indigo-text);
+    }
+    .q51-callout[data-tone="purple"] {
+      --q51-callout-bg: color-mix(in srgb, var(--tone-purple-soft) 70%, var(--color-card) 30%);
+      --q51-callout-border: color-mix(in srgb, var(--tone-purple-border) 60%, var(--color-border-subtle) 40%);
+      --q51-callout-text: var(--tone-purple-text);
+    }
+    .q51-callout[data-tone="amber"] {
+      --q51-callout-bg: color-mix(in srgb, var(--tone-amber-soft) 68%, var(--color-card) 32%);
+      --q51-callout-border: color-mix(in srgb, var(--tone-amber-border) 60%, var(--color-border-subtle) 40%);
+      --q51-callout-text: var(--tone-amber-text);
+    }
+    .q51-callout[data-tone="emerald"] {
+      --q51-callout-bg: color-mix(in srgb, var(--tone-emerald-soft) 70%, var(--color-card) 30%);
+      --q51-callout-border: color-mix(in srgb, var(--tone-emerald-border) 60%, var(--color-border-subtle) 40%);
+      --q51-callout-text: var(--tone-emerald-text);
+    }
+    .q51-callout[data-tone="rose"] {
+      --q51-callout-bg: color-mix(in srgb, var(--tone-rose-soft) 70%, var(--color-card) 30%);
+      --q51-callout-border: color-mix(in srgb, var(--tone-rose-border) 60%, var(--color-border-subtle) 40%);
+      --q51-callout-text: var(--tone-rose-text);
+    }
+    html.dark .q51-callout {
+      color: color-mix(in srgb, var(--q51-callout-text, var(--color-body)) 60%, var(--color-body) 40%);
+    }
+  </style>
+
+  <div class="question-card q51-flow-card">
+    <div class="flex items-center justify-between flex-wrap gap-3">
+      <span class="text-sm font-medium text-heading">&#x1F9EC; Lifecycle flow</span>
+      <div class="flex items-center gap-2">
+        <span id="q51-step-label" class="chip chip-info text-[11px] uppercase tracking-wide"></span>
+        <button id="q51-next-stage" type="button" class="btn-soft text-xs">Next step</button>
       </div>
     </div>
+    <div class="q51-progress" id="q51-progress" aria-hidden="true">
+      <span class="q51-progress-seg"></span>
+      <span class="q51-progress-seg"></span>
+      <span class="q51-progress-seg"></span>
+      <span class="q51-progress-seg"></span>
+      <span class="q51-progress-seg"></span>
+      <span class="q51-progress-seg"></span>
+    </div>
+    <div class="q51-rail flex flex-wrap items-center gap-1" role="tablist" aria-label="LLM training lifecycle">
+      <button role="tab" data-stage="pretrain" aria-selected="false" title="Massive self-supervised objective builds general priors" class="q51-stage">1. Pre-train</button>
+      <span class="q51-divider" aria-hidden="true">&rarr;</span>
+      <button role="tab" data-stage="adapt" aria-selected="false" title="Supervised or parameter-efficient specialization" class="q51-stage">2. Adapt</button>
+      <span class="q51-divider" aria-hidden="true">&rarr;</span>
+      <button role="tab" data-stage="align" aria-selected="false" title="Preference optimization (RLHF or DPO)" class="q51-stage">3. Align</button>
+      <span class="q51-divider" aria-hidden="true">&rarr;</span>
+      <button role="tab" data-stage="opt" aria-selected="false" title="Latency and cost efficiency improvements" class="q51-stage">4. Optimize</button>
+      <span class="q51-divider" aria-hidden="true">&rarr;</span>
+      <button role="tab" data-stage="guard" aria-selected="false" title="Safety, grounding, and policy controls" class="q51-stage">5. Guard</button>
+      <span class="q51-divider" aria-hidden="true">&rarr;</span>
+      <button role="tab" data-stage="monitor" aria-selected="false" title="Continuous evaluation and feedback loops" class="q51-stage">6. Monitor</button>
+    </div>
+    <p class="small-caption text-muted mt-2">Ordered flow from pre-training &rarr; monitoring. Use &larr;/&rarr; or 1&ndash;6 keys to navigate. Tooltips outline the intent of each stage.</p>
+  </div>
+
+  <div class="question-card">
+    <div class="flex items-center justify-between flex-wrap gap-3">
+      <h4 class="font-medium text-heading">&#x1F4CA; Stage profile</h4>
+      <span id="q51-stage-indicator" class="chip chip-info text-xs"></span>
+    </div>
+    <div id="q51-metrics" class="q51-metric-grid"></div>
+  </div>
+
+  <div class="question-card">
+    <h5 class="font-semibold text-heading mb-2">&#x1F9E0; Explanation</h5>
+    <div id="q51-explain" class="q51-explain space-y-2 text-sm"></div>
+  </div>
+
+  <div class="panel panel-success panel-emphasis p-4 space-y-2">
+    <h5 class="font-semibold">&#x1F4A1; Insight</h5>
+    <div id="q51-insight" class="text-sm" aria-live="polite"></div>
+  </div>
+</div>

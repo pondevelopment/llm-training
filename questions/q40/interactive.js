@@ -10,6 +10,211 @@ const interactiveScript = () => {
       const graphEl = document.getElementById('q40-graph');
       const explainEl = document.getElementById('q40-explain');
       if (!taskEl) return;
+
+      const ensureStyles = () => {
+        if (document.getElementById('q40-styles')) return;
+        const style = document.createElement('style');
+        style.id = 'q40-styles';
+        style.textContent = `
+          .q40-triple-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            padding: 0.75rem;
+            border-radius: 0.85rem;
+            background: color-mix(in srgb, var(--panel-neutral-bg) 55%, transparent);
+            border: 1px solid color-mix(in srgb, var(--panel-neutral-border) 60%, transparent);
+          }
+          html.dark .q40-triple-group {
+            background: color-mix(in srgb, var(--panel-neutral-bg) 72%, transparent);
+          }
+          .q40-triple-row {
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            padding: 0.45rem 0.6rem;
+            border-radius: 0.75rem;
+            border: 1px solid color-mix(in srgb, var(--color-border) 55%, transparent);
+            background: color-mix(in srgb, var(--color-card) 92%, transparent);
+            transition: background-color 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+          }
+          html.dark .q40-triple-row {
+            border-color: color-mix(in srgb, var(--color-border) 65%, transparent);
+            background: color-mix(in srgb, var(--color-card) 70%, transparent);
+          }
+          .q40-triple-object {
+            font-family: var(--font-mono, 'IBM Plex Mono', 'SFMono-Regular', Menlo, monospace);
+            font-size: 0.75rem;
+          }
+          .q40-triple-id {
+            margin-left: auto;
+            color: var(--color-muted);
+            font-size: 0.72rem;
+          }
+          .q40-triple-highlight {
+            background: color-mix(in srgb, var(--panel-warning-border-strong) 28%, var(--color-card) 72%);
+            border-color: color-mix(in srgb, var(--panel-warning-border-strong) 55%, transparent);
+            box-shadow: 0 0 0 2px color-mix(in srgb, var(--panel-warning-border-strong) 35%, transparent);
+          }
+          html.dark .q40-triple-highlight {
+            background: color-mix(in srgb, var(--panel-warning-border-strong) 38%, transparent);
+          }
+          .q40-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            padding-top: 0.6rem;
+            margin-top: 0.75rem;
+            border-top: 1px solid var(--color-border);
+          }
+          .q40-meter {
+            position: relative;
+            height: 0.55rem;
+            border-radius: 9999px;
+            overflow: hidden;
+            background: color-mix(in srgb, var(--color-border) 30%, transparent);
+          }
+          html.dark .q40-meter {
+            background: color-mix(in srgb, var(--color-border) 48%, transparent);
+          }
+          .q40-meter-fill {
+            height: 100%;
+            border-radius: inherit;
+            background: var(--q40-meter-fill, var(--accent-strong));
+            transition: width 0.18s ease;
+          }
+          .q40-graph-label {
+            font-size: 0.7rem;
+            color: var(--color-muted);
+            margin-bottom: 0.35rem;
+          }
+          .q40-path-ribbon {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.45rem;
+            margin-bottom: 0.8rem;
+          }
+          .q40-path-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            padding: 0.2rem 0.7rem;
+            border-radius: 9999px;
+            border: 1px solid color-mix(in srgb, var(--panel-success-border-strong) 45%, transparent);
+            background: color-mix(in srgb, var(--panel-success-bg) 62%, var(--color-card) 38%);
+            color: var(--panel-success-heading);
+            font-size: 0.75rem;
+            font-weight: 600;
+            opacity: 0;
+          }
+          html.dark .q40-path-chip {
+            background: color-mix(in srgb, var(--panel-success-bg) 68%, transparent);
+          }
+          .q40-path-arrow {
+            color: var(--color-muted);
+            font-size: 0.75rem;
+            opacity: 0;
+          }
+          .q40-path-predicate {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.2rem 0.55rem;
+            border-radius: 0.7rem;
+            border: 1px solid color-mix(in srgb, var(--panel-info-border-strong) 45%, transparent);
+            background: color-mix(in srgb, var(--panel-info-bg) 62%, var(--color-card) 38%);
+            color: var(--panel-info-heading);
+            font-size: 0.75rem;
+            font-weight: 500;
+            opacity: 0;
+          }
+          html.dark .q40-path-predicate {
+            background: color-mix(in srgb, var(--panel-info-bg) 70%, transparent);
+          }
+          .q40-spark {
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+            font-size: 0.72rem;
+            color: var(--color-muted);
+          }
+          .q40-spark-edge {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 0.35rem;
+          }
+          .q40-spark-node {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.18rem 0.55rem;
+            border-radius: 9999px;
+            border: 1px solid color-mix(in srgb, var(--panel-neutral-border) 60%, transparent);
+            background: color-mix(in srgb, var(--panel-neutral-bg) 68%, var(--color-card) 32%);
+            color: var(--color-heading);
+            font-weight: 600;
+            letter-spacing: 0.01em;
+          }
+          .q40-spark-node--active {
+            border-color: color-mix(in srgb, var(--panel-success-border-strong) 45%, transparent);
+            background: color-mix(in srgb, var(--panel-success-bg) 70%, var(--color-card) 30%);
+            color: var(--panel-success-heading);
+          }
+          .q40-spark-predicate {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.18rem 0.55rem;
+            border-radius: 0.7rem;
+            border: 1px solid color-mix(in srgb, var(--panel-info-border-strong) 40%, transparent);
+            background: color-mix(in srgb, var(--panel-info-bg) 70%, var(--color-card) 30%);
+            color: var(--panel-info-heading);
+            font-size: 0.72rem;
+            font-weight: 500;
+          }
+          .q40-spark-arrow {
+            color: var(--color-muted);
+            font-size: 0.75rem;
+          }
+          .q40-spark-remainder {
+            font-size: 0.72rem;
+            color: var(--color-muted);
+          }
+          .q40-spark-empty {
+            font-size: 0.72rem;
+            color: var(--color-muted);
+            font-style: italic;
+            padding-top: 0.25rem;
+          }
+
+        `;
+        document.head.append(style);
+      };
+
+      const tonePalettes = {
+        info: {
+          fill: 'var(--panel-info-border-strong)',
+          track: 'color-mix(in srgb, var(--panel-info-border) 28%, transparent)'
+        },
+        success: {
+          fill: 'var(--panel-success-border-strong)',
+          track: 'color-mix(in srgb, var(--panel-success-border) 30%, transparent)'
+        },
+        warning: {
+          fill: 'var(--panel-warning-border-strong)',
+          track: 'color-mix(in srgb, var(--panel-warning-border) 32%, transparent)'
+        },
+        accent: {
+          fill: 'var(--panel-accent-border-strong)',
+          track: 'color-mix(in srgb, var(--panel-accent-border) 32%, transparent)'
+        },
+        neutral: {
+          fill: 'var(--panel-neutral-border-strong)',
+          track: 'color-mix(in srgb, var(--panel-neutral-border) 30%, transparent)'
+        }
+      };
+
+      ensureStyles();
       let pathTimers = [];
 
       // Tiny knowledge graph as triples (subject, predicate, object)
@@ -68,48 +273,61 @@ const interactiveScript = () => {
       KG.forEach(([s,p,o],i)=>{ if(!bySub.has(s)) bySub.set(s,[]); bySub.get(s).push({s,p,o,i}); if(!byObj.has(o)) byObj.set(o,[]); byObj.get(o).push({s,p,o,i}); });
 
       function triplesToHTML(tris) {
-        if (!tris.length) return '<div class="text-gray-500">No triples found.</div>';
-        // Group triples by subject for compact visual scanning
+        if (!tris.length) return '<div class="text-xs text-muted">No triples found.</div>';
         const groups = new Map();
-        tris.forEach(t=>{ if(!groups.has(t.s)) groups.set(t.s, []); groups.get(t.s).push(t); });
-        const badge = (p) => {
-          const map = {
-            foundedBy: 'bg-green-100 text-green-800 border-green-300',
-            bornIn: 'bg-purple-100 text-purple-800 border-purple-300',
-            inCountry: 'bg-orange-100 text-orange-800 border-orange-300',
-            capitalOf: 'bg-indigo-100 text-indigo-800 border-indigo-300'
+        tris.forEach(t => {
+          if (!groups.has(t.s)) groups.set(t.s, []);
+          groups.get(t.s).push(t);
+        });
+        const predicateChip = (p) => {
+          const mapping = {
+            foundedBy: 'chip chip-success text-xs',
+            bornIn: 'chip chip-accent text-xs',
+            inCountry: 'chip chip-warning text-xs',
+            capitalOf: 'chip chip-info text-xs'
           };
-          const cls = map[p] || 'bg-gray-100 text-gray-700 border-gray-300';
-          return `<span class=\"px-1.5 py-0.5 rounded border text-xs font-medium ${cls}\" title=\"Predicate: ${p}\">${p}</span>`;
+          return `<span class="${mapping[p] || 'chip chip-neutral text-xs'}" title="Predicate: ${p}">${p}</span>`;
         };
         let html = '';
-        groups.forEach((arr, subj)=>{
-          html += `<div class=\"space-y-1\">`+
-              `<div class=\"text-xs font-semibold text-gray-700 flex items-center gap-1\">`+
-                `<span class=\"px-1.5 py-0.5 bg-blue-100 text-blue-800 rounded border border-blue-300 text-xs\">${subj}</span>`+
-                `<span class=\"text-gray-400 font-normal\">(${arr.length})</span>`+
+        groups.forEach((arr, subj) => {
+          html += `<div class="q40-triple-group" data-subject="${subj}">` +
+            `<div class="flex items-center gap-2 text-xs text-heading">` +
+              `<span class="chip chip-info text-xs">${subj}</span>` +
+              `<span class="text-muted">(${arr.length})</span>` +
             `</div>`;
-          arr.forEach(t=>{ html += `<div id=\"q40-triple-${t.i+1}\" class=\"pl-2 flex items-center gap-2 transition-colors\">${badge(t.p)} <span class=\"font-mono text-xs\" title=\"Object: ${t.o}\">${t.o}</span><span class=\"text-gray-400 text-xs\">[#${t.i+1}]</span></div>`; });
+          arr.forEach(t => {
+            html += `<div id="q40-triple-${t.i+1}" class="q40-triple-row" data-predicate="${t.p}">` +
+              `${predicateChip(t.p)}` +
+              `<span class="q40-triple-object">${t.o}</span>` +
+              `<span class="q40-triple-id">[#${t.i+1}]</span>` +
+            `</div>`;
+          });
           html += '</div>';
         });
-        html += `<div class=\"pt-2 flex flex-wrap gap-1 border-t mt-2\" aria-label=\"Predicate legend\">`+
-          `<span class=\"px-1.5 py-0.5 rounded bg-green-100 text-green-800 border border-green-300 text-xs\">foundedBy</span>`+
-          `<span class=\"px-1.5 py-0.5 rounded bg-purple-100 text-purple-800 border border-purple-300 text-xs\">bornIn</span>`+
-          `<span class=\"px-1.5 py-0.5 rounded bg-orange-100 text-orange-800 border border-orange-300 text-xs\">inCountry</span>`+
-          `<span class=\"px-1.5 py-0.5 rounded bg-indigo-100 text-indigo-800 border border-indigo-300 text-xs\">capitalOf</span>`+
+        const legendItems = [
+          ['foundedBy', 'chip chip-success text-xs'],
+          ['bornIn', 'chip chip-accent text-xs'],
+          ['inCountry', 'chip chip-warning text-xs'],
+          ['capitalOf', 'chip chip-info text-xs']
+        ];
+        html += `<div class="q40-legend text-xs text-muted" aria-label="Predicate legend">` +
+          legendItems.map(([label, cls]) => `<span class="${cls}">${label}</span>`).join('') +
         `</div>`;
         return html;
       }
 
-      function bar(label, value, color='indigo') {
-        const pct = Math.max(0, Math.min(100, Math.round(value*100)));
-        // Accessible progress bar
-        return `<div>
-          <div class=\"flex justify-between text-xs mb-0.5\"><span>${label}</span><span>${(value*100).toFixed(0)}%</span></div>
-          <div class=\"w-full h-3 bg-${color}-200 rounded relative overflow-hidden\" role=\"progressbar\" aria-label=\"${label}\" aria-valuenow=\"${pct}\" aria-valuemin=\"0\" aria-valuemax=\"100\">
-            <div class=\"h-3 bg-${color}-600\" style=\"width:${pct}%\"></div>
-          </div>
-        </div>`;
+      function bar(label, value, tone = 'info') {
+        const pct = Math.max(0, Math.min(100, Math.round(value * 100)));
+        const palette = tonePalettes[tone] || tonePalettes.info;
+        return `<div class="space-y-1">` +
+          `<div class="flex items-center justify-between text-xs text-muted">` +
+            `<span>${label}</span>` +
+            `<span>${pct}%</span>` +
+          `</div>` +
+          `<div class="q40-meter" role="progressbar" aria-label="${label}" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100" style="background:${palette.track};">` +
+            `<div class="q40-meter-fill" style="width:${pct}%; --q40-meter-fill:${palette.fill};"></div>` +
+          `</div>` +
+        `</div>`;
       }
 
       function typeset(node) {
@@ -137,29 +355,34 @@ const interactiveScript = () => {
 
       function buildGraphSpark(fullTris, retrievedTris) {
         if (!graphEl) return;
-        const nodes = new Set();
-        fullTris.forEach(t=>{ nodes.add(t.s); nodes.add(t.o); });
-        const nodeList = Array.from(nodes).slice(0, 14);
-        const idx = new Map(nodeList.map((n,i)=>[n,i]));
-        const w = 260, h = 64, padX = 12; const step = nodeList.length>1 ? (w - padX*2)/(nodeList.length-1) : 0; const cy = h/2;
-        const retrievedSet = new Set(retrievedTris.map(t=>`${t.s}|${t.p}|${t.o}`));
-        let edges = '';
-        fullTris.forEach(t=>{
-          if (!idx.has(t.s) || !idx.has(t.o)) return;
-          const x1 = padX + idx.get(t.s)*step;
-          const x2 = padX + idx.get(t.o)*step;
-          const stroke = retrievedSet.has(`${t.s}|${t.p}|${t.o}`) ? '#0d9488' : '#cbd5e1';
-          edges += `<line x1='${x1}' y1='${cy-8}' x2='${x2}' y2='${cy+8}' stroke='${stroke}' stroke-width='1.5' />`;
-        });
-        let nodesSVG='';
-        nodeList.forEach(n=>{
-          const x = padX + idx.get(n)*step; const highlight = retrievedTris.some(t=>t.s===n || t.o===n);
-          nodesSVG += `<g tabindex='0'><circle cx='${x}' cy='${cy}' r='8' fill='${highlight?'#10b981':'#fff'}' stroke='${highlight?'#047857':'#64748b'}' stroke-width='1.2' />`+
-            `<text x='${x}' y='${cy+2}' text-anchor='middle' font-size='7' fill='${highlight?'#065f46':'#334155'}'>${n.slice(0,4)}</text></g>`;
-        });
-        // Make SVG responsive: use viewBox and width 100% so it scales to container
-        graphEl.innerHTML = `<div class='text-[10px] font-medium text-gray-600 mb-1'>Graph spark (retrieved facts highlighted)</div>`+
-          `<svg viewBox='0 0 ${w} ${h}' width='100%' height='${h}' role='img' aria-label='Knowledge graph overview' preserveAspectRatio='xMidYMid meet'>${edges}${nodesSVG}</svg>`;
+        if (!fullTris.length) {
+          graphEl.innerHTML = '<div class=\"q40-spark-empty\">No knowledge graph facts available for this task.</div>';
+          return;
+        }
+        if (!retrievedTris.length) {
+          graphEl.innerHTML = '<div class=\"q40-graph-label\">Graph paths (retrieved triples)</div><div class=\"q40-spark-empty\">No triples retrieved yet. Increase coverage to explore the graph.</div>';
+          return;
+        }
+        const limit = 5;
+        const edges = retrievedTris.slice(0, limit);
+        const arrow = '<span class=\"q40-spark-arrow\" aria-hidden=\"true\">→</span>';
+        const segments = edges.map(t => {
+          const subj = sparkNode(t.s, true);
+          const obj = sparkNode(t.o, true);
+          const predicate = `<span class=\"q40-spark-predicate\">${t.p}</span>`;
+          return `<div class=\"q40-spark-edge\" role=\"listitem\" aria-label=\"${t.s} ${t.p} ${t.o}\">${subj}${arrow}${predicate}${arrow}${obj}</div>`;
+        }).join('');
+        const overflow = retrievedTris.length > limit ? retrievedTris.length - limit : 0;
+        const remainingPool = Math.max(0, fullTris.length - retrievedTris.length);
+        const overflowNote = overflow ? `<div class=\"q40-spark-remainder\">+${overflow} more retrieved triple${overflow > 1 ? 's' : ''} hidden for brevity.</div>` : '';
+        const poolNote = remainingPool ? `<div class=\"q40-spark-remainder\">+${remainingPool} additional triple${remainingPool > 1 ? 's' : ''} still in the graph.</div>` : '';
+        graphEl.innerHTML = `<div class=\"q40-graph-label\">Graph paths (retrieved triples)</div><div class=\"q40-spark\" role=\"list\">${segments}</div>${overflowNote}${poolNote}`;
+      }
+
+      function sparkNode(name, active) {
+        const shortName = name.length > 18 ? `${name.slice(0, 16)}…` : name;
+        const classes = `q40-spark-node${active ? ' q40-spark-node--active' : ''}`;
+        return `<span class=\"${classes}\" title=\"${name}\">${shortName}</span>`;
       }
 
       function animatePathRibbon(container) {
@@ -231,97 +454,106 @@ const interactiveScript = () => {
       };
 
       function render() {
-  covVal.textContent = parseFloat(covEl.value).toFixed(1);
-  covEl.setAttribute('aria-valuenow', covEl.value);
+        covVal.textContent = parseFloat(covEl.value).toFixed(1);
+        covEl.setAttribute('aria-valuenow', covEl.value);
         const task = TASKS[taskEl.value];
         const mode = modeEl.value;
         const cov = parseFloat(covEl.value);
         const cite = !!citeEl.checked;
 
-  // Retrieve full fact set then subsample by coverage
-  const fullTris = task.retrieve();
-  const potential = fullTris.length;
-  const keep = Math.max(0, Math.min(fullTris.length, Math.round(fullTris.length * cov)));
-  let tris = fullTris.slice(0, keep);
+        const fullTris = task.retrieve();
+        const potential = fullTris.length;
+        const keep = Math.max(0, Math.min(fullTris.length, Math.round(fullTris.length * cov)));
+        const tris = fullTris.slice(0, keep);
 
-        // Path reasoning if needed
         let pathEdges = [];
         if (mode === 'path' && task.path) {
           pathEdges = findPath(task.path[0], task.path[1]);
         }
-        // Build path ribbon (if path exists) for quick multi-hop overview
+
         let pathRibbon = '';
         if (mode === 'path' && pathEdges.length) {
-          const nodes = [pathEdges[0].s, ...pathEdges.map(e=>e.o)];
-          const parts = nodes.map((n,i)=>{
-            const pill = `<span class=\"q40-path-seg px-2 py-0.5 rounded-full bg-teal-100 text-teal-800 border border-teal-300 font-medium\">${n}</span>`;
-            if (i === nodes.length-1) return pill;
+          const arrow = '&rarr;';
+          const nodes = [pathEdges[0].s, ...pathEdges.map(e => e.o)];
+          const parts = nodes.map((n, i) => {
+            const chip = `<span class="q40-path-seg q40-path-chip">${n}</span>`;
+            if (i === nodes.length - 1) return chip;
             const rel = pathEdges[i].p;
-            return pill + `<span class=\"q40-path-seg text-gray-400\">→</span><span class=\"q40-path-seg px-1 py-0.5 rounded bg-gray-100 text-gray-700 border border-gray-300\">${rel}</span><span class=\"q40-path-seg text-gray-400\">→</span>`;
+            return chip +
+              `<span class="q40-path-seg q40-path-arrow" aria-hidden="true">${arrow}</span>` +
+              `<span class="q40-path-seg q40-path-predicate">${rel}</span>` +
+              `<span class="q40-path-seg q40-path-arrow" aria-hidden="true">${arrow}</span>`;
           }).join('');
-          pathRibbon = `<div id=\"q40-path-ribbon\" class=\"flex flex-wrap items-center gap-1 text-xs mb-2\" aria-label=\"Reasoning path (animated)\">${parts}`+
-            `<button type=\"button\" class=\"q40-path-seg ml-2 px-1.5 py-0.5 text-xs rounded border bg-white hover:bg-gray-50\" aria-label=\"Replay path animation\" id=\"q40-path-replay\">Replay</button></div>`;
+          pathRibbon = `<div id="q40-path-ribbon" class="q40-path-ribbon text-xs" aria-label="Reasoning path (animated)">${parts}` +
+            `<button type="button" class="q40-path-seg btn-soft text-xs px-2 py-1" aria-label="Replay path animation" id="q40-path-replay">Replay</button></div>`;
         }
-        // Evidence panel (prepend path ribbon if present)
-        const evidenceHTML = (pathRibbon || '') + triplesToHTML(tris);
-  evEl.innerHTML = evidenceHTML;
-  evEl.setAttribute('aria-label', `Retrieved triples count: ${tris.length}`);
-        const pathFound = (mode==='path' && pathEdges.length>0);
 
-        // Simulated accuracy & risk
+        const evidenceHTML = (pathRibbon || '') + triplesToHTML(tris);
+        evEl.innerHTML = evidenceHTML;
+        evEl.setAttribute('aria-label', `Retrieved triples count: ${tris.length}`);
+        const pathFound = (mode === 'path' && pathEdges.length > 0);
+
         const hasFacts = tris.length > 0;
-  // pathFound already computed above
-        let acc = task.baseAcc - 0.15; // no KG default
-        if (mode === 'kg') acc = task.baseAcc + (hasFacts ? 0.2*cov : 0.0);
-        if (mode === 'path') acc = task.baseAcc + (hasFacts ? 0.15*cov : 0.0) + (pathFound ? 0.15 : 0.0);
+        let acc = task.baseAcc - 0.15;
+        if (mode === 'kg') acc = task.baseAcc + (hasFacts ? 0.2 * cov : 0.0);
+        if (mode === 'path') acc = task.baseAcc + (hasFacts ? 0.15 * cov : 0.0) + (pathFound ? 0.15 : 0.0);
         acc = Math.max(0.05, Math.min(0.99, acc));
         const risk = 1 - acc;
 
-        // Token cost: base + per-triple context
-        const baseTokens = 40; const perTriple = 14; const perEdgeExplain = 10;
-        const tokens = baseTokens + tris.length * perTriple + (mode==='path'? pathEdges.length*perEdgeExplain : 0);
+        const baseTokens = 40;
+        const perTriple = 14;
+        const perEdgeExplain = 10;
+        const tokens = baseTokens + tris.length * perTriple + (mode === 'path' ? pathEdges.length * perEdgeExplain : 0);
 
-        // Output
-        const answerText = (mode==='llm' || !hasFacts) ?
-          `${task.ask.replace('?','')}: ${mode==='llm' ? 'Likely answer.' : 'Attempted answer (limited evidence).'}` :
-          task.answerFrom(tris);
+        const answerText = (mode === 'llm' || !hasFacts)
+          ? `${task.ask.replace('?', '')}: ${mode === 'llm' ? 'Likely answer.' : 'Attempted answer (limited evidence).'}`
+          : task.answerFrom(tris);
 
-  const cites = cite && hasFacts ? `<div class=\"text-xs text-gray-600\">Citations: ${tris.map(t=>`<a href=\"#\" data-triple=\"${t.i+1}\" class=\"underline hover:text-gray-800\" aria-label=\"Jump to triple ${t.i+1}\">[#${t.i+1}]</a>`).join(' ')}</div>` : '';
-        const pathExplain = (mode==='path' && pathFound) ? `<div class=\"text-xs text-gray-700\">Path: ${pathEdges.map(e=> e.rev? `(${e.o}) -[${e.p}]→ (${e.s})` : `(${e.s}) -[${e.p}]→ (${e.o})`).join(' , ')}</div>` : '';
+        const cites = cite && hasFacts
+          ? `<div class="text-xs text-muted">Citations: ${tris.map(t => `<a href="#" data-triple="${t.i + 1}" class="underline" aria-label="Jump to triple ${t.i + 1}">[#${t.i + 1}]</a>`).join(' ')}</div>`
+          : '';
+        const arrowEntity = '&rarr;';
+        const pathExplain = (mode === 'path' && pathFound)
+          ? `<div class="text-xs text-muted">Path: ${pathEdges.map(e => e.rev ? `(${e.o}) -[${e.p}]${arrowEntity} (${e.s})` : `(${e.s}) -[${e.p}]${arrowEntity} (${e.o})`).join(' , ')}</div>`
+          : '';
 
         outputEl.innerHTML = `<div>${answerText}</div>${cites}${pathExplain}`;
 
-        // Metrics + coverage donut
         const ratio = potential ? (tris.length / potential) : 0;
-        const size = 48; const stroke = 6; const r = (size/2) - stroke/2; const C = 2*Math.PI*r; const offset = C * (1 - ratio);
-        const donut = `<div class=\"flex items-center gap-3\">`+
-          `<svg width=\"${size}\" height=\"${size}\" role=\"img\" aria-label=\"Coverage ${tris.length} of ${potential}\">`+
-            `<circle cx=\"${size/2}\" cy=\"${size/2}\" r=\"${r}\" stroke=\"#e5e7eb\" stroke-width=\"${stroke}\" fill=\"none\" />`+
-            `<circle cx=\"${size/2}\" cy=\"${size/2}\" r=\"${r}\" stroke=\"#10b981\" stroke-width=\"${stroke}\" fill=\"none\" stroke-dasharray=\"${C.toFixed(2)}\" stroke-dashoffset=\"${offset.toFixed(2)}\" stroke-linecap=\"round\" transform=\"rotate(-90 ${size/2} ${size/2})\" />`+
-            `<text x=\"50%\" y=\"50%\" text-anchor=\"middle\" dominant-baseline=\"central\" font-size=\"10\" fill=\"#065f46\">${potential?Math.round(ratio*100):0}%</text>`+
-          `</svg>`+
-          `<div class=\"text-xs\"><div class=\"font-medium\">Coverage</div><div>${tris.length}/${potential} triples</div></div>`+
+        const size = 48;
+        const stroke = 6;
+        const r = (size / 2) - stroke / 2;
+        const C = 2 * Math.PI * r;
+        const offset = C * (1 - ratio);
+        const donut = `<div class="flex items-center gap-3 text-xs text-muted">` +
+          `<svg width="${size}" height="${size}" role="img" aria-label="Coverage ${tris.length} of ${potential}">` +
+            `<circle cx="${size / 2}" cy="${size / 2}" r="${r}" stroke="color-mix(in srgb, var(--color-border) 35%, transparent)" stroke-width="${stroke}" fill="none" />` +
+            `<circle cx="${size / 2}" cy="${size / 2}" r="${r}" stroke="var(--panel-success-border-strong)" stroke-width="${stroke}" fill="none" stroke-dasharray="${C.toFixed(2)}" stroke-dashoffset="${offset.toFixed(2)}" stroke-linecap="round" transform="rotate(-90 ${size / 2} ${size / 2})" />` +
+            `<text x="50%" y="50%" text-anchor="middle" dominant-baseline="central" font-size="10" fill="var(--panel-success-heading)">${potential ? Math.round(ratio * 100) : 0}%</text>` +
+          `</svg>` +
+          `<div class="space-y-0.5"><div class="font-medium text-heading">Coverage</div><div>${tris.length}/${potential} triples</div></div>` +
         `</div>`;
-        metricsEl.innerHTML = `
-          ${bar('Estimated accuracy', acc, 'emerald')}
-          ${bar('Hallucination risk', risk, 'rose')}
-          <div>Token estimate: <span class=\"font-mono\">~${Math.round(tokens)}</span></div>
-          ${donut}
-        `;
-        buildGraphSpark(fullTris, tris);
-        metricsEl.setAttribute('aria-live','polite');
 
-        // Progressive expansion control (if coverage < 1 and more triples available)
+        metricsEl.innerHTML = [
+          bar('Estimated accuracy', acc, 'success'),
+          bar('Hallucination risk', risk, 'warning'),
+          `<div class="text-xs text-muted">Token estimate: <span class="font-mono text-heading">~${Math.round(tokens)}</span></div>`,
+          donut
+        ].join('');
+        buildGraphSpark(fullTris, tris);
+        metricsEl.setAttribute('aria-live', 'polite');
+
         if (ratio < 0.999 && potential > tris.length) {
-          metricsEl.innerHTML += `<button id=\"q40-expand\" class=\"mt-2 px-2 py-1 text-xs rounded border bg-white hover:bg-gray-50\" aria-label=\"Expand to full coverage\">Expand graph (+${potential-tris.length})</button>`;
+          metricsEl.innerHTML += `<button id="q40-expand" class="btn-soft text-xs px-2 py-1 mt-2" aria-label="Expand to full coverage">Expand graph (+${potential - tris.length})</button>`;
         }
 
-        // Explanation
+        const mathBlock = String.raw`$$P(\text{answer} \mid x, G) = f_\theta\big(x, \phi(G_{x})\big)$$`;
+        const mathNote = String.raw`Here \(G_x\) is the task-relevant subgraph (affected by coverage). If no triples are retrieved the model falls back to estimating \(P(\text{answer}\mid x)\), increasing hallucination risk.`;
         explainEl.innerHTML = `
-          <div class=\"space-y-2\">
+          <div class="space-y-2">
             <div>With KG grounding, the model conditions on retrieved triples and optionally a reasoning path. More coverage and a found path typically improve accuracy and reduce risk.</div>
-            <div class=\"math-display\">$$P(\\text{answer} \\mid x, G) = f_\\theta\\big(x, \\phi(G_{x})\\big)$$</div>
-            <div class=\"text-xs text-indigo-700\">Here \\(G_x\\) is the task-relevant subgraph (affected by coverage). If no triples are retrieved the model falls back to estimating \\(P(\\text{answer}\\mid x)\\), increasing hallucination risk.</div>
+            <div class="math-display">${mathBlock}</div>
+            <div class="text-xs text-muted">${mathNote}</div>
           </div>
         `;
 
@@ -333,21 +565,19 @@ const interactiveScript = () => {
           if (replay) replay.onclick = () => animatePathRibbon(ribbon);
         }
 
-        // Citation linking highlight
-        outputEl.querySelectorAll('a[data-triple]').forEach(a=>{
-          a.addEventListener('click', e=>{
-            e.preventDefault();
-            const id = a.getAttribute('data-triple');
+        outputEl.querySelectorAll('a[data-triple]').forEach(anchor => {
+          anchor.addEventListener('click', event => {
+            event.preventDefault();
+            const id = anchor.getAttribute('data-triple');
             const target = document.getElementById(`q40-triple-${id}`);
             if (target) {
-              target.scrollIntoView({behavior:'smooth', block:'center'});
-              target.classList.add('ring','ring-amber-400','bg-amber-50');
-              setTimeout(()=>{ target.classList.remove('ring','ring-amber-400','bg-amber-50'); }, 1600);
+              target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              target.classList.add('q40-triple-highlight');
+              setTimeout(() => target.classList.remove('q40-triple-highlight'), 1600);
             }
           });
         });
 
-        // Expansion button handler
         const expandBtn = document.getElementById('q40-expand');
         if (expandBtn) {
           expandBtn.onclick = () => { covEl.value = '1'; covEl.dispatchEvent(new Event('input')); };

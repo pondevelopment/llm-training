@@ -1,4 +1,4 @@
-<div class="space-y-8">
+<div class="q33-answer space-y-8">
         <style>
             /* Layout containment & overflow prevention */
             .q33-tech-section { max-width:100%; overflow:hidden; }
@@ -13,6 +13,179 @@
             }
             /* Prevent long inline sequences from forcing scroll */
             .q33-break { word-break:break-word; overflow-wrap:break-word; }
+
+            .q33-answer .bg-blue-50 { background-color: color-mix(in srgb, var(--tone-sky-strong) 12%, var(--color-card) 88%); }
+            html.dark .q33-answer .bg-blue-50 { background-color: color-mix(in srgb, var(--tone-sky-strong) 18%, var(--color-card) 82%) ; }
+            .q33-answer .bg-blue-100 { background-color: color-mix(in srgb, var(--tone-sky-strong) 18%, var(--color-card) 82%); }
+            html.dark .q33-answer .bg-blue-100 { background-color: color-mix(in srgb, var(--tone-sky-strong) 24%, var(--color-card) 76%) ; }
+            .q33-answer .bg-blue-200 { background-color: color-mix(in srgb, var(--tone-sky-strong) 26%, var(--color-card) 74%); }
+            html.dark .q33-answer .bg-blue-200 { background-color: color-mix(in srgb, var(--tone-sky-strong) 32%, var(--color-card) 68%) ; }
+            .q33-answer .bg-blue-500 { background-color: color-mix(in srgb, var(--tone-sky-strong) 64%, var(--color-card) 36%); }
+            html.dark .q33-answer .bg-blue-500 { background-color: color-mix(in srgb, var(--tone-sky-strong) 70%, var(--color-card) 30%) ; }
+            .q33-answer .bg-green-50 { background-color: color-mix(in srgb, var(--tone-emerald-strong) 12%, var(--color-card) 88%); }
+            html.dark .q33-answer .bg-green-50 { background-color: color-mix(in srgb, var(--tone-emerald-strong) 18%, var(--color-card) 82%) ; }
+            .q33-answer .bg-green-100 { background-color: color-mix(in srgb, var(--tone-emerald-strong) 18%, var(--color-card) 82%); }
+            html.dark .q33-answer .bg-green-100 { background-color: color-mix(in srgb, var(--tone-emerald-strong) 24%, var(--color-card) 76%) ; }
+            .q33-answer .bg-green-200 { background-color: color-mix(in srgb, var(--tone-emerald-strong) 26%, var(--color-card) 74%); }
+            html.dark .q33-answer .bg-green-200 { background-color: color-mix(in srgb, var(--tone-emerald-strong) 32%, var(--color-card) 68%) ; }
+            .q33-answer .bg-green-500 { background-color: color-mix(in srgb, var(--tone-emerald-strong) 64%, var(--color-card) 36%); }
+            html.dark .q33-answer .bg-green-500 { background-color: color-mix(in srgb, var(--tone-emerald-strong) 70%, var(--color-card) 30%) ; }
+            .q33-answer .bg-green-500 { color: color-mix(in srgb, #ffffff 92%, var(--tone-emerald-strong) 8%); }
+            .q33-answer .bg-green-500 .text-green-600,
+            .q33-answer .bg-green-500 .text-green-700,
+            .q33-answer .bg-green-500 .text-green-800,
+            .q33-answer .bg-green-500 .text-green-900 { color: color-mix(in srgb, #ffffff 92%, var(--tone-emerald-strong) 8%); }
+            .q33-answer .bg-green-500 .text-xs,
+            .q33-answer .bg-green-500 .text-sm { color: color-mix(in srgb, #ffffff 95%, var(--tone-emerald-strong) 5%); }
+            .q33-answer .bg-purple-50 { background-color: color-mix(in srgb, var(--tone-purple-strong) 12%, var(--color-card) 88%); }
+            html.dark .q33-answer .bg-purple-50 { background-color: color-mix(in srgb, var(--tone-purple-strong) 18%, var(--color-card) 82%) ; }
+            .q33-answer .bg-purple-200 { background-color: color-mix(in srgb, var(--tone-purple-strong) 26%, var(--color-card) 74%); }
+            html.dark .q33-answer .bg-purple-200 { background-color: color-mix(in srgb, var(--tone-purple-strong) 32%, var(--color-card) 68%) ; }
+            .q33-answer .bg-purple-500 { background-color: color-mix(in srgb, var(--tone-purple-strong) 62%, var(--color-card) 38%); }
+            html.dark .q33-answer .bg-purple-500 { background-color: color-mix(in srgb, var(--tone-purple-strong) 68%, var(--color-card) 32%) ; }
+            .q33-answer .bg-indigo-50 { background-color: color-mix(in srgb, var(--tone-indigo-strong) 12%, var(--color-card) 88%); }
+            html.dark .q33-answer .bg-indigo-50 { background-color: color-mix(in srgb, var(--tone-indigo-strong) 18%, var(--color-card) 82%) ; }
+            .q33-answer .bg-red-50 { background-color: color-mix(in srgb, #ef4444 12%, var(--color-card) 88%); }
+            html.dark .q33-answer .bg-red-50 { background-color: color-mix(in srgb, #ef4444 18%, var(--color-card) 82%) ; }
+            .q33-answer .bg-red-100 { background-color: color-mix(in srgb, #ef4444 24%, var(--color-card) 76%); }
+            html.dark .q33-answer .bg-red-100 { background-color: color-mix(in srgb, #ef4444 30%, var(--color-card) 70%) ; }
+            .q33-answer .bg-red-500 { background-color: color-mix(in srgb, #ef4444 62%, var(--color-card) 38%); }
+            html.dark .q33-answer .bg-red-500 { background-color: color-mix(in srgb, #ef4444 68%, var(--color-card) 32%) ; }
+            .q33-answer .bg-red-500 { color: color-mix(in srgb, #ffffff 92%, #ef4444 8%); }
+            .q33-answer .bg-red-500 .text-red-600,
+            .q33-answer .bg-red-500 .text-red-700,
+            .q33-answer .bg-red-500 .text-red-800,
+            .q33-answer .bg-red-500 .text-red-900 { color: color-mix(in srgb, #ffffff 92%, #ef4444 8%); }
+            .q33-answer .bg-red-500 .text-xs,
+            .q33-answer .bg-red-500 .text-sm { color: color-mix(in srgb, #ffffff 95%, #ef4444 5%); }
+            .q33-answer .bg-gray-200 { background-color: color-mix(in srgb, var(--color-border-subtle) 80%, var(--color-card) 20%); }
+            html.dark .q33-answer .bg-gray-200 { background-color: color-mix(in srgb, var(--color-border) 70%, var(--color-card) 30%); }
+            .q33-answer .bg-white { background-color: var(--color-card); }
+            html.dark .q33-answer .bg-white { background-color: color-mix(in srgb, var(--color-card) 96%, transparent 4%); }
+            .q33-answer .bg-white\/90 { background-color: color-mix(in srgb, var(--color-card) 92%, transparent 8%); }
+            html.dark .q33-answer .bg-white\/90 { background-color: color-mix(in srgb, var(--color-card) 80%, transparent 20%); }
+            .q33-answer .bg-white\/80 { background-color: color-mix(in srgb, var(--color-card) 85%, transparent 15%); }
+            html.dark .q33-answer .bg-white\/80 { background-color: color-mix(in srgb, var(--color-card) 70%, transparent 30%); }
+            .q33-answer .bg-blue-50\/50 { background-color: color-mix(in srgb, var(--tone-sky-strong) 12%, transparent 88%); }
+            html.dark .q33-answer .bg-blue-50\/50 { background-color: color-mix(in srgb, var(--tone-sky-strong) 18%, transparent 82%); }
+            .q33-answer .bg-grid-pattern { background-image: radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--color-border-subtle) 55%, transparent 45%) 1px, transparent 0); background-size: 28px 28px; }
+            html.dark .q33-answer .bg-grid-pattern { background-image: radial-gradient(circle at 1px 1px, color-mix(in srgb, var(--color-border) 55%, transparent 45%) 1px, transparent 0); }
+            .q33-answer .bg-circuit-pattern { background-image: linear-gradient(120deg, color-mix(in srgb, var(--color-border-subtle) 35%, transparent 65%) 8%, transparent 0), linear-gradient(60deg, color-mix(in srgb, var(--color-border-subtle) 25%, transparent 75%) 8%, transparent 0); background-size: 40px 40px; }
+            html.dark .q33-answer .bg-circuit-pattern { background-image: linear-gradient(120deg, color-mix(in srgb, var(--color-border) 35%, transparent 65%) 8%, transparent 0), linear-gradient(60deg, color-mix(in srgb, var(--color-border) 25%, transparent 75%) 8%, transparent 0); }
+            .q33-answer .bg-world-pattern { background-image: radial-gradient(circle, color-mix(in srgb, var(--color-border-subtle) 40%, transparent 60%) 20%, transparent 22%), radial-gradient(circle at top, color-mix(in srgb, var(--color-border-subtle) 32%, transparent 68%) 12%, transparent 14%); background-size: 140px 140px; }
+            html.dark .q33-answer .bg-world-pattern { background-image: radial-gradient(circle, color-mix(in srgb, var(--color-border) 40%, transparent 60%) 20%, transparent 22%), radial-gradient(circle at top, color-mix(in srgb, var(--color-border) 32%, transparent 68%) 12%, transparent 14%); }
+            .q33-answer .bg-gradient-to-r { background-image: linear-gradient(90deg, var(--tw-gradient-from, transparent), var(--tw-gradient-stops, var(--tw-gradient-to, transparent))); }
+            .q33-answer .bg-gradient-to-br { background-image: linear-gradient(135deg, var(--tw-gradient-from, transparent), var(--tw-gradient-stops, var(--tw-gradient-to, transparent))); }
+            .q33-answer .from-blue-50 { --tw-gradient-from: color-mix(in srgb, var(--tone-sky-strong) 12%, var(--color-card) 88%); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, transparent); }
+            .q33-answer .from-blue-100 { --tw-gradient-from: color-mix(in srgb, var(--tone-sky-strong) 18%, var(--color-card) 82%); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, transparent); }
+            .q33-answer .from-blue-400 { --tw-gradient-from: color-mix(in srgb, var(--tone-sky-strong) 42%, var(--color-card) 58%); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, transparent); }
+            .q33-answer .from-blue-500 { --tw-gradient-from: color-mix(in srgb, var(--tone-sky-strong) 60%, var(--color-card) 40%); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, transparent); }
+            .q33-answer .from-emerald-50 { --tw-gradient-from: color-mix(in srgb, var(--tone-emerald-strong) 12%, var(--color-card) 88%); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, transparent); }
+            .q33-answer .from-emerald-500 { --tw-gradient-from: color-mix(in srgb, var(--tone-emerald-strong) 60%, var(--color-card) 40%); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, transparent); }
+            .q33-answer .from-green-50 { --tw-gradient-from: color-mix(in srgb, var(--tone-emerald-strong) 12%, var(--color-card) 88%); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, transparent); }
+            .q33-answer .from-green-300 { --tw-gradient-from: color-mix(in srgb, var(--tone-emerald-strong) 34%, var(--color-card) 66%); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, transparent); }
+            .q33-answer .from-green-400 { --tw-gradient-from: color-mix(in srgb, var(--tone-emerald-strong) 46%, var(--color-card) 54%); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, transparent); }
+            .q33-answer .from-green-500 { --tw-gradient-from: color-mix(in srgb, var(--tone-emerald-strong) 60%, var(--color-card) 40%); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, transparent); }
+            .q33-answer .from-indigo-50 { --tw-gradient-from: color-mix(in srgb, var(--tone-indigo-strong) 12%, var(--color-card) 88%); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, transparent); }
+            .q33-answer .from-indigo-500 { --tw-gradient-from: color-mix(in srgb, var(--tone-indigo-strong) 60%, var(--color-card) 40%); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, transparent); }
+            .q33-answer .from-orange-50 { --tw-gradient-from: color-mix(in srgb, var(--tone-amber-strong) 10%, var(--color-card) 90%); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, transparent); }
+            .q33-answer .from-orange-500 { --tw-gradient-from: color-mix(in srgb, var(--tone-amber-strong) 58%, var(--color-card) 42%); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, transparent); }
+            .q33-answer .from-purple-400 { --tw-gradient-from: color-mix(in srgb, var(--tone-purple-strong) 44%, var(--color-card) 56%); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, transparent); }
+            .q33-answer .from-purple-50 { --tw-gradient-from: color-mix(in srgb, var(--tone-purple-strong) 12%, var(--color-card) 88%); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, transparent); }
+            .q33-answer .from-purple-500 { --tw-gradient-from: color-mix(in srgb, var(--tone-purple-strong) 60%, var(--color-card) 40%); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, transparent); }
+            .q33-answer .from-red-300 { --tw-gradient-from: color-mix(in srgb, #ef4444 38%, var(--color-card) 62%); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, transparent); }
+            .q33-answer .from-red-500 { --tw-gradient-from: color-mix(in srgb, #ef4444 60%, var(--color-card) 40%); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, transparent); }
+            .q33-answer .via-blue-50 { --tw-gradient-stops: var(--tw-gradient-from), color-mix(in srgb, var(--tone-sky-strong) 14%, var(--color-card) 86%), var(--tw-gradient-to, transparent); }
+            .q33-answer .via-purple-50 { --tw-gradient-stops: var(--tw-gradient-from), color-mix(in srgb, var(--tone-purple-strong) 14%, var(--color-card) 86%), var(--tw-gradient-to, transparent); }
+            .q33-answer .to-blue-50 { --tw-gradient-to: color-mix(in srgb, var(--tone-sky-strong) 12%, var(--color-card) 88%); }
+            .q33-answer .to-blue-100 { --tw-gradient-to: color-mix(in srgb, var(--tone-sky-strong) 18%, var(--color-card) 82%); }
+            .q33-answer .to-blue-600 { --tw-gradient-to: color-mix(in srgb, var(--tone-sky-strong) 70%, var(--color-card) 30%); }
+            .q33-answer .to-emerald-100 { --tw-gradient-to: color-mix(in srgb, var(--tone-emerald-strong) 22%, var(--color-card) 78%); }
+            .q33-answer .to-green-500 { --tw-gradient-to: color-mix(in srgb, var(--tone-emerald-strong) 60%, var(--color-card) 40%); }
+            .q33-answer .to-green-600 { --tw-gradient-to: color-mix(in srgb, var(--tone-emerald-strong) 70%, var(--color-card) 30%); }
+            .q33-answer .to-indigo-50 { --tw-gradient-to: color-mix(in srgb, var(--tone-indigo-strong) 12%, var(--color-card) 88%); }
+            .q33-answer .to-orange-100 { --tw-gradient-to: color-mix(in srgb, var(--tone-amber-strong) 22%, var(--color-card) 78%); }
+            .q33-answer .to-purple-100 { --tw-gradient-to: color-mix(in srgb, var(--tone-purple-strong) 22%, var(--color-card) 78%); }
+            .q33-answer .to-purple-600 { --tw-gradient-to: color-mix(in srgb, var(--tone-purple-strong) 70%, var(--color-card) 30%); }
+            .q33-answer .to-red-50 { --tw-gradient-to: color-mix(in srgb, #ef4444 10%, var(--color-card) 90%); }
+            .q33-answer .to-red-500 { --tw-gradient-to: color-mix(in srgb, #ef4444 60%, var(--color-card) 40%); }
+            .q33-answer .to-red-600 { --tw-gradient-to: color-mix(in srgb, #ef4444 70%, var(--color-card) 30%); }
+            .q33-answer .text-blue-600 { color: color-mix(in srgb, var(--tone-sky-strong) 32%, var(--color-heading) 68%); }
+            .q33-answer .text-blue-700 { color: color-mix(in srgb, var(--tone-sky-strong) 42%, var(--color-heading) 58%); }
+            .q33-answer .text-blue-800 { color: color-mix(in srgb, var(--tone-sky-strong) 52%, var(--color-heading) 48%); }
+            .q33-answer .text-blue-900 { color: color-mix(in srgb, var(--tone-sky-strong) 62%, var(--color-heading) 38%); }
+            .q33-answer .text-green-600 { color: color-mix(in srgb, var(--tone-emerald-strong) 30%, var(--color-heading) 70%); }
+            .q33-answer .text-green-700 { color: color-mix(in srgb, var(--tone-emerald-strong) 40%, var(--color-heading) 60%); }
+            .q33-answer .text-green-800 { color: color-mix(in srgb, var(--tone-emerald-strong) 50%, var(--color-heading) 50%); }
+            .q33-answer .text-green-900 { color: color-mix(in srgb, var(--tone-emerald-strong) 60%, var(--color-heading) 40%); }
+            .q33-answer .text-emerald-600 { color: color-mix(in srgb, var(--tone-emerald-strong) 30%, var(--color-heading) 70%); }
+            .q33-answer .text-emerald-800 { color: color-mix(in srgb, var(--tone-emerald-strong) 50%, var(--color-heading) 50%); }
+            .q33-answer .text-purple-600 { color: color-mix(in srgb, var(--tone-purple-strong) 32%, var(--color-heading) 68%); }
+            .q33-answer .text-purple-700 { color: color-mix(in srgb, var(--tone-purple-strong) 42%, var(--color-heading) 58%); }
+            .q33-answer .text-purple-800 { color: color-mix(in srgb, var(--tone-purple-strong) 52%, var(--color-heading) 48%); }
+            .q33-answer .text-purple-900 { color: color-mix(in srgb, var(--tone-purple-strong) 62%, var(--color-heading) 38%); }
+            .q33-answer .text-red-600 { color: color-mix(in srgb, #ef4444 40%, var(--color-heading) 60%); }
+            .q33-answer .text-red-700 { color: color-mix(in srgb, #ef4444 52%, var(--color-heading) 48%); }
+            .q33-answer .text-red-800 { color: color-mix(in srgb, #ef4444 60%, var(--color-heading) 40%); }
+            .q33-answer .text-red-900 { color: color-mix(in srgb, #ef4444 70%, var(--color-heading) 30%); }
+            .q33-answer .text-orange-600 { color: color-mix(in srgb, var(--tone-amber-strong) 40%, var(--color-heading) 60%); }
+            .q33-answer .text-orange-800 { color: color-mix(in srgb, var(--tone-amber-strong) 60%, var(--color-heading) 40%); }
+            .q33-answer .text-blue-600 { color: color-mix(in srgb, var(--tone-sky-strong) 32%, var(--color-heading) 68%); }
+            .q33-answer .text-indigo-700 { color: color-mix(in srgb, var(--tone-indigo-strong) 42%, var(--color-heading) 58%); }
+            .q33-answer .text-indigo-800 { color: color-mix(in srgb, var(--tone-indigo-strong) 52%, var(--color-heading) 48%); }
+            .q33-answer .text-indigo-900 { color: color-mix(in srgb, var(--tone-indigo-strong) 62%, var(--color-heading) 38%); }
+            .q33-answer .text-emerald-600 { color: color-mix(in srgb, var(--tone-emerald-strong) 32%, var(--color-heading) 68%); }
+            .q33-answer .text-emerald-800 { color: color-mix(in srgb, var(--tone-emerald-strong) 52%, var(--color-heading) 48%); }
+            .q33-answer .text-gray-900 { color: var(--color-heading); }
+            .q33-answer .text-gray-700 { color: var(--color-secondary); }
+            .q33-answer .text-gray-600 { color: var(--color-muted); }
+            .q33-answer .text-gray-500 { color: color-mix(in srgb, var(--color-muted) 80%, var(--color-body) 20%); }
+            .q33-answer .text-gray-400 { color: color-mix(in srgb, var(--color-muted) 60%, var(--color-body) 40%); }
+            .q33-answer .text-gray-300 { color: color-mix(in srgb, var(--color-muted) 40%, var(--color-body) 60%); }
+            .q33-answer .text-blue-700 { color: color-mix(in srgb, var(--tone-sky-strong) 42%, var(--color-heading) 58%); }
+            .q33-answer .text-white { color: #ffffff; }
+            .q33-answer .border-blue-100 { border-color: color-mix(in srgb, var(--tone-sky-strong) 18%, var(--color-card) 82%); }
+            html.dark .q33-answer .border-blue-100 { border-color: color-mix(in srgb, var(--tone-sky-strong) 26%, var(--color-border) 74%); }
+            .q33-answer .border-blue-200 { border-color: color-mix(in srgb, var(--tone-sky-strong) 24%, var(--color-card) 76%); }
+            html.dark .q33-answer .border-blue-200 { border-color: color-mix(in srgb, var(--tone-sky-strong) 32%, var(--color-border) 68%); }
+            .q33-answer .border-blue-300 { border-color: color-mix(in srgb, var(--tone-sky-strong) 32%, var(--color-card) 68%); }
+            html.dark .q33-answer .border-blue-300 { border-color: color-mix(in srgb, var(--tone-sky-strong) 40%, var(--color-border) 60%); }
+            .q33-answer .border-emerald-200 { border-color: color-mix(in srgb, var(--tone-emerald-strong) 24%, var(--color-card) 76%); }
+            html.dark .q33-answer .border-emerald-200 { border-color: color-mix(in srgb, var(--tone-emerald-strong) 32%, var(--color-border) 68%); }
+            .q33-answer .border-green-100 { border-color: color-mix(in srgb, var(--tone-emerald-strong) 18%, var(--color-card) 82%); }
+            html.dark .q33-answer .border-green-100 { border-color: color-mix(in srgb, var(--tone-emerald-strong) 26%, var(--color-border) 74%); }
+            .q33-answer .border-green-200 { border-color: color-mix(in srgb, var(--tone-emerald-strong) 28%, var(--color-card) 72%); }
+            html.dark .q33-answer .border-green-200 { border-color: color-mix(in srgb, var(--tone-emerald-strong) 36%, var(--color-border) 64%); }
+            .q33-answer .border-green-400 { border-color: color-mix(in srgb, var(--tone-emerald-strong) 42%, var(--color-card) 58%); }
+            html.dark .q33-answer .border-green-400 { border-color: color-mix(in srgb, var(--tone-emerald-strong) 50%, var(--color-border) 50%); }
+            .q33-answer .border-indigo-200 { border-color: color-mix(in srgb, var(--tone-indigo-strong) 24%, var(--color-card) 76%); }
+            html.dark .q33-answer .border-indigo-200 { border-color: color-mix(in srgb, var(--tone-indigo-strong) 32%, var(--color-border) 68%); }
+            .q33-answer .border-orange-200 { border-color: color-mix(in srgb, var(--tone-amber-strong) 28%, var(--color-card) 72%); }
+            html.dark .q33-answer .border-orange-200 { border-color: color-mix(in srgb, var(--tone-amber-strong) 36%, var(--color-border) 64%); }
+            .q33-answer .border-purple-100 { border-color: color-mix(in srgb, var(--tone-purple-strong) 18%, var(--color-card) 82%); }
+            html.dark .q33-answer .border-purple-100 { border-color: color-mix(in srgb, var(--tone-purple-strong) 26%, var(--color-border) 74%); }
+            .q33-answer .border-purple-200 { border-color: color-mix(in srgb, var(--tone-purple-strong) 28%, var(--color-card) 72%); }
+            html.dark .q33-answer .border-purple-200 { border-color: color-mix(in srgb, var(--tone-purple-strong) 36%, var(--color-border) 64%); }
+            .q33-answer .border-purple-500 { border-color: color-mix(in srgb, var(--tone-purple-strong) 58%, var(--color-card) 42%); }
+            html.dark .q33-answer .border-purple-500 { border-color: color-mix(in srgb, var(--tone-purple-strong) 66%, var(--color-border) 34%); }
+            .q33-answer .border-red-200 { border-color: color-mix(in srgb, #ef4444 28%, var(--color-card) 72%); }
+            html.dark .q33-answer .border-red-200 { border-color: color-mix(in srgb, #ef4444 36%, var(--color-border) 64%); }
+            .q33-answer .border-red-400 { border-color: color-mix(in srgb, #ef4444 42%, var(--color-card) 58%); }
+            html.dark .q33-answer .border-red-400 { border-color: color-mix(in srgb, #ef4444 50%, var(--color-border) 50%); }
+            .q33-answer .border-white/50 { border-color: color-mix(in srgb, var(--color-heading) 55%, transparent 45%); }
+            html.dark .q33-answer .border-white/50 { border-color: color-mix(in srgb, var(--color-border) 65%, transparent 35%); }
+            .q33-answer .border-gray-200 { border-color: var(--color-border-subtle); }
+            html.dark .q33-answer .border-gray-200 { border-color: color-mix(in srgb, var(--color-border) 65%, transparent 35%); }
+            .q33-answer .border-2 { border-width: 2px; }
+            .q33-answer .border-b { border-bottom: 1px solid var(--color-border-subtle); }
+            html.dark .q33-answer .border-b { border-bottom-color: var(--color-border); }
+            .q33-answer .border-l-4 { border-left: 4px solid color-mix(in srgb, var(--tone-emerald-strong) 40%, var(--color-border-subtle) 60%); }
+            .q33-answer .hover\:bg-blue-100:hover { background-color: color-mix(in srgb, var(--tone-sky-strong) 20%, var(--color-card) 80%); }
+            .q33-answer .hover\:bg-green-100:hover { background-color: color-mix(in srgb, var(--tone-emerald-strong) 20%, var(--color-card) 80%); }
+            .q33-answer .hover\:bg-purple-100:hover { background-color: color-mix(in srgb, var(--tone-purple-strong) 20%, var(--color-card) 80%); }
+            .q33-answer .hover\:text-indigo-900:hover { color: color-mix(in srgb, var(--tone-indigo-strong) 55%, var(--color-heading) 45%); }
+            .q33-answer .group:hover .group-hover\:opacity-30 { opacity: 0.3; }
+            .q33-answer a:hover { color: var(--accent-strong-hover); }
         </style>
         <!-- Recommended Reading -->
         <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
@@ -70,7 +243,7 @@ $$\begin{align}
                             
                             <!-- Performance Highlight -->
                             <div class="grid md:grid-cols-3 gap-4 mt-6">
-                                <div class="bg-green-50 border border-green-200 rounded-lg p-3 text-center">
+                                <div class="bg-green-50 border border-green-200 rounded-lg p-3 text-center mt-auto">
                                     <div class="text-2xl font-bold text-green-700">40%</div>
                                     <div class="text-sm text-green-600">Fewer Parameters</div>
                                 </div>
@@ -110,9 +283,9 @@ $$\begin{align}
             <div class="p-6 md:p-8">
                 <div class="grid lg:grid-cols-3 gap-6 md:gap-8">
                     <!-- Unified Architecture -->
-                    <div class="group relative">
+                    <div class="group relative h-full flex">
                         <div class="absolute -inset-1 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl opacity-20 group-hover:opacity-30 transition-opacity"></div>
-                        <div class="relative bg-blue-50 hover:bg-blue-100 p-4 rounded-xl border border-blue-200 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                        <div class="relative flex flex-col h-full flex flex-col h-full bg-blue-50 hover:bg-blue-100 p-4 rounded-xl border border-blue-200 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
                             <div class="text-center mb-6">
                                 <div class="inline-flex items-center justify-center w-12 h-12 bg-blue-500 text-white rounded-lg mb-3 text-xl">
                                     🏗️
@@ -145,9 +318,9 @@ $$\mathbf{H} = \text{Transformer}(\text{TokenizeMultimodal}(x_{text}, x_{image},
                     </div>
 
                     <!-- Cross-Modal Attention -->
-                    <div class="group relative">
+                    <div class="group relative h-full flex">
                         <div class="absolute -inset-1 bg-gradient-to-br from-green-400 to-green-600 rounded-xl opacity-20 group-hover:opacity-30 transition-opacity"></div>
-                        <div class="relative bg-green-50 hover:bg-green-100 p-4 rounded-xl border border-green-200 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                        <div class="relative flex flex-col h-full bg-green-50 hover:bg-green-100 p-4 rounded-xl border border-green-200 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
                             <div class="text-center mb-6">
                                 <div class="inline-flex items-center justify-center w-12 h-12 bg-green-500 text-white rounded-lg mb-3 text-xl">
                                     🎯
@@ -175,9 +348,9 @@ $$\text{Attention}(Q_{text}, K_{image}, V_{audio})$$
                     </div>
                     
                     <!-- Self-Supervised Learning -->
-                    <div class="group relative">
+                    <div class="group relative h-full flex">
                         <div class="absolute -inset-1 bg-gradient-to-br from-purple-400 to-purple-600 rounded-xl opacity-20 group-hover:opacity-30 transition-opacity"></div>
-                        <div class="relative bg-purple-50 hover:bg-purple-100 p-4 rounded-xl border border-purple-200 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+                        <div class="relative flex flex-col h-full flex flex-col h-full bg-purple-50 hover:bg-purple-100 p-4 rounded-xl border border-purple-200 transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
                             <div class="text-center mb-6">
                                 <div class="inline-flex items-center justify-center w-12 h-12 bg-purple-500 text-white rounded-lg mb-3 text-xl">
                                     📊
@@ -208,387 +381,95 @@ $$\mathcal{L} = -\log\frac{\exp(\text{sim}(z_i, z_j)/\tau)}{\sum_k \exp(\text{si
         </div>
         
         <!-- Training Pipeline Comparison - Enhanced Visual Design -->
-                    <div class="bg-white border border-gray-200 rounded-2xl shadow-lg overflow-hidden">
-            <!-- Section Header -->
-            <div class="bg-gradient-to-r from-green-50 to-blue-50 px-6 md:px-8 py-6 border-b border-gray-200">
-                <div class="flex items-center justify-center md:justify-start">
-                    <div class="flex items-center space-x-4">
-                        <div class="bg-gradient-to-br from-green-500 to-blue-600 text-white w-12 h-12 rounded-xl flex items-center justify-center text-lg font-bold shadow-lg">
-                            2
-                        </div>
-                        <div>
-                            <h4 class="text-xl md:text-2xl font-bold text-gray-900">Training Pipeline Evolution</h4>
-                            <p class="text-sm text-gray-600 mt-1">Traditional late fusion vs unified / early fusion</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="p-6 md:p-8">
-                <!-- Comparison Grid -->
-                <div class="grid md:grid-cols-2 gap-8 mb-8">
-                    <!-- Traditional Approach -->
-                    <div class="relative group">
-                        <div class="absolute -inset-1 bg-gradient-to-br from-red-300 to-red-500 rounded-xl opacity-20"></div>
-                        <div class="relative bg-red-50 border-2 border-red-200 rounded-xl p-6 h-full">
-                            <div class="text-center mb-6">
-                                <div class="inline-flex items-center justify-center w-16 h-16 bg-red-500 text-white rounded-xl mb-3 text-2xl">
-                                    ❌
-                                </div>
-                                <h5 class="text-xl font-bold text-red-900">Traditional Multimodal Training</h5>
-                                <p class="text-sm text-red-700 mt-2">Separate encoders with limited cross-modal learning</p>
-                            </div>
-                            <div class="space-y-4">
-                                <div class="bg-white border-l-4 border-red-400 p-4 rounded-r-lg shadow-sm">
-                                    <div class="flex items-center space-x-3">
-                                        <div class="flex-shrink-0 w-8 h-8 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-sm font-bold">1</div>
-                                        <div>
-                                            <div class="font-semibold text-sm text-red-900">Separate Encoders</div>
-                                            <div class="text-xs text-red-700">Text encoder + Vision encoder + Audio encoder</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="bg-white border-l-4 border-red-400 p-4 rounded-r-lg shadow-sm">
-                                    <div class="flex items-center space-x-3">
-                                        <div class="flex-shrink-0 w-8 h-8 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-sm font-bold">2</div>
-                                        <div>
-                                            <div class="font-semibold text-sm text-red-900">Late Fusion</div>
-                                            <div class="text-xs text-red-700">Combine features at final layers only</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="bg-white border-l-4 border-red-400 p-4 rounded-r-lg shadow-sm">
-                                    <div class="flex items-center space-x-3">
-                                        <div class="flex-shrink-0 w-8 h-8 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-sm font-bold">3</div>
-                                        <div>
-                                            <div class="font-semibold text-sm text-red-900">Sequential Training</div>
-                                            <div class="text-xs text-red-700">Pre-train modalities separately, then fine-tune</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="bg-white border-l-4 border-red-400 p-4 rounded-r-lg shadow-sm">
-                                    <div class="flex items-center space-x-3">
-                                        <div class="flex-shrink-0 w-8 h-8 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-sm font-bold">4</div>
-                                        <div>
-                                            <div class="font-semibold text-sm text-red-900">High Compute Cost</div>
-                                            <div class="text-xs text-red-700">3x parameters, slower convergence</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Unified / Early Fusion Approach -->
-                    <div class="relative group">
-                        <div class="absolute -inset-1 bg-gradient-to-br from-green-300 to-green-500 rounded-xl opacity-20"></div>
-                        <div class="relative bg-green-50 border-2 border-green-200 rounded-xl p-6 h-full">
-                            <div class="text-center mb-6">
-                                <div class="inline-flex items-center justify-center w-16 h-16 bg-green-500 text-white rounded-xl mb-3 text-2xl">
-                                    ✅
-                                </div>
-                                <h5 class="text-xl font-bold text-green-900">Unified / Early Fusion Training</h5>
-                                <p class="text-sm text-green-700 mt-2">Intelligent unified approach with cross-modal learning</p>
-                            </div>
-                            <div class="space-y-4">
-                                <div class="bg-white border-l-4 border-green-400 p-4 rounded-r-lg shadow-sm">
-                                    <div class="flex items-center space-x-3">
-                                        <div class="flex-shrink-0 w-8 h-8 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-sm font-bold">1</div>
-                                        <div>
-                                            <div class="font-semibold text-sm text-green-900">Unified Encoder</div>
-                                            <div class="text-xs text-green-700">Single transformer handles all modalities</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="bg-white border-l-4 border-green-400 p-4 rounded-r-lg shadow-sm">
-                                    <div class="flex items-center space-x-3">
-                                        <div class="flex-shrink-0 w-8 h-8 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-sm font-bold">2</div>
-                                        <div>
-                                            <div class="font-semibold text-sm text-green-900">Early Fusion</div>
-                                            <div class="text-xs text-green-700">Cross-modal attention from first layer</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="bg-white border-l-4 border-green-400 p-4 rounded-r-lg shadow-sm">
-                                    <div class="flex items-center space-x-3">
-                                        <div class="flex-shrink-0 w-8 h-8 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-sm font-bold">3</div>
-                                        <div>
-                                            <div class="font-semibold text-sm text-green-900">Joint Training</div>
-                                            <div class="text-xs text-green-700">All modalities trained simultaneously</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="bg-white border-l-4 border-green-400 p-4 rounded-r-lg shadow-sm">
-                                    <div class="flex items-center space-x-3">
-                                        <div class="flex-shrink-0 w-8 h-8 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-sm font-bold">4</div>
-                                        <div>
-                                            <div class="font-semibold text-sm text-green-900">Efficient Scaling</div>
-                                            <div class="text-xs text-green-700">40% fewer parameters, faster convergence</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<div class="panel panel-neutral p-0 overflow-hidden">
+  <div class="flex items-center gap-4 border-b border-divider px-6 md:px-8 py-6 flex-wrap md:flex-nowrap">
+    <span class="chip chip-success text-xs font-semibold uppercase tracking-wide">Step 2</span>
+    <div>
+      <h4 class="text-lg md:text-xl font-semibold">Training Pipeline Evolution</h4>
+      <p class="panel-muted text-sm mt-1">Traditional late fusion vs unified / early fusion</p>
+    </div>
+  </div>
+  <div class="p-6 md:p-8">
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="panel panel-warning panel-emphasis p-6 h-full flex flex-col gap-4">
+        <div class="text-center space-y-2">
+          <span class="chip chip-warning text-xs font-semibold uppercase tracking-wide">Baseline</span>
+          <h5 class="text-lg font-semibold">Traditional Multimodal Training</h5>
+          <p class="panel-muted text-sm">Separate encoders with limited cross-modal learning</p>
         </div>
-        
-        <!-- Training Pipeline Comparison - Enhanced Visual Design -->
-        <div class="bg-white border border-gray-200 rounded-2xl shadow-lg overflow-hidden">
-            <!-- Section Header -->
-            <div class="bg-gradient-to-r from-green-50 to-blue-50 px-6 md:px-8 py-6 border-b border-gray-200">
-                <div class="flex items-center justify-center md:justify-start">
-                    <div class="flex items-center space-x-4">
-                        <div class="bg-gradient-to-br from-green-500 to-blue-600 text-white w-12 h-12 rounded-xl flex items-center justify-center text-lg font-bold shadow-lg">
-                            2
-                        </div>
-                        <div>
-                            <h4 class="text-xl md:text-2xl font-bold text-gray-900">Training Pipeline Evolution</h4>
-                            <p class="text-sm text-gray-600 mt-1">Traditional late fusion vs unified / early fusion</p>
-                        </div>
-                    </div>
-                </div>
+        <ol class="space-y-3 text-left list-none">
+          <li class="panel panel-neutral-soft p-3 flex items-start gap-3">
+            <span class="chip chip-warning text-xs font-semibold">1</span>
+            <div class="space-y-1">
+              <div class="text-sm font-semibold">Separate Encoders</div>
+              <p class="panel-muted text-xs">Text encoder + Vision encoder + Audio encoder</p>
             </div>
-            
-            <div class="p-6 md:p-8">
-                <!-- Comparison Grid -->
-                <div class="grid md:grid-cols-2 gap-8 mb-8">
-                    <!-- Traditional Approach -->
-                    <div class="relative group">
-                        <div class="absolute -inset-1 bg-gradient-to-br from-red-300 to-red-500 rounded-xl opacity-20"></div>
-                        <div class="relative bg-red-50 border-2 border-red-200 rounded-xl p-6 h-full">
-                            <div class="text-center mb-6">
-                                <div class="inline-flex items-center justify-center w-16 h-16 bg-red-500 text-white rounded-xl mb-3 text-2xl">
-                                    ❌
-                                </div>
-                                <h5 class="text-xl font-bold text-red-900">Traditional Multimodal Training</h5>
-                                <p class="text-sm text-red-700 mt-2">Separate encoders with limited cross-modal learning</p>
-                            </div>
-                            <div class="space-y-4">
-                                <div class="bg-white border-l-4 border-red-400 p-4 rounded-r-lg shadow-sm">
-                                    <div class="flex items-center space-x-3">
-                                        <div class="flex-shrink-0 w-8 h-8 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-sm font-bold">1</div>
-                                        <div>
-                                            <div class="font-semibold text-sm text-red-900">Separate Encoders</div>
-                                            <div class="text-xs text-red-700">Text encoder + Vision encoder + Audio encoder</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="bg-white border-l-4 border-red-400 p-4 rounded-r-lg shadow-sm">
-                                    <div class="flex items-center space-x-3">
-                                        <div class="flex-shrink-0 w-8 h-8 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-sm font-bold">2</div>
-                                        <div>
-                                            <div class="font-semibold text-sm text-red-900">Late Fusion</div>
-                                            <div class="text-xs text-red-700">Combine features at final layers only</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="bg-white border-l-4 border-red-400 p-4 rounded-r-lg shadow-sm">
-                                    <div class="flex items-center space-x-3">
-                                        <div class="flex-shrink-0 w-8 h-8 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-sm font-bold">3</div>
-                                        <div>
-                                            <div class="font-semibold text-sm text-red-900">Sequential Training</div>
-                                            <div class="text-xs text-red-700">Pre-train modalities separately, then fine-tune</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="bg-white border-l-4 border-red-400 p-4 rounded-r-lg shadow-sm">
-                                    <div class="flex items-center space-x-3">
-                                        <div class="flex-shrink-0 w-8 h-8 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-sm font-bold">4</div>
-                                        <div>
-                                            <div class="font-semibold text-sm text-red-900">High Compute Cost</div>
-                                            <div class="text-xs text-red-700">3x parameters, slower convergence</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Unified / Early Fusion Approach -->
-                    <div class="relative group">
-                        <div class="absolute -inset-1 bg-gradient-to-br from-green-300 to-green-500 rounded-xl opacity-20"></div>
-                        <div class="relative bg-green-50 border-2 border-green-200 rounded-xl p-6 h-full">
-                            <div class="text-center mb-6">
-                                <div class="inline-flex items-center justify-center w-16 h-16 bg-green-500 text-white rounded-xl mb-3 text-2xl">
-                                    ✅
-                                </div>
-                                <h5 class="text-xl font-bold text-green-900">Unified / Early Fusion Training</h5>
-                                <p class="text-sm text-green-700 mt-2">Intelligent unified approach with cross-modal learning</p>
-                            </div>
-                            <div class="space-y-4">
-                                <div class="bg-white border-l-4 border-green-400 p-4 rounded-r-lg shadow-sm">
-                                    <div class="flex items-center space-x-3">
-                                        <div class="flex-shrink-0 w-8 h-8 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-sm font-bold">1</div>
-                                        <div>
-                                            <div class="font-semibold text-sm text-green-900">Unified Encoder</div>
-                                            <div class="text-xs text-green-700">Single transformer handles all modalities</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="bg-white border-l-4 border-green-400 p-4 rounded-r-lg shadow-sm">
-                                    <div class="flex items-center space-x-3">
-                                        <div class="flex-shrink-0 w-8 h-8 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-sm font-bold">2</div>
-                                        <div>
-                                            <div class="font-semibold text-sm text-green-900">Early Fusion</div>
-                                            <div class="text-xs text-green-700">Cross-modal attention from first layer</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="bg-white border-l-4 border-green-400 p-4 rounded-r-lg shadow-sm">
-                                    <div class="flex items-center space-x-3">
-                                        <div class="flex-shrink-0 w-8 h-8 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-sm font-bold">3</div>
-                                        <div>
-                                            <div class="font-semibold text-sm text-green-900">Joint Training</div>
-                                            <div class="text-xs text-green-700">All modalities trained simultaneously</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="bg-white border-l-4 border-green-400 p-4 rounded-r-lg shadow-sm">
-                                    <div class="flex items-center space-x-3">
-                                        <div class="flex-shrink-0 w-8 h-8 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-sm font-bold">4</div>
-                                        <div>
-                                            <div class="font-semibold text-sm text-green-900">Efficient Scaling</div>
-                                            <div class="text-xs text-green-700">40% fewer parameters, faster convergence</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+          </li>
+          <li class="panel panel-neutral-soft p-3 flex items-start gap-3">
+            <span class="chip chip-warning text-xs font-semibold">2</span>
+            <div class="space-y-1">
+              <div class="text-sm font-semibold">Late Fusion</div>
+              <p class="panel-muted text-xs">Combine features at final layers only</p>
             </div>
+          </li>
+          <li class="panel panel-neutral-soft p-3 flex items-start gap-3">
+            <span class="chip chip-warning text-xs font-semibold">3</span>
+            <div class="space-y-1">
+              <div class="text-sm font-semibold">Sequential Training</div>
+              <p class="panel-muted text-xs">Pre-train modalities separately, then fine-tune</p>
+            </div>
+          </li>
+          <li class="panel panel-neutral-soft p-3 flex items-start gap-3">
+            <span class="chip chip-warning text-xs font-semibold">4</span>
+            <div class="space-y-1">
+              <div class="text-sm font-semibold">High Compute Cost</div>
+              <p class="panel-muted text-xs">3x parameters, slower convergence</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+      <div class="panel panel-success panel-emphasis p-6 h-full flex flex-col gap-4">
+        <div class="text-center space-y-2">
+          <span class="chip chip-success text-xs font-semibold uppercase tracking-wide">Optimised</span>
+          <h5 class="text-lg font-semibold">Unified / Early Fusion Training</h5>
+          <p class="panel-muted text-sm">Intelligent unified approach with cross-modal learning</p>
         </div>
-        
-        <!-- Training Pipeline Comparison - Enhanced Visual Design -->
-        <div class="bg-white border border-gray-200 rounded-2xl shadow-lg overflow-hidden">
-            <!-- Section Header -->
-            <div class="bg-gradient-to-r from-green-50 to-blue-50 px-6 md:px-8 py-6 border-b border-gray-200">
-                <div class="flex items-center justify-center md:justify-start">
-                    <div class="flex items-center space-x-4">
-                        <div class="bg-gradient-to-br from-green-500 to-blue-600 text-white w-12 h-12 rounded-xl flex items-center justify-center text-lg font-bold shadow-lg">
-                            2
-                        </div>
-                        <div>
-                            <h4 class="text-xl md:text-2xl font-bold text-gray-900">Training Pipeline Evolution</h4>
-                            <p class="text-sm text-gray-600 mt-1">Traditional late fusion vs unified / early fusion</p>
-                        </div>
-                    </div>
-                </div>
+        <ol class="space-y-3 text-left list-none">
+          <li class="panel panel-neutral-soft p-3 flex items-start gap-3">
+            <span class="chip chip-success text-xs font-semibold">1</span>
+            <div class="space-y-1">
+              <div class="text-sm font-semibold">Unified Encoder</div>
+              <p class="panel-muted text-xs">Single transformer handles all modalities</p>
             </div>
-            
-            <div class="p-6 md:p-8">
-                <!-- Comparison Grid -->
-                <div class="grid md:grid-cols-2 gap-8 mb-8">
-                    <!-- Traditional Approach -->
-                    <div class="relative group">
-                        <div class="absolute -inset-1 bg-gradient-to-br from-red-300 to-red-500 rounded-xl opacity-20"></div>
-                        <div class="relative bg-red-50 border-2 border-red-200 rounded-xl p-6 h-full">
-                            <div class="text-center mb-6">
-                                <div class="inline-flex items-center justify-center w-16 h-16 bg-red-500 text-white rounded-xl mb-3 text-2xl">
-                                    ❌
-                                </div>
-                                <h5 class="text-xl font-bold text-red-900">Traditional Multimodal Training</h5>
-                                <p class="text-sm text-red-700 mt-2">Separate encoders with limited cross-modal learning</p>
-                            </div>
-                            <div class="space-y-4">
-                                <div class="bg-white border-l-4 border-red-400 p-4 rounded-r-lg shadow-sm">
-                                    <div class="flex items-center space-x-3">
-                                        <div class="flex-shrink-0 w-8 h-8 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-sm font-bold">1</div>
-                                        <div>
-                                            <div class="font-semibold text-sm text-red-900">Separate Encoders</div>
-                                            <div class="text-xs text-red-700">Text encoder + Vision encoder + Audio encoder</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="bg-white border-l-4 border-red-400 p-4 rounded-r-lg shadow-sm">
-                                    <div class="flex items-center space-x-3">
-                                        <div class="flex-shrink-0 w-8 h-8 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-sm font-bold">2</div>
-                                        <div>
-                                            <div class="font-semibold text-sm text-red-900">Late Fusion</div>
-                                            <div class="text-xs text-red-700">Combine features at final layers only</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="bg-white border-l-4 border-red-400 p-4 rounded-r-lg shadow-sm">
-                                    <div class="flex items-center space-x-3">
-                                        <div class="flex-shrink-0 w-8 h-8 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-sm font-bold">3</div>
-                                        <div>
-                                            <div class="font-semibold text-sm text-red-900">Sequential Training</div>
-                                            <div class="text-xs text-red-700">Pre-train modalities separately, then fine-tune</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="bg-white border-l-4 border-red-400 p-4 rounded-r-lg shadow-sm">
-                                    <div class="flex items-center space-x-3">
-                                        <div class="flex-shrink-0 w-8 h-8 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-sm font-bold">4</div>
-                                        <div>
-                                            <div class="font-semibold text-sm text-red-900">High Compute Cost</div>
-                                            <div class="text-xs text-red-700">3x parameters, slower convergence</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Unified / Early Fusion Approach -->
-                    <div class="relative group">
-                        <div class="absolute -inset-1 bg-gradient-to-br from-green-300 to-green-500 rounded-xl opacity-20"></div>
-                        <div class="relative bg-green-50 border-2 border-green-200 rounded-xl p-6 h-full">
-                            <div class="text-center mb-6">
-                                <div class="inline-flex items-center justify-center w-16 h-16 bg-green-500 text-white rounded-xl mb-3 text-2xl">
-                                    ✅
-                                </div>
-                                <h5 class="text-xl font-bold text-green-900">Unified / Early Fusion Training</h5>
-                                <p class="text-sm text-green-700 mt-2">Intelligent unified approach with cross-modal learning</p>
-                            </div>
-                            <div class="space-y-4">
-                                <div class="bg-white border-l-4 border-green-400 p-4 rounded-r-lg shadow-sm">
-                                    <div class="flex items-center space-x-3">
-                                        <div class="flex-shrink-0 w-8 h-8 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-sm font-bold">1</div>
-                                        <div>
-                                            <div class="font-semibold text-sm text-green-900">Unified Encoder</div>
-                                            <div class="text-xs text-green-700">Single transformer handles all modalities</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="bg-white border-l-4 border-green-400 p-4 rounded-r-lg shadow-sm">
-                                    <div class="flex items-center space-x-3">
-                                        <div class="flex-shrink-0 w-8 h-8 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-sm font-bold">2</div>
-                                        <div>
-                                            <div class="font-semibold text-sm text-green-900">Early Fusion</div>
-                                            <div class="text-xs text-green-700">Cross-modal attention from first layer</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="bg-white border-l-4 border-green-400 p-4 rounded-r-lg shadow-sm">
-                                    <div class="flex items-center space-x-3">
-                                        <div class="flex-shrink-0 w-8 h-8 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-sm font-bold">3</div>
-                                        <div>
-                                            <div class="font-semibold text-sm text-green-900">Joint Training</div>
-                                            <div class="text-xs text-green-700">All modalities trained simultaneously</div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="bg-white border-l-4 border-green-400 p-4 rounded-r-lg shadow-sm">
-                                    <div class="flex items-center space-x-3">
-                                        <div class="flex-shrink-0 w-8 h-8 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-sm font-bold">4</div>
-                                        <div>
-                                            <div class="font-semibold text-sm text-green-900">Efficient Scaling</div>
-                                            <div class="text-xs text-green-700">40% fewer parameters, faster convergence</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+          </li>
+          <li class="panel panel-neutral-soft p-3 flex items-start gap-3">
+            <span class="chip chip-success text-xs font-semibold">2</span>
+            <div class="space-y-1">
+              <div class="text-sm font-semibold">Early Fusion</div>
+              <p class="panel-muted text-xs">Cross-modal attention from first layer</p>
             </div>
-        </div>
-        
-        <!-- Performance Metrics - Enhanced Dashboard Style -->
+          </li>
+          <li class="panel panel-neutral-soft p-3 flex items-start gap-3">
+            <span class="chip chip-success text-xs font-semibold">3</span>
+            <div class="space-y-1">
+              <div class="text-sm font-semibold">Joint Training</div>
+              <p class="panel-muted text-xs">All modalities trained simultaneously</p>
+            </div>
+          </li>
+          <li class="panel panel-neutral-soft p-3 flex items-start gap-3">
+            <span class="chip chip-success text-xs font-semibold">4</span>
+            <div class="space-y-1">
+              <div class="text-sm font-semibold">Efficient Scaling</div>
+              <p class="panel-muted text-xs">40% fewer parameters, faster convergence</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Performance Metrics - Enhanced Dashboard Style -->
         <div class="bg-white border border-gray-200 rounded-2xl shadow-lg overflow-hidden">
             <!-- Section Header -->
             <div class="bg-gradient-to-r from-orange-50 to-red-50 px-6 md:px-8 py-6 border-b border-gray-200">
@@ -608,9 +489,9 @@ $$\mathcal{L} = -\log\frac{\exp(\text{sim}(z_i, z_j)/\tau)}{\sum_k \exp(\text{si
             <div class="p-6 md:p-8">
                 <div class="grid md:grid-cols-3 gap-6 md:gap-8">
                     <!-- Parameter Efficiency Card -->
-                    <div class="group relative">
+                    <div class="group relative h-full flex">
                         <div class="absolute -inset-1 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl opacity-20 group-hover:opacity-30 transition-opacity"></div>
-                        <div class="relative bg-white border-2 border-blue-100 rounded-xl p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                        <div class="relative flex flex-col h-full flex flex-col h-full bg-white border-2 border-blue-100 rounded-xl p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
                             <div class="text-center mb-6">
                                 <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-xl mb-4 text-2xl">
                                     ⚡
@@ -618,7 +499,7 @@ $$\mathcal{L} = -\log\frac{\exp(\text{sim}(z_i, z_j)/\tau)}{\sum_k \exp(\text{si
                                 <h5 class="text-lg font-bold text-gray-900">Parameter Efficiency</h5>
                             </div>
                             
-                            <div class="space-y-6">
+                            <div class="flex flex-col gap-6 h-full">
                                 <!-- Traditional Multi-encoder Baseline -->
                                 <div class="space-y-3">
                                     <div class="flex justify-between items-center">
@@ -648,7 +529,7 @@ $$\mathcal{L} = -\log\frac{\exp(\text{sim}(z_i, z_j)/\tau)}{\sum_k \exp(\text{si
                                 </div>
                                 
                                 <!-- Summary -->
-                                <div class="bg-green-50 border border-green-200 rounded-lg p-3 text-center">
+                                <div class="bg-green-50 border border-green-200 rounded-lg p-3 text-center mt-auto">
                                     <div class="text-sm font-semibold text-green-800">40% Reduction</div>
                                     <div class="text-xs text-green-600">with better performance</div>
                                 </div>
@@ -657,9 +538,9 @@ $$\mathcal{L} = -\log\frac{\exp(\text{sim}(z_i, z_j)/\tau)}{\sum_k \exp(\text{si
                     </div>
                     
                     <!-- Training Speed Card -->
-                    <div class="group relative">
+                    <div class="group relative h-full flex">
                         <div class="absolute -inset-1 bg-gradient-to-br from-green-400 to-green-600 rounded-xl opacity-20 group-hover:opacity-30 transition-opacity"></div>
-                        <div class="relative bg-white border-2 border-green-100 rounded-xl p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                        <div class="relative flex flex-col h-full bg-white border-2 border-green-100 rounded-xl p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
                             <div class="text-center mb-6">
                                 <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 text-white rounded-xl mb-4 text-2xl">
                                     🚀
@@ -667,7 +548,7 @@ $$\mathcal{L} = -\log\frac{\exp(\text{sim}(z_i, z_j)/\tau)}{\sum_k \exp(\text{si
                                 <h5 class="text-lg font-bold text-gray-900">Training Speed</h5>
                             </div>
                             
-                            <div class="space-y-6">
+                            <div class="flex flex-col gap-6 h-full">
                                 <!-- Traditional Training Speed -->
                                 <div class="space-y-3">
                                     <div class="flex justify-between items-center">
@@ -697,7 +578,7 @@ $$\mathcal{L} = -\log\frac{\exp(\text{sim}(z_i, z_j)/\tau)}{\sum_k \exp(\text{si
                                 </div>
                                 
                                 <!-- Summary -->
-                                <div class="bg-green-50 border border-green-200 rounded-lg p-3 text-center">
+                                <div class="bg-green-50 border border-green-200 rounded-lg p-3 text-center mt-auto">
                                     <div class="text-sm font-semibold text-green-800">35% Faster</div>
                                     <div class="text-xs text-green-600">training convergence</div>
                                 </div>
@@ -706,9 +587,9 @@ $$\mathcal{L} = -\log\frac{\exp(\text{sim}(z_i, z_j)/\tau)}{\sum_k \exp(\text{si
                     </div>
                     
                     <!-- Data Efficiency Card -->
-                    <div class="group relative">
+                    <div class="group relative h-full flex">
                         <div class="absolute -inset-1 bg-gradient-to-br from-purple-400 to-purple-600 rounded-xl opacity-20 group-hover:opacity-30 transition-opacity"></div>
-                        <div class="relative bg-white border-2 border-purple-100 rounded-xl p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+                        <div class="relative flex flex-col h-full flex flex-col h-full bg-white border-2 border-purple-100 rounded-xl p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
                             <div class="text-center mb-6">
                                 <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-xl mb-4 text-2xl">
                                     📊
@@ -716,7 +597,7 @@ $$\mathcal{L} = -\log\frac{\exp(\text{sim}(z_i, z_j)/\tau)}{\sum_k \exp(\text{si
                                 <h5 class="text-lg font-bold text-gray-900">Data Requirements</h5>
                             </div>
                             
-                            <div class="space-y-6">
+                            <div class="flex flex-col gap-6 h-full">
                                 <!-- Supervised Only Data Requirements -->
                                 <div class="space-y-3">
                                     <div class="flex justify-between items-center">
@@ -774,9 +655,9 @@ $$\mathcal{L} = -\log\frac{\exp(\text{sim}(z_i, z_j)/\tau)}{\sum_k \exp(\text{si
                 
                 <div class="q33-tech-grid">
                     <!-- Multimodal Attention Formula -->
-                    <div class="group relative">
+                    <div class="group relative h-full flex">
                         <div class="absolute -inset-1 bg-gradient-to-br from-purple-400 to-purple-600 rounded-xl opacity-20 group-hover:opacity-30 transition-opacity"></div>
-                        <div class="relative bg-white/90 backdrop-blur-sm border-2 border-purple-200 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300">
+                        <div class="relative flex flex-col h-full bg-white/90 backdrop-blur-sm border-2 border-purple-200 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300">
                             <div class="text-center mb-6">
                                 <div class="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-xl mb-3 text-xl">
                                     🎯
@@ -805,9 +686,9 @@ $$\begin{align}
                     </div>
                     
                     <!-- Unified Loss Function -->
-                    <div class="group relative">
+                    <div class="group relative h-full flex">
                         <div class="absolute -inset-1 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl opacity-20 group-hover:opacity-30 transition-opacity"></div>
-                        <div class="relative bg-white/90 backdrop-blur-sm border-2 border-blue-200 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300">
+                        <div class="relative flex flex-col h-full bg-white/90 backdrop-blur-sm border-2 border-blue-200 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300">
                             <div class="text-center mb-6">
                                 <div class="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-xl mb-3 text-xl">
                                     📉
@@ -936,7 +817,7 @@ $$\begin{align}
                     <!-- Conversational AI -->
                     <div class="group relative">
                         <div class="absolute -inset-1 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl opacity-20 group-hover:opacity-30 transition-opacity"></div>
-                        <div class="relative bg-white/90 backdrop-blur-sm border-2 border-blue-200 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300">
+                        <div class="relative flex flex-col h-full bg-white/90 backdrop-blur-sm border-2 border-blue-200 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300">
                             <div class="text-center mb-6">
                                 <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-xl mb-3 text-2xl shadow-lg">
                                     🗣️
@@ -985,7 +866,7 @@ $$\begin{align}
                     <!-- Medical Diagnosis -->
                     <div class="group relative">
                         <div class="absolute -inset-1 bg-gradient-to-br from-purple-400 to-purple-600 rounded-xl opacity-20 group-hover:opacity-30 transition-opacity"></div>
-                        <div class="relative bg-white/90 backdrop-blur-sm border-2 border-purple-200 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300">
+                        <div class="relative flex flex-col h-full bg-white/90 backdrop-blur-sm border-2 border-purple-200 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300">
                             <div class="text-center mb-6">
                                 <div class="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-xl mb-3 text-2xl shadow-lg">
                                     🏥
@@ -1057,3 +938,10 @@ $$\begin{align}
             </div>
         </div>
     </div>
+
+
+
+
+
+
+

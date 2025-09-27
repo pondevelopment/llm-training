@@ -206,26 +206,26 @@ const interactiveScript = () => {
 
                 // --- 2. Architecture Flow Diagram ---
                 const archDiagram = document.createElement('div');
-                archDiagram.className = 'bg-gray-50 p-6 rounded-lg border';
+                archDiagram.className = 'panel panel-neutral panel-emphasis p-6 rounded-lg space-y-4';
                 archDiagram.innerHTML = `
-                    <h5 class="font-semibold text-gray-800 mb-4 text-center">🏗️ ${metrics.strategy.name} Architecture Flow</h5>
+                    <h5 class="text-heading font-semibold text-center">&#x1F3D7;&#xFE0F; ${metrics.strategy.name} Architecture Flow</h5>
                     <div class="flex items-center justify-center space-x-2 md:space-x-4 text-sm flex-wrap">
                         ${metrics.scenario.modalities.map(modality => {
-                            const emoji = modality === 'Text' ? '📝' : modality === 'Vision' ? '🖼️' : modality === 'Audio' ? '🎵' : '🔬';
+                            const emoji = modality === 'Text' ? '&#x1F4DD;' : modality === 'Vision' ? '&#x1F5BC;&#xFE0F;' : modality === 'Audio' ? '&#x1F3B5;' : '&#x1F5E8;&#xFE0F;';
                             return `<div class="text-center p-2">
                                 <div class="text-3xl mb-1">${emoji}</div>
-                                <div class="text-xs text-gray-600">${modality}</div>
+                                <div class="text-xs text-muted">${modality}</div>
                             </div>`;
-                        }).join('<div class="text-gray-400 text-2xl mx-1">→</div>')}
-                        <div class="text-gray-400 text-2xl mx-1">→</div>
-                        <div class="text-center p-2 bg-white rounded-lg border shadow-sm">
-                            <div class="text-3xl mb-1">🧠</div>
-                            <div class="text-xs text-gray-800 font-semibold">${metrics.strategy.name}</div>
+                        }).join('<div class="text-muted text-2xl mx-1">&rarr;</div>')}
+                        <div class="text-muted text-2xl mx-1">&rarr;</div>
+                        <div class="panel panel-neutral-soft p-3 text-center shadow-sm rounded-lg">
+                            <div class="text-3xl mb-1">&#x1F9E0;</div>
+                            <div class="text-xs text-heading font-semibold">${metrics.strategy.name}</div>
                         </div>
-                        <div class="text-gray-400 text-2xl mx-1">→</div>
+                        <div class="text-muted text-2xl mx-1">&rarr;</div>
                         <div class="text-center p-2">
-                            <div class="text-3xl mb-1">✨</div>
-                            <div class="text-xs text-gray-600">Output</div>
+                            <div class="text-3xl mb-1">&#x2728;</div>
+                            <div class="text-xs text-muted">Output</div>
                         </div>
                     </div>
                 `;

@@ -1,94 +1,490 @@
+<style>
+  .q42-metric-stack {
+    display: grid;
+    gap: 0.75rem;
+  }
 
-      <!-- existing wrapper start -->
-      <div class="space-y-6">
-        <div class="bg-gradient-to-r from-fuchsia-50 to-rose-50 p-4 rounded-lg border border-fuchsia-200">
-          <div class="flex flex-wrap items-center gap-2 mb-3 text-xs">
-            <!-- existing preset buttons -->
-            <span class="font-semibold text-gray-700 mr-1">Presets:</span>
-            <button data-preset="balanced" class="px-2 py-0.5 rounded border border-fuchsia-300 bg-white hover:bg-fuchsia-100 transition">Balanced</button>
-            <button data-preset="aggressive" class="px-2 py-0.5 rounded border border-fuchsia-300 bg-white hover:bg-fuchsia-100 transition">Aggressive tails</button>
-            <button data-preset="widehead" class="px-2 py-0.5 rounded border border-fuchsia-300 bg-white hover:bg-fuchsia-100 transition">Wide head</button>
-            <button data-preset="compression" class="px-2 py-0.5 rounded border border-fuchsia-300 bg-white hover:bg-fuchsia-100 transition">High compression</button>
-            <button id="q42-adv-toggle" class="px-2 py-0.5 rounded border border-fuchsia-400 bg-fuchsia-50 hover:bg-fuchsia-100 transition" aria-expanded="false">Show advanced ▾</button>
-            <label class="flex items-center gap-1 ml-2 cursor-pointer select-none"><input id="q42-baseline" type="checkbox" class="scale-90"> <span>Baseline overlay</span></label>
-            <button id="q42-copy" class="px-2 py-0.5 rounded border border-fuchsia-400 bg-white hover:bg-fuchsia-100 text-fuchsia-700">Copy link</button>
-            <button id="q42-export" class="px-2 py-0.5 rounded border border-fuchsia-400 bg-white hover:bg-fuchsia-100 text-fuchsia-700">Export</button>
-            <button id="q42-reset" class="ml-auto px-2 py-0.5 rounded bg-fuchsia-600 text-white text-xs hover:bg-fuchsia-700">Reset</button>
-          </div>
-          <!-- existing controls grid retained below -->
-          <div class="grid md:grid-cols-5 gap-4 text-xs">
-            <div>
-              <label class="font-semibold text-gray-700 flex items-center gap-1">Vocab size V <span title="Total vocabulary size used for full softmax baseline." class="cursor-help text-fuchsia-600">?</span></label>
-              <select id="q42-vocab" class="w-full border rounded p-1 text-xs">
-                <option value="50000" selected>50k</option>
-                <option value="100000">100k</option>
-              </select>
-            </div>
-            <div>
-              <label class="font-semibold text-gray-700 flex items-center gap-1">Zipf exponent s <span title="Higher s = steeper frequency drop; more mass concentrated in head." class="cursor-help text-fuchsia-600">?</span></label>
-              <input id="q42-zipf" type="range" min="1.00" max="1.20" step="0.01" value="1.08" class="w-full" />
-              <div class="text-center mt-1">s=<span id="q42-zipf-val" class="font-mono">1.08</span></div>
-            </div>
-            <div>
-              <label class="font-semibold text-gray-700 flex items-center gap-1">Bucket cutoffs <span title="Defines head, tail1, tail2 boundaries by rank (inclusive)." class="cursor-help text-fuchsia-600">?</span></label>
-              <select id="q42-cutoffs" class="w-full border rounded p-1 text-xs">
-                <option value="5000,20000">5k, 20k</option>
-                <option value="8000,25000">8k, 25k</option>
-                <option value="10000,30000" selected>10k, 30k</option>
-                <option value="15000,45000">15k, 45k</option>
-                <option value="15000,50000">15k, 50k</option>
-                <option value="20000,60000">20k, 60k</option>
-              </select>
-              <div class="text-xs text-gray-500 mt-1">Example: 10k,30k → head=[1..10k], tail1=(10k..30k], tail2=(30k..V]</div>
-            </div>
-            <div id="q42-adv-1" class="hidden">
-              <label class="font-semibold text-gray-700 flex items-center gap-1">Tail shrink (α) <span title="Tails use lower projection dims: d_i = α_i · d." class="cursor-help text-fuchsia-600">?</span></label>
-              <select id="q42-alphas" class="w-full border rounded p-1 text-xs">
-                <option value="0.75,0.50">(0.75, 0.50)</option>
-                <option value="0.50,0.25" selected>(0.50, 0.25)</option>
-                <option value="0.50,0.125">(0.50, 0.125)</option>
-                <option value="0.35,0.15">(0.35, 0.15)</option>
-              </select>
-              <div id="q42-alpha-detail" class="text-xs text-gray-500 mt-1"></div>
-            </div>
-            <div id="q42-adv-2" class="hidden">
-              <label class="font-semibold text-gray-700 flex items-center gap-1">Hidden dim d <span title="Base hidden dimension before projection." class="cursor-help text-fuchsia-600">?</span></label>
-              <select id="q42-dim" class="w-full border rounded p-1 text-xs">
-                <option value="512">512</option>
-                <option value="768">768</option>
-                <option value="1024" selected>1024</option>
-                <option value="1536">1536</option>
-                <option value="2048">2048</option>
-              </select>
-            </div>
-          </div>
-          <p class="text-xs text-gray-600 mt-2"><b>Tip:</b> Start with presets. Use “Show advanced” for α & d tuning. Toggle baseline to visualize full softmax reference.</p>
-        </div>
-  <div>
-          <!-- existing panels unchanged up to coverage panel -->
-          <div class="bg-white border rounded-lg p-4">
-            <h5 class="font-semibold text-gray-800 mb-2">🧱 Bucket Coverage</h5>
-            <div id="q42-coverage" class="text-xs text-gray-700 space-y-2" aria-live="polite"></div>
-            <div class="mt-3">
-              <div class="flex items-center justify-between mb-1"><span class="font-semibold text-gray-700 text-xs">Zipf distribution</span><span id="q42-spark-legend" class="text-xs text-gray-500"></span></div>
-              <div id="q42-spark" class="relative h-16 bg-gradient-to-b from-white to-slate-50 border rounded overflow-hidden"></div>
-              <div id="q42-spark-info" class="mt-1 text-xs text-gray-500"></div>
-            </div>
-          </div>
-        </div>
-        <!-- existing explanation & compare panels remain below -->
-        <div class="bg-indigo-50 border border-indigo-200 rounded-lg p-4">
-          <h5 class="font-semibold text-indigo-900 mb-1">🔎 Explanation</h5>
-          <div id="q42-explain" class="text-xs text-indigo-800" aria-live="polite"></div>
-        </div>
-        <div class="bg-white border rounded-lg p-4">
-          <h5 class="font-semibold text-gray-800 mb-2">🧾 Scenario Compare</h5>
-          <div class="flex flex-wrap gap-2 mb-2">
-            <button id="q42-freeze" class="px-2 py-1 text-xs rounded bg-gray-800 text-white hover:bg-gray-700">Freeze current</button>
-            <button id="q42-clear" class="px-2 py-1 text-xs rounded border border-gray-300 hover:bg-gray-50">Clear</button>
-          </div>
-          <div id="q42-compare" class="text-xs space-y-2"></div>
-          <div id="q42-sensitivity" class="text-xs text-gray-600 mt-3"></div>
-        </div>
+  .q42-meter {
+    --q42-fill: var(--color-path-foundations-strong);
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding: 0.75rem;
+    border-radius: 0.85rem;
+    background: var(--color-card);
+    border: 1px solid color-mix(in srgb, var(--color-border-subtle) 80%, transparent 20%);
+    color: var(--color-body);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--color-border-subtle) 25%, transparent);
+  }
+
+  html.dark .q42-meter {
+    background: color-mix(in srgb, var(--color-card) 70%, transparent 30%);
+    border-color: color-mix(in srgb, var(--color-border) 55%, transparent 45%);
+    color: color-mix(in srgb, #ffffff 90%, var(--color-body) 10%);
+  }
+
+  .q42-meter-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 600;
+    font-size: 0.75rem;
+    color: var(--color-heading);
+  }
+
+  html.dark .q42-meter-header {
+    color: color-mix(in srgb, #ffffff 92%, var(--color-heading) 8%);
+  }
+
+  .q42-meter-track {
+    position: relative;
+    height: 0.6rem;
+    border-radius: 9999px;
+    background: color-mix(in srgb, var(--q42-fill) 14%, var(--color-card) 86%);
+    overflow: hidden;
+  }
+
+  html.dark .q42-meter-track {
+    background: color-mix(in srgb, var(--q42-fill) 26%, transparent 74%);
+  }
+
+  .q42-meter-fill {
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--q42-fill);
+    transition: width .25s ease, background-color .25s ease;
+  }
+
+  .q42-meter-ghost {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: color-mix(in srgb, var(--q42-fill) 26%, transparent 74%);
+    opacity: 0.35;
+  }
+
+  .q42-meter-helper {
+    font-size: 0.7rem;
+    color: var(--color-muted);
+  }
+
+  html.dark .q42-meter-helper {
+    color: var(--color-muted-soft);
+  }
+
+  .q42-meter[data-tone="emerald"] { --q42-fill: var(--tone-emerald-strong); }
+  .q42-meter[data-tone="amber"] { --q42-fill: var(--tone-amber-strong); }
+  .q42-meter[data-tone="sky"] { --q42-fill: var(--tone-sky-strong); }
+  .q42-meter[data-tone="teal"] { --q42-fill: var(--color-path-alignment-strong); }
+  .q42-meter[data-tone="head"] { --q42-fill: var(--tone-indigo-strong); }
+  .q42-meter[data-tone="tail1"] { --q42-fill: var(--tone-purple-strong); }
+  .q42-meter[data-tone="tail2"] { --q42-fill: var(--tone-rose-strong); }
+
+  .q42-summary {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem 1.25rem;
+    font-size: 0.75rem;
+    color: var(--color-muted);
+  }
+
+  html.dark .q42-summary {
+    color: var(--color-muted-soft);
+  }
+
+  .q42-summary span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+
+  .q42-equations {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    font-size: 0.75rem;
+  }
+
+  .q42-equations .font-mono {
+    font-size: 0.7rem;
+    line-height: 1.35;
+  }
+
+  .q42-breakdown-grid {
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  @media (min-width: 768px) {
+  .q42-breakdown-grid {
+    display: grid;
+    gap: 1rem;
+    margin-top: 0.85rem;
+  }
+
+  @media (min-width: 768px) {
+    .q42-breakdown-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .q42-breakdown-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    border-radius: 1rem;
+    background: color-mix(in srgb, var(--panel-bg) 92%, transparent 8%);
+    border: 1px solid color-mix(in srgb, var(--panel-border) 80%, transparent 20%);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--panel-border) 25%, transparent 75%);
+  }
+
+  html.dark .q42-breakdown-card {
+    background: color-mix(in srgb, var(--panel-bg) 72%, transparent 28%);
+    border-color: color-mix(in srgb, var(--panel-border) 65%, transparent 35%);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--panel-border) 35%, transparent 65%);
+  }
+
+  .q42-breakdown-title {
+    font-weight: 600;
+    color: var(--color-heading);
+    font-size: 0.78rem;
+  }
+
+  html.dark .q42-breakdown-title {
+    color: color-mix(in srgb, #ffffff 92%, var(--color-heading) 8%);
+  }
+
+  .q42-breakdown-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .q42-breakdown-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .q42-breakdown-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-muted);
+  }
+
+  .q42-breakdown-value {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.2rem;
+    font-weight: 600;
+    color: var(--color-heading);
+  }
+
+  html.dark .q42-breakdown-value {
+    color: var(--color-body);
+  }
+
+  .q42-breakdown-value-main {
+    font-family: var(--font-mono, "JetBrains Mono", "Fira Code", monospace);
+    font-size: 0.95rem;
+  }
+
+  .q42-breakdown-note {
+    font-size: 0.7rem;
+    font-weight: 500;
+    color: var(--color-muted);
+  }
+
+  html.dark .q42-breakdown-note {
+    color: var(--color-muted-soft);
+  }
+
+  .q42-table-wrapper {
+    overflow-x: auto;
+  }
+
+  .q42-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.72rem;
+    background: var(--color-card);
+    border: 1px solid color-mix(in srgb, var(--color-border-subtle) 85%, transparent 15%);
+  }
+
+  .q42-table th,
+  .q42-table td {
+    padding: 0.45rem 0.55rem;
+  }
+
+  .q42-table th {
+    border-top: none;
+    text-align: left;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    font-size: 0.68rem;
+    color: var(--color-muted);
+    background: color-mix(in srgb, var(--color-subtle-bg) 70%, var(--color-card) 30%);
+  }
+
+  .q42-table td {
+    border-top: 1px solid color-mix(in srgb, var(--color-border-subtle) 75%, transparent 25%);
+    color: var(--color-body);
+  }
+
+  html.dark .q42-table {
+    background: color-mix(in srgb, var(--color-card) 65%, transparent 35%);
+    border-color: color-mix(in srgb, var(--color-border) 60%, transparent 40%);
+  }
+
+  html.dark .q42-table th {
+    color: color-mix(in srgb, #ffffff 86%, var(--color-muted) 14%);
+    background: color-mix(in srgb, var(--color-border) 32%, transparent 68%);
+  }
+
+  html.dark .q42-table td {
+    border-top: 1px solid color-mix(in srgb, var(--color-border) 55%, transparent 45%);
+    color: color-mix(in srgb, #ffffff 92%, var(--color-body) 8%);
+  }
+
+  .q42-row-baseline {
+    background: color-mix(in srgb, var(--tone-indigo-strong) 10%, transparent 90%);
+  }
+
+  html.dark .q42-row-baseline {
+    background: color-mix(in srgb, var(--tone-indigo-strong) 18%, transparent 82%);
+  }
+
+  .q42-baseline-banner {
+    margin-top: 0.5rem;
+    padding: 0.45rem 0.65rem;
+    border-radius: 0.65rem;
+    background: color-mix(in srgb, var(--color-subtle-bg) 70%, transparent 30%);
+    border: 1px solid color-mix(in srgb, var(--color-border-subtle) 80%, transparent 20%);
+    font-size: 0.72rem;
+    color: var(--color-muted);
+  }
+
+  html.dark .q42-baseline-banner {
+    background: color-mix(in srgb, #1f2937 70%, transparent 30%);
+    border-color: color-mix(in srgb, var(--color-border) 55%, transparent 45%);
+    color: var(--color-muted-soft);
+  }
+
+  .q42-highlight {
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-path-foundations-strong) 55%, transparent 45%);
+    border-radius: 0.9rem;
+  }
+
+  html.dark .q42-highlight {
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-path-foundations-strong) 65%, transparent 35%);
+  }
+
+  .q42-spark {
+    position: relative;
+    background: var(--color-card);
+    border: 1px solid color-mix(in srgb, var(--color-border-subtle) 80%, transparent 20%);
+    cursor: crosshair;
+  }
+
+  html.dark .q42-spark {
+    background: color-mix(in srgb, var(--color-card) 70%, transparent 30%);
+    border-color: color-mix(in srgb, var(--color-border) 55%, transparent 45%);
+  }
+
+  .q42-spark-key {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 0.85rem;
+    font-size: 0.72rem;
+    color: var(--color-muted);
+  }
+
+  html.dark .q42-spark-key {
+    color: var(--color-muted-soft);
+  }
+
+  .q42-spark-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.15rem 0.45rem 0.15rem 0.25rem;
+    border-radius: 9999px;
+    transition: color .2s ease, background-color .2s ease, font-weight .2s ease;
+  }
+
+  .q42-spark-chip::before {
+    content: '';
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 9999px;
+    background: currentColor;
+    opacity: 0.65;
+  }
+
+  .q42-spark-chip[data-spark-chip="head"]::before {
+    background: color-mix(in srgb, var(--tone-indigo-strong) 78%, transparent 22%);
+  }
+  .q42-spark-chip[data-spark-chip="tail1"]::before {
+    background: color-mix(in srgb, var(--tone-purple-strong) 78%, transparent 22%);
+  }
+  .q42-spark-chip[data-spark-chip="tail2"]::before {
+    background: color-mix(in srgb, var(--tone-rose-strong) 78%, transparent 22%);
+  }
+
+  .q42-spark-chip.is-active {
+    color: var(--color-heading);
+    background: color-mix(in srgb, var(--color-subtle-bg) 55%, transparent 45%);
+    font-weight: 600;
+  }
+
+  html.dark .q42-spark-chip.is-active {
+    color: color-mix(in srgb, #ffffff 92%, var(--color-heading) 8%);
+    background: color-mix(in srgb, var(--color-border) 45%, transparent 55%);
+  }
+
+  .q42-spark-info {
+    font-size: 0.72rem;
+    color: var(--color-muted);
+    min-height: 1.2rem;
+  }
+
+  html.dark .q42-spark-info {
+    color: var(--color-muted-soft);
+  }
+
+  .q42-meter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .q42-table td .font-mono {
+    font-size: 0.72rem;
+  }
+
+  .q42-slider {
+    accent-color: var(--color-path-foundations-strong);
+  }
+
+  html.dark .q42-slider {
+    accent-color: color-mix(in srgb, var(--color-path-foundations-strong) 85%, #ffffff 15%);
+  }
+</style>
+<div class="space-y-6" id="q42-interactive-root">
+  <div class="panel panel-info p-4 space-y-4">
+    <div class="flex flex-wrap items-center gap-2 text-xs">
+      <span class="font-semibold text-heading">Presets:</span>
+      <button type="button" data-preset="balanced" class="chip chip-info text-xs cursor-pointer q42-preset">Balanced</button>
+      <button type="button" data-preset="aggressive" class="chip chip-info text-xs cursor-pointer q42-preset">Aggressive tails</button>
+      <button type="button" data-preset="widehead" class="chip chip-info text-xs cursor-pointer q42-preset">Wide head</button>
+      <button type="button" data-preset="compression" class="chip chip-info text-xs cursor-pointer q42-preset">High compression</button>
+      <button type="button" id="q42-adv-toggle" class="chip chip-neutral text-xs cursor-pointer q42-advanced-toggle" aria-expanded="false">Show advanced ▾</button>
+    </div>
+    <div class="flex flex-wrap items-center gap-2 text-xs">
+      <label class="flex items-center gap-2 text-xs text-muted">
+        <input id="q42-baseline" type="checkbox" class="accent-current scale-90">
+        <span>Baseline overlay</span>
+      </label>
+      <div class="flex-1"></div>
+      <button type="button" id="q42-copy" class="chip chip-neutral text-xs cursor-pointer">Copy link</button>
+      <button type="button" id="q42-export" class="chip chip-neutral text-xs cursor-pointer">Export</button>
+      <button type="button" id="q42-reset" class="chip chip-accent text-xs cursor-pointer">Reset</button>
+    </div>
+    <div class="grid md:grid-cols-5 gap-4 text-xs">
+      <div class="space-y-2">
+        <label class="flex items-center gap-2 text-sm font-semibold text-heading">Vocab size V <span class="text-accent cursor-help" title="Total vocabulary size used for full softmax baseline.">?</span></label>
+        <select id="q42-vocab" class="q9-select text-xs">
+          <option value="50000" selected>50k</option>
+          <option value="100000">100k</option>
+        </select>
       </div>
-    
+      <div class="space-y-2">
+        <label class="flex items-center gap-2 text-sm font-semibold text-heading">Zipf exponent s <span class="text-accent cursor-help" title="Higher s = steeper frequency drop; more mass concentrated in head.">?</span></label>
+        <input id="q42-zipf" type="range" min="1.00" max="1.20" step="0.01" value="1.08" class="w-full q42-slider">
+        <div class="text-center text-xs text-muted">s=<span id="q42-zipf-val" class="font-mono text-heading">1.08</span></div>
+      </div>
+      <div class="space-y-2">
+        <label class="flex items-center gap-2 text-sm font-semibold text-heading">Bucket cutoffs <span class="text-accent cursor-help" title="Defines head, tail 1, tail 2 boundaries by rank (inclusive).">?</span></label>
+        <select id="q42-cutoffs" class="q9-select text-xs">
+          <option value="5000,20000">5k, 20k</option>
+          <option value="8000,25000">8k, 25k</option>
+          <option value="10000,30000" selected>10k, 30k</option>
+          <option value="15000,45000">15k, 45k</option>
+          <option value="15000,50000">15k, 50k</option>
+          <option value="20000,60000">20k, 60k</option>
+        </select>
+        <p class="small-caption panel-muted">Example: 10k, 30k → head = [1..10k], tail 1 = (10k..30k], tail 2 = (30k..V]</p>
+      </div>
+      <div id="q42-adv-1" class="hidden space-y-2">
+        <label class="flex items-center gap-2 text-sm font-semibold text-heading">Tail shrink (α) <span class="text-accent cursor-help" title="Tails use lower projection dims: d_i = α_i · d.">?</span></label>
+        <select id="q42-alphas" class="q9-select text-xs">
+          <option value="0.75,0.50">(0.75, 0.50)</option>
+          <option value="0.50,0.25" selected>(0.50, 0.25)</option>
+          <option value="0.50,0.125">(0.50, 0.125)</option>
+          <option value="0.35,0.15">(0.35, 0.15)</option>
+        </select>
+        <div id="q42-alpha-detail" class="small-caption panel-muted"></div>
+      </div>
+      <div id="q42-adv-2" class="hidden space-y-2">
+        <label class="flex items-center gap-2 text-sm font-semibold text-heading">Hidden dim d <span class="text-accent cursor-help" title="Base hidden dimension before projection.">?</span></label>
+        <select id="q42-dim" class="q9-select text-xs">
+          <option value="512">512</option>
+          <option value="768">768</option>
+          <option value="1024" selected>1024</option>
+          <option value="1536">1536</option>
+          <option value="2048">2048</option>
+        </select>
+      </div>
+    </div>
+    <p class="small-caption panel-muted"><strong>Tip:</strong> Start with presets. Use “Show advanced” for α &amp; d tuning. Toggle the baseline overlay to visualize the full softmax reference.</p>
+  </div>
+
+  <div class="panel panel-neutral p-4 space-y-3">
+    <h5 class="font-semibold text-heading text-sm">📈 Adaptive Softmax vs Baseline</h5>
+    <div id="q42-results" class="text-xs space-y-1" aria-live="polite"></div>
+    <div id="q42-metrics" class="q42-metric-stack space-y-3 text-xs"></div>
+  </div>
+
+  <div class="panel panel-neutral p-4 space-y-3">
+    <div class="flex items-center justify-between">
+      <h5 class="font-semibold text-heading text-sm">🧱 Bucket Coverage</h5>
+      <span id="q42-spark-legend" class="text-xs text-muted"></span>
+    </div>
+    <div id="q42-coverage" class="q42-meter-group text-xs space-y-2" aria-live="polite"></div>
+    <div class="space-y-3">
+      <div id="q42-spark" class="q42-spark h-16 rounded-lg overflow-hidden"></div>
+      <div class="q42-spark-key">
+        <span class="q42-spark-chip" data-spark-chip="head">Head ranks</span>
+        <span class="q42-spark-chip" data-spark-chip="tail1">Tail 1 ranks</span>
+        <span class="q42-spark-chip" data-spark-chip="tail2">Tail 2 ranks</span>
+      </div>
+      <div id="q42-spark-info" class="q42-spark-info text-xs"></div>
+    </div>
+  </div>
+
+  <div class="panel panel-info p-4 space-y-2">
+    <h5 class="font-semibold text-heading text-sm">🔍 Explanation</h5>
+    <div id="q42-explain" class="text-xs space-y-2" aria-live="polite"></div>
+  </div>
+
+  <div class="panel panel-neutral p-4 space-y-3">
+    <div class="flex flex-wrap items-center gap-2">
+      <h5 class="font-semibold text-heading text-sm flex-1">🗂️ Scenario Compare</h5>
+      <button id="q42-freeze" type="button" class="chip chip-info text-xs cursor-pointer">Freeze current</button>
+      <button id="q42-clear" type="button" class="chip chip-neutral text-xs cursor-pointer">Clear</button>
+    </div>
+    <div id="q42-compare" class="text-xs space-y-2"></div>
+    <div id="q42-sensitivity" class="text-xs text-muted"></div>
+  </div>
+</div>
+
+

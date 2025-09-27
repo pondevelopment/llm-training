@@ -6,6 +6,40 @@ const interactiveScript = () => {
       const sparkEl = document.getElementById('q42-spark');
       const sparkInfoEl = document.getElementById('q42-spark-info');
       const sparkLegend = document.getElementById('q42-spark-legend');
+      const sparkChips = Array.from(document.querySelectorAll('[data-spark-chip]'));
+      const highlightSparkChip = (tone) => {
+        sparkChips.forEach(chip => {
+          const isActive = !!tone && chip.dataset.sparkChip === tone;
+          if (isActive) {
+            chip.classList.add('is-active');
+            chip.setAttribute('aria-current', 'true');
+          } else {
+            chip.classList.remove('is-active');
+            chip.removeAttribute('aria-current');
+          }
+        });
+      };
+      // Persist default sparkline message even if dataset is unsupported
+      let sparkInfoDefaultText = '';
+      const setSparkInfoDefault = (value) => {
+        sparkInfoDefaultText = value;
+        if (!sparkInfoEl) return;
+        if (sparkInfoEl.dataset) {
+          sparkInfoEl.dataset.default = value;
+        } else {
+          sparkInfoEl.setAttribute('data-default', value);
+        }
+      };
+
+      const getSparkInfoDefault = () => {
+        if (!sparkInfoEl) return sparkInfoDefaultText;
+        if (sparkInfoEl.dataset && 'default' in sparkInfoEl.dataset) {
+          return sparkInfoEl.dataset.default;
+        }
+        const fallback = sparkInfoEl.getAttribute('data-default');
+        return fallback || sparkInfoDefaultText;
+      };
+
       // existing already-declared elements
       const vocabEl = document.getElementById('q42-vocab');
       const zipfEl = document.getElementById('q42-zipf');
@@ -70,24 +104,35 @@ const interactiveScript = () => {
         if(zipfCache.size > 80){ zipfCache.clear(); }
         return res;
       }
-      function bar(label, val, color, ghostBaseline){
-        const pctVal = Math.max(0, Math.min(100, Math.round(val*100)));
-        if(ghostBaseline){
-          return `<div class=\"relative\">\n  <div class=\"flex justify-between text-xs mb-0.5\"><span>${label}</span><span>${pctVal}%</span></div>\n  <div class=\"w-full h-3 relative rounded bg-gray-100 overflow-hidden\"><div class=\"absolute inset-0 bg-${color}-200 opacity-40\"></div><div class=\"h-3 bg-${color}-600 relative transition-all" style="width:${pctVal}%"></div></div>\n</div>`;
-        }
-        return `<div>\n  <div class=\"flex justify-between text-xs mb-0.5\"><span>${label}</span><span>${pctVal}%</span></div>\n  <div class=\"w-full h-3 bg-${color}-200 rounded\"><div class=\"h-3 bg-${color}-600 transition-all" style="width:${pctVal}%"></div></div>\n</div>`;
+      function meter(label, fraction, tone, opts = {}) {
+        const pct = Math.max(0, Math.min(100, fraction * 100));
+        const rightLabel = opts.rightLabel ?? `${Math.round(pct)}%`;
+        const helper = opts.helper ? `<div class="q42-meter-helper">${opts.helper}</div>` : '';
+        const ghostLayer = opts.ghost ? '<div class="q42-meter-ghost"></div>' : '';
+        return `<div class="q42-meter" data-tone="${tone}">
+  <div class="q42-meter-header"><span>${label}</span><span>${rightLabel}</span></div>
+  <div class="q42-meter-track">${ghostLayer}<div class="q42-meter-fill" style="width:${pct}%"></div></div>
+  ${helper}
+</div>`;
       }
-      function ratioBar(label, ratio, color){
-        const pctVal = Math.max(0, Math.min(100, Math.round(ratio*100)));
-        return `<div>\n  <div class=\"flex justify-between text-xs mb-0.5\"><span>${label}</span><span>${(ratio*100).toFixed(0)}% (×${ratio.toFixed(2)})</span></div>\n  <div class=\"w-full h-3 bg-${color}-200 rounded\"><div class=\"h-3 bg-${color}-600 transition-all" style="width:${pctVal}%"></div></div>\n</div>`;
-      }
-      function coverageRow(label, mass, color){
-        const pctVal = (mass*100).toFixed(1);
-        const tokensPerM = Math.round(mass * 1_000_000);
-        return `<div class=\"space-y-0.5\">\n  <div class=\"flex justify-between text-xs\"><span>${label}</span><span>${pctVal}% (~${fmt(tokensPerM)} / 1M)</span></div>\n  <div class=\"w-full h-3 bg-${color}-200 rounded\"><div class=\"h-3 bg-${color}-600 transition-all" style="width:${Math.min(100, Math.max(0, mass*100))}%"></div></div>\n</div>`;
-      }
-      function highlight(el){ if(!el) return; el.classList.add('ring','ring-fuchsia-300'); setTimeout(()=>el.classList.remove('ring','ring-fuchsia-300'),400); }
 
+      function ratioMeter(label, ratio, tone) {
+        return meter(label, ratio, tone, { rightLabel: `${(ratio * 100).toFixed(0)}% (×${ratio.toFixed(2)})` });
+      }
+
+      function coverageRow(label, mass, tone) {
+        const perMillion = Math.round(mass * 1_000_000);
+        return meter(label, mass, tone, {
+          rightLabel: `${(mass * 100).toFixed(1)}%`,
+          helper: `≈ ${fmt(perMillion)} tokens / 1M`
+        });
+      }
+
+      function highlight(el) {
+        if (!el) return;
+        el.classList.add('q42-highlight');
+        setTimeout(() => el.classList.remove('q42-highlight'), 400);
+      }
       function applyPreset(name){
         switch(name){
           case 'balanced': cutoffsEl.value = '10000,30000'; alphasEl.value = '0.50,0.25'; dimEl.value = '1024'; break;
@@ -119,48 +164,58 @@ const interactiveScript = () => {
 
       let currentSnapshot = null;
 
-      function renderCompare(){
-        if(!compareEl) return;
-        if(frozen.length === 0){ compareEl.innerHTML = '<div class="text-gray-500">No frozen scenarios yet.</div>'; return; }
+      function renderCompare() {
+        if (!compareEl) return;
+        if (frozen.length === 0) {
+          compareEl.innerHTML = '<div class="small-caption panel-muted">No frozen scenarios yet.</div>';
+          return;
+        }
         const base = frozen[0];
-        compareEl.innerHTML = `<div class=\"overflow-x-auto\"><table class=\"min-w-full text-left border border-gray-200\">
-          <thead class=\"bg-gray-50\"><tr>
-            <th class=\"px-2 py-1 text-xs\">#</th>
-            <th class=\"px-2 py-1 text-xs\">Cutoffs</th>
-            <th class=\"px-2 py-1 text-xs\">α</th>
-            <th class=\"px-2 py-1 text-xs\">d</th>
-            <th class=\"px-2 py-1 text-xs\">Rel Compute</th>
-            <th class=\"px-2 py-1 text-xs\">Rel Params</th>
-            <th class=\"px-2 py-1 text-xs\">Speed-up</th>
-            <th class=\"px-2 py-1 text-xs\">Param Save</th>
-          </tr></thead>
-          <tbody>${frozen.map((f,i)=>{
-            const dComp = (f.relCompute - base.relCompute);
-            const dParam = (f.relParams - base.relParams);
-            return `<tr class=\"${i===0?'bg-white':'bg-white'}\">
-              <td class=\"px-2 py-1 align-top font-mono\">${i+1}</td>
-              <td class=\"px-2 py-1 align-top\">${f.head}|${f.tail1}|${f.tail2}</td>
-              <td class=\"px-2 py-1 align-top font-mono\">${f.a1},${f.a2}</td>
-              <td class=\"px-2 py-1 align-top font-mono\">${f.d}</td>
-              <td class=\"px-2 py-1 align-top font-mono\">${f.relCompute.toFixed(3)}${i>0?` <span class=\\"${dComp<0?'text-emerald-600':'text-rose-600'}\\">(${dComp>=0?'+':''}${dComp.toFixed(3)})</span>`:''}</td>
-              <td class=\"px-2 py-1 align-top font-mono\">${f.relParams.toFixed(3)}${i>0?` <span class=\\"${dParam<0?'text-emerald-600':'text-rose-600'}\\">(${dParam>=0?'+':''}${dParam.toFixed(3)})</span>`:''}</td>
-              <td class=\"px-2 py-1 align-top font-mono\">${f.speedup.toFixed(2)}×</td>
-              <td class=\"px-2 py-1 align-top font-mono\">${(f.paramSave*100).toFixed(1)}%</td>
-            </tr>`;
-          }).join('')}</tbody></table></div>`;
+        compareEl.innerHTML = `<div class='q42-table-wrapper'>
+  <table class='q42-table'>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Cutoffs</th>
+        <th>α</th>
+        <th>d</th>
+        <th>Rel compute</th>
+        <th>Rel params</th>
+        <th>Speed-up</th>
+        <th>Param save</th>
+      </tr>
+    </thead>
+    <tbody>${frozen.map((f, i) => {
+      const dComp = f.relCompute - base.relCompute;
+      const dParam = f.relParams - base.relParams;
+      const compDiff = i > 0 ? ` <span class='${dComp < 0 ? 'text-success' : 'text-danger'}'>(${dComp >= 0 ? '+' : ''}${dComp.toFixed(3)})</span>` : '';
+      const paramDiff = i > 0 ? ` <span class='${dParam < 0 ? 'text-success' : 'text-danger'}'>(${dParam >= 0 ? '+' : ''}${dParam.toFixed(3)})</span>` : '';
+      return `<tr class='${i === 0 ? 'q42-row-baseline' : ''}'>
+        <td class='font-mono'>${i + 1}</td>
+        <td>${f.head}|${f.tail1}|${f.tail2}</td>
+        <td class='font-mono'>${f.a1}, ${f.a2}</td>
+        <td class='font-mono'>${f.d}</td>
+        <td class='font-mono'>${f.relCompute.toFixed(3)}${compDiff}</td>
+        <td class='font-mono'>${f.relParams.toFixed(3)}${paramDiff}</td>
+        <td class='font-mono'>${f.speedup.toFixed(2)}×</td>
+        <td class='font-mono'>${(f.paramSave * 100).toFixed(1)}%</td>
+      </tr>`;
+    }).join('')}
+    </tbody>
+  </table>
+</div>`;
       }
-
       function sensitivityAdvice(computeHead, computeTail1, computeTail2, paramHead, paramTail1, paramTail2, paramClusters){
         const computeParts = [
           {k:'Head', v:computeHead, hint:'Reduce head cutoff or increase tail splits.'},
-          {k:'Tail1', v:computeTail1, hint:'Lower α₁ or narrow tail1 cutoff range.'},
-          {k:'Tail2', v:computeTail2, hint:'Lower α₂ or widen head/tail1 to shrink tail2.'}
+          {k:'Tail 1', v:computeTail1, hint:'Lower α₁ or narrow tail 1 cutoff range.'},
+          {k:'Tail 2', v:computeTail2, hint:'Lower α₂ or widen head/tail 1 to shrink tail 2.'}
         ];
         const top = computeParts.sort((a,b)=>b.v-a.v)[0];
         const paramParts = [
           {k:'Head', v:paramHead, hint:'Reduce head cutoff.'},
-          {k:'Tail1', v:paramTail1, hint:'Lower α₁ or reduce tail1 size.'},
-          {k:'Tail2', v:paramTail2, hint:'Lower α₂ or reduce tail2 size.'},
+          {k:'Tail 1', v:paramTail1, hint:'Lower α₁ or reduce tail 1 size.'},
+          {k:'Tail 2', v:paramTail2, hint:'Lower α₂ or reduce tail 2 size.'},
           {k:'Clusters', v:paramClusters, hint:'Reduce number of tails (merge) or head size.'}
         ].sort((a,b)=>b.v-a.v);
         const pTop = paramParts[0];
@@ -198,20 +253,20 @@ const interactiveScript = () => {
 
         // Coverage (always present)
         coverageEl.innerHTML = [
-          coverageRow(`Head (1..${head}) mass`, pHead, 'indigo'),
-          coverageRow(`Tail1 (${head+1}..${c2}) mass`, pTail1, 'violet'),
-          coverageRow(`Tail2 (${c2+1}..${V}) mass`, pTail2, 'sky')
+          coverageRow(`Head (1..${head}) mass`, pHead, 'head'),
+          coverageRow(`Tail 1 (${head+1}..${c2}) mass`, pTail1, 'tail1'),
+          coverageRow(`Tail 2 (${c2+1}..${V}) mass`, pTail2, 'tail2')
         ].join('');
 
         // Results (optional section)
-        if(resultsEl){
+        if (resultsEl) {
           resultsEl.innerHTML = `
-            <div>Cutoffs → head=<b>${head}</b>, tail1=<b>${tail1}</b>, tail2=<b>${tail2}</b>, clusters=<b>${C}</b></div>
-            <div>Tail dims → α₁=<span class=\"font-mono\">${a1}</span> (d₁=${tail1Dim}), α₂=<span class=\"font-mono\">${a2}</span> (d₂=${tail2Dim})</div>
-            <div>Hidden dim d=<span class=\"font-mono\">${d}</span>, V=<span class=\"font-mono\">${V.toLocaleString()}</span></div>
+            <div>Cutoffs → head=<strong>${head}</strong>, tail 1=<strong>${tail1}</strong>, tail 2=<strong>${tail2}</strong>, clusters=<strong>${C}</strong></div>
+            <div>Tail dims → α₁=<span class="font-mono">${a1}</span> (d₁=${tail1Dim}), α₂=<span class="font-mono">${a2}</span> (d₂=${tail2Dim})</div>
+            <div>Hidden dim d=<span class="font-mono">${d}</span>, V=<span class="font-mono">${V.toLocaleString()}</span></div>
           `;
         }
-        alphaDetailEl && (alphaDetailEl.textContent = `Tail1 dim = α₁·d = ${a1}×${d} = ${tail1Dim}; Tail2 dim = α₂·d = ${a2}×${d} = ${tail2Dim}`);
+        alphaDetailEl && (alphaDetailEl.textContent = `Tail 1 dim = α₁·d = ${a1}×${d} = ${tail1Dim}; Tail 2 dim = α₂·d = ${a2}×${d} = ${tail2Dim}`);
 
         // Relative metrics
         const relCompute = Math.min(1, Cadapt / Cfull);
@@ -220,55 +275,70 @@ const interactiveScript = () => {
         const Cadapt0 = BASE_D * (head + C) + (pTail1 * (a1*BASE_D) * tail1) + (pTail2 * (a2*BASE_D) * tail2);
         const Padapt0 = BASE_D * head + (a1*BASE_D) * tail1 + (a2*BASE_D) * tail2 + BASE_D * C;
 
-        const eqCompute = `C_adapt = d*(V_h + C) + p₁*(α₁ d)*V₁ + p₂*(α₂ d)*V₂ = ${d}*(${head}+${C}) + ${pTail1.toFixed(3)}*(${a1}*${d})*${tail1} + ${pTail2.toFixed(3)}*(${a2}*${d})*${tail2} ≈ ${fmt(Cadapt)}`;
-        const eqParams = `P_adapt = d*V_h + (α₁ d)*V₁ + (α₂ d)*V₂ + d*C = ${d}*${head} + (${a1}*${d})*${tail1} + (${a2}*${d})*${tail2} + ${d}*${C} ≈ ${fmt(Padapt)}`;
+        const eqCompute = `C_adapt = d·(V_h + C) + p₁·(α₁ d)·V₁ + p₂·(α₂ d)·V₂ = ${d}·(${head}+${C}) + ${pTail1.toFixed(3)}·(${a1}·${d})·${tail1} + ${pTail2.toFixed(3)}·(${a2}·${d})·${tail2} ≈ ${fmt(Cadapt)}`;
+        const eqParams = `P_adapt = d·V_h + (α₁ d)·V₁ + (α₂ d)·V₂ + d·C = ${d}·${head} + (${a1}·${d})·${tail1} + (${a2}·${d})·${tail2} + ${d}·${C} ≈ ${fmt(Padapt)}`;
 
         const computeBreak = [
           { label: 'Head + clusters', val: computeHead },
-          { label: 'Tail1 expected', val: computeTail1 },
-          { label: 'Tail2 expected', val: computeTail2 }
+          { label: 'Tail 1 expected', val: computeTail1 },
+          { label: 'Tail 2 expected', val: computeTail2 }
         ];
         const paramBreak = [
           { label: 'Head weights', val: paramHead },
-          { label: 'Tail1 weights', val: paramTail1 },
-          { label: 'Tail2 weights', val: paramTail2 },
+          { label: 'Tail 1 weights', val: paramTail1 },
+          { label: 'Tail 2 weights', val: paramTail2 },
           { label: 'Cluster tokens', val: paramClusters }
         ];
-        function breakdownHTML(title, arr, total){
-          return `<div class=\"mt-1\"><div class=\"font-semibold text-xs text-gray-600\">${title}</div>${arr.map(x=>`<div class=\"flex justify-between text-xs\"><span>${x.label}</span><span>${((x.val/total)*100).toFixed(1)}% (${fmt(x.val)})</span></div>`).join('')}</div>`;
+        function breakdownHTML(title, arr, total) {
+          const rows = arr.map(item => {
+            const share = total > 0 ? (item.val / total) * 100 : 0;
+            return `<div class="q42-breakdown-row" role="listitem">
+  <span class="q42-breakdown-label">${item.label}</span>
+  <span class="q42-breakdown-value"><span class="q42-breakdown-value-main">${share.toFixed(1)}%</span><span class="q42-breakdown-note">≈ ${fmt(item.val)}</span></span>
+</div>`;
+          }).join('');
+          return `<div class="panel panel-neutral-soft q42-breakdown-card">
+  <div class="q42-breakdown-title">${title}</div>
+  <div class="q42-breakdown-list" role="list">${rows}</div>
+</div>`;
         }
 
-        if(metricsEl){
-          const ghost = baselineToggle?.checked;
+        if (metricsEl) {
+          const ghost = Boolean(baselineToggle?.checked);
           metricsEl.innerHTML = `
-              ${bar('Relative compute (adaptive vs full)', relCompute, 'emerald', ghost)}
-              ${bar('Relative parameters (adaptive vs full)', relParams, 'orange', ghost)}
-            <div class=\"mt-2\">${ratioBar('Adaptive compute vs baseline (d₀=1024)', Cadapt / Cadapt0, 'blue')}</div>
-            <div>${ratioBar('Classifier params vs baseline (d₀=1024)', Padapt / Padapt0, 'teal')}</div>
-            <div class=\"mt-1\">Speed-up factor: <span class=\"font-mono\">${speedup.toFixed(2)}×</span>; Param savings: <span class=\"font-mono\">${(paramSave*100).toFixed(1)}%</span></div>
-            <div class=\"mt-2 p-2 rounded bg-gray-50 border border-gray-200 text-xs leading-snug\">
-              <div class=\"font-semibold mb-1\">Instantiated equations</div>
-              <div class=\"font-mono\">${eqCompute}</div>
-              <div class=\"font-mono mt-0.5\">${eqParams}</div>
+              ${meter('Relative compute (adaptive vs full)', relCompute, 'emerald', { ghost })}
+              ${meter('Relative parameters (adaptive vs full)', relParams, 'amber', { ghost })}
+              ${ratioMeter('Adaptive compute vs baseline (d₀=1024)', Cadapt / Cadapt0, 'sky')}
+              ${ratioMeter('Classifier params vs baseline (d₀=1024)', Padapt / Padapt0, 'teal')}
+            <div class="q42-summary">
+              <span>Speed-up factor: <span class="font-mono">${speedup.toFixed(2)}×</span></span>
+              <span>Param savings: <span class="font-mono">${(paramSave * 100).toFixed(1)}%</span></span>
             </div>
-            ${breakdownHTML('Compute breakdown', computeBreak, Cadapt)}
-            ${breakdownHTML('Parameter breakdown', paramBreak, Padapt)}
-            <hr class=\"my-2\" />
-            <div class=\"text-xs text-gray-600\">Baseline scaling: d/d₀ = ×${baselineScale.toFixed(2)} (d₀=${BASE_D}). Absolute compute: full=${fmt(Cfull)}, adaptive≈${fmt(Cadapt)}. Params: full=${fmt(Pfull)}, adaptive≈${fmt(Padapt)}.</div>
-            ${prevD !== null && prevD !== d ? `<div class=\"text-xs text-gray-700 mt-1\">Δd=${d - prevD}: Δcompute≈<span class=\"font-mono\">${fmtSigned((d - prevD) * (head + C + pTail1 * (a1) * tail1 + pTail2 * (a2) * tail2))}</span>, Δparams≈<span class=\"font-mono\">${fmtSigned((d - prevD) * (head + C + a1 * tail1 + a2 * tail2))}</span></div>` : ''}
-              <div id=\"q42-guidance\" class=\"mt-2 text-xs text-gray-700\"></div>
+            <div class="panel panel-neutral-soft q42-equations">
+              <div class="font-semibold text-heading text-xs">Instantiated equations</div>
+              <div class="font-mono">${eqCompute}</div>
+              <div class="font-mono mt-1">${eqParams}</div>
+            </div>
+            <div class="q42-breakdown-grid">
+              ${breakdownHTML('Compute breakdown', computeBreak, Cadapt)}
+              ${breakdownHTML('Parameter breakdown', paramBreak, Padapt)}
+            </div>
+            <div class="small-caption text-muted">Baseline scaling: d/d₀ = ×${baselineScale.toFixed(2)} (d₀=${BASE_D}). Absolute compute: full=${fmt(Cfull)}, adaptive ≈ ${fmt(Cadapt)}. Params: full=${fmt(Pfull)}, adaptive ≈ ${fmt(Padapt)}.</div>
+            ${prevD !== null && prevD !== d ? `<div class="text-xs text-muted">Δd=${d - prevD}: Δcompute ≈ <span class="font-mono">${fmtSigned((d - prevD) * (head + C + pTail1 * (a1) * tail1 + pTail2 * (a2) * tail2))}</span>, Δparams ≈ <span class="font-mono">${fmtSigned((d - prevD) * (head + C + a1 * tail1 + a2 * tail2))}</span></div>` : ''}
+            <div id="q42-guidance" class="text-xs text-muted"></div>
           `;
-            // Guidance heuristic (Phase 4)
-            const guidanceEl = document.getElementById('q42-guidance');
-            if(guidanceEl){
-              let advice = '';
-              if(relCompute > 0.55){ advice += 'Compute still high; reduce head or shrink α values. '; }
-              if(relParams > 0.55){ advice += 'Parameters dominated by head/tails; lower α or head cutoff. '; }
-              if(speedup < 1.5){ advice += 'Speed-up moderate; more aggressive tail compression could help.'; }
-              if(!advice) advice = 'Configuration is already efficient; further gains may impact accuracy.';
-              guidanceEl.textContent = advice.trim();
-            }
+          const guidanceEl = document.getElementById('q42-guidance');
+          if (guidanceEl) {
+            let advice = '';
+            if (relCompute > 0.55) advice += 'Compute still high; reduce head or shrink α values. ';
+            if (relParams > 0.55) advice += 'Parameters dominated by head/tails; lower α or head cutoff. ';
+            if (speedup < 1.5) advice += 'Speed-up is modest; consider more aggressive tail compression.';
+            if (!advice) advice = 'Configuration is already efficient; deeper compression may hit accuracy.';
+            guidanceEl.textContent = advice.trim();
+          }
         }
+
+
 
         // Metric change highlighting
         if (prevRelCompute !== null && Math.abs(relCompute - prevRelCompute) > 0.01) highlight(metricsEl);
@@ -276,8 +346,8 @@ const interactiveScript = () => {
 
         sensitivityAdvice(computeHead, computeTail1, computeTail2, paramHead, paramTail1, paramTail2, paramClusters);
 
-        if(explainEl){
-          explainEl.innerHTML = `Adaptive Softmax computes <b>head</b> logits for every example and only the <b>gold tail</b>. Head size & Zipf skew decide probability mass captured early; α compresses projection dims for tails reducing cost.`;
+        if (explainEl) {
+          explainEl.innerHTML = `Adaptive Softmax computes <strong>head</strong> logits for every example and only the <strong>gold tail</strong>. Head size and Zipf skew decide how much mass is captured early; α shrinks tail projection dims to cut compute.`;
           if (window.MathJax?.typesetPromise) window.MathJax.typesetPromise([explainEl]);
         }
 
@@ -288,7 +358,7 @@ const interactiveScript = () => {
   // Update sparkline with current distribution & cutoffs
   buildSpark(s, V, c1, c2);
   // Update spark accessibility label
-  if(sparkEl){ sparkEl.setAttribute('role','img'); sparkEl.setAttribute('aria-label',`Zipf distribution approximation for V=${V}, head<=${c1}, tail1<=${c2}`); }
+  if(sparkEl){ sparkEl.setAttribute('role','img'); sparkEl.setAttribute('aria-label',`Zipf distribution approximation for V=${V}, head ≤ ${c1}, tail 1 ≤ ${c2}`); }
       }
 
       [vocabEl, zipfEl, cutoffsEl, alphasEl, dimEl].forEach(el=>{ el?.addEventListener('input', render); el?.addEventListener('change', render); });
@@ -323,25 +393,76 @@ const interactiveScript = () => {
       // Sparkline builder (approximate Zipf over sample ranks)
       function buildSpark(s, V, c1, c2){
         if(!sparkEl) return;
-        const W = sparkEl.clientWidth || 260; const H = 60; const sample = 200;
+        const W = sparkEl.clientWidth || 260;
+        const H = 56;
+        const sample = 180;
         const step = V / sample;
-        const weights = []; for(let i=0;i<sample;i++){ const r = 1 + i*step; const w = 1/Math.pow(r, s); weights.push(w); }
+        const weights = [];
+        for (let i = 0; i < sample; i++) {
+          const r = 1 + i * step;
+          const w = 1 / Math.pow(r, s);
+          weights.push(w);
+        }
         const maxW = Math.max(...weights);
-        const lines = weights.map((w,i)=>{ const x = (i/(sample-1))*W; const h = (w/maxW)*(H-4); return `<line x1="${x.toFixed(2)}" x2="${x.toFixed(2)}" y1="${H}" y2="${(H-h).toFixed(2)}" stroke="rgba(99,102,241,0.5)" stroke-width="1"/>`; }).join('');
-        const xC1 = (c1 / V) * W; const xC2 = (c2 / V) * W;
-        const cutLines = `<line x1="${xC1}" x2="${xC1}" y1="0" y2="${H}" stroke="#6366f1" stroke-dasharray="3,2"/>` + `<line x1="${xC2}" x2="${xC2}" y1="0" y2="${H}" stroke="#63666f1" stroke-dasharray="3,2"/>`;
-        sparkEl.innerHTML = `<svg width="100%" height="${H}" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">${lines}${cutLines}</svg>`;
-        sparkLegend && (sparkLegend.textContent = `V=${V.toLocaleString()} | head≤${c1} | tail1≤${c2}`);
-        // Hover interaction
-        sparkEl.onmousemove = (e)=>{
-          const rect = sparkEl.getBoundingClientRect();
-          const x = e.clientX - rect.left; const ratio = Math.min(1, Math.max(0, x / rect.width));
-          const rank = Math.max(1, Math.round(ratio * V));
-          const bucket = rank<=c1? 'Head' : (rank<=c2? 'Tail1':'Tail2');
-          const w = 1/Math.pow(rank, s); // approximate local weight (unnormalized)
-          sparkInfoEl && (sparkInfoEl.textContent = `Rank ${rank} → ${bucket}, approx weight 1/r^s ≈ ${(w).toExponential(2)}`);
+        const fillColors = {
+          head: 'rgba(99,102,241,0.22)',
+          tail1: 'rgba(168,85,247,0.20)',
+          tail2: 'rgba(244,63,94,0.18)'
         };
-        sparkEl.onmouseleave = ()=>{ if(sparkInfoEl) sparkInfoEl.textContent=''; };
+        const strokeColors = {
+          head: 'rgba(99,102,241,0.5)',
+          tail1: 'rgba(168,85,247,0.5)',
+          tail2: 'rgba(244,63,94,0.5)'
+        };
+        const segments = [
+          { start: 0, end: Math.min(c1, V), tone: 'head' },
+          { start: Math.min(c1, V), end: Math.min(c2, V), tone: 'tail1' },
+          { start: Math.min(c2, V), end: V, tone: 'tail2' }
+        ].filter(seg => seg.end > seg.start);
+        const rects = segments.map(seg => {
+          const x = (seg.start / V) * W;
+          const width = ((seg.end - seg.start) / V) * W;
+          return `<rect x="${x}" y="0" width="${width}" height="${H}" fill="${fillColors[seg.tone]}"/>`;
+        }).join('');
+        const linesSvg = weights.map((w, i) => {
+          const x = (i / (sample - 1)) * W;
+          const h = (w / maxW) * (H - 6);
+          return `<line x1="${x.toFixed(2)}" x2="${x.toFixed(2)}" y1="${H}" y2="${(H - h).toFixed(2)}" stroke="rgba(148,163,184,0.35)" stroke-width="1"/>`;
+        }).join('');
+        const boundaries = [];
+        if (c1 > 0 && c1 < V) {
+          const x1 = (c1 / V) * W;
+          boundaries.push(`<line x1="${x1}" x2="${x1}" y1="0" y2="${H}" stroke="${strokeColors.head}" stroke-dasharray="4,3" stroke-width="1"/>`);
+        }
+        if (c2 > 0 && c2 < V) {
+          const x2 = (c2 / V) * W;
+          boundaries.push(`<line x1="${x2}" x2="${x2}" y1="0" y2="${H}" stroke="${strokeColors.tail1}" stroke-dasharray="4,3" stroke-width="1"/>`);
+        }
+        sparkEl.innerHTML = `<svg width="100%" height="${H}" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none">${rects}${linesSvg}${boundaries.join('')}</svg>`;
+        sparkLegend && (sparkLegend.textContent = `V=${V.toLocaleString()} • head ≤ ${c1} • tail 1 ≤ ${c2}`);
+        const defaultInfo = 'Hover to inspect rank coverage; shaded regions mark head/tail buckets.';
+        setSparkInfoDefault(defaultInfo);
+        if (sparkInfoEl) {
+          sparkInfoEl.textContent = defaultInfo;
+        }
+        highlightSparkChip(null);
+        sparkEl.onmousemove = (e) => {
+          const rect = sparkEl.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const ratio = Math.min(1, Math.max(0, x / rect.width));
+          const rank = Math.max(1, Math.round(ratio * V));
+          const tone = rank <= c1 ? 'head' : (rank <= c2 ? 'tail1' : 'tail2');
+          highlightSparkChip(tone);
+          if (sparkInfoEl) {
+            const bucketLabel = tone === 'head' ? 'Head' : tone === 'tail1' ? 'Tail 1' : 'Tail 2';
+            const approx = (1 / Math.pow(rank, s)).toExponential(2);
+            sparkInfoEl.textContent = `Rank ${rank.toLocaleString()} → ${bucketLabel} · 1/r^s ≈ ${approx}`;
+          }
+        };
+        sparkEl.onmouseleave = () => {
+          highlightSparkChip(null);
+          if (sparkInfoEl) sparkInfoEl.textContent = getSparkInfoDefault();
+        };
       }
 
       // Re-render when baseline overlay toggled
@@ -356,7 +477,7 @@ const interactiveScript = () => {
         // We already have absolute lines; add a subtle overlay banner
         const overlay = document.createElement('div');
         overlay.setAttribute('data-baseline-overlay','1');
-  overlay.className='mt-1 p-1 rounded bg-gradient-to-r from-gray-50 to-gray-100 border border-gray-200 text-xs text-gray-600';
+  overlay.className = 'q42-baseline-banner';
         overlay.innerHTML = 'Baseline overlay active: bars show adaptive share; full softmax = 100% reference.';
         metricsEl.appendChild(overlay);
       });
@@ -380,3 +501,5 @@ if (typeof module !== 'undefined') {
 } else if (typeof window !== 'undefined') {
   window.question42Interactive = interactiveScript;
 }
+
+

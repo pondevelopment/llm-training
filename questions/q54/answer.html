@@ -1,84 +1,80 @@
-
 <div class="space-y-4">
-  <!-- Recommended Reading (related) -->
-  <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
-    <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related)</h4>
-    <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
-      <li><a href="#question-05" class="text-indigo-700 underline hover:text-indigo-900">Question 5: How does beam search improve text generation compared to greedy decoding?</a></li>
-      <li><a href="#question-06" class="text-indigo-700 underline hover:text-indigo-900">Question 6: What is temperature in text generation and how does it affect output?</a></li>
-      <li><a href="#question-12" class="text-indigo-700 underline hover:text-indigo-900">Question 12: How do top-k and top-p sampling differ in text generation?</a></li>
-      <li><a href="#question-23" class="text-indigo-700 underline hover:text-indigo-900">Question 23: How is the softmax function applied in attention mechanisms?</a></li>
-      <li><a href="#question-25" class="text-indigo-700 underline hover:text-indigo-900">Question 25: Why is cross-entropy loss used in language modeling?</a></li>
-      <li><a href="#question-53" class="text-indigo-700 underline hover:text-indigo-900">Question 53: What are decoding strategies for selecting output tokens?</a></li>
+  <div class="panel panel-info p-3">
+    <h4 class="font-semibold text-heading mb-1">&#128218; Recommended reading (related)</h4>
+    <ul class="list-disc ml-5 text-sm text-body space-y-1">
+      <li><a href="#question-05" class="underline">Question 5: How does beam search improve text generation compared to greedy decoding?</a></li>
+      <li><a href="#question-06" class="underline">Question 6: What is temperature in text generation and how does it affect output?</a></li>
+      <li><a href="#question-12" class="underline">Question 12: How do top-k and top-p sampling differ in text generation?</a></li>
+      <li><a href="#question-23" class="underline">Question 23: How is the softmax function applied in attention mechanisms?</a></li>
+      <li><a href="#question-25" class="underline">Question 25: Why is cross-entropy loss used in language modeling?</a></li>
+      <li><a href="#question-53" class="underline">Question 53: What are decoding strategies for selecting output tokens?</a></li>
     </ul>
   </div>
-  <div class="bg-blue-50 border border-blue-200 rounded-lg p-5">
-    <h3 class="font-semibold text-blue-900 mb-2">🧩 Core Idea: Logits = Unnormalized Preference Scores</h3>
-  <p class="text-sm text-blue-800 leading-relaxed">A <strong>logit</strong> is a raw, unnormalized score the model assigns to each candidate next token. Apply softmax once at the end to convert the vector of logits \(\mathbf{z}\) into a probability distribution \(p\). Until then, they are flexible for adjustments (temperature, biasing, masking).</p>
-  <div class="math-display">$$ p_i = \operatorname{softmax}(z)_i = \frac{e^{z_i}}{\sum_j e^{z_j}} $$</div>
-    <p class="text-xs text-blue-700">LLMs emit logits because they are numerically stable, differentiable raw scores that preserve linear transformations until the final normalization.</p>
+
+  <div class="panel panel-info panel-emphasis p-5 space-y-2">
+    <h3 class="font-semibold text-heading">&#129514; Core Idea: Logits = Unnormalized Preference Scores</h3>
+    <p class="text-sm text-body leading-relaxed">A <strong>logit</strong> is a raw, unnormalized score the model assigns to each candidate next token. Apply softmax once at the end to convert the vector of logits \(\mathbf{z}\) into a probability distribution \(p\). Until then, they are flexible for adjustments (temperature, biasing, masking).</p>
+    <div class="math-display">$$ p_i = \operatorname{softmax}(z)_i = \frac{e^{z_i}}{\sum_j e^{z_j}} $$</div>
+    <p class="text-xs text-muted">LLMs emit logits because they are numerically stable, differentiable raw scores that preserve linear transformations until the final normalization.</p>
   </div>
 
-  <!-- Invariance & Intuition -->
   <div class="grid md:grid-cols-3 gap-4">
-    <div class="bg-green-50 border border-green-200 rounded-lg p-4">
-      <h4 class="font-semibold text-green-900 mb-1">1. Invariance</h4>
-      <ul class="text-xs text-green-800 space-y-1">
-  <li><b>Shift:</b> Adding constant \(c\) to all logits leaves softmax unchanged.</li>
-  <li><b>Why:</b> Common trick: subtract \(\max_i z_i\) for stability.</li>
-        <li><b>Implication:</b> Only differences matter.</li>
+    <div class="panel panel-success panel-emphasis p-4 space-y-2">
+      <h4 class="font-semibold text-heading">1. Invariance</h4>
+      <ul class="text-xs text-body space-y-1">
+        <li><strong>Shift:</strong> Adding constant \(c\) to all logits leaves softmax unchanged.</li>
+        <li><strong>Why:</strong> Common trick: subtract \(\max_i z_i\) for stability.</li>
+        <li><strong>Implication:</strong> Only differences matter.</li>
       </ul>
     </div>
-    <div class="bg-purple-50 border border-purple-200 rounded-lg p-4">
-      <h4 class="font-semibold text-purple-900 mb-1">2. Scaling & Sharpness</h4>
-      <ul class="text-xs text-purple-800 space-y-1">
-  <li><b>Multiply by \(\alpha>1\):</b> Distribution becomes sharper.</li>
-  <li><b>Divide (Temperature):</b> \(T>1\) flattens; \(T<1\) sharpens.</li>
-        <li><b>Entropy:</b> Controlled by relative gaps.</li>
+    <div class="panel panel-accent panel-emphasis p-4 space-y-2">
+      <h4 class="font-semibold text-heading">2. Scaling &amp; sharpness</h4>
+      <ul class="text-xs text-body space-y-1">
+        <li><strong>Multiply by \(\alpha &gt; 1\):</strong> Distribution becomes sharper.</li>
+        <li><strong>Divide (temperature):</strong> \(T &gt; 1\) flattens; \(T &lt; 1\) sharpens.</li>
+        <li><strong>Entropy:</strong> Controlled by relative gaps.</li>
       </ul>
     </div>
-    <div class="bg-orange-50 border border-orange-200 rounded-lg p-4">
-      <h4 class="font-semibold text-orange-900 mb-1">3. Masking & Bias</h4>
-      <ul class="text-xs text-orange-800 space-y-1">
-  <li><b>Mask:</b> Set disallowed logits to \(-\infty\) (or large negative).</li>
-  <li><b>Bias:</b> Add \(b_t\) to specific token logits to encourage them.</li>
-        <li><b>Sampling ops:</b> Modify logits <em>before</em> softmax.</li>
+    <div class="panel panel-warning panel-emphasis p-4 space-y-2">
+      <h4 class="font-semibold text-heading">3. Masking &amp; bias</h4>
+      <ul class="text-xs text-body space-y-1">
+        <li><strong>Mask:</strong> Set disallowed logits to \(-\infty\) (or large negative).</li>
+        <li><strong>Bias:</strong> Add \(b_t\) to specific token logits to encourage them.</li>
+        <li><strong>Sampling ops:</strong> Modify logits <em>before</em> softmax.</li>
       </ul>
     </div>
   </div>
 
-  <!-- Why Not Direct Probabilities? -->
-  <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-5">
-    <h4 class="font-semibold text-yellow-900 mb-2">🧭 Why Not Output Probabilities Directly?</h4>
-    <ul class="text-sm text-yellow-800 space-y-1">
-      <li><b>Numerical stability:</b> Softmax + cross-entropy fused with log-sum-exp trick.</li>
-      <li><b>Training efficiency:</b> Logits feed directly into loss without early normalization.</li>
-      <li><b>Flexibility:</b> Easy to apply temperature, penalties, constraints.</li>
-      <li><b>Gradient quality:</b> Raw linear outputs avoid saturation pre-softmax.</li>
+  <div class="panel panel-warning p-5 space-y-2">
+    <h4 class="font-semibold text-heading">&#129512; Why not output probabilities directly?</h4>
+    <ul class="text-sm text-body space-y-1">
+      <li><strong>Numerical stability:</strong> Softmax + cross-entropy fuse with the log-sum-exp trick.</li>
+      <li><strong>Training efficiency:</strong> Logits feed directly into loss without early normalization.</li>
+      <li><strong>Flexibility:</strong> Easy to apply temperature, penalties, constraints.</li>
+      <li><strong>Gradient quality:</strong> Raw linear outputs avoid saturation pre-softmax.</li>
     </ul>
   </div>
 
-  <!-- Mathematical Mechanics -->
-  <div class="bg-white border border-gray-200 rounded-lg p-5 space-y-4">
-    <h4 class="font-semibold text-gray-900">📐 Key Formulas</h4>
-    <div class="grid md:grid-cols-2 gap-4 text-xs text-gray-700">
+  <div class="panel panel-neutral p-5 space-y-4">
+    <h4 class="font-semibold text-heading">&#128209; Key formulas</h4>
+    <div class="grid md:grid-cols-2 gap-4 text-xs text-body">
       <div>
-        <div class="font-medium mb-1">Shift Invariance</div>
-    <div class="math-display">$$ \operatorname{softmax}(z)_i = \operatorname{softmax}(z + c\mathbf{1})_i $$</div>
+        <div class="font-medium mb-1 text-heading">Shift invariance</div>
+        <div class="math-display">$$ \operatorname{softmax}(z)_i = \operatorname{softmax}(z + c\mathbf{1})_i $$</div>
       </div>
       <div>
-        <div class="font-medium mb-1">Stability Trick</div>
-    <div class="math-display">$$ p_i = \frac{e^{z_i - m}}{\sum_j e^{z_j - m}},\; m = \max_j z_j $$</div>
+        <div class="font-medium mb-1 text-heading">Stability trick</div>
+        <div class="math-display">$$ p_i = \frac{e^{z_i - m}}{\sum_j e^{z_j - m}},\; m = \max_j z_j $$</div>
       </div>
       <div>
-        <div class="font-medium mb-1">Temperature</div>
-    <div class="math-display">$$ p_i(T) = \frac{e^{z_i / T}}{\sum_j e^{z_j / T}} $$</div>
+        <div class="font-medium mb-1 text-heading">Temperature</div>
+        <div class="math-display">$$ p_i(T) = \frac{e^{z_i / T}}{\sum_j e^{z_j / T}} $$</div>
       </div>
       <div>
-        <div class="font-medium mb-1">Cross-Entropy Link</div>
-    <div class="math-display">$$ L = -\log p_{y} = -z_{y} + \log \sum_j e^{z_j} $$</div>
+        <div class="font-medium mb-1 text-heading">Cross-entropy link</div>
+        <div class="math-display">$$ L = -\log p_{y} = -z_{y} + \log \sum_j e^{z_j} $$</div>
       </div>
     </div>
-  <p class="text-xs text-gray-600">Gradients: \( \frac{\partial L}{\partial z_i} = p_i - \mathbf{1}[i=y] \). Clean and stable because we keep logits unnormalized until loss evaluation.</p>
+    <p class="text-xs text-muted">Gradients: \( \frac{\partial L}{\partial z_i} = p_i - \mathbf{1}[i=y] \). Clean and stable because we keep logits unnormalized until loss evaluation.</p>
   </div>
 </div>

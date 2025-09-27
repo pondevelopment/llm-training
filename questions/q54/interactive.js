@@ -1,137 +1,236 @@
 const interactiveScript = () => {
-      const $ = id => document.getElementById(id);
-      const logitsSelect = $("q54-logits-select");
-      const shift = $("q54-shift");
-      const scale = $("q54-scale");
-      const temp = $("q54-temp");
-      const biasIndex = $("q54-bias-index");
-      const biasSize = $("q54-bias-size");
-      const table = $("q54-table");
-      const insight = $("q54-insight");
-      const mathBox = $("q54-math");
-  const help = $("q54-help"); // static help panel
-      if(!logitsSelect||!shift||!scale||!temp||!biasIndex||!biasSize||!table) return;
+  const get = id => document.getElementById(id);
+  const logitsSelect = get("q54-logits-select");
+  const shift = get("q54-shift");
+  const scale = get("q54-scale");
+  const temp = get("q54-temp");
+  const biasIndex = get("q54-bias-index");
+  const biasSize = get("q54-bias-size");
+  const table = get("q54-table");
+  const insight = get("q54-insight");
+  const mathBox = get("q54-math");
 
-  const shiftVal = $("q54-shift-val");
-  const scaleVal = $("q54-scale-val");
-  const tempVal = $("q54-temp-val");
-  const biasSizeVal = $("q54-bias-size-val");
-  // Help panel is static; no toggle logic
-      function parse(){
-        return logitsSelect.value.split(/[\s,]+/).filter(Boolean).map(Number).filter(v=>Number.isFinite(v));
+  if (!logitsSelect || !shift || !scale || !temp || !biasIndex || !biasSize || !table) {
+    return;
+  }
+
+  const shiftVal = get("q54-shift-val");
+  const scaleVal = get("q54-scale-val");
+  const tempVal = get("q54-temp-val");
+  const biasSizeVal = get("q54-bias-size-val");
+
+  const formatPercent = (value, digits = 1) => `${(value * 100).toFixed(digits)}%`;
+
+  function parseLogits() {
+    return logitsSelect.value
+      .split(/[\s,]+/)
+      .filter(Boolean)
+      .map(Number)
+      .filter(value => Number.isFinite(value));
+  }
+
+  function softmax(arr) {
+    if (!arr.length) return [];
+    const max = Math.max(...arr);
+    const exps = arr.map(z => Math.exp(z - max));
+    const sum = exps.reduce((acc, value) => acc + value, 0);
+    return exps.map(value => value / sum);
+  }
+
+  function entropy(probs) {
+    return -probs.reduce((acc, value) => acc + (value > 0 ? value * Math.log2(value) : 0), 0);
+  }
+
+  function ensureBiasOptions(base) {
+    const current = parseInt(biasIndex.value, 10);
+    const len = base.length;
+    biasIndex.innerHTML = base
+      .map((value, idx) => `<option value="${idx}">Token ${idx} (${value.toFixed(2)})</option>`)
+      .join("");
+    if (Number.isNaN(current) || current >= len) {
+      biasIndex.value = "0";
+    } else {
+      biasIndex.value = String(current);
+    }
+  }
+
+  function recompute() {
+    shiftVal.textContent = Number(shift.value).toFixed(1);
+    scaleVal.textContent = Number(scale.value).toFixed(2);
+    tempVal.textContent = Number(temp.value).toFixed(1);
+    biasSizeVal.textContent = Number(biasSize.value).toFixed(2);
+
+    const base = parseLogits();
+    if (!base.length) {
+      table.innerHTML = "<div class=\"text-danger\">Enter logits.</div>";
+      return;
+    }
+
+    ensureBiasOptions(base);
+
+    const shiftNum = Number(shift.value);
+    const scaleNum = Number(scale.value);
+    const tempNum = Number(temp.value);
+    const biasNum = Number(biasSize.value);
+    const biasIdx = Math.min(Math.max(parseInt(biasIndex.value, 10) || 0, 0), base.length - 1);
+
+    const biased = base.map((value, idx) => (idx === biasIdx ? value + biasNum : value));
+    const transformed = biased.map(value => (value + shiftNum) * scaleNum / tempNum);
+    const baseline = base.map(value => (value + shiftNum) * scaleNum / tempNum);
+
+    const probs = softmax(transformed);
+    const baselineProbs = softmax(baseline);
+
+    const entropyBits = entropy(probs);
+    const winnerProb = Math.max(...probs);
+    const winner = probs.indexOf(winnerProb);
+
+    renderTable(base, biased, transformed, probs, baselineProbs, winner);
+
+    const winnerDelta = (probs[winner] - baselineProbs[winner]) * 100;
+    const biasDelta = (probs[biasIdx] - baselineProbs[biasIdx]) * 100;
+
+    mathBox.innerHTML = "Shift adds c to all logits (no effect after softmax); scale and temperature reshape gaps; bias locally raises a token; final normalization keeps &sum; p = 1.";
+
+    const winnerClass = biasIdx === winner ? "text-info font-semibold" : "text-heading";
+
+    const biasDeltaClass = biasDelta > 0.001 ? "text-success" : biasDelta < -0.001 ? "text-danger" : "text-muted";
+    const winnerDeltaClass = winnerDelta > 0.001 ? "text-success" : winnerDelta < -0.001 ? "text-danger" : "text-muted";
+
+    const keyValueRows = [
+      {
+        label: "Winner",
+        value: `<span class="font-mono ${winnerClass}">${winner}</span>`
+      },
+      {
+        label: "Winner probability",
+        value: `<span class="font-mono text-heading">${formatPercent(winnerProb)}</span>`
+      },
+      {
+        label: "Entropy",
+        value: `<span class="font-mono text-heading">${entropyBits.toFixed(3)} bits</span>`
+      },
+      {
+        label: "Bias target",
+        value: `<span class="font-mono text-heading">Token ${biasIdx}</span>`
+      },
+      {
+        label: "Bias probability",
+        value: `<span class="font-mono text-heading">${formatPercent(probs[biasIdx], 2)}</span>`
+      },
+      {
+        label: "Bias delta",
+        value: `<span class="font-mono ${biasDeltaClass}">${biasDelta.toFixed(2)}%</span>`
+      },
+      {
+        label: "Δ winner vs baseline",
+        value: `<span class="font-mono ${winnerDeltaClass}">${winnerDelta.toFixed(2)}%</span>`
       }
-      function softmax(arr){
-        if(!arr.length) return [];
-        const m = Math.max(...arr);
-        const exps = arr.map(z=>Math.exp(z-m));
-        const s = exps.reduce((a,b)=>a+b,0);
-        return exps.map(e=>e/s);
-      }
-      function entropy(p){ return -p.reduce((a,b)=> a + (b>0? b*Math.log2(b):0),0); }
+    ]
+      .map(
+        row =>
+          `<div class="q54-kv-row"><span class="q54-kv-label">${row.label}</span><span class="q54-kv-value">${row.value}</span></div>`
+      )
+      .join("");
 
-      function ensureBiasOptions(base){
-        if(!biasIndex) return;
-        const current = parseInt(biasIndex.value,10);
-        const len = base.length;
-        // Always rebuild so labels reflect current base logits
-        biasIndex.innerHTML = base.map((v,i)=>`<option value="${i}">Token ${i} (${v.toFixed(2)})</option>`).join('');
-        if(isNaN(current) || current >= len){
-          biasIndex.value = '0';
-        } else {
-          biasIndex.value = String(current);
-        }
-      }
+    insight.innerHTML = `
+      <div class="panel panel-neutral panel-emphasis q54-insight-panel">
+        <div class="q54-kv">${keyValueRows}</div>
+      </div>
+    `;
+  }
 
-      function recompute(){
-        shiftVal.textContent = Number(shift.value).toFixed(1);
-        scaleVal.textContent = Number(scale.value).toFixed(2);
-        tempVal.textContent = Number(temp.value).toFixed(1);
-        biasSizeVal.textContent = Number(biasSize.value).toFixed(2);
-        const base = parse();
-        if(!base.length){ table.innerHTML='<div class="text-red-600">Enter logits.</div>'; return; }
-        ensureBiasOptions(base);
-        const bi = Math.min(Math.max(parseInt(biasIndex.value,10)||0,0), base.length-1);
-        const biased = base.map((z,i)=> (i===bi ? z + Number(biasSize.value): z));
-        const transformed = biased.map(z=> (z + Number(shift.value)) * Number(scale.value) / Number(temp.value));
-        // Baseline (no bias) for delta comparison
-        const transformedNoBias = base.map(z=> (z + Number(shift.value)) * Number(scale.value) / Number(temp.value));
-        const probs = softmax(transformed);
-        const probsNoBias = softmax(transformedNoBias);
-        const H = entropy(probs);
-        const maxP = Math.max(...probs);
-        const winner = probs.indexOf(maxP);
-        renderTable(base, biased, transformed, probs, probsNoBias, winner, bi);
-        const deltaWinner = ((probs[winner]-probsNoBias[winner])*100).toFixed(2);
-        mathBox.innerHTML = `Shift adds c to all logits (no effect after softmax); scale / temperature modify gaps; bias locally raises a token; final normalization ensures ∑p=1.`;
-        const isBiasWinner = bi === winner;
-        const biasP = (probs[bi]*100).toFixed(2);
-        const biasDelta = ((probs[bi]-probsNoBias[bi])*100).toFixed(2);
-        insight.innerHTML = `
-          <div><b>Winner:</b> <span class="font-mono ${isBiasWinner?'text-blue-700 font-semibold':''}">${winner}</span> (p=${(maxP*100).toFixed(1)}%)</div>
-          <div><b>Entropy:</b> ${H.toFixed(3)} bits</div>
-          <div><b>Bias target:</b> <span class="font-mono">${bi}</span> (p=${biasP}% Δ=${biasDelta}%)</div>
-          <div><b>Δp (winner vs baseline):</b> ${deltaWinner}%</div>
-        `;
-      }
+  function renderTable(base, biased, transformed, probs, baselineProbs, winner) {
+    const maxProb = Math.max(...probs) || 1;
+    const header = `<table class="q54-table text-[11px]"><thead>
+      <tr class="text-muted font-semibold">
+        <th class="text-left">#</th>
+        <th class="text-right">Base</th>
+        <th class="text-right">Biased</th>
+        <th class="text-right">Transformed</th>
+        <th class="text-right">p</th>
+        <th class="text-right">&Delta;p</th>
+        <th class="text-left">Distribution</th>
+      </tr>
+    </thead><tbody>`;
 
-      // (Removed obsolete collapsible help logic)
+    const rows = base
+      .map((value, idx) => {
+        const p = probs[idx];
+        const delta = p - (baselineProbs[idx] || 0);
+        const bar = Math.round((p / maxProb) * 100);
+        const isWinner = idx === winner;
+        const changed = biased[idx] !== value;
 
-      function renderTable(base, biased, transformed, probs, probsNoBias, winner, biasedIndex){
-        const maxP = Math.max(...probs) || 1;
-        const header = `<table class="w-full text-[11px] border-separate border-spacing-y-1"><thead>
-            <tr class="text-gray-600 font-semibold">
-              <th class="text-left px-2">#</th>
-              <th class="text-right px-2">Base</th>
-              <th class="text-right px-2">Biased</th>
-              <th class="text-right px-2">Transformed</th>
-              <th class="text-right px-2">p</th>
-              <th class="text-right px-2">Δp</th>
-              <th class="text-left px-2 w-[140px]">Distribution</th>
-            </tr></thead><tbody>`;
-        const rows = base.map((b,i)=>{
-          const p = probs[i];
-          const dp = (p - (probsNoBias[i]||0));
-          const bar = Math.round((p/maxP)*100);
-          const isWinner = i===winner;
-          const changed = biased[i] !== b;
-          const rowCls = isWinner ? 'bg-blue-50 border border-blue-200 shadow-sm' : 'bg-white border border-gray-100';
-          const probTxt = (p*100).toFixed(1)+'%';
-          const deltaTxt = (dp*100).toFixed(2)+'%';
-          const deltaCls = dp>0.0001? 'text-green-600' : (dp<-0.0001? 'text-rose-600':'text-gray-400');
-          return `<tr class="${rowCls} hover:bg-gray-50 transition-colors">
-              <td class="px-2 py-1 font-mono text-xs ${isWinner?'font-bold text-blue-700':''}">${i}</td>
-              <td class="px-2 py-1 text-right font-mono">${b.toFixed(2)}</td>
-              <td class="px-2 py-1 text-right font-mono ${changed?'text-indigo-600 font-semibold':''}" title="${changed?'+ bias applied':''}">${biased[i].toFixed(2)}</td>
-              <td class="px-2 py-1 text-right font-mono">${transformed[i].toFixed(2)}</td>
-              <td class="px-2 py-1 text-right font-mono ${isWinner?'font-bold text-blue-700':''}">${probTxt}</td>
-              <td class="px-2 py-1 text-right font-mono ${deltaCls}">${deltaTxt}</td>
-              <td class="px-2 py-1">
-                <div class="relative h-4 bg-gray-200/70 rounded overflow-hidden">
-                  <div class="absolute inset-y-0 left-0 ${isWinner?'bg-blue-600':'bg-gray-500'}" style="width:${bar}%"></div>
-                  <div class="absolute inset-0 flex items-center pl-1 text-[10px] font-mono text-gray-800 mix-blend-plus-lighter">${bar>18?probTxt:''}</div>
-                </div>
-              </td>
-            </tr>`;
-        }).join('');
-        const footer = `</tbody></table>
-          <div class="text-[10px] text-gray-500 mt-2 flex flex-wrap gap-3">
-            <span><span class="inline-block w-3 h-3 bg-blue-600 rounded-sm align-middle mr-1"></span>Winner</span>
-            <span><span class="inline-block w-3 h-3 bg-indigo-600 rounded-sm align-middle mr-1"></span>Bias affected</span>
-            <span>Transformed = (biased + shift) * scale / T</span>
-            <span>Δp = change vs no-bias baseline</span>
-          </div>`;
-        table.innerHTML = header + rows + footer;
-      }
+        const rowClasses = ["q54-row"];
+        if (isWinner) rowClasses.push("q54-row--winner");
+        if (changed) rowClasses.push("q54-row--biased");
 
-      [logitsSelect, shift, scale, temp, biasIndex, biasSize].forEach(el=> { el.addEventListener('input', recompute); el.addEventListener('change', recompute); });
-      $("q54-reset")?.addEventListener('click', ()=>{ logitsSelect.selectedIndex=1; shift.value='0'; scale.value='1'; temp.value='1'; biasIndex.value='0'; biasSize.value='0'; recompute(); });
-      $("q54-random")?.addEventListener('click', ()=>{ const n=5+Math.floor(Math.random()*3); const arr = Array.from({length:n},()=> (Math.random()*4-2).toFixed(1)); const opt=document.createElement('option'); opt.textContent='Random: '+arr.join(','); opt.value=arr.join(','); logitsSelect.appendChild(opt); logitsSelect.selectedIndex=logitsSelect.options.length-1; recompute(); });
+        const probText = formatPercent(p);
+        const deltaText = (delta * 100).toFixed(2) + "%";
+        const deltaClass = delta > 0.0001 ? "text-success" : delta < -0.0001 ? "text-danger" : "text-muted";
 
-      recompute();
-    };
+        return `<tr class="${rowClasses.join(" ")}">
+          <td class="q54-cell q54-cell--index ${isWinner ? "text-info font-semibold" : "text-heading"}">${idx}</td>
+          <td class="q54-cell text-right">${value.toFixed(2)}</td>
+          <td class="q54-cell text-right ${changed ? "q54-cell--biased" : ""}" title="${changed ? "Bias adjustments applied" : ""}">${biased[idx].toFixed(2)}</td>
+          <td class="q54-cell text-right">${transformed[idx].toFixed(2)}</td>
+          <td class="q54-cell text-right ${isWinner ? "text-info font-semibold" : ""}">${probText}</td>
+          <td class="q54-cell text-right ${deltaClass}">${deltaText}</td>
+          <td class="q54-cell">
+            <div class="q54-bar">
+              <div class="q54-bar-fill ${isWinner ? "q54-bar-fill--winner" : ""}" style="width:${bar}%"></div>
+              ${bar > 18 ? `<span class="q54-bar-label">${probText}</span>` : ""}
+            </div>
+          </td>
+        </tr>`;
+      })
+      .join("");
 
-if (typeof module !== 'undefined') {
+    const footer = `</tbody></table>
+      <div class="q54-legend text-[10px] text-muted">
+        <span class="q54-legend-item"><span class="q54-swatch q54-swatch--winner"></span>Winner</span>
+        <span class="q54-legend-item"><span class="q54-swatch q54-swatch--bias"></span>Bias affected</span>
+        <span>Transformed = (biased + shift) &times; scale &divide; T</span>
+        <span>&Delta;p = change vs no-bias baseline</span>
+      </div>`;
+
+    table.innerHTML = header + rows + footer;
+  }
+
+  [logitsSelect, shift, scale, temp, biasIndex, biasSize].forEach(element => {
+    element.addEventListener("input", recompute);
+    element.addEventListener("change", recompute);
+  });
+
+  const resetBtn = get("q54-reset");
+  resetBtn?.addEventListener("click", () => {
+    logitsSelect.selectedIndex = 1;
+    shift.value = "0";
+    scale.value = "1";
+    temp.value = "1";
+    biasIndex.value = "0";
+    biasSize.value = "0";
+    recompute();
+  });
+
+  const randomBtn = get("q54-random");
+  randomBtn?.addEventListener("click", () => {
+    const length = 5 + Math.floor(Math.random() * 3);
+    const arr = Array.from({ length }, () => (Math.random() * 4 - 2).toFixed(1));
+    const option = document.createElement("option");
+    option.textContent = "Random: " + arr.join(",");
+    option.value = arr.join(",");
+    logitsSelect.appendChild(option);
+    logitsSelect.selectedIndex = logitsSelect.options.length - 1;
+    recompute();
+  });
+
+  recompute();
+};
+
+if (typeof module !== "undefined") {
   module.exports = interactiveScript;
-} else if (typeof window !== 'undefined') {
+} else if (typeof window !== "undefined") {
   window.question54Interactive = interactiveScript;
 }

@@ -105,8 +105,9 @@ const interactiveScript = () => {
         return res;
       }
       function meter(label, fraction, tone, opts = {}) {
-        const pct = Math.max(0, Math.min(100, fraction * 100));
-        const rightLabel = opts.rightLabel ?? `${Math.round(pct)}%`;
+        const rawPct = fraction * 100;
+        const pct = Math.max(0, Math.min(100, rawPct));
+        const rightLabel = opts.rightLabel ?? `${rawPct.toFixed(1)}%`;
         const helper = opts.helper ? `<div class="q42-meter-helper">${opts.helper}</div>` : '';
         const ghostLayer = opts.ghost ? '<div class="q42-meter-ghost"></div>' : '';
         return `<div class="q42-meter" data-tone="${tone}">
@@ -269,8 +270,8 @@ const interactiveScript = () => {
         alphaDetailEl && (alphaDetailEl.textContent = `Tail 1 dim = α₁·d = ${a1}×${d} = ${tail1Dim}; Tail 2 dim = α₂·d = ${a2}×${d} = ${tail2Dim}`);
 
         // Relative metrics
-        const relCompute = Math.min(1, Cadapt / Cfull);
-        const relParams = Math.min(1, Padapt / Pfull);
+        const relCompute = Cadapt / Cfull;
+        const relParams = Padapt / Pfull;
         const baselineScale = d / BASE_D;
         const Cadapt0 = BASE_D * (head + C) + (pTail1 * (a1*BASE_D) * tail1) + (pTail2 * (a2*BASE_D) * tail2);
         const Padapt0 = BASE_D * head + (a1*BASE_D) * tail1 + (a2*BASE_D) * tail2 + BASE_D * C;
@@ -306,8 +307,8 @@ const interactiveScript = () => {
         if (metricsEl) {
           const ghost = Boolean(baselineToggle?.checked);
           metricsEl.innerHTML = `
-              ${meter('Relative compute (adaptive vs full)', relCompute, 'emerald', { ghost })}
-              ${meter('Relative parameters (adaptive vs full)', relParams, 'amber', { ghost })}
+              ${meter('Relative compute (adaptive vs full)', relCompute, 'emerald', { ghost, rightLabel: `${(relCompute * 100).toFixed(1)}%` })}
+              ${meter('Relative parameters (adaptive vs full)', relParams, 'amber', { ghost, rightLabel: `${(relParams * 100).toFixed(1)}%` })}
               ${ratioMeter('Adaptive compute vs baseline (d₀=1024)', Cadapt / Cadapt0, 'sky')}
               ${ratioMeter('Classifier params vs baseline (d₀=1024)', Padapt / Padapt0, 'teal')}
             <div class="q42-summary">

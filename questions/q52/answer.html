@@ -1,52 +1,62 @@
 <div class="space-y-4">
-        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
-            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related)</h4>
-            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
-                <li><a href="#question-50" class="text-indigo-700 underline hover:text-indigo-900">Question 50: What challenges do LLMs face in deployment?</a></li>
-                <li><a href="#question-37" class="text-indigo-700 underline hover:text-indigo-900">Question 37: How does Mixture of Experts (MoE) enhance LLM scalability?</a></li>
-                <li><a href="#question-32" class="text-indigo-700 underline hover:text-indigo-900">Question 32: How are attention scores calculated in transformers?</a></li>
-                <li><a href="#question-42" class="text-indigo-700 underline hover:text-indigo-900">Question 42: How does Adaptive Softmax optimize LLMs?</a></li>
-                <li><a href="#question-51" class="text-indigo-700 underline hover:text-indigo-900">Question 51: What is an LLM, and how are LLMs trained end-to-end?</a></li>
-            </ul>
-        </div>
-        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
-            <h4 class="font-semibold text-blue-900 mb-2">💰 What is LLM Cost Estimation?</h4>
-            <p class="text-blue-800">Cost estimation compares <strong>usage-based API pricing</strong> (SaaS) with <strong>infrastructure + operations</strong> costs (self-host) to find the <em>break-even volume</em> where one becomes cheaper. Think of it like deciding between paying per ride (ride-hailing) vs owning a car (CapEx + fuel + maintenance).</p>
-        </div>
-        <div class="grid md:grid-cols-3 gap-4">
-            <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
-                <h5 class="font-medium text-green-900">SaaS API</h5>
-                <p class="text-sm text-green-700">Pay per 1K tokens; zero infra ops.</p>
-                <code class="text-xs bg-green-100 px-1 rounded">Cost ∝ requests × tokens</code>
-            </div>
-            <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
-                <h5 class="font-medium text-purple-900">Self-Host</h5>
-                <p class="text-sm text-purple-700">Fixed GPU + staff overhead; amortize with volume.</p>
-                <code class="text-xs bg-purple-100 px-1 rounded">Cost ≈ (GPU hrs × rate × util) + O</code>
-            </div>
-            <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
-                <h5 class="font-medium text-orange-900">Hybrid / Orchestrated</h5>
-                <p class="text-sm text-orange-700">Blend: cache, route heavy / sensitive to self-host.</p>
-                <code class="text-xs bg-orange-100 px-1 rounded">Route smart → lower blended $/1K</code>
-            </div>
-        </div>
-        <div class="bg-yellow-50 p-4 rounded-lg">
-            <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why This Matters</h4>
-            <ul class="text-sm text-yellow-800 space-y-1">
-                <li>• <strong>Unit Economics:</strong> Justify feature viability & pricing</li>
-                <li>• <strong>Scaling Strategy:</strong> Know when infra investment pays off</li>
-                <li>• <strong>Optimization Levers:</strong> Prompt compression, caching, batching</li>
-                <li>• <strong>Risk & Focus:</strong> Avoid premature ops hiring at low volume</li>
-                <li>• <strong>Strategic Flexibility:</strong> Hybrid reduces vendor lock‑in</li>
-            </ul>
-        </div>
-        <div class="math-display">$$
-            \begin{align*}
-            C_{\text{SaaS}} &= \frac{(T_p + T_c) \cdot R}{1000} \cdot P_{1K} \\
-            C_{\text{Self}} &= (H_{GPU} \cdot 24 \cdot 30 \cdot G \cdot U) + O \\
-            R_{\text{break}} &= \frac{1000\, C_{\text{Self}}}{(T_p + T_c) P_{1K}}
-            \end{align*}
-        $$</div>
-    <p class="text-sm text-gray-600">Symbols: <code>R</code>=monthly requests, <code>T_p</code>/<code>T_c</code>=avg prompt/response tokens, <code>P_{1K}</code>=SaaS price per 1K tokens, <code>H_{GPU}</code>=hourly GPU rate, <code>G</code>=GPU count, <code>U</code>=average utilization (0–1), <code>O</code>=monthly overhead (engineering, storage, networking, monitoring).</p>
-    <p class="text-xs text-gray-500 italic">Sample values reflect typical public pricing as of Sept 2025 (e.g. $0.02 / 1K tokens mid‑tier model, ~$2.5/hr on‑demand A100‑class GPU). Adjust for your vendor, committed discounts, and region.</p>
+  <div class="panel panel-info p-3 space-y-2">
+    <h4 class="font-semibold text-heading">📚 Recommended reading (related)</h4>
+    <ul class="list-disc ml-5 text-sm space-y-1">
+      <li><a href="#question-50" class="underline text-link">Question 50: What challenges do LLMs face in deployment?</a></li>
+      <li><a href="#question-37" class="underline text-link">Question 37: How does Mixture of Experts (MoE) enhance LLM scalability?</a></li>
+      <li><a href="#question-32" class="underline text-link">Question 32: How are attention scores calculated in transformers?</a></li>
+      <li><a href="#question-42" class="underline text-link">Question 42: How does Adaptive Softmax optimize LLMs?</a></li>
+      <li><a href="#question-51" class="underline text-link">Question 51: What is an LLM, and how are LLMs trained end-to-end?</a></li>
+    </ul>
+  </div>
+
+  <div class="question-card space-y-4">
+    <div class="panel panel-info panel-emphasis p-4 space-y-3">
+      <h4 class="font-semibold text-heading">💰 What is LLM Cost Estimation?</h4>
+      <p class="text-sm">Cost estimation weighs usage-based API pricing against infrastructure plus operations spend to find the break-even volume where self-hosting becomes cheaper. Think of it as ride-hailing (pay per trip) versus owning a car (capex, fuel, and maintenance).</p>
     </div>
+
+    <div class="grid md:grid-cols-3 gap-4 text-sm">
+      <div class="panel panel-success panel-emphasis p-4 space-y-2">
+        <h5 class="font-medium text-heading">SaaS API</h5>
+        <p>Pay per 1K tokens with minimal operations overhead.</p>
+        <code class="text-xs">Cost ∝ requests × tokens</code>
+      </div>
+      <div class="panel panel-info p-4 space-y-2">
+        <h5 class="font-medium text-heading">Self-host</h5>
+        <p>Upfront and ongoing GPU + staffing costs amortised over volume.</p>
+        <code class="text-xs">Cost ≈ (GPU hrs × rate × util) + O</code>
+      </div>
+      <div class="panel panel-warning panel-emphasis p-4 space-y-2">
+        <h5 class="font-medium text-heading">Hybrid / orchestrated</h5>
+        <p>Blend caches and routing to send heavy or sensitive traffic to self-hosted capacity.</p>
+        <code class="text-xs">Smart routing → lower blended cost per 1K</code>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-warning panel-emphasis p-4 space-y-2">
+    <h4 class="font-semibold text-heading">🎯 Why this matters</h4>
+    <ul class="list-disc ml-5 text-sm space-y-1">
+      <li><strong>Unit economics:</strong> Justify feature viability and pricing models.</li>
+      <li><strong>Scaling strategy:</strong> Know when infrastructure investment pays off.</li>
+      <li><strong>Optimization levers:</strong> Highlight prompt compression, caching, and batching opportunities.</li>
+      <li><strong>Risk and focus:</strong> Avoid premature platform hiring at low volume.</li>
+      <li><strong>Strategic flexibility:</strong> Hybrid routing reduces vendor lock-in.</li>
+    </ul>
+  </div>
+
+  <div class="question-card space-y-3">
+    <div class="panel panel-neutral p-4">
+      <div class="math-display">$$
+\begin{align*}
+C_{\text{SaaS}} &= \frac{(T_p + T_c) \cdot R}{1000} \cdot P_{1K} \
+C_{\text{Self}} &= (H_{GPU} \cdot 24 \cdot 30 \cdot G \cdot U) + O \
+R_{\text{break}} &= \frac{1000\, C_{\text{Self}}}{(T_p + T_c) P_{1K}}
+\end{align*}
+$$</div>
+    </div>
+    <p class="text-sm text-muted">Symbols: <code>R</code> = monthly requests, <code>T_p</code>/<code>T_c</code> = average prompt/completion tokens, <code>P_{1K}</code> = SaaS price per 1K tokens, <code>H_{GPU}</code> = hourly GPU rate, <code>G</code> = GPU count, <code>U</code> = utilisation (0–1), <code>O</code> = monthly overhead (engineering, storage, networking, monitoring).</p>
+    <p class="text-xs text-muted-soft italic">Sample values mirror public pricing from September 2025 (for example, cost-effective models at ~&dollar;0.02 per 1K tokens and on-demand A100-class GPUs at around &dollar;2.50 per hour). Adjust for vendor contracts, committed discounts, and region.</p>
+  </div>
+</div>

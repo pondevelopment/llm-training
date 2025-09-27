@@ -1,65 +1,65 @@
+<div class="space-y-6">
+  <div class="question-card space-y-4">
+    <div class="flex flex-wrap items-center gap-2">
+      <span class="small-caption text-muted uppercase tracking-wide">Presets</span>
+      <div class="flex flex-wrap gap-2 text-xs">
+        <button data-q45-preset="guardrails" class="btn-soft px-3 py-1" title="Prompt + filter only (fast)">Quick guardrails</button>
+        <button data-q45-preset="remediation" class="btn-soft px-3 py-1" title="Data remediation focus">Data remediation</button>
+        <button data-q45-preset="factual" class="btn-soft px-3 py-1" title="High-risk factual mitigation">High-risk factual</button>
+        <button data-q45-preset="toxicity" class="btn-soft px-3 py-1" title="Toxicity hardening">Toxicity hardening</button>
+        <button data-q45-preset="full" class="btn-soft px-3 py-1" title="All strategies layered">Full stack</button>
+      </div>
+    </div>
 
-      <div class="space-y-6">
-        <div class="bg-gradient-to-r from-rose-50 to-amber-50 p-4 rounded-lg border border-amber-200">
-      <div class="flex flex-wrap items-center gap-2 mb-3 text-xs">
-            <span class="font-semibold text-gray-700 mr-1">Presets:</span>
-            <button data-q45-preset="guardrails" class="px-2 py-0.5 rounded border border-amber-300 bg-white hover:bg-amber-100" title="Prompt + filter only (fast)">Quick guardrails</button>
-            <button data-q45-preset="remediation" class="px-2 py-0.5 rounded border border-amber-300 bg-white hover:bg-amber-100" title="Data remediation focus">Data remediation</button>
-            <button data-q45-preset="factual" class="px-2 py-0.5 rounded border border-amber-300 bg-white hover:bg-amber-100" title="High-risk factual mitigation">High‑risk factual</button>
-            <button data-q45-preset="toxicity" class="px-2 py-0.5 rounded border border-amber-300 bg-white hover:bg-amber-100" title="Toxicity hardening">Toxicity hardening</button>
-            <button data-q45-preset="full" class="px-2 py-0.5 rounded border border-amber-300 bg-white hover:bg-amber-100" title="All strategies layered">Full stack</button>
-            <button id="q45-copy" class="px-2 py-0.5 rounded border border-amber-400 bg-white hover:bg-amber-100 text-amber-700">Copy link</button>
-            <button id="q45-export" class="px-2 py-0.5 rounded border border-amber-400 bg-white hover:bg-amber-100 text-amber-700">Export</button>
-          </div>
-          <div class="grid md:grid-cols-12 gap-4 text-xs">
-            <div class="md:col-span-3">
-              <label class="font-semibold text-gray-700">Failure type</label>
-              <select id="q45-type" class="w-full border rounded p-1 text-xs">
-                <option value="bias" selected>Bias (stereotypes, unfair treatment)</option>
-                <option value="factual">Incorrect facts/hallucinations</option>
-                <option value="toxicity">Toxic/unsafe content</option>
-              </select>
-            </div>
-            <div class="md:col-span-2">
-              <label class="font-semibold text-gray-700">Severity</label>
-              <input id="q45-sev" type="range" min="0" max="1" step="0.05" value="0.6" class="w-full" />
-              <div class="text-center mt-1"><span id="q45-sev-val" class="font-mono">0.60</span></div>
-            </div>
-            <div class="md:col-span-2">
-              <label class="font-semibold text-gray-700">Data quality</label>
-              <input id="q45-data" type="range" min="0" max="1" step="0.05" value="0.5" class="w-full" />
-              <div class="text-center mt-1"><span id="q45-data-val" class="font-mono">0.50</span></div>
-            </div>
-            <div class="md:col-span-5">
-              <label class="font-semibold text-gray-700" title="Layer multiple complementary methods">Strategies</label>
-              <div class="grid grid-cols-3 gap-2 mt-1" role="group" aria-label="Mitigation strategies">
-                <label class="flex items-center gap-1" title="Structured prompts, refusals, self-checks"><input id="q45-s-prompt" type="checkbox" checked /> <span>Prompt guardrails</span></label>
-                <label class="flex items-center gap-1" title="Retrieve external evidence for factual grounding"><input id="q45-s-rag" type="checkbox" /> <span>RAG grounding</span></label>
-                <label class="flex items-center gap-1" title="Augment / rebalance data to counter skew"><input id="q45-s-augment" type="checkbox" checked /> <span>Data rebal/augment</span></label>
-                <label class="flex items-center gap-1" title="Toxicity & safety classifiers / regex filters"><input id="q45-s-filter" type="checkbox" checked /> <span>Safety filter</span></label>
-                <label class="flex items-center gap-1" title="Supervised finetune on curated policy examples"><input id="q45-s-sft" type="checkbox" /> <span>SFT fine-tune</span></label>
-                <label class="flex items-center gap-1" title="Align outputs to preferences / safety via feedback"><input id="q45-s-rlhf" type="checkbox" /> <span>RLHF/DPO</span></label>
-              </div>
-            </div>
-          </div>
-          <p class="text-xs text-gray-600 mt-2">Residual risk uses a multiplicative reduction model with diminishing returns at high severity and low data quality.</p>
-        </div>
-
-        <div class="grid md:grid-cols-3 gap-4">
-          <div class="bg-white border rounded-lg p-4">
-            <h5 class="font-semibold text-gray-800 mb-2">📉 Risk impact</h5>
-            <div id="q45-bars" class="text-xs text-gray-700 space-y-1" aria-live="polite"></div>
-            <div class="text-xs text-gray-500 mt-1">Top bar = base risk; second = residual after selected strategies.</div>
-          </div>
-          <div class="bg-white border rounded-lg p-4">
-            <h5 class="font-semibold text-gray-800 mb-2">📊 Metrics</h5>
-            <div id="q45-metrics" class="text-xs text-gray-700 space-y-2" aria-live="polite"></div>
-            <div id="q45-guidance" class="mt-1 text-xs text-indigo-700 border-t pt-2" aria-live="polite"></div>
-          </div>
-          <div class="bg-white border rounded-lg p-4">
-            <h5 class="font-semibold text-gray-800 mb-2">🧠 Recommendation</h5>
-            <div id="q45-explain" class="text-xs text-gray-700" aria-live="polite"></div>
-          </div>
+    <div class="grid md:grid-cols-12 gap-4 text-sm">
+      <div class="md:col-span-3 space-y-1">
+        <label class="block text-xs font-semibold text-heading uppercase tracking-wide" for="q45-type">Failure type</label>
+        <select id="q45-type" class="w-full px-3 py-2 border border-subtle rounded-md bg-card text-body text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+          <option value="bias" selected>Bias (stereotypes, unfair treatment)</option>
+          <option value="factual">Incorrect facts / hallucinations</option>
+          <option value="toxicity">Toxic / unsafe content</option>
+        </select>
+      </div>
+      <div class="md:col-span-2 space-y-1">
+        <label class="block text-xs font-semibold text-heading uppercase tracking-wide" for="q45-sev">Severity</label>
+        <input id="q45-sev" type="range" min="0" max="1" step="0.05" value="0.6" class="w-full" />
+        <div class="small-caption text-muted text-center">Severity: <span id="q45-sev-val" class="font-mono text-body">0.60</span></div>
+      </div>
+      <div class="md:col-span-2 space-y-1">
+        <label class="block text-xs font-semibold text-heading uppercase tracking-wide" for="q45-data">Data quality</label>
+        <input id="q45-data" type="range" min="0" max="1" step="0.05" value="0.5" class="w-full" />
+        <div class="small-caption text-muted text-center">Data quality: <span id="q45-data-val" class="font-mono text-body">0.50</span></div>
+      </div>
+      <div class="md:col-span-5 space-y-2">
+        <span class="block text-xs font-semibold text-heading uppercase tracking-wide">Strategies</span>
+        <div class="grid grid-cols-3 gap-2 text-sm" role="group" aria-label="Mitigation strategies">
+          <label class="inline-flex items-center gap-2"><input id="q45-s-prompt" type="checkbox" checked /> <span class="text-body">Prompt guardrails</span></label>
+          <label class="inline-flex items-center gap-2"><input id="q45-s-rag" type="checkbox" /> <span class="text-body">RAG grounding</span></label>
+          <label class="inline-flex items-center gap-2"><input id="q45-s-augment" type="checkbox" checked /> <span class="text-body">Data rebal / augment</span></label>
+          <label class="inline-flex items-center gap-2"><input id="q45-s-filter" type="checkbox" checked /> <span class="text-body">Safety filter</span></label>
+          <label class="inline-flex items-center gap-2"><input id="q45-s-sft" type="checkbox" /> <span class="text-body">SFT fine-tune</span></label>
+          <label class="inline-flex items-center gap-2"><input id="q45-s-rlhf" type="checkbox" /> <span class="text-body">RLHF / DPO</span></label>
         </div>
       </div>
-    
+    </div>
+
+    <p class="small-caption text-muted">Residual risk uses a multiplicative reduction model with diminishing returns at high severity and low data quality.</p>
+  </div>
+
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h5 class="font-semibold text-heading">&#x1F4C9; Risk impact</h5>
+      <div id="q45-bars" class="text-sm space-y-2" aria-live="polite"></div>
+      <p class="small-caption text-muted">Top bar = base risk; second = residual after selected strategies.</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-3">
+      <h5 class="font-semibold text-heading">&#x1F4CA; Metrics</h5>
+      <div id="q45-metrics" class="text-sm space-y-2" aria-live="polite"></div>
+      <div id="q45-guidance" class="small-caption text-muted border-t border-subtle pt-2" aria-live="polite"></div>
+    </div>
+    <div class="panel panel-warning panel-emphasis p-4 space-y-2">
+      <h5 class="font-semibold text-heading">&#x1F9ED; Recommendation</h5>
+      <div id="q45-explain" class="text-sm space-y-2" aria-live="polite"></div>
+    </div>
+  </div>
+</div>

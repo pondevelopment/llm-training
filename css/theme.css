@@ -3437,6 +3437,51 @@ html.dark .q37-bar-value {
 }
 
 /* Question 53 decoding explorer */
+.q53-context {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.q53-context-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+.q53-context-text {
+  font-size: 0.9rem;
+  color: var(--color-heading);
+}
+.q53-context-note {
+  font-size: 0.75rem;
+  color: var(--color-muted);
+}
+.q53-context-tokens {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+.q53-tokenchip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.3rem 0.65rem;
+  border-radius: 0.7rem;
+  border: 1px solid color-mix(in srgb, var(--color-border-subtle) 65%, transparent 35%);
+  background: color-mix(in srgb, var(--color-card) 92%, transparent 8%);
+  font-size: 0.75rem;
+  font-weight: 600;
+  font-family: var(--font-mono, 'Fira Mono', 'SFMono-Regular', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace);
+  color: var(--color-muted);
+  transition: background-color .2s ease, border-color .2s ease, color .2s ease;
+}
+.q53-tokenchip--active {
+  border-color: color-mix(in srgb, var(--accent-border) 60%, transparent 40%);
+  background: color-mix(in srgb, var(--accent-soft) 45%, var(--color-card) 55%);
+  color: var(--accent-text);
+}
+
 .q53-keylist {
   display: flex;
   flex-direction: column;
@@ -3467,14 +3512,15 @@ html.dark .q37-bar-value {
   text-transform: uppercase;
   color: var(--color-muted);
 }
-.q53-keyindex {
-  font-size: 0.78rem;
+.q53-keytoken {
+  font-size: 0.9rem;
   font-weight: 600;
   color: var(--color-heading);
 }
 .q53-keymeta {
   font-size: 0.68rem;
   letter-spacing: 0.04em;
+  color: var(--color-muted);
 }
 .q53-keylogit {
   font-family: var(--font-mono, 'Fira Mono', 'SFMono-Regular', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace);
@@ -3532,11 +3578,23 @@ html.dark .q37-bar-value {
   color: color-mix(in srgb, var(--accent-text) 65%, var(--color-muted) 35%);
 }
 
+html.dark .q53-context-text {
+  color: var(--color-body);
+}
+html.dark .q53-tokenchip {
+  border-color: color-mix(in srgb, var(--color-border) 68%, transparent 32%);
+  background: color-mix(in srgb, var(--color-card) 84%, transparent 16%);
+  color: var(--color-muted);
+}
+html.dark .q53-tokenchip--active {
+  background: color-mix(in srgb, var(--accent-soft) 35%, var(--color-card) 65%);
+  color: var(--accent-text);
+}
 html.dark .q53-keyrow {
   border-color: color-mix(in srgb, var(--color-border) 68%, transparent 32%);
   background: color-mix(in srgb, var(--color-card) 84%, transparent 16%);
 }
-html.dark .q53-keyindex,
+html.dark .q53-keytoken,
 html.dark .q53-keylogit,
 html.dark .q53-keyprob {
   color: var(--color-body);
@@ -3550,6 +3608,42 @@ html.dark .q53-bar-fill {
 }
 html.dark .q53-keyrow--active {
   background: color-mix(in srgb, var(--accent-soft) 38%, var(--color-card) 62%);
+}
+
+.q53-result-tokenline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-heading);
+}
+.q53-result-label {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+.q53-result-token {
+  font-family: var(--font-mono, 'Fira Mono', 'SFMono-Regular', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace);
+  padding: 0.25rem 0.6rem;
+  border-radius: 0.6rem;
+  background: color-mix(in srgb, var(--accent-soft) 45%, var(--color-card) 55%);
+  border: 1px solid color-mix(in srgb, var(--accent-border) 60%, transparent 40%);
+  color: var(--accent-text);
+}
+.q53-result-index {
+  font-size: 0.75rem;
+  color: var(--color-muted);
+}
+.q53-result-sentence {
+  margin-top: 0.4rem;
+  font-size: 0.85rem;
+  color: var(--color-body);
+}
+html.dark .q53-result-tokenline {
+  color: var(--color-body);
 }
 .q39-output {
   min-height: 5.5rem;

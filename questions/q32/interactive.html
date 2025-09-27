@@ -1,134 +1,356 @@
-<div class="space-y-8">
-        <!-- Interactive Controls -->
-    <div class="bg-white p-4 rounded-lg border border-gray-200 space-y-4" id="q32-controls">
-            <h4 class="font-medium text-gray-900">🛠️ Experiment Controls</h4>
-            <div class="grid md:grid-cols-2 gap-6">
-                <div class="space-y-4">
-                    <label class="block">
-                        <span class="text-xs font-medium text-gray-700">Sequence Length: <span id="q32-seq-length-display" class="font-mono">3</span></span>
-                        <input id="q32-seq-length" type="range" min="2" max="8" value="3" class="w-full mt-1" aria-label="Sequence length slider" />
-                        <div id="q32-seq-feedback" class="text-xs text-gray-600 mt-1"></div>
-                    </label>
-                    <label class="block">
-                        <span class="text-xs font-medium text-gray-700">Key / Value Dimension (d_k): <span id="q32-dim-k-display" class="font-mono">4</span></span>
-                        <input id="q32-dim-k" type="range" min="2" max="12" value="4" class="w-full mt-1" aria-label="Key dimension slider" />
-                        <div id="q32-dim-feedback" class="text-xs text-gray-600 mt-1"></div>
-                    </label>
-                    <label class="block">
-                        <span class="text-xs font-medium text-gray-700">Temperature: <span id="q32-temperature-display" class="font-mono">1.0</span></span>
-                        <input id="q32-temperature" type="range" min="0.2" max="3" step="0.1" value="1" class="w-full mt-1" aria-label="Temperature slider" />
-                        <div id="q32-temp-feedback" class="text-xs text-gray-600 mt-1"></div>
-                    </label>
-                    <label class="inline-flex items-center space-x-2 mt-2">
-                        <input id="q32-scaling" type="checkbox" checked aria-label="Toggle scaling by square root d k" />
-                        <span class="text-xs text-gray-700">Apply √d_k scaling</span>
-                    </label>
-                    <div id="q32-scaling-feedback" class="text-xs text-gray-600 mt-1"></div>
-                </div>
-                <div class="space-y-3">
-                    <div class="text-xs font-medium text-gray-700">Presets</div>
-                    <div class="flex flex-wrap gap-2">
-                        <button id="q32-beginner" class="px-2 py-1 text-xs rounded bg-blue-50 border border-blue-200 hover:bg-blue-100">Beginner</button>
-                        <button id="q32-realistic" class="px-2 py-1 text-xs rounded bg-green-50 border border-green-200 hover:bg-green-100">Realistic</button>
-                        <button id="q32-focused" class="px-2 py-1 text-xs rounded bg-orange-50 border border-orange-200 hover:bg-orange-100">Focused</button>
-                        <button id="q32-distributed" class="px-2 py-1 text-xs rounded bg-purple-50 border border-purple-200 hover:bg-purple-100">Distributed</button>
-                    </div>
-                    <div class="mt-4 space-y-2">
-                        <button id="q32-toggle-guide" class="text-xs underline text-blue-700">Hide Guide</button>
-                        <div id="q32-guide-content" class="mt-2 text-xs text-gray-600 space-y-2">
-                            <p><strong>Sequence Length</strong> changes how many tokens attend to each other (matrix size).</p>
-                            <p><strong>d_k</strong> changes scale of dot products; higher values make scaling more important.</p>
-                            <p><strong>Temperature</strong> sharpens (low) or smooths (high) the softmax distribution.</p>
-                            <p><strong>Scaling</strong> by √d_k stabilizes training by keeping softmax in a sensitive range.</p>
-                        </div>
-                        <div class="flex flex-wrap items-center gap-3 pt-2 border-t border-gray-200">
-                            <label class="text-xs text-gray-700 flex items-center gap-1">Palette
-                                <select id="q32-palette" class="text-xs border-gray-300 rounded px-1 py-0.5">
-                                    <option value="default">Blue→Red</option>
-                                    <option value="viridis">Viridis</option>
-                                </select>
-                            </label>
-                            <button id="q32-regenerate" class="text-xs px-2 py-1 bg-indigo-600 text-white rounded hover:bg-indigo-700">Regenerate Matrices</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<div class="space-y-6" id="q32-interactive-root">
+  <style>
+    #q32-interactive-root {
+      --q32-heatmap-text-strong: var(--panel-neutral-strong);
+      --q32-heatmap-text-muted: var(--panel-neutral-text);
+    }
+    html.dark #q32-interactive-root {
+      --q32-heatmap-text-strong: #f8fafc;
+      --q32-heatmap-text-muted: var(--panel-neutral-text);
+    }
+    #q32-interactive-root input[type="range"] {
+      accent-color: var(--tone-indigo-strong);
+    }
+    .q32-mode-grid {
+      display: grid;
+      gap: 0.75rem;
+    }
+    @media (min-width: 768px) {
+      .q32-mode-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+    .q32-mode-card {
+      position: relative;
+      display: block;
+      border: 1px solid var(--color-border-subtle);
+      border-radius: 0.85rem;
+      padding: 1rem;
+      background: var(--color-card);
+      transition: border-color .2s ease, box-shadow .2s ease, background-color .2s ease;
+    }
+    .q32-mode-card input[type="radio"] {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      pointer-events: none;
+    }
+    .q32-mode-card[data-selected="true"] {
+      border-color: var(--panel-info-border-strong);
+      box-shadow: 0 18px 36px -28px rgba(15, 23, 42, 0.55);
+      background: color-mix(in srgb, var(--panel-info-bg) 62%, var(--color-card) 38%);
+    }
+    html.dark .q32-mode-card[data-selected="true"] {
+      box-shadow: 0 20px 44px -32px rgba(2, 6, 23, 0.75);
+      background: color-mix(in srgb, var(--panel-info-bg) 45%, var(--color-card) 55%);
+    }
+    .q32-mode-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: 9999px;
+      padding: 0.2rem 0.65rem;
+      border: 1px solid color-mix(in srgb, var(--panel-info-border-strong) 35%, transparent);
+      background: color-mix(in srgb, var(--panel-info-bg) 55%, transparent 45%);
+      color: var(--panel-info-strong);
+    }
+    html.dark .q32-mode-chip {
+      color: var(--panel-info-strong);
+      background: color-mix(in srgb, var(--panel-info-bg) 38%, transparent 62%);
+    }
+    .matrix-container {
+      border: 1px solid color-mix(in srgb, var(--color-border-subtle) 78%, transparent 22%);
+      border-radius: 0.85rem;
+      background: color-mix(in srgb, var(--color-card) 94%, transparent 6%);
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    html.dark .matrix-container {
+      border-color: color-mix(in srgb, var(--color-border) 64%, transparent 36%);
+      background: color-mix(in srgb, var(--color-card) 78%, transparent 22%);
+    }
+    .matrix-wrapper {
+      overflow-x: auto;
+    }
+    .matrix-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .matrix-table td, .matrix-table th {
+      border: 1px solid color-mix(in srgb, var(--color-border-subtle) 72%, transparent 28%);
+      padding: 0.4rem 0.5rem;
+      text-align: center;
+    }
+    .matrix-table tr:nth-child(even) {
+      background: color-mix(in srgb, var(--color-card) 90%, transparent 10%);
+    }
+    html.dark .matrix-table tr:nth-child(even) {
+      background: color-mix(in srgb, var(--color-card) 70%, transparent 30%);
+    }
+    .matrix-table td:hover {
+      background: color-mix(in srgb, var(--panel-info-bg) 45%, transparent 55%);
+    }
+    .heatmap-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      border-radius: 0.85rem;
+      border: 1px solid color-mix(in srgb, var(--color-border-subtle) 75%, transparent 25%);
+      background: color-mix(in srgb, var(--color-card) 94%, transparent 6%);
+      padding: 1rem 1.25rem;
+    }
+    html.dark .heatmap-container {
+      border-color: color-mix(in srgb, var(--color-border) 62%, transparent 38%);
+      background: color-mix(in srgb, var(--color-card) 78%, transparent 22%);
+    }
+    .heatmap-wrapper {
+      overflow-x: auto;
+      padding-bottom: 0.5rem;
+    }
+    .heatmap-grid {
+      display: grid;
+      gap: 0.4rem;
+    }
+    .heatmap-cell {
+      font-family: 'JetBrains Mono', 'Fira Code', 'Source Code Pro', ui-monospace, SFMono-Regular, monospace;
+      font-size: 0.75rem;
+      font-weight: 600;
+      border-radius: 0.6rem;
+      padding: 0.45rem 0.5rem;
+      text-align: center;
+      border: 1px solid color-mix(in srgb, var(--color-border-subtle) 70%, transparent 30%);
+      color: var(--q32-heatmap-text-muted);
+      cursor: pointer;
+    }
+    .heatmap-cell:focus-visible {
+      outline: 2px solid var(--panel-info-border-strong);
+      outline-offset: 2px;
+    }
+    .q32-legend-dot {
+      width: 0.75rem;
+      height: 0.75rem;
+      border-radius: 9999px;
+      border: 1px solid color-mix(in srgb, var(--color-border-subtle) 65%, transparent 35%);
+      display: inline-flex;
+    }
+    .q32-legend-dot--unscaled {
+      background: var(--color-path-scaling-strong);
+      border-color: var(--color-path-scaling-strong);
+    }
+    .q32-legend-dot--scaled {
+      background: var(--tone-emerald-strong);
+      border-color: var(--tone-emerald-strong);
+    }
+    html.dark .q32-legend-dot--unscaled {
+      background: color-mix(in srgb, var(--color-path-scaling-strong) 75%, transparent 25%);
+      border-color: var(--color-path-scaling-strong);
+    }
+    html.dark .q32-legend-dot--scaled {
+      background: color-mix(in srgb, var(--tone-emerald-strong) 75%, transparent 25%);
+      border-color: var(--tone-emerald-strong);
+    }
+        .q32-heatmap-swatch {
+      width: 0.75rem;
+      height: 0.75rem;
+      border-radius: 9999px;
+      display: inline-flex;
+      border: 1px solid transparent;
+    }
+    .q32-heatmap-swatch--high {
+      background: var(--color-path-scaling-strong);
+      border-color: var(--color-path-scaling-strong);
+    }
+    .q32-heatmap-swatch--low {
+      background: var(--tone-indigo-strong);
+      border-color: var(--tone-indigo-strong);
+    }
+    html.dark .q32-heatmap-swatch--high {
+      background: color-mix(in srgb, var(--color-path-scaling-strong) 75%, transparent 25%);
+      border-color: var(--color-path-scaling-strong);
+    }
+    html.dark .q32-heatmap-swatch--low {
+      background: color-mix(in srgb, var(--tone-indigo-strong) 70%, transparent 30%);
+      border-color: var(--tone-indigo-strong);
+    }
+          transition: transform .2s ease, box-shadow .2s ease;
+      min-width: 3rem;
+    }
+    .heatmap-cell:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 36px -30px rgba(15, 23, 42, 0.58);
+    }
+    html.dark .heatmap-cell:hover {
+      box-shadow: 0 20px 44px -34px rgba(2, 6, 23, 0.75);
+    }
+    .heatmap-legend {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .heatmap-gradient {
+      height: 0.5rem;
+      border-radius: 9999px;
+      border: 1px solid color-mix(in srgb, var(--color-border-subtle) 65%, transparent 35%);
+      background: linear-gradient(90deg, hsl(214, 97%, 76%) 0%, hsl(0, 84%, 60%) 100%);
+    }
+    .heatmap-ticks {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.7rem;
+      color: var(--color-secondary);
+    }
+    #q32-cell-detail {
+      border-radius: 0.85rem;
+      border: 1px solid color-mix(in srgb, var(--color-border-subtle) 72%, transparent 28%);
+      background: color-mix(in srgb, var(--color-card) 94%, transparent 6%);
+      padding: 1rem;
+    }
+    html.dark #q32-cell-detail {
+      border-color: color-mix(in srgb, var(--color-border) 62%, transparent 38%);
+      background: color-mix(in srgb, var(--color-card) 78%, transparent 22%);
+    }
+    .q32-preset {
+      cursor: pointer;
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+    .q32-preset:focus-visible {
+      outline: 2px solid var(--accent-strong);
+      outline-offset: 2px;
+    }
+  </style>
+
+  <!-- Controls -->
+  <div class="question-card space-y-4" id="q32-controls">
+    <h4 class="text-heading font-semibold text-base">🛠️ Experiment Controls</h4>
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="space-y-4">
+        <label class="block space-y-1">
+          <span class="text-xs font-semibold text-secondary">Sequence Length: <span id="q32-seq-length-display" class="font-mono text-heading">3</span></span>
+          <input id="q32-seq-length" type="range" min="2" max="8" value="3" class="w-full mt-1" aria-label="Sequence length slider" />
+          <div id="q32-seq-feedback" class="text-xs text-muted mt-1"></div>
+        </label>
+        <label class="block space-y-1">
+          <span class="text-xs font-semibold text-secondary">Key / Value Dimension (d_k): <span id="q32-dim-k-display" class="font-mono text-heading">4</span></span>
+          <input id="q32-dim-k" type="range" min="2" max="12" value="4" class="w-full mt-1" aria-label="Key dimension slider" />
+          <div id="q32-dim-feedback" class="text-xs text-muted mt-1"></div>
+        </label>
+        <label class="block space-y-1">
+          <span class="text-xs font-semibold text-secondary">Temperature: <span id="q32-temperature-display" class="font-mono text-heading">1.0</span></span>
+          <input id="q32-temperature" type="range" min="0.2" max="3" step="0.1" value="1" class="w-full mt-1" aria-label="Temperature slider" />
+          <div id="q32-temp-feedback" class="text-xs text-muted mt-1"></div>
+        </label>
+        <label class="inline-flex items-center gap-2">
+          <input id="q32-scaling" type="checkbox" checked aria-label="Toggle scaling by square root d k" />
+          <span class="text-xs text-secondary">Apply √d_k scaling</span>
+        </label>
+        <div id="q32-scaling-feedback" class="text-xs text-muted"></div>
+      </div>
+
+      <div class="space-y-4">
+        <div class="text-xs font-semibold text-secondary uppercase tracking-wide">Presets</div>
+        <div class="flex flex-wrap gap-2">
+          <button id="q32-beginner" class="chip chip-info text-xs q32-preset">Beginner</button>
+          <button id="q32-realistic" class="chip chip-success text-xs q32-preset">Realistic</button>
+          <button id="q32-focused" class="chip chip-warning text-xs q32-preset">Focused</button>
+          <button id="q32-distributed" class="chip chip-accent text-xs q32-preset">Distributed</button>
         </div>
-        
-        <!-- Visualization Mode Selection -->
-            <div class="bg-white border border-gray-200 rounded-lg p-4" id="q32-mode-wrapper">
-                <fieldset>
-                  <legend class="font-medium text-gray-700 mb-3">👀 Visualization Mode</legend>
-                  <div class="grid grid-cols-1 md:grid-cols-3 gap-3" role="radiogroup" aria-label="Attention visualization mode">
-                    <label class="relative border-2 border-gray-200 rounded-lg p-4 cursor-pointer hover:bg-gray-50 transition-all duration-200" data-mode-card>
-                        <input type="radio" name="q32-mode" value="step-by-step" checked class="absolute top-3 right-3" aria-label="Step by step mode">
-                        <div class="visualization-option">
-                            <div class="flex items-center mb-3">
-                                <span class="text-2xl mr-3">📚</span>
-                                <div>
-                                    <div class="font-medium text-gray-900">Step-by-Step</div>
-                                    <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">Best for Learning</span>
-                                </div>
-                            </div>
-                            <p class="text-sm text-gray-600 mb-2">See every calculation step with detailed explanations</p>
-                            <div class="text-xs font-mono bg-gray-100 px-2 py-1 rounded">
-                                Q·K^T → √d_k → Softmax → ·V
-                            </div>
-                        </div>
-                    </label>
-                    <label class="relative border-2 border-gray-200 rounded-lg p-4 cursor-pointer hover:bg-gray-50 transition-all duration-200" data-mode-card>
-                        <input type="radio" name="q32-mode" value="heatmap" class="absolute top-3 right-3" aria-label="Heatmap mode">
-                        <div class="visualization-option">
-                            <div class="flex items-center mb-3">
-                                <span class="text-2xl mr-3">🎨</span>
-                                <div>
-                                    <div class="font-medium text-gray-900">Attention Heatmap</div>
-                                    <span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">Most Visual</span>
-                                </div>
-                            </div>
-                            <p class="text-sm text-gray-600 mb-2">Color-coded matrix showing attention patterns</p>
-                            <div class="flex items-center text-xs">
-                                <div class="w-3 h-3 bg-red-400 rounded mr-1"></div>
-                                <span class="mr-2">High</span>
-                                <div class="w-3 h-3 bg-blue-400 rounded mr-1"></div>
-                                <span>Low</span>
-                            </div>
-                        </div>
-                    </label>
-                    <label class="relative border-2 border-gray-200 rounded-lg p-4 cursor-pointer hover:bg-gray-50 transition-all duration-200" data-mode-card>
-                        <input type="radio" name="q32-mode" value="comparison" class="absolute top-3 right-3" aria-label="Scaling comparison mode">
-                        <div class="visualization-option">
-                            <div class="flex items-center mb-3">
-                                <span class="text-2xl mr-3">⚖️</span>
-                                <div>
-                                    <div class="font-medium text-gray-900">Scaling Comparison</div>
-                                    <span class="text-xs bg-orange-100 text-orange-800 px-2 py-1 rounded">Advanced</span>
-                                </div>
-                            </div>
-                            <p class="text-sm text-gray-600 mb-2">Side-by-side: with vs without √d_k scaling</p>
-                            <div class="text-xs font-mono bg-gray-100 px-2 py-1 rounded">
-                                Before vs After scaling
-                            </div>
-                        </div>
-                    </label>
-                  </div>
-                </fieldset>
-            </div>
-            
-            <!-- Results Section -->
-            <div class="bg-white border border-gray-200 rounded-lg p-4">
-                <div class="flex items-center justify-between mb-3">
-                    <h4 class="font-medium text-gray-900">🎨 Attention Computation</h4>
-                    <div id="q32-mode-indicator" class="text-xs bg-gray-100 px-2 py-1 rounded font-medium"></div>
-                </div>
-                <div id="q32-output" class="min-h-[200px]" role="region" aria-live="polite" aria-label="Attention visualization output" aria-atomic="false"></div>
-                <div id="q32-cell-detail" class="hidden mt-4 text-xs bg-gray-50 border border-gray-200 rounded p-3" aria-live="polite" aria-label="Selected attention cell details"></div>
-            </div>
-            
-            <!-- Educational Analysis -->
-            <div id="q32-analysis" class="bg-yellow-50 border border-yellow-200 rounded-lg p-4" role="region" aria-live="polite" aria-label="Attention analysis panel" aria-atomic="false">
-                <h4 class="font-medium text-yellow-900 mb-2" id="q32-analysis-heading">📊 Attention Analysis</h4>
-                <div id="q32-explanation" class="text-sm text-yellow-800" aria-describedby="q32-analysis-heading"></div>
-                <div id="q32-sr-summary" class="sr-only" aria-live="polite"></div>
-            </div>
+        <div class="space-y-2">
+          <button id="q32-toggle-guide" class="text-xs underline text-link">Hide Guide</button>
+          <div id="q32-guide-content" class="space-y-2 text-xs text-muted">
+            <p><strong>Sequence Length</strong> changes how many tokens attend to each other (matrix size).</p>
+            <p><strong>d_k</strong> changes scale of dot products; higher values make scaling more important.</p>
+            <p><strong>Temperature</strong> sharpens (low) or smooths (high) the softmax distribution.</p>
+            <p><strong>Scaling</strong> by √d_k stabilizes training by keeping softmax in a sensitive range.</p>
+          </div>
+          <div class="flex flex-wrap items-center gap-3 pt-2 border-t border-divider">
+            <label class="text-xs text-secondary flex items-center gap-2">Palette
+              <select id="q32-palette" class="field-select field-select--compact text-xs">
+                <option value="default">Blue→Red</option>
+                <option value="viridis">Viridis</option>
+              </select>
+            </label>
+            <button id="q32-regenerate" class="btn-accent text-xs px-3 py-1">Regenerate Matrices</button>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+
+  <!-- Mode Selection -->
+  <div class="question-card space-y-4" id="q32-mode-wrapper">
+    <fieldset class="space-y-3">
+      <legend class="text-sm font-semibold text-heading">👀 Visualization Mode</legend>
+      <div class="q32-mode-grid" role="radiogroup" aria-label="Attention visualization mode">
+        <label class="q32-mode-card question-strategy" data-mode-card>
+          <input type="radio" name="q32-mode" value="step-by-step" checked aria-label="Step by step mode">
+          <div class="flex items-start gap-3">
+            <span class="text-2xl" aria-hidden="true">📚</span>
+            <div class="space-y-2">
+              <div class="text-sm font-semibold text-heading">Step-by-Step</div>
+              <span class="q32-mode-chip">Best for learning</span>
+            </div>
+          </div>
+          <p class="text-sm text-muted mt-3">See every calculation step with detailed explanations.</p>
+          <div class="text-xs font-mono text-muted-soft bg-subtle px-2 py-1 rounded-md inline-block">Q·Kᵀ → √d_k → softmax → ·V</div>
+        </label>
+
+        <label class="q32-mode-card question-strategy" data-mode-card>
+          <input type="radio" name="q32-mode" value="heatmap" aria-label="Heatmap mode">
+          <div class="flex items-start gap-3">
+            <span class="text-2xl" aria-hidden="true">🎨</span>
+            <div class="space-y-2">
+              <div class="text-sm font-semibold text-heading">Attention Heatmap</div>
+              <span class="q32-mode-chip">Most visual</span>
+            </div>
+          </div>
+          <p class="text-sm text-muted mt-3">Colour-coded matrix showing attention patterns.</p>
+          <div class="flex items-center text-xs text-muted gap-3">
+            <div class="flex items-center gap-1">
+              <span class="q32-heatmap-swatch q32-heatmap-swatch--high" aria-hidden="true"></span>
+              <span>High</span>
+            </div>
+            <div class="flex items-center gap-1">
+              <span class="q32-heatmap-swatch q32-heatmap-swatch--low" aria-hidden="true"></span>
+              <span>Low</span>
+            </div>
+          </div>
+        </label>
+
+        <label class="q32-mode-card question-strategy" data-mode-card>
+          <input type="radio" name="q32-mode" value="comparison" aria-label="Scaling comparison mode">
+          <div class="flex items-start gap-3">
+            <span class="text-2xl" aria-hidden="true">⚖️</span>
+            <div class="space-y-2">
+              <div class="text-sm font-semibold text-heading">Scaling Comparison</div>
+              <span class="q32-mode-chip">Advanced view</span>
+            </div>
+          </div>
+          <p class="text-sm text-muted mt-3">Side-by-side: with vs without √d_k scaling.</p>
+          <div class="text-xs font-mono text-muted-soft bg-subtle px-2 py-1 rounded-md inline-block">Before vs After scaling</div>
+        </label>
+      </div>
+    </fieldset>
+  </div>
+
+  <!-- Output -->
+  <div class="question-card space-y-4">
+    <div class="flex items-center justify-between gap-3">
+      <h4 class="text-heading font-semibold">🎨 Attention Computation</h4>
+      <div id="q32-mode-indicator" class="chip chip-info text-xs"></div>
+    </div>
+    <div id="q32-output" class="min-h-[200px]" role="region" aria-live="polite" aria-label="Attention visualization output" aria-atomic="false"></div>
+    <div id="q32-cell-detail" class="hidden text-xs" aria-live="polite" aria-label="Selected attention cell details"></div>
+  </div>
+
+  <!-- Analysis -->
+  <div id="q32-analysis" class="panel panel-warning p-4 space-y-2" role="region" aria-live="polite" aria-label="Attention analysis panel" aria-atomic="false">
+    <h4 class="font-semibold" id="q32-analysis-heading">📊 Attention Analysis</h4>
+    <div id="q32-explanation" class="text-sm" aria-describedby="q32-analysis-heading"></div>
+    <div id="q32-sr-summary" class="sr-only" aria-live="polite"></div>
+  </div>
+</div>

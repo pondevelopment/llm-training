@@ -90,7 +90,7 @@ const interactiveScript = () => {
                 // Dimension feedback
                 if (dimFeedback) {
                     const scaleFactor = Math.sqrt(dk);
-                    dimFeedback.textContent = `√${dk} = ${scaleFactor.toFixed(2)} scaling factor`;
+                    dimFeedback.textContent = `\u221A${dk} = ${scaleFactor.toFixed(2)} scaling factor`;
                 }
                 
                 // Temperature feedback
@@ -107,11 +107,11 @@ const interactiveScript = () => {
                 // Scaling feedback
                 if (scalingFeedback) {
                     if (useScaling) {
-                        scalingFeedback.className = 'text-xs text-gray-600 mt-1 p-2 bg-green-50 rounded';
-                        scalingFeedback.innerHTML = '✅ Scaling enabled - prevents gradient vanishing';
+                        scalingFeedback.className = 'chip chip-success text-xs mt-2';
+                        scalingFeedback.innerHTML = '\u2705 Scaling enabled \u2014 prevents gradient vanishing';
                     } else {
-                        scalingFeedback.className = 'text-xs text-gray-600 mt-1 p-2 bg-red-50 rounded';
-                        scalingFeedback.innerHTML = '⚠️ Scaling disabled - may cause training issues';
+                        scalingFeedback.className = 'chip chip-warning text-xs mt-2';
+                        scalingFeedback.innerHTML = '\u26A0\uFE0F Scaling disabled \u2014 may cause training issues';
                     }
                 }
             }
@@ -182,13 +182,14 @@ const interactiveScript = () => {
                 
                 // Update radio button containers with enhanced styling
                 document.querySelectorAll('input[name="q32-mode"]').forEach((radio) => {
-                    const container = radio.closest('label');
+                    const container = radio.closest('[data-mode-card]');
+                    if (!container) return;
                     if (radio.checked) {
-                        container.classList.remove('border-gray-200');
-                        container.classList.add('border-blue-500', 'bg-blue-50', 'ring-2', 'ring-blue-200');
+                        container.dataset.active = 'true';
+                        container.classList.add('question-strategy-active');
                     } else {
-                        container.classList.remove('border-blue-500', 'bg-blue-50', 'ring-2', 'ring-blue-200');
-                        container.classList.add('border-gray-200');
+                        delete container.dataset.active;
+                        container.classList.remove('question-strategy-active');
                     }
                 });
                 
@@ -209,7 +210,7 @@ const interactiveScript = () => {
                 container.className = `matrix-container matrix-flex-item ${className}`;
                 
                 const titleEl = document.createElement('h5');
-                titleEl.className = 'font-medium text-gray-900 mb-3 text-center';
+                titleEl.className = 'font-medium text-heading mb-3 text-center';
                 titleEl.textContent = title;
                 container.appendChild(titleEl);
                 
@@ -218,17 +219,17 @@ const interactiveScript = () => {
         matrixWrapper.className = 'matrix-wrapper';
                 
                 const table = document.createElement('table');
-        table.className = 'matrix-table mx-auto border-collapse border-2 border-gray-400 bg-white shadow-sm rounded-lg overflow-hidden';
+        table.className = 'matrix-table mx-auto border-collapse border border-divider bg-subtle rounded-lg overflow-hidden';
         table.style.maxWidth = '100%';
         table.style.tableLayout = 'fixed';
                 
                 matrix.forEach((row, rowIndex) => {
                     const tr = document.createElement('tr');
-                    tr.className = rowIndex % 2 === 0 ? 'bg-gray-50' : 'bg-white';
+                    tr.className = rowIndex % 2 === 0 ? 'bg-subtle' : 'bg-card';
                     
                     row.forEach((val, colIndex) => {
                         const td = document.createElement('td');
-            td.className = 'border border-gray-300 px-2 py-1 text-center font-mono text-[11px] min-w-[48px] transition-colors hover:bg-blue-50';
+            td.className = 'border border-divider px-2 py-1 text-center font-mono text-[11px] min-w-[48px] transition-colors hover:bg-subtle';
                         
                         // Format numbers based on their magnitude for better readability
                         let displayValue;
@@ -245,13 +246,13 @@ const interactiveScript = () => {
                         // Add subtle color coding for different value ranges
                         const absVal = Math.abs(val);
                         if (absVal > 0.8) {
-                            td.classList.add('text-red-700', 'font-semibold');
+                            td.classList.add('text-danger', 'font-semibold');
                         } else if (absVal > 0.5) {
-                            td.classList.add('text-orange-700');
+                            td.classList.add('text-warning');
                         } else if (absVal > 0.2) {
-                            td.classList.add('text-blue-700');
+                            td.classList.add('text-info');
                         } else {
-                            td.classList.add('text-gray-600');
+                            td.classList.add('text-muted');
                         }
                         
                         // Add tooltip with full precision value
@@ -267,7 +268,7 @@ const interactiveScript = () => {
                 
                 // Add dimension info
                 const dimInfo = document.createElement('div');
-                dimInfo.className = 'text-xs text-gray-500 text-center mt-2';
+                dimInfo.className = 'text-xs text-secondary text-center mt-2';
                 dimInfo.textContent = `${matrix.length}×${matrix[0].length} matrix`;
                 container.appendChild(dimInfo);
                 
@@ -284,7 +285,7 @@ const interactiveScript = () => {
                 container.setAttribute('aria-label', `${title}. Color intensity represents attention weight from 0 (low) to 1 (high).`);
                 
                 const titleEl = document.createElement('h5');
-                titleEl.className = 'font-medium text-gray-900 mb-4 text-center';
+                titleEl.className = 'font-medium text-heading mb-4 text-center';
                 titleEl.textContent = title;
                 container.appendChild(titleEl);
                 
@@ -404,7 +405,7 @@ const interactiveScript = () => {
                 gradientBar.style.background = 'linear-gradient(to right, hsl(240, 70%, 85%), hsl(120, 85%, 70%), hsl(0, 100%, 50%))';
                 
                 const legendText = document.createElement('div');
-                legendText.className = 'text-xs text-gray-600 flex items-center space-x-8';
+                legendText.className = 'text-xs text-muted flex items-center space-x-8';
                 legendText.innerHTML = `
                     <span><strong>Low:</strong> ${minVal.toFixed(3)}</span>
                     <span><strong>High:</strong> ${maxVal.toFixed(3)}</span>
@@ -416,9 +417,9 @@ const interactiveScript = () => {
                 
                 // Matrix info
                 const matrixInfo = document.createElement('div');
-                matrixInfo.className = 'text-xs text-gray-500 text-center';
+                matrixInfo.className = 'text-xs text-secondary text-center';
                 matrixInfo.innerHTML = `
-                    <div class="bg-gray-100 p-2 rounded">
+                    <div class="panel panel-neutral-soft p-2 space-y-1">
                         <strong>Matrix Info:</strong> ${matrix.length}×${matrix[0].length} | 
                         <strong>Range:</strong> ${(maxVal - minVal).toFixed(4)} | 
                         <strong>Avg:</strong> ${(flatValues.reduce((a, b) => a + b, 0) / flatValues.length).toFixed(4)} |
@@ -491,15 +492,15 @@ const interactiveScript = () => {
                 inputSection.className = 'space-y-4';
                 
                 const inputTitle = document.createElement('h4');
-                inputTitle.className = 'font-medium text-gray-900 text-center mb-4';
+                inputTitle.className = 'font-medium text-heading text-center mb-4';
                 inputTitle.textContent = 'Input Matrices';
                 inputSection.appendChild(inputTitle);
                 
                 const inputGrid = document.createElement('div');
                 inputGrid.className = 'flex flex-wrap gap-6 justify-center';
-                const qBox = displayMatrix(Q, 'Query (Q)', 'bg-blue-50 p-4 rounded-lg border border-blue-200');
-                const kBox = displayMatrix(K, 'Key (K)', 'bg-green-50 p-4 rounded-lg border border-green-200');
-                const vBox = displayMatrix(V, 'Value (V)', 'bg-purple-50 p-4 rounded-lg border border-purple-200');
+                const qBox = displayMatrix(Q, 'Query (Q)', 'panel panel-info panel-emphasis p-4');
+                const kBox = displayMatrix(K, 'Key (K)', 'panel panel-success panel-emphasis p-4');
+                const vBox = displayMatrix(V, 'Value (V)', 'panel panel-accent panel-emphasis p-4');
                 inputGrid.appendChild(qBox);
                 inputGrid.appendChild(kBox);
                 inputGrid.appendChild(vBox);
@@ -509,22 +510,22 @@ const interactiveScript = () => {
                 
                 // Step 1: Show dot product with explanation
                 const step1 = document.createElement('div');
-                step1.className = 'bg-gray-50 p-6 rounded-xl border border-gray-200';
+                step1.className = 'panel panel-neutral p-6 space-y-4';
                 const step1Content = document.createElement('div');
                 step1Content.className = 'space-y-4';
                 
                 const step1Header = document.createElement('div');
                 step1Header.className = 'text-center';
                 step1Header.innerHTML = `
-                    <h4 class="font-semibold text-gray-900 text-lg mb-2">Step 1: Compute Q·K^T (Similarity Scores)</h4>
-                    <p class="text-sm text-gray-600 max-w-2xl mx-auto">
+                    <h4 class="font-semibold text-heading text-lg mb-2">Step 1: Compute Q·K^T (Similarity Scores)</h4>
+                    <p class="text-sm text-muted max-w-2xl mx-auto">
                         Calculate dot products between queries and keys to measure how much each position should attend to every other position.
                         Higher values indicate stronger relationships.
                     </p>
                 `;
                 step1Content.appendChild(step1Header);
                 
-                const step1Matrix = displayMatrix(scores, 'Raw Attention Scores', 'bg-white p-4 rounded-lg border', 2);
+                const step1Matrix = displayMatrix(scores, 'Raw Attention Scores', 'panel panel-neutral-soft p-4', 2);
                 step1Content.appendChild(step1Matrix);
                 
                 step1.appendChild(step1Content);
@@ -533,22 +534,22 @@ const interactiveScript = () => {
                 // Step 2: Show scaling (if enabled)
                 if (useScaling) {
                     const step2 = document.createElement('div');
-                    step2.className = 'bg-yellow-50 p-6 rounded-xl border border-yellow-200';
+                    step2.className = 'panel panel-warning panel-emphasis p-6 space-y-4';
                     const step2Content = document.createElement('div');
                     step2Content.className = 'space-y-4';
                     
                     const step2Header = document.createElement('div');
                     step2Header.className = 'text-center';
                     step2Header.innerHTML = `
-                        <h4 class="font-semibold text-gray-900 text-lg mb-2">Step 2: Scale by √d_k = √${dk} = ${Math.sqrt(dk).toFixed(2)}</h4>
-                        <p class="text-sm text-gray-600 max-w-2xl mx-auto">
-                            Divide by √d_k to prevent the dot products from becoming too large as dimensions increase.
+                        <h4 class="font-semibold text-heading text-lg mb-2">Step 2: Scale by \u221Ad_k = \u221A${dk} = ${Math.sqrt(dk).toFixed(2)}</h4>
+                        <p class="text-sm text-muted max-w-2xl mx-auto">
+                            Divide by \u221Ad_k to prevent the dot products from becoming too large as dimensions increase.
                             This keeps softmax in its sensitive range and prevents gradient vanishing.
                         </p>
                     `;
                     step2Content.appendChild(step2Header);
                     
-                    const step2Matrix = displayMatrix(scaledScores, 'Scaled Scores', 'bg-white p-4 rounded-lg border', 2);
+                    const step2Matrix = displayMatrix(scaledScores, 'Scaled Scores', 'panel panel-neutral-soft p-4', 2);
                     step2Content.appendChild(step2Matrix);
                     
                     step2.appendChild(step2Content);
@@ -557,30 +558,30 @@ const interactiveScript = () => {
                 
                 // Step 3: Show softmax
                 const step3 = document.createElement('div');
-                step3.className = 'bg-orange-50 p-6 rounded-xl border border-orange-200';
+                step3.className = 'panel panel-accent panel-emphasis p-6 space-y-4';
                 const step3Content = document.createElement('div');
                 step3Content.className = 'space-y-4';
                 
                 const step3Header = document.createElement('div');
                 step3Header.className = 'text-center';
                 step3Header.innerHTML = `
-                    <h4 class="font-semibold text-gray-900 text-lg mb-2">Step ${useScaling ? '3' : '2'}: Apply Softmax (Create Probability Distribution)</h4>
-                    <p class="text-sm text-gray-600 max-w-2xl mx-auto">
+                    <h4 class="font-semibold text-heading text-lg mb-2">Step ${useScaling ? '3' : '2'}: Apply Softmax (Create Probability Distribution)</h4>
+                    <p class="text-sm text-muted max-w-2xl mx-auto">
                         Convert raw scores to probabilities. Each row sums to 1, representing how much attention each position pays to all positions.
                         Notice how the values are now between 0 and 1.
                     </p>
                 `;
                 step3Content.appendChild(step3Header);
                 
-                const step3Matrix = displayMatrix(weights, 'Attention Weights', 'bg-white p-4 rounded-lg border', 3);
+                const step3Matrix = displayMatrix(weights, 'Attention Weights', 'panel panel-neutral-soft p-4', 3);
                 step3Content.appendChild(step3Matrix);
                 
                 // Add row sum verification
                 const verificationDiv = document.createElement('div');
-                verificationDiv.className = 'text-xs text-orange-700 text-center mt-2';
+                verificationDiv.className = 'text-xs text-center mt-2';
                 const rowSums = weights.map(row => row.reduce((sum, val) => sum + val, 0));
                 verificationDiv.innerHTML = `
-                    <div class="bg-orange-100 p-2 rounded">
+                    <div class="panel panel-warning panel-emphasis p-2 text-xs">
                         <strong>✓ Verification:</strong> Row sums = [${rowSums.map(sum => sum.toFixed(3)).join(', ')}] (should all be ≈ 1.000)
                     </div>
                 `;
@@ -591,22 +592,22 @@ const interactiveScript = () => {
                 
                 // Step 4: Show final output
                 const step4 = document.createElement('div');
-                step4.className = 'bg-green-50 p-6 rounded-xl border border-green-200';
+                step4.className = 'panel panel-success panel-emphasis p-6 space-y-4';
                 const step4Content = document.createElement('div');
                 step4Content.className = 'space-y-4';
                 
                 const step4Header = document.createElement('div');
                 step4Header.className = 'text-center';
                 step4Header.innerHTML = `
-                    <h4 class="font-semibold text-gray-900 text-lg mb-2">Step ${useScaling ? '4' : '3'}: Multiply by Values (Weighted Sum)</h4>
-                    <p class="text-sm text-gray-600 max-w-2xl mx-auto">
+                    <h4 class="font-semibold text-heading text-lg mb-2">Step ${useScaling ? '4' : '3'}: Multiply by Values (Weighted Sum)</h4>
+                    <p class="text-sm text-muted max-w-2xl mx-auto">
                         Use attention weights to compute weighted averages of the value vectors.
                         This produces the final contextualized representation for each position.
                     </p>
                 `;
                 step4Content.appendChild(step4Header);
                 
-                const step4Matrix = displayMatrix(attentionOutput, 'Final Attention Output', 'bg-white p-4 rounded-lg border', 3);
+                const step4Matrix = displayMatrix(attentionOutput, 'Final Attention Output', 'panel panel-neutral-soft p-4', 3);
                 step4Content.appendChild(step4Matrix);
                 
                 step4.appendChild(step4Content);
@@ -659,18 +660,18 @@ const interactiveScript = () => {
                 
                 // Position labels
                 const labelsContainer = document.createElement('div');
-                labelsContainer.className = 'bg-gray-50 p-4 rounded-lg';
+                labelsContainer.className = 'panel panel-neutral p-4 space-y-3';
                 labelsContainer.innerHTML = `
-                    <h5 class="font-medium text-gray-900 mb-2">Position Interpretation</h5>
+                    <h5 class="font-medium text-heading mb-2">Position Interpretation</h5>
                     <div class="grid grid-cols-${seqLen} gap-2 text-center text-sm">
                         ${Array.from({length: seqLen}, (_, i) => 
-                            `<div class="bg-white p-2 rounded border">
+                            `<div class="panel panel-neutral-soft p-2 space-y-1">
                                 <div class="font-medium">Pos ${i+1}</div>
-                                <div class="text-xs text-gray-600">Token ${i+1}</div>
+                                <div class="text-xs text-muted">Token ${i+1}</div>
                             </div>`
                         ).join('')}
                     </div>
-                    <p class="text-xs text-gray-600 mt-2">
+                    <p class="text-xs text-muted mt-2">
                         Each row shows how much position i attends to all other positions.
                         Brighter colors indicate stronger attention.
                     </p>
@@ -696,15 +697,15 @@ const interactiveScript = () => {
                 
                 // Add explanation header
                 const explanationHeader = document.createElement('div');
-                explanationHeader.className = 'text-center bg-blue-50 p-6 rounded-xl border border-blue-200';
+                explanationHeader.className = 'text-center panel panel-info panel-emphasis p-6';
                 explanationHeader.innerHTML = `
-                    <h4 class="font-semibold text-blue-900 text-lg mb-3">Scaling Impact Comparison</h4>
-                    <p class="text-sm text-blue-800 max-w-3xl mx-auto">
-                        This comparison shows the critical importance of √d_k scaling. Watch how unscaled attention 
+                    <h4 class="font-semibold text-info text-lg mb-3">Scaling Impact Comparison</h4>
+                    <p class="text-sm text-info max-w-3xl mx-auto">
+                        This comparison shows the critical importance of \u221Ad_k scaling. Watch how unscaled attention 
                         can become extreme and concentrated, while scaled attention maintains balanced distributions.
                     </p>
-                    <div class="mt-3 text-xs text-blue-700 bg-blue-100 p-2 rounded">
-                        <strong>Current settings:</strong> d_k = ${dk}, √d_k = ${Math.sqrt(dk).toFixed(3)}, Temperature = ${temp.toFixed(1)}
+                    <div class="mt-3 panel panel-info panel-emphasis p-2 text-xs">
+                        <strong>Current settings:</strong> d_k = ${dk}, \u221Ad_k = ${Math.sqrt(dk).toFixed(3)}, Temperature = ${temp.toFixed(1)}
                     </div>
                 `;
                 container.appendChild(explanationHeader);
@@ -715,13 +716,13 @@ const interactiveScript = () => {
                 
                 // Without scaling
                 const withoutScaling = document.createElement('div');
-                withoutScaling.className = 'bg-red-50 p-6 rounded-xl border border-red-200 space-y-4';
+                withoutScaling.className = 'panel panel-warning panel-emphasis p-6 space-y-4';
                 
                 const withoutHeader = document.createElement('div');
                 withoutHeader.className = 'text-center';
                 withoutHeader.innerHTML = `
-                    <h4 class="font-semibold text-red-900 text-lg mb-2">❌ Without √d_k Scaling</h4>
-                    <p class="text-sm text-red-700">Raw dot products can become very large, pushing softmax into saturation</p>
+                    <h4 class="font-semibold text-danger text-lg mb-2">❌ Without \u221Ad_k Scaling</h4>
+                    <p class="text-sm text-danger">Raw dot products can become very large, pushing softmax into saturation</p>
                 `;
                 withoutScaling.appendChild(withoutHeader);
                 
@@ -732,13 +733,13 @@ const interactiveScript = () => {
                 
                 // With scaling
                 const withScaling = document.createElement('div');
-                withScaling.className = 'bg-green-50 p-6 rounded-xl border border-green-200 space-y-4';
+                withScaling.className = 'panel panel-success panel-emphasis p-6 space-y-4';
                 
                 const withHeader = document.createElement('div');
                 withHeader.className = 'text-center';
                 withHeader.innerHTML = `
-                    <h4 class="font-semibold text-green-900 text-lg mb-2">✅ With √d_k Scaling</h4>
-                    <p class="text-sm text-green-700">Controlled dot products maintain softmax in its sensitive range</p>
+                    <h4 class="font-semibold text-success text-lg mb-2">✅ With \u221Ad_k Scaling</h4>
+                    <p class="text-sm text-success">Controlled dot products maintain softmax in its sensitive range</p>
                 `;
                 withScaling.appendChild(withHeader);
                 
@@ -750,7 +751,7 @@ const interactiveScript = () => {
                 
                 // Enhanced statistics comparison
                 const statsContainer = document.createElement('div');
-                statsContainer.className = 'bg-white p-6 rounded-xl border border-gray-200 shadow-sm';
+                statsContainer.className = 'panel panel-neutral p-6 space-y-4 shadow-sm';
                 
                 const unscaledMax = Math.max(...unscaledWeights.flat());
                 const scaledMax = Math.max(...scaledWeights.flat());
@@ -762,41 +763,41 @@ const interactiveScript = () => {
                 const scaledStd = Math.sqrt(scaledWeights.flat().reduce((acc, val) => acc + Math.pow(val - (1/scaledWeights.length), 2), 0) / scaledWeights.flat().length);
                 
                 statsContainer.innerHTML = `
-                    <h5 class="font-semibold text-gray-900 mb-4 text-center">📊 Statistical Comparison</h5>
+                    <h5 class="font-semibold text-heading mb-4 text-center">📊 Statistical Comparison</h5>
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
                         <div class="text-center space-y-2">
-                            <div class="text-lg font-bold text-red-600">${unscaledMax.toFixed(4)}</div>
-                            <div class="text-lg font-bold text-green-600">${scaledMax.toFixed(4)}</div>
-                            <div class="text-sm text-gray-600 font-medium">Maximum Weight</div>
-                            <div class="text-xs text-gray-500">${unscaledMax > scaledMax ? 'Unscaled higher' : 'Scaled higher'}</div>
+                            <div class="text-lg font-bold text-danger">${unscaledMax.toFixed(4)}</div>
+                            <div class="text-lg font-bold text-success">${scaledMax.toFixed(4)}</div>
+                            <div class="text-sm text-muted font-medium">Maximum Weight</div>
+                            <div class="text-xs text-secondary">${unscaledMax > scaledMax ? 'Unscaled higher' : 'Scaled higher'}</div>
                         </div>
                         <div class="text-center space-y-2">
-                            <div class="text-lg font-bold text-red-600">${unscaledMin.toFixed(4)}</div>
-                            <div class="text-lg font-bold text-green-600">${scaledMin.toFixed(4)}</div>
-                            <div class="text-sm text-gray-600 font-medium">Minimum Weight</div>
-                            <div class="text-xs text-gray-500">Range: ${(unscaledMax-unscaledMin).toFixed(4)} vs ${(scaledMax-scaledMin).toFixed(4)}</div>
+                            <div class="text-lg font-bold text-danger">${unscaledMin.toFixed(4)}</div>
+                            <div class="text-lg font-bold text-success">${scaledMin.toFixed(4)}</div>
+                            <div class="text-sm text-muted font-medium">Minimum Weight</div>
+                            <div class="text-xs text-secondary">Range: ${(unscaledMax-unscaledMin).toFixed(4)} vs ${(scaledMax-scaledMin).toFixed(4)}</div>
                         </div>
                         <div class="text-center space-y-2">
-                            <div class="text-lg font-bold text-red-600">${unscaledEntropy.toFixed(3)}</div>
-                            <div class="text-lg font-bold text-green-600">${scaledEntropy.toFixed(3)}</div>
-                            <div class="text-sm text-gray-600 font-medium">Entropy</div>
-                            <div class="text-xs text-gray-500">${unscaledEntropy > scaledEntropy ? 'Unscaled more diverse' : 'Scaled more diverse'}</div>
+                            <div class="text-lg font-bold text-danger">${unscaledEntropy.toFixed(3)}</div>
+                            <div class="text-lg font-bold text-success">${scaledEntropy.toFixed(3)}</div>
+                            <div class="text-sm text-muted font-medium">Entropy</div>
+                            <div class="text-xs text-secondary">${unscaledEntropy > scaledEntropy ? 'Unscaled more diverse' : 'Scaled more diverse'}</div>
                         </div>
                         <div class="text-center space-y-2">
-                            <div class="text-lg font-bold text-red-600">${unscaledStd.toFixed(4)}</div>
-                            <div class="text-lg font-bold text-green-600">${scaledStd.toFixed(4)}</div>
-                            <div class="text-sm text-gray-600 font-medium">Std Deviation</div>
-                            <div class="text-xs text-gray-500">Attention spread</div>
+                            <div class="text-lg font-bold text-danger">${unscaledStd.toFixed(4)}</div>
+                            <div class="text-lg font-bold text-success">${scaledStd.toFixed(4)}</div>
+                            <div class="text-sm text-muted font-medium">Std Deviation</div>
+                            <div class="text-xs text-secondary">Attention spread</div>
                         </div>
                     </div>
                     <div class="mt-4 text-center">
                         <div class="inline-flex items-center space-x-4 text-sm">
                             <div class="flex items-center">
-                                <div class="w-4 h-4 bg-red-500 rounded mr-2"></div>
+                                <span class="q32-legend-dot q32-legend-dot--unscaled" aria-hidden="true"></span>
                                 <span>Unscaled</span>
                             </div>
                             <div class="flex items-center">
-                                <div class="w-4 h-4 bg-green-500 rounded mr-2"></div>
+                                <span class="q32-legend-dot q32-legend-dot--scaled" aria-hidden="true"></span>
                                 <span>Scaled</span>
                             </div>
                         </div>
@@ -841,25 +842,25 @@ const interactiveScript = () => {
                                 <strong>Step-by-Step Analysis Complete!</strong>
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-                                <div class="bg-blue-50 p-3 rounded">
-                                    <div class="font-medium text-blue-900">Peak Attention</div>
-                                    <div class="text-2xl font-bold text-blue-600">${maxWeight.toFixed(3)}</div>
-                                    <div class="text-xs text-blue-700">${maxWeight > 0.8 ? 'Very focused' : maxWeight > 0.5 ? 'Moderately focused' : 'Distributed'}</div>
+                                <div class="panel panel-info panel-emphasis p-3 space-y-1">
+                                    <div class="font-medium text-info">Peak Attention</div>
+                                    <div class="text-2xl font-bold text-info">${maxWeight.toFixed(3)}</div>
+                                    <div class="text-xs text-info">${maxWeight > 0.8 ? 'Very focused' : maxWeight > 0.5 ? 'Moderately focused' : 'Distributed'}</div>
                                 </div>
-                                <div class="bg-green-50 p-3 rounded">
-                                    <div class="font-medium text-green-900">Average Weight</div>
-                                    <div class="text-2xl font-bold text-green-600">${avgWeight.toFixed(3)}</div>
-                                    <div class="text-xs text-green-700">Expected: ${(1/weights.length).toFixed(3)}</div>
+                                <div class="panel panel-success panel-emphasis p-3 space-y-1">
+                                    <div class="font-medium text-success">Average Weight</div>
+                                    <div class="text-2xl font-bold text-success">${avgWeight.toFixed(3)}</div>
+                                    <div class="text-xs text-success">Expected: ${(1/weights.length).toFixed(3)}</div>
                                 </div>
-                                <div class="bg-purple-50 p-3 rounded">
+                                <div class="panel panel-accent panel-emphasis p-3 space-y-1">
                                     <div class="font-medium text-purple-900">Entropy</div>
                                     <div class="text-2xl font-bold text-purple-600">${entropy.toFixed(2)}</div>
                                     <div class="text-xs text-purple-700">${entropy > 1.5 ? 'High diversity' : entropy > 1.0 ? 'Moderate focus' : 'High focus'}</div>
                                 </div>
                             </div>
-                            <p class="text-sm text-gray-700">
+                            <p class="text-sm text-body">
                                 <strong>💡 Key Insight:</strong> Each step transforms the raw similarity scores into meaningful attention weights. 
-                                ${useScaling ? 'The √d_k scaling ensures stable gradients during training.' : '⚠️ Without scaling, large dimensions could cause gradient problems.'}
+                                ${useScaling ? 'The \u221Ad_k scaling ensures stable gradients during training.' : '⚠️ Without scaling, large dimensions could cause gradient problems.'}
                             </p>
                         </div>
                     `;
@@ -889,7 +890,7 @@ const interactiveScript = () => {
                                         <span class="font-medium">${temp < 0.5 ? 'Sharp 🎯' : temp > 2.0 ? 'Smooth 🌊' : 'Balanced ⚖️'}</span>
                                     </div>
                                 </div>
-                                <div class="text-sm text-gray-600">
+                                <div class="text-sm text-muted">
                                     <strong>💡 Reading the Heatmap:</strong>
                                     <ul class="mt-1 space-y-1 text-xs">
                                         <li>• Each row = how one position attends to others</li>
@@ -908,8 +909,8 @@ const interactiveScript = () => {
                                 <span class="text-lg">⚖️</span>
                                 <strong>Scaling Impact Analysis</strong>
                             </div>
-                            <div class="bg-yellow-50 p-4 rounded-lg">
-                                <h5 class="font-medium text-yellow-900 mb-2">Why √d_k = √${dk} = ${Math.sqrt(dk).toFixed(2)} Matters:</h5>
+                            <div class="panel panel-warning panel-emphasis p-4 space-y-3">
+                                <h5 class="font-medium text-yellow-900 mb-2">Why \u221Ad_k = \u221A${dk} = ${Math.sqrt(dk).toFixed(2)} Matters:</h5>
                                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-yellow-800">
                                     <div>
                                         <strong>🚫 Without Scaling:</strong>
@@ -930,9 +931,9 @@ const interactiveScript = () => {
                                         </ul>
                                     </div>
                                 </div>
-                                <p class="text-xs text-yellow-700 mt-3 p-2 bg-yellow-100 rounded">
+                                <p class="text-xs panel panel-warning panel-emphasis p-2 mt-3">
                                     <strong>🎓 Pro Tip:</strong> In real transformers with d_k=64 or 128, unscaled attention would be completely unusable. 
-                                    This simple √d_k trick was crucial for making large language models possible!
+                                    This simple \u221Ad_k trick was crucial for making large language models possible!
                                 </p>
                             </div>
                         </div>
@@ -942,15 +943,15 @@ const interactiveScript = () => {
                 // Add temperature-specific insights
                 if (temp !== 1.0) {
                     const tempEffect = temp > 1.0 ? 
-                        `<div class="mt-3 p-3 bg-blue-50 rounded-lg text-sm">
+                        `<div class="mt-3 panel panel-info panel-emphasis p-3 text-sm">
                             <strong>🌡️ Temperature ${temp.toFixed(1)} Effect:</strong> 
                             Higher temperature makes attention more uniform (less focused). This is like making the model "less confident" about which tokens to focus on.
-                            <div class="mt-2 text-xs text-blue-700">Use case: When you want the model to consider more context equally.</div>
+                            <div class="mt-2 text-xs text-info">Use case: When you want the model to consider more context equally.</div>
                         </div>` :
-                        `<div class="mt-3 p-3 bg-orange-50 rounded-lg text-sm">
+                        `<div class="mt-3 panel panel-warning panel-emphasis p-3 text-sm">
                             <strong>🌡️ Temperature ${temp.toFixed(1)} Effect:</strong> 
                             Lower temperature makes attention sharper (more focused). This is like making the model "more confident" about which tokens to focus on.
-                            <div class="mt-2 text-xs text-orange-700">Use case: When you want the model to focus strongly on specific important tokens.</div>
+                            <div class="mt-2 text-xs text-warning">Use case: When you want the model to focus strongly on specific important tokens.</div>
                         </div>`;
                     explanationText += tempEffect;
                 }
@@ -986,7 +987,7 @@ const interactiveScript = () => {
                     setTimeout(() => {
                         if (explanation) {
                             explanation.innerHTML = `
-                                <div class="bg-blue-50 p-3 rounded-lg">
+                                <div class="panel panel-info panel-emphasis p-3 space-y-2">
                                     <strong>🐣 Beginner Mode Activated!</strong>
                                     <p class="text-sm mt-2">Perfect! You're now seeing the simplest case: 2 tokens with small dimension. 
                                     This makes it easy to follow each mathematical step. Try changing to different visualization modes to see the same computation presented differently!</p>
@@ -1009,7 +1010,7 @@ const interactiveScript = () => {
                     setTimeout(() => {
                         if (explanation) {
                             explanation.innerHTML = `
-                                <div class="bg-green-50 p-3 rounded-lg">
+                                <div class="panel panel-success panel-emphasis p-3 space-y-2">
                                     <strong>🎯 Realistic Scale!</strong>
                                     <p class="text-sm mt-2">This represents a more realistic scenario similar to small transformer heads. 
                                     Notice how the 4×4 attention matrix shows more complex patterns. The heatmap view is perfect for seeing these patterns!</p>
@@ -1032,7 +1033,7 @@ const interactiveScript = () => {
                     setTimeout(() => {
                         if (explanation) {
                             explanation.innerHTML = `
-                                <div class="bg-orange-50 p-3 rounded-lg">
+                                <div class="panel panel-warning panel-emphasis p-3 space-y-2">
                                     <strong>🔥 Focused Attention!</strong>
                                     <p class="text-sm mt-2">Low temperature (0.3) creates very sharp attention - the model becomes "confident" about what to focus on. 
                                     You'll see bright red spots in the heatmap where attention is strongly concentrated!</p>
@@ -1055,7 +1056,7 @@ const interactiveScript = () => {
                     setTimeout(() => {
                         if (explanation) {
                             explanation.innerHTML = `
-                                <div class="bg-purple-50 p-3 rounded-lg">
+                                <div class="panel panel-accent panel-emphasis p-3 space-y-2">
                                     <strong>🌊 Distributed Attention!</strong>
                                     <p class="text-sm mt-2">High temperature (2.5) creates smooth, distributed attention - the model becomes "uncertain" and considers all positions more equally. 
                                     The heatmap will show more uniform colors across all positions!</p>

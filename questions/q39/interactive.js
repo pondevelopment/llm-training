@@ -7,7 +7,8 @@ const interactiveScript = () => {
       const metricsEl = document.getElementById('q39-metrics');
       const outputEl = document.getElementById('q39-output');
       const explainEl = document.getElementById('q39-explain');
-  if (!modeEl || !textEl || !tempEl || !modelEl || !metricsEl || !outputEl || !explainEl) return; // defensive: abort if any critical element missing
+      const tempStatus = document.getElementById('q39-temp-status');
+      if (!modeEl || !textEl || !tempEl || !modelEl || !metricsEl || !outputEl || !explainEl || !tempStatus) return; // defensive: abort if any critical element missing
 
       // Tiny sentiment lexicon
       const POS = ['good','great','love','nice','happy','excellent','amazing','cool','fun','win','awesome'];
@@ -122,51 +123,77 @@ const interactiveScript = () => {
         return {p, g, b, z};
       }
 
-      function bars(label,val,color='indigo'){
-        const pct = Math.max(0, Math.min(100, val*100));
-        return `<div role=\"group\" aria-label=\"${label} ${pct.toFixed(0)} percent\">\n          <div class=\"flex justify-between text-xs mb-0.5\"><span>${label}</span><span>${pct.toFixed(0)}%</span></div>\n          <div class=\"w-full h-3 bg-${color}-200 rounded\" aria-hidden=\"true\"><div class=\"h-3 bg-${color}-600\" style=\"width:${pct}%\" role=\"progressbar\" aria-valuenow=\"${pct.toFixed(0)}\" aria-valuemin=\"0\" aria-valuemax=\"100\" aria-label=\"${label}\"></div></div>\n        </div>`;
+
+      function bars(label, val, tone = 'emerald') {
+        const pct = Math.max(0, Math.min(100, val * 100));
+        return `
+          <div class="q39-meter" data-tone="${tone}" role="group" aria-label="${label} ${pct.toFixed(0)} percent">
+            <div class="q39-meter__head small-caption"><span>${label}</span><span>${pct.toFixed(0)}%</span></div>
+            <div class="q39-meter__track" role="progressbar" aria-label="${label}" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${pct.toFixed(0)}">
+              <div class="q39-meter__fill" style="width:${pct}%"></div>
+            </div>
+          </div>
+        `.trim();
       }
 
+
       function render(){
-        tempVal.textContent = parseFloat(tempEl.value).toFixed(1);
+        const currentTemp = parseFloat(tempEl.value).toFixed(1);
         const mode = modeEl.value;
+        const isGenerative = mode === 'gen';
+        tempVal.textContent = isGenerative ? currentTemp : '—';
         const txt = textEl.value || '';
 
-  // Enable temperature only for generative mode for clear UX
-  tempEl.disabled = mode !== 'gen';
+        tempEl.disabled = !isGenerative;
+        tempEl.setAttribute('aria-disabled', String(!isGenerative));
+        tempEl.classList.toggle('q39-slider--locked', !isGenerative);
+        tempStatus.textContent = isGenerative
+          ? 'Drag to explore randomness: 0.1 ≈ deterministic, 1.5 ≈ very diverse.'
+          : 'Temperature locked in discriminative mode. Choose Generative to adjust.';
 
         if(mode==='disc'){
           const r = discrimSentiment(txt);
           const label = r.p>=0.5 ? 'positive' : 'negative';
-          modelEl.innerHTML = `<div>Modeling: <b>P(y|x)</b> (logistic)</div>
-            <div class="mt-1">good=${r.g}, bad=${r.b}, bias=-0.2</div>`;
-          metricsEl.innerHTML = `${bars('P(positive|x)', r.p, 'emerald')}`;
-          outputEl.textContent = `Predicted label: ${label}\nConfidence: ${(r.p*100).toFixed(1)}%`;
+          modelEl.innerHTML = `
+            <div><strong>Focus</strong>: <code class="font-mono text-sm">P(y|x)</code> logistic head</div>
+            <div class="small-caption text-muted">good=${r.g}, bad=${r.b}, bias=-0.2</div>
+          `.trim();
+          metricsEl.innerHTML = bars('P(positive|x)', r.p, 'emerald');
+          outputEl.textContent = `Prediction: ${label}
+Confidence: ${(r.p*100).toFixed(1)}%`;
           explainEl.innerHTML = `
-            <div class="math-display">$$P(y=1\\mid x)=\\sigma(w\\cdot x + b)$$</div>
-            <div class="text-xs text-gray-600 mt-1">Boundary‑focused: learns to separate classes directly.</div>
-          `;
+            <div class="math-display"><span class="font-mono">P(y = 1 | x) = &sigma;(w &sdot; x + b)</span></div>
+            <p class="small-caption text-muted">Boundary-focused: learns to separate classes directly.</p>
+          `.trim();
         } else {
-            const T = parseFloat(tempEl.value);
-            const cont = genNextWords(txt, T, 12);
-          modelEl.innerHTML = `<div>Modeling: <b>P(x)</b> with a tiny bigram LM</div>
-            <div class="mt-1">Seed token: <span class="font-mono">${(txt.trim().split(/\s+/).pop()||'&lt;s&gt;').toLowerCase()}</span></div>`;
-            const diversity = Math.max(0, Math.min(1, (T - 0.1) / 1.4));
-            metricsEl.innerHTML = `
-              ${bars('Diversity (temp)', diversity, 'purple')}
-              <div class="mt-1">Temperature: <span class="font-mono">${T.toFixed(1)}</span></div>
-            `;
+          const T = parseFloat(tempEl.value);
+          const cont = genNextWords(txt, T, 12);
+          const rawSeed = (txt.trim().split(/\s+/).pop() || '<s>').toLowerCase();
+          const safeSeed = rawSeed === '<s>' ? '&lt;s&gt;' : rawSeed;
+          modelEl.innerHTML = `
+            <div><strong>Focus</strong>: <code class="font-mono text-sm">P(x)</code> bigram generator</div>
+            <div class="small-caption text-muted">Seed token: <span class="font-mono">${safeSeed}</span></div>
+          `.trim();
+          const diversity = Math.max(0, Math.min(1, (T - 0.1) / 1.4));
+          metricsEl.innerHTML = [
+            bars('Diversity (temp)', diversity, 'purple'),
+            `<div class="small-caption text-muted">Temperature: <span class="font-mono">${T.toFixed(1)}</span></div>`
+          ].join('');
           outputEl.textContent = (txt.trim() + ' ' + cont).trim();
           explainEl.innerHTML = `
-            <div class="math-display">$$P(x)=\\prod_{t} P(x_t\\mid x_{\\lt t})$$</div>
-            <div class="text-xs text-gray-600 mt-1">Distribution‑focused: can sample new text; higher temperature increases diversity.</div>
-          `;
+            <div class="math-display"><span class="font-mono">P(x) = &Pi;<sub>t</sub> P(x<sub>t</sub> | x<sub>&lt; t</sub>)</span></div>
+            <p class="small-caption text-muted">Distribution-focused: samples new text; higher temperature increases diversity.</p>
+          `.trim();
         }
 
         if (window.MathJax?.typesetPromise) window.MathJax.typesetPromise([explainEl]);
       }
 
-      [modeEl, textEl, tempEl].forEach(el=>{ el.addEventListener('input', render); el.addEventListener('change', render); });
+      [modeEl, textEl, tempEl].forEach(el => {
+        el.addEventListener('input', render);
+        el.addEventListener('change', render);
+      });
+
       render();
     };
 

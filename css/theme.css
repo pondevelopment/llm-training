@@ -3551,3 +3551,6 @@ html.dark .q53-bar-fill {
 html.dark .q53-keyrow--active {
   background: color-mix(in srgb, var(--accent-soft) 38%, var(--color-card) 62%);
 }
+.q39-output {
+  min-height: 5.5rem;
+}

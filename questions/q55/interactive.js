@@ -70,10 +70,22 @@ const interactiveScript = () => {
             function balancedJSON(text){ let depth=0; for(const c of text){ if(c==='{' ) depth++; else if(c==='}') depth--; if(depth<0) return false; } return depth===0; }
             function anyStopSequence(text, stops){ for(const s of stops){ if(!s) continue; if(text.endsWith(s)) return s; } return null; }
 
-            function formatStatus(map){ statusEl.innerHTML = Object.entries(map).map(([k,v])=> `<div class=\"p-2 rounded border text-[10px] ${v.active? 'bg-green-50 border-green-300':'bg-gray-50 border-gray-200'}\">
-                <div class=\"font-semibold mb-0.5\">${k}</div>
-                <div class=\"font-mono\">${v.msg}</div>
-            </div>`).join(''); }
+            function formatStatus(map){
+                statusEl.innerHTML = Object.entries(map).map(([key,value])=> {
+                    const fired = typeof value.msg === 'string' && value.msg.includes('✅');
+                    let blockClass = 'panel panel-neutral-soft p-2 space-y-1';
+                    if(fired){
+                        blockClass = 'panel panel-success panel-emphasis p-2 space-y-1';
+                    } else if(value.active){
+                        blockClass = 'panel panel-neutral p-2 space-y-1';
+                    }
+                    const valueClass = fired ? 'font-mono text-heading' : value.active ? 'font-mono text-body' : 'font-mono text-muted';
+                    return `<div class=\"${blockClass}\">
+                <div class=\"font-semibold text-heading\">${key}</div>
+                <div class=\"${valueClass}\">${value.msg}</div>
+            </div>`;
+                }).join('');
+            }
 
             function simulate(){
                 tableBody.innerHTML=''; outcomeEl.textContent=''; explanationEl.textContent='';
@@ -123,12 +135,13 @@ const interactiveScript = () => {
                     if(step===maxTokens-1 && !stopReason){ stopReason='Token budget hit'; firedCriterion='Max Tokens'; }
 
                     const tr=document.createElement('tr');
-                    tr.innerHTML = `<td class=\"px-2 py-1 text-gray-600\">${step+1}</td>
-                        <td class=\"px-2 py-1 font-mono\">${picked.token.replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'↵')}</td>
-                        <td class=\"px-2 py-1 text-gray-700\">${picked.p.toFixed(2)}</td>
-                        <td class=\"px-2 py-1 text-gray-700\">${picked.entropy.toFixed(2)}</td>
-                        <td class=\"px-2 py-1 ${stopReason && firedCriterion!=='Max Tokens' ? 'text-indigo-700 font-medium':''}\">${stopReason? stopReason:''}</td>`;
-                    if(stopReason) tr.classList.add('bg-indigo-50');
+                    const reasonClass = stopReason && firedCriterion!=='Max Tokens' ? 'text-info font-medium' : 'text-muted';
+                    tr.innerHTML = `<td class=\"px-2 py-1 font-mono text-muted\">${step+1}</td>
+                        <td class=\"px-2 py-1 font-mono text-heading\">${picked.token.replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'↵')}</td>
+                        <td class=\"px-2 py-1 text-secondary\">${picked.p.toFixed(2)}</td>
+                        <td class=\"px-2 py-1 text-secondary\">${picked.entropy.toFixed(2)}</td>
+                        <td class=\"px-2 py-1 ${reasonClass}\">${stopReason? stopReason:''}</td>`;
+                    if(stopReason) tr.classList.add('bg-subtle');
                     tableBody.appendChild(tr);
 
                     if(stopReason) break;
@@ -137,10 +150,10 @@ const interactiveScript = () => {
                 // Update status map with result
                 Object.entries(statusMap).forEach(([k,obj])=>{ if(k===firedCriterion){ obj.msg = `✅ ${stopReason}`; obj.active=true; } else if(obj.msg==='pending') { obj.msg='not used'; } });
                 formatStatus(statusMap);
-                outcomeEl.innerHTML = firedCriterion ? `<span class=\"text-indigo-700\">Stopped by: <strong>${firedCriterion}</strong></span>` : '<span class=\"text-gray-600\">No criterion fired (stream exhausted)</span>';
+                outcomeEl.innerHTML = firedCriterion ? `<span class=\"text-info\">Stopped by: <strong>${firedCriterion}</strong></span>` : '<span class=\"text-muted\">No criterion fired (stream exhausted)</span>';
                 explanationEl.innerHTML = `<strong>Interpretation:</strong> This run emitted <code>${tokens.length}</code> tokens. Primary stop: <code>${firedCriterion||'none'}</code>. Adjust parameters and re‑run to observe different termination points.`;
                 if(/book/i.test(prompt) && requireJSON && firedCriterion !== 'JSON Balance' && !/}\s*$/.test(fullText)){
-                    explanationEl.innerHTML += ` <span class=\"text-red-700 font-medium\">Note:</span> JSON not closed because an earlier criterion (e.g. entropy or repetition) fired before the closing brace. Lower entropy bound or increase max tokens to allow structural completion.`;
+                    explanationEl.innerHTML += ` <span class=\"text-danger font-medium\">Note:</span> JSON not closed because an earlier criterion (e.g. entropy or repetition) fired before the closing brace. Lower entropy bound or increase max tokens to allow structural completion.`;
                 }
             }
 

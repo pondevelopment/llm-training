@@ -1,101 +1,108 @@
-<div class="space-y-6">
-            <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200">
-                <label class="block text-sm font-medium text-gray-700 mb-2">📝 Prompt</label>
-                <select id="q55-prompt" class="w-full px-3 py-2 border rounded bg-white text-sm">
-                    <option value="Generate a short JSON object describing a book.">Generate a short JSON object describing a book.</option>
-                    <option value="Explain in two sentences what beam search does.">Explain in two sentences what beam search does.</option>
-                    <option value="Write a haiku about entropy.">Write a haiku about entropy.</option>
-                    <option value="Return a JSON array of three fruits.">Return a JSON array of three fruits.</option>
-                    <option value="List three bullet points about overfitting.">List three bullet points about overfitting.</option>
-                    <option value="Generate a short JSON object describing a user.">Generate a short JSON object describing a user.</option>
-                    <option value="Write a two-line rhyme about gradients.">Write a two-line rhyme about gradients.</option>
-                </select>
-                <p class="text-xs text-gray-600 mt-1">A pre-built token stream (mock) will simulate generation for this intent.</p>
-            </div>
-            <div class="grid md:grid-cols-2 gap-4">
-                <div class="bg-white border rounded p-4 space-y-4">
-                    <h4 class="font-medium text-gray-800 text-sm flex items-center gap-2">⚙️ Controls <span class="text-[10px] bg-gray-100 px-2 py-0.5 rounded border">Adjust + Re-Run</span></h4>
-                    <div class="space-y-3 text-xs">
-                        <div>
-                            <label class="font-medium text-gray-700">Max tokens: <span id="q55-max-val" class="font-mono">60</span></label>
-                            <input id="q55-max" type="range" min="5" max="120" value="60" class="w-full" />
-                        </div>
-                        <div class="space-y-2">
-                            <label class="font-medium text-gray-700 flex items-center justify-between">
-                                <span>Stop sequences</span>
-                                <span class="text-[10px] text-gray-500 font-normal">Preset set(s)</span>
-                            </label>
-                            <select id="q55-stops-select" class="w-full px-2 py-1 border rounded bg-white text-xs">
-                                <option value="none">None</option>
-                                <option value="
+<div class="space-y-6" id="q55-interactive">
+  <div class="question-card space-y-2">
+    <label for="q55-prompt" class="block text-sm font-medium text-heading">📝 Prompt</label>
+    <select id="q55-prompt" class="select-control text-sm">
+      <option value="Generate a short JSON object describing a book.">Generate a short JSON object describing a book.</option>
+      <option value="Explain in two sentences what beam search does.">Explain in two sentences what beam search does.</option>
+      <option value="Write a haiku about entropy.">Write a haiku about entropy.</option>
+      <option value="Return a JSON array of three fruits.">Return a JSON array of three fruits.</option>
+      <option value="List three bullet points about overfitting.">List three bullet points about overfitting.</option>
+      <option value="Generate a short JSON object describing a user.">Generate a short JSON object describing a user.</option>
+      <option value="Write a two-line rhyme about gradients.">Write a two-line rhyme about gradients.</option>
+    </select>
+    <p class="small-caption text-muted">A pre-built token stream (mock) will simulate generation for this intent.</p>
+  </div>
 
-">Blank line (\n\n)</option>
-                                <option value="###">Markdown fence ###</option>
-                                <option value="</json>">JSON closing tag </json></option>
-                                <option value="
-
-,###">Blank line + ###</option>
-                                <option value="
-
-,###,</json>" selected>Blank line + ### + </json></option>
-                                <option value="```">Code fence (```)</option>
-                            </select>
-                            <p class="text-[10px] text-gray-500">Longest match ordering applied automatically.</p>
-                        </div>
-                        <div class="grid grid-cols-2 gap-3">
-                            <div>
-                                <label class="font-medium text-gray-700">Repetition n-gram</label>
-                                <select id="q55-ngram" class="w-full border rounded px-2 py-1">
-                                    <option value="2">2</option>
-                                    <option value="3" selected>3</option>
-                                    <option value="4">4</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="font-medium text-gray-700">Max repeats</label>
-                                <select id="q55-repeats" class="w-full border rounded px-2 py-1">
-                                    <option value="1">1</option>
-                                    <option value="2" selected>2</option>
-                                    <option value="3">3</option>
-                                </select>
-                            </div>
-                        </div>
-                        <p class="text-[10px] text-gray-500 leading-snug"><strong>What is a 3-gram?</strong> An <em>n-gram</em> is a sequence of <code>n</code> consecutive tokens. We watch the latest n tokens; if that exact sequence has appeared more than the allowed repeats elsewhere in the generated stream, we stop (prevents loops like "the cat the cat the cat").</p>
-                        <div class="flex items-center gap-2">
-                            <input id="q55-json-guard" type="checkbox" class="h-4 w-4" />
-                            <label for="q55-json-guard" class="font-medium text-gray-700">Require balanced JSON braces</label>
-                        </div>
-                        <p id="q55-json-hint" class="text-[10px] text-gray-500 -mt-1"></p>
-                        <div>
-                            <label class="font-medium text-gray-700 flex items-center justify-between">
-                                <span>Entropy lower bound: <span id="q55-entropy-val" class="font-mono">0.0</span></span>
-                                <span class="text-[10px] text-gray-500 font-normal">(optional)</span>
-                            </label>
-                            <input id="q55-entropy-th" type="range" min="0" max="5" step="0.1" value="0" class="w-full" />
-                            <p class="text-[10px] text-gray-500 mt-0.5">Stops when per-step token distribution entropy drops below this threshold (lower = model very certain).</p>
-                        </div>
-                        <button id="q55-run" class="w-full bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 text-sm font-medium">▶ Run Simulation</button>
-                    </div>
-                </div>
-                <div class="bg-white border rounded p-4 space-y-3">
-                    <h4 class="font-medium text-gray-800 text-sm">🧭 Live Criteria Status</h4>
-                    <div id="q55-status" class="text-xs grid grid-cols-2 gap-2"></div>
-                    <div id="q55-outcome" class="text-sm font-medium text-gray-700 mt-2"></div>
-                </div>
-            </div>
-            <div class="bg-gray-50 border border-gray-200 rounded p-4">
-                <div class="flex items-center justify-between mb-2">
-                    <h4 class="font-medium text-gray-800 text-sm">📄 Generated Tokens</h4>
-                    <span id="q55-token-count" class="text-[11px] bg-white px-2 py-0.5 rounded border font-mono"></span>
-                </div>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-xs border-collapse">
-                        <thead>
-                            <tr class="bg-gray-100 text-gray-700"><th class="px-2 py-1 text-left">#</th><th class="px-2 py-1 text-left">Token</th><th class="px-2 py-1 text-left">p</th><th class="px-2 py-1 text-left">Entropy</th><th class="px-2 py-1 text-left">Reason</th></tr>
-                        </thead>
-                        <tbody id="q55-table" class="align-top"></tbody>
-                    </table>
-                </div>
-            </div>
-            <div id="q55-explanation" class="bg-yellow-50 border border-yellow-200 rounded p-4 text-xs text-yellow-800"></div>
+  <div class="grid md:grid-cols-2 gap-4">
+    <div class="question-card space-y-4">
+      <div class="flex items-center justify-between">
+        <h4 class="font-medium text-heading">⚙️ Controls</h4>
+        <span class="chip chip-info text-xs">Adjust &amp; re-run</span>
+      </div>
+      <div class="space-y-4 text-sm">
+        <div>
+          <label class="block text-sm font-medium text-heading" for="q55-max">Max tokens: <span id="q55-max-val" class="font-mono text-heading">60</span></label>
+          <input id="q55-max" type="range" min="5" max="120" value="60" class="w-full" />
         </div>
+        <div class="space-y-2">
+          <label class="flex items-center justify-between text-sm font-medium text-heading" for="q55-stops-select">
+            <span>Stop sequences</span>
+            <span class="small-caption text-muted">Preset set(s)</span>
+          </label>
+          <select id="q55-stops-select" class="select-control text-xs">
+            <option value="none">None</option>
+            <option value="\n\n">Blank line (\n\n)</option>
+            <option value="###">Markdown fence ###</option>
+            <option value="&lt;/json&gt;">JSON closing tag &lt;/json&gt;</option>
+            <option value="\n\n,###">Blank line + ###</option>
+            <option value="\n\n,###,&lt;/json&gt;" selected>Blank line + ### + &lt;/json&gt;</option>
+            <option value="```">Code fence (```)</option>
+          </select>
+          <p class="small-caption text-muted">Longest match ordering applied automatically.</p>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div class="space-y-1">
+            <label class="block text-sm font-medium text-heading" for="q55-ngram">Repetition n-gram</label>
+            <select id="q55-ngram" class="select-control text-sm">
+              <option value="2">2</option>
+              <option value="3" selected>3</option>
+              <option value="4">4</option>
+            </select>
+          </div>
+          <div class="space-y-1">
+            <label class="block text-sm font-medium text-heading" for="q55-repeats">Max repeats</label>
+            <select id="q55-repeats" class="select-control text-sm">
+              <option value="1">1</option>
+              <option value="2" selected>2</option>
+              <option value="3">3</option>
+            </select>
+          </div>
+        </div>
+        <p class="small-caption text-muted leading-snug"><strong>What is a 3-gram?</strong> An <em>n-gram</em> is a sequence of <code>n</code> consecutive tokens. We watch the latest n tokens; if that exact sequence has appeared more than the allowed repeats elsewhere in the generated stream, we stop (prevents loops like “the cat the cat the cat”).</p>
+        <div class="flex items-center gap-2">
+          <input id="q55-json-guard" type="checkbox" class="h-4 w-4" />
+          <label for="q55-json-guard" class="text-sm font-medium text-heading">Require balanced JSON braces</label>
+        </div>
+        <p id="q55-json-hint" class="small-caption text-muted"></p>
+        <div class="space-y-1">
+          <label class="flex items-center justify-between text-sm font-medium text-heading" for="q55-entropy-th">
+            <span>Entropy lower bound: <span id="q55-entropy-val" class="font-mono text-heading">0.0</span></span>
+            <span class="small-caption text-muted">(optional)</span>
+          </label>
+          <input id="q55-entropy-th" type="range" min="0" max="5" step="0.1" value="0" class="w-full" />
+          <p class="small-caption text-muted">Stops when per-step token distribution entropy drops below this threshold (lower = model very certain).</p>
+        </div>
+        <button id="q55-run" class="btn-accent w-full text-sm font-semibold">▶ Run simulation</button>
+      </div>
+    </div>
+
+    <div class="question-card space-y-3">
+      <h4 class="font-medium text-heading">🧭 Live Criteria Status</h4>
+      <div id="q55-status" class="grid grid-cols-2 gap-2 text-xs md:grid-cols-3"></div>
+      <div id="q55-outcome" class="text-sm text-muted"></div>
+    </div>
+  </div>
+
+  <div class="question-card space-y-3">
+    <div class="flex items-center justify-between">
+      <h4 class="font-medium text-heading">📄 Generated Tokens</h4>
+      <span id="q55-token-count" class="chip chip-neutral text-xs font-mono"></span>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="w-full text-xs border-collapse">
+        <thead>
+          <tr class="bg-subtle text-muted text-xs font-semibold">
+            <th class="px-2 py-1 text-left">#</th>
+            <th class="px-2 py-1 text-left">Token</th>
+            <th class="px-2 py-1 text-left">p</th>
+            <th class="px-2 py-1 text-left">Entropy</th>
+            <th class="px-2 py-1 text-left">Reason</th>
+          </tr>
+        </thead>
+        <tbody id="q55-table" class="align-top"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div id="q55-explanation" class="panel panel-warning p-4 text-sm text-body"></div>
+</div>

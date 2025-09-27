@@ -1,4 +1,4 @@
-﻿const interactiveScript = () => {
+const interactiveScript = () => {
   const scenario = document.getElementById('q57-scenario');
   const exampleSelect = document.getElementById('q57-example-select');
   const exampleBox = document.getElementById('q57-example');
@@ -64,29 +64,187 @@
   };
 
   const indicatorClasses = {
-    high: 'bg-emerald-100 text-emerald-700',
-    medium: 'bg-amber-100 text-amber-700',
-    low: 'bg-rose-100 text-rose-700'
+    high: 'chip-success',
+    medium: 'chip-warning',
+    low: 'chip-danger'
   };
 
   const exampleSets = {
     classification: [
-      `Instruction: Label each review as POSITIVE or NEGATIVE.\n---\nInput: The battery lasts all week.\nLabel: POSITIVE\n---\nInput: Support never replied and I am upset.\nLabel: NEGATIVE\n---\nInput: {user_text}\nLabel:`,
-      `Instruction: Route tickets to the right queue.\nExample 1\nIssue: Forgot password and need a reset.\nQueue: AUTH\nExample 2\nIssue: Invoice shows duplicate charge.\nQueue: BILLING\nExample 3\nIssue: {ticket}\nQueue:`,
-      `Instruction: Classify user feedback as BUG, FEATURE, or PRAISE.\n---\nText: The export button does nothing when clicked.\nLabel: BUG\n---\nText: Could you add dark mode to the dashboard?\nLabel: FEATURE\n---\nText: Love how fast the new release is.\nLabel: PRAISE\n---\nText: {feedback}\nLabel:`,
-      `Instruction: Detect customer emotion (HAPPY, FRUSTRATED, NEUTRAL).\n---\nTranscript: Agent fixed my problem in two minutes.\nEmotion: HAPPY\n---\nTranscript: I have been on hold for 20 minutes!\nEmotion: FRUSTRATED\n---\nTranscript: Please confirm the meeting time.\nEmotion: NEUTRAL\n---\nTranscript: {message}\nEmotion:`
+      `Instruction: Label each review as POSITIVE or NEGATIVE.
+---
+Input: The battery lasts all week.
+Label: POSITIVE
+---
+Input: Support never replied and I am upset.
+Label: NEGATIVE
+---
+Input: {user_text}
+Label:`,
+      `Instruction: Route tickets to the right queue.
+Example 1
+Issue: Forgot password and need a reset.
+Queue: AUTH
+Example 2
+Issue: Invoice shows duplicate charge.
+Queue: BILLING
+Example 3
+Issue: {ticket}
+Queue:`,
+      `Instruction: Classify user feedback as BUG, FEATURE, or PRAISE.
+---
+Text: The export button does nothing when clicked.
+Label: BUG
+---
+Text: Could you add dark mode to the dashboard?
+Label: FEATURE
+---
+Text: Love how fast the new release is.
+Label: PRAISE
+---
+Text: {feedback}
+Label:`,
+      `Instruction: Detect customer emotion (HAPPY, FRUSTRATED, NEUTRAL).
+---
+Transcript: Agent fixed my problem in two minutes.
+Emotion: HAPPY
+---
+Transcript: I have been on hold for 20 minutes!
+Emotion: FRUSTRATED
+---
+Transcript: Please confirm the meeting time.
+Emotion: NEUTRAL
+---
+Transcript: {message}
+Emotion:`,
+      `Instruction: Set ticket priority to LOW, MEDIUM, or HIGH. Answer "Priority: <label>".
+---
+Ticket: Payment failed for the enterprise account renewal. Customer finance is blocked from downloading invoices.
+Priority: HIGH
+---
+Ticket: Tooltip misaligned on the profile page, but customers can still complete the flow.
+Priority: LOW
+---
+Ticket: {ticket}
+Priority:`,
+      `Instruction: Tag product feedback as UX, PERFORMANCE, or RELIABILITY.
+---
+Feedback: Search results take 12 seconds to load even on fast wifi.
+Label: PERFORMANCE
+---
+Feedback: The toggle doesn't explain what "smart sync" actually changes.
+Label: UX
+---
+Feedback: {feedback}
+Label:`
     ],
     reasoning: [
-      `Instruction: Solve the word problem. Show steps, then ANSWER.\n---\nProblem: A box holds 6 apples. You buy 3 boxes. How many apples?\nSteps:\n1. Apples per box = 6\n2. Total boxes = 3\n3. Multiply: 6 * 3 = 18\nAnswer: 18\n---\nProblem: {question}\nSteps:`,
-      `Task: Decide if the statement is supported. Reason first.\nContext: The team shipped version 2.0 in April.\nClaim: The release happened before March.\nReasoning: Version 2.0 shipped in April which is after March -> claim unsupported.\nVerdict: CONTRADICTED\n---\nContext: {context}\nClaim: {claim}\nReasoning:`,
-      `Instruction: Provide chain-of-thought before the final decision.\n---\nScenario: The store closes at 9pm. It is currently 8:40pm and the bus ride takes 30 minutes. Will I make it?\nReasoning: Travel time 30 minutes. 8:40pm + 30 minutes = 9:10pm which is after closing.\nAnswer: NO\n---\nScenario: {scenario}\nReasoning:`,
-      `Instruction: Analyze argument validity. Present logic then verdict (VALID / INVALID).\n---\nPremise: If it rains, the streets are wet. It rained tonight.\nReasoning: Rain implies wet streets; premise satisfied; conclusion follows.\nVerdict: VALID\n---\nPremise: All birds can fly. Penguins are birds.\nReasoning: Premise false (penguins cannot fly); conclusion unsound.\nVerdict: INVALID\n---\nPremise: {premise}\nReasoning:`
+      `Instruction: Solve the word problem. Show steps, then ANSWER.
+---
+Problem: A box holds 6 apples. You buy 3 boxes. How many apples?
+Steps:
+1. Apples per box = 6
+2. Total boxes = 3
+3. Multiply: 6 * 3 = 18
+Answer: 18
+---
+Problem: {question}
+Steps:`,
+      `Task: Decide if the statement is supported. Reason first.
+Context: The team shipped version 2.0 in April.
+Claim: The release happened before March.
+Reasoning: Version 2.0 shipped in April which is after March -> claim unsupported.
+Verdict: CONTRADICTED
+---
+Context: {context}
+Claim: {claim}
+Reasoning:`,
+      `Instruction: Provide chain-of-thought before the final decision.
+---
+Scenario: The store closes at 9pm. It is currently 8:40pm and the bus ride takes 30 minutes. Will I make it?
+Reasoning: Travel time 30 minutes. 8:40pm + 30 minutes = 9:10pm which is after closing.
+Answer: NO
+---
+Scenario: {scenario}
+Reasoning:`,
+      `Instruction: Analyze argument validity. Present logic then verdict (VALID / INVALID).
+---
+Premise: If it rains, the streets are wet. It rained tonight.
+Reasoning: Rain implies wet streets; premise satisfied; conclusion follows.
+Verdict: VALID
+---
+Premise: All birds can fly. Penguins are birds.
+Reasoning: Premise false (penguins cannot fly); conclusion unsound.
+Verdict: INVALID
+---
+Premise: {premise}
+Reasoning:`,
+      `Instruction: Check if the work can finish before the deadline. List steps, then Verdict (ON TRACK / AT RISK).
+---
+Plan: Draft script (4h), record walkthrough (2h), edit video (3h). Team has 1 workday (8h) remaining.
+Steps:
+1. Total effort = 4 + 2 + 3 = 9h.
+2. Available time = 8h.
+3. Effort exceeds time -> can't finish in one day.
+Verdict: AT RISK
+---
+Plan: {plan}
+Steps:`,
+      `Task: Choose the safer remediation plan. Think aloud, then Decision (PLAN A or PLAN B).
+---
+Context: PLAN A patches tonight with 30 minutes of downtime. PLAN B waits until the weekend with no downtime but leaves a critical vulnerability exposed for 3 days.
+Reasoning: Critical risk outweighs brief downtime; patching tonight keeps users safe.
+Decision: PLAN A
+---
+Context: {context}
+Reasoning:`
     ],
     extraction: [
-      `Instruction: Extract fields as JSON. Use null if missing.\n---\nText: Order 552 shipped to Paris with tracking ZX12.\nOutput: {"order_id":"552","city":"Paris","tracking":"ZX12","priority":false}\n---\nText: {record}\nOutput:`,
-      `Guideline: Fill slots. Keep empty slots as "N/A".\nExample\nEmail: We met on Tuesday to review contract AC-44. No blockers.\nSlots:\n- MeetingDate: Tuesday\n- ContractId: AC-44\n- Blockers: N/A\n---\nEmail: {email}\nSlots:`,
-      `Instruction: Parse meeting notes into JSON.\n---\nNotes: Kickoff call with BetaCorp on May 12. Alice owns follow-up. Budget target $45k.\nOutput: {"company":"BetaCorp","date":"May 12","owner":"Alice","budget":45000}\n---\nNotes: {notes}\nOutput:`,
-      `Guideline: Extract product returns with status, reason, and refund flag. Use false if unclear.\n---\nText: Customer mailed back headset because microphone was dead. Issued store credit.\nOutput: {"item":"headset","status":"returned","reason":"microphone dead","refunded":true}\n---\nText: {return_entry}\nOutput:`
+      `Instruction: Extract fields as JSON. Use null if missing.
+---
+Text: Order 552 shipped to Paris with tracking ZX12.
+Output: {"order_id":"552","city":"Paris","tracking":"ZX12","priority":false}
+---
+Text: {record}
+Output:`,
+      `Guideline: Fill slots. Keep empty slots as "N/A".
+Example
+Email: We met on Tuesday to review contract AC-44. No blockers.
+Slots:
+- MeetingDate: Tuesday
+- ContractId: AC-44
+- Blockers: N/A
+---
+Email: {email}
+Slots:`,
+      `Instruction: Parse meeting notes into JSON.
+---
+Notes: Kickoff call with BetaCorp on May 12. Alice owns follow-up. Budget target $45k.
+Output: {"company":"BetaCorp","date":"May 12","owner":"Alice","budget":45000}
+---
+Notes: {notes}
+Output:`,
+      `Guideline: Extract product returns with status, reason, and refund flag. Use false if unclear.
+---
+Text: Customer mailed back headset because microphone was dead. Issued store credit.
+Output: {"item":"headset","status":"returned","reason":"microphone dead","refunded":true}
+---
+Text: {return_entry}
+Output:`,
+      `Instruction: Summarize incident reports into JSON with fields incident_id, impact, root_cause, mitigation.
+---
+Report: Incident INC-2045 caused checkout failures for EU users for 35 minutes because of a caching misconfiguration. Mitigation: rolled back config.
+Output: {"incident_id":"INC-2045","impact":"checkout failures for EU users (35m)","root_cause":"caching misconfiguration","mitigation":"rolled back config"}
+---
+Report: {report}
+Output:`,
+      `Guideline: Capture call outcomes as JSON with intent, sentiment, next_step. Use "none" if unknown.
+---
+Call: Customer wants to downgrade to the starter plan. Agent scheduled a follow-up to confirm billing tomorrow. Caller sounded anxious about costs.
+Output: {"intent":"downgrade request","sentiment":"anxious","next_step":"agent follow-up tomorrow"}
+---
+Call: {call}
+Output:`
     ]
   };
 
@@ -95,21 +253,28 @@
       'Sentiment labels (POS/NEG)',
       'Ticket routing queues',
       'Feedback triage (bug/feature/praise)',
-      'Emotion detection (call center)'
+      'Emotion detection (call center)',
+      'Priority triage (low/med/high)',
+      'Feedback theme tagging'
     ],
     reasoning: [
       'Math word problem (steps + answer)',
       'Claim verification (contradiction)',
       'Scenario feasibility check',
-      'Argument validity review'
+      'Argument validity review',
+      'Deadline feasibility (on track?)',
+      'Remediation choice (plan A/B)'
     ],
     extraction: [
       'JSON order extraction',
       'Slot filling email summary',
       'Meeting notes to JSON',
-      'Product return audit'
+      'Product return audit',
+      'Incident summary JSON',
+      'Call outcome summary'
     ]
   };
+
 
   let exampleIndex = 0;
 
@@ -117,8 +282,8 @@
 
   const barRow = (label, value) => {
     const pct = Math.round(value * 100);
-    const color = value > 0.75 ? 'bg-indigo-600' : value > 0.5 ? 'bg-indigo-400' : 'bg-indigo-200';
-    return `<div class="space-y-1"><div class="flex justify-between"><span>${label}</span><span class="font-mono">${pct}%</span></div><div class="h-2 bg-gray-200 rounded overflow-hidden"><div class="h-full ${color}" style="width:${pct}%"></div></div></div>`;
+    const tone = value > 0.75 ? 'var(--tone-emerald-strong)' : value > 0.5 ? 'var(--tone-sky-strong)' : 'var(--color-path-scaling-strong)';
+    return `<div class="space-y-1"><div class="flex items-center justify-between text-xs text-muted"><span>${label}</span><span class="font-mono text-heading">${pct}%</span></div><div class="h-2 rounded bg-surface border border-divider overflow-hidden"><div class="h-full" style="width:${pct}%;background:${tone};"></div></div></div>`;
   };
 
   const getFormatKey = () => {
@@ -200,7 +365,7 @@
     );
 
     const tier = total > 0.75 ? 'high' : (total > 0.5 ? 'medium' : 'low');
-    indicator.className = `text-xs font-medium px-2 py-1 rounded ${indicatorClasses[tier]}`;
+    indicator.className = `chip ${indicatorClasses[tier]} text-xs font-medium`;
     indicator.textContent = tier === 'high' ? 'Confident pattern' : (tier === 'medium' ? 'Promising but risky' : 'Fragile prompt');
 
     const suggestions = [];
@@ -226,9 +391,9 @@
       suggestions.push('Looks balanced - run holdout queries and ablate examples to confirm necessity.');
     }
 
-    output.innerHTML = `<p class="mb-2 text-gray-800">${detail.description}</p><ul class="list-disc ml-5 space-y-1">${suggestions.map((item) => `<li>${item}</li>`).join('')}</ul>`;
-    legend.innerHTML = `<div class="space-y-2">${barRow('Shot fit', shotScore)}${barRow('Example fidelity', fidelityScore)}${barRow('Coverage', coverageScore)}${barRow('Format match', formatScore)}</div><p class="mt-2 text-[11px] text-gray-500">Sweet spot ~ ${detail.recommendedShots} shots. Adjust sliders to see trade-offs.</p>`;
-    explanation.innerHTML = `<p class="mb-1">${detail.messages[tier]}</p><p class="text-xs text-yellow-700">${detail.baseline}</p>`;
+    output.innerHTML = `<p class="mb-2 text-body">${detail.description}</p><ul class="list-disc ml-5 space-y-1">${suggestions.map((item) => `<li>${item}</li>`).join('')}</ul>`;
+    legend.innerHTML = `<div class="space-y-2">${barRow('Shot fit', shotScore)}${barRow('Example fidelity', fidelityScore)}${barRow('Coverage', coverageScore)}${barRow('Format match', formatScore)}</div><p class="mt-2 text-[11px] text-muted">Sweet spot ~ ${detail.recommendedShots} shots. Adjust sliders to see trade-offs.</p>`;
+    explanation.innerHTML = `<p class="mb-1 text-body">${detail.messages[tier]}</p><p class="text-xs panel-muted">${detail.baseline}</p>`;
   };
 
   scenario.addEventListener('change', () => {

@@ -1,83 +1,87 @@
-﻿<div class="space-y-6">
-  <div class="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200">
-    <label for="q57-scenario" class="block text-sm font-medium text-gray-700 mb-2">📝 Use-case focus</label>
-    <select id="q57-scenario" class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white text-sm">
+<div class="space-y-6">
+  <div class="panel panel-info p-4 space-y-3">
+    <label for="q57-scenario" class="block text-sm font-medium text-heading">📝 Use-case focus</label>
+    <select id="q57-scenario" class="select-control">
       <option value="classification">Map text to labels (routing / sentiment)</option>
       <option value="reasoning">Chain-of-thought reasoning</option>
       <option value="extraction">Structured extraction (JSON / slots)</option>
     </select>
-    <div class="mt-3">
-      <label for="q57-example-select" class="block text-xs text-gray-600 mb-1">Preview exemplar pack</label>
-      <select id="q57-example-select" class="w-full text-xs px-2 py-1 border border-indigo-200 rounded bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"></select>
+    <div class="space-y-1">
+      <label for="q57-example-select" class="block text-xs text-muted">Preview exemplar pack</label>
+      <select id="q57-example-select" class="select-control text-xs"></select>
     </div>
-    <pre id="q57-example" class="mt-2 text-[11px] leading-relaxed bg-white border border-indigo-100 rounded p-3 overflow-x-auto whitespace-pre-wrap"></pre>
+    <pre id="q57-example" class="panel panel-neutral-soft text-[11px] leading-relaxed p-3 overflow-x-auto whitespace-pre-wrap"></pre>
   </div>
-  <div class="bg-white border border-gray-200 rounded-lg p-4 space-y-4">
+
+  <div class="panel panel-neutral p-4 space-y-4">
     <div>
-      <label class="block text-sm font-medium text-gray-700 mb-3">📐 Demonstration settings</label>
+      <label class="block text-sm font-medium text-heading mb-3">📐 Demonstration settings</label>
       <div class="grid md:grid-cols-3 gap-4 text-sm">
-        <div>
-          <div class="flex items-center justify-between text-xs text-gray-500 mb-1"><span>Shots</span><span id="q57-shots-val">3</span></div>
+        <div class="panel panel-neutral-soft p-3 space-y-2">
+          <div class="flex items-center justify-between text-xs text-muted"><span>Shots</span><span id="q57-shots-val">3</span></div>
           <input id="q57-shots" type="range" min="0" max="6" step="1" value="3" class="w-full">
         </div>
-        <div>
-          <div class="flex items-center justify-between text-xs text-gray-500 mb-1"><span>Example fidelity</span><span id="q57-fidelity-val">80%</span></div>
+        <div class="panel panel-neutral-soft p-3 space-y-2">
+          <div class="flex items-center justify-between text-xs text-muted"><span>Example fidelity</span><span id="q57-fidelity-val">80%</span></div>
           <input id="q57-fidelity" type="range" min="30" max="100" step="5" value="80" class="w-full">
         </div>
-        <div>
-          <div class="flex items-center justify-between text-xs text-gray-500 mb-1"><span>Coverage / diversity</span><span id="q57-coverage-val">70%</span></div>
+        <div class="panel panel-neutral-soft p-3 space-y-2">
+          <div class="flex items-center justify-between text-xs text-muted"><span>Coverage / diversity</span><span id="q57-coverage-val">70%</span></div>
           <input id="q57-coverage" type="range" min="30" max="100" step="5" value="70" class="w-full">
         </div>
       </div>
     </div>
-    <div class="bg-gray-50 border border-gray-200 rounded p-3 text-[12px] text-gray-600 leading-relaxed">
-      <p class="font-semibold text-gray-700">How to tune demonstrations</p>
-      <ul class="list-disc ml-5 space-y-1 mt-2">
+    <div class="panel panel-neutral-soft p-3 text-[12px] leading-relaxed space-y-2">
+      <p class="font-semibold text-heading text-sm">How to tune demonstrations</p>
+      <ul class="list-disc ml-5 space-y-1">
         <li><strong>Shots</strong>: number of exemplars shown before the query. Too few and the model guesses; too many and it wastes context &amp; mixes signals.</li>
         <li><strong>Example fidelity</strong>: how polished each example is. Higher values mean consistent tone, structure, and correct answers; low fidelity teaches bad habits.</li>
         <li><strong>Coverage / diversity</strong>: how well examples span edge cases and negative cases. Higher coverage fights bias toward the majority pattern.</li>
       </ul>
-      <p class="mt-2">Adjust the sliders to see how these trade-offs influence readiness and the recommendations below.</p>
+      <p>Adjust the sliders to see how these trade-offs influence readiness and the recommendations below.</p>
     </div>
   </div>
-  <div class="bg-white border border-gray-200 rounded-lg p-4 space-y-3">
-    <label class="block text-sm font-medium text-gray-700">🎯 Format emphasis</label>
+
+  <div class="panel panel-neutral p-4 space-y-3">
+    <label class="block text-sm font-medium text-heading">🎯 Format emphasis</label>
     <div class="grid md:grid-cols-3 gap-3 text-sm">
-      <label class="border border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors">
+      <label class="panel panel-neutral-soft p-3 cursor-pointer hover:bg-subtle">
         <input class="sr-only" type="radio" name="q57-format" value="balanced" checked>
-        <div class="font-medium text-gray-900 mb-1">Balanced</div>
-        <p class="text-xs text-gray-600">Instruction + answer with light structure.</p>
+        <div class="font-medium text-heading mb-1">Balanced</div>
+        <p class="text-xs text-muted">Instruction + answer with light structure.</p>
       </label>
-      <label class="border border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors">
+      <label class="panel panel-neutral-soft p-3 cursor-pointer hover:bg-subtle">
         <input class="sr-only" type="radio" name="q57-format" value="structured">
-        <div class="font-medium text-gray-900 mb-1">Structured</div>
-        <p class="text-xs text-gray-600">Delimiters, slot labels, JSON scaffolding.</p>
+        <div class="font-medium text-heading mb-1">Structured</div>
+        <p class="text-xs text-muted">Delimiters, slot labels, JSON scaffolding.</p>
       </label>
-      <label class="border border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors">
+      <label class="panel panel-neutral-soft p-3 cursor-pointer hover:bg-subtle">
         <input class="sr-only" type="radio" name="q57-format" value="minimal">
-        <div class="font-medium text-gray-900 mb-1">Minimal</div>
-        <p class="text-xs text-gray-600">Few cues; relies on raw examples.</p>
+        <div class="font-medium text-heading mb-1">Minimal</div>
+        <p class="text-xs text-muted">Few cues; relies on raw examples.</p>
       </label>
     </div>
-    <div class="bg-gray-50 border border-gray-200 rounded p-3 text-[12px] text-gray-600 leading-relaxed">
-      <p class="font-semibold text-gray-700">Format quick guide</p>
-      <ul class="list-disc ml-5 space-y-1 mt-2">
+    <div class="panel panel-neutral-soft p-3 text-[12px] leading-relaxed space-y-2">
+      <p class="font-semibold text-heading text-sm">Format quick guide</p>
+      <ul class="list-disc ml-5 space-y-1">
         <li><strong>Balanced</strong>: lightweight scaffolding (Instruction, Output) keeps examples readable while still nudging the model toward the right structure.</li>
         <li><strong>Structured</strong>: explicit delimiters, slot labels, or JSON shells enforce exact formatting—ideal when downstream systems parse the response.</li>
         <li><strong>Minimal</strong>: raw demonstrations with almost no scaffolding. Useful to test how well the model infers patterns from pure examples, but more fragile.</li>
       </ul>
     </div>
   </div>
-  <div class="bg-white border border-gray-200 rounded-lg p-4">
-    <div class="flex items-center justify-between mb-3">
-      <h4 class="font-medium text-gray-900">📊 Prompt readiness</h4>
-      <div id="q57-indicator" class="text-xs font-medium px-2 py-1 rounded bg-gray-100 text-gray-600"></div>
+
+  <div class="panel panel-neutral p-4 space-y-3">
+    <div class="flex items-center justify-between gap-3">
+      <h4 class="font-medium text-heading">📊 Prompt readiness</h4>
+      <div id="q57-indicator" class="chip chip-neutral text-xs font-medium"></div>
     </div>
-    <div id="q57-output" class="min-h-[80px] p-3 bg-gray-50 rounded border-2 border-dashed border-gray-300 text-sm text-gray-700"></div>
-    <div id="q57-legend" class="mt-3 text-xs text-gray-600"></div>
+    <div id="q57-output" class="min-h-[80px] p-3 rounded-lg border-2 border-dashed border-divider bg-card text-sm text-body"></div>
+    <div id="q57-legend" class="text-xs text-muted"></div>
   </div>
-  <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-    <h4 class="font-medium text-yellow-900 mb-2">💡 Explanation</h4>
-    <div id="q57-explanation" class="text-sm text-yellow-800"></div>
+
+  <div class="panel panel-warning p-4 space-y-2">
+    <h4 class="font-medium text-heading">💡 Explanation</h4>
+    <div id="q57-explanation" class="text-sm text-body"></div>
   </div>
 </div>

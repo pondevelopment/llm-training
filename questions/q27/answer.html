@@ -1,178 +1,132 @@
 <div class="space-y-6">
-        <!-- Recommended Reading (Top) -->
-        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
-            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading</h4>
-            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
-                <li><a href="#question-31" class="text-indigo-700 underline hover:text-indigo-900">Question 31: How does backpropagation work, and why is the chain rule critical?</a></li>
-                <li><a href="#question-26" class="text-indigo-700 underline hover:text-indigo-900">Question 26: How are gradients computed for embeddings in LLMs?</a></li>
-                <li><a href="#question-24" class="text-indigo-700 underline hover:text-indigo-900">Question 24: How does the dot product contribute to self-attention?</a></li>
-                <li><a href="#question-32" class="text-indigo-700 underline hover:text-indigo-900">Question 32: How are attention scores calculated in transformers?</a></li>
-            </ul>
-        </div>
-        <!-- Hero Section with Clear Definition -->
-        <div class="bg-gradient-to-br from-blue-50 via-indigo-50 to-blue-100 p-6 rounded-xl border border-blue-200 shadow-sm">
-            <div class="text-center mb-4">
-                <h3 class="text-xl font-bold text-gray-900 mb-2">🔗 The Jacobian Matrix</h3>
-                <p class="text-lg text-gray-700 max-w-3xl mx-auto">
-                    A mathematical tool that captures how every output changes with respect to every input—the backbone of efficient backpropagation in transformers.
-                </p>
-            </div>
-            
-            <div class="max-w-3xl mx-auto">
-                <div class="bg-white p-6 rounded-lg border shadow-sm">
-                    <div class="text-center space-y-4">
-                        <p class="text-sm font-medium text-gray-700">Core Definition</p>
-                        
-                        <div class="bg-blue-50 p-6 rounded-lg border border-blue-200">
-                            <div class="math-display">$$J = \frac{\partial f}{\partial x}$$</div>
-                        </div>
-                        
-                        <div class="text-center text-sm text-gray-600 mt-4">
-                            For function $f: \mathbb{R}^n \to \mathbb{R}^m$, the Jacobian $J$ is an $m \times n$ matrix showing how output $f_i$ changes with input $x_j$
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Matrix Structure Section -->
-        <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
-            <h4 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
-                <span class="bg-green-100 text-green-800 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold mr-3">1</span>
-                📐 Matrix Structure & Components
-            </h4>
-            
-            <div class="grid lg:grid-cols-2 gap-6">
-                <!-- Mathematical Form -->
-                <div class="bg-green-50 p-5 rounded-lg border border-green-200">
-                    <h5 class="font-semibold text-green-900 mb-4 text-center">Mathematical Definition</h5>
-                    <div class="bg-white p-5 rounded-lg border">
-                        <div class="text-center space-y-4">
-                            <div class="text-sm font-medium text-gray-700">General Jacobian Matrix</div>
-                            
-                            <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
-                                <div class="text-center font-mono text-sm space-y-2">
-                                    <div class="math-display">$$J_{ij} = \frac{\partial f_i}{\partial x_j}$$</div>
-                                    <div class="text-xs text-gray-600">where i = 1,2,...,m and j = 1,2,...,n</div>
-                                </div>
-                            </div>
-                            
-                            <div class="text-xs text-gray-600 max-w-xs mx-auto">
-                                Each entry shows how output component f_i changes with input x_j
-                            </div>
-                        </div>
-                    </div>
-                </div>
+  <div class="panel panel-info p-3 space-y-2">
+    <h4 class="font-semibold text-heading">📚 Recommended reading</h4>
+    <ul class="list-disc ml-5 text-sm space-y-1">
+      <li><a href="#question-31" class="underline">Question 31: How does backpropagation work, and why is the chain rule critical?</a></li>
+      <li><a href="#question-26" class="underline">Question 26: How are gradients computed for embeddings in LLMs?</a></li>
+      <li><a href="#question-24" class="underline">Question 24: How does the dot product contribute to self-attention?</a></li>
+      <li><a href="#question-32" class="underline">Question 32: How are attention scores calculated in transformers?</a></li>
+    </ul>
+  </div>
 
-                <!-- Transformer Context -->
-                <div class="bg-blue-50 p-5 rounded-lg border border-blue-200">
-                    <h5 class="font-semibold text-blue-900 mb-3">In Transformer Context</h5>
-                    <div class="space-y-3">
-                        <div class="bg-white p-3 rounded-lg border flex items-center space-x-3">
-                            <div class="w-3 h-3 bg-green-500 rounded-full flex-shrink-0"></div>
-                            <div>
-                                <div class="font-medium text-sm text-gray-900">Rows (Outputs)</div>
-                                <div class="text-xs text-gray-600">Attention heads, hidden features</div>
-                            </div>
-                        </div>
-                        <div class="bg-white p-3 rounded-lg border flex items-center space-x-3">
-                            <div class="w-3 h-3 bg-blue-500 rounded-full flex-shrink-0"></div>
-                            <div>
-                                <div class="font-medium text-sm text-gray-900">Columns (Inputs)</div>
-                                <div class="text-xs text-gray-600">Tokens, embeddings</div>
-                            </div>
-                        </div>
-                        <div class="bg-white p-3 rounded-lg border flex items-center space-x-3">
-                            <div class="w-3 h-3 bg-purple-500 rounded-full flex-shrink-0"></div>
-                            <div>
-                                <div class="font-medium text-sm text-gray-900">Purpose</div>
-                                <div class="text-xs text-gray-600">Efficient gradient propagation</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Chain Rule Section -->
-        <div class="bg-white border border-gray-200 rounded-xl p-6 shadow-sm">
-            <h4 class="text-lg font-bold text-gray-900 mb-4 flex items-center">
-                <span class="bg-purple-100 text-purple-800 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold mr-3">2</span>
-                ⛓️ Chain Rule & Function Composition
-            </h4>
-            
-            <p class="text-gray-700 mb-6">When composing functions in transformer layers, the chain rule becomes matrix multiplication of Jacobians:</p>
-            
-            <div class="grid md:grid-cols-3 gap-4">
-                <!-- Step 1 -->
-                <div class="text-center">
-                    <div class="bg-purple-50 p-4 rounded-lg border border-purple-200 h-full">
-                        <div class="font-medium text-purple-900 mb-3">Function Composition</div>
-                        <div class="bg-white p-3 rounded border mb-3">
-                            <div class="math-display">$$z = h(g(f(x)))$$</div>
-                        </div>
-                        <div class="text-xs text-purple-700">Multiple transformer layers</div>
-                    </div>
-                </div>
-
-                <!-- Step 2 -->
-                <div class="text-center">
-                    <div class="bg-purple-50 p-4 rounded-lg border border-purple-200 h-full">
-                        <div class="font-medium text-purple-900 mb-3">Chain Rule</div>
-                        <div class="bg-white p-3 rounded border mb-3">
-                            <div class="math-display">$$\frac{\partial z}{\partial x} = \frac{\partial z}{\partial y_2} \cdot \frac{\partial y_2}{\partial y_1} \cdot \frac{\partial y_1}{\partial x}$$</div>
-                        </div>
-                        <div class="text-xs text-purple-700">Gradient computation</div>
-                    </div>
-                </div>
-
-                <!-- Step 3 -->
-                <div class="text-center">
-                    <div class="bg-purple-50 p-4 rounded-lg border border-purple-200 h-full">
-                        <div class="font-medium text-purple-900 mb-3">Jacobian Form</div>
-                        <div class="bg-white p-3 rounded border mb-3">
-                            <div class="math-display">$$J_{total} = J_h \cdot J_g \cdot J_f$$</div>
-                        </div>
-                        <div class="text-xs text-purple-700">Matrix multiplication</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="mt-4 p-3 bg-purple-50 rounded-lg border border-purple-200">
-                <div class="text-sm text-purple-800 text-center">
-                    <strong>Key Insight:</strong> Each **J** represents the Jacobian matrix of the respective function, enabling efficient gradient flow through deep networks.
-                </div>
-            </div>
-        </div>
-        
-        <!-- Key Takeaways Summary -->
-        <div class="bg-gradient-to-r from-green-50 via-blue-50 to-purple-50 border border-gray-200 rounded-xl p-6 shadow-sm">
-            <h4 class="text-lg font-bold text-gray-900 mb-4 text-center">🎯 Key Takeaways</h4>
-            
-            <div class="grid md:grid-cols-3 gap-4">
-                <div class="bg-white p-4 rounded-lg border shadow-sm text-center">
-                    <div class="text-2xl mb-2">📊</div>
-                    <h5 class="font-semibold text-green-900 mb-2">Mathematical Tool</h5>
-                    <p class="text-sm text-gray-700">
-                        Organizes partial derivatives in matrix form: J_ij = ∂f_i/∂x_j
-                    </p>
-                </div>
-                
-                <div class="bg-white p-4 rounded-lg border shadow-sm text-center">
-                    <div class="text-2xl mb-2">⛓️</div>
-                    <h5 class="font-semibold text-blue-900 mb-2">Chain Rule</h5>
-                    <p class="text-sm text-gray-700">
-                        Enables efficient gradient propagation: J_total = J_h · J_g · J_f
-                    </p>
-                </div>
-                
-                <div class="bg-white p-4 rounded-lg border shadow-sm text-center">
-                    <div class="text-2xl mb-2">🚀</div>
-                    <h5 class="font-semibold text-purple-900 mb-2">Optimization</h5>
-                    <p class="text-sm text-gray-700">
-                        Modern techniques use VJP to avoid storing full matrices, enabling large-scale training
-                    </p>
-                </div>
-            </div>
-        </div>
+  <div class="panel panel-info panel-emphasis p-6 space-y-5 text-center">
+    <div class="space-y-2">
+      <h3 class="text-xl font-bold text-heading">🔗 The Jacobian matrix</h3>
+      <p class="text-sm md:text-base text-body max-w-3xl mx-auto">
+        A mathematical tool that captures how every output changes with respect to every input—the backbone of efficient backpropagation in transformers.
+      </p>
     </div>
+
+    <div class="panel panel-neutral-soft p-5 space-y-4 max-w-3xl mx-auto">
+      <p class="text-sm font-medium text-heading uppercase tracking-wide">Core definition</p>
+      <div class="math-display">$$J = \frac{\partial f}{\partial x}$$</div>
+      <p class="small-caption panel-muted">
+        For function $f: \mathbb{R}^n \to \mathbb{R}^m$, the Jacobian $J$ is an $m \times n$ matrix showing how output $f_i$ changes with input $x_j$.
+      </p>
+    </div>
+  </div>
+
+  <div class="panel panel-neutral p-6 space-y-5">
+    <div class="flex flex-wrap items-center gap-3 text-heading">
+      <span class="chip chip-success text-xs uppercase tracking-wide">Step 1</span>
+      <h4 class="text-lg font-semibold">📐 Matrix structure &amp; components</h4>
+    </div>
+
+    <div class="grid gap-4 lg:grid-cols-2">
+      <div class="panel panel-success panel-emphasis p-5 space-y-4 text-center">
+        <h5 class="font-semibold text-heading">Mathematical definition</h5>
+        <div class="panel panel-neutral-soft p-4 space-y-3">
+          <p class="text-sm font-medium text-heading">General Jacobian matrix</p>
+          <div class="math-display">$$J_{ij} = \frac{\partial f_i}{\partial x_j}$$</div>
+          <p class="small-caption panel-muted">Each entry shows how output component $f_i$ changes with input $x_j$.</p>
+        </div>
+        <p class="small-caption panel-muted">Indices run over outputs ($i = 1 \dots m$) and inputs ($j = 1 \dots n$).</p>
+      </div>
+
+      <div class="panel panel-info panel-emphasis p-5 space-y-3">
+        <h5 class="font-semibold text-heading">In transformer context</h5>
+        <div class="q27-context-item" data-tone="outputs">
+          <span class="q27-context-dot" aria-hidden="true"></span>
+          <div>
+            <p class="text-sm font-medium text-heading">Rows (outputs)</p>
+            <p class="small-caption panel-muted">Attention heads, hidden features</p>
+          </div>
+        </div>
+        <div class="q27-context-item" data-tone="inputs">
+          <span class="q27-context-dot" aria-hidden="true"></span>
+          <div>
+            <p class="text-sm font-medium text-heading">Columns (inputs)</p>
+            <p class="small-caption panel-muted">Tokens, embeddings</p>
+          </div>
+        </div>
+        <div class="q27-context-item" data-tone="insight">
+          <span class="q27-context-dot" aria-hidden="true"></span>
+          <div>
+            <p class="text-sm font-medium text-heading">Purpose</p>
+            <p class="small-caption panel-muted">Efficient gradient propagation</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-neutral p-6 space-y-5">
+    <div class="flex flex-wrap items-center gap-3 text-heading">
+      <span class="chip chip-accent text-xs uppercase tracking-wide">Step 2</span>
+      <h4 class="text-lg font-semibold">⛓️ Chain rule &amp; function composition</h4>
+    </div>
+
+    <p class="text-sm text-body">
+      When composing functions in transformer layers, the chain rule becomes a matrix product of Jacobians across the stack.
+    </p>
+
+    <div class="grid gap-4 md:grid-cols-3">
+      <div class="panel panel-accent panel-emphasis p-4 space-y-3 text-center">
+        <p class="text-sm font-medium text-heading">Function composition</p>
+        <div class="panel panel-neutral-soft p-3">
+          <div class="math-display">$$z = h(g(f(x)))$$</div>
+        </div>
+        <p class="small-caption panel-muted">Multiple transformer layers</p>
+      </div>
+      <div class="panel panel-accent panel-emphasis p-4 space-y-3 text-center">
+        <p class="text-sm font-medium text-heading">Chain rule</p>
+        <div class="panel panel-neutral-soft p-3">
+          <div class="math-display">$$\frac{\partial z}{\partial x} = \frac{\partial z}{\partial y_2} \cdot \frac{\partial y_2}{\partial y_1} \cdot \frac{\partial y_1}{\partial x}$$</div>
+        </div>
+        <p class="small-caption panel-muted">Gradient computation</p>
+      </div>
+      <div class="panel panel-accent panel-emphasis p-4 space-y-3 text-center">
+        <p class="text-sm font-medium text-heading">Jacobian form</p>
+        <div class="panel panel-neutral-soft p-3">
+          <div class="math-display">$$J_{total} = J_h \cdot J_g \cdot J_f$$</div>
+        </div>
+        <p class="small-caption panel-muted">Matrix multiplication</p>
+      </div>
+    </div>
+
+    <div class="panel panel-accent panel-neutral-soft p-4 text-sm text-heading text-center">
+      <strong>Key insight:</strong> each <strong>J</strong> represents the Jacobian matrix of the respective function, enabling efficient gradient flow through deep networks.
+    </div>
+  </div>
+
+  <div class="panel panel-neutral p-6 space-y-4">
+    <h4 class="text-lg font-semibold text-heading text-center">🎯 Key takeaways</h4>
+    <div class="grid gap-4 md:grid-cols-3">
+      <div class="panel panel-success panel-neutral-soft p-4 space-y-2 text-center">
+        <div class="text-2xl">📊</div>
+        <h5 class="font-semibold text-heading">Mathematical tool</h5>
+        <p class="text-sm text-body">Organizes partial derivatives in matrix form: $J_{ij} = ∂f_i/∂x_j$.</p>
+      </div>
+      <div class="panel panel-info panel-neutral-soft p-4 space-y-2 text-center">
+        <div class="text-2xl">⛓️</div>
+        <h5 class="font-semibold text-heading">Chain rule</h5>
+        <p class="text-sm text-body">Enables efficient gradient propagation: $J_{total} = J_h · J_g · J_f$.</p>
+      </div>
+      <div class="panel panel-accent panel-neutral-soft p-4 space-y-2 text-center">
+        <div class="text-2xl">🚀</div>
+        <h5 class="font-semibold text-heading">Optimization</h5>
+        <p class="text-sm text-body">Modern techniques use VJP to avoid storing full matrices, enabling large-scale training.</p>
+      </div>
+    </div>
+  </div>
+</div>

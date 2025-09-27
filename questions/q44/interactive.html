@@ -1,72 +1,134 @@
-
-      <div class="space-y-6">
-        <div class="bg-gradient-to-r from-emerald-50 to-teal-50 p-4 rounded-lg border border-emerald-200">
-          <div class="flex flex-wrap items-center gap-2 mb-3 text-xs">
-            <span class="font-semibold text-gray-700 mr-1">Presets:</span>
-            <button data-q44-preset="starter" class="px-2 py-0.5 rounded border border-emerald-300 bg-white hover:bg-emerald-100">Starter (K=4,s=0.7,p0=0.45,CoT off)</button>
-            <button data-q44-preset="high-sim" class="px-2 py-0.5 rounded border border-emerald-300 bg-white hover:bg-emerald-100">High similarity (K=6,s=0.9)</button>
-            <button data-q44-preset="cost-tight" class="px-2 py-0.5 rounded border border-emerald-300 bg-white hover:bg-emerald-100">Cost tight (K=3,32/shot,B=256)</button>
-            <button data-q44-preset="cot-heavy" class="px-2 py-0.5 rounded border border-emerald-300 bg-white hover:bg-emerald-100">CoT heavy (K=5,CoT on)</button>
-            <button id="q44-copy" class="px-2 py-0.5 rounded border border-emerald-400 bg-white hover:bg-emerald-100 text-emerald-700">Copy link</button>
-            <button id="q44-export" class="px-2 py-0.5 rounded border border-emerald-400 bg-white hover:bg-emerald-100 text-emerald-700">Export</button>
-          </div>
-          <div class="grid md:grid-cols-5 gap-4 text-xs">
-            <div>
-              <label class="font-semibold text-gray-700" title="Number of in-context examples provided">Shots K</label>
-              <input id="q44-k" type="range" min="0" max="16" step="1" value="4" class="w-full" />
-              <div class="text-center mt-1"><span id="q44-k-val" class="font-mono">4</span></div>
-            </div>
-            <div>
-              <label class="font-semibold text-gray-700" title="Semantic relevance of examples to the new query (0-1)">Similarity s</label>
-              <input id="q44-s" type="range" min="0" max="1" step="0.05" value="0.7" class="w-full" />
-              <div class="text-center mt-1"><span id="q44-s-val" class="font-mono">0.70</span></div>
-            </div>
-            <div>
-              <label class="font-semibold text-gray-700" title="Baseline accuracy with no examples">Zero‑shot p₀</label>
-              <input id="q44-p0" type="range" min="0.20" max="0.90" step="0.01" value="0.45" class="w-full" />
-              <div class="text-center mt-1"><span id="q44-p0-val" class="font-mono">0.45</span></div>
-            </div>
-            <div>
-              <label class="font-semibold text-gray-700" title="Chain-of-thought: reasoning traces increase quality & tokens">CoT</label>
-              <select id="q44-cot" class="w-full border rounded p-1 text-xs">
-                <option value="off" selected>Off</option>
-                <option value="on">On (↑ quality, ↑ tokens)</option>
-              </select>
-            </div>
-            <div>
-              <label class="font-semibold text-gray-700" title="Overall prompt token budget and per-shot token length">Budget / shot size</label>
-              <div class="flex gap-1">
-                <select id="q44-budget" class="w-1/2 border rounded p-1 text-xs">
-                  <option value="256">256 tok</option>
-                  <option value="512" selected>512 tok</option>
-                  <option value="1024">1024 tok</option>
-                </select>
-                <select id="q44-len" class="w-1/2 border rounded p-1 text-xs">
-                  <option value="32">32/shot</option>
-                  <option value="64" selected>64/shot</option>
-                  <option value="128">128/shot</option>
-                </select>
-              </div>
-            </div>
-          </div>
-          <p class="text-xs text-gray-600 mt-2">We model accuracy with diminishing returns and account for token budget. CoT increases both quality gain and token cost per shot.</p>
-        </div>
-
-        <div class="grid md:grid-cols-3 gap-4">
-          <div class="bg-white border rounded-lg p-4">
-            <h5 class="font-semibold text-gray-800 mb-2">📈 Accuracy vs baseline</h5>
-            <div id="q44-bars" class="text-xs text-gray-700 space-y-1" aria-live="polite"></div>
-            <div class="text-xs text-gray-500 mt-1">Top bar = baseline; second = effective few-shot accuracy.</div>
-          </div>
-          <div class="bg-white border rounded-lg p-4">
-            <h5 class="font-semibold text-gray-800 mb-2">📊 Metrics</h5>
-            <div id="q44-metrics" class="text-xs text-gray-700 space-y-2" aria-live="polite"></div>
-            <div id="q44-guide" class="mt-2 text-xs text-indigo-700 border-t pt-2" aria-live="polite"></div>
-          </div>
-          <div class="bg-white border rounded-lg p-4">
-            <h5 class="font-semibold text-gray-800 mb-2">🧠 Explanation</h5>
-            <div id="q44-explain" class="text-xs text-gray-700" aria-live="polite"></div>
-          </div>
+﻿<div class="space-y-6" id="q44-interactive">
+  <div class="question-card space-y-4">
+    <div class="flex flex-wrap items-center gap-2 text-xs text-muted md:flex-nowrap md:overflow-x-auto">
+      <span class="font-semibold text-heading">Presets:</span>
+      <button type="button" data-q44-preset="starter" class="chip chip-success text-xs q44-chip">Starter (K=4, s=0.7, p0=0.45, CoT off)</button>
+      <button type="button" data-q44-preset="high-sim" class="chip chip-success text-xs q44-chip">High similarity (K=6, s=0.9)</button>
+      <button type="button" data-q44-preset="cost-tight" class="chip chip-success text-xs q44-chip">Cost tight (K=3, 32/shot, B=256)</button>
+      <button type="button" data-q44-preset="cot-heavy" class="chip chip-success text-xs q44-chip">CoT heavy (K=5, CoT on)</button>
+    </div>
+    <div class="grid md:grid-cols-5 gap-4 text-sm text-body">
+      <div class="space-y-2">
+        <label for="q44-k" class="block text-sm font-semibold text-heading" title="Number of in-context examples provided">Shots K</label>
+        <input id="q44-k" type="range" min="0" max="16" step="1" value="4" class="w-full accent-current" />
+        <div class="small-caption text-muted text-center"><span id="q44-k-val" class="font-mono">4</span></div>
+      </div>
+      <div class="space-y-2">
+        <label for="q44-s" class="block text-sm font-semibold text-heading" title="Semantic relevance of examples to the new query (0-1)">Similarity s</label>
+        <input id="q44-s" type="range" min="0" max="1" step="0.05" value="0.7" class="w-full accent-current" />
+        <div class="small-caption text-muted text-center"><span id="q44-s-val" class="font-mono">0.70</span></div>
+      </div>
+      <div class="space-y-2">
+        <label for="q44-p0" class="block text-sm font-semibold text-heading" title="Baseline accuracy with no examples">Zero-shot p<sub>0</sub></label>
+        <input id="q44-p0" type="range" min="0.20" max="0.90" step="0.01" value="0.45" class="w-full accent-current" />
+        <div class="small-caption text-muted text-center"><span id="q44-p0-val" class="font-mono">0.45</span></div>
+      </div>
+      <div class="space-y-2">
+        <label for="q44-cot" class="block text-sm font-semibold text-heading" title="Chain-of-thought: reasoning traces increase quality and tokens">CoT</label>
+        <select id="q44-cot" class="select-control text-xs">
+          <option value="off" selected>Off</option>
+          <option value="on">On (more quality, more tokens)</option>
+        </select>
+      </div>
+      <div class="space-y-2">
+        <label class="block text-sm font-semibold text-heading" for="q44-budget" title="Overall prompt token budget and per-shot token length">Budget / shot size</label>
+        <div class="flex gap-2">
+          <select id="q44-budget" class="select-control text-xs flex-1">
+            <option value="256">256 tok</option>
+            <option value="512" selected>512 tok</option>
+            <option value="1024">1024 tok</option>
+          </select>
+          <select id="q44-len" class="select-control text-xs flex-1">
+            <option value="32">32/shot</option>
+            <option value="64" selected>64/shot</option>
+            <option value="128">128/shot</option>
+          </select>
         </div>
       </div>
-    
+    </div>
+    <p class="small-caption text-muted">We model accuracy with diminishing returns and account for token budget. CoT increases both quality gain and token cost per shot.</p>
+  </div>
+
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="question-card space-y-3">
+      <h5 class="font-semibold text-heading text-sm">&#x1F4C8; Accuracy vs baseline</h5>
+      <div id="q44-bars" class="q44-bar-stack" aria-live="polite"></div>
+      <p class="small-caption text-muted">Top bar = baseline; second = effective few-shot accuracy.</p>
+    </div>
+    <div class="question-card space-y-3">
+      <h5 class="font-semibold text-heading text-sm">&#x1F4CA; Metrics</h5>
+      <div id="q44-metrics" class="q44-metrics-list text-sm space-y-2" aria-live="polite"></div>
+      <div id="q44-guide" class="small-caption text-muted" aria-live="polite"></div>
+    </div>
+    <div class="question-card space-y-3">
+      <h5 class="font-semibold text-heading text-sm">&#x1F9E0; Explanation</h5>
+      <div id="q44-explain" class="text-sm text-body space-y-2" aria-live="polite"></div>
+    </div>
+  </div>
+</div>
+
+<style>
+#q44-interactive .q44-chip {
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+#q44-interactive .q44-chip:active {
+  transform: scale(0.97);
+}
+#q44-interactive .q44-chip:focus-visible {
+  outline: 2px solid var(--accent-strong);
+  outline-offset: 2px;
+}
+#q44-interactive .q44-bar-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+#q44-interactive .q44-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+#q44-interactive .q44-bar-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--color-muted);
+}
+html.dark #q44-interactive .q44-bar-header {
+  color: color-mix(in srgb, var(--color-muted) 70%, #e2e8f0 30%);
+}
+#q44-interactive .q44-bar-track {
+  height: 0.55rem;
+  border-radius: 9999px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--color-border) 35%, transparent 65%);
+  border: 1px solid color-mix(in srgb, var(--color-border) 60%, transparent 40%);
+}
+html.dark #q44-interactive .q44-bar-track {
+  background: color-mix(in srgb, var(--color-border) 50%, transparent 50%);
+  border-color: color-mix(in srgb, var(--color-border) 72%, transparent 28%);
+}
+#q44-interactive .q44-bar-fill {
+  height: 100%;
+  border-radius: inherit;
+  background: var(--q44-tone, var(--accent-strong));
+  transition: width 0.3s ease;
+}
+#q44-interactive .q44-bar[data-tone="baseline"] {
+  --q44-tone: var(--tone-rose-strong);
+}
+#q44-interactive .q44-bar[data-tone="fewshot"] {
+  --q44-tone: var(--tone-emerald-strong);
+}
+#q44-interactive .q44-metrics-list {
+  display: grid;
+  gap: 0.5rem;
+}
+#q44-interactive .q44-metrics-list div {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  align-items: baseline;
+}
+</style>

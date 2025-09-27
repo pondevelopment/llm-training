@@ -1,67 +1,64 @@
+<div class="space-y-4">
+  <div class="panel panel-info p-3 space-y-2">
+    <h4 class="font-semibold text-heading mb-1">&#x1F4DA; Recommended reading (related)</h4>
+    <ul class="list-disc ml-5 text-sm text-body space-y-1">
+      <li><a class="underline" href="#question-41">Question 41: Zero-shot learning &amp; baseline capability</a></li>
+      <li><a class="underline" href="#question-13">Question 13: Prompt engineering techniques</a></li>
+      <li><a class="underline" href="#question-15">Question 15: Model distillation (contrast with inference-time adaptation)</a></li>
+      <li><a class="underline" href="#question-05">Question 5: Tokenization (shot token budgeting)</a></li>
+    </ul>
+    <p class="small-caption text-muted">How baseline skill, prompt design, and token budgeting shape few-shot lift.</p>
+  </div>
 
-    <div class="space-y-4">
-      <!-- Recommended Reading (canonical) -->
-      <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
-        <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related)</h4>
-        <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
-          <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-41">Question 41: Zero-shot learning & baseline capability</a></li>
-          <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-13">Question 13: Prompt engineering techniques</a></li>
-          <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-15">Question 15: Model distillation (contrast with inference-time adaptation)</a></li>
-          <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-05">Question 5: Tokenization (shot token budgeting)</a></li>
-        </ul>
-        <p class="mt-2 text-xs text-indigo-700">How baseline skill, prompt design, and token budgeting shape few-shot lift.</p>
-      </div>
-      <!-- Key Idea (accent) -->
-      <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
-        <h4 class="font-semibold text-blue-900 mb-2">🧠 Core Idea</h4>
-        <p class="text-sm text-blue-800">Few-shot prompting lets an LLM <b>adapt at inference time</b> by embedding a handful of <b>labeled examples</b> in context—pattern learned on the fly, no parameter updates.</p>
-        <div class="text-xs mt-2 text-blue-800">
-          Saturating benefit intuition:
-          <div class="math-display">$$
-          p(K) = 1 - (1 - p_0) e^{-\lambda s c K}
-          $$</div>
-          <ul class="mt-2 list-disc ml-5 space-y-1">
-            <li><code class="font-mono">p_0</code>: zero-shot baseline</li>
-            <li><code class="font-mono">K</code>: example count (shots)</li>
-            <li><code class="font-mono">s</code>: similarity (0–1)</li>
-            <li><code class="font-mono">c</code>: CoT multiplier (≥1 with reasoning)</li>
-            <li><code class="font-mono">\lambda</code>: diminishing rate</li>
-          </ul>
-        </div>
-      </div>
-      <!-- Comparison Cards (accentified) -->
-      <div class="grid md:grid-cols-3 gap-4">
-        <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
-          <h5 class="font-medium text-green-900">🟢 Zero-shot</h5>
-          <ul class="text-sm text-green-700 mt-1 space-y-1">
-            <li>• No examples, lowest token cost</li>
-            <li>• Good for broadly aligned tasks</li>
-          </ul>
-        </div>
-        <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
-          <h5 class="font-medium text-purple-900">🟣 Few-shot (in-context)</h5>
-          <ul class="text-sm text-purple-700 mt-1 space-y-1">
-            <li>• Add task examples at inference</li>
-            <li>• Rapid adaptation, no retraining</li>
-          </ul>
-        </div>
-        <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
-          <h5 class="font-medium text-orange-900">🟠 Fine-tuning</h5>
-          <ul class="text-sm text-orange-700 mt-1 space-y-1">
-            <li>• Upfront training effort</li>
-            <li>• Lowest per-call cost for scale</li>
-          </ul>
-        </div>
-      </div>
-      <!-- Why This Matters (canonical) -->
-      <div class="bg-yellow-50 p-4 rounded-lg">
-        <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why This Matters</h4>
-        <ul class="text-sm text-yellow-800 space-y-1">
-          <li>• <b>Rapid iteration</b> without retraining</li>
-          <li>• <b>Data efficiency</b> (handful of shots)</li>
-          <li>• <b>Cost control</b> via prompt token tradeoff</li>
-          <li>• <b>Edge cases</b> & niche domain adaptation</li>
-        </ul>
-      </div>
+  <div class="panel panel-info panel-emphasis p-4 space-y-3">
+    <h4 class="font-semibold text-heading">&#x1F9E0; Core Idea</h4>
+    <p class="text-sm text-body">Few-shot prompting lets an LLM <strong>adapt at inference time</strong> by embedding a handful of <strong>labeled examples</strong> in context&mdash;pattern learned on the fly, no parameter updates.</p>
+    <div class="text-xs text-muted space-y-2">
+      <div>Saturating benefit intuition:</div>
+      <div class="math-display">$$
+      p(K) = 1 - (1 - p_0) e^{-\lambda s c K}
+      $$</div>
+      <ul class="list-disc ml-5 space-y-1">
+        <li><code class="font-mono">p_0</code>: zero-shot baseline</li>
+        <li><code class="font-mono">K</code>: example count (shots)</li>
+        <li><code class="font-mono">s</code>: similarity (0&ndash;1)</li>
+        <li><code class="font-mono">c</code>: CoT multiplier (&ge;1 with reasoning)</li>
+        <li><code class="font-mono">\lambda</code>: diminishing rate</li>
+      </ul>
     </div>
-  
+  </div>
+
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="panel panel-neutral panel-emphasis p-3 space-y-2">
+      <h5 class="font-medium text-heading">&#x1F7E2; Zero-shot</h5>
+      <ul class="text-sm text-body space-y-1">
+        <li>No examples, lowest token cost</li>
+        <li>Good for broadly aligned tasks</li>
+      </ul>
+    </div>
+    <div class="panel panel-success panel-emphasis p-3 space-y-2">
+      <h5 class="font-medium text-heading">&#x1F7E3; Few-shot (in-context)</h5>
+      <ul class="text-sm text-body space-y-1">
+        <li>Add task examples at inference</li>
+        <li>Rapid adaptation, no retraining</li>
+      </ul>
+    </div>
+    <div class="panel panel-warning panel-emphasis p-3 space-y-2">
+      <h5 class="font-medium text-heading">&#x1F7E1; Fine-tuning</h5>
+      <ul class="text-sm text-body space-y-1">
+        <li>Upfront training effort</li>
+        <li>Lowest per-call cost for scale</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="panel panel-warning p-4 space-y-2">
+    <h4 class="font-semibold text-heading">&#x1F3AF; Why This Matters</h4>
+    <ul class="list-disc ml-5 text-sm text-body space-y-1">
+      <li><strong>Rapid iteration</strong> without retraining</li>
+      <li><strong>Data efficiency</strong> with a handful of shots</li>
+      <li><strong>Cost control</strong> via prompt token trade-offs</li>
+      <li><strong>Edge cases</strong> and niche domain adaptation</li>
+    </ul>
+  </div>
+</div>

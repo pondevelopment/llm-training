@@ -1,46 +1,45 @@
-
-    <div class="space-y-4">
-      <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
-        <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading</h4>
-        <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
-          <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-6">Question 6: Temperature & decoding</a></li>
-            <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-15">Question 15: Prompt engineering patterns</a></li>
-            <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-38">Question 38: Chain-of-Thought prompting</a></li>
-        </ul>
-      </div>
-      <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
-        <h4 class="font-semibold text-blue-900 mb-2">🧠 Key Idea</h4>
-        <p class="text-sm text-blue-800">Zero-shot learning lets an LLM perform a task <b>without task-specific examples</b>, by relying on its pretrained knowledge and a natural-language <b>prompt</b> that defines the task + label words (verbalizer).</p>
-        <div class="text-xs mt-2 text-blue-800">Formal view: choose label via conditional likelihood:
-          <div class="math-display">$$\hat y = \arg\max_y P(y|x,p),\; P(y|x,p)=\operatorname{softmax}_y(s_y(x,p)/T)$$</div>
-        </div>
-      </div>
-      <div class="grid md:grid-cols-3 gap-4">
-        <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
-          <h5 class="font-semibold text-green-900 mb-1">🟢 Zero-shot</h5>
-          <ul class="text-sm text-green-800 space-y-1">
-            <li>• No examples in prompt</li>
-            <li>• Uses label words only</li>
-            <li>• Fast; brittle if ambiguous</li>
-          </ul>
-        </div>
-        <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
-          <h5 class="font-semibold text-purple-900 mb-1">🟣 Zero-shot + Instruction</h5>
-          <ul class="text-sm text-purple-800 space-y-1">
-            <li>• Adds explicit instruction</li>
-            <li>• Better label calibration</li>
-            <li>• Cheap improvement</li>
-          </ul>
-        </div>
-        <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
-          <h5 class="font-semibold text-orange-900 mb-1">🟠 Few-shot (k-shot)</h5>
-          <ul class="text-sm text-orange-800 space-y-1">
-            <li>• Provides k labeled examples</li>
-            <li>• Shows format & decision boundary</li>
-            <li>• Higher token + curation cost</li>
-          </ul>
-        </div>
-      </div>
-      <p class="text-xs text-gray-600">Mechanism: prompt tokens condition internal representations; label tokens compete through next-token probabilities. Instructions bias distribution; few-shot examples steer via pattern completion.</p>
+<div class="space-y-4">
+  <div class="panel panel-info p-3">
+    <h4 class="font-semibold mb-1">📚 Recommended reading</h4>
+    <ul class="list-disc ml-5 text-sm space-y-1">
+      <li><a class="underline" href="#question-6">Question 6: Temperature &amp; decoding</a></li>
+      <li><a class="underline" href="#question-15">Question 15: Prompt engineering patterns</a></li>
+      <li><a class="underline" href="#question-38">Question 38: Chain-of-Thought prompting</a></li>
+    </ul>
+  </div>
+  <div class="panel panel-info panel-emphasis p-4 space-y-2">
+    <h4 class="font-semibold">🧠 Key idea</h4>
+    <p class="text-sm">Zero-shot learning lets an LLM perform a task <strong>without task-specific examples</strong> by pairing pretrained knowledge with a natural-language prompt that names the task and the label words (verbalizer).</p>
+    <div class="text-xs panel-muted">
+      Formal view: choose the label with highest conditional likelihood
+      <div class="math-display">$$\hat y = \arg\max_y P(y \mid x, p),\; P(y \mid x, p) = \operatorname{softmax}_y\!\left(\frac{s_y(x,p)}{T}\right)$$</div>
     </div>
-  
+  </div>
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="panel panel-success panel-emphasis p-3 space-y-2">
+      <h5 class="font-semibold">🎯 Zero-shot</h5>
+      <ul class="list-disc list-inside text-sm space-y-1">
+        <li>No examples in prompt</li>
+        <li>Only label words supplied</li>
+        <li>Fast, brittle if labels ambiguous</li>
+      </ul>
+    </div>
+    <div class="panel panel-accent panel-emphasis p-3 space-y-2">
+      <h5 class="font-semibold">🏹 Zero-shot + instruction</h5>
+      <ul class="list-disc list-inside text-sm space-y-1">
+        <li>Adds explicit instruction</li>
+        <li>Improves label calibration</li>
+        <li>Cheap quality boost</li>
+      </ul>
+    </div>
+    <div class="panel panel-warning panel-emphasis p-3 space-y-2">
+      <h5 class="font-semibold">🧪 Few-shot (k-shot)</h5>
+      <ul class="list-disc list-inside text-sm space-y-1">
+        <li>Provides k labelled examples</li>
+        <li>Shows format and boundary</li>
+        <li>Higher token &amp; curation cost</li>
+      </ul>
+    </div>
+  </div>
+  <p class="small-caption text-muted">Mechanism: prompt tokens condition internal representations; label tokens compete through next-token probabilities. Instructions bias distribution; few-shot examples steer via pattern completion.</p>
+</div>

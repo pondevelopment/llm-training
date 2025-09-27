@@ -1,89 +1,98 @@
 <div class="space-y-4">
-    <!-- Recommended Reading (Cross-links) -->
-    <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
-      <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading</h4>
-      <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
-        <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-15">Question 15: What is catastrophic forgetting?</a></li>
-        <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-16">Question 16: What is transfer learning in LLMs?</a></li>
-        <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-24">Question 24: What is parameter-efficient fine-tuning?</a></li>
-        <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-31">Question 31: How does RLHF shape model behavior?</a></li>
-        <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-34">Question 34: What types of foundation models exist?</a></li>
+  <!-- Recommended Reading (Cross-links) -->
+  <div class="panel panel-info p-3 space-y-2">
+    <h4 class="font-semibold">📚 Recommended reading</h4>
+    <ul class="list-disc ml-5 text-sm space-y-1">
+      <li><a class="underline" href="#question-15">Question 15: What is catastrophic forgetting?</a></li>
+      <li><a class="underline" href="#question-16">Question 16: What is transfer learning in LLMs?</a></li>
+      <li><a class="underline" href="#question-24">Question 24: What is parameter-efficient fine-tuning?</a></li>
+      <li><a class="underline" href="#question-31">Question 31: How does RLHF shape model behavior?</a></li>
+      <li><a class="underline" href="#question-34">Question 34: What types of foundation models exist?</a></li>
+    </ul>
+    <p class="small-caption panel-muted">These provide grounding for continual learning pressure, transfer dynamics, and alignment signals relevant to PEFT.</p>
+  </div>
+
+  <!-- Definition / Core Concept -->
+  <div class="panel panel-info panel-emphasis p-4 space-y-3">
+    <h4 class="font-semibold">🧠 Core Idea</h4>
+    <p class="text-sm"><strong>Parameter‑Efficient Fine‑Tuning (PEFT)</strong> reduces <em>catastrophic forgetting</em> by freezing most pretrained weights (θ<sub>base</sub>) and introducing a small, trainable subset (Δθ)—adapters, low‑rank matrices, prefixes, bias terms. Because the original representation space stays largely intact, gradients from new tasks cannot overwrite previously learned generalizations.</p>
+    <div class="grid md:grid-cols-4 gap-3 text-xs">
+      <div class="panel panel-neutral-soft p-3 space-y-1">
+        <span class="font-semibold text-heading">Freeze Majority</span>
+        <p class="small-caption panel-muted">Protects core semantics</p>
+      </div>
+      <div class="panel panel-neutral-soft p-3 space-y-1">
+        <span class="font-semibold text-heading">Small Delta</span>
+        <p class="small-caption panel-muted">Few params adapt fast</p>
+      </div>
+      <div class="panel panel-neutral-soft p-3 space-y-1">
+        <span class="font-semibold text-heading">Composable</span>
+        <p class="small-caption panel-muted">Task adapters stack</p>
+      </div>
+      <div class="panel panel-neutral-soft p-3 space-y-1">
+        <span class="font-semibold text-heading">Memory Efficient</span>
+        <p class="small-caption panel-muted">Multiple tasks, one base</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mechanism & Math -->
+  <div class="panel panel-neutral p-4 space-y-3">
+    <h4 class="font-semibold">🧩 Mechanism</h4>
+    <p class="text-sm">Instead of updating inline parameters, we add a <em>structured delta</em> to a frozen base (additive decomposition):</p>
+    <p class="text-sm panel-muted"><code>f(x; θ_base, Δθ) = f(x; θ_base + P(Δθ))</code></p>
+    <p class="text-sm">Where <code>P(·)</code> injects / projects the small trainable structure (adapters, low‑rank matrices, prefixes). We model forgetting with a <em>qualitative</em> saturating hazard (illustrative only):</p>
+    <p class="text-sm panel-muted"><code>ForgettingRisk = 1 − e^(−α·s·d·t)</code><br><code>Retention = e^(−α·s·d·t)</code></p>
+    <p class="small-caption panel-muted">Symbols: (s)=trainable fraction; (d)=domain shift factor; (t)=sequential task count; (α)=method sensitivity (smaller ⇒ more robust). Pedagogical curve—use empirical continual learning benchmarks for measurement.</p>
+    <p class="text-sm">LoRA applies a low‑rank update to each targeted weight matrix:</p>
+    <p class="text-sm panel-muted"><code>W′ = W + B·A; W ∈ ℝ^{d_out×d_in}; A ∈ ℝ^{r×d_in}; B ∈ ℝ^{d_out×r}; r ≪ d_out, d_in</code></p>
+    <p class="small-caption panel-muted">Original weights (W) stay frozen; only the injected components (A,B) train → prior capabilities remain accessible.</p>
+  </div>
+
+  <!-- Comparison Cards -->
+  <div class="grid lg:grid-cols-4 md:grid-cols-2 gap-4 text-sm">
+    <div class="panel panel-success panel-emphasis p-3 space-y-1">
+      <h5 class="font-semibold">LoRA / QLoRA</h5>
+      <ul class="list-disc ml-4 text-xs space-y-1 panel-muted">
+        <li>Low‑rank residual update</li>
+        <li>Quantize base (QLoRA) to cut memory</li>
+        <li>Mergeable at inference</li>
       </ul>
-  <p class="text-xs text-indigo-700 mt-2">These provide grounding for continual learning pressure, transfer dynamics, and alignment signals relevant to PEFT.</p>
     </div>
-    <!-- Definition / Core Concept -->
-  <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
-      <h4 class="font-semibold text-blue-900 mb-2">🧠 Core Idea</h4>
-      <p class="text-sm text-blue-800 leading-relaxed"><strong>Parameter‑Efficient Fine‑Tuning (PEFT)</strong> reduces <em>catastrophic forgetting</em> by freezing most pretrained weights (	heta_{	ext{base}}) and introducing a small, trainable subset (Delta	heta) (adapters, low‑rank matrices, prefixes, bias terms). Because the original representation space is largely preserved, gradients from new tasks cannot overwrite previously learned generalizations.</p>
-      <div class="mt-3 grid md:grid-cols-4 gap-3 text-xs">
-        <div class="bg-white rounded p-3 border border-blue-100"><span class="font-semibold">Freeze Majority</span><br>Protects core semantics</div>
-        <div class="bg-white rounded p-3 border border-blue-100"><span class="font-semibold">Small Delta</span><br>Few params adapt fast</div>
-        <div class="bg-white rounded p-3 border border-blue-100"><span class="font-semibold">Composable</span><br>Task adapters stack</div>
-        <div class="bg-white rounded p-3 border border-blue-100"><span class="font-semibold">Memory Efficient</span><br>Multiple tasks, one base</div>
-      </div>
+    <div class="panel panel-accent panel-emphasis p-3 space-y-1">
+      <h5 class="font-semibold">Adapters</h5>
+      <ul class="list-disc ml-4 text-xs space-y-1 panel-muted">
+        <li>Bottleneck MLP blocks</li>
+        <li>Composable per task</li>
+        <li>Stable gradients</li>
+      </ul>
     </div>
-
-    <!-- Mechanism & Math -->
-  <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
-      <h4 class="font-semibold text-gray-900 mb-3">🧩 Mechanism</h4>
-  <p class="text-sm text-gray-700">Instead of updating inline parameters, we add a <em>structured delta</em> to a frozen base (additive decomposition):</p>
-  <div class="math-display">$$ f(x; 	heta_{\text{base}}, \Delta\theta) = f\big(x; 	heta_{\text{base}} + P(\Delta\theta)\big) $$</div>
-  <p class="text-sm text-gray-700 mt-3">Where <code>P(cdot)</code> injects / projects the small trainable structure (adapters, low‑rank matrices, prefixes). We model forgetting with a <em>qualitative</em> saturating hazard (illustrative only):</p>
-  <div class="math-display">$$\begin{aligned}
-    \text{ForgettingRisk} &= 1 - e^{-\alpha s d t},\\
-    \text{Retention}      &= e^{-\alpha s d t}.
-
-  \end{aligned}$$</div>
-  <p class="text-xs text-gray-600">Symbols: (s)=trainable fraction; (d)=domain shift factor; (t)=sequential task count; (alpha)=method sensitivity (smaller ⇒ more robust). Pedagogical curve—use empirical continual learning benchmarks for measurement.</p>
-      <p class="text-sm text-gray-700 mb-2">LoRA applies a low‑rank update to each targeted weight matrix:</p>
-  <div class="math-display">$$ W' = W + B A,; W\in\mathbb{R}^{d_{out}\times d_{in}},; A\in\mathbb{R}^{r\times d_{in}},; B\in\mathbb{R}^{d_{out}\times r},; r \ll d_{out},d_{in} $$</div>
-      <p class="text-xs text-gray-600">Original (W) is preserved (frozen); only (A,B) train → prior capabilities remain accessible.</p>
+    <div class="panel panel-warning panel-emphasis p-3 space-y-1">
+      <h5 class="font-semibold">Prefix / P‑Tuning</h5>
+      <ul class="list-disc ml-4 text-xs space-y-1 panel-muted">
+        <li>Train virtual tokens</li>
+        <li>No weight merge needed</li>
+        <li>Fast adaptation</li>
+      </ul>
     </div>
-
-    <!-- Comparison Cards -->
-    <div class="grid lg:grid-cols-4 md:grid-cols-2 gap-4 text-sm">
-      <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
-        <h5 class="font-semibold text-green-800 mb-1">LoRA / QLoRA</h5>
-        <ul class="list-disc ml-4 text-xs text-green-700 space-y-1">
-          <li>Low‑rank residual update</li>
-          <li>Quantize base (QLoRA) to cut memory</li>
-          <li>Mergeable at inference</li>
-        </ul>
-      </div>
-      <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
-        <h5 class="font-semibold text-purple-800 mb-1">Adapters</h5>
-        <ul class="list-disc ml-4 text-xs text-purple-700 space-y-1">
-          <li>Bottleneck MLP blocks</li>
-          <li>Composable per task</li>
-          <li>Stable gradients</li>
-        </ul>
-      </div>
-      <div class="bg-amber-50 p-3 rounded border-l-4 border-amber-400">
-        <h5 class="font-semibold text-amber-800 mb-1">Prefix / P‑Tuning</h5>
-        <ul class="list-disc ml-4 text-xs text-amber-700 space-y-1">
-          <li>Train virtual tokens</li>
-          <li>No weight merge needed</li>
-          <li>Fast adaptation</li>
-        </ul>
-      </div>
-      <div class="bg-rose-50 p-3 rounded border-l-4 border-rose-400">
-        <h5 class="font-semibold text-rose-800 mb-1">BitFit / Bias‑Only</h5>
-        <ul class="list-disc ml-4 text-xs text-rose-700 space-y-1">
-          <li>Update only biases</li>
-          <li>Tiny footprint</li>
-          <li>Lower capacity</li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- Why It Matters -->
-  <div class="bg-yellow-50 p-4 rounded-lg">
-      <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why This Matters</h4>
-      <ul class="text-sm text-yellow-800 space-y-1">
-        <li>• <strong>Preserves generalization:</strong> Frozen base prevents destructive drift.</li>
-        <li>• <strong>Operational efficiency:</strong> Store many tasks as small deltas.</li>
-        <li>• <strong>Rapid iteration:</strong> Faster fine‑tunes & lower GPU memory.</li>
-        <li>• <strong>Composable specialization:</strong> Swap/stack adapters per domain.</li>
+    <div class="panel panel-accent panel-emphasis p-3 space-y-1">
+      <h5 class="font-semibold">BitFit / Bias‑Only</h5>
+      <ul class="list-disc ml-4 text-xs space-y-1 panel-muted">
+        <li>Update only biases</li>
+        <li>Tiny footprint</li>
+        <li>Lower capacity</li>
       </ul>
     </div>
   </div>
+
+  <!-- Why It Matters -->
+  <div class="panel panel-warning p-4 space-y-2">
+    <h4 class="font-semibold">🎯 Why This Matters</h4>
+    <ul class="list-disc ml-5 text-sm space-y-1">
+      <li><strong>Preserves generalization:</strong> Frozen base prevents destructive drift.</li>
+      <li><strong>Operational efficiency:</strong> Store many tasks as small deltas.</li>
+      <li><strong>Rapid iteration:</strong> Faster fine‑tunes & lower GPU memory.</li>
+      <li><strong>Composable specialization:</strong> Swap/stack adapters per domain.</li>
+    </ul>
+  </div>
+</div>

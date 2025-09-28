@@ -106,9 +106,15 @@ const interactiveScript = () => {
   ];
 
   const statusStyles = {
-    pass: 'border-emerald-200 bg-emerald-50 text-emerald-800',
-    partial: 'border-amber-200 bg-amber-50 text-amber-800',
-    fail: 'border-rose-200 bg-rose-50 text-rose-800'
+    pass: 'panel panel-success',
+    partial: 'panel panel-warning',
+    fail: 'panel panel-accent'
+  };
+
+  const statusChips = {
+    pass: 'chip chip-success',
+    partial: 'chip chip-warning',
+    fail: 'chip chip-accent'
   };
 
   const formatStatus = score => {
@@ -187,16 +193,17 @@ const interactiveScript = () => {
     const problemCards = problems.map((problem, index) => {
       const status = statuses[index];
       const style = statusStyles[status] || statusStyles.partial;
+      const chipClass = statusChips[status] || statusChips.partial;
       const note = problem.notes[status];
       const scoreLabel = Math.round(scores[index] * 100) + '%';
       return [
-        '<article class="border rounded-lg p-3 space-y-2 ' + style + '">',
+        '<article class="' + style + ' p-3 space-y-2">',
         '  <header class="space-y-1">',
         '    <div class="flex items-center justify-between gap-2">',
         '      <h4 class="text-sm font-semibold">' + problem.title + '</h4>',
-        '      <span class="inline-flex items-center px-2 py-0.5 text-[11px] font-semibold rounded-full bg-white/70 text-current">' + status.toUpperCase() + '</span>',
+        '      <span class="' + chipClass + ' text-[11px] font-semibold">' + status.toUpperCase() + '</span>',
         '    </div>',
-        '    <p class="text-xs opacity-80">Confidence: ' + scoreLabel + '</p>',
+        '    <p class="text-xs panel-muted">Confidence: ' + scoreLabel + '</p>',
         '  </header>',
         '  <p class="text-sm leading-snug">' + note + '</p>',
         '</article>'

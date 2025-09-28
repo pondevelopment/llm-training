@@ -1,38 +1,38 @@
 <div class="paper-overview-card space-y-6">
-  <section class="bg-slate-900 text-slate-100 border border-slate-800 rounded-xl p-5 space-y-3">
+  <section class="panel panel-neutral p-5 space-y-3">
     <header class="flex flex-col gap-2">
-      <h2 class="text-lg font-semibold tracking-wide uppercase text-slate-200">Executive quick take</h2>
-      <p class="text-sm leading-relaxed text-slate-200">
+      <h2 class="text-lg font-semibold tracking-wide uppercase text-heading">Executive quick take</h2>
+      <p class="text-sm leading-relaxed panel-muted">
         Feldman &amp; Karbasi introduce the Godel Test: can a frontier LLM produce correct proofs for fresh,
         human-easy conjectures? GPT-5 clears three of five bespoke submodular optimisation puzzles, even
         refuting one author conjecture, but collapses when proofs demand cross-paper synthesis or sustained
         self-critique.
       </p>
     </header>
-    <ul class="list-disc ml-5 text-sm text-slate-200 space-y-1">
+    <ul class="list-disc ml-5 text-sm panel-muted space-y-1">
       <li>Expect competent graduate-student calibre reasoning on straightforward derivations, not independent leaps.</li>
       <li>Plan for human or tool-assisted verification&mdash;GPT-5 emits polished yet invalid proofs on the harder cases.</li>
       <li>Passing a Godel Test variant will hinge on integrating retrieval across sources plus rigorous proof checking.</li>
     </ul>
   </section>
 
-  <section class="bg-emerald-50 border border-emerald-200 rounded-xl p-5 space-y-3">
+  <section class="panel panel-success p-5 space-y-3">
     <header>
-      <h3 class="text-sm font-semibold text-emerald-900">Business relevance</h3>
-      <p class="text-sm text-emerald-800 leading-relaxed">
+      <h3 class="text-sm font-semibold text-heading">Business relevance</h3>
+      <p class="text-sm panel-muted leading-relaxed">
         Use Godel-style drills before delegating mathematical discovery or verification to autonomous agents.
         They expose where today&apos;s LLMs still need prompts, tools, or humans in the loop.
       </p>
     </header>
-    <ul class="list-disc ml-5 text-sm text-emerald-800 space-y-1">
+    <ul class="list-disc ml-5 text-sm text-body space-y-1">
       <li><strong>Research leads:</strong> Spot which proof templates can be automated and where labelling debt remains.</li>
       <li><strong>Risk &amp; compliance teams:</strong> Gauge the residual danger of plausible-but-wrong reasoning before shipping model-written proofs or audits.</li>
       <li><strong>Product &amp; engineering:</strong> Prioritise tool integrations (retrieval, CAS, proof checkers) that unlock the next capability jump.</li>
       <li><strong>Executive sponsors:</strong> Budget for review workflows proportional to conjecture novelty and cross-source complexity.</li>
     </ul>
-    <div class="bg-card border border-subtle rounded-lg p-4 space-y-2 text-xs text-secondary">
+    <div class="panel panel-neutral-soft p-4 space-y-2 text-xs">
       <p class="font-semibold text-heading">Derivative example: Godel gate for R&amp;D agents</p>
-      <p>
+      <p class="panel-muted">
         A research ops team builds a nightly Godel Test harness with five rotating conjectures from their
         portfolio. GPT-5 drafts proofs, an automated checker flags algebraic slips, and a human reviewer logs
         judgement calls. The scorecard feeds directly into release go/no-go decisions for self-serve theorem bots.
@@ -41,17 +41,18 @@
   </section>
 
   <section class="grid md:grid-cols-2 gap-4">
-    <article class="bg-card border border-subtle rounded-lg p-4 space-y-2">
+    <article class="panel panel-neutral p-4 space-y-2">
       <h4 class="text-sm font-semibold text-heading">How the Godel Test runs</h4>
-      <ul class="list-disc ml-4 text-sm text-secondary space-y-1">
+      <ul class="list-disc ml-4 text-sm panel-muted space-y-1">
         <li>Pick conjectures simple enough for a trained grad student, yet absent from published solutions.</li>
+        <li>Share only the originating papers and problem statement&mdash;the authors withheld their own working proofs so GPT-5 had to reason from the cited sources.</li>
         <li>Provide only minimal source papers; refrain from hints or interactive steering after the prompt is issued.</li>
         <li>Audit GPT-5&apos;s LaTeX proofs manually, including verification that reused lemmas still apply.</li>
       </ul>
     </article>
-    <article class="bg-card border border-subtle rounded-lg p-4 space-y-2">
+    <article class="panel panel-neutral p-4 space-y-2">
       <h4 class="text-sm font-semibold text-heading">Where GPT-5 stumbles</h4>
-      <ul class="list-disc ml-4 text-sm text-secondary space-y-1">
+      <ul class="list-disc ml-4 text-sm panel-muted space-y-1">
         <li>Combining insights from two papers broke down (Problem 4) despite flawless phrasing.</li>
         <li>Self-generated proof checks missed algebraic gaps; faulty steps hid inside polished writeups.</li>
         <li>Longer analyses (Problem 5) ran out of patience&mdash;the model guessed the right algorithm but failed to justify it.</li>
@@ -60,32 +61,32 @@
   </section>
 
   <section class="grid md:grid-cols-3 gap-4">
-    <article class="bg-card border border-subtle rounded-lg p-4 space-y-2">
+    <article class="panel panel-neutral p-4 space-y-2">
       <h5 class="text-sm font-semibold text-heading">Key insight</h5>
-      <p class="text-sm text-secondary">
+      <p class="text-sm panel-muted">
         Contemporary frontier models can refute easy conjectures and adapt known proof templates, yet still lack the
         integrative reasoning needed for multi-source arguments.
       </p>
     </article>
-    <article class="bg-card border border-subtle rounded-lg p-4 space-y-2">
+    <article class="panel panel-neutral p-4 space-y-2">
       <h5 class="text-sm font-semibold text-heading">Method</h5>
-      <p class="text-sm text-secondary">
+      <p class="text-sm panel-muted">
         Authors propose a Godel Test harness: hand-curated conjectures, sourced references, and strict hands-off
         prompting to measure raw reasoning instead of autoregressive polish.
       </p>
     </article>
-    <article class="bg-card border border-subtle rounded-lg p-4 space-y-2">
+    <article class="panel panel-neutral p-4 space-y-2">
       <h5 class="text-sm font-semibold text-heading">Implication</h5>
-      <p class="text-sm text-secondary">
+      <p class="text-sm panel-muted">
         Organisations should invest in proof-checking pipelines and cross-reference retrieval before trusting LLMs to
         publish novel mathematics or compliance attestations.
       </p>
     </article>
   </section>
 
-  <section class="bg-card border border-subtle rounded-xl p-5 space-y-2">
+  <section class="panel panel-neutral p-5 space-y-2">
     <h4 class="text-sm font-semibold text-heading">Evidence</h4>
-    <ul class="list-disc ml-5 text-sm text-secondary space-y-1">
+    <ul class="list-disc ml-5 text-sm panel-muted space-y-1">
       <li>Three of five submodular optimisation conjectures received nearly correct proofs; Problem 2&apos;s answer even sharpened the authors&apos; bound.</li>
       <li>Problem 4 (requiring synthesis across two papers) failed outright: GPT-5 reused lemmas without checking new dependencies.</li>
       <li>Problem 5 produced the right algorithm but an invalid analysis, signalling that deeper proof steps still elude the model.</li>
@@ -93,9 +94,9 @@
     </ul>
   </section>
 
-  <section class="bg-amber-50 border border-amber-200 rounded-xl p-5 space-y-2">
-    <h4 class="text-sm font-semibold text-amber-900">Forward-looking roadmap</h4>
-    <ul class="list-disc ml-5 text-sm text-amber-800 space-y-1">
+  <section class="panel panel-warning p-5 space-y-2">
+    <h4 class="text-sm font-semibold text-heading">Forward-looking roadmap</h4>
+    <ul class="list-disc ml-5 text-sm text-body space-y-1">
       <li>Instrument automated proof checkers plus reviewer sign-off before publishing any LLM-derived theorem.</li>
       <li>Build domain-specific Godel Test suites (finance, safety auditing, evaluation) to monitor toolchain upgrades.</li>
       <li>Couple mathematical agents with retrieval planners that can cite and stitch multiple sources on demand.</li>

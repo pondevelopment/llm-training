@@ -1,55 +1,52 @@
 <div class="space-y-4">
-        <!-- Recommended Reading -->
-        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
-            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related)</h4>
-            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
-                <li><a href="#question-18" class="text-indigo-700 underline hover:text-indigo-900">Question 18: Overfitting & mitigation</a></li>
-                <li><a href="#question-19" class="text-indigo-700 underline hover:text-indigo-900">Question 19: Generative vs discriminative models</a></li>
-                <li><a href="#question-47" class="text-indigo-700 underline hover:text-indigo-900">Question 47: Context & perplexity explorer</a></li>
-            </ul>
-        </div>
-        <!-- Main Concept Box -->
-        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
-            <h4 class="font-semibold text-blue-900 mb-2">🧭 Core Idea</h4>
-            <p class="text-blue-800">Hyperparameters are preset values that control training dynamics (learning rate, batch size, regularization strength, etc.). They are chosen before / outside training, influence <em>how</em> parameters are learned, and do <strong>not</strong> receive gradient updates.</p>
-            <div class="math-display">$$\theta_{t+1} = \theta_t - \eta \nabla_{\theta} \mathcal{L}(\theta_t)$$</div>
-        </div>
+  <div class="panel panel-info p-3">
+    <h4 class="font-semibold mb-1">📚 Recommended reading (related)</h4>
+    <ul class="list-disc ml-5 text-sm space-y-1">
+      <li><a href="#question-18" class="underline">Question 18: Overfitting &amp; mitigation</a></li>
+      <li><a href="#question-19" class="underline">Question 19: Generative vs discriminative models</a></li>
+      <li><a href="#question-47" class="underline">Question 47: Context &amp; perplexity explorer</a></li>
+    </ul>
+  </div>
 
-        <!-- Comparison Grid -->
-        <div class="grid md:grid-cols-3 gap-4">
-            <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
-                <h5 class="font-medium text-green-900">Examples</h5>
-                <ul class="text-sm text-green-800 list-disc pl-5 space-y-1">
-                    <li>Learning rate (η)</li>
-                    <li>Batch size</li>
-                    <li>Weight decay / dropout</li>
-                </ul>
-            </div>
-            <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
-                <h5 class="font-medium text-purple-900">Not hyperparameters</h5>
-                <ul class="text-sm text-purple-800 list-disc pl-5 space-y-1">
-                    <li>Model weights (learned parameters)</li>
-                    <li>Activations during forward passes</li>
-                    <li>Gradients during backprop</li>
-                </ul>
-            </div>
-            <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
-                <h5 class="font-medium text-orange-900">Why it matters</h5>
-                <ul class="text-sm text-orange-800 list-disc pl-5 space-y-1">
-                    <li>Controls stability, speed, and generalization</li>
-                    <li>Bad settings can diverge or overfit</li>
-                    <li>Good settings accelerate convergence</li>
-                </ul>
-            </div>
-        </div>
+  <div class="panel panel-info panel-emphasis p-4 space-y-2">
+    <h4 class="font-semibold">🧭 Core Idea</h4>
+    <p>Hyperparameters are preset values that control training dynamics (learning rate, batch size, regularization strength, etc.). They are chosen before or outside training, influence <em>how</em> parameters are learned, and do <strong>not</strong> receive gradient updates.</p>
+    <div class="math-display">$$\theta_{t+1} = \theta_t - \eta \nabla_{\theta} \mathcal{L}(\theta_t)$$</div>
+  </div>
 
-        <!-- Why It Matters -->
-        <div class="bg-yellow-50 p-4 rounded-lg">
-            <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why This Matters</h4>
-            <ul class="text-sm text-yellow-800 space-y-1">
-                <li>• <strong>Convergence:</strong> Learning rate affects whether training stabilizes.</li>
-                <li>• <strong>Generalization:</strong> Regularization hyperparameters reduce overfitting.</li>
-                <li>• <strong>Efficiency:</strong> Batch size and schedulers impact throughput and wall-clock time.</li>
-            </ul>
-        </div>
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="panel panel-success panel-emphasis p-3 stacked-card">
+      <h5 class="font-medium">🌱 Examples</h5>
+      <ul class="text-sm list-disc pl-5 space-y-1">
+        <li>Learning rate (η)</li>
+        <li>Batch size</li>
+        <li>Weight decay / dropout</li>
+      </ul>
     </div>
+    <div class="panel panel-accent panel-emphasis p-3 stacked-card">
+      <h5 class="font-medium">🚫 Not hyperparameters</h5>
+      <ul class="text-sm list-disc pl-5 space-y-1">
+        <li>Model weights (learned parameters)</li>
+        <li>Activations during forward passes</li>
+        <li>Gradients during backprop</li>
+      </ul>
+    </div>
+    <div class="panel panel-warning panel-emphasis p-3 stacked-card">
+      <h5 class="font-medium">🎯 Why it matters</h5>
+      <ul class="text-sm list-disc pl-5 space-y-1">
+        <li>Controls stability, speed, and generalization</li>
+        <li>Bad settings can diverge or overfit</li>
+        <li>Good settings accelerate convergence</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="panel panel-warning p-4 space-y-2">
+    <h4 class="font-semibold">🎯 Why This Matters</h4>
+    <ul class="list-disc ml-5 text-sm space-y-1">
+      <li><strong>Convergence:</strong> Learning rate affects whether training stabilizes.</li>
+      <li><strong>Generalization:</strong> Regularization hyperparameters reduce overfitting.</li>
+      <li><strong>Efficiency:</strong> Batch size and schedulers impact throughput and wall-clock time.</li>
+    </ul>
+  </div>
+</div>

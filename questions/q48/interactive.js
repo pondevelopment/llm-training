@@ -45,6 +45,48 @@ const interactiveScript = () => {
             let snapA = null; let snapB = null;
             const trail = [];
 
+            function readCssVar(name){
+                const value = getComputedStyle(document.documentElement).getPropertyValue(name);
+                return value ? value.trim() : '';
+            }
+            function colorVar(name, fallback){
+                const value = readCssVar(name);
+                return value || fallback;
+            }
+            function colorVarAlpha(name, alpha, fallback){
+                const base = colorVar(name, fallback);
+                if(!base) return fallback;
+                const hexMatch = base.match(/^#([0-9a-f]{3}|[0-9a-f]{6})$/i);
+                if(hexMatch){
+                    const hex = hexMatch[1];
+                    const expanded = hex.length === 3 ? hex.split('').map(ch=>ch+ch).join('') : hex;
+                    const num = parseInt(expanded, 16);
+                    const r = (num >> 16) & 255;
+                    const g = (num >> 8) & 255;
+                    const b = num & 255;
+                    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+                }
+                const normalized = base.replace(/\s+/g,' ');
+                const rgbMatch = normalized.match(/^rgba?\((.+)\)$/i);
+                if(rgbMatch){
+                    const parts = rgbMatch[1].split(/[\s,\/]+/).filter(Boolean).slice(0,3).map(Number);
+                    if(parts.length === 3 && parts.every(n=>!Number.isNaN(n))){
+                        return `rgba(${parts[0]}, ${parts[1]}, ${parts[2]}, ${alpha})`;
+                    }
+                }
+                const hslMatch = normalized.match(/^hsla?\((.+)\)$/i);
+                if(hslMatch){
+                    const parts = hslMatch[1].split(',').map(p=>p.trim());
+                    if(parts.length >= 3){
+                        const h = parts[0];
+                        const s = parts[1];
+                        const l = parts[2];
+                        return `hsla(${h}, ${s}, ${l}, ${alpha})`;
+                    }
+                }
+                return base;
+            }
+
             function flash(el, cls){
                 if(!el) return; el.classList.remove('q48-flash-up','q48-flash-down'); void el.offsetWidth; el.classList.add(cls); }
 
@@ -110,13 +152,13 @@ const interactiveScript = () => {
                 ctx.clearRect(0,0,curveCanvas.width, curveCanvas.height);
                 const all = sim.train.concat(sim.val); const minY = Math.min(...all)-0.05; const maxY = Math.max(...all)+0.05;
                 // grid
-                ctx.strokeStyle='#e5e7eb'; ctx.lineWidth=1; ctx.beginPath();
+                ctx.strokeStyle = colorVar('--color-border-subtle', '#e5e7eb'); ctx.lineWidth=1; ctx.beginPath();
                 for(let i=0;i<=4;i++){ const y = i/4 * (curveCanvas.height-8)+4; ctx.moveTo(0,y); ctx.lineTo(curveCanvas.width,y);} ctx.stroke();
-                drawSeries(ctx, sim.train, '#2563eb', minY, maxY);
-                drawSeries(ctx, sim.val, '#dc2626', minY, maxY);
+                drawSeries(ctx, sim.train, colorVar('--tone-sky-strong', '#2563eb'), minY, maxY);
+                drawSeries(ctx, sim.val, colorVar('--color-path-scaling-strong', '#dc2626'), minY, maxY);
                 if (sim.overfitEpoch!=null){
                     const x = (sim.overfitEpoch/(sim.train.length-1))*(curveCanvas.width-8)+4;
-                    ctx.strokeStyle='#f59e0b'; ctx.setLineDash([4,3]); ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,curveCanvas.height); ctx.stroke(); ctx.setLineDash([]);
+                    ctx.strokeStyle = colorVar('--tone-amber-strong', '#f59e0b'); ctx.setLineDash([4,3]); ctx.beginPath(); ctx.moveTo(x,0); ctx.lineTo(x,curveCanvas.height); ctx.stroke(); ctx.setLineDash([]);
                 }
             }
 
@@ -124,7 +166,7 @@ const interactiveScript = () => {
                 if(!normCanvas) return; const ctx = normCanvas.getContext('2d');
                 ctx.clearRect(0,0,normCanvas.width, normCanvas.height);
                 const minY = Math.min(...sim.norm)-0.02; const maxY = Math.max(...sim.norm)+0.02;
-                drawSeries(ctx, sim.norm, '#7c3aed', minY, maxY);
+                drawSeries(ctx, sim.norm, colorVar('--tone-purple-strong', '#7c3aed'), minY, maxY);
             }
 
             // Phase 4 utilities
@@ -155,12 +197,12 @@ const interactiveScript = () => {
                 const minLoss = Math.min(...losses); const bestIdx = losses.indexOf(minLoss);
                 const bestLR = lrs[bestIdx];
                 const windowLow = bestLR/3; const windowHigh = bestLR*3;
-                if(lrWindowEl) lrWindowEl.textContent = `Suggested η window ~ ${windowLow.toExponential(1)} – ${windowHigh.toExponential(1)}`;
+                if(lrWindowEl) lrWindowEl.textContent = `Suggested eta window ~ ${windowLow.toExponential(1)} - ${windowHigh.toExponential(1)}`;
                 ctx.clearRect(0,0,lrFinderCanvas.width, lrFinderCanvas.height);
                 // axes
-                ctx.strokeStyle='#e5e7eb'; ctx.beginPath(); ctx.moveTo(30,5); ctx.lineTo(30,110); ctx.lineTo(455,110); ctx.stroke();
+                ctx.strokeStyle = colorVar('--color-border-subtle', '#e5e7eb'); ctx.beginPath(); ctx.moveTo(30,5); ctx.lineTo(30,110); ctx.lineTo(455,110); ctx.stroke();
                 const minY = Math.min(...losses); const maxY = Math.max(...losses);
-                ctx.strokeStyle='#2563eb'; ctx.beginPath();
+                ctx.strokeStyle = colorVar('--tone-sky-strong', '#2563eb'); ctx.beginPath();
                 for(let i=0;i<points;i++){
                     const x = 30 + (i/(points-1))*(lrFinderCanvas.width-40);
                     const y = 110 - ((losses[i]-minY)/(maxY-minY))*95;
@@ -170,9 +212,9 @@ const interactiveScript = () => {
                 // best marker
                 const bx = 30 + (bestIdx/(points-1))*(lrFinderCanvas.width-40);
                 const by = 110 - ((minLoss-minY)/(maxY-minY))*95;
-                ctx.fillStyle='#dc2626'; ctx.beginPath(); ctx.arc(bx,by,4,0,Math.PI*2); ctx.fill();
+                ctx.fillStyle = colorVar('--color-path-scaling-strong', '#dc2626'); ctx.beginPath(); ctx.arc(bx,by,4,0,Math.PI*2); ctx.fill();
                 // window highlight
-                ctx.fillStyle='rgba(34,197,94,0.15)';
+                ctx.fillStyle = colorVarAlpha('--tone-emerald-strong', 0.04, '#22c55e');
                 const wLx = 30 + (Math.log10(windowLow)-(-5))/(Math.log10(5e-2)+5)*(lrFinderCanvas.width-40);
                 const wHx = 30 + (Math.log10(windowHigh)-(-5))/(Math.log10(5e-2)+5)*(lrFinderCanvas.width-40);
                 ctx.fillRect(Math.min(wLx,wHx),15,Math.abs(wHx-wLx),95);
@@ -185,30 +227,43 @@ const interactiveScript = () => {
                 const noise = (lr/Math.sqrt(bs))*(1-drop*0.4);
                 const reg = wd*4 + drop*0.6;
                 const ratio = noise / (0.15 + reg*0.4);
-                if(noiseRatioEl) noiseRatioEl.textContent = `Noise ratio ≈ ${ratio.toFixed(2)}`;
+                if(noiseRatioEl) noiseRatioEl.textContent = `Noise ratio approx ${ratio.toFixed(2)}`;
                 // axes
-                ctx.strokeStyle='#e5e7eb'; ctx.beginPath(); ctx.moveTo(30,5); ctx.lineTo(30,h-10); ctx.lineTo(w-5,h-10); ctx.stroke();
+                ctx.strokeStyle = colorVar('--color-border-subtle', '#e5e7eb'); ctx.beginPath(); ctx.moveTo(30,5); ctx.lineTo(30,h-10); ctx.lineTo(w-5,h-10); ctx.stroke();
                 // scatter representing angular drift; more noise -> farther radial distance
-                const points=40;
+                const points = 40;
+                const fillColor = colorVarAlpha('--tone-indigo-strong', 0.6, '#6366f1');
+                ctx.fillStyle = fillColor;
                 for(let i=0;i<points;i++){
                     const base = (i/points)*Math.PI*4;
                     const r = 5 + Math.min(40, ratio*25) + Math.sin(i)*2;
                     const x = 30 + (w-60)/2 + Math.cos(base)*r;
                     const y = (h-10)/2 + Math.sin(base)*r;
-                    ctx.fillStyle='rgba(99,102,241,0.6)';
                     ctx.fillRect(x,y,3,3);
                 }
                 // center point
-                ctx.fillStyle='#334155'; ctx.beginPath(); ctx.arc(30+(w-60)/2,(h-10)/2,3,0,Math.PI*2); ctx.fill();
+                ctx.fillStyle = colorVar('--color-secondary', '#334155'); ctx.beginPath(); ctx.arc(30+(w-60)/2,(h-10)/2,3,0,Math.PI*2); ctx.fill();
             }
 
             function renderRegBreak(lr, bs, wd, drop){
                 if(!regBreakEl) return; const noise = (lr/Math.sqrt(bs))*(1-drop*0.4);
                 let wdC = wd*4; let doC = drop*0.6; let noiseC = noise*0.9; // scale similar magnitude
                 const total = wdC + doC + noiseC + 0.000001;
-                const pct = v=> (v/total*100).toFixed(1)+'%';
-                const bar = (label,val,color)=>`<div class='flex items-center gap-1'><span class='w-20 text-gray-600'>${label}</span><div class='flex-1 h-2 bg-white rounded overflow-hidden relative'><div style='width:${(val/total*100).toFixed(1)}%;background:${color};height:100%;opacity:.8'></div></div><span class='w-10 text-right'>${pct(val)}</span></div>`;
-                regBreakEl.innerHTML = [bar('Weight decay', wdC,'#0ea5e9'), bar('Dropout', doC,'#6366f1'), bar('Noise', noiseC,'#f59e0b')].join('');
+                const segments = [
+                    {label:'Weight decay', value:wdC, fill:'q48-break-fill q48-break-fill--wd'},
+                    {label:'Dropout', value:doC, fill:'q48-break-fill q48-break-fill--drop'},
+                    {label:'Noise', value:noiseC, fill:'q48-break-fill q48-break-fill--noise'},
+                ];
+                regBreakEl.innerHTML = segments.map(seg=>{
+                    const pct = (seg.value/total)*100;
+                    return `<div class="flex items-center gap-2">
+                        <span class="w-24 text-xs text-muted">${seg.label}</span>
+                        <div class="flex-1 h-2 rounded q48-progress-track overflow-hidden">
+                            <div class="${seg.fill}" style="width:${pct.toFixed(1)}%"></div>
+                        </div>
+                        <span class="w-12 text-xs text-muted text-right">${pct.toFixed(1)}%</span>
+                    </div>`;
+                }).join('');
             }
 
             function autoSuggestion(lr, bs, wd, drop, score){
@@ -222,26 +277,28 @@ const interactiveScript = () => {
                 if(bs<16 && lr<0.01) suggestions.push('Small batch: consider gradient accumulation / larger batch for stability.');
                 if(!suggestions.length){
                     if(score>0.8) suggestions.push('Setup strong; consider LR schedule or fine-grained regularization sweeps.');
-                    else suggestions.push('Tweak LR ±0.2 log units or adjust regularization to climb toward higher score.');
+                    else suggestions.push('Tweak LR +/- 0.2 log units or adjust regularization to climb toward higher score.');
                 }
-                if(suggestionEl) suggestionEl.innerHTML = suggestions.map(s=>`<div>• ${s}</div>`).join('');
+                if(suggestionEl){
+                    suggestionEl.innerHTML = suggestions.map(s=>`<div class="flex items-start gap-2"><span class="text-info" aria-hidden="true">&bull;</span><span>${s}</span></div>`).join('');
+                }
             }
 
             function setImpact(score) {
-                // score in [0,1]
                 score = Math.max(0, Math.min(1, score));
-                let label = '';
-                let bg = '#e5e7eb', fg = '#111827', border = '#d1d5db';
-                if (score >= 0.8) { label = `Excellent (${Math.round(score*100)}%)`; bg = '#dcfce7'; fg = '#166534'; border = '#86efac'; }
-                else if (score >= 0.6) { label = `Good (${Math.round(score*100)}%)`; bg = '#dbeafe'; fg = '#1e40af'; border = '#93c5fd'; }
-                else if (score >= 0.35) { label = `Limited (${Math.round(score*100)}%)`; bg = '#fef9c3'; fg = '#854d0e'; border = '#fde68a'; }
-                else { label = `Poor (${Math.round(score*100)}%)`; bg = '#fee2e2'; fg = '#991b1b'; border = '#fecaca'; }
+                const percent = Math.round(score*100);
+                let state = 'poor';
+                let label = `Poor (${percent}%)`;
+                if (score >= 0.8) { state = 'excellent'; label = `Excellent (${percent}%)`; }
+                else if (score >= 0.6) { state = 'good'; label = `Good (${percent}%)`; }
+                else if (score >= 0.35) { state = 'limited'; label = `Limited (${percent}%)`; }
                 badgeEl.textContent = label;
-                badgeEl.style.backgroundColor = bg;
-                badgeEl.style.color = fg;
-                badgeEl.style.borderColor = border;
-                meterEl.style.width = `${Math.round(score*100)}%`;
-                meterEl.style.backgroundColor = fg;
+                const states = ['excellent','good','limited','poor'];
+                states.forEach(s=>{
+                    badgeEl.classList.toggle(`is-${s}`, s===state);
+                    meterEl.classList.toggle(`is-${s}`, s===state);
+                });
+                meterEl.style.width = `${percent}%`;
             }
 
             function computeScore(lrPow, bs, wd, drop) {
@@ -271,7 +328,7 @@ const interactiveScript = () => {
                     let line=`${f.padEnd(6)}: ${typeof av==='number'? av.toExponential? av.toExponential(2): av: av}`;
                     if(av!==bv){
                         line += ` -> ${typeof bv==='number'? bv.toExponential? bv.toExponential(2): bv: bv}`;
-                        if(f==='score') line += ` (Δ ${(bv-av).toFixed(3)})`;
+                        if(f==='score') line += ` (delta ${(bv-av).toFixed(3)})`;
                     }
                     return line;
                 }).join('\n');
@@ -297,41 +354,45 @@ const interactiveScript = () => {
             }
 
             function renderSensitivity(lrPow, bs, wd, drop){
-                if(!sensEl) return; const sens=computeSensitivity(lrPow, bs, wd, drop);
-                const mags=[Math.abs(sens.up.lr),Math.abs(sens.down.lr),Math.abs(sens.up.batch),Math.abs(sens.down.batch),Math.abs(sens.up.wd),Math.abs(sens.down.wd),Math.abs(sens.up.drop),Math.abs(sens.down.drop)];
-                const maxMag = Math.max(0.0005, ...mags);
-                function pct(v){ return (Math.abs(v)/maxMag)*50; } // each side up to 50%
-                function bar(label, up, down){
-                    const upPct = pct(up); const downPct = pct(down);
-                    const upColor = up>=0? '#16a34a':'#dc2626';
-                    const downColor = down>=0? '#16a34a':'#dc2626';
-                    return `<div class="text-xs">
-                        <div class="flex items-center justify-between"><span class="font-medium text-indigo-900">${label}</span><span class="text-gray-500">Δscore up/down</span></div>
-                        <div class="flex items-center gap-2 mt-0.5">
-                            <div class="flex-1 h-3 relative bg-white/70 rounded border overflow-hidden">
-                                <div title="Decrease" style="position:absolute;right:50%;top:0;bottom:0;width:${downPct}%;background:${downColor};opacity:0.55"></div>
-                                <div title="Increase" style="position:absolute;left:50%;top:0;bottom:0;width:${upPct}%;background:${upColor};opacity:0.55"></div>
-                                <div style="position:absolute;left:50%;top:0;bottom:0;width:1px;background:#334155"></div>
+                if(!sensEl) return;
+                const sens = computeSensitivity(lrPow, bs, wd, drop);
+                const entries = [
+                    {label:'Learning rate', up:sens.up.lr, down:sens.down.lr},
+                    {label:'Batch size', up:sens.up.batch, down:sens.down.batch},
+                    {label:'Weight decay', up:sens.up.wd, down:sens.down.wd},
+                    {label:'Dropout', up:sens.up.drop, down:sens.down.drop},
+                ];
+                const magnitudes = entries.flatMap(e=>[Math.abs(e.up), Math.abs(e.down)]);
+                const maxMag = Math.max(0.0005, ...magnitudes);
+                const formatDelta = v=>`${v>=0?'+':''}${v.toFixed(3)}`;
+                const html = entries.map(entry=>{
+                    const upPct = (Math.abs(entry.up)/maxMag)*50;
+                    const downPct =(Math.abs(entry.down)/maxMag)*50;
+                    const upClass = entry.up>=0? 'q48-sens-fill q48-sens-fill--positive':'q48-sens-fill q48-sens-fill--negative';
+                    const downClass = entry.down>=0? 'q48-sens-fill q48-sens-fill--positive':'q48-sens-fill q48-sens-fill--negative';
+                    return `<div class="text-xs space-y-1">
+                        <div class="flex items-center justify-between"><span class="font-medium text-heading">${entry.label}</span><span class="text-muted">Score delta (up/down)</span></div>
+                        <div class="flex items-center gap-2">
+                            <div class="flex-1 h-3 relative rounded q48-sens-track">
+                                <div class="${downClass}" style="right:50%;width:${downPct.toFixed(1)}%"></div>
+                                <div class="${upClass}" style="left:50%;width:${upPct.toFixed(1)}%"></div>
+                                <div class="q48-sens-axis" aria-hidden="true"></div>
                             </div>
-                            <span class="w-24 text-right font-mono">${up>=0?'+':''}${up.toFixed(3)} / ${down>=0?'+':''}${down.toFixed(3)}</span>
+                            <span class="w-28 text-right font-mono">${formatDelta(entry.up)} / ${formatDelta(entry.down)}</span>
                         </div>
                     </div>`;
-                }
-                const html = [
-                    bar('Learning rate', sens.up.lr, sens.down.lr),
-                    bar('Batch size', sens.up.batch, sens.down.batch),
-                    bar('Weight decay', sens.up.wd, sens.down.wd),
-                    bar('Dropout', sens.up.drop, sens.down.drop)
-                ].join('');
-                const plateau = mags.every(m=>m < 0.003) ? '<div class="text-xs text-indigo-700 mt-2">All local deltas are very small → near a plateau; try bigger moves or a different combination.</div>' : '';
+                }).join('');
+                const plateau = magnitudes.every(m=>m < 0.003)
+                    ? '<div class="text-xs text-info mt-2">All local deltas are very small -> near a plateau; try bigger moves or another combination.</div>'
+                    : '';
                 sensEl.innerHTML = html + plateau;
             }
 
             function interactionText(lr, bs, wd, drop){
                 const parts=[];
-                if(lr>0.01 && wd<0.002 && drop<0.1) parts.push('High LR + low regularization → sharp descent + overfit risk.');
+                if(lr>0.01 && wd<0.002 && drop<0.1) parts.push('High LR + low regularization -> sharp descent and overfit risk.');
                 if(lr<5e-4 && bs>96) parts.push('Very low LR with large batch may waste hardware (slow progress).');
-                if(drop>0.45 && bs<32) parts.push('High dropout + small batch can compound noise → slow convergence.');
+                if(drop>0.45 && bs<32) parts.push('High dropout + small batch can compound noise -> slow convergence.');
                 if(wd>0.04 && lr<8e-4) parts.push('Strong weight decay with a tiny LR may underfit severely.');
                 if(!parts.length) parts.push('Current hyperparameter interactions look balanced; adjust to explore edge cases.');
                 return parts.join(' ');
@@ -363,7 +424,7 @@ const interactiveScript = () => {
                 else if (score >= 0.6) pros.push('Training likely stable; tune further for speed');
                 else pros.push('Conservative but may be stable; iterate to improve');
 
-                if (Math.pow(10, lrPow) > 0.02) cons.push('Learning rate may be too high → divergence risk');
+                if (Math.pow(10, lrPow) > 0.02) cons.push('Learning rate may be too high -> divergence risk');
                 if (wd > 0.05) cons.push('Weight decay may underfit; reduce if validation loss is high');
                 if (drop > 0.5) cons.push('High dropout can slow learning and hurt capacity');
                 if (bs < 16) cons.push('Very small batch may be noisy; consider gradient accumulation');
@@ -386,11 +447,11 @@ const interactiveScript = () => {
                 if (noiseText){ noiseText.textContent = `Relative gradient noise ~ ${(noise*100).toFixed(0)}%`; }
                 if (effStepEl){
                     const eff = lr * (1 - Math.min(0.7, wd*3)) * (1 - drop*0.2);
-                    effStepEl.textContent = `η_eff ≈ ${(eff).toExponential(2)}`;
+                    effStepEl.textContent = `η_eff approx ${(eff).toExponential(2)}`;
                 }
                 if (curveLabel){
                     if (sim.overfitEpoch!=null) curveLabel.textContent = `Overfit onset ~ epoch ${sim.overfitEpoch}`;
-                    else curveLabel.textContent = `No strong overfitting signal (reg ≥ ${(wd*6+drop*0.8).toFixed(2)})`;
+                    else curveLabel.textContent = `No strong overfitting signal (reg >= ${(wd*6+drop*0.8).toFixed(2)})`;
                 }
 
                 // Sensitivity & interactions
@@ -406,8 +467,8 @@ const interactiveScript = () => {
                 // Explanation text with inline math
                 const eta = Math.pow(10, lrPow).toExponential(1);
                 expl.innerHTML = `
-                    <div class=\"flex items-center gap-2 mb-2\"><span class=\"text-indigo-700\">Current setup</span>
-                    <span class=\"text-xs text-gray-500\">(η=${eta}, batch=${bs}, wd=${wd.toFixed(3)}, dropout=${drop.toFixed(2)})</span></div>
+                    <div class=\"flex items-center gap-2 mb-2\"><span class=\"text-info\">Current setup</span>
+                    <span class=\"text-xs text-muted\">(η=${eta}, batch=${bs}, wd=${wd.toFixed(3)}, dropout=${drop.toFixed(2)})</span></div>
                     Hyperparameters shape the path optimization takes: learning rate scales the gradient step, batch size smooths gradient estimates, and regularization terms (weight decay/dropout) temper overfitting.
                 `;
                 if (window.MathJax && window.MathJax.typesetPromise) {
@@ -417,11 +478,11 @@ const interactiveScript = () => {
                 // Change explanation
                 if (changeEl){
                     const parts=[];
-                    if (prev.lrPow!=null && prev.lrPow!==lrPow) parts.push(`LR ${Math.pow(10, prev.lrPow).toExponential(1)}→${lr.toExponential(1)}`);
-                    if (prev.bs!=null && prev.bs!==bs) parts.push(`Batch ${prev.bs}→${bs}`);
-                    if (prev.wd!=null && prev.wd!==wd) parts.push(`WD ${prev.wd.toFixed(3)}→${wd.toFixed(3)}`);
-                    if (prev.drop!=null && prev.drop!==drop) parts.push(`Dropout ${prev.drop.toFixed(2)}→${drop.toFixed(2)}`);
-                    if (prev.score!=null && prev.score!==score) parts.push(`Score ${Math.round(prev.score*100)}→${Math.round(score*100)}%`);
+                    if (prev.lrPow!=null && prev.lrPow!==lrPow) parts.push(`LR ${Math.pow(10, prev.lrPow).toExponential(1)}->${lr.toExponential(1)}`);
+                    if (prev.bs!=null && prev.bs!==bs) parts.push(`Batch ${prev.bs}->${bs}`);
+                    if (prev.wd!=null && prev.wd!==wd) parts.push(`WD ${prev.wd.toFixed(3)}->${wd.toFixed(3)}`);
+                    if (prev.drop!=null && prev.drop!==drop) parts.push(`Dropout ${prev.drop.toFixed(2)}->${drop.toFixed(2)}`);
+                    if (prev.score!=null && prev.score!==score) parts.push(`Score ${Math.round(prev.score*100)}->${Math.round(score*100)}%`);
                     if (!parts.length) parts.push('Adjust a slider to compare stability & generalization trade-offs.');
                     changeEl.textContent = parts.join('; ') + '.';
                     prev.lrPow=lrPow; prev.bs=bs; prev.wd=wd; prev.drop=drop; prev.score=score;

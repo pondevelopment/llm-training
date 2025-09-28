@@ -73,6 +73,7 @@ const interactiveScript = () => {
     const dataShare = dataToggle.checked;
     const fairnessAudit = fairnessToggle.checked;
     const baseScore = 0.4 * household + 0.35 * inputs + 0.25 * quality;
+    // Weight telemetry bonuses so energy/time/data/fairness coverage tracks the paper's measurement agenda.
     const bonus = (energy ? 8 : 0) + (timeFeeds ? 10 : 0) + (dataShare ? 7 : 0) + (fairnessAudit ? 6 : 0);
     const visibilityScore = clamp(Math.round(baseScore + bonus), 0, 100);
     const lagLabel = formatLag(visibilityScore);

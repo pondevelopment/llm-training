@@ -124,9 +124,9 @@ const interactiveScript = () => {
       const active = key === currentTrack;
       const classes = ['px-3','py-1.5','rounded-md','border','text-xs','font-medium','transition-colors'];
       if (active) {
-        classes.push('bg-indigo-600','border-indigo-600','text-white','shadow-sm');
+        classes.push('bg-indigo-600','border-indigo-600','text-white','shadow-sm','dark:bg-indigo-500','dark:border-indigo-500');
       } else {
-        classes.push('bg-white','border-gray-300','text-gray-700','hover:border-indigo-400','hover:text-indigo-600');
+        classes.push('bg-card','border-subtle','text-secondary','hover:border-indigo-400','hover:text-indigo-600','dark:hover:border-indigo-500','dark:hover:text-indigo-200');
       }
       return '<button type="button" class="' + classes.join(' ') + '" data-track="' + key + '">' + track.label + '</button>';
     });
@@ -141,11 +141,11 @@ const interactiveScript = () => {
   };
 
   const renderStages = stages => stages.map(stage => {
-    return '<div class="bg-white border border-indigo-200 rounded-md p-3 space-y-2">'
-      + '<p class="text-[11px] font-semibold text-indigo-700 uppercase">' + stage.title + '</p>'
+    return '<div class="bg-card border border-indigo-200 dark:border-indigo-500/40 rounded-md p-3 space-y-2 transition-colors">'
+      + '<p class="text-[11px] font-semibold text-indigo-700 dark:text-indigo-200 uppercase">' + stage.title + '</p>'
       + '<div class="space-y-1">'
-      + '<p><span class="font-semibold">GPT-5:</span> ' + stage.ai + '</p>'
-      + '<p><span class="font-semibold">Humans:</span> ' + stage.human + '</p>'
+      + '<p class="text-secondary"><span class="font-semibold text-heading">GPT-5:</span> ' + stage.ai + '</p>'
+      + '<p class="text-secondary"><span class="font-semibold text-heading">Humans:</span> ' + stage.human + '</p>'
       + '</div>'
       + '</div>';
   }).join('');

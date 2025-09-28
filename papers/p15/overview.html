@@ -1,112 +1,124 @@
-<div class="space-y-5">
-  <div class="bg-indigo-50 border border-indigo-200 rounded-lg p-4">
+﻿<div class="space-y-5">
+  <div class="panel panel-info panel-emphasis p-4 space-y-3 transition-colors">
     <div class="flex flex-wrap md:flex-nowrap items-start justify-between gap-4">
-      <div class="md:max-w-3xl">
-        <h2 class="text-xl font-semibold text-indigo-900">Artificial Intelligence, Competition, and Welfare</h2>
-        <p class="text-sm text-indigo-700">Susan Athey, Fiona Scott Morton &bull; NBER Transformative AI Conference (Sep 2025)</p>
+      <div class="md:max-w-3xl space-y-1">
+        <h2 class="text-xl font-semibold text-heading">Artificial Intelligence, Competition, and Welfare</h2>
+        <p class="text-sm text-secondary">Susan Athey, Fiona Scott Morton &bull; NBER Transformative AI Conference (Sep 2025)</p>
       </div>
-      <a href="https://conference.nber.org/conf_papers/f227494.pdf" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-medium bg-white border border-indigo-200 text-indigo-700 hover:bg-indigo-100">
+      <a href="https://conference.nber.org/conf_papers/f227494.pdf" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-medium border border-subtle bg-card text-secondary hover:bg-subtle transition-colors">
         <span>View paper</span>
         <span aria-hidden="true" class="text-sm leading-none">&#8599;</span>
       </a>
     </div>
-    <p class="mt-3 text-sm text-indigo-800 leading-relaxed">
-      Athey and Scott Morton treat upstream AI providers as a concentrated industry that sells usage and access rights. They show how markups on both levers can flip a technically efficient AI upgrade into falling wages, variety loss, and welfare leakage abroad.
+    <p class="text-sm leading-relaxed">
+      Athey and Scott Morton treat upstream AI providers as concentrated suppliers that can tax adoption twice: a usage toll on every inference and an access charge on every firm. Across three general-equilibrium models they separate technical efficiency from market-power leakage and show how both levers can leave unskilled workers worse off even when AI lowers production costs.
     </p>
-    <p class="mt-2 text-xs text-indigo-800 leading-relaxed">
-      Across open-economy general equilibrium models, they separate the productivity boost of AI from the distributional hit of market power: unskilled workers can be hurt by both cheap and expensive AI, and monopolists price on an adoption frontier unless regulators cap both fees.
+    <p class="text-xs leading-relaxed text-muted">
+      The paper's headline warning is the "double harm" zone: when AI is cheap, displaced workers struggle to reabsorb; when markups rise, firms pass costs on and variety shrinks. The authors derive an adoption frontier that ties feasible price combinations to workers' outside options, so capping only one fee just shifts rents to the other.
     </p>
-    <div class="bg-white border border-indigo-200 rounded-md p-3 mt-3 space-y-1 text-xs text-indigo-900">
-      <p class="font-semibold">Plain-language explainer</p>
-      <p class="text-indigo-800">
-        Picture AI vendors as toll operators. You pay once to join the highway (an access fee) and again for every trip (a usage fee). When just a few firms own those tollbooths, they can keep prices high, so the time you save might not translate into higher pay. The authors call the missing savings &ldquo;rent leakage&rdquo;&mdash;profits that slip to upstream providers instead of workers and customers. Their models track when those leaks erase the benefits of smarter software and which policies plug the losses.
+    <div class="panel panel-neutral p-3 space-y-1 text-xs transition-colors">
+      <p class="font-semibold text-heading">Plain-language explainer</p>
+      <p>
+        Picture AI vendors as toll operators. You pay an entrance tax to join the highway (access) and a charge at every gantry (usage). If only a few firms own the tollbooths, savings from faster trips leak overseas instead of funding local wages or product variety. The models reveal which policies plug those leaks and when the tolls collapse demand for labor.
       </p>
     </div>
   </div>
 
-  <div class="bg-slate-900 text-slate-100 border border-slate-800 rounded-lg p-5 space-y-3">
-    <h3 class="text-sm font-semibold tracking-wide uppercase text-slate-200">Executive quick take</h3>
-    <p class="text-sm text-slate-200 leading-relaxed">
-      AI&rsquo;s upside is throttled by upstream market power. Usage fees raise unit costs, access fees shrink variety, and rents leak abroad. Competition policy and labour-market supports must work together or real wages can fall even as productivity rises.
+  <div class="panel panel-neutral panel-emphasis p-5 space-y-3 transition-colors">
+    <h3 class="text-sm font-semibold tracking-wide uppercase text-heading">Executive quick take</h3>
+    <p class="text-sm leading-relaxed">
+      Market power in the AI stack is now a macro variable. Usage fees raise unit costs, access fees ration entry, and both can leak income abroad. Competition pressure and labour absorption policies must move together or real wages and welfare fall even as the technology becomes more efficient.
     </p>
-    <ul class="list-disc ml-5 text-sm text-slate-300 space-y-1">
-      <li><strong>Double harm:</strong> Unskilled workers lose when AI is cheap (substitution) and when monopolists hike prices.</li>
-      <li><strong>Two pricing levers:</strong> Usage (per query/inference) and access (seat) fees both matter; capping one shifts extraction to the other.</li>
-      <li><strong>Welfare leakage:</strong> Monopoly rents flow to upstream providers, so adoption doesn&rsquo;t guarantee national gains.</li>
+    <ul class="list-disc ml-5 text-sm space-y-1">
+      <li><strong>Model sequence:</strong> Traded-goods baseline, non-traded CPI channel, and a discrete-adoption frontier each add a new failure mode.</li>
+      <li><strong>Double harm:</strong> Cheaper AI can still cut unskilled wages; higher prices pile on via CPI spikes and lost variety.</li>
+      <li><strong>Policy linkage:</strong> Dual-fee regulation plus credible labour-market supports are the only way to keep rents onshore.</li>
     </ul>
   </div>
 
-  <div class="bg-emerald-50 border border-emerald-200 rounded-lg p-5 space-y-2">
-    <h3 class="text-sm font-semibold text-emerald-900">Business relevance</h3>
-    <ul class="list-disc ml-5 text-sm text-emerald-800 space-y-1">
-      <li><strong>Chief economists:</strong> Model AI adoption with realistic supplier markups to avoid over-promising productivity gains.</li>
-      <li><strong>Procurement leads:</strong> Negotiate usage caps, elasticity clauses, and exit ramps when locking into foundation model vendors.</li>
-      <li><strong>Policy teams:</strong> Align antitrust advocacy with labour cushions; welfare depends on both.</li>
+  <div class="panel panel-success panel-emphasis p-5 space-y-2 transition-colors">
+    <h3 class="text-sm font-semibold text-heading">Business relevance</h3>
+    <ul class="list-disc ml-5 text-sm space-y-1">
+      <li><strong>Chief economists:</strong> Model AI scenarios with endogenous CPI and wage responses, not just cost curves.</li>
+      <li><strong>Procurement leads:</strong> Stress-test vendor offers against the adoption frontier &mdash; ensure access fees do not choke partner variety.</li>
+      <li><strong>Strategy and ops:</strong> Fund labour transitions in advance; downstream productivity gains only materialise if displaced staff land in high-demand services.</li>
     </ul>
-    <div class="bg-white border border-emerald-200 rounded-md p-3 mt-3 space-y-1 text-xs text-emerald-900">
-      <p class="font-semibold">Business playbook examples</p>
-      <ul class="list-disc ml-4 space-y-1 text-emerald-800">
-        <li><strong>Search &amp; ads platforms:</strong> Blend in-house models with multi-sourcing to dilute upstream bargaining power.</li>
-        <li><strong>Contact centres:</strong> Pair AI assistant deployment with wage insurance and redeployment pathways for displaced agents.</li>
-        <li><strong>Cloud providers:</strong> Unbundle access and usage pricing to pre-empt regulatory action and build trust with enterprise customers.</li>
+    <div class="panel panel-neutral p-3 space-y-1 text-xs transition-colors">
+      <p class="font-semibold text-heading">Business playbook examples</p>
+      <ul class="list-disc ml-4 space-y-1 text-secondary">
+        <li><strong>Search &amp; ads platforms:</strong> Blend in-house models with open or allied suppliers to keep both usage and access fees contestable.</li>
+        <li><strong>Contact centres:</strong> Link AI rollout gates to reemployment velocity metrics so substitution shocks stay politically viable.</li>
+        <li><strong>Cloud providers:</strong> Publish transparent fee ladders and bundle labour-support services to align with coming regulation.</li>
       </ul>
     </div>
   </div>
 
   <div class="grid md:grid-cols-3 gap-4">
-    <div class="bg-white border border-gray-200 rounded-lg p-3">
-      <h5 class="text-sm font-semibold text-gray-900">Key insight</h5>
-      <p class="text-xs text-gray-600">AI market power&mdash;not just technical capability&mdash;determines whether real wages and welfare rise or fall.</p>
+    <div class="panel panel-neutral p-3 space-y-1 transition-colors">
+      <h5 class="text-sm font-semibold text-heading">Key insight</h5>
+      <p class="text-xs text-secondary">Technical efficiency is not enough. Income leakage, CPI pressure, and entry rationing can erase AI productivity gains.</p>
     </div>
-    <div class="bg-white border border-gray-200 rounded-lg p-3">
-      <h5 class="text-sm font-semibold text-gray-900">Method</h5>
-      <p class="text-xs text-gray-600">Open-economy GE models with traded/non-traded sectors, CES demand, discrete adoption, and monopolistic upstream pricing.</p>
+    <div class="panel panel-neutral p-3 space-y-1 transition-colors">
+      <h5 class="text-sm font-semibold text-heading">Method</h5>
+      <p class="text-xs text-secondary">Three open-economy GE models: traded baseline, non-traded closure with endogenous CPI, and a CES/free-entry adoption frontier with two-part tariffs.</p>
     </div>
-    <div class="bg-white border border-gray-200 rounded-lg p-3">
-      <h5 class="text-sm font-semibold text-gray-900">Implications</p>
-      <p class="text-xs text-gray-600">Regulate both access and usage fees, foster competition, and invest in labour absorption to keep AI gains onshore.</p>
-    </div>
-  </div>
-
-  <div class="grid md:grid-cols-2 gap-4">
-    <div class="bg-sky-50 border border-sky-200 rounded-lg p-4 space-y-2">
-      <h3 class="text-sm font-semibold text-sky-900">Policy levers</h3>
-      <p class="text-xs text-sky-800">Each instrument targets a different choke point.</p>
-      <ul class="list-disc ml-4 text-[11px] text-sky-700 space-y-1">
-        <li><strong>Usage fee scrutiny:</strong> Treat per-inference pricing like a commodity input&mdash;monitor margins, mandate discounts.</li>
-        <li><strong>Access fee oversight:</strong> Prevent bundling and seat taxes from throttling variety.</li>
-        <li><strong>Labour cushions:</strong> Wage insurance, reskilling, and mobility supports keep adoption politically viable.</li>
-        <li><strong>International bargaining:</strong> Coordinate with allies to limit rent leakage to dominant suppliers.</li>
-      </ul>
-    </div>
-    <div class="bg-sky-50 border border-sky-200 rounded-lg p-4 space-y-2">
-      <h3 class="text-sm font-semibold text-sky-900">Watchpoints for firms</h3>
-      <p class="text-xs text-sky-800">Adoption strategy under market power.</p>
-      <ul class="list-disc ml-4 text-[11px] text-sky-700 space-y-1">
-        <li><strong>Double-harm scenarios:</strong> Stress test unskilled wages under both falling and rising AI prices.</li>
-        <li><strong>Contract design:</strong> Build clauses that scale prices with proven productivity, not seat counts.</li>
-        <li><strong>Variety loss:</strong> Encourage alternative suppliers or open-source to avoid being boxed into a single stack.</li>
-      </ul>
+    <div class="panel panel-neutral p-3 space-y-1 transition-colors">
+      <h5 class="text-sm font-semibold text-heading">Implications</h5>
+      <p class="text-xs text-secondary">Cap both usage and access fees, keep domestic AI supply competitive, and build labour absorption instruments before shocks hit.</p>
     </div>
   </div>
 
-  <div class="bg-white border border-gray-200 rounded-lg p-5 space-y-3">
-    <h3 class="text-sm font-semibold text-gray-900">Evidence base</h3>
-    <ul class="list-disc ml-5 text-sm text-gray-700 space-y-1">
-      <li>General equilibrium models showing when AI lowers real wages despite efficiency gains.</li>
-      <li>Adoption frontier tying feasible fees to displaced workers&rsquo; outside options.</li>
-      <li>Comparative statics for policy caps on usage versus access pricing.</li>
-      <li>Shows that classic &ldquo;Dutch disease&rdquo; logic doesn&rsquo;t apply when AI substitutes for labour&mdash;productivity gains don&rsquo;t simply pull workers out of other sectors.</li>
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="panel panel-neutral p-4 space-y-2 transition-colors">
+      <h4 class="text-sm font-semibold text-heading">Model 1 &mdash; Traded baseline</h4>
+      <ul class="list-disc ml-4 text-sm space-y-1 text-secondary">
+        <li>Stolper-Samuelson logic: cheaper AI shifts wages depending on sectoral skill intensity.</li>
+        <li>Double-harm emerges when AI substitutes strongly for unskilled labour yet markups later rise.</li>
+      </ul>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2 transition-colors">
+      <h4 class="text-sm font-semibold text-heading">Model 2 &mdash; Non-traded CPI channel</h4>
+      <ul class="list-disc ml-4 text-sm space-y-1 text-secondary">
+        <li>Introducing a non-traded sector makes CPI endogenous; AI expansion can spike local prices.</li>
+        <li>Real wages can fall even if nominal wages rise because households rebalance toward pricier non-tradables.</li>
+      </ul>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2 transition-colors">
+      <h4 class="text-sm font-semibold text-heading">Model 3 &mdash; Discrete adoption frontier</h4>
+      <ul class="list-disc ml-4 text-sm space-y-1 text-secondary">
+        <li>AI adoption is all-or-nothing and removes unskilled labour from costs.</li>
+        <li>Two-part tariffs distort both unit costs (usage) and variety (access); monopolists price along the adoption frontier.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="panel panel-info p-4 space-y-2 transition-colors">
+    <h3 class="text-sm font-semibold text-heading">Adoption frontier mechanics</h3>
+    <p class="text-xs text-muted">Feasible fee pairs lie on a downward-sloping frontier p<sub>X</sub> &le; p<sub>X,max</sub>(φ). When rivals adopt, displaced workers' outside options improve, so sustaining adoption requires either lower usage prices or lower access fees.</p>
+    <ul class="list-disc ml-4 text-sm space-y-1 text-secondary">
+      <li>Access fees leak income abroad and ration entry, shrinking product variety.</li>
+      <li>Usage fees raise marginal cost, pushing CPI up when non-tradables dominate consumption.</li>
+      <li>Binding frontier means capping one fee simply shifts the monopolist onto the other lever unless both are disciplined.</li>
     </ul>
   </div>
 
-  <div class="bg-amber-50 border border-amber-200 rounded-lg p-5 space-y-2">
-    <h3 class="text-sm font-semibold text-amber-900">Forward-looking roadmap</h3>
-    <ul class="list-disc ml-5 text-sm text-amber-800 space-y-1">
-      <li>Audit AI contracts for dual-fee extraction and publish transparency dashboards.</li>
-      <li>Advocate multilateral competition standards for AI access/usage pricing.</li>
-      <li>Pair adoption with sectoral upskilling funds and rapid reemployment programmes.</li>
-      <li>Model rent leakage in trade policy to negotiate fairer access to AI infrastructure.</li>
+  <div class="panel panel-neutral p-5 space-y-3 transition-colors">
+    <h3 class="text-sm font-semibold text-heading">Evidence base</h3>
+    <ul class="list-disc ml-5 text-sm space-y-1">
+      <li>Analytical GE results showing wage sign reversals as AI prices move and skill intensity flips.</li>
+      <li>Non-traded closure proofs where CPI effects create simultaneous real wage losses for all workers.</li>
+      <li>Adoption frontier derivations with conditions for monopolists pricing on the boundary.</li>
+      <li>Comparative statics demonstrating how access fees cut entry and variety, amplifying welfare losses.</li>
+    </ul>
+  </div>
+
+  <div class="panel panel-warning p-5 space-y-2 transition-colors">
+    <h3 class="text-sm font-semibold text-heading">Forward-looking roadmap</h3>
+    <ul class="list-disc ml-5 text-sm space-y-1">
+      <li>Audit both usage and access fee clauses; publish adoption-frontier style dashboards for large AI contracts.</li>
+      <li>Invest in labour absorption capacity (education, health, care, public services) before displacement spikes.</li>
+      <li>Coordinate industrial policy so domestic AI capability and open models keep upstream markups in check.</li>
+      <li>Model fiscal tools &mdash; from wage insurance to UBI &mdash; alongside competition policy to fund societal buffers.</li>
     </ul>
   </div>
 </div>

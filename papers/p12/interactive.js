@@ -60,7 +60,7 @@ const interactiveScript = () => {
       ],
       summary: 'Codification plus superior planning makes it rational to centralise; branches execute centrally scripted decisions while HQ accumulates bargaining power.',
       actions: [
-        'Stand up an AI “control tower” and integrate feeds from all business units.',
+        'Stand up an AI â€œcontrol towerâ€ and integrate feeds from all business units.',
         'Build escalation paths and transparency logs to sustain trust as HQ absorbs decisions.'
       ]
     },
@@ -95,13 +95,7 @@ const interactiveScript = () => {
     scenarioButtons.forEach((btn) => {
       const isActive = btn.dataset.scenario === scenarioKey;
       btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
-      if (isActive) {
-        btn.classList.add('bg-indigo-600', 'text-white', 'border-indigo-600');
-        btn.classList.remove('bg-white', 'text-indigo-700');
-      } else {
-        btn.classList.remove('bg-indigo-600', 'text-white', 'border-indigo-600');
-        btn.classList.add('bg-white', 'text-indigo-700');
-      }
+      btn.toggleAttribute('data-active', isActive);
     });
   };
 
@@ -114,9 +108,9 @@ const interactiveScript = () => {
     contextLabelEl.textContent = scenario.label;
     leversEl.innerHTML = scenario.levers
       .map((lever) => `
-        <div class="bg-slate-50 border border-slate-200 rounded-md p-3">
-          <div class="text-xs font-semibold text-slate-900">${lever.title}</div>
-          <p class="text-[11px] text-slate-700 mt-1">${lever.detail}</p>
+        <div class="p12-lever panel panel-neutral-soft">
+          <div class="p12-lever-title text-sm font-semibold text-heading">${lever.title}</div>
+          <p class="p12-lever-detail small-caption panel-muted">${lever.detail}</p>
         </div>
       `)
       .join('');
@@ -138,3 +132,4 @@ if (typeof module !== 'undefined') {
 } else if (typeof window !== 'undefined') {
   window.paper12Interactive = interactiveScript;
 }
+

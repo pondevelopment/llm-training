@@ -1,43 +1,43 @@
 <div id="p12-lab" class="space-y-6">
-  <div class="bg-gradient-to-r from-slate-50 via-indigo-50 to-slate-50 border border-indigo-100 rounded-lg p-4">
-    <h4 class="text-sm font-semibold text-indigo-900">Select governance baseline</h4>
-    <div id="p12-scenarios" class="mt-3 flex flex-wrap gap-2">
-      <button type="button" data-scenario="legacy" class="p12-scenario inline-flex items-center gap-2 px-3 py-1.5 text-xs font-medium border border-indigo-200 rounded-md bg-white text-indigo-700 hover:bg-indigo-100" aria-pressed="true">Pre-AI decentralised</button>
-      <button type="button" data-scenario="central" class="p12-scenario inline-flex items-center gap-2 px-3 py-1.5 text-xs font-medium border border-indigo-200 rounded-md bg-white text-indigo-700 hover:bg-indigo-100" aria-pressed="false">AI control tower</button>
-      <button type="button" data-scenario="hybrid" class="p12-scenario inline-flex items-center gap-2 px-3 py-1.5 text-xs font-medium border border-indigo-200 rounded-md bg-white text-indigo-700 hover:bg-indigo-100" aria-pressed="false">Guardrailed hybrid</button>
+  <div class="panel panel-info p-4 space-y-3">
+    <h4 class="text-sm font-semibold text-heading">Select governance baseline</h4>
+    <div id="p12-scenarios" class="flex flex-wrap gap-2">
+      <button type="button" data-scenario="legacy" class="p12-scenario chip chip-info" aria-pressed="true">Pre-AI decentralised</button>
+      <button type="button" data-scenario="central" class="p12-scenario chip chip-info" aria-pressed="false">AI control tower</button>
+      <button type="button" data-scenario="hybrid" class="p12-scenario chip chip-info" aria-pressed="false">Guardrailed hybrid</button>
     </div>
-    <p class="mt-2 text-xs text-indigo-700">Scenarios map the slides’ thesis: codification & processing gains vs countervailing forces.</p>
+    <p class="small-caption panel-muted">Scenarios map the slidesâ€™ thesis: codification &amp; processing gains vs countervailing forces.</p>
   </div>
 
   <div class="grid md:grid-cols-3 gap-4" id="p12-metrics">
-    <div class="bg-white border border-gray-200 rounded-lg p-4 space-y-2">
-      <div class="text-[11px] uppercase tracking-wide text-indigo-600 font-semibold">Decision centralisation</div>
-      <p id="p12-metric-central" class="text-2xl font-semibold text-gray-900">—</p>
-      <p class="text-xs text-gray-500">Share of strategic calls made at headquarters (0–100 scale).</p>
+    <div class="p12-metric panel panel-neutral p-4 space-y-2" data-tone="indigo">
+      <span class="chip chip-info chip-tag">Decision centralisation</span>
+      <p id="p12-metric-central" class="p12-metric-value">â€”</p>
+      <p class="small-caption panel-muted">Share of strategic calls made at headquarters (0â€“100 scale).</p>
     </div>
-    <div class="bg-white border border-gray-200 rounded-lg p-4 space-y-2">
-      <div class="text-[11px] uppercase tracking-wide text-emerald-600 font-semibold">Tacit knowledge value</div>
-      <p id="p12-metric-tacit" class="text-2xl font-semibold text-gray-900">—</p>
-      <p class="text-xs text-gray-500">Relative advantage of local teams retaining decision rights.</p>
+    <div class="p12-metric panel panel-neutral p-4 space-y-2" data-tone="emerald">
+      <span class="chip chip-success chip-tag">Tacit knowledge value</span>
+      <p id="p12-metric-tacit" class="p12-metric-value">â€”</p>
+      <p class="small-caption panel-muted">Relative advantage of local teams retaining decision rights.</p>
     </div>
-    <div class="bg-white border border-gray-200 rounded-lg p-4 space-y-2">
-      <div class="text-[11px] uppercase tracking-wide text-amber-600 font-semibold">Policy/regulatory pressure</div>
-      <p id="p12-metric-policy" class="text-2xl font-semibold text-gray-900">—</p>
-      <p class="text-xs text-gray-500">Strength of guardrails that force decentralisation.</p>
+    <div class="p12-metric panel panel-neutral p-4 space-y-2" data-tone="amber">
+      <span class="chip chip-warning chip-tag">Policy/regulatory pressure</span>
+      <p id="p12-metric-policy" class="p12-metric-value">â€”</p>
+      <p class="small-caption panel-muted">Strength of guardrails that force decentralisation.</p>
     </div>
   </div>
 
-  <div class="bg-white border border-gray-200 rounded-lg p-5 space-y-3">
+  <div class="panel panel-neutral p-5 space-y-3">
     <div class="flex items-center justify-between gap-3">
-      <h4 class="text-sm font-semibold text-gray-900">AI levers vs counterweights</h4>
-      <span id="p12-context-label" class="text-xs font-mono bg-indigo-50 text-indigo-700 px-2 py-1 rounded">—</span>
+      <h4 class="text-sm font-semibold text-heading">AI levers vs counterweights</h4>
+      <span id="p12-context-label" class="p12-context-label chip chip-neutral">â€”</span>
     </div>
-    <div id="p12-levers" class="grid md:grid-cols-2 gap-3 text-sm text-gray-700"></div>
+    <div id="p12-levers" class="grid md:grid-cols-2 gap-3"></div>
   </div>
 
-  <div class="bg-amber-50 border border-amber-200 rounded-lg p-5 space-y-3">
-    <h4 class="text-sm font-semibold text-amber-900">Brynjolfsson &amp; Hitzig takeaway</h4>
-    <p id="p12-summary" class="text-sm text-amber-800 leading-relaxed"></p>
-    <ul id="p12-actions" class="list-disc ml-5 text-sm text-amber-800 space-y-1"></ul>
+  <div class="panel panel-warning p-5 space-y-3">
+    <h4 class="text-sm font-semibold text-heading">Brynjolfsson &amp; Hitzig takeaway</h4>
+    <p id="p12-summary" class="text-sm text-body leading-relaxed"></p>
+    <ul id="p12-actions" class="list-disc ml-5 space-y-1 text-sm text-body"></ul>
   </div>
 </div>

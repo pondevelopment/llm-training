@@ -1,0 +1,109 @@
+<div id="p26-lab" class="space-y-6">
+  <section class="bg-gradient-to-r from-slate-50 via-cyan-50 to-slate-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 border border-cyan-100 dark:border-slate-700 rounded-xl p-4 space-y-4">
+    <div class="grid md:grid-cols-3 gap-4">
+      <div>
+        <label for="p26-scenario" class="block text-sm font-semibold text-cyan-900 dark:text-cyan-100">Workload profile</label>
+        <select id="p26-scenario" class="mt-1 w-full px-3 py-2 border border-cyan-200 dark:border-slate-600 rounded-md text-sm bg-card text-heading focus:outline-none focus:ring-2 focus:ring-cyan-500">
+          <option value="steady">Steady SaaS API (p95 &lt; 250 ms)</option>
+          <option value="burst">Consumer burstiness (spiky traffic)</option>
+          <option value="rl">RLHF training loop (vLLM sampler)</option>
+        </select>
+        <p class="text-[11px] text-cyan-800 dark:text-cyan-200 mt-2">Scenario tunes baseline load mix, request length, and tolerance the blog measured.</p>
+      </div>
+      <div>
+        <label for="p26-load" class="block text-sm font-semibold text-cyan-900 dark:text-cyan-100">Batch volatility</label>
+        <input id="p26-load" type="range" min="0" max="2" step="1" value="1" class="w-full accent-cyan-600 mt-2">
+        <div class="flex justify-between text-[11px] text-cyan-800 dark:text-cyan-200 mt-1">
+          <span>Pinned</span>
+          <span>Adaptive</span>
+          <span>Spiky</span>
+        </div>
+      </div>
+      <div>
+        <label for="p26-length" class="block text-sm font-semibold text-cyan-900 dark:text-cyan-100">Response length</label>
+        <input id="p26-length" type="range" min="64" max="512" step="32" value="256" class="w-full accent-cyan-600 mt-2">
+        <p class="text-[11px] text-cyan-800 dark:text-cyan-200 mt-1">Longer generations surface divergence sooner; values mirror the 1k-token sweep.</p>
+      </div>
+    </div>
+    <div class="grid md:grid-cols-2 gap-4">
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-wide text-cyan-900 dark:text-cyan-200 mb-2">Determinism patches</p>
+        <div class="flex flex-col gap-2 text-xs text-cyan-800 dark:text-cyan-200">
+          <label class="inline-flex items-center gap-2">
+            <input id="p26-rms" type="checkbox" class="accent-cyan-600" checked>
+            <span>Batch-invariant RMSNorm</span>
+          </label>
+          <label class="inline-flex items-center gap-2">
+            <input id="p26-matmul" type="checkbox" class="accent-cyan-600" checked>
+            <span>Fixed-tile matmul (split-K)</span>
+          </label>
+          <label class="inline-flex items-center gap-2">
+            <input id="p26-attn" type="checkbox" class="accent-cyan-600" checked>
+            <span>Deterministic FlexAttention cleanup</span>
+          </label>
+        </div>
+      </div>
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-wide text-cyan-900 dark:text-cyan-200 mb-2">Queue strategy</p>
+        <div class="flex flex-col gap-2 text-xs text-cyan-800 dark:text-cyan-200">
+          <label class="inline-flex items-center gap-2">
+            <input id="p26-pin" type="checkbox" class="accent-cyan-600">
+            <span>Pin priority traffic to deterministic lane</span>
+          </label>
+          <label class="inline-flex items-center gap-2">
+            <input id="p26-dedupe" type="checkbox" class="accent-cyan-600">
+            <span>Replay cache for identical prompts</span>
+          </label>
+        </div>
+        <p class="text-[11px] text-cyan-800 dark:text-cyan-200 mt-2">Operational levers change how much load variability leaks into kernel scheduling.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="grid md:grid-cols-4 gap-4">
+    <article class="bg-card border border-subtle rounded-lg p-4 space-y-2">
+      <h4 class="text-xs font-semibold uppercase tracking-wide text-muted">Unique completions (per 1k)</h4>
+      <div class="flex items-baseline gap-2">
+        <p id="p26-uniques" class="text-2xl font-semibold text-heading">--</p>
+        <span id="p26-uniques-chip" class="chip uppercase tracking-wide">&nbsp;</span>
+      </div>
+      <p class="text-xs text-muted-soft">Measured at temperature 0. Lower is better; 1 means fully deterministic.</p>
+    </article>
+    <article class="bg-card border border-subtle rounded-lg p-4 space-y-2">
+      <h4 class="text-xs font-semibold uppercase tracking-wide text-muted">First divergence token</h4>
+      <p id="p26-divergence" class="text-2xl font-semibold text-heading">--</p>
+      <p class="text-xs text-muted-soft">Token index where completions split. Aim to push beyond your max generation length.</p>
+    </article>
+    <article class="bg-card border border-subtle rounded-lg p-4 space-y-2">
+      <h4 class="text-xs font-semibold uppercase tracking-wide text-muted">Sampler vs trainer KL</h4>
+      <p id="p26-kl" class="text-2xl font-semibold text-heading">--</p>
+      <p class="text-xs text-muted-soft">Estimated KL divergence if you feed completions back into RLHF.</p>
+    </article>
+    <article class="bg-card border border-subtle rounded-lg p-4 space-y-2">
+      <h4 class="text-xs font-semibold uppercase tracking-wide text-muted">Latency multiplier</h4>
+      <p id="p26-latency" class="text-2xl font-semibold text-heading">--</p>
+      <p class="text-xs text-muted-soft">Relative to default vLLM kernels for the chosen scenario.</p>
+    </article>
+  </section>
+
+  <section class="bg-card border border-subtle rounded-xl p-5 space-y-3">
+    <header class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+      <div>
+        <h3 class="text-sm font-semibold text-heading">What to watch</h3>
+        <p class="text-xs text-muted-soft">Signals combine article benchmarks with the load mix you selected.</p>
+      </div>
+      <span id="p26-signal" class="text-xs font-semibold uppercase tracking-wide text-muted-soft"></span>
+    </header>
+    <ul id="p26-flags" class="list-disc ml-5 text-sm text-secondary space-y-1"></ul>
+  </section>
+
+  <section class="bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-500 rounded-xl p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-emerald-900 dark:text-emerald-100">Summary</h3>
+    <div id="p26-summary" class="text-sm text-emerald-800 dark:text-emerald-100 space-y-2"></div>
+  </section>
+
+  <section class="bg-rose-50 dark:bg-rose-900/30 border border-rose-200 dark:border-rose-500 rounded-xl p-5 space-y-2">
+    <h3 class="text-sm font-semibold text-rose-900 dark:text-rose-100">Next actions</h3>
+    <ul id="p26-actions" class="list-disc ml-5 text-sm text-rose-800 dark:text-rose-100 space-y-1"></ul>
+  </section>
+</div>

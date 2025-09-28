@@ -93,19 +93,19 @@
 
   let currentView = 'adoption';
 
-  const formatPercent = value => Math.round(value * 1000) / 10 + '%';
+  const formatPercent = value => `${Math.round(value * 1000) / 10}%`;
   const clampLikert = value => Math.min(7, Math.max(1, value));
 
   const renderButtons = () => {
     const html = Object.entries(VIEWS).map(([key, meta]) => {
       const active = key === currentView;
-      const classes = ['px-3','py-1.5','rounded-md','border','text-xs','font-medium','transition-colors'];
+      const classes = ['chip', 'transition-colors'];
       if (active) {
-        classes.push('bg-indigo-600','border-indigo-600','text-white','shadow-sm');
+        classes.push('chip-info');
       } else {
-        classes.push('bg-white','border-gray-300','text-gray-700','hover:border-indigo-400','hover:text-indigo-600');
+        classes.push('chip-neutral', 'hover:bg-subtle');
       }
-      return `<button type="button" class="${classes.join(' ')}" data-view="${key}">${meta.label}</button>`;
+      return `<button type="button" class="${classes.join(' ')}" data-view="${key}" aria-pressed="${active}">${meta.label}</button>`;
     }).join('');
     viewButtonsEl.innerHTML = html;
     viewButtonsEl.querySelectorAll('button').forEach(btn => {
@@ -122,23 +122,33 @@
     stageSubheadingEl.textContent = VIEWS.adoption.subheading;
 
     const controls = [];
-    controls.push(
-      '<div class="bg-white border border-indigo-200 rounded-md p-3 space-y-2">' +
-        '<label class="text-[11px] font-semibold text-indigo-700 uppercase">Eligible voters (millions)</label>' +
-        '<input id="p08-electorate" type="range" min="10" max="60" step="1" value="47" class="w-full">' +
-        '<p class="text-xs">Current value: <span class="font-mono" id="p08-electorate-label">47</span> million</p>' +
-      '</div>'
-    );
-    controls.push(
-      '<div class="bg-white border border-indigo-200 rounded-md p-3 space-y-1 text-[11px]" id="p08-adoption-stats"></div>'
-    );
+    controls.push(`
+      <div class="panel panel-neutral-soft p-3 space-y-2">
+        <label class="text-[11px] font-semibold text-info uppercase">Eligible voters (millions)</label>
+        <input id="p08-electorate" type="range" min="10" max="60" step="1" value="47" class="w-full mt-1">
+        <p class="text-[11px] text-secondary">Current value: <span class="font-mono" id="p08-electorate-label">47</span> million</p>
+      </div>
+    `);
+    controls.push(`
+      <div class="panel panel-neutral-soft p-3 space-y-1 text-[11px] text-secondary" id="p08-adoption-stats"></div>
+    `);
+    controls.push(`
+      <div class="panel panel-neutral-soft p-3 space-y-2 text-[11px] text-secondary">
+        <p class="text-xs font-semibold uppercase tracking-wide text-heading">Sentiment & guardrails</p>
+        <ul class="space-y-1">
+          <li><span class="text-heading font-semibold">${formatPercent(adoptionStats.perceivedUseful)}</span> rated answers useful.</li>
+          <li><span class="text-heading font-semibold">${formatPercent(adoptionStats.perceivedAccurate)}</span> called them accurate.</li>
+          <li><span class="text-heading font-semibold">${formatPercent(adoptionStats.neutralGuardrail)}</span> of stress prompts stayed neutral or produced refusals.</li>
+        </ul>
+      </div>
+    `);
     stageControlsEl.innerHTML = controls.join('');
 
     const electorateSlider = document.getElementById('p08-electorate');
     const electorateLabel = document.getElementById('p08-electorate-label');
     const statsEl = document.getElementById('p08-adoption-stats');
 
-    const formatMillions = (value) => `${(Math.round(value * 10) / 10).toFixed(1)}M`;
+    const formatMillions = value => `${(Math.round(value * 10) / 10).toFixed(1)}M`;
 
     const recalc = () => {
       const electorate = Number(electorateSlider.value);
@@ -149,12 +159,14 @@
       stageLabelEl.textContent = `≈ ${votersUsing.toFixed(1)} million voters`;
       if (statsEl) {
         statsEl.innerHTML = `
-          <p><strong>Usage breakdown (scaled):</strong></p>
+          <p><strong class="text-heading">Usage breakdown (scaled):</strong></p>
           <p>Chatbot users among adults: ${formatPercent(adoptionStats.chatbotUserShare)} → ${formatMillions(chatbotUsers)}</p>
           <p>Political researchers among chatbot users: ${formatPercent(adoptionStats.politicsShare)} → ${formatMillions(policyResearchers)}</p>
           <p>Eligible voters using chatbots for politics: ${formatPercent(adoptionStats.voterShare)} → ${formatMillions(votersUsing)}</p>
-          <p>Perceived useful / accurate: ${formatPercent(adoptionStats.perceivedUseful)} & ${formatPercent(adoptionStats.perceivedAccurate)}</p>
-          <p>Perceived neutral guardrails: ${formatPercent(adoptionStats.neutralGuardrail)}</p>
+          <hr class="border border-subtle/40 my-2">
+          <p><strong class="text-heading">Sentiment snapshot:</strong></p>
+          <p>${formatPercent(adoptionStats.perceivedUseful)} found chatbot answers useful; ${formatPercent(adoptionStats.perceivedAccurate)} called them accurate.</p>
+          <p>${formatPercent(adoptionStats.neutralGuardrail)} of persuasive prompts stayed within guardrails (neutral or refusal).</p>
         `;
       }
     };
@@ -170,19 +182,19 @@
     const topicOptions = Object.keys(beliefTopics).map(name => `<option value="${name}">${name}</option>`).join('');
 
     stageControlsEl.innerHTML = [
-      '<div class="bg-white border border-indigo-200 rounded-md p-3 space-y-2">' +
-        '<label class="text-[11px] font-semibold text-indigo-700 uppercase">Channel</label>' +
-        '<select id="p08-channel" class="w-full border border-indigo-200 rounded px-2 py-1 text-sm">' +
-          '<option value="convAI">Conversational AI</option>' +
-          '<option value="search">Internet search</option>' +
-        '</select>' +
-        '<p class="text-[11px] text-indigo-800">Data reflects net belief change per topic.</p>' +
-      '</div>',
-      '<div class="bg-white border border-indigo-200 rounded-md p-3 space-y-2">' +
-        '<label class="text-[11px] font-semibold text-indigo-700 uppercase">Topic</label>' +
-        `<select id="p08-topic" class="w-full border border-indigo-200 rounded px-2 py-1 text-sm">${topicOptions}</select>` +
-        '<div id="p08-topic-details" class="text-[11px] space-y-1"></div>' +
-      '</div>'
+      `<div class="panel panel-neutral-soft p-3 space-y-2">
+        <label class="text-[11px] font-semibold text-info uppercase">Channel</label>
+        <select id="p08-channel" class="w-full px-2 py-1 border border-subtle rounded-md bg-card text-sm text-heading">
+          <option value="convAI">Conversational AI</option>
+          <option value="search">Internet search</option>
+        </select>
+        <p class="text-[11px] text-secondary">Data reflects net belief change per topic.</p>
+      </div>`,
+      `<div class="panel panel-neutral-soft p-3 space-y-2">
+        <label class="text-[11px] font-semibold text-info uppercase">Topic</label>
+        <select id="p08-topic" class="w-full px-2 py-1 border border-subtle rounded-md bg-card text-sm text-heading">${topicOptions}</select>
+        <div id="p08-topic-details" class="text-[11px] text-secondary space-y-1"></div>
+      </div>`
     ].join('');
 
     const channelSelect = document.getElementById('p08-channel');
@@ -203,8 +215,8 @@
       const net = postTrue - postFalse;
       stageLabelEl.textContent = `Net gap ≈ ${net.toFixed(2)} Likert pts`;
       detailsEl.innerHTML = `
-        <p>Pre true belief: ${beliefBase.preTrue.toFixed(1)} -> Post: ${postTrue.toFixed(1)}</p>
-        <p>Pre misinformation belief: ${beliefBase.preFalse.toFixed(1)} -> Post: ${postFalse.toFixed(1)}</p>
+        <p>Pre true belief: ${beliefBase.preTrue.toFixed(1)} → Post: ${postTrue.toFixed(1)}</p>
+        <p>Pre misinformation belief: ${beliefBase.preFalse.toFixed(1)} → Post: ${postFalse.toFixed(1)}</p>
         <p>True shift: +${deltas.trueShift.toFixed(2)} | False shift: ${deltas.falseShift.toFixed(2)}</p>
       `;
     };
@@ -221,12 +233,12 @@
     const options = Object.entries(promptData).map(([key, meta]) => `<option value="${key}">${meta.label}</option>`).join('');
 
     stageControlsEl.innerHTML = [
-      '<div class="bg-white border border-indigo-200 rounded-md p-3 space-y-2">' +
-        '<label class="text-[11px] font-semibold text-indigo-700 uppercase">System prompt</label>' +
-        `<select id="p08-prompt" class="w-full border border-indigo-200 rounded px-2 py-1 text-sm">${options}</select>` +
-        '<p class="text-[11px] text-indigo-800">Prompts mirror the paper\'s persuasive and sycophantic treatments.</p>' +
-      '</div>',
-      '<div class="bg-white border border-indigo-200 rounded-md p-3 space-y-2" id="p08-prompt-details"></div>'
+      `<div class="panel panel-neutral-soft p-3 space-y-2">
+        <label class="text-[11px] font-semibold text-info uppercase">System prompt</label>
+        <select id="p08-prompt" class="w-full px-2 py-1 border border-subtle rounded-md bg-card text-sm text-heading">${options}</select>
+        <p class="text-[11px] text-secondary">Prompts mirror the paper's persuasive and sycophantic treatments.</p>
+      </div>`,
+      '<div class="panel panel-neutral-soft p-3 space-y-2 text-[11px] text-secondary" id="p08-prompt-details"></div>'
     ].join('');
 
     const select = document.getElementById('p08-prompt');
@@ -278,6 +290,3 @@ if (typeof module !== 'undefined') {
 } else if (typeof window !== 'undefined') {
   window.interactiveScript = interactiveScript;
 }
-
-
-

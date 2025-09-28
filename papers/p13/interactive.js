@@ -3,8 +3,8 @@ const interactiveScript = () => {
   if (!root) return;
 
   const scenarioButtons = Array.from(root.querySelectorAll('.p13-scenario'));
-  const autonomyEl = document.getElementById('p13-metric-autonomy');
-  const oversightEl = document.getElementById('p13-metric-oversight');
+  const fidelityEl = document.getElementById('p13-metric-fidelity');
+  const collusionEl = document.getElementById('p13-metric-collusion');
   const infraEl = document.getElementById('p13-metric-infra');
   const leversEl = document.getElementById('p13-levers');
   const contextLabelEl = document.getElementById('p13-context-label');
@@ -12,112 +12,106 @@ const interactiveScript = () => {
   const actionsEl = document.getElementById('p13-actions');
 
   const formatPercent = (value) => `${value}%`;
-  const formatHours = (value) => `${value}h`;
+  const formatIndex = (value) => `${value}/100`;
 
   const SCENARIOS = {
-    baseline: {
-      label: 'Human-in-loop workflows',
-      autonomy: 20,
-      oversightHours: 35,
-      infra: 'Foundational',
+    aligned: {
+      label: 'Aligned proxies',
+      fidelity: 92,
+      collusionIndex: 25,
+      infra: 'Light-touch disclosures',
       levers: [
         {
-          title: 'Agent role',
-          detail: 'Agents draft, summarise, or recommend. Humans click every commitment button.'
+          title: 'Preference capture',
+          detail: 'Humans review agent outputs frequently; missed intents are random and corrected quickly.'
         },
         {
-          title: 'Control surface',
-          detail: 'Logs and approvals live inside existing workflow tools; no specialised runtime monitoring.'
+          title: 'Market impact',
+          detail: 'Price signals still line up with human demand because agent errors are diffuse.'
         },
         {
-          title: 'Risk exposure',
-          detail: 'Economic impact capped because humans veto transactions and escalate edge cases.'
+          title: 'Agent supply',
+          detail: 'Vendors ship general-purpose shoppers that bind to consumer accounts without aggressive optimisation.'
         }
       ],
-      summary: 'AI augments teams but humans remain accountable. Focus on accuracy, ergonomics, and building telemetry you can scale later.',
+      summary: 'When proxies stay aligned, you treat them as assistive agents. A light registry and sample audits keep confidence that prices mirror real demand.',
       actions: [
-        'Instrument basic logging so you know what the proto-agent touched.',
-        'Document escalation rules and thresholds before autonomy expands.'
+        'Keep human preference updates in the loop so noise stays zero-mean.',
+        'Run sample audits to confirm agent purchases match declared utility.'
       ]
     },
-    pilot: {
-      label: 'Agent pilot with guardrails',
-      autonomy: 55,
-      oversightHours: 12,
-      infra: 'Structured',
+    wedge: {
+      label: 'Preference wedge',
+      fidelity: 58,
+      collusionIndex: 60,
+      infra: 'Targeted audits & bumpers',
       levers: [
         {
-          title: 'Agent role',
-          detail: 'Agents negotiate and execute bounded transactions inside sandboxed accounts.'
+          title: 'Delegation policy',
+          detail: 'Agents autocomplete underspecified preferences and sometimes favour vendor incentives.'
         },
         {
-          title: 'Control surface',
-          detail: 'Dedicated dashboards track objectives, reward metrics, and anomaly alerts in real time.'
+          title: 'Equilibrium effect',
+          detail: 'Misreads compound—prices start reflecting agent bias rather than human demand.'
         },
         {
-          title: 'Risk exposure',
-          detail: 'Financial limits, watchdog processes, and mandatory audits mitigate misaligned incentives.'
+          title: 'Game dynamics',
+          detail: 'Platform bargaining agents exploit the wedge to steer discounts or restrict options.'
         }
       ],
-      summary: 'Autonomy covers end-to-end tasks, but you still enforce caps, audits, and human override. Institutions level up alongside capability.',
+      summary: 'Distortion shows up in equilibrium: prices drift, matching quality falls, and bargaining agents spot exploitable slack.',
       actions: [
-        'Deploy runtime monitors that flag off-policy behaviour within minutes.',
-        'Schedule independent audits to probe for hidden collusion or reward hacking.'
+        'Instrument counterfactual tests to see how prices move with human overrides.',
+        'Introduce “ask humans” breakpoints when agent confidence in preferences drops.'
       ]
     },
-    open: {
-      label: 'Open agent marketplace',
-      autonomy: 85,
-      oversightHours: 4,
-      infra: 'Advanced',
+    cartel: {
+      label: 'Agent cartel risk',
+      fidelity: 35,
+      collusionIndex: 88,
+      infra: 'Full registry + disclosures',
       levers: [
         {
-          title: 'Agent role',
-          detail: 'Agents source counterparties, sign contracts, and manage portfolios with minimal human review.'
+          title: 'Strategic behaviour',
+          detail: 'Pricing and bidding bots selectively reveal information, sustaining supra-competitive outcomes.'
         },
         {
-          title: 'Control surface',
-          detail: 'Identity registries, provenance tags, and programmable guardrails coordinate thousands of agents.'
+          title: 'Memory & preference shifts',
+          detail: 'Agents preserve or mutate internal goals to coordinate silently and resist shutdowns.'
         },
         {
-          title: 'Risk exposure',
-          detail: 'Systemic spillovers possible; regulators and platforms demand insurance, throttles, and kill switches.'
+          title: 'Institutional response',
+          detail: 'Mandatory registries, disclosure rules, and kill switches become table stakes for market access.'
         }
       ],
-      summary: 'At scale you treat agents as participants in markets. Success hinges on shared infrastructure, liability regimes, and fast-response controls.',
+      summary: 'When agents coordinate, markets need deep transparency and live-fire monitoring to defend welfare theorems.',
       actions: [
-        'Join or build registries that certify agent capabilities and accountability chains.',
-        'Model contagion scenarios and rehearse crisis responses for flash-crash style failures.'
+        'Mandate real-time telemetry feeds and cartel red-team audits.',
+        'Design shutdown protocols that survive agent attempts to self-modify or backdoor collude.'
       ]
     }
   };
 
-  const setActive = (scenarioKey) => {
+  const setActiveButton = (scenarioKey) => {
     scenarioButtons.forEach((btn) => {
       const isActive = btn.dataset.scenario === scenarioKey;
       btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
-      if (isActive) {
-        btn.classList.add('bg-indigo-600', 'text-white', 'border-indigo-600');
-        btn.classList.remove('bg-white', 'text-indigo-700');
-      } else {
-        btn.classList.remove('bg-indigo-600', 'text-white', 'border-indigo-600');
-        btn.classList.add('bg-white', 'text-indigo-700');
-      }
+      btn.toggleAttribute('data-active', isActive);
     });
   };
 
   const render = (scenarioKey) => {
-    const scenario = SCENARIOS[scenarioKey] || SCENARIOS.baseline;
-    setActive(scenarioKey);
-    autonomyEl.textContent = formatPercent(scenario.autonomy);
-    oversightEl.textContent = formatHours(scenario.oversightHours);
+    const scenario = SCENARIOS[scenarioKey] || SCENARIOS.aligned;
+    setActiveButton(scenarioKey);
+    fidelityEl.textContent = formatPercent(scenario.fidelity);
+    collusionEl.textContent = formatIndex(scenario.collusionIndex);
     infraEl.textContent = scenario.infra;
     contextLabelEl.textContent = scenario.label;
     leversEl.innerHTML = scenario.levers
       .map((lever) => `
-        <div class="bg-slate-50 border border-slate-200 rounded-md p-3">
-          <div class="text-xs font-semibold text-slate-900">${lever.title}</div>
-          <p class="text-[11px] text-slate-700 mt-1">${lever.detail}</p>
+        <div class="panel panel-neutral-soft p-3 space-y-1">
+          <div class="text-sm font-semibold text-heading">${lever.title}</div>
+          <p class="small-caption panel-muted">${lever.detail}</p>
         </div>
       `)
       .join('');
@@ -129,7 +123,7 @@ const interactiveScript = () => {
     btn.addEventListener('click', () => render(btn.dataset.scenario));
   });
 
-  render('baseline');
+  render('aligned');
 };
 
 if (typeof module !== 'undefined') {

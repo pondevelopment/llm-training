@@ -1,57 +1,53 @@
 <div class="space-y-4">
-                <!-- Recommended Reading (canonical) -->
-                <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
-                    <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related)</h4>
-                    <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
-                        <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-02">Question 2: How does attention work?</a></li>
-                        <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-05">Question 5: Tokenization & subwords</a></li>
-                        <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-07">Question 7: Masking & causal generation</a></li>
-                        <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-21">Question 21: Context windows & limits</a></li>
-                        <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-15">Question 15: Distillation & architecture choices</a></li>
-                    </ul>
-                    <p class="mt-2 text-xs text-indigo-700">Attention mechanics, masking, context, and architecture trade-offs.</p>
-                </div>
+  <div class="panel panel-info p-3 space-y-2">
+    <h4 class="font-semibold text-heading">📚 Recommended reading (related)</h4>
+    <ul class="list-disc ml-5 text-sm space-y-1">
+      <li><a class="underline" href="#question-02">Question 2: How does attention work?</a></li>
+      <li><a class="underline" href="#question-05">Question 5: Tokenization &amp; subwords</a></li>
+      <li><a class="underline" href="#question-07">Question 7: Masking &amp; causal generation</a></li>
+      <li><a class="underline" href="#question-21">Question 21: Context windows &amp; limits</a></li>
+      <li><a class="underline" href="#question-15">Question 15: Distillation &amp; architecture choices</a></li>
+    </ul>
+    <p class="text-xs text-muted">Attention mechanics, masking, context, and architecture trade-offs.</p>
+  </div>
 
-                <!-- Key Idea (accent) -->
-                <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
-                        <h4 class="font-semibold text-blue-900 mb-2">🧭 Core Idea</h4>
-                        <p class="text-blue-800 text-sm">Encoders form <b>bidirectional contextual embeddings</b>. Decoders generate <b>left‑to‑right</b> under a causal mask. Encoder–decoder stacks add <b>cross‑attention</b> so each target step can consult the full encoded source + its history.</p>
-                        <div class="math-display">$$\text{Attention}(\mathbf{Q},\mathbf{K},\mathbf{V}) = \text{softmax}\!\left(\frac{\mathbf{Q}\mathbf{K}^T}{\sqrt{d_k}}\right)\mathbf{V}$$</div>
-                        <ul class="mt-3 list-disc ml-5 text-xs text-blue-800 space-y-1">
-                            <li><code class="font-mono">L</code>: source length</li>
-                            <li><code class="font-mono">t</code>: decode step (1…T)</li>
-                            <li><b>Causal mask</b>: hides future positions ( > t )</li>
-                            <li><b>Cross‑attention</b>: decoder queries encoder states</li>
-                        </ul>
-                </div>
-        
-        <!-- Comparison/Options Grid -->
-    <div class="grid md:grid-cols-3 gap-4">
-            <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
-                <h5 class="font-medium text-green-900">Encoder‑only (e.g., BERT)</h5>
-                <p class="text-sm text-green-700">Bidirectional self‑attention creates rich token representations for classification, retrieval, etc. No autoregressive generation.</p>
-                <code class="text-xs bg-green-100 px-1 rounded">input → contextual embeddings → head (CLS)</code>
-            </div>
-            <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
-                <h5 class="font-medium text-purple-900">Decoder‑only (e.g., GPT)</h5>
-                <p class="text-sm text-purple-700">Causal self‑attention: token t sees only tokens 1…t−1. Suited for next‑token generation and long‑form synthesis.</p>
-                <span class="text-xs bg-purple-100 px-1 rounded font-mono">( y_t sim p(cdot mid y_{ < t }) )</span>
-            </div>
-            <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
-                <h5 class="font-medium text-orange-900">Encoder–decoder (e.g., T5)</h5>
-                <p class="text-sm text-orange-700">Decoder uses masked self‑attention <em>and</em> cross‑attention to encoder states. Great for sequence‑to‑sequence tasks like translation and summarization.</p>
-                <code class="text-xs bg-orange-100 px-1 rounded">x → encoder → decoder (masked SA + cross‑attn) → y</code>
-            </div>
-        </div>
-        
-        <!-- Why This Matters (canonical) -->
-        <div class="bg-yellow-50 p-4 rounded-lg">
-            <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why This Matters</h4>
-            <ul class="text-sm text-yellow-800 space-y-1">
-                <li>• <b>Task fit:</b> classification/embedding → encoder; generation → decoder; seq2seq → encoder–decoder</li>
-                <li>• <b>Masking:</b> causal masks enforce left‑to‑right; encoders see full context</li>
-                <li>• <b>Flow:</b> cross‑attention fuses source memory + partial target</li>
-                <li>• <b>Tuning:</b> choose architecture + heads that match objectives</li>
-            </ul>
-        </div>
+  <div class="panel panel-info panel-emphasis p-4 space-y-3">
+    <h4 class="font-semibold text-heading">🧭 Core Idea</h4>
+    <p class="text-sm">Encoders form <strong>bidirectional contextual embeddings</strong>. Decoders generate <strong>left‑to‑right</strong> under a causal mask. Encoder–decoder stacks add <strong>cross-attention</strong> so each target step can consult the full encoded source plus its history.</p>
+    <div class="math-display">$$\text{Attention}(\mathbf{Q},\mathbf{K},\mathbf{V}) = \text{softmax}\!\left(\frac{\mathbf{Q}\mathbf{K}^T}{\sqrt{d_k}}\right)\mathbf{V}$$</div>
+    <ul class="list-disc ml-5 text-xs text-muted space-y-1">
+      <li><code class="font-mono">L</code>: source length</li>
+      <li><code class="font-mono">t</code>: decode step (1…T)</li>
+      <li><strong>Causal mask</strong>: hides future positions (&gt; t)</li>
+      <li><strong>Cross-attention</strong>: decoder queries encoder states</li>
+    </ul>
+  </div>
+
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="panel panel-success panel-emphasis p-3 space-y-2">
+      <h5 class="font-medium text-heading">Encoder‑only (e.g., BERT)</h5>
+      <p class="text-sm text-muted">Bidirectional self-attention creates rich token representations for classification, retrieval, and embedding tasks. No autoregressive generation.</p>
+      <span class="chip chip-success text-xs font-mono">input → contextual embeddings → head (CLS)</span>
     </div>
+    <div class="panel panel-accent panel-emphasis p-3 space-y-2">
+      <h5 class="font-medium text-heading">Decoder‑only (e.g., GPT)</h5>
+      <p class="text-sm text-muted">Causal self-attention: token t sees only tokens 1…t−1. Suited for next-token generation and long-form synthesis.</p>
+      <span class="chip chip-accent text-xs font-mono">p(y<sub>t</sub> | y<sub>&lt; t</sub>)</span>
+    </div>
+    <div class="panel panel-warning panel-emphasis p-3 space-y-2">
+      <h5 class="font-medium text-heading">Encoder–decoder (e.g., T5)</h5>
+      <p class="text-sm text-muted">Decoder uses masked self-attention <em>and</em> cross-attention to encoder states. Ideal for sequence-to-sequence tasks like translation and summarization.</p>
+      <span class="chip chip-warning text-xs font-mono">x → encoder → decoder → y</span>
+    </div>
+  </div>
+
+  <div class="panel panel-warning p-4 space-y-1">
+    <h4 class="font-semibold text-heading">🎯 Why This Matters</h4>
+    <ul class="text-sm space-y-1">
+      <li>• <strong>Task fit:</strong> classification/embedding → encoder; generation → decoder; seq2seq → encoder–decoder</li>
+      <li>• <strong>Masking:</strong> causal masks enforce left-to-right; encoders see full context</li>
+      <li>• <strong>Flow:</strong> cross-attention fuses source memory with partial target</li>
+      <li>• <strong>Tuning:</strong> choose architecture and heads that match objectives</li>
+    </ul>
+  </div>
+</div>

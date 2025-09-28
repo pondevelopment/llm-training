@@ -84,14 +84,15 @@
       const subtitle = btn.querySelector('.p16-scenario-sub');
       if (subtitle) {
         subtitle.classList.toggle('text-indigo-100', isActive);
-        subtitle.classList.toggle('text-slate-500', !isActive);
+        subtitle.classList.toggle('text-muted', !isActive);
+        subtitle.classList.toggle('dark:text-slate-300', !isActive);
       }
       if (isActive) {
-        btn.classList.add('bg-indigo-600', 'text-white', 'border-indigo-600');
-        btn.classList.remove('bg-white', 'text-indigo-700');
+        btn.classList.add('bg-indigo-600', 'text-white', 'border-indigo-500', 'dark:bg-indigo-500', 'dark:border-indigo-400');
+        btn.classList.remove('bg-card', 'text-indigo-700', 'dark:text-indigo-100', 'border-subtle', 'dark:border-indigo-500/40');
       } else {
-        btn.classList.remove('bg-indigo-600', 'text-white', 'border-indigo-600');
-        btn.classList.add('bg-white', 'text-indigo-700');
+        btn.classList.remove('bg-indigo-600', 'text-white', 'border-indigo-500', 'dark:bg-indigo-500', 'dark:border-indigo-400');
+        btn.classList.add('bg-card', 'text-indigo-700', 'dark:text-indigo-100', 'border-subtle', 'dark:border-indigo-500/40');
       }
     });
   };
@@ -105,9 +106,9 @@
     contextLabelEl.textContent = scenario.label;
     leversEl.innerHTML = scenario.levers
       .map((lever) => `
-        <div class="bg-slate-50 border border-slate-200 rounded-md p-3">
-          <div class="text-xs font-semibold text-slate-900">${lever.title}</div>
-          <p class="text-[11px] text-slate-700 mt-1">${lever.detail}</p>
+        <div class="bg-card border border-subtle dark:border-slate-700 rounded-md p-3 transition-colors">
+          <div class="text-xs font-semibold text-heading dark:text-slate-100">${lever.title}</div>
+          <p class="text-[11px] text-muted dark:text-slate-300 mt-1">${lever.detail}</p>
         </div>
       `)
       .join('');

@@ -12,8 +12,6 @@ const interactiveScript = () => {
             const prosEl = document.getElementById('q47-pros');
             const consEl = document.getElementById('q47-cons');
             const coverageEl = document.getElementById('q47-coverage');
-            const copyBtn = document.getElementById('q47-copy');
-            const exportBtn = document.getElementById('q47-export');
             const tourBtn = document.getElementById('q47-tour-btn');
             const presetBtns = Array.from(document.querySelectorAll('[data-q47-preset]'));
                const probEl = document.getElementById('q47-prob');
@@ -24,9 +22,10 @@ const interactiveScript = () => {
                const compareDeltaEl = document.getElementById('q47-compare-delta');
             const trailEl = document.getElementById('q47-trail');
             const clearTrailBtn = document.getElementById('q47-clearTrail');
-            const exportTrailBtn = document.getElementById('q47-exportTrail');
             const memEl = document.getElementById('q47-mem');
             const factorEl = document.getElementById('q47-factor');
+            const memLabelEl = document.getElementById('q47-mem-label');
+            const memReadoutEl = document.getElementById('q47-mem-readout');
             if (!modelEl || !nEl || !LEl || !canvas || !expl) return;
 
             // Previous state for change explanations
@@ -38,43 +37,85 @@ const interactiveScript = () => {
 
             function token(label, active=false) {
                 const t = document.createElement('span');
-                t.className = `inline-flex items-center justify-center w-6 h-6 rounded text-xs font-mono border ${active? 'bg-indigo-100 border-indigo-300' : 'bg-gray-50 border-gray-300'}`;
+                t.className = 'q47-token';
+                if (active) t.classList.add('q47-token--context');
                 t.textContent = label;
                 return t;
             }
             function row(title, children) {
                 const wrap = document.createElement('div');
-                wrap.className = 'flex items-center gap-2';
+                wrap.className = 'q47-row';
                 const label = document.createElement('div');
-                label.className = 'w-44 text-right pr-2 text-xs text-gray-600';
+                label.className = 'q47-row-label';
                 label.textContent = title;
                 const content = document.createElement('div');
-                content.className = 'flex flex-wrap items-center gap-1';
+                content.className = 'q47-row-content';
                 children.forEach(c => content.appendChild(c));
                 wrap.appendChild(label);
                 wrap.appendChild(content);
                 return wrap;
             }
 
-            function setImpact(pct) {
+            function setImpact(pct, effTokens, totalTokens) {
                 pct = Math.max(0, Math.min(1, pct));
                 let label = '';
-                let bg = '#e5e7eb', fg = '#111827', border = '#d1d5db';
-                if (pct >= 0.95) { label = `Excellent (${Math.round(pct*100)}%)`; bg = '#dcfce7'; fg = '#166534'; border = '#86efac'; }
-                else if (pct >= 0.6) { label = `Good (${Math.round(pct*100)}%)`; bg = '#dbeafe'; fg = '#1e40af'; border = '#93c5fd'; }
-                else if (pct >= 0.3) { label = `Limited (${Math.round(pct*100)}%)`; bg = '#fef9c3'; fg = '#854d0e'; border = '#fde68a'; }
-                else { label = `Poor (${Math.round(pct*100)}%)`; bg = '#fee2e2'; fg = '#991b1b'; border = '#fecaca'; }
+                let level = 'poor';
+                if (pct >= 0.95) { label = `Excellent (${Math.round(pct*100)}%)`; level = 'excellent'; }
+                else if (pct >= 0.6) { label = `Good (${Math.round(pct*100)}%)`; level = 'good'; }
+                else if (pct >= 0.3) { label = `Limited (${Math.round(pct*100)}%)`; level = 'limited'; }
+                else { label = `Poor (${Math.round(pct*100)}%)`; level = 'poor'; }
                 if (badgeEl) {
+                    badgeEl.dataset.level = level;
                     badgeEl.textContent = label;
-                    badgeEl.style.backgroundColor = bg;
-                    badgeEl.style.color = fg;
-                    badgeEl.style.borderColor = border;
                 }
                 if (meterEl) {
-                    meterEl.style.width = `${Math.round(pct*100)}%`;
-                    meterEl.style.backgroundColor = fg;
+                    const pctVal = Math.round(pct*100);
+                    meterEl.dataset.level = level;
+                    meterEl.style.width = `${pctVal}%`;
+                    meterEl.setAttribute('aria-valuenow', String(pctVal));
+                    meterEl.parentElement?.setAttribute('data-level', level);
                 }
-                if (coverageEl) coverageEl.textContent = `Context window coverage: ${Math.round(pct*100)}%`;
+                if (coverageEl) {
+                    if (typeof effTokens === 'number' && typeof totalTokens === 'number' && totalTokens > 0) {
+                        coverageEl.textContent = `Context window coverage: ${Math.round(pct*100)}% (${effTokens}/${totalTokens})`;
+                    } else {
+                        coverageEl.textContent = `Context window coverage: ${Math.round(pct*100)}%`;
+                    }
+                }
+            }
+
+            const getRootStyle = (() => {
+                let cache = null;
+                return () => {
+                    if (!cache) cache = getComputedStyle(document.documentElement);
+                    return cache;
+                };
+            })();
+            const themeToken = (token, fallback) => {
+                const value = getRootStyle().getPropertyValue(token);
+                return value && value.trim() ? value.trim() : fallback;
+            };
+            const heatStops = [
+                { stop: 0, color: [34, 197, 94] },
+                { stop: 0.6, color: [250, 204, 21] },
+                { stop: 1, color: [239, 68, 68] }
+            ];
+            function heatColor(weight) {
+                const clamped = Math.max(0, Math.min(1, weight));
+                let lower = heatStops[0];
+                let upper = heatStops[heatStops.length - 1];
+                for (let i = 1; i < heatStops.length; i++) {
+                    if (clamped <= heatStops[i].stop) {
+                        upper = heatStops[i];
+                        lower = heatStops[i - 1];
+                        break;
+                    }
+                }
+                const span = upper.stop - lower.stop || 1;
+                const ratio = (clamped - lower.stop) / span;
+                const mix = lower.color.map((c, idx) => Math.round(c + (upper.color[idx] - c) * ratio));
+                const alpha = 0.35 + clamped * 0.55;
+                return `rgba(${mix[0]}, ${mix[1]}, ${mix[2]}, ${alpha.toFixed(2)})`;
             }
 
             function getProsCons(model, N, L, eff) {
@@ -114,24 +155,38 @@ const interactiveScript = () => {
 
             function render() {
                 const model = modelEl.value;
-                const N = Math.max(1, Math.min(10, parseInt(nEl.value||'3',10)));
-                const L = Math.max(4, Math.min(64, parseInt(LEl.value||'16',10)));
+                const rawN = parseInt((nEl?.value ?? '').trim(), 10);
+                const rawL = parseInt((LEl?.value ?? '').trim(), 10);
+                const N = Number.isNaN(rawN) ? 3 : Math.max(1, Math.min(10, rawN));
+                const L = Number.isNaN(rawL) ? 16 : Math.max(4, Math.min(64, rawL));
                 const smoothing = smoothingEl ? smoothingEl.value : 'none'; // main smoothing selection
                 canvas.innerHTML = '';
 
                 // Memory slider enable/disable & readout
+                render._memInfo = null;
+                let memInfo = null;
                 if (memEl){
                     if (model !== 'transformer') {
                         memEl.disabled = true;
-                        document.getElementById('q47-mem-label').textContent='(transformer only)';
-                        document.getElementById('q47-mem-readout').textContent='';
+                        if (memLabelEl) memLabelEl.textContent = '(transformer only)';
+                        if (memReadoutEl) memReadoutEl.textContent = '';
                     } else {
                         memEl.disabled = false;
-                        const capVal = parseInt(memEl.value,10);
-                        document.getElementById('q47-mem-label').textContent=`(cap ${capVal})`;
-                        document.getElementById('q47-mem-readout').textContent=`Using up to ${capVal} tokens`;
+                        const rawCap = parseInt(memEl.value,10);
+                        const origWin = Math.min(N, L);
+                        const cap = Math.max(1, Math.min(L, Number.isNaN(rawCap) ? origWin : rawCap));
+                        const win = Math.min(origWin, cap);
+                        memInfo = { cap, origWin, win };
+                        if (memLabelEl) memLabelEl.textContent = `(cap ${cap})`;
+                        if (memReadoutEl) {
+                            const truncated = win < origWin;
+                            memReadoutEl.textContent = truncated
+                                ? `Truncated to ${win}/${origWin} tokens by cap ${cap}.`
+                                : `Full window (${win} tokens) within cap ${cap}.`;
+                        }
                     }
                 }
+                render._memInfo = memInfo;
 
                 // Sequence
                 const seq = [];
@@ -141,94 +196,100 @@ const interactiveScript = () => {
                 // Visible context for next token
                 const ctx = [];
                 if (model === 'ngram') {
-                    for (let i=Math.max(1, L - (N-1)); i<=L; i++) ctx.push(token(String(i), true));
+                    for (let i = Math.max(1, L - (N - 1)); i <= L; i++) ctx.push(token(String(i), true));
                 } else if (model === 'hmm') {
-                    // HMM effectively first-order Markov on states; show local window
-                    for (let i=Math.max(1, L-1); i<=L; i++) ctx.push(token(String(i), true));
+                    for (let i = Math.max(1, L - 1); i <= L; i++) ctx.push(token(String(i), true));
                 } else {
-                    // Transformer: theoretical window (origWin) can attend to all previous (clipped by N & L), but memory cap may truncate further
-                    const cap = memEl ? parseInt(memEl.value,10) : 64;
-                    const origWin = Math.min(N, L); // model configuration window
-                    const win = Math.min(origWin, cap); // enforced window after memory cap
-                    for (let i=Math.max(1, L-(win)); i<=L; i++) ctx.push(token(String(i), true));
-                    // Store for later perplexity adjustment & annotation
-                    render._memInfo = { cap, origWin, win };
+                    const win = memInfo ? memInfo.win : Math.min(N, L);
+                    const start = Math.max(1, L - win + 1);
+                    for (let i = start; i <= L; i++) ctx.push(token(String(i), true));
                 }
-                // Apply fading: non-context tokens faded globally
+                const ctxStart = ctx.length ? Math.max(1, L - ctx.length + 1) : L;
+                const ctxMaxDist = Math.max(0, L - ctxStart);
+                ctx.forEach(el => {
+                    if (!el) return;
+                    if (ctxMaxDist > 0) {
+                        const idx = parseInt(el.textContent, 10);
+                        const rel = Math.min(1, Math.max(0, (L - idx) / ctxMaxDist));
+                        el.style.setProperty('--q47-token-active-opacity', (1 - 0.4 * rel).toFixed(2));
+                    } else {
+                        el.style.setProperty('--q47-token-active-opacity', '1');
+                    }
+                });
+
                 const contextIndices = new Set(ctx.map(el => el.textContent));
                 const sequenceRow = canvas.querySelector(':scope > div:nth-child(1)');
                 if (sequenceRow) {
-                    const tokens = sequenceRow.querySelectorAll('span');
-                    let clipStart = null;
-                    if (model==='transformer' && render._memInfo){
-                        const { win } = render._memInfo;
-                        clipStart = L - win + 1; // first included token
-                    }
+                    const tokens = sequenceRow.querySelectorAll('.q47-token');
+                    const clipStart = model === 'transformer' && memInfo ? Math.max(1, L - memInfo.win + 1) : null;
                     tokens.forEach(t => {
-                        const idx = parseInt(t.textContent,10);
+                        const idx = parseInt(t.textContent, 10);
                         const inCtx = contextIndices.has(String(idx));
-                        if (!inCtx) {
-                            t.style.opacity = '0.18';
-                            if (model==='transformer' && clipStart && idx < clipStart) {
-                                // visually mark clipped region (before cap window)
-                                t.style.background = 'repeating-linear-gradient(45deg,#f1f5f9,#f1f5f9 4px,#e2e8f0 4px,#e2e8f0 8px)';
-                                t.style.border = '1px dashed #cbd5e1';
-                            }
+                        const isClipped = Boolean(model === 'transformer' && clipStart && idx < clipStart);
+                        const isBoundary = Boolean(model === 'transformer' && clipStart && idx === clipStart);
+                        t.classList.toggle('q47-token--context', inCtx);
+                        t.classList.toggle('q47-token--faded', !inCtx);
+                        t.classList.toggle('q47-token--clipped', isClipped);
+                        t.classList.toggle('q47-token--boundary', isBoundary);
+                        if (inCtx) {
+                            const rel = ctxMaxDist > 0 ? Math.min(1, Math.max(0, (L - idx) / ctxMaxDist)) : 0;
+                            t.style.setProperty('--q47-token-active-opacity', (1 - 0.4 * rel).toFixed(2));
                         } else {
-                            const distance = L - idx; // 0 is most recent
-                            const maxDist = L - Math.max(1, L-(ctx.length));
-                            const rel = maxDist ? distance / maxDist : 0;
-                            t.style.opacity = String(1 - 0.4*rel);
-                            if (model==='transformer' && clipStart && idx === clipStart) {
-                                // boundary marker
-                                t.style.outline = '2px solid #6366f1';
-                                t.title = (t.title? t.title+'\n':'') + 'Memory cap boundary';
-                            }
+                            t.style.removeProperty('--q47-token-active-opacity');
+                        }
+                        if (isBoundary) {
+                            t.title = (t.title ? `${t.title}\n` : '') + 'Memory cap boundary';
+                        } else if (t.title && t.title.includes('Memory cap boundary')) {
+                            const sanitized = t.title.replace(/\n?Memory cap boundary/, '').trim();
+                            if (sanitized) t.title = sanitized; else t.removeAttribute('title');
                         }
                     });
                 }
                 canvas.appendChild(row('Context used for next token', ctx));
 
-                   // Transformer attention heatmap mock (sample last 8 tokens)
-                   if (model==='transformer') {
-                       const heatWrap = document.createElement('div');
-                       heatWrap.className='text-xs';
-                       const header = document.createElement('div');
-                       header.className='font-medium text-indigo-700 mt-2 mb-1';
-                       header.textContent='Mock attention weights (last 8 tokens)';
-                       const size = Math.min(8, L);
-                       const table = document.createElement('div');
-                       table.className='grid';
-                       table.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
-                       // generate pattern
-                       for (let q= L - size +1; q<=L; q++) {
-                           for (let k= L - size +1; k<=L; k++) {
-                               const cell = document.createElement('div');
-                               let weight;
-                               if (N < size/2) {
-                                   // more local band
-                                   const dist = Math.abs(q-k);
-                                   weight = Math.max(0, 1 - dist / (N+1));
-                               } else {
-                                   // broader distribution
-                                   const dist = Math.abs(q-k);
-                                   weight = 0.6 + 0.4*(1 - dist/size);
-                               }
-                               const hue = 220; // blue-ish
-                               const light = 90 - weight*50; // darker for higher weight
-                               cell.style.background=`hsl(${hue} 100% ${light}%)`;
-                               cell.style.height='14px';
-                               cell.title = `q${q}→k${k}: ${weight.toFixed(2)}`;
-                               table.appendChild(cell);
-                           }
-                       }
-                       heatWrap.appendChild(header);
-                       heatWrap.appendChild(table);
-                    // Accessibility summary
-                    heatWrap.setAttribute('role','img');
-                    heatWrap.setAttribute('aria-label', 'Mock attention heatmap for last tokens: darker cells imply higher weight.');
-                       canvas.appendChild(heatWrap);
-                   }
+                const heatWrap = document.createElement('div');
+                heatWrap.className = 'q47-heatmap-wrapper';
+                const header = document.createElement('div');
+                header.className = 'q47-heatmap-title';
+                header.textContent = 'Mock attention weights (last 8 tokens)';
+                heatWrap.appendChild(header);
+                if (model === 'transformer') {
+                    heatWrap.setAttribute('role', 'img');
+                    heatWrap.setAttribute('aria-label', 'Mock attention heatmap for last tokens; warmer cells imply higher weight.');
+                    const sample = Math.max(1, Math.min(8, L));
+                    const sampleStart = Math.max(1, L - sample + 1);
+                    const table = document.createElement('div');
+                    table.className = 'q47-heatmap-grid';
+                    table.style.gridTemplateColumns = `repeat(${sample}, minmax(0, 1fr))`;
+                    table.style.gridTemplateRows = `repeat(${sample}, 20px)`;
+                    for (let q = sampleStart; q <= L; q++) {
+                        for (let k = sampleStart; k <= L; k++) {
+                            const cell = document.createElement('div');
+                            cell.className = 'q47-heatmap-cell';
+                            const dist = Math.abs(q - k);
+                            let weight;
+                            if (N < sample / 2) {
+                                weight = Math.max(0, 1 - dist / (Math.max(1, N) + 1));
+                            } else {
+                                weight = 0.55 + 0.45 * (1 - dist / Math.max(sample, 1));
+                            }
+                            const bg = heatColor(weight);
+                            cell.style.background = bg;
+                            cell.style.boxShadow = 'inset 0 0 0 1px color-mix(in srgb, var(--color-card) 70%, transparent 30%)';
+                            cell.title = `q${q}→k${k}: ${weight.toFixed(2)}`;
+                            table.appendChild(cell);
+                        }
+                    }
+                    heatWrap.appendChild(table);
+                } else {
+                    heatWrap.setAttribute('role', 'region');
+                    heatWrap.setAttribute('aria-label', 'Attention heatmap not available for this model type.');
+                    const placeholder = document.createElement('div');
+                    placeholder.className = 'q47-heatmap-placeholder';
+                    placeholder.textContent = 'Attention heatmap applies to transformer self-attention. Switch to the transformer model to inspect weights.';
+                    heatWrap.appendChild(placeholder);
+                }
+                canvas.appendChild(heatWrap);
 
                 // Toy perplexity trend (illustrative)
                 let basePP; // base perplexity heuristic
@@ -243,8 +304,8 @@ const interactiveScript = () => {
                 const factor = factorEl ? parseFloat(factorEl.value) : 1;
                 // If transformer and memory cap reduced original window, inflate difficulty slightly
                 let memPenalty = 0;
-                if (model==='transformer' && render._memInfo) {
-                    const { origWin, win } = render._memInfo;
+                if (model==='transformer' && memInfo) {
+                    const { origWin, win } = memInfo;
                     if (win < origWin) {
                         const reduction = 1 - (win / Math.max(1, origWin)); // 0..1
                         // Scale penalty: up to +10 added to basePP when window severely truncated
@@ -255,21 +316,21 @@ const interactiveScript = () => {
                 const seqEff = Math.round(L * factor);
                 const pp = Math.max(10, Math.round((basePP + memPenalty) / Math.log2(2+adjEff)) + Math.max(0, factor-1)*4);
                 const ppEl = document.createElement('div');
-                ppEl.className = 'text-sm text-gray-700 mt-2';
+                ppEl.className = 'text-sm text-heading mt-2';
                 let extraNote = '';
-                if (model==='transformer' && render._memInfo){
-                    const { origWin, win, cap } = render._memInfo;
-                    if (win < origWin) extraNote = ` – window truncated by cap ${cap} (orig ${origWin})`;
-                    else extraNote = ` – full window (=${origWin}) utilized`;
+                if (model==='transformer' && memInfo){
+                    const { origWin, win, cap } = memInfo;
+                    if (win < origWin) extraNote = ` – window truncated to ${win}/${origWin} by cap ${cap}`;
+                    else extraNote = ` – full window (=${origWin}) within cap ${cap}`;
                 }
-                ppEl.innerHTML = `<span class=\"font-medium\">Estimated perplexity (toy):</span> ${pp} <span class=\"text-xs text-gray-500\">(factor ${factor} cost≈${seqEff}${extraNote})</span>`;
+                ppEl.innerHTML = `<span class=\"font-medium\">Estimated perplexity (toy):</span> ${pp} <span class=\"text-xs text-muted\">(factor ${factor} cost≈${seqEff}${extraNote})</span>`;
                 canvas.appendChild(ppEl);
 
                    // Sparkline history
                    ppHistory.push(pp);
                    while (ppHistory.length > 30) ppHistory.shift();
                    const spark = document.createElement('div');
-                   spark.className='mt-1';
+                   spark.className='mt-1 q47-sparkline';
                    const w=120, h=28; const maxPP = Math.max(...ppHistory); const minPP = Math.min(...ppHistory);
                    const range = Math.max(1, maxPP - minPP);
                    const points = ppHistory.map((v,i)=>{
@@ -277,14 +338,15 @@ const interactiveScript = () => {
                        const y = h - ((v - minPP)/range)*h;
                        return `${x.toFixed(1)},${y.toFixed(1)}`;
                    }).join(' ');
-                   spark.innerHTML = `<svg width="${w}" height="${h}" class="overflow-visible"><polyline points="${points}" fill="none" stroke="#6366f1" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" /><circle cx="${w}" cy="${h - ((ppHistory[ppHistory.length-1]-minPP)/range)*h}" r="3" fill="#6366f1" /></svg>`;
+                   const accent = themeToken('--color-path-foundations-strong', '#6366f1');
+                   spark.innerHTML = `<svg width="${w}" height="${h}" class="overflow-visible"><polyline points="${points}" fill="none" stroke="${accent}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" /><circle cx="${w}" cy="${h - ((ppHistory[ppHistory.length-1]-minPP)/range)*h}" r="3" fill="${accent}" /></svg>`;
                    ppEl.appendChild(spark);
                 spark.setAttribute('role','img');
                 spark.setAttribute('aria-label', `Perplexity history with ${ppHistory.length} points; current ${pp}; range ${minPP}-${maxPP}`);
 
                 // Impact and guidance
                 const ratio = eff / Math.max(1, L);
-                setImpact(ratio);
+                setImpact(ratio, eff, L);
                 if (prosEl && consEl) {
                     prosEl.innerHTML = '';
                     consEl.innerHTML = '';
@@ -295,14 +357,14 @@ const interactiveScript = () => {
 
                 // Explanation
                 const messages = {
-                    ngram: `N-grams estimate \\( p(w_t \\mid w_{t-1},...,w_{t-N+1}) \\) via counts + smoothing (e.g. Kneser–Ney). Expressive power capped by N and data coverage. <span class=\"text-xs text-gray-600\">Smoothing: ${smoothing}</span>`,
+                    ngram: `N-grams estimate \\( p(w_t \\mid w_{t-1},...,w_{t-N+1}) \\) via counts + smoothing (e.g. Kneser–Ney). Expressive power capped by N and data coverage. <span class=\"text-xs text-muted\">Smoothing: ${smoothing}</span>`,
                     hmm: `HMMs introduce latent states with first-order transitions. Effective for POS tagging / segmentation but long-range semantics remain inaccessible.`,
                     transformer: `Transformers learn deep contextual token embeddings; self-attention links distant positions enabling semantic generalization + transfer across tasks.`
                 };
                 const title = model==='ngram' ? 'N-gram' : model==='hmm' ? 'HMM' : 'Transformer/LLM';
                 expl.innerHTML = `
-                    <div class=\"flex items-center gap-2 mb-2\"><span class=\"text-indigo-700\">${title}</span> <span class=\"text-xs text-gray-500\">(N/context=${N}, L=${L})</span></div>
-                    ${messages[model]}
+                    <div class=\"flex items-center gap-2 mb-2 text-sm\"><span class=\"font-semibold text-heading\">${title}</span> <span class=\"text-xs text-muted\">(N/context=${N}, L=${L})</span></div>
+                    <div class=\"text-sm text-body\">${messages[model]}</div>
                 `;
                 if (guideEl) guideEl.textContent = guidance(model, N, L, eff);
 
@@ -314,19 +376,14 @@ const interactiveScript = () => {
                     if (model==='ngram' && (prev.smoothing && prev.smoothing !== smoothing)) parts.push(`Smoothing '${smoothing}'`);
                     if (prev.pp != null && prev.pp !== pp) parts.push(`Perplexity ${prev.pp}→${pp}`);
                     if (prev.factor && prev.factor !== factor) parts.push(`Factor ${prev.factor}→${factor}`);
-                    if (model==='transformer') {
-                        const capNow = memEl?memEl.value:undefined;
-                        if (capNow) {
-                            if (render._memInfo){
-                                const { origWin, win } = render._memInfo;
-                                const trunc = win < origWin ? ` (truncated to ${win})` : ' (full)';
-                                parts.push(`Mem cap ${capNow}${trunc}`);
-                            } else parts.push(`Mem cap ${capNow}`);
-                        }
+                    if (model==='transformer' && memInfo) {
+                        const { cap, origWin, win } = memInfo;
+                        const trunc = win < origWin ? ` (truncated to ${win}/${origWin})` : ' (full window)';
+                        parts.push(`Mem cap ${cap}${trunc}`);
                     }
                     if (!parts.length) parts.push('Adjust sliders or presets to explore effects.');
                     changeEl.textContent = parts.join('; ') + '.';
-                    prev.model = model; prev.eff = eff; prev.pp = pp; prev.smoothing = smoothing; prev.factor = factor; prev.mem = memEl?memEl.value:undefined;
+                    prev.model = model; prev.eff = eff; prev.pp = pp; prev.smoothing = smoothing; prev.factor = factor; prev.mem = memInfo ? memInfo.cap : (memEl?memEl.value:undefined);
                 }
 
                 // Session trail logging
@@ -340,16 +397,19 @@ const interactiveScript = () => {
                     else basePPTrail = N >=5 ? 105 : 100;
                 }
                 const factorTrail = factorEl ? parseFloat(factorEl.value) : 1;
-                const memCapTrail = memEl ? parseInt(memEl.value,10) : 64;
-                const ppSnapshot = Math.max(10, Math.round(basePPTrail / Math.log2(2+effLog*factorTrail)) + Math.max(0, factorTrail-1)*4);
-                const snapshot = { t: Date.now(), model, N, L, smoothing: smoothingUsed, eff: effLog, ratio: effLog/Math.max(1,L), factor: factorTrail, memCap: memCapTrail, pp: ppSnapshot };
+                const memCapTrailRaw = memEl ? parseInt(memEl.value,10) : undefined;
+                const memCapTrail = memInfo ? memInfo.cap : (Number.isNaN(memCapTrailRaw) ? undefined : memCapTrailRaw);
+                const memPenaltyTrail = memInfo && memInfo.win < memInfo.origWin ? Math.round((1 - (memInfo.win / Math.max(1, memInfo.origWin))) * 10) : 0;
+                const ppSnapshot = Math.max(10, Math.round((basePPTrail + memPenaltyTrail) / Math.log2(2+effLog*factorTrail)) + Math.max(0, factorTrail-1)*4);
+                const snapshot = { t: Date.now(), model, N, L, smoothing: smoothingUsed, eff: effLog, ratio: effLog/Math.max(1,L), factor: factorTrail, memCap: memCapTrail ?? null, pp: ppSnapshot };
                 const changed = !last || ['model','N','L','smoothing','eff','pp','factor','memCap'].some(k => last[k] !== snapshot[k]);
                 if (changed) {
                     sessionTrail.push(snapshot);
                     if (trailEl) {
                         const li = document.createElement('li');
                         const dt = new Date(snapshot.t).toLocaleTimeString();
-                        li.textContent = `${dt} – ${model} N=${N} L=${L}${smoothing? ' sm='+smoothing:''} f=${factorTrail} mem=${memCapTrail} eff=${effLog} pp=${ppSnapshot}`;
+                        const memNote = memInfo ? `${memCapTrail ?? '—'}→${memInfo.win}` : (memCapTrail ?? '—');
+                        li.textContent = `${dt} – ${model} N=${N} L=${L}${smoothing? ' sm='+smoothing:''} f=${factorTrail} mem=${memNote} eff=${effLog} pp=${ppSnapshot}`;
                         trailEl.appendChild(li);
                         if (trailEl.children.length > 150) trailEl.removeChild(trailEl.firstChild);
                     }
@@ -365,7 +425,16 @@ const interactiveScript = () => {
                        } else if (model==='hmm') {
                            probEl.innerHTML = `Predict via latent state transition + emission: \\(${`p(w_t)=\\sum_s p(s_t\\mid s_{t-1}) p(w_t\\mid s_t)`}\\). Context limited by first-order Markov property.`;
                        } else {
-                           probEl.innerHTML = `Self-attention forms context vector: \\(${`z_t = \\sum_j \\alpha_{t,j} V_j`}\\). Wider N allows more tokens to contribute.`;
+                           let msg = `Self-attention forms context vector: \\(${`z_t = \\sum_j \\alpha_{t,j} V_j`}\\). Wider N allows more tokens to contribute.`;
+                           if (memInfo) {
+                               const { cap, origWin, win } = memInfo;
+                               if (win < origWin) {
+                                   msg += ` <span class=\"text-xs text-muted\">(Cap ${cap} limits effective window to ${win}/${origWin} tokens.)</span>`;
+                               } else {
+                                   msg += ` <span class=\"text-xs text-muted\">(Cap ${cap} keeps full window of ${origWin} tokens.)</span>`;
+                               }
+                           }
+                           probEl.innerHTML = msg;
                        }
                        if (window.MathJax?.typesetPromise) window.MathJax.typesetPromise([probEl]).catch(()=>{});
                    }
@@ -373,15 +442,6 @@ const interactiveScript = () => {
                 if (window.MathJax && window.MathJax.typesetPromise) {
                     window.MathJax.typesetPromise([expl]).catch(()=>{});
                 }
-            }
-
-            function updateHash(){
-                const params = new URLSearchParams({ model: modelEl.value, N: nEl.value, L: LEl.value });
-                if (modelEl.value==='ngram' && smoothingEl) params.set('S', smoothingEl.value);
-                if (memEl) params.set('M', memEl.value);
-                if (factorEl) params.set('F', factorEl.value);
-                const newHash = '#question-47?' + params.toString();
-                if (location.hash !== newHash) history.replaceState(null,'',newHash);
             }
 
             // Initial typeset of static math (in case details is already open by default)
@@ -396,46 +456,11 @@ const interactiveScript = () => {
                 else if (name==='hmm'){ modelEl.value='hmm'; nEl.value='2'; LEl.value='16'; }
                 else if (name==='tx-short'){ modelEl.value='transformer'; nEl.value='6'; LEl.value='16'; }
                 else if (name==='tx-long'){ modelEl.value='transformer'; nEl.value='12'; LEl.value='32'; }
-                render(); updateHash();
+                render();
             }
             presetBtns.forEach(b=>b.addEventListener('click', ()=>applyPreset(b.getAttribute('data-q47-preset'))));
 
-            copyBtn?.addEventListener('click', ()=>{
-                const params = new URLSearchParams({ model:modelEl.value, N:nEl.value, L:LEl.value });
-                const url = `${location.origin}${location.pathname}#question-47?${params.toString()}`;
-                navigator.clipboard?.writeText(url).then(()=>{ copyBtn.textContent='Copied!'; setTimeout(()=>copyBtn.textContent='Copy link',1500); });
-            });
 
-            exportBtn?.addEventListener('click', ()=>{
-                const model = modelEl.value; const N = parseInt(nEl.value,10); const L = parseInt(LEl.value,10);
-                const eff = model==='hmm' ? 2 : Math.min(N, L);
-                const ratio = eff/Math.max(1,L);
-                let basePP;
-                const smoothing = smoothingEl ? smoothingEl.value : 'none';
-                if (model === 'transformer') basePP = 20; else if (model==='hmm') basePP = 80; else {
-                    if (smoothing === 'none') basePP = N >=5 ? 150 : 130;
-                    else if (smoothing === 'addk') basePP = N >=5 ? 120 : 110;
-                    else basePP = N >=5 ? 105 : 100;
-                }
-                const pp = Math.max(10, Math.round(basePP / Math.log2(2+eff)));
-                const payload = { question:'47', generated:new Date().toISOString(), config:{ model, N, L, smoothing: model==='ngram'? smoothing: undefined }, metrics:{ effectiveContext: eff, effectiveRatio: ratio, toyPerplexity: pp }, sessionTrail };
-                const blob = new Blob([JSON.stringify(payload,null,2)], {type:'application/json'});
-                const a = document.createElement('a');
-                a.href = URL.createObjectURL(blob);
-                a.download = `q47-${model}-N${N}-L${L}.json`;
-                a.click();
-                setTimeout(()=>URL.revokeObjectURL(a.href), 50);
-            });
-
-            function initFromHash(){
-                if(!location.hash) return; const m = location.hash.match(/question-47\?(.*)$/); if(!m) return; const p = new URLSearchParams(m[1]);
-                if(p.get('model')) modelEl.value=p.get('model');
-                if(p.get('N')) nEl.value=p.get('N');
-                if(p.get('L')) LEl.value=p.get('L');
-                if(p.get('S') && smoothingEl) smoothingEl.value=p.get('S');
-                if(p.get('M') && memEl) memEl.value=p.get('M');
-                if(p.get('F') && factorEl) factorEl.value=p.get('F');
-            }
 
             // Guided tour implementation
             function startTour(){
@@ -450,25 +475,30 @@ const interactiveScript = () => {
                 let idx = 0;
                 const overlay = document.createElement('div');
                 overlay.id='q47-tour';
+                overlay.className='q47-tour-overlay';
                 overlay.setAttribute('role','dialog');
                 overlay.setAttribute('aria-modal','true');
-                overlay.className='fixed inset-0 bg-black/60 flex items-center justify-center z-50 text-sm';
                 const box=document.createElement('div');
-                box.className='bg-white rounded-lg shadow-lg max-w-sm w-[380px] p-4 space-y-3';
+                box.className='q47-tour-dialog';
                 overlay.appendChild(box);
                 const titleEl=document.createElement('div');
-                titleEl.className='font-semibold text-indigo-700';
+                titleEl.className='q47-tour-title';
                 const bodyEl=document.createElement('div');
-                bodyEl.className='text-gray-700';
+                bodyEl.className='q47-tour-body';
                 const ctr=document.createElement('div');
-                ctr.className='flex justify-between items-center pt-2';
-                const back=document.createElement('button'); back.className='px-2 py-1 rounded bg-gray-100 text-gray-600 disabled:opacity-40'; back.textContent='Back';
-                const next=document.createElement('button'); next.className='px-3 py-1 rounded bg-indigo-600 text-white'; next.textContent='Next';
-                const skip=document.createElement('button'); skip.className='px-2 py-1 rounded bg-red-50 text-red-600'; skip.textContent='Skip';
+                ctr.className='q47-tour-actions';
+                const back=document.createElement('button'); back.className='q47-tour-ctrl'; back.textContent='Back';
+                const skip=document.createElement('button'); skip.className='q47-tour-ctrl q47-tour-ctrl--warn'; skip.textContent='Skip';
+                const next=document.createElement('button'); next.className='q47-tour-ctrl q47-tour-ctrl--primary'; next.textContent='Next';
                 ctr.appendChild(back); ctr.appendChild(skip); ctr.appendChild(next);
                 box.appendChild(titleEl); box.appendChild(bodyEl); box.appendChild(ctr);
                 function renderStep(){
-                    const s = steps[idx]; titleEl.textContent=s.title; bodyEl.textContent=s.body; back.disabled = idx===0; next.textContent = idx===steps.length-1? 'Done':'Next';
+                    const s = steps[idx];
+                    titleEl.textContent = s.title;
+                    bodyEl.textContent = s.body;
+                    back.disabled = idx===0;
+                    back.setAttribute('aria-disabled', String(idx===0));
+                    next.textContent = idx===steps.length-1 ? 'Done' : 'Next';
                 }
                 back.addEventListener('click', ()=>{ if(idx>0){idx--; renderStep(); }});
                 next.addEventListener('click', ()=>{ if(idx<steps.length-1){idx++; renderStep(); } else { overlay.remove(); }});
@@ -483,14 +513,15 @@ const interactiveScript = () => {
                    ['A','B'].forEach(slot=>{
                        const data = compare[slot];
                        const card = document.createElement('div');
-                       card.className='border rounded p-2 bg-gray-50';
+                       card.className='q47-compare-card';
                        if (!data) {
-                           card.innerHTML = `<div class=\"text-gray-400 italic\">Slot ${slot} empty</div>`;
+                           card.classList.add('q47-compare-card--empty');
+                           card.textContent = `Slot ${slot} empty`;
                        } else {
-                           card.innerHTML = `<div class=\"font-semibold text-indigo-700 mb-1\">${slot}: ${data.model}</div>
-                           <div class=\"text-xs text-gray-600\">N=${data.N}, L=${data.L}${data.smoothing? ', sm='+data.smoothing:''}</div>
-                           <div class=\"mt-1 text-xs\">Eff ctx: <b>${data.eff}</b> (${Math.round(data.ratio*100)}%)</div>
-                           <div class=\"text-xs\">Perplexity: <b>${data.pp}</b></div>`;
+                           card.innerHTML = `<div class=\"font-semibold text-heading mb-1\">${slot}: ${data.model}</div>
+                           <div class=\"text-xs text-muted\">N=${data.N}, L=${data.L}${data.smoothing? ', sm='+data.smoothing:''}</div>
+                           <div class=\"mt-1 text-xs text-heading\">Eff ctx: <b>${data.eff}</b> (${Math.round(data.ratio*100)}%)</div>
+                           <div class=\"text-xs text-heading\">Perplexity: <b>${data.pp}</b></div>`;
                        }
                        compareSlotsEl.appendChild(card);
                    });
@@ -501,9 +532,53 @@ const interactiveScript = () => {
                    } else if (compareDeltaEl) compareDeltaEl.textContent='';
                }
                capA?.addEventListener('click', ()=>{
-                   const model = modelEl.value; const N=parseInt(nEl.value,10); const L=parseInt(LEl.value,10); const eff = model==='hmm'?2: Math.min(N,L); const ratio= eff/Math.max(1,L); const smoothing = smoothingEl?.value; let basePP; if (model==='transformer') basePP=20; else if (model==='hmm') basePP=80; else { if (smoothing==='none') basePP = N>=5?150:130; else if (smoothing==='addk') basePP=N>=5?120:110; else basePP=N>=5?105:100; } const pp = Math.max(10, Math.round(basePP/ Math.log2(2+eff))); compare.A={model,N,L,eff,ratio,pp,smoothing:(model==='ngram'?smoothing:undefined)}; renderCompare(); });
+                   const model = modelEl.value;
+                   const parsedN = parseInt((nEl?.value ?? '').trim(), 10);
+                   const parsedL = parseInt((LEl?.value ?? '').trim(), 10);
+                   const N = Number.isNaN(parsedN) ? 3 : Math.max(1, Math.min(10, parsedN));
+                   const L = Number.isNaN(parsedL) ? 16 : Math.max(4, Math.min(64, parsedL));
+                   const baseEff = model==='hmm' ? Math.min(2,L) : Math.min(N,L);
+                   const memData = model==='transformer' ? render._memInfo : null;
+                   const eff = memData ? memData.win : baseEff;
+                   const ratio = eff/Math.max(1,L);
+                   const smoothing = smoothingEl?.value;
+                   let basePP;
+                   if (model==='transformer') basePP=20;
+                   else if (model==='hmm') basePP=80;
+                   else {
+                       if (smoothing==='none') basePP = N>=5?150:130;
+                       else if (smoothing==='addk') basePP=N>=5?120:110;
+                       else basePP=N>=5?105:100;
+                   }
+                   const memPenalty = memData && memData.win < memData.origWin ? Math.round((1 - (memData.win / Math.max(1, memData.origWin))) * 10) : 0;
+                   const pp = Math.max(10, Math.round((basePP + memPenalty)/ Math.log2(2+eff)));
+                   compare.A={model,N,L,eff,ratio,pp,smoothing:(model==='ngram'?smoothing:undefined)};
+                   renderCompare();
+               });
                capB?.addEventListener('click', ()=>{
-                   const model = modelEl.value; const N=parseInt(nEl.value,10); const L=parseInt(LEl.value,10); const eff = model==='hmm'?2: Math.min(N,L); const ratio= eff/Math.max(1,L); const smoothing = smoothingEl?.value; let basePP; if (model==='transformer') basePP=20; else if (model==='hmm') basePP=80; else { if (smoothing==='none') basePP = N>=5?150:130; else if (smoothing==='addk') basePP=N>=5?120:110; else basePP=N>=5?105:100; } const pp = Math.max(10, Math.round(basePP/ Math.log2(2+eff))); compare.B={model,N,L,eff,ratio,pp,smoothing:(model==='ngram'?smoothing:undefined)}; renderCompare(); });
+                   const model = modelEl.value;
+                   const parsedN = parseInt((nEl?.value ?? '').trim(), 10);
+                   const parsedL = parseInt((LEl?.value ?? '').trim(), 10);
+                   const N = Number.isNaN(parsedN) ? 3 : Math.max(1, Math.min(10, parsedN));
+                   const L = Number.isNaN(parsedL) ? 16 : Math.max(4, Math.min(64, parsedL));
+                   const baseEff = model==='hmm' ? Math.min(2,L) : Math.min(N,L);
+                   const memData = model==='transformer' ? render._memInfo : null;
+                   const eff = memData ? memData.win : baseEff;
+                   const ratio = eff/Math.max(1,L);
+                   const smoothing = smoothingEl?.value;
+                   let basePP;
+                   if (model==='transformer') basePP=20;
+                   else if (model==='hmm') basePP=80;
+                   else {
+                       if (smoothing==='none') basePP = N>=5?150:130;
+                       else if (smoothing==='addk') basePP=N>=5?120:110;
+                       else basePP=N>=5?105:100;
+                   }
+                   const memPenalty = memData && memData.win < memData.origWin ? Math.round((1 - (memData.win / Math.max(1, memData.origWin))) * 10) : 0;
+                   const pp = Math.max(10, Math.round((basePP + memPenalty)/ Math.log2(2+eff)));
+                   compare.B={model,N,L,eff,ratio,pp,smoothing:(model==='ngram'?smoothing:undefined)};
+                   renderCompare();
+               });
             clearCmp?.addEventListener('click', ()=>{ compare.A=null; compare.B=null; renderCompare(); });
             // Goal trigger for compare when both filled happens on second capture
             // learning goals removed
@@ -513,15 +588,6 @@ const interactiveScript = () => {
 
             // Trail controls
             clearTrailBtn?.addEventListener('click', ()=>{ sessionTrail.length = 0; if (trailEl) trailEl.innerHTML=''; });
-            exportTrailBtn?.addEventListener('click', ()=>{
-                const blob = new Blob([JSON.stringify({ question:'47-trail', generated:new Date().toISOString(), trail: sessionTrail }, null, 2)], {type:'application/json'});
-                const a = document.createElement('a');
-                a.href = URL.createObjectURL(blob);
-                a.download = 'q47-session-trail.json';
-                a.click();
-                setTimeout(()=>URL.revokeObjectURL(a.href), 50);
-            });
-
             // MathJax typeset when math details opened
             document.getElementById('q47-math')?.addEventListener('toggle', (e)=>{
                 if (e.target.open){
@@ -531,16 +597,14 @@ const interactiveScript = () => {
             });
         // confidence removed
 
-            modelEl.addEventListener('change', ()=>{ render(); updateHash(); });
-            nEl.addEventListener('input', ()=>{ render(); updateHash(); });
-            LEl.addEventListener('change', ()=>{ render(); updateHash(); });
-            smoothingEl?.addEventListener('change', ()=>{ if (modelEl.value==='ngram') { render(); updateHash(); } });
-            memEl?.addEventListener('input', ()=>{ if (modelEl.value==='transformer') { render(); updateHash(); } });
-            factorEl?.addEventListener('change', ()=>{ render(); updateHash(); });
+            modelEl.addEventListener('change', ()=>{ render(); });
+            nEl.addEventListener('input', ()=>{ render(); });
+            LEl.addEventListener('change', ()=>{ render(); });
+            smoothingEl?.addEventListener('change', ()=>{ if (modelEl.value==='ngram') { render(); } });
+            memEl?.addEventListener('input', ()=>{ if (modelEl.value==='transformer') { render(); } });
+            factorEl?.addEventListener('change', ()=>{ render(); });
 
-            initFromHash();
             render();
-            updateHash();
         };
 
 if (typeof module !== 'undefined') {

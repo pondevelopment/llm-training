@@ -221,14 +221,24 @@
     const boosted = metrics.boostedCoverage;
     coveragePercentEl.textContent = formatPercent(boosted);
     coverageBarEl.style.width = `${Math.round(boosted * 100)}%`;
-    coverageBarEl.classList.remove("bg-indigo-500", "bg-emerald-500", "bg-amber-500", "bg-rose-500");
-    if (boosted >= 0.6) {
-      coverageBarEl.classList.add("bg-emerald-500");
+    coveragePercentEl.classList.remove("text-info", "text-success", "text-warning", "text-danger");
+    let barColor = "var(--tone-indigo-strong)";
+    let percentClass = "text-danger";
+    if (!Number.isFinite(boosted) || boosted <= 0) {
+      percentClass = "text-info";
+      barColor = "var(--tone-indigo-strong)";
+    } else if (boosted >= 0.6) {
+      percentClass = "text-success";
+      barColor = "var(--tone-emerald-strong)";
     } else if (boosted >= 0.3) {
-      coverageBarEl.classList.add("bg-amber-500");
+      percentClass = "text-warning";
+      barColor = "var(--tone-amber-strong)";
     } else {
-      coverageBarEl.classList.add("bg-rose-500");
+      percentClass = "text-danger";
+      barColor = "var(--color-path-scaling-strong)";
     }
+    coveragePercentEl.classList.add(percentClass);
+    coverageBarEl.style.background = barColor;
 
     coverageSingleEl.textContent = formatPercent(metrics.coverageSingle);
     coverageMultiEl.textContent = formatPercent(metrics.coverageMulti);
@@ -252,13 +262,13 @@
     const vectorSuffix = metrics.vectors > 1 ? "s" : "";
 
     insightEl.innerHTML = `
-      <h4 class="text-sm font-semibold text-amber-900 mb-2">What this configuration implies</h4>
-      <ul class="space-y-2 text-sm text-amber-800">
+      <h4 class="text-sm font-semibold text-heading mb-2">What this configuration implies</h4>
+      <ul class="space-y-2 text-sm text-body">
         <li><strong>${coverageSingleText}</strong> of the k-way subsets are reachable with one vector per document.</li>
         <li><strong>${coverageMultiText}</strong> becomes reachable when you store ${metrics.vectors} vector${vectorSuffix} per document.</li>
         <li><strong>${boostedText}</strong> is the coverage after applying the reranker toggle${metrics.reranker ? "" : " (enable it to simulate a lexical reranker)"}.</li>
       </ul>
-      <p class="text-xs text-amber-700 mt-2">Doubling context length alone does not raise these ceilings—the effective embedding dimension drives capacity.</p>
+      <p class="text-xs text-muted mt-2">Doubling context length alone does not raise these ceilings—the effective embedding dimension drives capacity.</p>
     `;
   };
 
@@ -285,17 +295,19 @@
     const rows = sampled.map((query, index) => {
       const hit = Math.random() < coverage;
       if (hit) hits += 1;
-      const rowClass = hit ? "border border-emerald-200 bg-emerald-50" : "border border-rose-200 bg-rose-50";
-      const statusClass = hit ? "text-emerald-600" : "text-rose-600";
+      const rowStyle = hit
+        ? 'style="background: var(--swatch-emerald-50); border-color: var(--tone-emerald-border);"'
+        : 'style="background: var(--swatch-rose-50); border-color: var(--color-path-scaling-border);"';
+      const statusClass = hit ? "text-success" : "text-danger";
       const statusLabel = hit ? "retrieved" : "missed";
       const docs = query.docs.join(', ');
-      const followup = hit ? '' : `<p class="mt-1 text-[11px] text-gray-500">Consider boosting terms like <span class="font-mono">${(query.hint || query.name).toLowerCase()}</span> or adding metadata filters.</p>`;
-      return `<div class="rounded-md px-3 py-2 text-xs text-gray-700 ${rowClass}">
+      const followup = hit ? '' : `<p class="mt-1 text-[11px] text-muted">Consider boosting terms like <span class="font-mono text-info">${(query.hint || query.name).toLowerCase()}</span> or adding metadata filters.</p>`;
+      return `<div class="rounded-md px-3 py-2 text-xs text-body border border-divider" ${rowStyle}>
         <div class="flex items-center justify-between gap-2">
           <span class="font-semibold text-sm">${index + 1}. ${query.name}</span>
           <span class="font-semibold ${statusClass}">${statusLabel}</span>
         </div>
-        <p class="mt-1 text-[11px] text-gray-600">Key docs: ${docs}</p>
+        <p class="mt-1 text-[11px] text-muted">Key docs: ${docs}</p>
         ${followup}
       </div>`;
     });

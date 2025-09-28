@@ -85,22 +85,28 @@ const interactiveScript = () => {
   const insightsEl = document.getElementById('p06-insights');
   const actionsEl = document.getElementById('p06-actions');
   const viewButtonsEl = document.getElementById('p06-views');
+  const impactEl = document.getElementById('p06-impact');
 
   let currentView = 'step';
 
   const formatPercent = value => Math.round(value * 1000) / 10 + '%';
 
+  const renderImpact = items => {
+    if (!impactEl) return;
+    if (!items || !items.length) {
+      impactEl.innerHTML = '<li>Adjust the controls to see business impact.</li>';
+      return;
+    }
+    impactEl.innerHTML = items.map(text => '<li>' + text + '</li>').join('');
+  };
+
   const renderButtons = () => {
     const fragments = Object.entries(VIEWS).map(([key, meta]) => {
       const active = key === currentView;
-      const classes = ['px-3','py-1.5','rounded-md','border','text-xs','font-medium','transition-colors'];
-      if (active) {
-        classes.push('bg-indigo-600','border-indigo-600','text-white','shadow-sm');
-      } else {
-        classes.push('bg-white','border-gray-300','text-gray-700','hover:border-indigo-400','hover:text-indigo-600');
-      }
+      const classes = ['chip', 'text-xs', 'font-medium'];
+      classes.push(active ? 'chip-info' : 'chip-neutral');
       const classStr = classes.join(' ');
-      return '<button type="button" class="' + classStr + '" data-view="' + key + '">' + meta.label + '</button>';
+      return '<button type="button" class="' + classStr + '" data-view="' + key + '" aria-pressed="' + (active ? 'true' : 'false') + '">' + meta.label + '</button>';
     });
     viewButtonsEl.innerHTML = fragments.join('');
 
@@ -134,17 +140,17 @@ const interactiveScript = () => {
 
     const controlsHtml = [];
     controlsHtml.push(
-      '<div class="bg-white border border-indigo-200 rounded-md p-3 space-y-2">' +
-        '<label class="text-[11px] font-semibold text-indigo-700 uppercase">Step accuracy (p)</label>' +
+      '<div class="panel panel-neutral-soft p-3 space-y-2">' +
+        '<label class="block text-xs font-semibold text-heading">Per-step accuracy <span class="font-mono text-xs panel-muted" id="p06-step-accuracy-label">0.75</span></label>' +
         '<input id="p06-step-accuracy" type="range" min="0.50" max="0.99" step="0.01" value="0.75" class="w-full">' +
-        '<p class="text-xs"><span class="font-mono" id="p06-step-accuracy-label">0.75</span></p>' +
+        '<p class="text-xs panel-muted">Higher per-step accuracy compounds into dramatically longer horizons.</p>' +
       '</div>'
     );
     controlsHtml.push(
-      '<div class="bg-white border border-indigo-200 rounded-md p-3 space-y-2">' +
-        '<label class="text-[11px] font-semibold text-indigo-700 uppercase">Success threshold (s)</label>' +
+      '<div class="panel panel-neutral-soft p-3 space-y-2">' +
+        '<label class="block text-xs font-semibold text-heading">Success threshold s <span class="font-mono text-xs panel-muted" id="p06-success-label">0.50</span></label>' +
         '<input id="p06-success-threshold" type="range" min="0.50" max="0.90" step="0.05" value="0.50" class="w-full">' +
-        '<p class="text-xs"><span class="font-mono" id="p06-success-label">0.50</span></p>' +
+        '<p class="text-xs panel-muted">Choose the acceptable completion probability for your workflow.</p>' +
       '</div>'
     );
     stageControlsEl.innerHTML = controlsHtml.join('');
@@ -161,10 +167,27 @@ const interactiveScript = () => {
       successLabel.textContent = s.toFixed(2);
       if (p >= 1 || p <= 0 || s <= 0 || s >= 1) {
         stageLabelEl.textContent = 'Invalid inputs';
+        renderImpact(['Provide step accuracy between 0 and 1 to estimate runway.']);
         return;
       }
       const horizon = Math.floor(Math.log(s) / Math.log(p));
       stageLabelEl.textContent = 'Horizon length H_s ~= ' + (horizon > 0 ? horizon : 'Less than 1 step');
+
+      const horizonSteps = horizon > 0 ? horizon : 0;
+      const headline = horizonSteps
+        ? `At ${formatPercent(s)} success, agents can string together ~${horizonSteps} sequential actions before escalation.`
+        : `At ${formatPercent(s)} success, this accuracy collapses immediately; expect a handoff after the first action.`;
+      const improvedP = Math.min(0.995, p + 0.05);
+      const improved = Math.floor(Math.log(s) / Math.log(improvedP));
+      const improvementGain = improved - horizonSteps;
+      const improvementText = improvementGain > 0
+        ? `Raising step accuracy to ${(improvedP * 100).toFixed(0)}% extends the runway to ~${improved} actions (${improvementGain} more turns).`
+        : `Even lifting accuracy to ${(improvedP * 100).toFixed(0)}% barely moves the runway; consider redesigning the workflow or adding thinking tokens.`;
+      const benchmarkTurns = 15;
+      const third = horizonSteps >= benchmarkTurns
+        ? 'A 15-step support workflow would finish autonomously; redeploy analysts to exceptions.'
+        : `Plan for human takeover by step ${Math.max(1, horizonSteps + 1)} on a 15-step workflow, or split the task.`;
+      renderImpact([headline, improvementText, third]);
     };
 
     accSlider.addEventListener('input', recalc);
@@ -179,17 +202,17 @@ const interactiveScript = () => {
     const options = Object.keys(selfConditionData).map(name => '<option value="' + name + '">' + name + '</option>');
     const controlsHtml = [];
     controlsHtml.push(
-      '<div class="bg-white border border-indigo-200 rounded-md p-3 space-y-2">' +
-        '<label class="text-[11px] font-semibold text-indigo-700 uppercase">Model</label>' +
-        '<select id="p06-self-model" class="w-full border border-indigo-200 rounded px-2 py-1 text-sm">' + options.join('') + '</select>' +
-        '<p class="text-[11px] text-indigo-800">Accuracy sampled at turn 100.</p>' +
+      '<div class="panel panel-neutral-soft p-3 space-y-2">' +
+        '<label class="block text-xs font-semibold text-heading">Model</label>' +
+        '<select id="p06-self-model" class="w-full rounded border border-divider bg-card px-2 py-1 text-sm text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">' + options.join('') + '</select>' +
+        '<p class="text-xs panel-muted">Accuracy sampled at turn 100.</p>' +
       '</div>'
     );
     controlsHtml.push(
-      '<div class="bg-white border border-indigo-200 rounded-md p-3 space-y-2">' +
-        '<label class="text-[11px] font-semibold text-indigo-700 uppercase">Injected error rate</label>' +
+      '<div class="panel panel-neutral-soft p-3 space-y-2">' +
+        '<label class="block text-xs font-semibold text-heading">Injected error rate</label>' +
         '<input id="p06-self-error" type="range" min="0" max="1" step="0.05" value="0" class="w-full">' +
-        '<p class="text-xs">History error rate: <span class="font-mono" id="p06-self-error-label">0.00</span></p>' +
+        '<p class="text-xs panel-muted">History error rate: <span class="font-mono text-heading" id="p06-self-error-label">0.00</span></p>' +
       '</div>'
     );
     stageControlsEl.innerHTML = controlsHtml.join('');
@@ -204,6 +227,29 @@ const interactiveScript = () => {
       errorLabel.textContent = rate.toFixed(2);
       const acc = interpolateAccuracy(selfConditionData[model], rate);
       stageLabelEl.textContent = 'Turn-100 accuracy ~= ' + formatPercent(acc);
+
+      const points = selfConditionData[model] || [];
+      const baseline = points.length ? points[0].acc : acc;
+      const drop = baseline - acc;
+      const dropLabel = drop > 0 ? `${(drop * 100).toFixed(1)} pts down from clean history` : 'no change vs clean history';
+      const headline = rate === 0
+        ? `Clean transcripts hold turn-100 accuracy at ${formatPercent(acc)}; keep a tight rein on prompt history.`
+        : `With ${formatPercent(rate)} corrupted turns, turn-100 accuracy falls to ${formatPercent(acc)} (${dropLabel}).`;
+
+      const failureShare = Math.max(0, 1 - acc);
+      const qaLine = failureShare > 0.01
+        ? `Expect about ${(failureShare * 100).toFixed(0)}% of 100-turn runs to need manual rescue - staff QA accordingly.`
+        : 'Expect negligible manual rescues at turn 100 with this configuration.';
+
+      const reduction = rate > 0 ? Math.min(rate, 0.25) : 0;
+      const cleanedRate = Math.max(rate - reduction, 0);
+      const recovered = interpolateAccuracy(selfConditionData[model], cleanedRate);
+      const reductionLabel = rate > 0 ? Math.round(reduction * 100) : 0;
+      const recoveryLine = rate > 0
+        ? `Cutting error carry-over by ${reductionLabel} pts (to ${formatPercent(cleanedRate)}) would restore accuracy to ${formatPercent(recovered)}.`
+        : 'Keep the history clean; once errors creep in, the drop is steep.';
+
+      renderImpact([headline, qaLine, recoveryLine]);
     };
 
     modelSelect.addEventListener('change', recalc);
@@ -218,12 +264,12 @@ const interactiveScript = () => {
     const options = Object.keys(thinkingData).map(name => '<option value="' + name + '">' + name + '</option>');
     const controlsHtml = [];
     controlsHtml.push(
-      '<div class="bg-white border border-indigo-200 rounded-md p-3 space-y-2">' +
-        '<label class="text-[11px] font-semibold text-indigo-700 uppercase">Model</label>' +
-        '<select id="p06-thinking-model" class="w-full border border-indigo-200 rounded px-2 py-1 text-sm">' + options.join('') + '</select>' +
-        '<p class="text-[11px] text-indigo-800">Values approximate Fig. 7 (>=80% success).</p>' +
+      '<div class="panel panel-neutral-soft p-3 space-y-2">' +
+        '<label class="block text-xs font-semibold text-heading">Model</label>' +
+        '<select id="p06-thinking-model" class="w-full rounded border border-divider bg-card px-2 py-1 text-sm text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">' + options.join('') + '</select>' +
+        '<p class="text-xs panel-muted">Values approximate Fig. 7 (>=80% success).</p>' +
       '</div>' +
-      '<div class="bg-white border border-indigo-200 rounded-md p-3 space-y-2" id="p06-thinking-details"></div>'
+      '<div class="panel panel-neutral-soft p-3 space-y-2 text-xs text-body" id="p06-thinking-details"></div>'
     );
     stageControlsEl.innerHTML = controlsHtml.join('');
 
@@ -232,9 +278,26 @@ const interactiveScript = () => {
 
     const render = () => {
       const data = thinkingData[select.value];
-      detailsEl.innerHTML = '<p class="text-xs"><strong>Plain answer:</strong> ' + data.plain + ' steps/turn</p>' +
-                            '<p class="text-xs"><strong>Thinking enabled:</strong> ' + data.thinking + ' steps/turn</p>';
+      detailsEl.innerHTML = '<p class="text-xs text-body"><strong>Plain answer:</strong> ' + data.plain + ' steps/turn</p>' +
+                            '<p class="text-xs text-body"><strong>Thinking enabled:</strong> ' + data.thinking + ' steps/turn</p>';
       stageLabelEl.textContent = 'Max steps with thinking ~= ' + data.thinking;
+
+      let headline;
+      if (data.thinking > data.plain) {
+        const ratioValue = data.plain ? data.thinking / data.plain : null;
+        const ratioLabel = ratioValue ? (ratioValue >= 10 ? Math.round(ratioValue) + 'x' : ratioValue.toFixed(1) + 'x') : 'multiple';
+        headline = `Reasoning traces lift endurance from ${data.plain} to ${data.thinking} chained steps (~${ratioLabel}).`;
+      } else {
+        headline = `Reasoning traces do not extend this model beyond ${data.plain} steps; invest elsewhere for long workflows.`;
+      }
+      const checkpointLine = data.plain <= 5
+        ? `Without thinking traces, schedule human checkpoints after ${data.plain} actions to avoid cascaded failures.`
+        : `Plain answers cover ${data.plain} steps, but still lag the thinking trace - set guardrails for longer runs.`;
+      const slaLine = data.thinking > data.plain
+        ? `Budget for extra latency and tokens to unlock ${data.thinking}-step runs; confirm the cost still beats staffing those workflows.`
+        : 'Evaluate alternative models if you need long-horizon execution; this setup offers no thinking-mode gain.';
+
+      renderImpact([headline, checkpointLine, slaLine]);
     };
 
     select.addEventListener('change', render);
@@ -245,8 +308,9 @@ const interactiveScript = () => {
     const view = VIEWS[currentView];
     if (!view) return;
     stageLabelEl.textContent = '-';
-    insightsEl.innerHTML = view.insights.map(text => '<p>' + text + '</p>').join('');
-    actionsEl.innerHTML = view.actions.map(text => '<li>' + text + '</li>').join('');
+    renderImpact([]);
+    insightsEl.innerHTML = view.insights.map(text => '<p class="panel-muted">' + text + '</p>').join('');
+    actionsEl.innerHTML = view.actions.map(text => '<li class="text-body">' + text + '</li>').join('');
 
     if (currentView === 'step') {
       updateStepView();

@@ -1,33 +1,38 @@
 <div class="space-y-6" id="p06-explorer">
-  <section class="bg-white border border-gray-200 rounded-lg p-5 space-y-4">
+  <section class="panel panel-neutral p-5 space-y-4">
     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-      <div>
-        <p class="text-[11px] font-semibold tracking-wide text-indigo-600 uppercase">Choose a lens</p>
-        <h3 class="text-sm font-semibold text-gray-900">Inspect horizon scaling, self-conditioning, or thinking models</h3>
-        <p class="text-xs text-gray-600 mt-1">Each view is derived from the paper’s experiments but simplified for quick exploration.</p>
+      <div class="space-y-1">
+        <p class="text-xs font-semibold tracking-wide uppercase text-heading">Choose a lens</p>
+        <h3 class="text-sm font-semibold text-heading">Inspect horizon scaling, self-conditioning, or thinking models</h3>
+        <p class="text-xs panel-muted mt-1">Each view is derived from the paper experiments but simplified for quick exploration.</p>
       </div>
     </div>
     <div class="flex flex-wrap gap-2" id="p06-views"></div>
   </section>
 
-  <section class="bg-indigo-50 border border-indigo-200 rounded-lg p-4 space-y-3">
+  <section class="panel panel-info p-5 space-y-3">
     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
       <div>
-        <p class="text-[11px] font-semibold uppercase tracking-wide text-indigo-700" id="p06-stage-heading"></p>
-        <h4 class="text-sm font-semibold text-indigo-900" id="p06-stage-subheading"></h4>
+        <p class="text-xs font-semibold uppercase tracking-wide text-heading" id="p06-stage-heading"></p>
+        <h4 class="text-sm font-semibold text-heading" id="p06-stage-subheading"></h4>
       </div>
-      <div class="text-xs font-mono bg-white border border-indigo-200 px-3 py-1.5 rounded text-indigo-700" id="p06-stage-label">—</div>
+      <div class="chip chip-neutral text-xs font-mono" id="p06-stage-label">&mdash;</div>
     </div>
-    <div id="p06-stage-controls" class="grid md:grid-cols-2 gap-3 text-xs text-indigo-900"></div>
+    <div id="p06-stage-controls" class="grid md:grid-cols-2 gap-3 text-xs text-body"></div>
   </section>
 
-  <section class="bg-white border border-gray-200 rounded-lg p-5 space-y-3">
-    <h4 class="text-sm font-semibold text-gray-900">What the paper shows</h4>
-    <div id="p06-insights" class="text-sm text-gray-700 space-y-2"></div>
+  <section class="panel panel-success p-5 space-y-2">
+    <h4 class="text-sm font-semibold text-heading">Business impact</h4>
+    <ul id="p06-impact" class="list-disc ml-5 text-sm text-body space-y-1"></ul>
   </section>
 
-  <section class="bg-amber-50 border border-amber-200 rounded-lg p-5 space-y-2">
-    <h4 class="text-sm font-semibold text-amber-900">Apply it</h4>
-    <ul id="p06-actions" class="list-disc ml-5 text-sm text-amber-800 space-y-1"></ul>
+  <section class="panel panel-neutral p-5 space-y-3">
+    <h4 class="text-sm font-semibold text-heading">What the paper shows</h4>
+    <div id="p06-insights" class="text-sm panel-muted space-y-2"></div>
+  </section>
+
+  <section class="panel panel-warning p-5 space-y-2">
+    <h4 class="text-sm font-semibold text-heading">Apply it</h4>
+    <ul id="p06-actions" class="list-disc ml-5 text-sm text-body space-y-1"></ul>
   </section>
 </div>

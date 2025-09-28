@@ -1,102 +1,129 @@
-<div class="space-y-5">
-  <div class="bg-indigo-50 border border-indigo-200 rounded-lg p-4">
+﻿<div class="paper-overview-card space-y-6">
+  <section class="panel panel-info panel-emphasis p-5 space-y-3">
     <div class="flex flex-wrap md:flex-nowrap items-start justify-between gap-4">
-      <div class="md:max-w-3xl">
-        <h2 class="text-xl font-semibold text-indigo-900">The impact of AI and digital platforms on the information ecosystem</h2>
-        <p class="text-sm text-indigo-700">Joseph E. Stiglitz, Maxim Ventura-Bolet &bull; NBER Transformative AI Conference (Sep 2025)</p>
+      <div class="space-y-1 md:max-w-3xl">
+        <h2 class="text-xl font-semibold text-heading">The impact of AI and digital platforms on the information ecosystem</h2>
+        <p class="text-sm text-muted">Joseph E. Stiglitz, Maxim Ventura-Bolet &bull; NBER Transformative AI Conference (Sep 2025)</p>
       </div>
-      <a href="https://conference.nber.org/conf_papers/f227506.pdf" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-medium bg-white border border-indigo-200 text-indigo-700 hover:bg-indigo-100">
+      <a href="https://conference.nber.org/conf_papers/f227506.pdf" target="_blank" rel="noopener" class="btn-soft text-xs font-semibold" data-accent="foundations">
         <span>View paper</span>
-        <span aria-hidden="true" class="text-sm leading-none">&#8599;</span>
+        <span aria-hidden="true">&#8599;</span>
       </a>
     </div>
-    <p class="mt-3 text-sm text-indigo-800 leading-relaxed">
+    <p class="text-sm text-secondary leading-relaxed">
       The authors build a model in which news producers choose between truthful investigations and low-cost misinformation while monetising visits through ads and data. Consumers vary in how well they can spot unreliable sources, so the mix of truth versus lies becomes a macro outcome rather than an editorial choice.
     </p>
-    <p class="mt-2 text-xs text-indigo-800 leading-relaxed">
+    <p class="text-xs text-muted leading-relaxed">
       AI-augmented platforms shift incentives along four channels: they speed distribution, siphon traffic away from originators, cheapen misinformation, and reshape how effectively citizens screen content. Without guardrails, those levers jointly shrink the supply of trustworthy information and deepen polarisation.
     </p>
-  </div>
+  </section>
 
-  <div class="bg-slate-900 text-slate-100 border border-slate-800 rounded-lg p-5 space-y-3">
-    <h3 class="text-sm font-semibold tracking-wide uppercase text-slate-200">Executive quick take</h3>
-    <p class="text-sm text-slate-200 leading-relaxed">
-      Treat AI newsfeeds as economic shocks to both the cost of lying and the funding of truth. If accountability and licensing lag, equilibrium tilts toward misinformation even though distribution gets faster. Tie AI deployment to liability, provenance, and revenue sharing before the truth supply contracts.
+  <section class="panel panel-neutral panel-emphasis p-5 space-y-3">
+    <header class="flex items-center gap-2">
+      <span aria-hidden="true" class="text-lg">&#128741;</span>
+      <h3 class="text-sm font-semibold uppercase tracking-wide text-heading">Executive quick take</h3>
+    </header>
+    <p class="text-sm text-secondary leading-relaxed">
+      Treat AI newsfeeds as economic shocks to both the cost of lying and the funding of truth. Heterogeneous screening skill means the same shock widens gaps between citizens unless design lifts the floor for the least discerning readers. If accountability and licensing lag, equilibrium tilts toward misinformation even though distribution gets faster. Tie AI deployment to liability, provenance, and revenue sharing before the truth supply contracts.
     </p>
-    <ul class="list-disc ml-5 text-sm text-slate-300 space-y-1">
+    <ul class="list-disc ml-5 text-sm text-secondary space-y-1">
       <li><strong>Distribution alone is not the win:</strong> Efficiency gains do not help if producers cannot recover their investigative spend.</li>
       <li><strong>Misinformation is price-sensitive:</strong> When generative tools make lies cheap, their share rises unless screening improves faster.</li>
       <li><strong>Polarisation is endogenous:</strong> Platform design determines whether citizens converge on common facts or split into echo chambers.</li>
     </ul>
-  </div>
+  </section>
 
-  <div class="bg-emerald-50 border border-emerald-200 rounded-lg p-5 space-y-2">
-    <h3 class="text-sm font-semibold text-emerald-900">Business relevance</h3>
-    <ul class="list-disc ml-5 text-sm text-emerald-800 space-y-1">
+  <section class="panel panel-success p-5 space-y-2">
+    <header class="flex items-center gap-2">
+      <span aria-hidden="true" class="text-lg">&#128188;</span>
+      <h3 class="text-sm font-semibold text-heading">Business relevance</h3>
+    </header>
+    <ul class="list-disc ml-5 text-sm text-secondary space-y-1">
       <li><strong>Policy and trust &amp; safety leads:</strong> Quantify how summarisation or chat interfaces displace clicks back to publishers and fund the truth deficit before scaling AI features.</li>
       <li><strong>Platform product managers:</strong> Bake screening effectiveness metrics into launch gates so new AI surfaces do not flood users with plausible-but-false answers.</li>
       <li><strong>Newsroom strategy teams:</strong> Lobby for licensing, data rights, and public-interest subsidies that keep investigative desks solvent as platforms interpose AI layers.</li>
     </ul>
-    <div class="bg-white border border-emerald-200 rounded-md p-3 mt-3 space-y-1 text-xs text-emerald-900">
-      <p class="font-semibold">Derivative example (civic info guardrail playbook)</p>
-      <p class="text-emerald-800">A national election portal negotiates revenue sharing with AI aggregators, requires labelled provenance on generated answers, and funds a pooled fact-checking service that updates the models weekly.</p>
+    <div class="panel panel-neutral-soft p-3 mt-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Derivative example (civic info guardrail playbook)</p>
+      <p class="text-secondary">A national election portal negotiates revenue sharing with AI aggregators, requires labelled provenance on generated answers, and funds a pooled fact-checking service that updates the models weekly.</p>
     </div>
-  </div>
+  </section>
 
-  <div class="grid md:grid-cols-3 gap-4">
-    <div class="bg-white border border-gray-200 rounded-lg p-3">
-      <h5 class="text-sm font-semibold text-gray-900">Key insight</h5>
-      <p class="text-xs text-gray-600">Left unchecked, AI platforms can reduce the equilibrium stock of truthful reporting even if they make distribution faster and cheaper.</p>
-    </div>
-    <div class="bg-white border border-gray-200 rounded-lg p-3">
-      <h5 class="text-sm font-semibold text-gray-900">Method</h5>
-      <p class="text-xs text-gray-600">A two-sided model of news producers (truthful or deceptive) and consumers with heterogeneous screening ability, augmented with platform parameters that alter costs, traffic, and detection quality.</p>
-    </div>
-    <div class="bg-white border border-gray-200 rounded-lg p-3">
-      <h5 class="text-sm font-semibold text-gray-900">Implications</h5>
-      <p class="text-xs text-gray-600">Regulation, licensing, and product design choices decide whether AI amplifies a knowledge commons or a misinformation trap.</p>
-    </div>
-  </div>
+  <section class="grid md:grid-cols-3 gap-4">
+    <article class="panel panel-neutral p-3 space-y-2">
+      <h5 class="text-sm font-semibold text-heading">Key insight</h5>
+      <p class="text-xs text-secondary">Left unchecked, AI platforms can reduce the equilibrium stock of truthful reporting even if they make distribution faster and cheaper.</p>
+    </article>
+    <article class="panel panel-neutral p-3 space-y-2">
+      <h5 class="text-sm font-semibold text-heading">Method</h5>
+      <p class="text-xs text-secondary">A two-sided model of news producers (truthful or deceptive) and consumers with heterogeneous screening ability, augmented with platform parameters that alter costs, traffic, and detection quality.</p>
+    </article>
+    <article class="panel panel-neutral p-3 space-y-2">
+      <h5 class="text-sm font-semibold text-heading">Implications</h5>
+      <p class="text-xs text-secondary">Regulation, licensing, and product design choices decide whether AI amplifies a knowledge commons or a misinformation trap.</p>
+    </article>
+  </section>
 
-  <div class="grid md:grid-cols-2 gap-4">
-    <div class="bg-sky-50 border border-sky-200 rounded-lg p-4 space-y-2">
-      <h3 class="text-sm font-semibold text-sky-900">Four channels to stress test</h3>
-      <p class="text-xs text-sky-800">Each lever from the paper maps to a product or policy decision your team controls.</p>
-      <ul class="list-disc ml-4 text-[11px] text-sky-700 space-y-1">
+  <section class="grid md:grid-cols-2 gap-4">
+    <article class="panel panel-accent p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Four channels to stress test</h3>
+      <p class="text-xs text-secondary">Each lever from the paper maps to a product or policy decision your team controls.</p>
+      <ul class="list-disc ml-4 text-[11px] text-secondary space-y-1">
         <li><strong>Processing &amp; transmission:</strong> AI summarisation improves speed but must preserve provenance.</li>
         <li><strong>Producer monetisation:</strong> Traffic leakage to platforms can bankrupt investigative desks.</li>
         <li><strong>Misinformation cost:</strong> Generators drive marginal costs of lies toward zero.</li>
         <li><strong>Consumer screening:</strong> Assistive AI can help or hurt depending on how prompts, cues, and defaults are designed.</li>
       </ul>
-    </div>
-    <div class="bg-sky-50 border border-sky-200 rounded-lg p-4 space-y-2">
-      <h3 class="text-sm font-semibold text-sky-900">What guardrails change</h3>
-      <p class="text-xs text-sky-800">Accountability norms invert the payoff matrix for both publishers and platforms.</p>
-      <ul class="list-disc ml-4 text-[11px] text-sky-700 space-y-1">
+    </article>
+    <article class="panel panel-accent p-4 space-y-2">
+      <header class="flex items-center gap-2">
+        <span aria-hidden="true" class="text-lg">&#128737;</span>
+        <h3 class="text-sm font-semibold text-heading">What guardrails change</h3>
+      </header>
+      <p class="text-xs text-secondary">Accountability norms invert the payoff matrix for both publishers and platforms, and even seemingly neutral AI intermediaries that flatten everyone's feed only delay divergence unless those norms stick.</p>
+      <ul class="list-disc ml-4 text-[11px] text-secondary space-y-1">
         <li>Liability or IP enforcement raises the effective cost of distributing false content.</li>
         <li>Licensing and public funding top up truth supply when ads/data revenue fall.</li>
         <li>Transparency mandates improve consumer filtering and cool polarisation.</li>
       </ul>
-    </div>
-  </div>
+    </article>
+  </section>
 
-  <div class="bg-white border border-gray-200 rounded-lg p-5 space-y-3">
-    <h3 class="text-sm font-semibold text-gray-900">Evidence base</h3>
-    <ul class="list-disc ml-5 text-sm text-gray-700 space-y-1">
+  <section class="panel panel-neutral p-5 space-y-3">
+    <header class="flex items-center gap-2">
+      <span aria-hidden="true" class="text-lg">&#128202;</span>
+      <h3 class="text-sm font-semibold text-heading">Evidence base</h3>
+    </header>
+    <ul class="list-disc ml-5 text-sm text-secondary space-y-1">
       <li>Defines equilibrium producer profits under platform revenue shares (&#969;), truth valuation (v<sub>T</sub>, v<sub>U</sub>), and screening skill (&#952;).</li>
       <li>Shows that when AI lowers misinformation costs faster than it improves screening, the share of lies rises and truthful output shrinks.</li>
       <li>Demonstrates multiple Nash equilibria where platform policy selects the mix of truth versus misinformation.</li>
       <li>Analyses regulatory tools &mdash; accountability, moderation, IP protection &mdash; that restore a high-truth steady state.</li>
     </ul>
-  </div>
+  </section>
 
-  <div class="bg-amber-50 border border-amber-200 rounded-lg p-5 space-y-2">
-    <h3 class="text-sm font-semibold text-amber-900">Forward-looking roadmap</h3>
-    <ul class="list-disc ml-5 text-sm text-amber-800 space-y-1">
+  <section class="panel panel-warning p-5 space-y-2">
+    <header class="flex items-center gap-2">
+      <span aria-hidden="true" class="text-lg">&#128678;</span>
+      <h3 class="text-sm font-semibold text-heading">Forward-looking roadmap</h3>
+    </header>
+    <ul class="list-disc ml-5 text-sm text-secondary space-y-1">
       <li>Measure how AI summaries affect publisher visit depth and investigate reimbursement models before launch.</li>
       <li>Test consumer co-pilots that highlight source reliability scores instead of drafting definitive answers.</li>
       <li>Codify liability triggers for repeated misinformation so platform economics internalise the social cost.</li>
       <li>Pursue public-interest data licensing or subsidies that keep investigative newsrooms solvent.</li>
     </ul>
-  </div>
+  </section>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+

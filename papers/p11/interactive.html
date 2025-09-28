@@ -1,43 +1,45 @@
-<div id="p11-lab" class="space-y-6">
-  <div class="bg-gradient-to-r from-slate-50 via-indigo-50 to-slate-50 border border-indigo-100 rounded-lg p-4">
-    <h4 class="text-sm font-semibold text-indigo-900">Choose ecosystem view</h4>
-    <div id="p11-scenarios" class="mt-3 flex flex-wrap gap-2">
-      <button type="button" data-scenario="digital" class="p11-scenario-btn inline-flex items-center gap-2 px-3 py-1.5 text-xs font-medium border border-indigo-200 rounded-md bg-white text-indigo-700 hover:bg-indigo-100" aria-pressed="true">2010s digital platforms</button>
-      <button type="button" data-scenario="ai-unregulated" class="p11-scenario-btn inline-flex items-center gap-2 px-3 py-1.5 text-xs font-medium border border-indigo-200 rounded-md bg-white text-indigo-700 hover:bg-indigo-100" aria-pressed="false">AI surge, weak guardrails</button>
-      <button type="button" data-scenario="ai-guarded" class="p11-scenario-btn inline-flex items-center gap-2 px-3 py-1.5 text-xs font-medium border border-indigo-200 rounded-md bg-white text-indigo-700 hover:bg-indigo-100" aria-pressed="false">AI with accountability</button>
+<div id="p11-lab" class="paper-interactive-card space-y-6">
+  <section class="panel panel-info panel-emphasis p-5 space-y-4">
+    <header class="space-y-2">
+      <h4 class="text-sm font-semibold text-heading">Choose ecosystem view</h4>
+      <p class="text-xs text-muted">Scenarios encode the paper&apos;s comparative statics: platform efficiency, producer revenue pressure, misinformation cost, and consumer screening ability.</p>
+    </header>
+    <div id="p11-scenarios" class="view-toggle flex flex-wrap gap-2" role="group" aria-label="Select news ecosystem scenario">
+      <button type="button" data-scenario="digital" class="p11-scenario-btn toggle-active" aria-pressed="true">2010s digital platforms</button>
+      <button type="button" data-scenario="ai-unregulated" class="p11-scenario-btn toggle-inactive" aria-pressed="false">AI surge, weak guardrails</button>
+      <button type="button" data-scenario="ai-guarded" class="p11-scenario-btn toggle-inactive" aria-pressed="false">AI with accountability</button>
     </div>
-    <p class="mt-2 text-xs text-indigo-700">Scenarios encode the paper&apos;s comparative statics: platform efficiency, producer revenue pressure, misinformation cost, and consumer screening ability.</p>
-  </div>
+  </section>
 
-  <div class="grid md:grid-cols-3 gap-4" id="p11-metrics">
-    <div class="bg-white border border-gray-200 rounded-lg p-4 space-y-2">
-      <div class="text-[11px] uppercase tracking-wide text-indigo-600 font-semibold">Truthful supply index</div>
-      <p id="p11-metric-truth" class="text-2xl font-semibold text-gray-900">&mdash;</p>
-      <p class="text-xs text-gray-500">Normalised to the pre-platform baseline (100 = healthy investigative output).</p>
-    </div>
-    <div class="bg-white border border-gray-200 rounded-lg p-4 space-y-2">
-      <div class="text-[11px] uppercase tracking-wide text-rose-600 font-semibold">Misinformation share</div>
-      <p id="p11-metric-misinfo" class="text-2xl font-semibold text-gray-900">&mdash;</p>
-      <p class="text-xs text-gray-500">Share of total content that is deceptive or low-quality in equilibrium.</p>
-    </div>
-    <div class="bg-white border border-gray-200 rounded-lg p-4 space-y-2">
-      <div class="text-[11px] uppercase tracking-wide text-amber-600 font-semibold">Polarisation risk</div>
-      <p id="p11-metric-polar" class="text-2xl font-semibold text-gray-900">&mdash;</p>
-      <p class="text-xs text-gray-500">Relative probability that audiences end up in divergent belief states.</p>
-    </div>
-  </div>
+  <section id="p11-metrics" class="grid md:grid-cols-3 gap-4">
+    <article class="panel panel-neutral p-4 space-y-2">
+      <div class="text-[11px] uppercase tracking-wide text-muted">Truthful supply index</div>
+      <p id="p11-metric-truth" class="text-2xl font-semibold text-heading">&mdash;</p>
+      <p class="text-xs text-muted">Normalised to the pre-platform baseline (100 = healthy investigative output).</p>
+    </article>
+    <article class="panel panel-neutral p-4 space-y-2">
+      <div class="text-[11px] uppercase tracking-wide text-warning font-semibold">Misinformation share</div>
+      <p id="p11-metric-misinfo" class="text-2xl font-semibold text-heading">&mdash;</p>
+      <p class="text-xs text-muted">Share of total content that is deceptive or low-quality in equilibrium.</p>
+    </article>
+    <article class="panel panel-neutral p-4 space-y-2">
+      <div class="text-[11px] uppercase tracking-wide text-warning font-semibold">Polarisation risk</div>
+      <p id="p11-metric-polar" class="text-2xl font-semibold text-heading">&mdash;</p>
+      <p class="text-xs text-muted">Relative probability that audiences end up in divergent belief states.</p>
+    </article>
+  </section>
 
-  <div class="bg-white border border-gray-200 rounded-lg p-5 space-y-3">
+  <section class="panel panel-neutral p-5 space-y-3">
     <div class="flex items-center justify-between gap-3">
-      <h4 class="text-sm font-semibold text-gray-900">How AI shifts the four channels</h4>
-      <span id="p11-channel-label" class="text-xs font-mono bg-indigo-50 text-indigo-700 px-2 py-1 rounded">&mdash;</span>
+      <h4 class="text-sm font-semibold text-heading">How AI shifts the four channels</h4>
+      <span id="p11-channel-label" class="chip chip-neutral text-xs font-semibold uppercase tracking-wide">&mdash;</span>
     </div>
-    <div id="p11-channel-grid" class="grid md:grid-cols-2 gap-3 text-sm text-gray-700"></div>
-  </div>
+    <div id="p11-channel-grid" class="grid md:grid-cols-2 gap-3"></div>
+  </section>
 
-  <div class="bg-amber-50 border border-amber-200 rounded-lg p-5 space-y-3">
-    <h4 class="text-sm font-semibold text-amber-900">Stiglitz &amp; Ventura-Bolet takeaway</h4>
-    <p id="p11-summary" class="text-sm text-amber-800 leading-relaxed"></p>
-    <ul id="p11-actions" class="list-disc ml-5 text-sm text-amber-800 space-y-1"></ul>
-  </div>
+  <section class="panel panel-warning p-5 space-y-3">
+    <h4 class="text-sm font-semibold text-heading">Stiglitz &amp; Ventura-Bolet takeaway</h4>
+    <p id="p11-summary" class="text-sm text-secondary leading-relaxed"></p>
+    <ul id="p11-actions" class="list-disc ml-5 text-sm text-secondary space-y-1"></ul>
+  </section>
 </div>

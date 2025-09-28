@@ -1,33 +1,36 @@
-<div class="space-y-6" id="p10-lab">
-  <section class="bg-white border border-gray-200 rounded-lg p-5 space-y-4">
+<div id="p10-lab" class="paper-interactive-card space-y-6">
+  <section class="panel panel-neutral p-5 space-y-4">
     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
       <div>
-        <p class="text-[11px] font-semibold tracking-wide text-indigo-600 uppercase">Choose a scenario</p>
-        <h3 class="text-sm font-semibold text-gray-900">See how experts, routine teams, and AI copilots share the workload</h3>
-        <p class="text-xs text-gray-600 mt-1">Adjust the sliders to change how wide your playbooks reach, how quickly experts or AI tire out, and how much expert time you have in reserve.</p>
+        <p class="text-[11px] font-semibold tracking-wide text-accent uppercase">Choose a scenario</p>
+        <h3 class="text-sm font-semibold text-heading">See how experts, routine teams, and AI copilots share the workload</h3>
+        <p class="text-xs text-muted mt-1">Adjust the sliders to change how wide your playbooks reach, how quickly experts or AI tire out, and how much expert time you have in reserve.</p>
       </div>
     </div>
     <div class="flex flex-wrap gap-2" id="p10-scenarios" role="tablist"></div>
   </section>
 
-  <section class="bg-indigo-50 border border-indigo-200 rounded-lg p-4 space-y-3">
+  <section class="panel panel-info p-4 space-y-3">
     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
       <div>
-        <p class="text-[11px] font-semibold uppercase tracking-wide text-indigo-700" id="p10-stage-heading"></p>
-        <h4 class="text-sm font-semibold text-indigo-900" id="p10-stage-subheading"></h4>
+        <p class="text-[11px] font-semibold uppercase tracking-wide text-heading" id="p10-stage-heading"></p>
+        <h4 class="text-sm font-semibold text-heading" id="p10-stage-subheading"></h4>
       </div>
-      <div class="flex flex-wrap items-center gap-2 text-indigo-700 text-xs font-medium" id="p10-stage-label">-</div>
+      <div class="flex flex-wrap items-center gap-2 text-secondary text-xs font-medium" id="p10-stage-label">-</div>
     </div>
-    <div id="p10-stage-controls" class="grid md:grid-cols-2 gap-3 text-xs text-indigo-900"></div>
+    <div id="p10-stage-controls" class="grid md:grid-cols-2 gap-3 text-xs text-body"></div>
   </section>
 
-  <section class="bg-white border border-gray-200 rounded-lg p-5 space-y-3">
-    <h4 class="text-sm font-semibold text-gray-900">Who handles the workload?</h4>
-    <div id="p10-allocation" class="text-sm text-gray-700 space-y-2"></div>
+  <section class="panel panel-neutral p-5 space-y-3">
+    <h4 class="text-sm font-semibold text-heading">Who handles the workload?</h4>
+    <div id="p10-allocation" class="text-sm text-secondary space-y-2"></div>
   </section>
 
-  <section class="bg-emerald-50 border border-emerald-200 rounded-lg p-5 space-y-2">
+  <section class="panel panel-success p-5 space-y-2">
     <h4 class="text-sm font-semibold text-emerald-900">Manager takeaway</h4>
     <ul id="p10-actions" class="list-disc ml-5 text-sm text-emerald-800 space-y-1"></ul>
   </section>
 </div>
+
+
+

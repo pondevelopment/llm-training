@@ -119,13 +119,8 @@ const interactiveScript = () => {
     buttons.forEach((button) => {
       const isActive = button.dataset.scenario === scenarioKey;
       button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
-      if (isActive) {
-        button.classList.add('bg-indigo-600', 'text-white', 'border-indigo-600');
-        button.classList.remove('bg-white', 'text-indigo-700');
-      } else {
-        button.classList.remove('bg-indigo-600', 'text-white', 'border-indigo-600');
-        button.classList.add('bg-white', 'text-indigo-700');
-      }
+      button.classList.toggle('toggle-active', isActive);
+      button.classList.toggle('toggle-inactive', !isActive);
     });
   };
 
@@ -137,15 +132,13 @@ const interactiveScript = () => {
     polarEl.textContent = formatPercent(scenario.polarisation);
     channelLabelEl.textContent = scenario.label;
     channelGridEl.innerHTML = scenario.channels
-      .map((channel) => {
-        return `
-          <div class="bg-slate-50 border border-slate-200 rounded-md p-3">
-            <div class="text-xs font-semibold text-slate-900">${channel.title}</div>
-            <p class="text-[11px] text-slate-700 mt-1">${channel.status}</p>
-            <p class="text-[11px] text-slate-600 mt-1">${channel.note}</p>
-          </div>
-        `;
-      })
+      .map((channel) => `
+        <article class="panel panel-neutral-soft p-3 space-y-2">
+          <div class="text-xs font-semibold text-heading">${channel.title}</div>
+          <p class="text-[11px] text-secondary">${channel.status}</p>
+          <p class="text-[11px] text-muted">${channel.note}</p>
+        </article>
+      `)
       .join('');
     summaryEl.textContent = scenario.summary;
     actionsEl.innerHTML = scenario.actions.map((item) => `<li>${item}</li>`).join('');

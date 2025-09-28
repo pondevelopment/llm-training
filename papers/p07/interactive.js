@@ -17,6 +17,39 @@ const interactiveScript = () => {
     return;
   }
 
+  // Keep the metric box width stable so layout doesn't shift when values change.
+  els.metric.style.minWidth = '12rem';
+  els.metric.style.flex = '0 0 auto';
+
+  let metricWidthObserver = null;
+  const syncMetricWidth = () => {
+    const reference = els.controls.firstElementChild;
+    if (!reference) return;
+    const width = reference.getBoundingClientRect().width;
+    if (Number.isFinite(width) && width > 0) {
+      els.metric.style.width = width + 'px';
+    }
+  };
+
+  const observeMetricWidth = () => {
+    if (typeof ResizeObserver !== 'function') {
+      syncMetricWidth();
+      return;
+    }
+    if (metricWidthObserver) {
+      metricWidthObserver.disconnect();
+    }
+    const reference = els.controls.firstElementChild;
+    if (!reference) return;
+    metricWidthObserver = new ResizeObserver(syncMetricWidth);
+    metricWidthObserver.observe(reference);
+    syncMetricWidth();
+  };
+
+  if (typeof window !== 'undefined') {
+    window.addEventListener('resize', syncMetricWidth);
+  }
+
   const clamp01 = value => {
     if (Number.isNaN(value)) return 0;
     return Math.min(1, Math.max(0, value));
@@ -198,38 +231,45 @@ const interactiveScript = () => {
   };
 
   const renderInsights = config => {
-    els.insights.innerHTML = config.insights.map(text => '<p>' + text + '</p>').join('');
+    els.insights.innerHTML = config.insights.map(text => '<p class="panel-muted">' + text + '</p>').join('');
     els.actions.innerHTML = config.actions.map(text => '<li>' + text + '</li>').join('');
   };
 
   const renderMetric = result => {
     const delta = result.model - result.baseline;
     const deltaText = (delta >= 0 ? '+' : '') + (Math.round(delta * 1000) / 10).toFixed(1) + ' pts';
-    const deltaClass = delta >= 0 ? 'text-emerald-700' : 'text-rose-600';
-    const gauge = (value, label, bg, fill) => {
+    const deltaClass = delta >= 0 ? 'text-success' : 'text-danger';
+    const gauge = (value, label, fill) => {
       const safe = clamp01(value);
-      const width = safe === 0 ? 0 : Math.max(2, Math.round(safe * 100));
+      const width = safe === 0 ? 0 : Math.max(4, Math.round(safe * 100));
       return '<div class="space-y-1">' +
-        '<div class="flex items-center justify-between text-[11px] text-gray-600"><span>' + label + '</span><span class="font-mono text-gray-800">' + formatPercent(safe) + '</span></div>' +
-        '<div class="h-1.5 rounded ' + bg + ' overflow-hidden"><div class="h-full ' + fill + '" style="width:' + width + '%;"></div></div>' +
+        '<div class="flex items-center justify-between text-[11px] panel-muted"><span>' + label + '</span><span class="font-mono text-xs text-heading">' + formatPercent(safe) + '</span></div>' +
+        '<div class="h-1.5 rounded-full bg-subtle overflow-hidden"><div class="h-full rounded-full" style="width:' + width + '%; background:' + fill + ';"></div></div>' +
         '</div>';
     };
-    els.metric.innerHTML = '<div class="space-y-2">' +
-      gauge(result.model, 'Model', 'bg-indigo-100', 'bg-indigo-500') +
-      gauge(result.baseline, 'Any single expert', 'bg-slate-100', 'bg-slate-500') +
+    els.metric.innerHTML = '<div class="space-y-3">' +
+      gauge(result.model, 'Mixture model', 'var(--tone-indigo-strong)') +
+      gauge(result.baseline, 'Any single expert', 'var(--color-muted)') +
       '<p class="text-[11px] font-medium ' + deltaClass + '">Gap vs solo expert: ' + deltaText + '</p>' +
-      '<p class="text-[11px] text-gray-600">' + result.note + '</p>' +
+      '<p class="text-[11px] panel-muted">' + result.note + '</p>' +
       '</div>';
   };
 
   const createSlider = (config, value) => {
     const wrapper = document.createElement('div');
-    wrapper.className = 'bg-white border border-indigo-200 rounded-md p-3 space-y-2';
+    wrapper.className = 'panel panel-neutral-soft p-3 space-y-2';
 
     const label = document.createElement('label');
-    label.className = 'text-[11px] font-semibold text-indigo-700 uppercase';
+    label.className = 'flex items-center justify-between text-[11px] font-semibold uppercase tracking-wide text-heading';
     label.setAttribute('for', 'p07-' + config.key);
-    label.textContent = config.label;
+    const labelText = document.createElement('span');
+    labelText.textContent = config.label;
+    label.appendChild(labelText);
+    const valueLabel = document.createElement('span');
+    valueLabel.className = 'font-mono text-xs text-info';
+    valueLabel.textContent = config.formatter(value);
+    valueLabel.dataset.valueLabel = config.key;
+    label.appendChild(valueLabel);
     wrapper.appendChild(label);
 
     const input = document.createElement('input');
@@ -243,18 +283,8 @@ const interactiveScript = () => {
     input.className = 'w-full';
     wrapper.appendChild(input);
 
-    const valueRow = document.createElement('div');
-    valueRow.className = 'text-xs';
-    const valueLabel = document.createElement('span');
-    valueLabel.className = 'font-mono';
-    valueLabel.textContent = config.formatter(value);
-    valueLabel.dataset.valueLabel = config.key;
-    valueRow.textContent = 'Value: ';
-    valueRow.appendChild(valueLabel);
-    wrapper.appendChild(valueRow);
-
     const helper = document.createElement('p');
-    helper.className = 'text-[11px] text-indigo-800';
+    helper.className = 'text-[11px] panel-muted leading-snug';
     helper.textContent = config.helper;
     wrapper.appendChild(helper);
 
@@ -269,6 +299,8 @@ const interactiveScript = () => {
       els.controls.appendChild(wrapper);
       return { ctrl, input, valueLabel };
     });
+
+    observeMetricWidth();
 
     controlNodes.forEach(({ ctrl, input, valueLabel }) => {
       input.addEventListener('input', () => {
@@ -299,12 +331,13 @@ const interactiveScript = () => {
     Object.keys(MODE_CONFIG).forEach(key => {
       const config = MODE_CONFIG[key];
       const button = document.createElement('button');
-      const baseClass = 'px-3 py-1.5 rounded-md border text-xs font-medium transition-colors';
       button.type = 'button';
       button.dataset.mode = key;
-      button.className = key === state.mode
-        ? baseClass + ' bg-indigo-600 border-indigo-600 text-white shadow-sm'
-        : baseClass + ' bg-white border-gray-300 text-gray-700 hover:border-indigo-400 hover:text-indigo-600';
+      const active = state.mode === key;
+      const baseClass = 'text-xs font-semibold';
+      button.className = active
+        ? baseClass + ' toggle-active'
+        : baseClass + ' toggle-inactive';
       button.textContent = config.label;
       button.addEventListener('click', () => {
         if (state.mode === key) return;

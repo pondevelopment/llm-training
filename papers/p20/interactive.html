@@ -1,84 +1,84 @@
 <div id="p20-lab" class="space-y-6">
-  <div class="bg-gradient-to-r from-slate-50 via-indigo-50 to-slate-50 border border-indigo-100 rounded-lg p-4 space-y-3">
+  <section class="panel panel-info p-5 space-y-4">
     <div>
-      <label for="p20-scenario" class="block text-sm font-semibold text-indigo-900">Market scenario</label>
-      <select id="p20-scenario" class="mt-1 w-full px-3 py-2 border border-indigo-200 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+      <label for="p20-scenario" class="block text-sm font-semibold text-heading">Market scenario</label>
+      <select id="p20-scenario" class="mt-1 w-full rounded border border-divider bg-card px-3 py-2 text-sm text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
         <option value="jobs">AI-mediated hiring</option>
         <option value="retail">Agentic e-commerce</option>
         <option value="procurement">B2B procurement</option>
       </select>
-      <p class="text-[11px] text-indigo-700 mt-2">Presets tune agent capability, platform openness, and governance maturity to match the paper&apos;s case studies.</p>
+      <p class="text-[11px] panel-muted mt-2">Presets tune agent capability, platform openness, and governance maturity to match the paper&apos;s case studies.</p>
     </div>
-    <div class="flex flex-wrap gap-4 text-xs text-indigo-800">
+    <div class="flex flex-wrap gap-4 text-xs text-body">
       <label class="inline-flex items-center gap-2">
-        <input id="p20-platform" type="checkbox" class="accent-indigo-600">
+        <input id="p20-platform" type="checkbox" class="h-4 w-4 rounded border border-divider bg-card accent-[color:var(--accent-strong)]">
         <span>Platform ships its own agent</span>
       </label>
       <label class="inline-flex items-center gap-2">
-        <input id="p20-identity" type="checkbox" class="accent-indigo-600">
+        <input id="p20-identity" type="checkbox" class="h-4 w-4 rounded border border-divider bg-card accent-[color:var(--accent-strong)]">
         <span>Proof-of-personhood enforced</span>
       </label>
     </div>
-  </div>
+  </section>
 
-  <div class="grid md:grid-cols-2 gap-4">
-    <div class="bg-white border border-gray-200 rounded-lg p-4">
-      <label for="p20-capability" class="block text-xs font-medium text-gray-700 uppercase tracking-wide">Agent capability score</label>
-      <input id="p20-capability" type="range" min="30" max="95" step="5" value="60" class="w-full accent-indigo-500 mt-2">
-      <p class="text-[11px] text-gray-600 mt-1">Higher values mean agents routinely close tasks without human rescue (search, negotiation, contracting).</p>
-    </div>
-    <div class="bg-white border border-gray-200 rounded-lg p-4">
-      <label for="p20-openness" class="block text-xs font-medium text-gray-700 uppercase tracking-wide">Platform openness to BYO agents (%)</label>
-      <input id="p20-openness" type="range" min="10" max="100" step="5" value="45" class="w-full accent-indigo-500 mt-2">
-      <p class="text-[11px] text-gray-600 mt-1">Low openness implies throttled APIs and preferencing of house agents; high openness lets third-party bots roam.</p>
-    </div>
-    <div class="bg-white border border-gray-200 rounded-lg p-4">
-      <label for="p20-governance" class="block text-xs font-medium text-gray-700 uppercase tracking-wide">Identity &amp; oversight maturity</label>
-      <input id="p20-governance" type="range" min="10" max="100" step="5" value="40" class="w-full accent-indigo-500 mt-2">
-      <p class="text-[11px] text-gray-600 mt-1">Includes verified credentials, audit trails, kill-switches, and liability clarity.</p>
-    </div>
-    <div class="bg-white border border-gray-200 rounded-lg p-4">
-      <label for="p20-volume" class="block text-xs font-medium text-gray-700 uppercase tracking-wide">Agent transaction volume index</label>
-      <input id="p20-volume" type="range" min="10" max="100" step="5" value="55" class="w-full accent-indigo-500 mt-2">
-      <p class="text-[11px] text-gray-600 mt-1">Proxy for how many counterparties run bots; higher volume amplifies congestion and bargaining shifts.</p>
-    </div>
-  </div>
+  <section class="grid md:grid-cols-2 gap-4">
+    <article class="panel panel-neutral p-4 space-y-2">
+      <label for="p20-capability" class="block text-xs font-semibold uppercase tracking-wide text-heading">Agent capability score</label>
+      <input id="p20-capability" type="range" min="30" max="95" step="5" value="60" class="w-full accent-[color:var(--accent-strong)] mt-2">
+      <p class="text-[11px] panel-muted">Higher values mean agents routinely close tasks without human rescue (search, negotiation, contracting).</p>
+    </article>
+    <article class="panel panel-neutral p-4 space-y-2">
+      <label for="p20-openness" class="block text-xs font-semibold uppercase tracking-wide text-heading">Platform openness to BYO agents (%)</label>
+      <input id="p20-openness" type="range" min="10" max="100" step="5" value="45" class="w-full accent-[color:var(--accent-strong)] mt-2">
+      <p class="text-[11px] panel-muted">Low openness implies throttled APIs and preferencing of house agents; high openness lets third-party bots roam.</p>
+    </article>
+    <article class="panel panel-neutral p-4 space-y-2">
+      <label for="p20-governance" class="block text-xs font-semibold uppercase tracking-wide text-heading">Identity &amp; oversight maturity</label>
+      <input id="p20-governance" type="range" min="10" max="100" step="5" value="40" class="w-full accent-[color:var(--accent-strong)] mt-2">
+      <p class="text-[11px] panel-muted">Includes verified credentials, audit trails, kill-switches, and liability clarity.</p>
+    </article>
+    <article class="panel panel-neutral p-4 space-y-2">
+      <label for="p20-volume" class="block text-xs font-semibold uppercase tracking-wide text-heading">Agent transaction volume index</label>
+      <input id="p20-volume" type="range" min="10" max="100" step="5" value="55" class="w-full accent-[color:var(--accent-strong)] mt-2">
+      <p class="text-[11px] panel-muted">Proxy for how many counterparties run bots; higher volume amplifies congestion and bargaining shifts.</p>
+    </article>
+  </section>
 
-  <div class="grid md:grid-cols-5 gap-4" id="p20-metrics">
-    <div class="bg-white border border-gray-200 rounded-lg p-4 space-y-2">
-      <div class="text-[11px] uppercase tracking-wide text-indigo-600 font-semibold">Delegated transaction share</div>
-      <p id="p20-metric-adoption" class="text-2xl font-semibold text-gray-900">62%</p>
-      <p class="text-xs text-gray-500">Portion of workflows agents handle end-to-end.</p>
-    </div>
-    <div class="bg-white border border-gray-200 rounded-lg p-4 space-y-2">
-      <div class="text-[11px] uppercase tracking-wide text-rose-600 font-semibold">Platform leverage</div>
-      <p id="p20-metric-leverage" class="text-2xl font-semibold text-gray-900">48%</p>
-      <p class="text-xs text-gray-500">Combines API control, default agent share, and traffic steering power.</p>
-    </div>
-    <div class="bg-white border border-gray-200 rounded-lg p-4 space-y-2">
-      <div class="text-[11px] uppercase tracking-wide text-emerald-600 font-semibold">Workflow stage</div>
-      <p id="p20-metric-stage" class="text-base font-semibold text-gray-900 leading-snug whitespace-normal">Redistribution</p>
-      <p class="text-xs text-gray-500">Maps to the deployment &rarr; redistribution &rarr; reconstruction arc in the paper.</p>
-    </div>
-    <div class="bg-white border border-gray-200 rounded-lg p-4 space-y-2">
-      <div class="text-[11px] uppercase tracking-wide text-amber-600 font-semibold">Congestion risk</div>
-      <p id="p20-metric-congestion" class="text-2xl font-semibold text-gray-900">Moderate</p>
-      <p class="text-xs text-gray-500">Derived from agent volume, capability, and openness.</p>
-    </div>
-    <div class="bg-white border border-gray-200 rounded-lg p-4 space-y-2">
-      <div class="text-[11px] uppercase tracking-wide text-yellow-600 font-semibold">Regulatory pressure</div>
-      <p id="p20-metric-reg" class="text-2xl font-semibold text-gray-900">High</p>
-      <p class="text-xs text-gray-500">Signals how urgently governance must tighten.</p>
-    </div>
-  </div>
+  <section class="grid md:grid-cols-5 gap-4" id="p20-metrics">
+    <article class="panel panel-neutral-soft p-4 space-y-2">
+      <div class="text-[11px] uppercase tracking-wide text-heading font-semibold">Delegated transaction share</div>
+      <p id="p20-metric-adoption" class="text-2xl font-semibold text-heading">62%</p>
+      <p class="text-xs panel-muted">Portion of workflows agents handle end-to-end.</p>
+    </article>
+    <article class="panel panel-neutral-soft p-4 space-y-2">
+      <div class="text-[11px] uppercase tracking-wide text-heading font-semibold">Platform leverage</div>
+      <p id="p20-metric-leverage" class="text-2xl font-semibold text-heading">48%</p>
+      <p class="text-xs panel-muted">Combines API control, default agent share, and traffic steering power.</p>
+    </article>
+    <article class="panel panel-neutral-soft p-4 space-y-2">
+      <div class="text-[11px] uppercase tracking-wide text-heading font-semibold">Workflow stage</div>
+      <p id="p20-metric-stage" class="text-base font-semibold text-heading leading-snug whitespace-normal">Redistribution</p>
+      <p class="text-xs panel-muted">Maps to the deployment &rarr; redistribution &rarr; reconstruction arc in the paper.</p>
+    </article>
+    <article class="panel panel-neutral-soft p-4 space-y-2">
+      <div class="text-[11px] uppercase tracking-wide text-heading font-semibold">Congestion risk</div>
+      <p id="p20-metric-congestion" class="text-2xl font-semibold text-heading">Moderate</p>
+      <p class="text-xs panel-muted">Derived from agent volume, capability, and openness.</p>
+    </article>
+    <article class="panel panel-neutral-soft p-4 space-y-2">
+      <div class="text-[11px] uppercase tracking-wide text-heading font-semibold">Regulatory pressure</div>
+      <p id="p20-metric-reg" class="text-2xl font-semibold text-heading">High</p>
+      <p class="text-xs panel-muted">Signals how urgently governance must tighten.</p>
+    </article>
+  </section>
 
-  <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-5 space-y-2">
-    <h4 class="text-sm font-semibold text-yellow-900">Narrative</h4>
-    <div id="p20-explanation" class="text-sm text-yellow-800 space-y-2"></div>
-  </div>
+  <section class="panel panel-warning p-5 space-y-2">
+    <h4 class="text-sm font-semibold text-heading">Narrative</h4>
+    <div id="p20-explanation" class="text-sm text-body space-y-2"></div>
+  </section>
 
-  <div class="bg-rose-50 border border-rose-200 rounded-lg p-5 space-y-2">
-    <h4 class="text-sm font-semibold text-rose-900">Design moves to consider</h4>
-    <ul id="p20-actions" class="list-disc ml-5 text-sm text-rose-800 space-y-1"></ul>
-  </div>
+  <section class="panel panel-accent p-5 space-y-2">
+    <h4 class="text-sm font-semibold text-heading">Design moves to consider</h4>
+    <ul id="p20-actions" class="list-disc ml-5 text-sm text-body space-y-1"></ul>
+  </section>
 </div>

@@ -66,16 +66,16 @@ const interactiveScript = () => {
 
   const statusStyles = {
     strong: {
-      card: 'border-emerald-200 bg-emerald-50 text-emerald-800',
-      badge: 'bg-emerald-600 text-white'
+      card: 'border-emerald-200 dark:border-emerald-500/60 bg-emerald-50 dark:bg-emerald-900/30 text-emerald-800 dark:text-emerald-100',
+      badge: 'bg-emerald-600 dark:bg-emerald-500 text-white'
     },
     watch: {
-      card: 'border-amber-200 bg-amber-50 text-amber-800',
-      badge: 'bg-amber-500 text-white'
+      card: 'border-amber-200 dark:border-amber-500/60 bg-amber-50 dark:bg-amber-900/30 text-amber-800 dark:text-amber-100',
+      badge: 'bg-amber-500 dark:bg-amber-400 text-white dark:text-amber-950'
     },
     fail: {
-      card: 'border-rose-200 bg-rose-50 text-rose-800',
-      badge: 'bg-rose-600 text-white'
+      card: 'border-rose-200 dark:border-rose-500/60 bg-rose-50 dark:bg-rose-900/30 text-rose-800 dark:text-rose-100',
+      badge: 'bg-rose-600 dark:bg-rose-500 text-white'
     }
   };
 
@@ -202,7 +202,7 @@ const interactiveScript = () => {
     if (awareness) {
       narrative.push('Deliberative alignment is operating with the model aware it is being evaluated, mirroring the paper\'s primary mitigation setup.');
     } else {
-      narrative.push('Prompts hide the audit, so covert actions rebound towards pre-mitigation levels—matching the situational-awareness ablation.');
+      narrative.push('Prompts hide the audit, so covert actions rebound towards pre-mitigation levels&mdash;matching the situational-awareness ablation.');
     }
     narrative.push('OOD severity at ' + ood + ' and coverage overlap of ' + coverage + '% yield an estimated covert-action rate of ' + formatPercent(covertRate) + '.');
     if (hidden) {
@@ -220,7 +220,7 @@ const interactiveScript = () => {
       actions.push('Restore instrumentation that makes evaluation cues explicit or develop mitigations that do not rely on them.');
     }
     if (covertRate > 0.01) {
-      actions.push('Increase mitigated coverage—gather new deliberation traces from the failing environments.');
+      actions.push('Increase mitigated coverage&mdash;gather new deliberation traces from the failing environments.');
     }
     if (hidden && covertRate > 0.007) {
       actions.push('Cycle hidden-goal adversaries and block promotion until covert actions fall below 0.5%.');

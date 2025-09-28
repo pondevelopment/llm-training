@@ -120,9 +120,9 @@ const interactiveScript = () => {
     oversightEl.textContent = oversightLabel;
 
     const severityToClass = (score) => {
-      if (score >= 0.6) return 'border-rose-200 bg-rose-50 text-rose-800';
-      if (score >= 0.35) return 'border-amber-200 bg-amber-50 text-amber-800';
-      return 'border-emerald-200 bg-emerald-50 text-emerald-800';
+      if (score >= 0.6) return 'panel-warning';
+      if (score >= 0.35) return 'panel-accent';
+      return 'panel-success';
     };
 
     const riskMarkup = Object.entries(riskScores)
@@ -132,10 +132,10 @@ const interactiveScript = () => {
         if (!info) return '';
         const style = severityToClass(score);
         const label = score >= 0.6 ? 'High' : score >= 0.35 ? 'Medium' : 'Managed';
-        return '<article class="border rounded-lg p-3 space-y-1 ' + style + '">' +
-          '<div class="flex items-center justify-between"><h4 class="text-sm font-semibold">' + info.title + '</h4>' +
+        return '<article class="panel ' + style + ' p-3 space-y-2">' +
+          '<div class="flex items-center justify-between text-heading"><h4 class="text-sm font-semibold">' + info.title + '</h4>' +
           '<span class="text-[11px] font-semibold uppercase tracking-wide">' + label + '</span></div>' +
-          '<p class="text-xs leading-snug">' + info.description + '</p>' +
+          '<p class="text-xs panel-muted leading-snug">' + info.description + '</p>' +
         '</article>';
       })
       .join('');

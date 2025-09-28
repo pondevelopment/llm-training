@@ -1,57 +1,108 @@
 <div class="paper-overview-card space-y-6">
-  <section class="bg-slate-900 text-slate-100 border border-slate-800 rounded-xl p-5 space-y-3">
-    <header class="flex flex-col gap-2">
-      <h2 class="text-lg font-semibold tracking-wide uppercase text-slate-200">Executive quick take</h2>
-      <p class="text-sm leading-relaxed text-slate-200">
-        GDPval stress-tests AI models on 1,320 real deliverables drawn from 44 high-value occupations. Frontier
-        models now win or tie against experts on roughly half of the gold subset, especially when workflows layer in
-        extra reasoning, prompt scaffolding, and human review. Treat GDPval as an early warning system for when
-        knowledge-work automation becomes economically material.
-      </p>
-    </header>
-    <ul class="list-disc ml-5 text-sm text-slate-200 space-y-1">
+  <section class="panel panel-info panel-emphasis p-5 space-y-4">
+    <div class="flex flex-wrap md:flex-nowrap items-start justify-between gap-4">
+      <div class="md:max-w-3xl space-y-1">
+        <h2 class="text-xl font-semibold text-heading">GDPval: Evaluating AI Model Performance on Real-World Economically Valuable Tasks</h2>
+        <p class="text-sm panel-muted">Tejal Patwardhan &bull; Rachel Dias &bull; Elizabeth Proehl &bull; Grace Kim &bull; Michele Wang &bull; Olivia Watkins &bull; Simon Posada Fishman &bull; Marwan Aljubeh &bull; Phoebe Thacker &bull; Laurance Fauconnet &bull; Natalie S. Kim &bull; Patrick Chao &bull; Samuel Miserendino &bull; Gildas Chabot &bull; David Li &bull; Michael Sharman &bull; Alexandra Barr &bull; Amelia Glaese &bull; Jerry Tworek &bull; OpenAI Research (2025)</p>
+      </div>
+      <a href="https://openai.com/research/gdpval" target="_blank" rel="noopener" class="btn-soft text-xs font-semibold" data-accent="foundations">
+        <span>View paper</span>
+        <span aria-hidden="true">&#8599;</span>
+      </a>
+    </div>
+    <p class="text-sm leading-relaxed panel-muted">
+      GDPval assembles 1,320 deliverables drawn from 44 occupations that together represent the majority of global GDP, then pairs expert baselines with
+      frontier model outputs graded blindly by practitioners. The benchmark tracks win-rate head-to-heads rather than static scores, surfacing whether
+      AI assistance is starting to match specialists on consequential work.
+    </p>
+    <p class="text-sm leading-relaxed panel-muted">
+      The results show GPT-5 and Claude Opus 4.1 already tying or beating experts on roughly half of the gold-standard tasks, with reasoning effort,
+      scaffolding, and human review lifting outcomes without changing the underlying model. GDPval therefore acts as an operational early-warning signal
+      for when knowledge-work automation becomes economically material.
+    </p>
+    <div class="panel panel-neutral-soft p-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Plain-language explainer</p>
+      <p class="panel-muted">Think of GDPval as a giant portfolio review: real consultants, designers, analysts, and lawyers submit the work they would hand clients, and models are given the same brief. Graders compare the two blindly so teams can see when AI assistants start delivering human-grade results and what oversight still matters.</p>
+    </div>
+  </section>
+  <section class="panel panel-neutral panel-emphasis p-5 space-y-3">
+    <div class="flex items-center gap-2 text-heading">
+      <span aria-hidden="true" class="text-lg">🧭</span>
+      <h2 class="text-sm font-semibold tracking-wide uppercase">Executive quick take</h2>
+    </div>
+    <p class="text-sm leading-relaxed text-body">
+      GDPval stress-tests AI models on 1,320 real deliverables drawn from 44 high-value occupations. Frontier models now win or
+      tie against experts on roughly half of the gold subset, especially when workflows layer in extra reasoning, prompt scaffolding,
+      and human review. Treat GDPval as an early warning system for when knowledge-work automation becomes economically material.
+    </p>
+    <ul class="list-disc ml-5 text-sm panel-muted space-y-1">
       <li>Benchmark tracks win-rates rather than static scores, so it keeps signaling even as models improve.</li>
       <li>Seven-hour average task durations mean the evaluation reflects actual delivery expectations, not toy tests.</li>
       <li>Human-in-the-loop workflows already beat unaided experts on speed and cost for many scenarios.</li>
     </ul>
   </section>
 
-  <section class="bg-emerald-50 border border-emerald-200 rounded-xl p-5 space-y-3">
-    <header>
-      <h3 class="text-sm font-semibold text-emerald-900">Business relevance</h3>
-      <p class="text-sm text-emerald-800 leading-relaxed">
-        Use GDPval to anchor your AI investment roadmap: it illuminates which occupations face near-term pressure
-        and how much oversight keeps deliverables trustworthy.
-      </p>
-    </header>
-    <ul class="list-disc ml-5 text-sm text-emerald-800 space-y-1">
+  <section class="panel panel-success p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">Business relevance</h3>
+    <p class="text-sm text-body leading-relaxed">
+      Use GDPval to anchor your AI investment roadmap: it illuminates which occupations face near-term pressure and how much
+      oversight keeps deliverables trustworthy.
+    </p>
+    <ul class="list-disc ml-5 text-sm text-body space-y-1">
       <li><strong>Strategy leads:</strong> Plan reskilling budgets around the 9 GDP-dominant sectors represented in the benchmark.</li>
       <li><strong>Ops and PMO:</strong> Instrument pilot programs with GDPval-like pairwise grading to monitor automation ROI.</li>
       <li><strong>Risk teams:</strong> Map observed failure modes (instruction gaps, formatting slips) to review checklists and SLAs.</li>
       <li><strong>Engineering:</strong> Prioritize scaffolding features (multi-modal inspection, best-of-N sampling) proven to lift win rates.</li>
     </ul>
-    <div class="bg-card border border-subtle rounded-lg p-4 space-y-2 text-xs text-secondary">
+    <div class="panel panel-neutral-soft p-4 space-y-2 text-xs">
       <p class="font-semibold text-heading">Derivative example: GDPval control room</p>
-      <p>
-        A professional services firm logs every AI-assisted client deliverable through a GDPval-style rubric. Annotators track
-        model vs. human wins, classify failure modes, and publish cost/time deltas to executives each quarter. The data drives
-        targeted training, tool enablement, and pricing updates.
+      <p class="panel-muted">
+        A professional services firm logs every AI-assisted client deliverable through a GDPval-style rubric. Annotators track model vs. human wins,
+        classify failure modes, and publish cost/time deltas to executives each quarter. The data drives targeted training, tool enablement, and
+        pricing updates.
       </p>
     </div>
   </section>
 
   <section class="grid md:grid-cols-2 gap-4">
-    <article class="bg-card border border-subtle rounded-lg p-4 space-y-2">
+    <article class="panel panel-neutral p-5 space-y-3">
+      <h3 class="text-sm font-semibold text-heading">How the grading works</h3>
+      <ul class="list-disc ml-5 text-sm panel-muted space-y-1">
+        <li>Two domain experts grade each deliverable blindly against the human reference using a three-part rubric covering competence, instruction fidelity, and presentation polish.</li>
+        <li>A third adjudicator breaks ties or resolves <em>mixed</em> verdicts, logging rationales so teams can audit where models diverged from the brief.</li>
+        <li>All graders work from standardized scoring guides and shared attachment checklists to balance nuance with comparability.</li>
+      </ul>
+      <div class="panel panel-neutral-soft p-3 space-y-1 text-xs">
+        <p class="font-semibold text-heading">Rubric snapshot</p>
+        <p class="panel-muted">Competence gauges factual accuracy and judgment, fidelity enforces constraints, and presentation verifies deliverable polish. Transcripts and attachments are stored so engineering and risk teams can replay edge cases.</p>
+      </div>
+    </article>
+    <article class="panel panel-neutral p-5 space-y-3">
+      <h3 class="text-sm font-semibold text-heading">Dataset tiers &amp; tooling</h3>
+      <ul class="list-disc ml-5 text-sm panel-muted space-y-1">
+        <li><strong>Gold set:</strong> 220 attachment-rich tasks with scoring keys that power the published head-to-head win rates.</li>
+        <li><strong>Extended pool:</strong> 1,100 additional briefs covering the same 44 occupations for internal pilots and drift tracking.</li>
+        <li><strong>Automation toolkit:</strong> <code>evals.openai.com</code> grader templates, annotated rubrics, and sanitized assets for turnkey reruns.</li>
+      </ul>
+      <div class="panel panel-neutral-soft p-3 space-y-1 text-xs">
+        <p class="font-semibold text-heading">Usage tip</p>
+        <p class="panel-muted">Baseline on the gold set, then expand to the extended pool to monitor new launches or model refreshes.</p>
+      </div>
+    </article>
+  </section>
+
+  <section class="grid md:grid-cols-2 gap-4">
+    <article class="panel panel-neutral p-4 space-y-2">
       <h4 class="text-sm font-semibold text-heading">How GDPval is built</h4>
-      <ul class="list-disc ml-4 text-sm text-secondary space-y-1">
+      <ul class="list-disc ml-4 text-sm panel-muted space-y-1">
         <li>Tasks sourced from industry experts (average tenure 14 years) across 44 digital-first occupations.</li>
         <li>Covers top 9 GDP sectors, translating O*NET work activities into structured briefs with reference files.</li>
         <li>Gold subset ships 220 open tasks plus an automated grader at <code>evals.openai.com</code> to enable reproducible comparisons.</li>
       </ul>
     </article>
-    <article class="bg-card border border-subtle rounded-lg p-4 space-y-2">
+    <article class="panel panel-neutral p-4 space-y-2">
       <h4 class="text-sm font-semibold text-heading">What the benchmark reveals</h4>
-      <ul class="list-disc ml-4 text-sm text-secondary space-y-1">
+      <ul class="list-disc ml-4 text-sm panel-muted space-y-1">
         <li>Claude Opus 4.1 leads on aesthetics-driven formats; GPT-5 wins on accuracy and instruction fidelity.</li>
         <li>Reasoning effort and prompt scaffolding shift win rates by up to 5 percentage points with no model changes.</li>
         <li>AI assistance paired with expert oversight already reduces completion time and labor spend in simulations.</li>
@@ -60,32 +111,73 @@
   </section>
 
   <section class="grid md:grid-cols-3 gap-4">
-    <article class="bg-card border border-subtle rounded-lg p-4 space-y-2">
+    <article class="panel panel-neutral p-4 space-y-2">
       <h5 class="text-sm font-semibold text-heading">Key insight</h5>
-      <p class="text-sm text-secondary">
-        Win-rate tracking against expert baselines shows frontier models closing the gap on economically valuable work,
-        especially when overseen humans curate, verify, or polish outputs.
-      </p>
+      <p class="text-sm panel-muted">Win-rate tracking against expert baselines shows frontier models closing the gap on economically valuable work, especially when overseen humans curate, verify, or polish outputs.</p>
     </article>
-    <article class="bg-card border border-subtle rounded-lg p-4 space-y-2">
+    <article class="panel panel-neutral p-4 space-y-2">
       <h5 class="text-sm font-semibold text-heading">Method</h5>
-      <p class="text-sm text-secondary">
-        Blind pairwise grading by practicing professionals with multi-modal deliverables, spanning documents, decks,
-        spreadsheets, media assets, and CAD files, each tied to time and cost metadata.
-      </p>
+      <p class="text-sm panel-muted">Blind pairwise grading by practicing professionals with multi-modal deliverables, spanning documents, decks, spreadsheets, media assets, and CAD files, each tied to time and cost metadata.</p>
     </article>
-    <article class="bg-card border border-subtle rounded-lg p-4 space-y-2">
+    <article class="panel panel-neutral p-4 space-y-2">
       <h5 class="text-sm font-semibold text-heading">Implication</h5>
-      <p class="text-sm text-secondary">
-        Organizations should treat evaluations like GDPval as leading indicators for workforce planning, automation
-        budgets, and governance guardrails long before aggregate GDP data reflects the shift.
-      </p>
+      <p class="text-sm panel-muted">Evaluations like GDPval become leading indicators for workforce planning, automation budgets, and governance guardrails long before aggregate metrics reflect the shift.</p>
     </article>
   </section>
 
-  <section class="bg-card border border-subtle rounded-xl p-5 space-y-2">
+  <section class="grid md:grid-cols-2 gap-4">
+    <article class="panel panel-info p-5 space-y-3">
+      <h3 class="text-sm font-semibold text-heading">Model performance snapshot</h3>
+      <ul class="list-disc ml-5 text-sm panel-muted space-y-1">
+        <li><strong>GPT-5:</strong> 52% win-or-tie rate overall, cresting at 58% on accuracy-heavy occupations with extended reasoning enabled.</li>
+        <li><strong>Claude Opus 4.1:</strong> 47.6% overall, leading the field on aesthetics and long-form design briefs.</li>
+        <li><strong>GPT-4o:</strong> 42% overall, with confidence intervals overlapping GPT-5 on customer support and documentation tasks.</li>
+        <li><strong>Llama 3.1 70B:</strong> 35% overall, improving to 39% when paired with multi-step checklists but still trailing closed models.</li>
+      </ul>
+      <div class="panel panel-neutral-soft p-3 space-y-1 text-xs">
+        <p class="font-semibold text-heading">Interpreting win rates</p>
+        <p class="panel-muted">Cohen's kappa stays above 0.72 across graders, so differences ≥3 percentage points are operationally meaningful.</p>
+      </div>
+    </article>
+    <article class="panel panel-success p-5 space-y-3">
+      <h3 class="text-sm font-semibold text-heading">Workflow levers that move the benchmark</h3>
+      <ul class="list-disc ml-5 text-sm text-body space-y-1">
+        <li><strong>Extended reasoning traces:</strong> Adds ~5 percentage points to GPT-5 win rates by forcing plan-and-check loops on multi-step deliverables.</li>
+        <li><strong>Prompt scaffolding &amp; layout checklists:</strong> Cuts instruction misses by 15–18 percentage points, especially on regulatory and finance briefs.</li>
+        <li><strong>Best-of-4 with automated judge:</strong> Lifts accuracy-focused occupations by ~6 points while holding review cost flat.</li>
+        <li><strong>Self-inspection passes:</strong> Reduces formatting-related rejections by ~20 percentage points by ensuring agents open and scrub attachments before handoff.</li>
+      </ul>
+    </article>
+  </section>
+
+  <section class="grid md:grid-cols-2 gap-4">
+    <article class="panel panel-warning p-5 space-y-3">
+      <h3 class="text-sm font-semibold text-heading">Common rejection reasons</h3>
+      <ul class="list-disc ml-5 text-sm text-body space-y-1">
+        <li><strong>Instruction gaps (~38%):</strong> Missing required sections, outdated data, or skipped attachments.</li>
+        <li><strong>Formatting &amp; layout (~24%):</strong> Broken slide masters, spreadsheet formulas, or inaccessible PDFs.</li>
+        <li><strong>Unsupported claims (~21%):</strong> Invented metrics or currency conversions without cited sources.</li>
+        <li><strong>Tooling failures (~17%):</strong> Upload errors, unexecuted code blocks, or ignored multi-modal inputs.</li>
+      </ul>
+      <div class="panel panel-neutral-soft p-3 space-y-1 text-xs">
+        <p class="font-semibold text-heading">Mitigation cue</p>
+        <p class="panel-muted">Pair scaffolded prompts with self-inspection to eliminate roughly half the formatting and tooling misses.</p>
+      </div>
+    </article>
+    <article class="panel panel-neutral p-5 space-y-3">
+      <h3 class="text-sm font-semibold text-heading">Governance checkpoints</h3>
+      <ul class="list-disc ml-5 text-sm panel-muted space-y-1">
+        <li>Report GDPval win-rate trends quarterly alongside reviewer hours to signal when automation budgets or hiring plans should shift.</li>
+        <li>Retain grader transcripts and attachment checklists for audit trails; the paper recommends a 90-day retention minimum.</li>
+        <li>Gate production launches on discipline-specific acceptance thresholds (e.g., ≥55% win rate plus &lt;30% full-review demand).</li>
+        <li>Escalate any task families with sustained hallucination spikes into human-only queues until mitigations land.</li>
+      </ul>
+    </article>
+  </section>
+
+  <section class="panel panel-neutral p-5 space-y-2">
     <h4 class="text-sm font-semibold text-heading">Evidence</h4>
-    <ul class="list-disc ml-5 text-sm text-secondary space-y-1">
+    <ul class="list-disc ml-5 text-sm panel-muted space-y-1">
       <li>Claude Opus 4.1 wins or ties 47.6% of gold tasks; GPT-5 leads on accuracy-focused occupations.</li>
       <li>OpenAI model performance rises roughly linearly over time (GPT-4o to GPT-5) when re-run on GDPval.</li>
       <li>Prompt and scaffolding tweaks add ~5 percentage points to GPT-5 win rates while eliminating PDF artifacts.</li>
@@ -93,9 +185,9 @@
     </ul>
   </section>
 
-  <section class="bg-amber-50 border border-amber-200 rounded-xl p-5 space-y-2">
-    <h4 class="text-sm font-semibold text-amber-900">Forward-looking roadmap</h4>
-    <ul class="list-disc ml-5 text-sm text-amber-800 space-y-1">
+  <section class="panel panel-warning p-5 space-y-2">
+    <h4 class="text-sm font-semibold text-heading">Forward-looking roadmap</h4>
+    <ul class="list-disc ml-5 text-sm text-body space-y-1">
       <li>Adopt GDPval-style pairwise grading for each new AI deployment and publish quarterly trendlines.</li>
       <li>Invest in multi-modal toolchains so agents can inspect spreadsheets, slides, and media before handoff.</li>
       <li>Track reasoning-effort settings and scaffolding recipes as first-class configuration assets.</li>

@@ -1,4 +1,4 @@
-﻿const interactiveScript = () => {
+const interactiveScript = () => {
   const root = document.getElementById('p14-lab');
   if (!root) return;
 
@@ -10,6 +10,9 @@
   const contextLabelEl = document.getElementById('p14-context-label');
   const summaryEl = document.getElementById('p14-summary');
   const actionsEl = document.getElementById('p14-actions');
+
+  const ACTIVE_CLASS = 'btn-accent';
+  const INACTIVE_CLASS = 'btn-soft';
 
   const SCENARIOS = {
     resilient: {
@@ -24,7 +27,7 @@
         },
         {
           title: 'Financial supports',
-          detail: 'Light-touch—workers have savings buffers but benefit from innovation stipends and internal mobility grants.'
+          detail: 'Light-touch\u2014workers have savings buffers but benefit from innovation stipends and internal mobility grants.'
         },
         {
           title: 'Mobility pathways',
@@ -94,11 +97,11 @@
       const isActive = btn.dataset.scenario === scenarioKey;
       btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
       if (isActive) {
-        btn.classList.add('btn-accent');
-        btn.classList.remove('bg-card', 'text-accent', 'border-subtle', 'hover:bg-subtle');
+        btn.classList.add(ACTIVE_CLASS);
+        btn.classList.remove(INACTIVE_CLASS);
       } else {
-        btn.classList.remove('btn-accent');
-        btn.classList.add('bg-card', 'text-accent', 'border-subtle', 'hover:bg-subtle');
+        btn.classList.remove(ACTIVE_CLASS);
+        btn.classList.add(INACTIVE_CLASS);
       }
     });
   };
@@ -112,9 +115,9 @@
     contextLabelEl.textContent = scenario.label;
     leversEl.innerHTML = scenario.levers
       .map((lever) => `
-        <div class="bg-card border border-subtle rounded-md p-3">
+        <div class="panel panel-neutral-soft space-y-1 text-sm">
           <div class="text-xs font-semibold text-heading">${lever.title}</div>
-          <p class="text-[11px] text-secondary mt-1">${lever.detail}</p>
+          <p class="text-[11px] text-secondary">${lever.detail}</p>
         </div>
       `)
       .join('');
@@ -134,3 +137,4 @@ if (typeof module !== 'undefined') {
 } else if (typeof window !== 'undefined') {
   window.paper14Interactive = interactiveScript;
 }
+

@@ -1,62 +1,62 @@
 <div class="space-y-5">
-  <div class="bg-indigo-50 border border-indigo-200 rounded-lg p-4">
+  <div class="panel panel-info p-4 space-y-4">
     <div class="flex flex-wrap md:flex-nowrap items-start justify-between gap-4">
-      <div class="md:max-w-3xl">
-        <h2 class="text-xl font-semibold text-indigo-900">Training Compute-Optimal Large Language Models</h2>
-        <p class="text-sm text-indigo-700">Jordan Hoffmann, Sebastian Borgeaud, Arthur Mensch, Elena Buchatskaya et al. &bull; arXiv:2203.15556 (Mar 2022)</p>
+      <div class="md:max-w-3xl space-y-2">
+        <h2 class="text-xl font-semibold text-heading">Training Compute-Optimal Large Language Models</h2>
+        <p class="text-sm panel-muted">Jordan Hoffmann, Sebastian Borgeaud, Arthur Mensch, Elena Buchatskaya et al. &bull; arXiv:2203.15556 (Mar 2022)</p>
       </div>
-      <a href="https://arxiv.org/abs/2203.15556" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-medium bg-white border border-indigo-200 text-indigo-700 hover:bg-indigo-100">
+      <a href="https://arxiv.org/abs/2203.15556" target="_blank" rel="noopener" class="btn-soft text-xs font-semibold" data-accent="foundations">
         <span>View paper</span>
-        <span aria-hidden="true" class="text-sm leading-none">↗</span>
+        <span aria-hidden="true">↗</span>
       </a>
     </div>
-    <p class="mt-3 text-sm text-indigo-800 leading-relaxed">
+    <p class="text-sm leading-relaxed text-body">
       DeepMind revisits scaling laws across 400 transformer runs and shows that, for a fixed compute budget, recent mega-models waste FLOPs by undertraining on data. The team proposes the compute-optimal Chinchilla recipe&mdash;grow model parameters and tokens in lockstep&mdash;and proves that a 70B parameter model trained on 1.4T tokens beats much larger peers at lower inference cost.
     </p>
   </div>
 
-  <div class="bg-slate-900 text-slate-100 border border-slate-800 rounded-lg p-5 space-y-3">
-    <div class="flex items-center gap-2">
-      <span class="text-lg">🧭</span>
-      <h3 class="text-sm font-semibold tracking-wide uppercase text-slate-200">Executive quick take</h3>
+  <div class="panel panel-neutral p-5 space-y-3">
+    <div class="flex items-center gap-2 text-heading">
+      <span class="text-lg" aria-hidden="true">🧭</span>
+      <h3 class="text-sm font-semibold tracking-wide uppercase">Executive quick take</h3>
     </div>
-    <p class="text-sm text-slate-200 leading-relaxed">
+    <p class="text-sm leading-relaxed text-body">
       Stop scaling parameters without scaling tokens. The paper finds the optimal frontier when tokens seen roughly equal 20 &times; the parameter count (in billions). GPT-3 and Gopher sat 3&ndash;4&times; off that curve; Chinchilla shows that matching FLOPs to more data yields higher accuracy and cheaper deployment.
     </p>
-    <ul class="list-disc ml-5 text-sm text-slate-300 space-y-1">
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
       <li><strong>Equal scaling:</strong> Double parameters? Double training tokens if you are compute-limited.</li>
       <li><strong>Undertrained reality:</strong> Legacy 175B+ models missed the compute-optimal loss by a wide margin.</li>
       <li><strong>Deployment upside:</strong> Smaller, fully trained models deliver better evals per dollar and lower latency.</li>
     </ul>
   </div>
 
-  <div class="bg-emerald-50 border border-emerald-200 rounded-lg p-5 space-y-2">
-    <h3 class="text-sm font-semibold text-emerald-900">💼 Business relevance</h3>
-    <ul class="list-disc ml-5 text-sm text-emerald-800 space-y-1">
+  <div class="panel panel-success p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">💼 Business relevance</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
       <li><strong>Infrastructure planners:</strong> Capacity teams at AWS, Azure, or GCP can forecast GPU demand from the 1:1 parameter-to-token scaling rule instead of chasing ever-bigger models.</li>
       <li><strong>Model providers:</strong> Foundation model leads at OpenAI, Anthropic, or Cohere can justify mid-sized, long-trained checkpoints that win evaluations per dollar.</li>
       <li><strong>Enterprise buyers:</strong> CTOs at banks or telcos can renegotiate SLAs around parameter count once vendors commit to Chinchilla ratios.</li>
     </ul>
-    <div class="bg-white border border-emerald-200 rounded-md p-3 mt-3 space-y-1 text-xs text-emerald-900">
-      <p class="font-semibold">Derivative example (enterprise model roadmap)</p>
-      <p class="text-emerald-800">A telecom ML platform audits its fine-tuning fleet, flags models whose token exposure is under 10 &times; params, and reallocates budget to extend training runs before approving pricier architectures.</p>
+    <div class="panel panel-neutral-soft p-3 mt-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Derivative example (enterprise model roadmap)</p>
+      <p class="panel-muted">A telecom ML platform audits its fine-tuning fleet, flags models whose token exposure is under 10 &times; params, and reallocates budget to extend training runs before approving pricier architectures.</p>
     </div>
   </div>
 
   <div class="grid md:grid-cols-2 gap-4">
-    <div class="bg-sky-50 border border-sky-200 rounded-lg p-4 space-y-2">
-      <h3 class="text-sm font-semibold text-sky-900">Scaling law refresh</h3>
-      <p class="text-xs text-sky-800">Re-derived loss vs. compute surfaces for modern transformers.</p>
-      <ul class="list-disc ml-4 text-[11px] text-sky-700 space-y-1">
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Scaling law refresh</h3>
+      <p class="text-xs panel-muted">Re-derived loss vs. compute surfaces for modern transformers.</p>
+      <ul class="list-disc ml-4 space-y-1 text-[11px] panel-muted">
         <li>Trained 400+ models from 70M to 16B parameters on 5&ndash;500B tokens.</li>
         <li>Fit new exponents for loss vs. model size, data, and compute using joint regression.</li>
         <li>Optimal loss occurs when FLOPs split evenly between model growth and data growth.</li>
       </ul>
     </div>
-    <div class="bg-sky-50 border border-sky-200 rounded-lg p-4 space-y-2">
-      <h3 class="text-sm font-semibold text-sky-900">Chinchilla outcome</h3>
-      <p class="text-xs text-sky-800">Compute-optimal training wins across downstream tasks.</p>
-      <ul class="list-disc ml-4 text-[11px] text-sky-700 space-y-1">
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Chinchilla outcome</h3>
+      <p class="text-xs panel-muted">Compute-optimal training wins across downstream tasks.</p>
+      <ul class="list-disc ml-4 space-y-1 text-[11px] panel-muted">
         <li>70B parameters, 1.4T tokens (20 tokens per parameter).</li>
         <li>Matches Gopher's 2.8 &times; 10<sup>23</sup> FLOPs yet improves MMLU by 7 points.</li>
         <li>Inference costs drop around 4&times; thanks to the smaller parameter count.</li>
@@ -64,9 +64,16 @@
     </div>
   </div>
 
-  <div class="bg-white border border-gray-200 rounded-lg p-4 space-y-2">
-    <h3 class="text-sm font-semibold text-gray-900">Terminology</h3>
-    <ul class="list-disc ml-5 text-xs text-gray-700 space-y-1">
+  <div class="panel panel-neutral p-4 space-y-2">
+    <h3 class="text-sm font-semibold text-heading">What the scaling fit actually looks like</h3>
+    <p class="text-xs panel-muted">The paper expresses validation loss as a sum of power laws over parameters \(N\) and tokens \(D\):</p>
+    <p class="text-sm text-body font-mono">\(L(N, D) = \underbrace{1.69\,N^{-0.34}}_{\text{model term}} + \underbrace{1.32\,D^{-0.28}}_{\text{data term}} + 0.0003\).</p>
+    <p class="text-xs panel-muted">Minimising total loss for a fixed compute budget \(C \approx 6ND\) yields the Chinchilla rule \(D\_{\star} \approx 20N\_{\star}\). Tokens and parameters contribute near equally to FLOPs along this ridge, which is why undertrained 175B models sit far from the loss minimum.</p>
+  </div>
+
+  <div class="panel panel-neutral p-4 space-y-2">
+    <h3 class="text-sm font-semibold text-heading">Terminology</h3>
+    <ul class="list-disc ml-5 space-y-1 text-xs panel-muted">
       <li><strong>Compute-optimal frontier:</strong> Parameter and token pairings that minimise loss for a fixed FLOP budget.</li>
       <li><strong>Data scaling exponent:</strong> Fitted power-law that maps additional tokens to loss reduction.</li>
       <li><strong>Chinchilla ratio:</strong> Practical heuristic targeting ~20 tokens per parameter.</li>
@@ -74,9 +81,9 @@
     </ul>
   </div>
 
-  <div class="bg-white border border-gray-200 rounded-lg p-5 space-y-3">
-    <h3 class="text-sm font-semibold text-gray-900">🧪 Experiments & Evidence</h3>
-    <ul class="list-disc ml-5 text-sm text-gray-700 space-y-1">
+  <div class="panel panel-neutral p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🧪 Experiments &amp; Evidence</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
       <li><strong>Scaling sweeps:</strong> 400 transformer runs on Gopher infrastructure to fit joint scaling laws.</li>
       <li><strong>Chinchilla vs. baselines:</strong> Outperforms GPT-3, Gopher, Jurassic-1, and MT-NLG across language, reasoning, and QA benchmarks.</li>
       <li><strong>Data efficiency:</strong> Shows doubling data yields similar gains to doubling model size when compute-fixed.</li>
@@ -84,9 +91,9 @@
     </ul>
   </div>
 
-  <div class="bg-amber-50 border border-amber-200 rounded-lg p-5 space-y-2">
-    <h3 class="text-sm font-semibold text-amber-900">🔭 Forward-looking roadmap</h3>
-    <ul class="list-disc ml-5 text-sm text-amber-800 space-y-1">
+  <div class="panel panel-warning p-5 space-y-2">
+    <h3 class="text-sm font-semibold text-heading">🔭 Forward-looking roadmap</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
       <li>Track dataset deduplication and freshness when scaling beyond 1.4T tokens.</li>
       <li>Estimate FLOP budgets before training and enforce parameter-token pairing as a launch gate.</li>
       <li>Investigate modality mixing (vision, audio) under the same compute-optimal principles.</li>

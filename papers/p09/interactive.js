@@ -8,7 +8,7 @@ const interactiveScript = () => {
       heading: 'Size your next pretraining run',
       subheading: 'Pick a FLOP budget and token ratio to see the implied model scale',
       insights: [
-        'The paper recommends allocating compute so that parameters and tokens scale together; holding tokens fixed leaves loss on the table.',
+        'The fitted loss surface is \(1.69 N^{-0.34} + 1.32 D^{-0.28} + 3 \times 10^{-4}\), so starving either side pushes you off the minimum.',
         'For budgets around Gopher or GPT-3, the compute-optimal recipe lands near 60-80B parameters rather than 175B+.'
       ],
       actions: [
@@ -22,7 +22,7 @@ const interactiveScript = () => {
       subheading: 'See how far each model sits from the compute-optimal token ratio',
       insights: [
         'GPT-3 and Gopher trained on roughly 300B tokens each, covering less than 20% of the tokens that the compute-optimal recipe would recommend.',
-        'Chinchilla closes the gap by using the same compute budget but shifting FLOPs toward more data instead of more parameters.'
+        'Chinchilla closes the gap because \(D\) sits on the \(\approx20N\) ridge implied by the loss exponents, while legacy models over-invested in \(N\).'
       ],
       actions: [
         'Audit internal models for token coverage and extend training before adding layers when coverage is under 50%.',
@@ -138,13 +138,9 @@ const interactiveScript = () => {
   const renderButtons = () => {
     const html = Object.entries(VIEWS).map(([key, meta]) => {
       const active = key === currentView;
-      const classes = ['px-3', 'py-1.5', 'rounded-md', 'border', 'text-xs', 'font-medium', 'transition-colors'];
-      if (active) {
-        classes.push('bg-indigo-600', 'border-indigo-600', 'text-white', 'shadow-sm');
-      } else {
-        classes.push('bg-white', 'border-gray-300', 'text-gray-700', 'hover:border-indigo-400', 'hover:text-indigo-600');
-      }
-      return '<button type="button" class="' + classes.join(' ') + '" data-view="' + key + '">' + meta.label + '</button>';
+      const baseClass = active ? 'btn-accent text-xs font-semibold' : 'btn-soft text-xs font-semibold';
+      const ariaPressed = active ? 'true' : 'false';
+      return '<button type="button" class="' + baseClass + '" data-accent="scaling" aria-pressed="' + ariaPressed + '" data-view="' + key + '">' + meta.label + '</button>';
     }).join('');
     viewButtonsEl.innerHTML = html;
     viewButtonsEl.querySelectorAll('button').forEach(btn => {
@@ -163,22 +159,22 @@ const interactiveScript = () => {
     const budgetOptions = COMPUTE_BUDGETS.map((entry, index) => '<option value="' + index + '">' + entry.label + '</option>').join('');
 
     stageControlsEl.innerHTML = '' +
-      '<div class="bg-white border border-indigo-200 rounded-md p-3 space-y-2">' +
-        '<label class="text-[11px] font-semibold text-indigo-700 uppercase">Training compute</label>' +
-        '<select id="p09-compute" class="w-full border border-indigo-200 rounded px-2 py-1 text-sm">' + budgetOptions + '</select>' +
-        '<p class="text-[11px] text-indigo-800">Approximate end-to-end FLOPs across the whole run.</p>' +
+      '<div class="panel panel-neutral-soft p-3 space-y-2">' +
+        '<label class="text-xs font-semibold uppercase tracking-wide text-heading">Training compute</label>' +
+        '<select id="p09-compute" class="w-full rounded border border-divider bg-card px-2 py-1 text-sm text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">' + budgetOptions + '</select>' +
+        '<p class="text-xs panel-muted">Approximate end-to-end FLOPs across the whole run.</p>' +
       '</div>' +
-      '<div class="bg-white border border-indigo-200 rounded-md p-3 space-y-2">' +
-        '<label class="text-[11px] font-semibold text-indigo-700 uppercase">Tokens per parameter</label>' +
+      '<div class="panel panel-neutral-soft p-3 space-y-2">' +
+        '<label class="text-xs font-semibold uppercase tracking-wide text-heading">Tokens per parameter</label>' +
         '<input id="p09-ratio" type="range" min="10" max="30" value="20" step="1" class="w-full" />' +
-        '<div class="flex items-baseline justify-between text-[11px] text-indigo-800">' +
+        '<div class="flex items-baseline justify-between text-xs panel-muted">' +
           '<span>10</span>' +
           '<span id="p09-ratio-value">20</span>' +
           '<span>30</span>' +
         '</div>' +
-        '<p class="text-[11px] text-indigo-800">Chinchilla suggests ~20 tokens per parameter for compute-optimal training.</p>' +
+        '<p class="text-xs panel-muted">Chinchilla suggests ~20 tokens per parameter for compute-optimal training.</p>' +
       '</div>' +
-      '<div class="md:col-span-2 bg-indigo-900/5 border border-indigo-200 rounded-md p-3" id="p09-planner-results"></div>';
+      '<div class="md:col-span-2 panel panel-neutral-soft p-3" id="p09-planner-results"></div>';
 
     const computeSelect = document.getElementById('p09-compute');
     const ratioSlider = document.getElementById('p09-ratio');
@@ -210,7 +206,7 @@ const interactiveScript = () => {
       }
 
       resultsEl.innerHTML = '' +
-        '<div class="space-y-1 text-sm text-indigo-900">' +
+        '<div class="space-y-1 text-sm text-body">' +
           '<p><strong>Model size:</strong> ~' + formatNumber(paramsB, 1) + 'B parameters</p>' +
           '<p><strong>Training tokens:</strong> ~' + formatNumber(tokensT, 2) + 'T (' + formatNumber(tokensB, 1) + 'B tokens)</p>' +
           '<p><strong>Compute budget:</strong> ' + budgetEntry.label + '</p>' +
@@ -230,12 +226,12 @@ const interactiveScript = () => {
     const options = Object.entries(MODEL_DATA).map(([key, meta]) => '<option value="' + key + '">' + meta.name + '</option>').join('');
 
     stageControlsEl.innerHTML = '' +
-      '<div class="bg-white border border-indigo-200 rounded-md p-3 space-y-2">' +
-        '<label class="text-[11px] font-semibold text-indigo-700 uppercase">Model</label>' +
-        '<select id="p09-model" class="w-full border border-indigo-200 rounded px-2 py-1 text-sm">' + options + '</select>' +
-        '<p class="text-[11px] text-indigo-800">Token counts are approximate but align with public reports from the paper.</p>' +
+      '<div class="panel panel-neutral-soft p-3 space-y-2">' +
+        '<label class="text-xs font-semibold uppercase tracking-wide text-heading">Model</label>' +
+        '<select id="p09-model" class="w-full rounded border border-divider bg-card px-2 py-1 text-sm text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">' + options + '</select>' +
+        '<p class="text-xs panel-muted">Token counts are approximate but align with public reports from the paper.</p>' +
       '</div>' +
-      '<div class="bg-white border border-indigo-200 rounded-md p-3 space-y-2" id="p09-model-details"></div>';
+      '<div class="panel panel-neutral-soft p-3 space-y-2" id="p09-model-details"></div>';
 
     const selectEl = document.getElementById('p09-model');
     const detailsEl = document.getElementById('p09-model-details');
@@ -263,11 +259,11 @@ const interactiveScript = () => {
       stageLabelEl.textContent = formatNumber(ratio, 1) + ' tokens per parameter';
 
       detailsEl.innerHTML = '' +
-        '<p class="text-sm text-indigo-900"><strong>' + data.name + '</strong></p>' +
-        '<p class="text-xs text-indigo-800">' + formatNumber(data.params / 1e9, 1) + 'B params • ' + formatNumber(data.tokens / 1e9, 1) + 'B tokens</p>' +
-        '<p class="text-xs text-indigo-800">Recommended tokens at 20/token ratio: ' + formatNumber(recommendedTokens / 1e12, 2) + 'T</p>' +
-        '<p class="text-xs text-indigo-800">Coverage: ' + formatNumber(coveragePercent, 0) + '% — ' + status + '</p>' +
-        '<p class="text-xs text-indigo-800">' + data.notes + '</p>';
+        '<p class="text-sm text-heading"><strong>' + data.name + '</strong></p>' +
+        '<p class="text-xs panel-muted">' + formatNumber(data.params / 1e9, 1) + 'B params • ' + formatNumber(data.tokens / 1e9, 1) + 'B tokens</p>' +
+        '<p class="text-xs panel-muted">Recommended tokens at 20/token ratio: ' + formatNumber(recommendedTokens / 1e12, 2) + 'T</p>' +
+        '<p class="text-xs panel-muted">Coverage: ' + formatNumber(coveragePercent, 0) + '% — ' + status + '</p>' +
+        '<p class="text-xs panel-muted">' + data.notes + '</p>';
     };
 
     selectEl.addEventListener('change', render);
@@ -281,12 +277,12 @@ const interactiveScript = () => {
     const options = Object.keys(BENCHMARKS).map(name => '<option value="' + name + '">' + name + '</option>').join('');
 
     stageControlsEl.innerHTML = '' +
-      '<div class="bg-white border border-indigo-200 rounded-md p-3 space-y-2">' +
-        '<label class="text-[11px] font-semibold text-indigo-700 uppercase">Benchmark</label>' +
-        '<select id="p09-benchmark" class="w-full border border-indigo-200 rounded px-2 py-1 text-sm">' + options + '</select>' +
-        '<p class="text-[11px] text-indigo-800">Scores pulled from the paper; higher is better unless noted.</p>' +
+      '<div class="panel panel-neutral-soft p-3 space-y-2">' +
+        '<label class="text-xs font-semibold uppercase tracking-wide text-heading">Benchmark</label>' +
+        '<select id="p09-benchmark" class="w-full rounded border border-divider bg-card px-2 py-1 text-sm text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">' + options + '</select>' +
+        '<p class="text-xs panel-muted">Scores pulled from the paper; higher is better unless noted.</p>' +
       '</div>' +
-      '<div class="bg-white border border-indigo-200 rounded-md p-3 space-y-2" id="p09-benchmark-details"></div>';
+      '<div class="panel panel-neutral-soft p-3 space-y-2" id="p09-benchmark-details"></div>';
 
     const selectEl = document.getElementById('p09-benchmark');
     const detailsEl = document.getElementById('p09-benchmark-details');
@@ -308,7 +304,7 @@ const interactiveScript = () => {
 
       stageLabelEl.textContent = winnerName + ' leads by ' + formatNumber(delta, 1) + ' ' + data.metric;
 
-      const header = '<div class="text-xs text-indigo-800"><p class="font-semibold">' + data.metric + '</p></div>';
+      const header = '<div class="text-xs panel-muted"><p class="font-semibold text-heading">' + data.metric + '</p></div>';
       const rows = sorted.map(([key, value]) => {
         const meta = MODEL_DATA[key];
         const label = meta ? meta.name : key;
@@ -316,7 +312,7 @@ const interactiveScript = () => {
       }).join('');
 
       detailsEl.innerHTML = header +
-        '<table class="w-full text-xs text-left text-indigo-900">' +
+        '<table class="w-full text-xs text-left text-body">' +
           '<thead><tr><th class="py-1 pr-3">Model</th><th class="py-1 text-right">Score</th></tr></thead>' +
           '<tbody>' + rows + '</tbody>' +
         '</table>';
@@ -332,6 +328,10 @@ const interactiveScript = () => {
 
     insightsEl.innerHTML = view.insights.map(text => '<p>' + text + '</p>').join('');
     actionsEl.innerHTML = view.actions.map(text => '<li>' + text + '</li>').join('');
+
+    if (typeof window !== 'undefined' && window.MathJax?.typesetPromise) {
+      window.MathJax.typesetPromise([insightsEl]);
+    }
 
     if (currentView === 'planner') {
       updatePlannerView();

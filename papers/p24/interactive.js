@@ -33,8 +33,8 @@ const interactiveScript = () => {
   };
 
   const models = {
-    gpt4o: { label: 'GPT-4o', baseBoost: 0.29, qualityBase: 0.78, oversightShift: -0.05 },
-    llama: { label: 'Llama-3.1-8B', baseBoost: 0.23, qualityBase: 0.68, oversightShift: 0 }
+    gpt4o: { label: 'GPT-4o', baseBoost: 0.22, qualityBase: 0.74, oversightShift: -0.04 },
+    llama: { label: 'Llama-3.1-8B', baseBoost: 0.17, qualityBase: 0.64, oversightShift: 0 }
   };
 
   const riskCatalog = {
@@ -71,40 +71,55 @@ const interactiveScript = () => {
 
     const difficulty = scenario.difficulty;
 
-    let soloAccuracy = 0.35 + 0.45 * ability - 0.2 * difficulty;
+    let soloAccuracy = 0.38 + 0.4 * ability - 0.18 * difficulty;
     soloAccuracy = clamp01(soloAccuracy);
 
     let boost = model.baseBoost;
-    boost += (0.55 - ability) * 0.25;
-    boost += (difficulty - 0.5) * 0.2;
-    boost += (tomTrait - 0.5) * 0.12;
-    boost += (tomState - 0.5) * 0.08;
-    boost += hasScaffold ? 0.03 : -0.04;
-    boost += hasBrief ? 0.02 : -0.05;
+    boost += (0.5 - ability) * 0.18;
+    boost += (difficulty - 0.5) * 0.12;
+    boost += (tomTrait - 0.5) * 0.08;
+    boost += (tomState - 0.5) * 0.06;
+    boost += hasScaffold ? 0.04 : -0.05;
+    boost += hasBrief ? 0.03 : -0.04;
+    boost = Math.max(0, Math.min(boost, 0.4));
 
-    boost = Math.max(0, boost);
-    boost = Math.min(boost, 1 - soloAccuracy);
-
-    const teamAccuracy = clamp01(soloAccuracy + boost);
-    const collabIndex = clamp01((teamAccuracy - 0.35) / 0.45);
+    const teamAccuracy = Math.max(0, Math.min(0.98, soloAccuracy + boost));
 
     const qualityScore = clamp01(
-      model.qualityBase + (tomTrait - 0.5) * 0.2 + (tomState - 0.5) * 0.18 + (hasScaffold ? 0.05 : -0.05)
+      model.qualityBase + (tomTrait - 0.5) * 0.22 + (tomState - 0.5) * 0.18 + (hasScaffold ? 0.05 : -0.05)
     );
 
-    const oversightPressure = clamp01(
-      0.35 + boost * 0.5 - tomTrait * 0.1 - (hasOversight ? 0.15 : 0) + (difficulty - 0.5) * 0.1 + model.oversightShift
+    const oversightRisk = clamp01(
+      0.42 + boost * 0.4 - tomTrait * 0.18 - (hasOversight ? 0.18 : 0) + (difficulty - 0.5) * 0.12 + (model.oversightShift || 0)
     );
 
     const instructionRisk = clamp01(
-      0.45 - (hasScaffold ? 0.18 : 0) - (hasBrief ? 0.12 : 0) - tomTrait * 0.12 - tomState * 0.08 + (difficulty - 0.5) * 0.08
+      0.18 +
+      (hasScaffold ? 0 : 0.22) +
+      (hasBrief ? 0 : 0.18) +
+      Math.max(0, 0.5 - tomTrait) * 0.5 +
+      Math.max(0, 0.5 - tomState) * 0.4 +
+      Math.max(0, difficulty - 0.5) * 0.25
     );
 
     const reliabilityRisk = clamp01(
-      0.5 - qualityScore * 0.6 + (difficulty - 0.5) * 0.12 - (hasOversight ? 0.08 : 0)
+      0.16 +
+      Math.max(0, 0.8 - qualityScore) * 0.7 +
+      Math.max(0, difficulty - 0.5) * 0.2 +
+      (hasOversight ? 0 : 0.12)
     );
 
-    const oversightRisk = oversightPressure;
+    const rawCollab =
+      0.3 +
+      boost * 1.4 +
+      (tomTrait - 0.5) * 0.5 +
+      (tomState - 0.5) * 0.35 +
+      (hasScaffold ? 0.05 : -0.05) +
+      (hasBrief ? 0.04 : -0.05) -
+      oversightRisk * 0.25 -
+      Math.max(0, 0.45 - ability) * 0.3;
+
+    const collabIndex = clamp01(rawCollab);
 
     soloEl.textContent = pct(soloAccuracy);
     teamEl.textContent = pct(teamAccuracy);

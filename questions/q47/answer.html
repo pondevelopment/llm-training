@@ -1,77 +1,73 @@
 <div class="space-y-4">
-        <!-- Recommended Reading (canonical) -->
-        <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
-            <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related)</h4>
-            <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
-                <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-01">Question 1: Tokenization fundamentals</a></li>
-                <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-02">Question 2: How does attention work?</a></li>
-                <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-07">Question 7: Masking & causal generation</a></li>
-                <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-18">Question 18: Scaling laws</a></li>
-                <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-21">Question 21: Context windows & limits</a></li>
-            </ul>
-            <p class="mt-2 text-xs text-indigo-700">Context scope, masking, scaling behavior, token representations.</p>
-        </div>
+  <div class="panel panel-info p-3 space-y-2" data-accent="foundations">
+    <h4 class="font-semibold text-heading">&#x1F4DA; Recommended reading (related)</h4>
+    <ul class="list-disc ml-5 text-sm space-y-1">
+      <li><a class="link-accent" href="#question-01">Question 1: Tokenization fundamentals</a></li>
+      <li><a class="link-accent" href="#question-02">Question 2: How does attention work?</a></li>
+      <li><a class="link-accent" href="#question-07">Question 7: Masking &amp; causal generation</a></li>
+      <li><a class="link-accent" href="#question-18">Question 18: Scaling laws</a></li>
+      <li><a class="link-accent" href="#question-21">Question 21: Context windows &amp; limits</a></li>
+    </ul>
+    <p class="text-xs panel-muted">Context scope, masking, scaling behavior, token representations.</p>
+  </div>
 
-        <!-- Key Idea (accent) -->
-        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
-            <h4 class="font-semibold text-blue-900 mb-2">🧭 Core Idea</h4>
-            <p class="text-blue-800 text-sm">LLMs learn <b>deep distributed representations</b> and capture long‑range dependencies via self‑attention. Classical models (N‑grams, HMMs) depend on <b>local Markov statistics</b>, limiting generalization & context reach.</p>
-            <div class="grid md:grid-cols-2 gap-3 mt-3 text-xs text-blue-900">
-                <div class="bg-white rounded p-3 border border-blue-100">
-                    <h5 class="font-semibold mb-1">Probability factorization</h5>
-                    <div class="math-display">$$P(w_{1:T}) = \prod_{t=1}^{T} P(w_t mid w_{1:t-1})$$</div>
-                    <p class="mt-1">LLMs approximate long chains with contextual embeddings.</p>
-                </div>
-                <div class="bg-white rounded p-3 border border-blue-100">
-                    <h5 class="font-semibold mb-1">Attention kernel</h5>
-                    <div class="math-display">$$\mathrm{Attn}(Q,K,V)=\mathrm{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$</div>
-                    <p class="mt-1">Learns global relevance vs fixed local windows.</p>
-                </div>
-            </div>
-            <ul class="mt-3 list-disc ml-5 text-xs text-blue-800 space-y-1">
-                <li><b>Context:</b> global window vs fixed N‑gram span</li>
-                <li><b>Representation:</b> dense embeddings vs counts / states</li>
-                <li><b>Transfer:</b> pretrain + adapt vs bespoke features</li>
-                <li><b>Expressivity:</b> deep semantics vs shallow locality</li>
-            </ul>
-        </div>
-        
-        <!-- Comparison Grid -->
-        <div class="grid md:grid-cols-3 gap-4">
-            <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
-                <h5 class="font-medium text-green-900">N-grams / Statistical</h5>
-                <ul class="text-sm text-green-800 list-disc pl-5 space-y-1">
-                    <li>Fixed window: P(word | last N−1 words)</li>
-                    <li>Sparse counts + smoothing (Kneser–Ney)</li>
-                    <li>Limited generalization; struggles with rare words</li>
-                </ul>
-            </div>
-            <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
-                <h5 class="font-medium text-purple-900">HMMs / Probabilistic</h5>
-                <ul class="text-sm text-purple-800 list-disc pl-5 space-y-1">
-                    <li>Hidden states, Markov assumptions</li>
-                    <li>Viterbi / Forward–Backward inference</li>
-                    <li>Good for tagging; limited expressivity</li>
-                </ul>
-            </div>
-            <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
-                <h5 class="font-medium text-orange-900">Transformers / LLMs</h5>
-                <ul class="text-sm text-orange-800 list-disc pl-5 space-y-1">
-                    <li>Self-attention over long contexts</li>
-                    <li>Rich embeddings; transfer via pretraining</li>
-                    <li>Handles diverse tasks with prompting</li>
-                </ul>
-            </div>
-        </div>
-        
-        <!-- Why This Matters (canonical) -->
-        <div class="bg-yellow-50 p-4 rounded-lg">
-            <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why This Matters</h4>
-            <ul class="text-sm text-yellow-800 space-y-1">
-                <li>• <b>Context length:</b> global vs N‑bounded window</li>
-                <li>• <b>Generalization:</b> semantic embeddings vs memorized counts</li>
-                <li>• <b>Versatility:</b> prompting multi-task vs bespoke pipelines</li>
-                <li>• <b>Compute tradeoff:</b> higher cost for broader capability</li>
-            </ul>
-        </div>
+  <div class="panel panel-info panel-emphasis p-4 space-y-3">
+    <h4 class="font-semibold text-heading">&#x1F9E0; Core idea</h4>
+    <p class="text-sm">LLMs learn <strong>deep distributed representations</strong> and capture long-range dependencies via self-attention. Classical models (n-grams, HMMs) depend on <strong>local Markov statistics</strong>, limiting generalization and usable context.</p>
+    <div class="grid md:grid-cols-2 gap-3">
+      <div class="panel panel-neutral-soft p-3 space-y-1">
+        <h5 class="font-semibold">Probability factorization</h5>
+        <div class="math-display">$$P(w_{1:T}) = \prod_{t=1}^{T} P(w_t \mid w_{1:t-1})$$</div>
+        <p class="text-xs panel-muted">LLMs approximate long chains with contextual embeddings.</p>
+      </div>
+      <div class="panel panel-neutral-soft p-3 space-y-1">
+        <h5 class="font-semibold">Attention kernel</h5>
+        <div class="math-display">$$\mathrm{Attn}(Q,K,V)=\mathrm{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V$$</div>
+        <p class="text-xs panel-muted">Learns global relevance instead of fixed local windows.</p>
+      </div>
     </div>
+    <ul class="list-disc ml-5 text-xs space-y-1">
+      <li><strong>Context:</strong> global window vs fixed n-gram span</li>
+      <li><strong>Representation:</strong> dense embeddings vs counts or states</li>
+      <li><strong>Transfer:</strong> pretrain and adapt vs bespoke features</li>
+      <li><strong>Expressivity:</strong> deep semantics vs shallow locality</li>
+    </ul>
+  </div>
+
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="panel panel-success p-3 space-y-2">
+      <h5 class="font-medium">N-grams / statistical</h5>
+      <ul class="list-disc pl-5 text-sm space-y-1">
+        <li>Fixed window: P(word | last N-1 words)</li>
+        <li>Sparse counts with smoothing (Kneser-Ney)</li>
+        <li>Limited generalization; struggles with rare words</li>
+      </ul>
+    </div>
+    <div class="panel panel-accent p-3 space-y-2" data-accent="generation">
+      <h5 class="font-medium">HMMs / probabilistic</h5>
+      <ul class="list-disc pl-5 text-sm space-y-1">
+        <li>Hidden states plus Markov assumptions</li>
+        <li>Viterbi or Forward-Backward inference</li>
+        <li>Great for tagging; limited expressivity</li>
+      </ul>
+    </div>
+    <div class="panel panel-warning p-3 space-y-2" data-accent="training">
+      <h5 class="font-medium">Transformers / LLMs</h5>
+      <ul class="list-disc pl-5 text-sm space-y-1">
+        <li>Self-attention over long contexts</li>
+        <li>Rich embeddings; transfer via pretraining</li>
+        <li>Handles diverse tasks with prompting</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="panel panel-warning p-4 space-y-2">
+    <h4 class="font-semibold text-heading">&#x1F3AF; Why this matters</h4>
+    <ul class="list-disc ml-5 text-sm space-y-1">
+      <li><strong>Context length:</strong> global vs n-bounded window</li>
+      <li><strong>Generalization:</strong> semantic embeddings vs memorized counts</li>
+      <li><strong>Versatility:</strong> prompting multi-task vs bespoke pipelines</li>
+      <li><strong>Compute trade-off:</strong> higher cost for broader capability</li>
+    </ul>
+  </div>
+</div>

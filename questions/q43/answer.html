@@ -1,95 +1,91 @@
+<div class="space-y-4">
+  <div class="panel panel-info p-3 space-y-2">
+    <h4 class="font-semibold">📚 Recommended reading (related)</h4>
+    <ul class="list-disc list-inside text-sm space-y-1">
+      <li><a class="underline" href="#question-38">Question 38: Layer Normalization &amp; why pre-norm stabilizes depth</a></li>
+      <li><a class="underline" href="#question-40">Question 40: Multi-hop reasoning &amp; path length intuition</a></li>
+      <li><a class="underline" href="#question-41">Question 41: Adaptive softmax depth vs efficiency trade-offs</a></li>
+      <li><a class="underline" href="#question-36">Question 36: Retrieval architectures (residual signal routing analogy)</a></li>
+    </ul>
+    <p class="small-caption panel-muted">These reinforce how normalization, residual routing, and path shortening preserve gradient flow.</p>
+  </div>
 
-    <div class="space-y-4">
-      <!-- Recommended Reading (canonical) -->
-      <div class="bg-indigo-50 p-3 rounded-lg border border-indigo-200">
-        <h4 class="font-semibold text-indigo-900 mb-1">📚 Recommended reading (related)</h4>
-        <ul class="list-disc ml-5 text-sm text-indigo-800 space-y-1">
-          <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-38">Question 38: Layer Normalization & why pre-norm stabilizes depth</a></li>
-          <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-40">Question 40: Multi-hop reasoning & path length intuition</a></li>
-          <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-41">Question 41: Adaptive softmax depth vs efficiency trade-offs</a></li>
-          <li><a class="text-indigo-700 underline hover:text-indigo-900" href="#question-36">Question 36: Retrieval architectures (residual signal routing analogy)</a></li>
-        </ul>
-        <p class="mt-2 text-xs text-indigo-700">These reinforce how normalization, residual routing, and path shortening preserve gradient flow.</p>
-      </div>
-      <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
-        <h4 class="font-semibold text-blue-900 mb-2">🧠 Core Idea</h4>
-        <p class="text-sm text-blue-800">Transformers keep gradients healthy with <b>residual connections</b>, <b>LayerNorm</b> (typically <i>pre-norm</i>), and <b>parallel attention paths</b> that shorten effective depth.</p>
-  <div class="text-xs mt-2 text-blue-800">
-          Gradient through a residual block with pre-norm (input \(mathbf{x}_ell\)):
-          <div class="math-display">$$
-          \begin{align*}
-          \mathbf{y}_\ell &= \mathbf{x}_\ell + F(\mathrm{LN}(\mathbf{x}_\ell)), \\
-          \frac{\partial \mathcal{L}}{\partial \mathbf{x}_\ell} &\approx \frac{\partial \mathcal{L}}{\partial \mathbf{y}_\ell} \big( \mathbf{I} + \mathbf{J}_\ell \big), \\
-          \mathbf{J}_\ell &= \frac{\partial F}{\partial \mathrm{LN}(\mathbf{x}_\ell)} \cdot \frac{\partial \mathrm{LN}}{\partial \mathbf{x}_\ell}
-          \end{align*}
-          $$</div>
-          The identity path $\mathbf{I}$ <i>guarantees</i> a direct gradient route; LayerNorm keeps scales near 1.
-        </div>
-      </div>
-      <div class="grid md:grid-cols-3 gap-4">
-        <div class="bg-green-50 p-3 rounded border-l-4 border-green-400">
-          <h5 class="font-medium text-green-900">🟢 Plain Deep Stack</h5>
-          <ul class="text-sm text-green-700 mt-1 space-y-1">
-            <li>• Multiplicative chain of gains</li>
-            <li>• Per-layer gain $g < 1$ ⇒ decay $g^L$</li>
-          </ul>
-        </div>
-        <div class="bg-purple-50 p-3 rounded border-l-4 border-purple-400">
-          <h5 class="font-medium text-purple-900">🟣 Residual + Pre-LN</h5>
-          <ul class="text-sm text-purple-700 mt-1 space-y-1">
-            <li>• Always includes identity gradient $\mathbf{I}$</li>
-            <li>• LN centers/scales → stable Jacobians</li>
-          </ul>
-        </div>
-        <div class="bg-orange-50 p-3 rounded border-l-4 border-orange-400">
-          <h5 class="font-medium text-orange-900">🟠 Multi-head Attention</h5>
-          <ul class="text-sm text-orange-700 mt-1 space-y-1">
-            <li>• Parallel, short-range paths</li>
-            <li>• Less depth per dependency</li>
-          </ul>
-        </div>
-      </div>
-      </div>
+  <div class="panel panel-info panel-emphasis p-4 space-y-3">
+    <h4 class="font-semibold">🧠 Core Idea</h4>
+    <p class="text-sm">Transformers keep gradients healthy with <strong>residual connections</strong>, <strong>LayerNorm</strong> (typically <em>pre-norm</em>), and <strong>parallel attention paths</strong> that shorten effective depth.</p>
+    <div class="text-xs panel-muted space-y-2">
+      <div>Gradient through a residual block with pre-norm (input \(\mathbf{x}_\ell\)):</div>
+      <div class="math-display">\[
+      \begin{align*}
+      \mathbf{y}_\ell &= \mathbf{x}_\ell + F(\mathrm{LN}(\mathbf{x}_\ell)), \
+      \frac{\partial \mathcal{L}}{\partial \mathbf{x}_\ell} &\approx \frac{\partial \mathcal{L}}{\partial \mathbf{y}_\ell} \big( \mathbf{I} + \mathbf{J}_\ell \big), \
+      \mathbf{J}_\ell &= \frac{\partial F}{\partial \mathrm{LN}(\mathbf{x}_\ell)} \cdot \frac{\partial \mathrm{LN}}{\partial \mathbf{x}_\ell}
+      \end{align*}
+      \]</div>
+      <div>The identity path \(\mathbf{I}\) guarantees a direct gradient route; LayerNorm keeps scales near 1.</div>
+    </div>
+  </div>
 
-      <!-- Why This Matters (canonical) -->
-      <div class="bg-yellow-50 p-4 rounded-lg">
-        <h4 class="font-semibold text-yellow-900 mb-2">🎯 Why This Matters</h4>
-        <ul class="text-sm text-yellow-800 space-y-1">
-          <li>• Enables <b>deep stacks</b> to train efficiently</li>
-          <li>• Stabilizes gradients for <b>long contexts</b></li>
-          <li>• Improves convergence and <b>reduces exploding/vanishing</b></li>
-        </ul>
-      </div>
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="panel panel-success panel-emphasis p-3 stacked-card">
+      <h5 class="font-medium">🟢 Plain Deep Stack</h5>
+      <ul class="list-disc list-inside text-sm space-y-1">
+        <li>Multiplicative chain of gains</li>
+        <li>Per-layer gain \(g &lt; 1\) ⇒ decay \(g^L\)</li>
+      </ul>
+    </div>
+    <div class="panel panel-accent panel-emphasis p-3 stacked-card">
+      <h5 class="font-medium">🟣 Residual + Pre-LN</h5>
+      <ul class="list-disc list-inside text-sm space-y-1">
+        <li>Always includes identity gradient \(\mathbf{I}\)</li>
+        <li>LN centers/scales → stable Jacobians</li>
+      </ul>
+    </div>
+    <div class="panel panel-warning panel-emphasis p-3 stacked-card">
+      <h5 class="font-medium">🟠 Multi-head Attention</h5>
+      <ul class="list-disc list-inside text-sm space-y-1">
+        <li>Parallel, short-range paths</li>
+        <li>Less depth per dependency</li>
+      </ul>
+    </div>
+  </div>
 
-      <!-- Deep dive -->
-      <div class="bg-white p-4 rounded-lg border border-gray-200">
-        <h4 class="font-semibold text-gray-900 mb-2">🔎 Deep Dive: Why gradients don’t vanish</h4>
-        <div class="text-sm text-gray-800 space-y-3">
-          <div>
-            <b>1) Residuals add an identity Jacobian.</b>
-              Without residuals, gradients multiply per-layer gains and decay like $g^L$ when $g < 1$. With residuals, each layer contributes $(\mathbf{I}+\alpha,\mathbf{J}_\ell)$:
-            <div class="math-display">$$
-            \frac{\partial \mathcal{L}}{\partial \mathbf{x}_0} \;\approx\; \frac{\partial \mathcal{L}}{\partial \mathbf{y}_L}\; \prod_{\ell=1}^{L} \big( \mathbf{I} + \alpha\,\mathbf{J}_\ell \big)
-            $$</div>
-            If \(\|\mathbf{J}_\ell\|\) is modest, the product stays close to identity, preserving end→start signal.
-          </div>
-          <div>
-            <b>2) Pre-LN vs Post-LN.</b>
-            In <i>post-norm</i> (older variants), \( \mathbf{y}_\ell = \mathrm{LN}(\mathbf{x}_\ell + F(\mathbf{x}_\ell)) \), so gradients pick up an extra \(\mathrm{LN}'\) factor after the sum:
-            <div class="math-display">$$
-            \frac{\partial \mathcal{L}}{\partial \mathbf{x}_\ell} \;\approx\; \frac{\partial \mathcal{L}}{\partial \mathbf{y}_\ell}\; \mathrm{LN}'\, (\mathbf{I}+\mathbf{J}_\ell)
-            $$</div>
-            In <i>pre-norm</i> (modern default), LN is applied before (F). The identity path is unscaled, pulling effective gains toward 1 and making very deep stacks trainable.
-          </div>
-          <div>
-            <b>3) Attention provides short, parallel paths.</b>
-            Multi-head attention can connect distant tokens in few “effective hops”. A fraction of gradient avoids traversing all (L) blocks, substantially raising the end→start magnitude.
-          </div>
-          <div>
-            <b>4) Practical knobs.</b>
-            Keep residual scale \(\alpha\) moderate (fixed or learned), use Pre-LN/RMSNorm to stabilize \(\|\mathbf{J}_\ell\|\), and combine with AdamW, warmup, and optional gradient clipping to control explosions when \(g\gt 1\).
-          </div>
-        </div>
+  <div class="panel panel-warning p-4 space-y-2">
+    <h4 class="font-semibold">🎯 Why This Matters</h4>
+    <ul class="list-disc list-inside text-sm space-y-1">
+      <li>Enables <strong>deep stacks</strong> to train efficiently</li>
+      <li>Stabilizes gradients for <strong>long contexts</strong></li>
+      <li>Improves convergence and <strong>reduces exploding/vanishing</strong></li>
+    </ul>
+  </div>
+
+  <div class="panel panel-neutral p-4 space-y-3">
+    <h4 class="font-semibold text-heading">🔎 Deep Dive: Why gradients don’t vanish</h4>
+    <div class="text-sm space-y-3">
+      <div>
+        <strong>1) Residuals add an identity Jacobian.</strong>
+        Without residuals, gradients multiply per-layer gains and decay like \(g^L\) when \(g &lt; 1\). With residuals, each layer contributes \((\mathbf{I} + \alpha\,\mathbf{J}_\ell)\):
+        <div class="math-display">\[
+        \frac{\partial \mathcal{L}}{\partial \mathbf{x}_0} \approx \frac{\partial \mathcal{L}}{\partial \mathbf{y}_L} \prod_{\ell=1}^{L} \big( \mathbf{I} + \alpha\,\mathbf{J}_\ell \big)
+        \]</div>
+        If \(\|\mathbf{J}_\ell\|\) is modest, the product stays close to identity, preserving end→start signal.
+      </div>
+      <div>
+        <strong>2) Pre-LN vs Post-LN.</strong>
+        In <em>post-norm</em> (older variants), \( \mathbf{y}_\ell = \mathrm{LN}(\mathbf{x}_\ell + F(\mathbf{x}_\ell)) \), so gradients pick up an extra \(\mathrm{LN}'\) factor after the sum:
+        <div class="math-display">\[
+        \frac{\partial \mathcal{L}}{\partial \mathbf{x}_\ell} \approx \frac{\partial \mathcal{L}}{\partial \mathbf{y}_\ell} \; \mathrm{LN}' \; (\mathbf{I}+\mathbf{J}_\ell)
+        \]</div>
+        In <em>pre-norm</em> (modern default), LN is applied before \(F\). The identity path is unscaled, pulling effective gains toward 1 and making very deep stacks trainable.
+      </div>
+      <div>
+        <strong>3) Attention provides short, parallel paths.</strong>
+        Multi-head attention can connect distant tokens in few “effective hops”. A fraction of gradient avoids traversing all \(L\) blocks, substantially raising the end→start magnitude.
+      </div>
+      <div>
+        <strong>4) Practical knobs.</strong>
+        Keep residual scale \(\alpha\) moderate (fixed or learned), use Pre-LN/RMSNorm to stabilize \(\|\mathbf{J}_\ell\|\), and combine with AdamW, warmup, and optional gradient clipping to control explosions when \(g &gt; 1\).
       </div>
     </div>
-  
+  </div>
+</div>

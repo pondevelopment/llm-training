@@ -1,109 +1,125 @@
-<div class="space-y-5">
-  <div class="bg-indigo-50 border border-indigo-200 rounded-lg p-4">
-    <div class="flex flex-wrap md:flex-nowrap items-start justify-between gap-4">
-      <div class="md:max-w-3xl">
-        <h2 class="text-xl font-semibold text-indigo-900">How Much Should We Spend to Reduce A.I.'s Existential Risk?</h2>
-        <p class="text-sm text-indigo-700">Charles I. Jones • NBER Transformative AI Conference (Mar 2025)</p>
+<div class="paper-overview-card space-y-6">
+  <section class="panel panel-info panel-emphasis p-5 space-y-4">
+    <header class="flex flex-wrap md:flex-nowrap items-start justify-between gap-4">
+      <div class="md:max-w-3xl space-y-1">
+        <h2 class="text-xl font-semibold text-heading">How Much Should We Spend to Reduce A.I.'s Existential Risk?</h2>
+        <p class="text-sm panel-muted">Charles I. Jones &bull; NBER Transformative AI Conference (Mar 2025)</p>
       </div>
-      <a href="https://conference.nber.org/conf_papers/f227502.pdf" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-medium bg-white border border-indigo-200 text-indigo-700 hover:bg-indigo-100">
+      <a href="https://conference.nber.org/conf_papers/f227502.pdf" target="_blank" rel="noopener" class="btn-soft text-xs font-semibold" data-accent="foundations">
         <span>View paper</span>
-        <span aria-hidden="true" class="text-sm leading-none">&#8599;</span>
+        <span aria-hidden="true">&#8599;</span>
       </a>
+    </header>
+    <p class="text-sm leading-relaxed panel-muted">
+      Jones reuses the COVID revealed-preference logic to calibrate what a rational government should spend to mitigate advanced AI catastrophes. If a 0.3% mortality risk justified a 4% GDP outlay in 2020, similar or larger AI risks warrant GDP-scale safety budgets.
+    </p>
+    <p class="text-sm leading-relaxed panel-muted">
+      The calibrated model pairs a $10M statistical value of life with explicit hazard dynamics: under the baseline assumptions (1% one-off existential risk, half of it mitigable, moderate effectiveness of spend) the optimal allocation is 15.8% of GDP each year until the risk window closes. Even dialling the hazard down to 0.5% or assuming mitigation only halves the risk still keeps optimal spend above 8% of GDP.
+    </p>
+    <div class="panel panel-neutral-soft p-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Plain-language explainer</p>
+      <p class="panel-muted">Treat AI catastrophe mitigation like pandemic insurance. Regulators already price a human life at about $10M. That math says shaving even a 1% chance of AI doom is worth six figures per person today&mdash;translating into national safety budgets measured in double-digit GDP points when risks concentrate in the next decade.</p>
     </div>
-    <p class="mt-3 text-sm text-secondary leading-relaxed">
-      Jones reuses the COVID revealed-preference logic to calibrate what a rational government should spend to mitigate advanced AI catastrophes. If a 0.3% mortality risk justified a 4% GDP outlay in 2020, similar or larger AI risks warrant multi-percent-of-GDP safety budgets.</p>
-    <p class="mt-2 text-xs text-secondary leading-relaxed">
-      He combines the $10M statistical value of life with hazard scenarios to show that even without valuing future generations, dedicating 1–5% of GDP annually to reduce AI existential risk is economically consistent when risk timelines are 10–20 years.</p>
-    <div class="plain-explainer rounded-md p-3 mt-3 space-y-1 text-xs">
-      <p class="font-semibold">Plain-language explainer</p>
-      <p class="text-secondary">Treat AI catastrophe mitigation like pandemic insurance. Regulators already price a human life at about $10M. That math says shaving even a 1% chance of AI doom is worth six figures per person today—translating into national spending measured in GDP points.</p>
-    </div>
-  </div>
+  </section>
 
-  <div class="bg-slate-900 text-slate-100 border border-slate-800 rounded-lg p-5 space-y-3">
-    <h3 class="text-sm font-semibold tracking-wide uppercase text-slate-200">Executive quick take</h3>
-    <p class="text-sm text-slate-200 leading-relaxed">Use cost-benefit math, not vibes, for AI safety. If experts see even single-digit existential risk this decade, allocate persistent GDP-level funding to hazard reduction, safety research, and governance.</p>
-    <ul class="list-disc ml-5 text-sm text-slate-300 space-y-1">
-      <li><strong>COVID yardstick:</strong> 0.3% mortality justified a 4% GDP “spend” in 2020; use that revealed willingness-to-pay for AI.</li>
-      <li><strong>Value of life math:</strong> $10M VSL — $100k per capita to avoid 1% mortality—over 100% of US GDP per person.</li>
-      <li><strong>Timelines matter:</strong> 10–20 year horizons support dedicating ≥1% GDP annually to mitigation, even without longtermism.</li>
+  <section class="panel panel-neutral p-5 space-y-3">
+    <h3 class="text-sm font-semibold tracking-wide uppercase text-heading">Executive quick take</h3>
+    <p class="text-sm leading-relaxed text-body">Use cost-benefit math, not vibes, for AI safety. If experts put even single-digit existential risk on the 10&ndash;20 year horizon, the model backs sustained double-digit GDP spending on mitigation.</p>
+    <ul class="list-disc ml-5 text-sm panel-muted space-y-1">
+      <li><strong>Baseline result:</strong> 1% hazard, 50% mitigable share, and middling effectiveness imply 15.8% of GDP per year.</li>
+      <li><strong>Conservative scenarios:</strong> Dropping the risk to 0.5% or letting mitigation chop risk only in half still yields 8%&plus; GDP safety budgets.</li>
+      <li><strong>Distributional view:</strong> Monte Carlo runs with Table&nbsp;1 priors push 65&ndash;86% of draws above the 1% GDP line; only 12&ndash;33% collapse to zero spend when mitigation is nearly powerless.</li>
     </ul>
-  </div>
+  </section>
 
-  <div class="bg-emerald-50 border border-emerald-200 rounded-lg p-5 space-y-2">
-    <h3 class="text-sm font-semibold text-emerald-900">Business relevance</h3>
-    <div class="bg-white border border-indigo-200 rounded-md p-3 space-y-1 text-xs text-indigo-900">
-      <p class="font-semibold">Safety as capital spending</p>
-      <p class="text-secondary">CFOs should model AI safety programs like insurance: multi-percent-of-revenue commitments can be revenue-maximizing if tail-risk odds are non-trivial.</p>
-    </div>
-
-    <ul class="list-disc ml-5 text-sm text-emerald-800 space-y-1">
-      <li><strong>Boards:</strong> Demand quantified hazard assessments and tie safety budgets to risk probability × loss exposure.</li>
-      <li><strong>Risk officers:</strong> Treat AI misuse and alignment failures as enterprise catastrophe risks, with mitigation spending targets.</li>
-      <li><strong>Policy teams:</strong> Align corporate lobby positions with public investment levels; tax-financed safety infrastructure benefits incumbents.</li>
+  <section class="panel panel-info p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">Model mechanics</h3>
+    <p class="text-sm panel-muted">Optimal spend is the product of willingness-to-pay for lives at risk and the effectiveness of mitigation. Equation&nbsp;(6) in the paper simplifies to</p>
+    <p class="text-sm text-heading">
+      \(s^* = \phi \delta_0 \beta \frac{V_{t+1}}{u'(y_0)} \cdot \xi_T\)
+    </p>
+    <ul class="list-disc ml-5 text-sm panel-muted space-y-1">
+      <li>\(\delta_0\): one-off existential hazard (baseline 1%, uniform 0&ndash;2%).</li>
+      <li>\(\phi\): share of that hazard mitigation can remove (baseline 0.5, uniform 0&ndash;1).</li>
+      <li>\(\xi_T\): effectiveness of spending over \(N\) years given diminishing returns \(\alpha\); captures how aggressively budgets translate into risk reduction.</li>
+      <li>\(V_{t+1}/u'(y_0)\): $10M statistical life converted into consumption-equivalent willingness-to-pay (uniform $5&ndash;15M).</li>
+      <li>Time horizon and diminishing returns matter: longer windows (higher \(N\)) or steeper crowd-out (larger \(\alpha\)) dilute the annual share, but the baseline still lands in double digits.</li>
     </ul>
-    <div class="bg-white border border-emerald-200 rounded-md p-3 mt-3 space-y-1 text-xs text-emerald-900">
-      <p class="font-semibold">Business playbook examples</p>
-      <ul class="list-disc ml-4 space-y-1 text-emerald-800">
-        <li><strong>Frontier labs:</strong> Earmark ≥5% of compute budget for red-teaming and interpretability research pools.</li>
-        <li><strong>Cloud providers:</strong> Bundle safety audit credits with large-scale inference contracts, priced off catastrophe insurance benchmarks.</li>
+  </section>
+
+  <section class="panel panel-success p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">Business relevance</h3>
+    <div class="panel panel-neutral-soft p-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Safety as capital spending</p>
+      <p class="panel-muted">CFOs should model AI safety programs like insurance: allocating 10%&plus; of operating budgets can be value-maximising if tail-risk odds stay in single digits.</p>
+    </div>
+    <ul class="list-disc ml-5 text-sm text-body space-y-1">
+      <li><strong>Boards:</strong> Demand quantified hazard assessments and map budget guardrails to the \(\phi\,\delta_0\) surface the paper highlights.</li>
+      <li><strong>Risk officers:</strong> Treat AI misuse and alignment failures as enterprise catastrophe risks with explicit spend-to-effectiveness curves.</li>
+      <li><strong>Policy teams:</strong> Align corporate lobbying with public investment baselines: if national plans need 10% of GDP, firms should match the order of magnitude.</li>
+    </ul>
+    <div class="panel panel-neutral-soft p-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Business playbook examples</p>
+      <ul class="list-disc ml-4 space-y-1 panel-muted">
+        <li><strong>Frontier labs:</strong> Earmark &ge;10% of compute or R&amp;D spend for red-teaming, interpretability, and alignment research pools.</li>
+        <li><strong>Cloud providers:</strong> Bundle safety audit credits and shutdown rehearsals with large-scale inference contracts, priced off national mitigation benchmarks.</li>
         <li><strong>Regulated industries:</strong> Co-invest with regulators in joint response centers to detect and contain malicious AI misuse.</li>
       </ul>
     </div>
-  </div>
+  </section>
 
-  <div class="grid md:grid-cols-3 gap-4">
-    <div class="bg-white border border-gray-200 rounded-lg p-3">
-      <h5 class="text-sm font-semibold text-gray-900">Key insight</h5>
-      <p class="text-xs text-gray-600">Applying revealed-preference and VSL logic shows multi-percent-of-GDP safety spending is rational when AI catastrophe odds exceed 0.1–1%.</p>
-    </div>
-    <div class="bg-white border border-gray-200 rounded-lg p-3">
-      <h5 class="text-sm font-semibold text-gray-900">Method</h5>
-      <p class="text-xs text-gray-600">One-sector model with annual catastrophe hazard, mitigation investment that reduces risk, and calibration to pandemic spending plus regulatory VSL estimates.</p>
-    </div>
-    <div class="bg-white border border-gray-200 rounded-lg p-3">
-      <h5 class="text-sm font-semibold text-gray-900">Implications</h5>
-      <p class="text-xs text-gray-600">Budget AI safety via national R&D, standards, and compute throttles; treat >1% GDP budgets as defensible baseline, higher if timelines are short.</p>
-    </div>
-  </div>
+  <section class="grid md:grid-cols-3 gap-4">
+    <article class="panel panel-neutral p-4 space-y-2">
+      <h5 class="text-sm font-semibold text-heading">Key insight</h5>
+      <p class="text-sm panel-muted">Applying revealed-preference and VSL logic shows double-digit GDP safety spending is rational when AI catastrophe odds exceed roughly 0.1&ndash;1%.</p>
+    </article>
+    <article class="panel panel-neutral p-4 space-y-2">
+      <h5 class="text-sm font-semibold text-heading">Method</h5>
+      <p class="text-sm panel-muted">One-sector model with annual catastrophe hazard, mitigation investment that reduces risk, and calibration to pandemic spending plus regulatory VSL estimates.</p>
+    </article>
+    <article class="panel panel-neutral p-4 space-y-2">
+      <h5 class="text-sm font-semibold text-heading">Implications</h5>
+      <p class="text-sm panel-muted">Budget AI safety via national R&amp;D, standards, and compute throttles; treat 8%&plus; GDP budgets as a defensible baseline, higher if timelines are short.</p>
+    </article>
+  </section>
 
-  <div class="grid md:grid-cols-2 gap-4">
-    <div class="bg-sky-50 border border-sky-200 rounded-lg p-4 space-y-2">
-      <h3 class="text-sm font-semibold text-sky-900">Measurement priorities</h3>
-      <p class="text-xs text-sky-800">Benchmark risk assumptions against observable signals.</p>
-      <ul class="list-disc ml-4 text-[11px] text-sky-700 space-y-1">
+  <section class="grid md:grid-cols-2 gap-4">
+    <article class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Measurement priorities</h3>
+      <p class="text-xs panel-muted">Benchmark risk assumptions against observable signals.</p>
+      <ul class="list-disc ml-4 text-[11px] panel-muted space-y-1">
         <li><strong>Hazard surveys:</strong> Track expert p(doom) and update budget triggers as consensus shifts.</li>
-        <li><strong>Mitigation efficacy:</strong> Quantify how safety spending reduces hazard (e.g., alignment breakthroughs per $).</li>
+        <li><strong>Mitigation efficacy:</strong> Quantify how safety spending reduces hazard (for example, alignment breakthroughs per dollar).</li>
         <li><strong>Legacy comps:</strong> Compare to nuclear safety, pandemic insurance, and climate adaptation cost ratios.</li>
       </ul>
-    </div>
-    <div class="bg-sky-50 border border-sky-200 rounded-lg p-4 space-y-2">
-      <h3 class="text-sm font-semibold text-sky-900">Policy signals</h3>
-      <p class="text-xs text-sky-800">How governments recalibrate budgets and oversight.</p>
-      <ul class="list-disc ml-4 text-[11px] text-sky-700 space-y-1">
+    </article>
+    <article class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Policy signals</h3>
+      <p class="text-xs panel-muted">Watch how governments recalibrate budgets and oversight.</p>
+      <ul class="list-disc ml-4 text-[11px] panel-muted space-y-1">
         <li><strong>Dedicated funds:</strong> Create AI safety trust funds funded via compute taxes or levies.</li>
-        <li><strong>International pooling:</strong> Coordinate hazard spending commitments across OECD + frontier labs.</li>
+        <li><strong>International pooling:</strong> Coordinate hazard spending commitments across OECD governments and frontier labs.</li>
         <li><strong>Regulatory VSL refresh:</strong> Update official VSL estimates to incorporate AI-specific risk valuations.</li>
       </ul>
-    </div>
-  </div>
+    </article>
+  </section>
 
-  <div class="bg-white border border-gray-200 rounded-lg p-5 space-y-3">
-    <h3 class="text-sm font-semibold text-gray-900">Evidence base</h3>
-    <ul class="list-disc ml-5 text-sm text-gray-700 space-y-1">
-      <li>COVID spending vs mortality risk (4% GDP for ~0.3% fatality probability).</li>
-      <li>Value-of-statistical-life calibrations implying $100k willingness-to-pay to avoid a 1% mortality risk.</li>
-      <li>Dynamic hazard model simulations showing ≥1% GDP mitigation outlays optimal across plausible timelines and hazard reductions.</li>
+  <section class="panel panel-neutral p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">Evidence base</h3>
+    <ul class="list-disc ml-5 text-sm panel-muted space-y-1">
+      <li>Equation&nbsp;(6) links optimal spend to \(\phi\), \(\delta_0\), \(\xi_T\), and the $10M value of statistical life, yielding 15.8% of GDP under the baseline calibration.</li>
+      <li>Table&nbsp;1 parameters: \(\delta_0\) uniform 0&ndash;2%, \(\phi\) uniform 0&ndash;1, \(\xi\) uniform 0&ndash;0.99, value of life uniform $5&ndash;15M (mean $10M).</li>
+      <li>Monte Carlo analysis (10 million runs) finds 65&ndash;86% of draws imply &ge;1% GDP spend and a median near 18%; zero-spend cases occur only when mitigation is nearly ineffective.</li>
     </ul>
-  </div>
+  </section>
 
-  <div class="bg-amber-50 border border-amber-200 rounded-lg p-5 space-y-2">
-    <h3 class="text-sm font-semibold text-amber-900">Forward-looking roadmap</h3>
-    <ul class="list-disc ml-5 text-sm text-amber-800 space-y-1">
+  <section class="panel panel-warning p-5 space-y-2">
+    <h3 class="text-sm font-semibold text-heading">Forward-looking roadmap</h3>
+    <ul class="list-disc ml-5 text-sm text-body space-y-1">
       <li>Set GDP-indexed AI safety budgets with automatic escalation when hazard surveys exceed thresholds.</li>
       <li>Fund cross-lab safety benchmarks and compute access for independent red teams.</li>
       <li>Publish annual AI catastrophe risk assessments tying mitigation spend to measurable hazard reduction.</li>
       <li>Plan international insurance pools to backstop low-probability, high-severity AI incidents.</li>
     </ul>
-  </div>
+  </section>
 </div>

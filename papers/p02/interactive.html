@@ -1,107 +1,120 @@
-<div class="space-y-6" id="p02-explorer">
-  <section class="bg-white border border-gray-200 rounded-lg p-5 space-y-5">
-    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+﻿<style>
+  #p02-explorer .p02-note {
+    min-height: 2.75rem;
+  }
+</style>
+<div id="p02-explorer" class="paper-interactive-card space-y-6">
+  <section class="panel panel-info panel-emphasis p-5 space-y-5">
+    <header class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
       <div>
-        <p class="text-[11px] font-semibold tracking-wide text-indigo-600 uppercase">Step 1 · Base model guarantee</p>
-        <h3 class="text-sm font-semibold text-gray-900">How much slack does the theory allow?</h3>
-        <p class="text-xs text-gray-600 mt-1">Move the sliders to see the Theorem&nbsp;1 lower bound. Even calibrated models keep a non-zero hallucination floor.</p>
+        <p class="text-[11px] font-semibold uppercase tracking-wide text-info">Step 1 &middot; Base model guarantee</p>
+        <h3 class="text-sm font-semibold text-heading">How much slack does the theory allow?</h3>
+        <p class="text-xs text-muted mt-1">Move the sliders to see the Theorem 1 lower bound. Even calibrated models leave a non-zero hallucination floor.</p>
       </div>
-      <div class="text-xs text-gray-500">Bound assumes cross-entropy trained, calibrated base model.</div>
-    </div>
-    <div class="grid md:grid-cols-3 gap-4 text-sm">
+      <div class="text-xs text-muted">Bound assumes a cross-entropy-trained, calibrated base model.</div>
+    </header>
+    <div class="grid md:grid-cols-3 gap-4 text-sm text-secondary">
       <label class="flex flex-col gap-2">
-        <span class="font-medium text-gray-700">Validity classifier accuracy <span id="p02-accuracy-label" class="font-mono text-xs text-indigo-600">82%</span></span>
-        <input id="p02-accuracy" type="range" min="55" max="99" step="1" value="82" class="w-full">
-        <span class="text-xs text-gray-500">Higher accuracy → smaller misclassification term.</span>
+        <span class="font-medium text-heading">Validity classifier accuracy <span id="p02-accuracy-label" class="font-mono text-sm text-info">92%</span></span>
+        <input id="p02-accuracy" type="range" min="55" max="99" step="1" value="92" class="w-full">
+        <span class="text-xs text-muted">Higher accuracy means a smaller misclassification term.</span>
       </label>
       <div class="flex flex-col gap-2">
-        <span class="font-medium text-gray-700">Calibration state</span>
-        <div class="flex gap-2">
-          <button type="button" class="p02-toggle px-3 py-1.5 text-xs rounded-md border border-gray-300 text-gray-700" data-delta="0.02">Calibrated</button>
-          <button type="button" class="p02-toggle px-3 py-1.5 text-xs rounded-md border border-gray-300 text-gray-700" data-delta="0.08">Drifting</button>
+        <span class="font-medium text-heading">Calibration state</span>
+        <div class="view-toggle flex gap-2" role="group" aria-label="Calibration state">
+          <button type="button" class="p02-toggle toggle-active" data-delta="0.02">Calibrated</button>
+          <button type="button" class="p02-toggle toggle-inactive" data-delta="0.08">Drifting</button>
         </div>
-        <p class="text-xs text-gray-500">Calibration gap |δ| grows when post-training pulls the model away from the optimum.</p>
+        <p class="text-xs text-muted">The calibration gap |&delta;| grows when post-training pulls the model away from the optimum.</p>
       </div>
       <label class="flex flex-col gap-2">
-        <span class="font-medium text-gray-700">Prompt structure</span>
-        <select id="p02-structure" class="px-2 py-1 border border-gray-300 rounded text-sm">
+        <span class="font-medium text-heading">Prompt structure</span>
+        <select id="p02-structure" class="px-3 py-2 border border-subtle rounded-md bg-card text-heading text-sm">
           <option value="0.03">Single correct answer</option>
           <option value="0.01">Several answers acceptable</option>
           <option value="0.07">Tough grading (one tiny target)</option>
         </select>
-        <span class="text-xs text-gray-500">Represents the |Vc| ÷ |Ec| adjustment in the bound.</span>
+        <span class="text-xs text-muted">Represents the |Vc| / |Ec| adjustment in the bound.</span>
       </label>
     </div>
-    <div class="bg-indigo-50 border border-indigo-200 rounded-lg p-4 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-      <div>
-        <p class="text-xs font-semibold text-indigo-900 uppercase tracking-wide">Guaranteed hallucination rate</p>
-        <p class="text-sm text-indigo-900">Generative error ≥ <span id="p02-base-bound" class="font-semibold">0%</span></p>
+    <div class="panel panel-neutral-soft p-3 text-xs text-secondary space-y-2">
+      <div class="text-sm font-semibold text-heading">Replay the paper's calibration example</div>
+      <p>Tap a preset to load the confidence patterns from Figure 2.</p>
+      <div class="view-toggle flex flex-wrap gap-2">
+        <button type="button" class="p02-preset toggle-active" data-accuracy="92" data-delta="0.02" data-structure="0.03">Pretrained GPT-4 (Fig. 2)</button>
+        <button type="button" class="p02-preset toggle-inactive" data-accuracy="86" data-delta="0.08" data-structure="0.03">RLHF-tuned GPT-4 (Fig. 2)</button>
       </div>
-      <p id="p02-base-note" class="text-xs text-indigo-800 md:text-right">With near-perfect calibration the floor collapses; with drift it jumps back up.</p>
+    </div>
+    <div class="panel panel-neutral-soft p-4 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-wide text-heading">Guaranteed hallucination rate</p>
+        <p class="text-sm text-heading">Generative error &gt;= <span id="p02-base-bound" class="font-semibold">0%</span></p>
+      </div>
+      <p id="p02-base-note" class="p02-note text-xs text-muted md:text-right">With near-perfect calibration the floor collapses; with drift it jumps back up.</p>
     </div>
   </section>
 
-  <section class="bg-gradient-to-r from-sky-50 to-blue-50 border border-blue-100 rounded-lg p-5 space-y-4">
-    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-      <div>
-        <p class="text-[11px] font-semibold tracking-wide text-blue-700 uppercase">Step 2 · Coverage of rare facts</p>
-        <h3 class="text-sm font-semibold text-blue-900">How many one-off facts did pre-training see?</h3>
-        <p class="text-xs text-blue-900 mt-1">Singleton facts act like missing mass. Theorem&nbsp;2 says their share becomes a lower bound on hallucinations.</p>
-      </div>
-    </div>
-    <div class="grid md:grid-cols-3 gap-4 text-sm">
-      <label class="flex flex-col gap-1">
-        <span class="font-medium text-gray-700">Once-seen facts <span id="p02-singletons-label" class="font-mono text-xs text-blue-700">12%</span></span>
+  <section class="panel panel-accent panel-emphasis p-5 space-y-4">
+    <header>
+      <p class="text-[11px] font-semibold uppercase tracking-wide text-accent">Step 2 &middot; Coverage of rare facts</p>
+      <h3 class="text-sm font-semibold text-heading">How many once-seen facts did pre-training capture?</h3>
+      <p class="text-xs text-muted mt-1">Singleton facts act like missing mass. Theorem 2 says their share becomes a lower bound on hallucinations.</p>
+    </header>
+    <div class="grid md:grid-cols-3 gap-4 text-sm text-secondary">
+      <label class="flex flex-col gap-2">
+        <span class="font-medium text-heading">Once-seen facts <span id="p02-singletons-label" class="font-mono text-sm text-accent">12%</span></span>
         <input id="p02-singletons" type="range" min="0" max="40" step="1" value="12" class="w-full">
       </label>
-      <label class="flex flex-col gap-1">
-        <span class="font-medium text-gray-700">Sample size <span id="p02-samples-label" class="font-mono text-xs text-blue-700">80k</span></span>
+      <label class="flex flex-col gap-2">
+        <span class="font-medium text-heading">Sample size <span id="p02-samples-label" class="font-mono text-sm text-accent">80k</span></span>
         <input id="p02-samples" type="range" min="20" max="200" step="10" value="80" class="w-full">
-        <span class="text-[11px] text-gray-500">Use thousands of examples (e.g. “80” = 80k).</span>
+        <span class="text-[11px] text-muted">Use thousands of examples (for example "80" = 80k).</span>
       </label>
-      <div class="bg-white border border-blue-200 rounded-md p-3 text-xs text-blue-900 flex flex-col gap-1">
-        <p class="font-semibold">Singleton bound</p>
-        <p id="p02-singleton-bound" class="text-sm">0%</p>
+      <div class="panel panel-neutral-soft p-3 text-xs text-secondary flex flex-col gap-1">
+        <p class="font-semibold text-heading">Singleton bound</p>
+        <p id="p02-singleton-bound" class="text-sm text-heading">0%</p>
         <p id="p02-singleton-note">Expands or shrinks with coverage.</p>
       </div>
     </div>
   </section>
 
-  <section class="bg-white border border-gray-200 rounded-lg p-5 space-y-4">
-    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-      <div>
-        <p class="text-[11px] font-semibold tracking-wide text-rose-600 uppercase">Step 3 · Evaluation incentives</p>
-        <h3 class="text-sm font-semibold text-gray-900">Does the benchmark reward guessing?</h3>
-        <p class="text-xs text-gray-600 mt-1">Pick the scoring rule and model confidence. The note explains whether bluffing beats abstaining.</p>
-      </div>
-    </div>
-    <div class="grid md:grid-cols-2 gap-4 text-sm">
+  <section class="panel panel-neutral p-5 space-y-4">
+    <header>
+      <p class="text-[11px] font-semibold uppercase tracking-wide text-heading">Step 3 &middot; Evaluation incentives</p>
+      <h3 class="text-sm font-semibold text-heading">Does the benchmark reward guessing?</h3>
+      <p class="text-xs text-muted mt-1">Pick the scoring rule and model confidence. The note explains whether bluffing beats abstaining.</p>
+    </header>
+    <div class="grid md:grid-cols-2 gap-4 text-sm text-secondary">
       <fieldset class="flex flex-col gap-2">
-        <legend class="font-medium text-gray-700">Scoring rule</legend>
-        <label class="flex items-center gap-2 text-xs text-gray-700">
+        <legend class="font-medium text-heading">Scoring rule</legend>
+        <label class="flex items-center gap-2 text-xs text-secondary">
           <input type="radio" name="p02-rule" value="binary" checked> Binary leaderboard (1 for correct, 0 otherwise)
         </label>
-        <label class="flex items-center gap-2 text-xs text-gray-700">
-          <input type="radio" name="p02-rule" value="minus-one"> Minus-one penalty (1 for correct, −1 for wrong)
+        <label class="flex items-center gap-2 text-xs text-secondary">
+          <input type="radio" name="p02-rule" value="minus-one"> Minus-one penalty (1 for correct, -1 for wrong)
         </label>
-        <label class="flex items-center gap-2 text-xs text-gray-700">
-          <input type="radio" name="p02-rule" value="confidence"> Confidence target (1 for correct, −0.5 for wrong)
+        <label class="flex items-center gap-2 text-xs text-secondary">
+          <input type="radio" name="p02-rule" value="confidence"> Confidence target (1 for correct, -0.5 for wrong)
         </label>
       </fieldset>
       <label class="flex flex-col gap-2">
-        <span class="font-medium text-gray-700">Model confidence on this question <span id="p02-confidence-label" class="font-mono text-xs text-rose-600">55%</span></span>
+        <span class="font-medium text-heading">Model confidence on this question <span id="p02-confidence-label" class="font-mono text-sm text-heading">55%</span></span>
         <input id="p02-confidence" type="range" min="30" max="98" step="1" value="55" class="w-full">
-        <span class="text-xs text-gray-500">Treat this as “probability the guess is actually right”.</span>
+        <span class="text-xs text-muted">Treat this as the probability that the guess is actually right.</span>
       </label>
     </div>
-    <div class="bg-rose-50 border border-rose-200 rounded-lg p-4 text-xs text-rose-700" id="p02-rule-note">
-      Binary grading rewards guessing—expected score is higher when you answer even if you are only 55% sure.
+    <div class="panel panel-warning panel-emphasis p02-note p-4 text-sm" id="p02-rule-note">
+      Binary grading rewards guessing: the expected score is higher when you answer even at 55% confidence.
     </div>
   </section>
 
-  <section class="bg-slate-900 text-slate-100 border border-slate-800 rounded-lg p-5 space-y-3">
-    <p class="text-[11px] font-semibold tracking-wide uppercase text-slate-300">Putting it together</p>
-    <h3 class="text-sm font-semibold">What the numbers imply for this paper</h3>
-    <div id="p02-summary" class="space-y-2 text-xs text-slate-200"></div>
+  <section class="panel panel-neutral p-5 space-y-3">
+    <p class="text-[11px] font-semibold uppercase tracking-wide text-heading">Putting it together</p>
+    <h3 class="text-sm font-semibold text-heading">What the numbers imply for this paper</h3>
+    <div id="p02-summary" class="space-y-2 text-sm text-secondary"></div>
   </section>
 </div>
+
+
+
+

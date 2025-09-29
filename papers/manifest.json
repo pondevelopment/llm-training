@@ -1,4 +1,43 @@
 {
+  "27": {
+    "title": "GDPval: Evaluating AI Model Performance on Real-World Economically Valuable Tasks",
+    "authors": [
+      "Tejal Patwardhan",
+      "Rachel Dias",
+      "Elizabeth Proehl",
+      "Grace Kim",
+      "Michele Wang",
+      "Olivia Watkins",
+      "Simon Posada Fishman",
+      "Marwan Aljubeh",
+      "Phoebe Thacker",
+      "Laurance Fauconnet",
+      "Natalie S. Kim",
+      "Patrick Chao",
+      "Samuel Miserendino",
+      "Gildas Chabot",
+      "David Li",
+      "Michael Sharman",
+      "Alexandra Barr",
+      "Amelia Glaese",
+      "Jerry Tworek"
+    ],
+    "year": 2025,
+    "venue": "OpenAI Research (2025)",
+    "tags": [
+      "evaluation",
+      "economics",
+      "operations"
+    ],
+    "summary": "GDPval sizes model progress on 1,320 expert-authored tasks, showing human-parity wins when paired with review loops and revealing how scaffolding drives speed and cost savings.",
+    "dir": "./papers/p27",
+    "interactiveTitle": "GDPval rollout planner",
+    "relatedQuestions": [
+      45,
+      50,
+      56
+    ]
+  },
   "24": {
     "title": "Quantifying Human-AI Synergy",
     "authors": [

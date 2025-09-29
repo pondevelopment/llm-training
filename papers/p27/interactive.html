@@ -1,0 +1,135 @@
+﻿<div class="space-y-6" id="p27-lab">
+  <div class="grid md:grid-cols-2 gap-4">
+    <div class="panel panel-info p-4 space-y-3">
+      <h4 class="text-sm font-semibold text-heading">Benchmark profile</h4>
+      <div>
+        <label for="p27-tasks" class="block text-sm font-medium text-heading">Task batch size <span id="p27-tasks-label" class="font-mono text-xs panel-muted">100 tasks</span></label>
+        <input type="range" id="p27-tasks" min="10" max="400" step="10" value="100" class="w-full">
+        <p class="text-xs panel-muted mt-1">GDPval ships 220 gold tasks and 1,320 full tasks. Use this to size your internal run.</p>
+      </div>
+      <div>
+        <label for="p27-human-hours" class="block text-sm font-medium text-heading">Human hours per task <span id="p27-human-hours-label" class="font-mono text-xs panel-muted">7.0 h</span></label>
+        <input type="range" id="p27-human-hours" min="2" max="16" step="0.5" value="7" class="w-full">
+        <p class="text-xs panel-muted mt-1">Experts in GDPval reported a 7 hour average, with long-tail tasks stretching into multi-day projects.</p>
+      </div>
+      <div>
+        <label for="p27-human-wage" class="block text-sm font-medium text-heading">Median hourly wage <span id="p27-human-wage-label" class="font-mono text-xs panel-muted">$90/h</span></label>
+        <input type="range" id="p27-human-wage" min="25" max="250" step="5" value="90" class="w-full">
+        <p class="text-xs panel-muted mt-1">We anchor costs with OEWS wages so savings line up with compensation realities.</p>
+      </div>
+      <div>
+        <label for="p27-model-minutes" class="block text-sm font-medium text-heading">Model run time per attempt <span id="p27-model-minutes-label" class="font-mono text-xs panel-muted">8 min</span></label>
+        <input type="range" id="p27-model-minutes" min="1" max="45" step="1" value="8" class="w-full">
+        <p class="text-xs panel-muted mt-1">Measured from API metadata in the paper: completions often land within single-digit minutes, even for rich outputs.</p>
+      </div>
+    </div>
+
+    <div class="panel panel-neutral p-4 space-y-3">
+      <h4 class="text-sm font-semibold text-heading">Assistance levers</h4>
+      <div>
+        <label for="p27-win-rate" class="block text-sm font-medium text-heading">Per-attempt success rate <span id="p27-win-rate-label" class="font-mono text-xs panel-muted">40%</span></label>
+        <input type="range" id="p27-win-rate" min="10" max="80" step="1" value="40" class="w-full">
+        <p class="text-xs panel-muted mt-1">Claude Opus 4.1 and GPT-5 win just under half of gold tasks without extra scaffolding.</p>
+      </div>
+      <div>
+        <label for="p27-resamples" class="block text-sm font-medium text-heading">Resample limit (best-of-N) <span id="p27-resamples-label" class="font-mono text-xs panel-muted">3 tries</span></label>
+        <input type="range" id="p27-resamples" min="1" max="5" step="1" value="3" class="w-full">
+        <p class="text-xs panel-muted mt-1">The paper models try-again workflows before humans step in.</p>
+      </div>
+      <div>
+        <label for="p27-review" class="block text-sm font-medium text-heading">Review minutes per attempt <span id="p27-review-label" class="font-mono text-xs panel-muted">15 min</span></label>
+        <input type="range" id="p27-review" min="5" max="60" step="5" value="15" class="w-full">
+        <p class="text-xs panel-muted mt-1">Experts inspected every completion; review time drops as prompts stabilize.</p>
+      </div>
+      <div>
+        <label for="p27-oversight-wage" class="block text-sm font-medium text-heading">Reviewer hourly wage <span id="p27-oversight-wage-label" class="font-mono text-xs panel-muted">$120/h</span></label>
+        <input type="range" id="p27-oversight-wage" min="40" max="250" step="5" value="120" class="w-full">
+        <p class="text-xs panel-muted mt-1">Oversight is usually senior talent. Use their wage, not the modeler&#039;s.</p>
+      </div>
+      <div>
+        <label for="p27-model-cost" class="block text-sm font-medium text-heading">Model cost per attempt <span id="p27-model-cost-label" class="font-mono text-xs panel-muted">$4.00</span></label>
+        <input type="range" id="p27-model-cost" min="0" max="30" step="0.5" value="4" class="w-full">
+      </div>
+      <div>
+        <label for="p27-context" class="block text-sm font-medium text-heading">Context completeness <span id="p27-context-label" class="font-mono text-xs panel-muted">90%</span></label>
+        <input type="range" id="p27-context" min="40" max="100" step="5" value="90" class="w-full">
+        <p class="text-xs panel-muted mt-1">Appendix A.2.6 shows win rates fall sharply when briefs omit references. Treat this as how much tribal knowledge you collect up front.</p>
+      </div>
+      <div class="flex items-center gap-2">
+        <input type="checkbox" id="p27-scaffolding" class="h-4 w-4 rounded border border-divider bg-card accent-[color:var(--accent-strong)]">
+        <label for="p27-scaffolding" class="text-sm text-body">Apply prompt checklist &amp; multimodal self-review <span class="text-xs panel-muted">(+5 pp success)</span></label>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-neutral p-4 space-y-4">
+    <div class="flex items-center justify-between">
+      <h4 class="text-sm font-semibold text-heading">Productivity outlook</h4>
+      <span id="p27-time-savings-label" class="text-lg font-semibold text-info">0% saved</span>
+    </div>
+    <div class="h-2 rounded-full bg-subtle overflow-hidden">
+      <div id="p27-time-savings-bar" class="h-full rounded-full transition-all duration-300" style="width:0%"></div>
+    </div>
+    <p id="p27-outlook-note" class="text-xs panel-muted">Tune the inputs to see where assisted workflows beat unaided experts.</p>
+    <dl class="grid sm:grid-cols-3 gap-3 text-xs text-body">
+      <div class="panel panel-neutral-soft p-3 space-y-1">
+        <dt class="font-semibold text-heading text-xs uppercase tracking-wide">Speed multiplier</dt>
+        <dd id="p27-speed-multiplier" class="text-sm font-semibold text-info">1.00x</dd>
+      </div>
+      <div class="panel panel-neutral-soft p-3 space-y-1">
+        <dt class="font-semibold text-heading text-xs uppercase tracking-wide">Cost multiplier</dt>
+        <dd id="p27-cost-multiplier" class="text-sm font-semibold text-info">1.00x</dd>
+      </div>
+      <div class="panel panel-neutral-soft p-3 space-y-1">
+        <dt class="font-semibold text-heading text-xs uppercase tracking-wide">Success probability</dt>
+        <dd id="p27-success-prob" class="text-sm font-semibold text-info">0%</dd>
+      </div>
+    </dl>
+  </div>
+
+  <div class="grid md:grid-cols-2 gap-4">
+    <div class="panel panel-neutral p-4 space-y-3">
+      <h4 class="text-sm font-semibold text-heading">Per-task breakdown</h4>
+      <ul class="text-xs panel-muted space-y-1">
+        <li>Human-only time: <span id="p27-human-time" class="font-mono text-body">0.0 h</span></li>
+        <li>Assisted time: <span id="p27-assisted-time" class="font-mono text-body">0.0 h</span></li>
+        <li>Human-only cost: <span id="p27-human-cost" class="font-mono text-body">$0</span></li>
+        <li>Assisted cost: <span id="p27-assisted-cost" class="font-mono text-body">$0</span></li>
+      </ul>
+      <p class="text-xs panel-muted">Assisted cost includes API usage, reviewer time, and fallback labor when attempts miss the mark.</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-3">
+      <h4 class="text-sm font-semibold text-heading">Batch totals</h4>
+      <ul class="text-xs panel-muted space-y-1">
+        <li>Total human hours (baseline): <span id="p27-total-human-hours" class="font-mono text-body">0.0 h</span></li>
+        <li>Total human hours (assisted): <span id="p27-total-assisted-hours" class="font-mono text-body">0.0 h</span></li>
+        <li>Total spend (baseline): <span id="p27-total-human-cost" class="font-mono text-body">$0</span></li>
+        <li>Total spend (assisted): <span id="p27-total-assisted-cost" class="font-mono text-body">$0</span></li>
+      </ul>
+      <p class="text-xs panel-muted">Use these totals to sanity-check ROI against your own compensation model.</p>
+    </div>
+  </div>
+
+  <div class="panel panel-warning p-4" id="p27-diagnosis"></div>
+
+  <div class="panel panel-neutral p-5 space-y-4" id="p27-sectors">
+    <div class="flex items-center justify-between">
+      <h4 class="text-sm font-semibold text-heading">Sector playbook</h4>
+      <button id="p27-apply-scenario" class="btn-accent text-xs font-medium" data-accent="deployment">Apply defaults</button>
+    </div>
+    <p class="text-xs panel-muted">Pick a GDPval sector to auto-fill typical wages, task durations, and success expectations. The figures draw from Table 1 and the paper&#039;s cost modeling.</p>
+    <div class="grid md:grid-cols-2 gap-3">
+      <div>
+        <label for="p27-scenario" class="block text-sm font-medium text-heading">Sector</label>
+        <select id="p27-scenario" class="mt-1 w-full rounded border border-divider bg-card px-2 py-1 text-sm text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]"></select>
+      </div>
+      <div>
+        <div class="panel panel-neutral-soft p-3 text-xs space-y-1">
+          <p><strong>Top occupations:</strong> <span id="p27-scenario-jobs" class="panel-muted">&mdash;</span></p>
+          <p><strong>Notes:</strong> <span id="p27-scenario-notes" class="panel-muted">&mdash;</span></p>
+        </div>
+      </div>
+    </div>
+    <div id="p27-scenario-summary" class="text-sm font-medium text-body">Select a sector to explore its automation posture.</div>
+  </div>
+</div>

@@ -1,0 +1,100 @@
+<div class="space-y-5">
+  <section class="panel panel-info panel-emphasis p-5 space-y-4">
+    <div class="flex flex-wrap md:flex-nowrap items-start justify-between gap-4">
+      <div class="md:max-w-3xl space-y-1">
+        <h2 class="text-xl font-semibold text-heading">GDPval: Evaluating AI Model Performance on Real-World Economically Valuable Tasks</h2>
+        <p class="text-sm panel-muted">Tejal Patwardhan, Rachel Dias, Elizabeth Proehl, Grace Kim, Michele Wang, Olivia Watkins, Sim&#039;on Posada Fishman, Marwan Aljubeh, Phoebe Thacker, et al. &bull; OpenAI (Sep 2025)</p>
+      </div>
+      <a href="https://cdn.openai.com/pdf/d5eb7428-c4e9-4a33-bd86-86dd4bcf12ce/GDPval.pdf" target="_blank" rel="noopener" class="btn-soft text-xs font-semibold inline-flex items-center gap-1" data-accent="deployment">
+        <span>View paper</span>
+        <span aria-hidden="true">&#8599;</span>
+      </a>
+    </div>
+    <p class="text-sm leading-relaxed panel-muted">GDPval is a benchmark of 1,320 multimodal, expert-authored tasks covering 44 occupations across the nine largest U.S. GDP sectors. Frontier models are graded head-to-head against seasoned professionals, letting teams track how close automation is to high-value knowledge work. The contributing experts averaged roughly 14 years of experience and priced each task using Bureau of Labor Statistics wages so savings estimates reflect real compensation.</p>
+    <div class="panel panel-neutral-soft p-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Plain-language explainer</p>
+      <p class="panel-muted">GDPval is a reality check: it asks models to complete the kind of multi-file deliverables consultants, analysts, and designers ship every week, then has peers decide whether the AI held its own.</p>
+    </div>
+  </section>
+
+  <div class="panel panel-neutral p-5 space-y-3">
+    <div class="flex items-center gap-2 text-heading">
+      <span aria-hidden="true" class="text-lg">*</span>
+      <h3 class="text-sm font-semibold tracking-wide uppercase">Executive quick take</h3>
+    </div>
+    <p class="text-sm leading-relaxed text-body">
+      GDPval shows that top-tier multimodal models are nearing parity with human professionals on well-scoped digital work. Claude Opus 4.1 and GPT-5 already match or beat expert deliverables on roughly half of tasks when humans review outputs, and simple scaffold upgrades unlock further gains. The signal: automation will land first where tasks are document-centric, reference-heavy, and already digitized.
+    </p>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>Measure before rollout:</strong> GDPval-style evaluations reveal where AI assistance beats or trails incumbents, guiding investment in oversight versus automation.</li>
+      <li><strong>Context still matters:</strong> Under-specified prompts tank performance, so teams must package tribal knowledge and reference files alongside requests.</li>
+      <li><strong>Scaffolding is leverage:</strong> Prompt hygiene, self-review loops, and best-of-N sampling produce material jumps without retraining.</li>
+    </ul>
+  </div>
+
+  <div class="panel panel-success p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">Business relevance</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+      <li><strong>Productivity accounting:</strong> Benchmarks tied to real wages let finance teams forecast time and cost savings instead of relying on anecdotal wins.</li>
+      <li><strong>Workforce planning:</strong> Occupation-specific win rates highlight where to reskill talent versus where to double down on human expertise.</li>
+      <li><strong>Vendor evaluation:</strong> Enterprises can demand GDPval-like evidence from model providers before signing productivity guarantees.</li>
+    </ul>
+    <div class="panel panel-neutral-soft p-3 mt-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Derivative example (mirror the paper&#039;s expert comparisons)</p>
+      <p class="panel-muted">A compliance operations team can clone GDPval&#039;s grading loop: collect representative case files, sample multiple model outputs under policy prompts, and let senior reviewers score wins, losses, and remediation time before piloting AI copilots.</p>
+    </div>
+  </div>
+
+  <div class="grid md:grid-cols-2 gap-4">
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">How GDPval tasks are constructed</h3>
+      <p class="text-xs panel-muted">Industry experts contributed real deliverables, redacted them, and mapped each to O*NET work activities. Every task bundles the original brief, reference files (up to 38 in the full set), and the final work product, so model outputs can be judged against professional standards.</p>
+    </div>
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">What counts as success</h3>
+      <p class="text-xs panel-muted">Experts grade pairwise comparisons of human and model deliverables. A win means the model deliverable is preferred; a tie means indistinguishable quality. GDPval also logs speed, cost, and failure rationales to expose whether models struggle with instructions, references, or formatting.</p>
+      <ul class="list-disc ml-4 space-y-1 text-[11px] panel-muted">
+        <li>Gold subset (220 tasks) ships with an automated grader that matches human consensus within five percentage points.</li>
+        <li>Full set spans 44 occupations across finance, health care, government, retail, manufacturing, information, professional services, wholesale, and real estate.</li>
+        <li>Tasks average nearly seven hours of expert effort, anchoring savings estimates in real wages.</li>
+        <li>Failure reasons are catalogued: Claude, Gemini, and Grok mostly lose on instruction-following gaps, while GPT-5 stumbles on formatting polish.</li>
+      </ul>
+      <p class="text-xs panel-muted">OpenAI open-sourced a 220-task gold subset and an automated grader at evals.openai.com so teams can replicate results.</p>
+    </div>
+  </div>
+
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Key insight</h3>
+      <p class="text-xs panel-muted">Frontier models can already match expert deliverables in roughly half of evaluated knowledge-work tasks when coupled with human oversight, and capability curves have climbed linearly across recent model releases.</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Method</h3>
+      <p class="text-xs panel-muted">Researchers sourced expert work products, enforced multi-stage quality reviews, collected model completions (three samples per task), and asked blinded domain professionals to rank outputs. They extended trials with reasoning-effort sweeps, prompt hygiene experiments, and cost-speed modeling.</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Implication</h3>
+      <p class="text-xs panel-muted">Organizations that codify briefs, references, and review loops will unlock AI leverage first. Teams that lack structured context or oversight will see inconsistent gains, especially on ambiguous or collaborative work.</p>
+    </div>
+  </div>
+
+  <div class="panel panel-neutral p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">Evidence</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>Win rates:</strong> Claude Opus 4.1 delivers equal or better work than experts 47.6% of the time; GPT-5 leads on accuracy-heavy briefs.</li>
+      <li><strong>Cost curves:</strong> With a review-and-resample workflow, GPT-5 saves ~1.39x in time and ~1.63x in cost versus unaided experts on the gold subset.</li>
+      <li><strong>Scaffolding effect:</strong> A prompt checklist and multimodal self-review raised GPT-5 preference scores by five percentage points and eliminated prior PDF artifacts.</li>
+      <li><strong>Reasoning effort:</strong> Running o3 and GPT-5 at higher reasoning budgets delivered predictable win-rate gains, underscoring the value of tool-augmented prompting.</li>
+    </ul>
+  </div>
+
+  <div class="panel panel-warning p-5 space-y-2">
+    <h3 class="text-sm font-semibold text-heading">For your roadmap</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+      <li>Instrument your own GDPval-style benchmark with representative briefs, references, and grading rubrics.</li>
+      <li>Budget for human-in-the-loop review when tasks are ambiguous or require tacit knowledge; under-contextualized prompts collapse win rates.</li>
+      <li>Track capability drift quarterly, especially as vendors release reasoning upgrades or add richer tooling to agents.</li>
+      <li>Remember the current scope: tasks are computer-based, one-shot briefs with expert graders, and the automated grader is a proxy—not a full substitute for domain reviewers.</li>
+    </ul>
+  </div>
+</div>

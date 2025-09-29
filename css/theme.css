@@ -2291,17 +2291,62 @@ html.dark .q9-select-light {
 }
 
 .q9-select {
+  display: block;
+  width: 100%;
+  padding: 0.55rem 2.6rem 0.55rem 0.9rem;
+  border-radius: 0.85rem;
+  border: 1px solid var(--color-border-subtle);
+  background-color: color-mix(in srgb, var(--color-card) 94%, transparent 6%);
+  color: var(--color-body);
+  font-size: 0.95rem;
+  line-height: 1.4;
+  transition: border-color .2s ease, box-shadow .2s ease, background-color .2s ease, color .2s ease;
+  appearance: none;
+  cursor: pointer;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--color-muted) 50%),
+    linear-gradient(135deg, var(--color-muted) 50%, transparent 50%),
+    linear-gradient(var(--color-muted) 0 0);
+  background-position:
+    calc(100% - 1.9rem) calc(50% - 0.35rem),
+    calc(100% - 1.3rem) calc(50% - 0.35rem),
+    calc(100% - 1.6rem) 50%;
+  background-size: 8px 8px, 8px 8px, 1px 58%;
+  background-repeat: no-repeat;
+}
+.q9-select:hover {
+  border-color: color-mix(in srgb, var(--accent-border) 45%, transparent 55%);
+  background-color: color-mix(in srgb, var(--color-card) 92%, var(--accent-soft) 8%);
+}
+.q9-select:focus,
+.q9-select:focus-visible {
+  outline: none;
+  border-color: color-mix(in srgb, var(--accent-border) 65%, transparent 35%);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-soft) 45%, transparent 55%);
+}
+.q9-select option {
   background-color: var(--color-card);
   color: var(--color-body);
-  border: 1px solid var(--color-border-subtle);
-  border-radius: 0.65rem;
-  padding: 0.5rem 0.75rem;
-  width: 100%;
 }
-.q9-select:focus {
-  outline: none;
-  border-color: color-mix(in srgb, var(--accent-border) 40%, transparent);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-border) 25%, transparent);
+html.dark .q9-select {
+  border-color: var(--color-border);
+  background-color: color-mix(in srgb, var(--color-card) 82%, transparent 18%);
+  color: var(--color-body);
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--color-muted) 50%),
+    linear-gradient(135deg, var(--color-muted) 50%, transparent 50%),
+    linear-gradient(var(--color-muted) 0 0);
+}
+html.dark .q9-select:hover {
+  border-color: color-mix(in srgb, var(--accent-border) 50%, transparent 50%);
+}
+html.dark .q9-select:focus,
+html.dark .q9-select:focus-visible {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-soft) 55%, transparent 45%);
+}
+html.dark .q9-select option {
+  background-color: color-mix(in srgb, #0f172a 82%, var(--color-card) 18%);
+  color: var(--color-body);
 }
 
 .q10-option {

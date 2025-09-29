@@ -66,9 +66,9 @@
       "Bronson Schoen",
       "Evgenia Nitishinskaya",
       "Mikita Balesni",
-      "Axel H\u00f8jmark",
-      "Felix Hofst\u00e4tter",
-      "J\u00e9r\u00e9my Scheurer",
+      "Axel Højmark",
+      "Felix Hofstätter",
+      "Jérémy Scheurer",
       "Alexander Meinke",
       "Jason Wolfe",
       "Teun van der Weij",
@@ -258,7 +258,7 @@
     "title": "AI Exposure and the Adaptive Capacity of American Workers",
     "authors": [
       "Sam Manning",
-      "Tom\u00e1s Aguirre"
+      "Tomás Aguirre"
     ],
     "year": 2025,
     "venue": "GovAI & Foundation for American Innovation (2025-09-17)",
@@ -299,10 +299,10 @@
     ]
   },
   "12": {
-    "title": "AI\u2019s Use of Knowledge in Society",
+    "title": "AI’s Use of Knowledge in Society",
     "authors": [
       "Erik Brynjolfsson",
-      "Zo\u00eb Hitzig"
+      "Zoë Hitzig"
     ],
     "year": 2025,
     "venue": "NBER Workshop on Transformative AI (2025-09-18)",
@@ -463,10 +463,10 @@
     ]
   },
   "5": {
-    "title": "Mathematical Research with GPT-5: a Malliavin\u2013Stein Experiment",
+    "title": "Mathematical Research with GPT-5: a Malliavin–Stein Experiment",
     "authors": [
       "Charles-Philippe Diez",
-      "Lu\u00eds da Maia",
+      "Luís da Maia",
       "Ivan Nourdin"
     ],
     "year": 2025,
@@ -476,7 +476,7 @@
       "math",
       "ai-assist"
     ],
-    "summary": "Documents how GPT-5 helped derive new quantitative Malliavin\u2013Stein bounds, highlighting human-in-the-loop proof workflows.",
+    "summary": "Documents how GPT-5 helped derive new quantitative Malliavin–Stein bounds, highlighting human-in-the-loop proof workflows.",
     "dir": "./papers/p05",
     "interactiveTitle": "AI proof lab",
     "relatedQuestions": [
@@ -602,6 +602,28 @@
       8,
       45,
       52
+    ]
+  },
+  "26": {
+    "title": "Defeating Nondeterminism in LLM Inference",
+    "authors": [
+      "Horace He",
+      "Thinking Machines Lab"
+    ],
+    "year": 2025,
+    "venue": "Thinking Machines Lab: Connectionism (2025-09-10)",
+    "tags": [
+      "inference",
+      "determinism",
+      "systems"
+    ],
+    "summary": "Shows how batch-size-dependent kernels drive temp-0 drift and how batch-invariant RMSNorm, matmul, and FlexAttention patches restore bitwise determinism with a manageable latency tax.",
+    "dir": "./papers/p26",
+    "interactiveTitle": "Deterministic inference lab",
+    "relatedQuestions": [
+      6,
+      50,
+      53
     ]
   }
 }

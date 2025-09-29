@@ -34,3 +34,4 @@ yarn-error.log*
 .cache/
 *.cache
 tmp/
+AGENTS_LOCAL.md

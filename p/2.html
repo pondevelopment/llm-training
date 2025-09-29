@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -15,18 +15,82 @@
   <meta name="twitter:description" content="Interactive explainer for why distribution shift triggers hallucinations and how retrieval, reward shaping, and gating mitigate it.">
   <meta name="twitter:image" content="https://og-image.vercel.app/LLM%20Paper%20Explainers%20%E2%80%A2%20Hallucinations.png?theme=light&md=1&fontSize=80px">
   <link rel="icon" href="../favicon.ico">
-  <style>body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;margin:0;padding:2rem;background:#f8fafc;color:#111827}
-  .card{max-width:720px;margin:0 auto;background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
-  .title{font-weight:700;font-size:20px;margin:0 0 8px}
-  .desc{font-size:14px;color:#374151;margin:0 0 16px}
-  .btn{display:inline-block;background:#4f46e5;color:#fff;padding:10px 14px;border-radius:8px;text-decoration:none}
-  .muted{font-size:12px;color:#6b7280;margin-top:12px}
+  <style>
+    :root {
+      color-scheme: light dark;
+      font-family: system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+      --bg: #f8fafc;
+      --fg: #0f172a;
+      --card-bg: #ffffff;
+      --card-border: #e2e8f0;
+      --desc: #334155;
+      --muted: #64748b;
+      --btn-bg: #4f46e5;
+      --btn-bg-hover: #4338ca;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f172a;
+        --fg: #e2e8f0;
+        --card-bg: rgba(15,23,42,0.85);
+        --card-border: rgba(148,163,184,0.35);
+        --desc: #cbd5f5;
+        --muted: #94a3b8;
+        --btn-bg: #6366f1;
+        --btn-bg-hover: #818cf8;
+      }
+    }
+    body {
+      margin: 0;
+      padding: 2rem;
+      background: var(--bg);
+      color: var(--fg);
+      display: flex;
+      justify-content: center;
+    }
+    .card {
+      max-width: 720px;
+      width: 100%;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 24px;
+      box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+    }
+    .title {
+      font-weight: 700;
+      font-size: 20px;
+      margin: 0 0 8px;
+    }
+    .desc {
+      font-size: 14px;
+      color: var(--desc);
+      margin: 0 0 16px;
+      line-height: 1.6;
+    }
+    .btn {
+      display: inline-block;
+      background: var(--btn-bg);
+      color: #fff;
+      padding: 10px 14px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .btn:hover {
+      background: var(--btn-bg-hover);
+    }
+    .muted {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 12px;
+    }
   </style>
 </head>
 <body>
   <main class="card">
     <h1 class="title">Why Language Models Hallucinate</h1>
-    <p class="desc">See how prompt novelty and decoding choices drive hallucinations—and simulate how retrieval, reward shaping, and gating reduce risk.</p>
+    <p class="desc">See how prompt novelty and decoding choices drive hallucinations, and simulate how retrieval, reward shaping, and gating reduce risk.</p>
     <a class="btn" href="../index.html#paper-2">Open interactive explainer</a>
     <p class="muted">Tip: share this link or use the in-app share button for paper explainers.</p>
   </main>

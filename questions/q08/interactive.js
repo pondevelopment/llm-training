@@ -98,10 +98,10 @@ const interactiveScript = () => {
             const currentPrompt = document.getElementById('q8-current-prompt');
             const responseA = document.getElementById('q8-response-a');
             const responseB = document.getElementById('q8-response-b');
-            const styleA = document.getElementById('q8-style-a');
-            const styleB = document.getElementById('q8-style-b');
-            const descA = document.getElementById('q8-desc-a');
-            const descB = document.getElementById('q8-desc-b');
+            const styleA = document.getElementById('q8-response-a-style');
+            const styleB = document.getElementById('q8-response-b-style');
+            const descA = document.getElementById('q8-response-a-meta');
+            const descB = document.getElementById('q8-response-b-meta');
             const exampleCounter = document.getElementById('q8-example-counter');
             
             // Reward model elements
@@ -122,7 +122,7 @@ const interactiveScript = () => {
             const preference = document.getElementById('q8-preference');
             const alignment = document.getElementById('q8-alignment');
             const robustness = document.getElementById('q8-robustness');
-            const trainingStatus = document.getElementById('q8-training-status');
+            const trainingStatus = document.getElementById('q8-rl-status');
             
             // Progress tracking
             const overallProgress = document.getElementById('q8-overall-progress');
@@ -144,6 +144,7 @@ const interactiveScript = () => {
             let gameState = {
                 feedbackCollected: 0,
                 rewardModelTrained: false,
+                rewardModelTraining: false,
                 rlTrainingStarted: false,
                 rlTrainingCompleted: false,
                 performance: {
@@ -265,52 +266,55 @@ const interactiveScript = () => {
                 updateStageStatus();
             }
 
+            const stageDefaults = {
+                collection: stage1Status?.textContent?.trim() || 'Awaiting comparisons',
+                reward: stage2Status?.textContent?.trim() || 'Training pending',
+                optimize: stage3Status?.textContent?.trim() || 'Not started'
+            };
+
+            function setStageState(statusEl, iconEl, state, text) {
+                if (statusEl) {
+                    statusEl.textContent = text;
+                    statusEl.dataset.state = state;
+                }
+                if (iconEl) {
+                    iconEl.dataset.state = state;
+                }
+            }
+
             // Update stage progress indicators
             function updateStageStatus() {
-                // Reset all stages
-                document.querySelectorAll('[id$="-status"]').forEach(el => {
-                    el.textContent = 'Waiting';
-                    el.className = 'text-xs text-gray-500';
-                });
-                // Reset icon styles
-                [stage1Icon, stage2Icon, stage3Icon].forEach((icon) => {
-                    if (!icon) return;
-                    icon.className = 'w-16 h-16 mx-auto bg-gray-100 rounded-full flex items-center justify-center mb-2';
-                });
-                
-                // Update based on progress
+                setStageState(stage1Status, stage1Icon, 'idle', stageDefaults.collection);
+                setStageState(stage2Status, stage2Icon, 'idle', stageDefaults.reward);
+                setStageState(stage3Status, stage3Icon, 'idle', stageDefaults.optimize);
+
                 if (gameState.feedbackCollected >= 5) {
-                    stage1Status.textContent = 'Complete';
-                    stage1Status.className = 'text-xs text-green-600';
-                    if (stage1Icon) stage1Icon.className = 'w-16 h-16 mx-auto bg-green-100 ring-2 ring-green-400 rounded-full flex items-center justify-center mb-2';
-                } else if (currentStage === 'collection') {
-                    stage1Status.textContent = 'In Progress';
-                    stage1Status.className = 'text-xs text-blue-600';
-                    if (stage1Icon) stage1Icon.className = 'w-16 h-16 mx-auto bg-blue-100 ring-2 ring-blue-400 rounded-full flex items-center justify-center mb-2';
+                    setStageState(stage1Status, stage1Icon, 'done', 'Complete');
+                } else if (gameState.feedbackCollected > 0 || currentStage === 'collection') {
+                    const label = gameState.feedbackCollected > 0 ? 'Collecting comparisons' : 'Collect feedback';
+                    setStageState(stage1Status, stage1Icon, 'progress', label);
                 }
-                
+
                 if (gameState.rewardModelTrained) {
-                    stage2Status.textContent = 'Complete';
-                    stage2Status.className = 'text-xs text-green-600';
-                    if (stage2Icon) stage2Icon.className = 'w-16 h-16 mx-auto bg-green-100 ring-2 ring-green-400 rounded-full flex items-center justify-center mb-2';
+                    setStageState(stage2Status, stage2Icon, 'done', 'Complete');
+                } else if (gameState.rewardModelTraining) {
+                    setStageState(stage2Status, stage2Icon, 'progress', 'Training reward model');
+                } else if (gameState.feedbackCollected >= 5) {
+                    setStageState(stage2Status, stage2Icon, 'ready', 'Ready to train');
                 } else if (currentStage === 'reward') {
-                    stage2Status.textContent = 'In Progress';
-                    stage2Status.className = 'text-xs text-blue-600';
-                    if (stage2Icon) stage2Icon.className = 'w-16 h-16 mx-auto bg-purple-100 ring-2 ring-purple-400 rounded-full flex items-center justify-center mb-2';
+                    setStageState(stage2Status, stage2Icon, 'idle', 'Needs feedback first');
                 }
-                
+
                 if (gameState.rlTrainingCompleted) {
-                    stage3Status.textContent = 'Complete';
-                    stage3Status.className = 'text-xs text-green-600';
-                    if (stage3Icon) stage3Icon.className = 'w-16 h-16 mx-auto bg-green-100 ring-2 ring-green-400 rounded-full flex items-center justify-center mb-2';
+                    setStageState(stage3Status, stage3Icon, 'done', 'Complete');
                 } else if (gameState.rlTrainingStarted) {
-                    stage3Status.textContent = 'In Progress';
-                    stage3Status.className = 'text-xs text-blue-600';
-                    if (stage3Icon) stage3Icon.className = 'w-16 h-16 mx-auto bg-orange-100 ring-2 ring-orange-400 rounded-full flex items-center justify-center mb-2';
+                    setStageState(stage3Status, stage3Icon, 'progress', 'Optimizing with PPO');
+                } else if (gameState.rewardModelTrained) {
+                    setStageState(stage3Status, stage3Icon, 'ready', 'Ready for PPO');
+                } else if (gameState.rewardModelTraining) {
+                    setStageState(stage3Status, stage3Icon, 'idle', 'Reward model in training');
                 } else if (currentStage === 'optimize') {
-                    stage3Status.textContent = 'Ready';
-                    stage3Status.className = 'text-xs text-orange-600';
-                    if (stage3Icon) stage3Icon.className = 'w-16 h-16 mx-auto bg-orange-50 ring-2 ring-orange-300 rounded-full flex items-center justify-center mb-2';
+                    setStageState(stage3Status, stage3Icon, 'idle', 'Train reward model first');
                 }
             }
 
@@ -338,7 +342,7 @@ const interactiveScript = () => {
                 voteText.textContent = choiceText;
                 voteResult.classList.remove('hidden');
                 
-                feedbackCount.textContent = gameState.feedbackCollected;
+                feedbackCount.textContent = `${gameState.feedbackCollected} / 5 comparisons`;
                 feedbackProgress.style.width = (gameState.feedbackCollected / 5 * 100) + '%';
                 
                 // Update feedback step counter to show current progress
@@ -380,9 +384,11 @@ const interactiveScript = () => {
                     return;
                 }
                 
-                gameState.rewardModelTrained = true;
+                gameState.rewardModelTraining = true;
                 rewardStatus.textContent = 'Training reward model...';
                 trainRewardBtn.disabled = true;
+                
+                updateStageStatus();
                 
                 // Simulate training progress
                 let progress = 0;
@@ -394,8 +400,12 @@ const interactiveScript = () => {
                     
                     if (progress >= 30) {
                         clearInterval(interval);
+                        gameState.rewardModelTraining = false;
+                        gameState.rewardModelTrained = true;
                         rewardStatus.textContent = '✅ Reward model training complete!';
                         trainRewardBtn.textContent = '✅ Model Trained';
+
+                        updateStageStatus();
                         
                         setTimeout(() => {
                             showNotification('Reward model ready! Moving to RL optimization.', 'success');
@@ -406,8 +416,6 @@ const interactiveScript = () => {
                         }, 1500);
                     }
                 }, 500);
-                
-                updateStageStatus();
             }
 
             // RL optimization
@@ -488,10 +496,10 @@ const interactiveScript = () => {
                     currentPrompt.textContent = `"${example.prompt}"`;
                     responseA.innerHTML = example.responseA.text;
                     responseB.innerHTML = example.responseB.text;
-                    styleA.textContent = `(${example.responseA.style})`;
-                    styleB.textContent = `(${example.responseB.style})`;
-                    descA.textContent = example.responseA.description;
-                    descB.textContent = example.responseB.description;
+                    if (styleA) styleA.textContent = example.responseA.style;
+                    if (styleB) styleB.textContent = example.responseB.style;
+                    if (descA) descA.textContent = example.responseA.description;
+                    if (descB) descB.textContent = example.responseB.description;
                     // Show current feedback step (clamped to 5)
                     const safeStep = Math.min(5, Math.max(1, feedbackStep || 1));
                     exampleCounter.textContent = `${safeStep} of 5`;
@@ -522,6 +530,7 @@ const interactiveScript = () => {
                 gameState = {
                     feedbackCollected: 0,
                     rewardModelTrained: false,
+                    rewardModelTraining: false,
                     rlTrainingStarted: false,
                     rlTrainingCompleted: false,
                     performance: {
@@ -537,7 +546,7 @@ const interactiveScript = () => {
                 };
                 
                 // Reset UI elements
-                feedbackCount.textContent = '0';
+                feedbackCount.textContent = '0 / 5 comparisons';
                 feedbackProgress.style.width = '0%';
                 exampleCounter.textContent = '1 of 5'; // Reset feedback step counter
                 trainingPairs.textContent = '0';
@@ -553,8 +562,8 @@ const interactiveScript = () => {
                 runPPOBtn.textContent = '🚀 Run PPO Training';
                 
                 // Reset status messages
-                rewardStatus.textContent = 'Click to start reward model training';
-                trainingStatus.textContent = 'Ready to start reinforcement learning';
+                rewardStatus.textContent = 'Click to start reward-model training.';
+                trainingStatus.textContent = 'Run PPO training to update the metrics.';
                 
                 updatePerformanceMetrics();
                 updateStageStatus();

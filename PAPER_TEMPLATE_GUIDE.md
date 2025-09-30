@@ -2,7 +2,8 @@
 
 This guide explains how to add or revise researc## Overview content guidelines
 
-- **Paper header:** Title (h2), authors • venue (year), link button with ↗ icon
+- **Paper header:** Title (h2), authors • venue (year), link button with ↗ icon, 2-3 sentence summary
+- **Plain-language explainer:** Nested card (`panel panel-neutral-soft`) with 1-2 sentence analogy or everyday explanation for non-experts
 - **Executive quick take:** 🧭 icon + uppercase header, 2–3 sentences for architects/PMs (practical ceiling + actionable signal), 3 bulleted key points with bold labels
 - **Business relevance:** 💼 icon, 3–4 stakeholder bullets, nested "Derivative example" card (panel-neutral-soft) with concrete replication workflow
 - **Callout boxes:** keep each under ~120 words. Unpack terminology or experimental levers
@@ -56,7 +57,7 @@ The loader automatically looks for `overview.html`, `interactive.html`, and `int
 
 1. **Copy the template:** duplicate `papers/p-template/` to `papers/pXX/` (two-digit id).
 2. **Draft the overview (`overview.html`):** Follow this exact structure:
-   - **Paper header** (`panel panel-info`): Title, authors/venue, paper link button (`btn-soft` with `data-accent="foundations"`), and 2-3 sentence summary
+   - **Paper header** (`panel panel-info`): Title, authors/venue, paper link button (`btn-soft` with `data-accent="foundations"`), 2-3 sentence summary, nested plain-language explainer card (`panel panel-neutral-soft`)
    - **Executive quick take** (`panel panel-neutral` with 🧭 icon): Icon + uppercase header, 2-3 sentence summary for architects/PMs, 3 bulleted key points
    - **Business relevance** (`panel panel-success` with 💼 icon): 3-4 stakeholder bullets, nested "Derivative example" card (`panel panel-neutral-soft`)
    - **Supporting callouts** (optional, `panel panel-info`): 2-column grid unpacking concepts (~80-120 words each)

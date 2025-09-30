@@ -1,5 +1,18 @@
-<div class="space-y-6" id="p03-explorer">
-  <section class="bg-card border border-subtle rounded-xl p-5 space-y-4 shadow-sm transition-colors">
+<section class="space-y-6" id="p03-ex          <span>      <div class="space-y-1">
+        <h4 class="text-sm font-semibold text-heading">Design tweaks to explore</h4>
+        <p class="text-xs text-body">Mirror the paper's mitigation levers by adjusting vectors per document, adding a lexical reranker, and managing token retention.</p>
+      </div>
+      <p class="text-[11px] panel-muted md:text-right">Assumptions follow the authors' ablation notes: multi-vector indexing helps scattered answers, rerankers add a lexical lift, truncation penalises long-span recall.</p>
+    </div>
+    <div class="grid md:grid-cols-2 gap-4 text-sm text-body">pan>
+        </div>
+        <p class="text-xs panel-muted">Slide to compare the paper's tested windows.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel panel-neutral p-5 space-y-4">
+  <section class="panel panel-info p-5 space-y-4">
     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
       <div>
         <p class="text-[11px] font-semibold tracking-wide text-accent uppercase">Choose your retrieval setting</p>
@@ -10,7 +23,7 @@
     <div class="grid md:grid-cols-3 gap-3 text-sm text-secondary">
       <label class="flex flex-col gap-2">
         <span class="font-medium text-heading">Dataset profile</span>
-        <select id="p03-dataset" class="w-full px-3 py-2 border border-subtle dark:border-slate-700 rounded-md text-sm bg-card dark:bg-slate-900/70 text-heading focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
+        <select id="p03-dataset" class="w-full px-3 py-2 border border-divider rounded-md text-sm bg-card text-heading focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
           <option value="squad">SQuAD (factoid, Wikipedia)</option>
           <option value="covidqa">COVID-QA (biomedical)</option>
           <option value="newsqa">NewsQA (news, medium spans)</option>
@@ -22,15 +35,15 @@
       <div class="flex flex-col gap-2">
         <span class="font-medium text-heading">Embedding model</span>
         <div class="flex flex-wrap gap-2">
-          <button type="button" class="p03-embed-toggle px-3 py-1.5 text-xs font-medium rounded-md border border-subtle bg-card text-secondary hover:bg-subtle transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-500" data-embed="stella">Stella (decoder)</button>
-          <button type="button" class="p03-embed-toggle px-3 py-1.5 text-xs font-medium rounded-md border border-subtle bg-card text-secondary hover:bg-subtle transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-indigo-500" data-embed="snowflake">Snowflake (encoder)</button>
+          <button type="button" class="p03-embed-toggle px-3 py-1.5 text-xs font-medium rounded-md border border-divider bg-card text-body hover:bg-subtle transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[color:var(--accent-strong)]" data-embed="stella">Stella (decoder)</button>
+          <button type="button" class="p03-embed-toggle px-3 py-1.5 text-xs font-medium rounded-md border border-divider bg-card text-body hover:bg-subtle transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[color:var(--accent-strong)]" data-embed="snowflake">Snowflake (encoder)</button>
         </div>
-        <p class="text-xs text-muted-soft">Stella was trained with 130k context; Snowflake with 8k context.</p>
+        <p class="text-xs panel-muted">Stella was trained with 130k context; Snowflake with 8k context.</p>
       </div>
       <div class="flex flex-col gap-2">
         <span class="font-medium text-heading">Chunk size (tokens)</span>
-        <input id="p03-chunk" type="range" min="0" max="4" step="1" value="0" class="w-full accent-indigo-600">
-        <div class="flex items-center justify-between text-[11px] text-muted-soft">
+        <input id="p03-chunk" type="range" min="0" max="4" step="1" value="0" class="w-full">
+        <div class="flex items-center justify-between text-[11px] panel-muted">
           <span>64</span>
           <span>128</span>
           <span>256</span>
@@ -53,45 +66,45 @@
     <div class="grid md:grid-cols-2 gap-4 text-sm text-secondary">
       <div class="space-y-3">
         <label class="flex flex-col gap-2">
-          <span class="font-medium text-heading">Vectors per document <span id="p03-vectors-label" class="font-mono text-xs text-muted">1</span></span>
-          <input id="p03-vectors" type="range" min="1" max="6" step="1" value="1" class="w-full accent-indigo-600">
-          <p class="text-xs text-muted-soft">Higher values approximate field-aware indexing or splitting each document into multiple vectors.</p>
+          <span class="font-medium text-heading">Vectors per document <span id="p03-vectors-label" class="font-mono text-xs panel-muted">1</span></span>
+          <input id="p03-vectors" type="range" min="1" max="6" step="1" value="1" class="w-full">
+          <p class="text-xs panel-muted">Higher values approximate field-aware indexing or splitting each document into multiple vectors.</p>
         </label>
         <label class="flex items-start gap-3">
-          <input id="p03-reranker" type="checkbox" class="mt-0.5 accent-indigo-600">
-          <span class="text-sm text-secondary">Enable lexical reranker <span class="block text-xs text-muted-soft">Adds a BM25-style second pass; helps tight spans and noisy embeddings.</span></span>
+          <input id="p03-reranker" type="checkbox" class="mt-0.5">
+          <span class="text-sm text-body">Enable lexical reranker <span class="block text-xs panel-muted">Adds a BM25-style second pass; helps tight spans and noisy embeddings.</span></span>
         </label>
       </div>
       <div class="space-y-3">
         <label class="flex flex-col gap-2">
-          <span class="font-medium text-heading">Token retention <span id="p03-retention-label" class="font-mono text-xs text-muted">100%</span></span>
-          <input id="p03-retention" type="range" min="60" max="100" step="5" value="100" class="w-full accent-indigo-600">
-          <p class="text-xs text-muted-soft">Truncation mimics shorter context limits; dial it down to see how aggressive pruning hurts recall.</p>
+          <span class="font-medium text-heading">Token retention <span id="p03-retention-label" class="font-mono text-xs panel-muted">100%</span></span>
+          <input id="p03-retention" type="range" min="60" max="100" step="5" value="100" class="w-full">
+          <p class="text-xs panel-muted">Truncation mimics shorter context limits; dial it down to see how aggressive pruning hurts recall.</p>
         </label>
-        <p class="text-xs text-muted-soft">Combine settings to match your deployment (e.g., vectors=3, reranker on, retention=85% for hybrid stacks).</p>
+        <p class="text-xs panel-muted">Combine settings to match your deployment (e.g., vectors=3, reranker on, retention=85% for hybrid stacks).</p>
       </div>
     </div>
   </section>
 
-  <section class="rounded-xl border border-indigo-200 dark:border-indigo-500/40 bg-indigo-50 dark:bg-indigo-900/20 p-5 space-y-3 transition-colors shadow-sm">
+  <section class="panel panel-info p-5 space-y-3">
     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
       <div>
-        <p class="text-[11px] font-semibold uppercase tracking-wide text-indigo-700 dark:text-indigo-200">Recall outlook</p>
-        <h4 class="text-sm font-semibold text-indigo-900 dark:text-indigo-100">Expected recall@1 when chunking at <span id="p03-chunk-label" class="font-mono">64</span> tokens</h4>
+        <p class="text-[11px] font-semibold uppercase tracking-wide text-heading">Recall outlook</p>
+        <h4 class="text-sm font-semibold text-heading">Expected recall@1 when chunking at <span id="p03-chunk-label" class="font-mono">64</span> tokens</h4>
       </div>
-      <div class="text-xs font-mono bg-card border border-indigo-200 dark:border-indigo-500/40 text-indigo-700 dark:text-indigo-100 px-3 py-1.5 rounded-md" id="p03-recall">—</div>
+      <div class="text-xs font-mono panel panel-neutral-soft px-3 py-1.5 rounded-md text-heading" id="p03-recall">—</div>
     </div>
-    <div id="p03-chart" class="grid gap-2 text-xs text-indigo-900 dark:text-indigo-100"></div>
+    <div id="p03-chart" class="grid gap-2 text-xs text-body"></div>
   </section>
 
-  <section class="bg-card border border-subtle rounded-xl p-5 space-y-3 transition-colors">
+  <section class="panel panel-neutral p-5 space-y-3">
     <h4 class="text-sm font-semibold text-heading">What the paper suggests</h4>
-    <div id="p03-observations" class="text-sm text-secondary space-y-2"></div>
+    <div id="p03-observations" class="text-sm text-body space-y-2"></div>
     <div class="grid md:grid-cols-3 gap-3" id="p03-dataset-meta"></div>
   </section>
 
-  <section class="bg-amber-50 dark:bg-amber-900/25 border border-amber-200 dark:border-amber-500/40 rounded-xl p-5 space-y-2 transition-colors">
-    <h4 class="text-sm font-semibold text-amber-900 dark:text-amber-100">Implementation to-do list</h4>
-    <ul id="p03-actions" class="list-disc ml-5 text-sm text-amber-800 dark:text-amber-100 space-y-1"></ul>
+  <section class="panel panel-warning p-5 space-y-2">
+    <h4 class="text-sm font-semibold text-heading">Implementation to-do list</h4>
+    <ul id="p03-actions" class="list-disc ml-5 space-y-1 text-sm text-body"></ul>
   </section>
-</div>
+</section>

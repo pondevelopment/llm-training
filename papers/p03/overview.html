@@ -1,53 +1,63 @@
-<div class="paper-overview-card space-y-6">
-  <section class="rounded-xl border border-indigo-200 dark:border-indigo-500/40 bg-indigo-50 dark:bg-indigo-900/25 p-5 space-y-3 transition-colors">
-    <header class="flex flex-wrap md:flex-nowrap items-start justify-between gap-4">
-      <div class="md:max-w-3xl space-y-1">
-        <h2 class="text-xl font-semibold text-indigo-900 dark:text-indigo-100">Rethinking Chunk Size for Long-Document Retrieval</h2>
-        <p class="text-sm text-indigo-700 dark:text-indigo-200">Sinchana Ramakanth Bhat, Max Rudat, Jannis Spiekermann, Nicolas Flores-Herr • arXiv:2505.21700 (Jun 2025)</p>
+<section class="space-y-5">
+  <section class="panel pane        <li>SQuAD drops 20 points when oversized to 1024 tokens—too much noise.</li>
+      </ul>
+    </div>
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Embedding-model sensitivities</h3>
+      <p class="text-xs panel-muted leading-relaxed">The Stella embedder (decoder lineage, 130k context) thrives on large chunks, while Snowflake (encoder, 8k context) peaks with compact windows. Chunk decisions should match the embedder's pretraining context length and positional encoding.</p>
+      <ul class="list-disc ml-4 text-[11px] panel-muted space-y-1">p-4 space-y-4">
+    <div class="flex flex-wrap items-start justify-between gap-4">
+      <div>
+        <h2 class="text-xl font-semibold text-heading">Rethinking Chunk Size for Long-Document Retrieval</h2>
+        <p class="text-sm panel-muted">Sinchana Ramakanth Bhat, Max Rudat, Jannis Spiekermann, Nicolas Flores-Herr • arXiv:2505.21700 (Jun 2025)</p>
       </div>
-      <a href="https://arxiv.org/abs/2505.21700" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-medium bg-white/90 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-500/40 text-indigo-700 dark:text-indigo-100 hover:bg-indigo-100/70 dark:hover:bg-indigo-900/40 transition-colors">
+      <a href="https://arxiv.org/abs/2505.21700" target="_blank" rel="noopener" class="btn-soft text-xs font-semibold" data-accent="foundations">
         <span>View paper</span>
-        <span aria-hidden="true" class="text-sm leading-none">↗</span>
+        <span aria-hidden="true">↗</span>
       </a>
-    </header>
-    <p class="text-sm text-indigo-800 dark:text-indigo-100 leading-relaxed">
+    </div>
+    <p class="text-sm leading-relaxed panel-muted">
       Fixed-size chunking is still the default in RAG, yet the best window shifts wildly across corpora. This study sweeps six QA datasets with Stella and Snowflake embedders, showing how answer locality, document length, and model context limits drive the sweet spot from 64 to 1024 tokens—complete with open-source scripts to rerun the ablations.
     </p>
+    <div class="panel panel-neutral-soft p-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Plain-language explainer</p>
+      <p class="panel-muted">Imagine slicing a textbook into pages for photocopying. Too small and you lose context; too big and the important sentence drowns in noise. The authors tested which page size works best for different types of books.</p>
+    </div>
   </section>
 
-  <section class="bg-slate-900/95 text-slate-100 border border-slate-800 rounded-xl p-5 space-y-3 shadow-inner">
-    <div class="flex items-center gap-2">
-      <span class="text-lg">🧭</span>
-      <h3 class="text-sm font-semibold tracking-wide uppercase text-slate-200">Executive quick take</h3>
-    </div>
-    <p class="text-sm text-slate-200 leading-relaxed">
+  <section class="panel panel-neutral p-5 space-y-3">
+    <header class="flex items-center gap-2">
+      <span aria-hidden="true" class="text-lg">🧭</span>
+      <h3 class="text-sm font-semibold tracking-wide uppercase text-heading">Executive quick take</h3>
+    </header>
+    <p class="text-sm leading-relaxed text-body">
       Chunking is not one-size-fits-all. Short, factoid datasets peak at 64–128 token windows; long or technical answers need 512–1024 tokens; decoder-style embedders (Stella) love big chunks, while encoder models (Snowflake) stay sharp with small ones. Treat chunk size as a tunable hyperparameter tied to corpus structure and retriever bias.
     </p>
-    <ul class="list-disc ml-5 text-sm text-slate-300 space-y-1">
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
       <li><strong>Know your answers:</strong> Tight spans (e.g., SQuAD) flourish with compact windows; dispersed narratives (NarrativeQA) demand wider context.</li>
       <li><strong>Mind the embedder:</strong> Long-context models exploit large chunks; 8k-token encoders saturate or degrade past 256 tokens.</li>
       <li><strong>Instrument evaluation:</strong> Track recall@k shifts per dataset slice when you alter chunk size or overlap.</li>
     </ul>
   </section>
 
-  <section class="bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-500/40 rounded-xl p-5 space-y-3 transition-colors">
-    <h3 class="text-sm font-semibold text-emerald-900 dark:text-emerald-100">💼 Business relevance</h3>
-    <ul class="list-disc ml-5 text-sm text-emerald-800 dark:text-emerald-100 space-y-1">
+  <section class="panel panel-success p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">💼 Business relevance</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
       <li><strong>RAG onboarding:</strong> Treat chunk size as a launch checklist item; run sweeps before exposing new corpora to analysts or customers.</li>
       <li><strong>Latency and cost:</strong> Larger windows inflate index storage and retrieval time; factor the trade-offs into infrastructure budgets and SLAs.</li>
       <li><strong>Vendor alignment:</strong> Embedder-specific sweet spots mean procurement should include evaluation time when switching providers or model families.</li>
     </ul>
-    <div class="bg-card/90 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-500/40 rounded-md p-3 mt-3 space-y-1 text-xs text-emerald-900 dark:text-emerald-100 transition-colors">
-      <p class="font-semibold">Derivative example (chunk sweep in production)</p>
-      <p class="text-emerald-800 dark:text-emerald-100">An in-house legal research team can clone the authors sweep, testing 128 versus 512 token chunks on past matters to set the default window before onboarding attorneys.</p>
+    <div class="panel panel-neutral-soft p-3 mt-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Derivative example (chunk sweep in production)</p>
+      <p class="panel-muted">An in-house legal research team can clone the authors' sweep, testing 128 versus 512 token chunks on past matters to set the default window before onboarding attorneys.</p>
     </div>
   </section>
 
-  <section class="grid md:grid-cols-3 gap-4">
-    <article class="bg-cyan-50 dark:bg-cyan-900/20 border border-cyan-200 dark:border-cyan-500/40 rounded-lg p-4 space-y-2 transition-colors">
-      <h3 class="text-sm font-semibold text-cyan-900 dark:text-cyan-100">Chunk-size heuristics from the paper</h3>
-      <p class="text-xs text-cyan-800 dark:text-cyan-100 leading-relaxed">Use answer length and locality as a first-pass heuristic. If answers average &lt;10 tokens and stay within one paragraph, start at 64–128 tokens. If answers regularly span multiple paragraphs or technical steps, jump to 512–1024 tokens.</p>
-      <ul class="list-disc ml-4 text-[11px] text-cyan-700 dark:text-cyan-100 space-y-1">
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Chunk-size heuristics from the paper</h3>
+      <p class="text-xs panel-muted leading-relaxed">Use answer length and locality as a first-pass heuristic. If answers average &lt;10 tokens and stay within one paragraph, start at 64–128 tokens. If answers regularly span multiple paragraphs or technical steps, jump to 512–1024 tokens.</p>
+      <ul class="list-disc ml-4 text-[11px] panel-muted space-y-1">
         <li>NarrativeQA recall@1 triples when moving from 64 → 1024 tokens.</li>
         <li>TechQA improves from 5% → 71% recall@1 by scaling to 512–1024 tokens.</li>
         <li>SQuAD drops 20 points when oversized to 1024 tokens—too much noise.</li>
@@ -61,26 +71,47 @@
         <li>Snowflake leads on SQuAD/COVID-QA at 64–128 tokens but lags on 1024.</li>
         <li>Mixing embedders may require dataset-specific chunk configs.</li>
       </ul>
-    </article>
-    <article class="bg-cyan-50 dark:bg-cyan-900/20 border border-cyan-200 dark:border-cyan-500/40 rounded-lg p-4 space-y-2 transition-colors">
-      <h3 class="text-sm font-semibold text-cyan-900 dark:text-cyan-100">What counts as a document</h3>
-      <p class="text-xs text-cyan-800 dark:text-cyan-100 leading-relaxed">The paper treats each chunked window as the retrieval unit. Long reports are sliced into overlapping passages, while stitched corpora combine multiple QA pairs into a single pseudo-document.</p>
-      <ul class="list-disc ml-4 text-[11px] text-cyan-700 dark:text-cyan-100 space-y-1">
+    </div>
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">What counts as a document</h3>
+      <p class="text-xs panel-muted leading-relaxed">The paper treats each chunked window as the retrieval unit. Long reports are sliced into overlapping passages, while stitched corpora combine multiple QA pairs into a single pseudo-document.</p>
+      <ul class="list-disc ml-4 text-[11px] panel-muted space-y-1">
         <li>Original PDFs average 6–10k tokens; windows roll every 32–64 tokens to preserve context.</li>
         <li>Overlap is capped at 50% to avoid bloating the index while keeping answer spans intact.</li>
         <li>When documents are stitched, tracking provenance per chunk becomes essential for evaluation.</li>
       </ul>
-    </article>
-  </section>
+    </div>
+  </div>
 
-  <section class="bg-cyan-50 dark:bg-cyan-900/20 border border-cyan-200 dark:border-cyan-500/40 rounded-lg p-4 space-y-2 transition-colors">
-    <h3 class="text-sm font-semibold text-cyan-900 dark:text-cyan-100">What Recall@<em>k</em> measures</h3>
-    <p class="text-xs text-cyan-800 dark:text-cyan-100 leading-relaxed">For each question, the retriever ranks all chunks and we check whether the chunk containing the ground-truth answer appears in the top <em>k</em> of that ranking.</p>
-    <ul class="list-disc ml-4 text-[11px] text-cyan-700 dark:text-cyan-100 space-y-1">
+  <div class="panel panel-info p-4 space-y-2">
+    <h3 class="text-sm font-semibold text-heading">What Recall@<em>k</em> measures</h3>
+    <p class="text-xs panel-muted leading-relaxed">For each question, the retriever ranks all chunks and we check whether the chunk containing the ground-truth answer appears in the top <em>k</em> of that ranking.</p>
+    <ul class="list-disc ml-4 text-[11px] panel-muted space-y-1">
       <li><strong>Recall@1:</strong> % of questions where the correct chunk was the very first result.</li>
       <li><strong>Recall@5:</strong> % of questions where the correct chunk was somewhere in the top 5 results.</li>
       <li>Higher recall is better—more retrieved chunks include the answer span.</li>
-      <li>The paper reports Recall@1 primarily (what the interactive shows) and includes Recall@2-5 for completeness.</li>
+            <li>The paper reports Recall@1 primarily (what the interactive shows) and includes Recall@2-5 for completeness.</li>
+    </ul>
+  </div>
+
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Key insight</h3>
+      <p class="text-xs panel-muted">Chunk size mediates the recall vs. noise trade-off; the optimal window depends jointly on answer locality and the retriever's ability to leverage long context.</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Method</h3>
+      <p class="text-xs panel-muted">Split each dataset into fixed token windows (64–1024), index chunks with Stella and Snowflake, and measure recall@k via string matches between retrieved chunks and ground-truth answers.</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Implication</h3>
+      <p class="text-xs panel-muted">Treat chunking as a benchmarked decision: log recall vs. chunk size, audit per dataset slice, and tune per-embedder defaults instead of shipping a single global window.</p>
+    </div>
+  </div>
+
+  <section class="panel panel-neutral p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🧪 Experiments &amp; Evidence</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
     </ul>
   </section>
 
@@ -109,13 +140,13 @@
     </ul>
   </section>
 
-  <section class="bg-amber-50 dark:bg-amber-900/25 border border-amber-200 dark:border-amber-500/40 rounded-xl p-5 space-y-2 transition-colors">
-    <h3 class="text-sm font-semibold text-amber-900 dark:text-amber-100">🔭 For your roadmap</h3>
-    <ul class="list-disc ml-5 text-sm text-amber-800 dark:text-amber-100 space-y-1">
+  <section class="panel panel-warning p-5 space-y-2">
+    <h3 class="text-sm font-semibold text-heading">🔭 For your roadmap</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
       <li>Instrument chunk-size sweeps (recall@k, latency, overlap cost) for every new corpus.</li>
       <li>Align chunk windows to embedder context limits and positional encodings.</li>
       <li>Add semantic relevance checks (beyond string match) before shipping larger chunks.</li>
       <li>Contribute long-document QA datasets with ground-truth spans to reduce stitched proxies.</li>
     </ul>
   </section>
-</div>
+</section>

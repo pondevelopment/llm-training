@@ -62,6 +62,9 @@
     root.classList.add(className);
   } else if (stored === 'light') {
     root.classList.remove(className);
+  } else {
+    // No stored preference: default to dark mode
+    root.classList.add(className);
   }
 
   if (document.readyState === 'loading') {
@@ -74,6 +77,7 @@
   if (media) {
     const listener = (event) => {
       if (getStored()) return;
+      // If no stored preference, follow system preference changes
       applyTheme(event.matches ? 'dark' : 'light', { persist: false });
       updateButtons();
     };

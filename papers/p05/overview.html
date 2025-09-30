@@ -1,89 +1,99 @@
-<div class="space-y-5">
-  <section class="rounded-xl border border-indigo-200 dark:border-indigo-500/40 bg-indigo-50 dark:bg-indigo-900/25 p-5 space-y-3 transition-colors">
-    <div class="flex flex-wrap md:flex-nowrap items-start justify-between gap-4">
-      <div class="md:max-w-3xl space-y-1">
-        <h2 class="text-xl font-semibold text-indigo-900 dark:text-indigo-100">Mathematical Research with GPT-5: a Malliavin–Stein Experiment</h2>
-        <p class="text-sm text-indigo-700 dark:text-indigo-200">Charles-Philippe Diez, Luís da Maia, Ivan Nourdin • arXiv:2509.03065 (Sep 2025)</p>
+<section class="space-y-5">
+  <!-- Paper header -->
+  <section class="panel panel-info p-4 space-y-4">
+    <div class="flex items-center justify-between gap-4">
+      <div class="flex-1 min-w-0">
+        <h2 class="text-xl font-semibold text-heading">Mathematical Research with GPT-5: a Malliavin–Stein Experiment</h2>
+        <p class="text-sm panel-muted">Charles-Philippe Diez, Luís da Maia, Ivan Nourdin • arXiv:2509.03065 (Sep 2025)</p>
       </div>
-      <a href="https://arxiv.org/abs/2509.03065" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-medium bg-white/90 dark:bg-indigo-950/40 border border-indigo-200 dark:border-indigo-500/40 text-indigo-700 dark:text-indigo-100 hover:bg-indigo-100/70 dark:hover:bg-indigo-900/40 transition-colors">
+      <a href="https://arxiv.org/abs/2509.03065" target="_blank" rel="noopener" class="btn-soft text-xs font-semibold flex-shrink-0" data-accent="foundations">
         <span>View paper</span>
-        <span aria-hidden="true" class="text-sm leading-none">↗</span>
+        <span aria-hidden="true">↗</span>
       </a>
     </div>
-    <p class="text-sm text-indigo-800 dark:text-indigo-100 leading-relaxed">
-      Motivated by GPT‑5’s viral “breakthrough” in convex optimization, the authors ran their own controlled test in Malliavin–Stein theory. With GPT‑5 as a brainstorming partner and rigorous human verification, they turned a qualitative fourth-moment theorem into explicit total-variation rates for mixed Gaussian chaoses, then pushed the argument to Poisson settings—derivations that had not appeared in the literature.
+    <p class="text-sm leading-relaxed panel-muted">
+      Motivated by GPT‑5's viral "breakthrough" in convex optimization, the authors ran their own controlled test in Malliavin–Stein theory. With GPT‑5 as a brainstorming partner and rigorous human verification, they turned a qualitative fourth-moment theorem into explicit total-variation rates for mixed Gaussian chaoses, then pushed the argument to Poisson settings—derivations that had not appeared in the literature.
     </p>
+    <div class="panel panel-neutral-soft p-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Plain-language explainer</p>
+      <p class="panel-muted">Imagine asking an AI to help derive a complex mathematical proof. This paper shows it's possible when experts stay in control—they used GPT-5 to brainstorm lemmas and check calculations, but validated every step themselves. The result: new theorems with explicit constants that weren't in the literature before.</p>
+    </div>
   </section>
 
-  <section class="bg-slate-900/95 text-slate-100 border border-slate-800 rounded-xl p-5 space-y-3 shadow-inner transition-colors">
-    <div class="flex items-center gap-2">
-      <span class="text-lg">🧭</span>
-      <h3 class="text-sm font-semibold tracking-wide uppercase text-slate-200">Executive quick take</h3>
-    </div>
-    <p class="text-sm text-slate-200 leading-relaxed">
+  <!-- Executive quick take -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <header class="flex items-center gap-2">
+      <span aria-hidden="true" class="text-lg">🧭</span>
+      <h3 class="text-sm font-semibold tracking-wide uppercase text-heading">Executive quick take</h3>
+    </header>
+    <p class="text-sm leading-relaxed text-body">
       GPT‑5 can meaningfully accelerate mathematical research when experts stay in the loop. It proposed the key Malliavin–Stein reductions, but humans supplied the proofs, counterexamples, and polish. The headline result is a quantitative two-chaos fourth-moment bound with √κ₄ rates, plus a Poisson analogue with nearly sharp conditions.
     </p>
-    <ul class="list-disc ml-5 text-sm text-slate-300 space-y-1">
+    <ul class="list-disc ml-5 text-sm panel-muted space-y-1">
       <li><strong>AI as co-pilot:</strong> GPT‑5 drafted lemmas, checked contractions, and suggested Poisson parallels; mathematicians validated every step.</li>
       <li><strong>New theorems:</strong> Total-variation ≤ √(6 κ₄(Z)) for Z = Iₚ(f)+I_q(g) (p odd, q even), and a Poisson version with explicit rate.</li>
       <li><strong>Workflow insight:</strong> Transcript shows iterative prompting, counterexample hunting, and the necessity of symbolic sanity checks.</li>
     </ul>
   </section>
 
-  <section class="bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-500/40 rounded-xl p-5 space-y-2 transition-colors">
-    <h3 class="text-sm font-semibold text-emerald-900 dark:text-emerald-100">💼 Business relevance</h3>
-    <ul class="list-disc ml-5 text-sm text-emerald-800 dark:text-emerald-100 space-y-1">
+  <!-- Business relevance -->
+  <section class="panel panel-success p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">💼 Business relevance</h3>
+    <ul class="list-disc ml-5 text-sm text-body space-y-1">
       <li><strong>Research productivity:</strong> Quantitative math results often underpin finance, risk, and scientific modelling—AI copilots can shorten discovery cycles when paired with domain experts.</li>
-      <li><strong>Audit trails:</strong> The paper’s transcript + verification protocol is a template for regulated environments that must document AI-assisted derivations.</li>
+      <li><strong>Audit trails:</strong> The paper's transcript + verification protocol is a template for regulated environments that must document AI-assisted derivations.</li>
       <li><strong>Talent leverage:</strong> Highlights how senior researchers can steer AI to explore proof space while juniors learn from the dialogue—relevant for R&amp;D orgs.</li>
       <li><strong>Risk management:</strong> Emphasizes rigorous human review before accepting AI proofs, a stance aligned with emerging governance policies.</li>
     </ul>
-    <div class="bg-card/90 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-500/40 rounded-md p-3 mt-3 space-y-1 text-xs text-emerald-900 dark:text-emerald-100 transition-colors">
-      <p class="font-semibold">Derivative example (regulated proof notebook)</p>
-      <p class="text-emerald-800 dark:text-emerald-100">A quantitative risk lab can pair GPT-5 proof sessions with the paper checklist, storing prompts, outputs, and human sign-off in a shared notebook to satisfy model risk audits while accelerating derivations.</p>
+    <div class="panel panel-neutral-soft p-3 mt-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Derivative example</p>
+      <p class="panel-muted">A quantitative risk lab can pair GPT-5 proof sessions with the paper checklist, storing prompts, outputs, and human sign-off in a shared notebook to satisfy model risk audits while accelerating derivations.</p>
     </div>
   </section>
 
+  <!-- Supporting callouts -->
   <div class="grid md:grid-cols-2 gap-4">
-    <div class="bg-cyan-50 dark:bg-cyan-900/20 border border-cyan-200 dark:border-cyan-500/40 rounded-lg p-4 space-y-2 transition-colors">
-      <h3 class="text-sm font-semibold text-cyan-900 dark:text-cyan-100">What changed in Malliavin–Stein?</h3>
-      <p class="text-xs text-cyan-800 dark:text-cyan-100">Classical fourth-moment theorems certify convergence but rarely give explicit rates. GPT‑5 helped derive</p>
-      <p class="text-xs text-cyan-800 dark:text-cyan-100"><strong>d<sub>TV</sub>(Z,𝓝(0,1)) ≤ √(6 κ₄(Z))</strong> for Z = Iₚ(f)+I_q(g) with opposite parity, tightening the qualitative result of Basse-O’Connor et al.</p>
-      <ul class="list-disc ml-4 text-[11px] text-cyan-700 dark:text-cyan-100 space-y-1">
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">What changed in Malliavin–Stein?</h3>
+      <p class="text-xs panel-muted">Classical fourth-moment theorems certify convergence but rarely give explicit rates. GPT‑5 helped derive</p>
+      <p class="text-xs panel-muted"><strong>d<sub>TV</sub>(Z,𝓝(0,1)) ≤ √(6 κ₄(Z))</strong> for Z = Iₚ(f)+I_q(g) with opposite parity, tightening the qualitative result of Basse-O'Connor et al.</p>
+      <ul class="list-disc ml-4 text-[11px] panel-muted space-y-1">
         <li>Fourth cumulant κ₄(Z) = E[Z⁴] − 3 acts as the convergence witness.</li>
         <li>Proof hinges on careful control of Malliavin derivatives and mixed contractions.</li>
-        <li>Poisson analogue retains the structure but demands an extra “odd moment” condition—shown to be near optimal.</li>
+        <li>Poisson analogue retains the structure but demands an extra "odd moment" condition—shown to be near optimal.</li>
       </ul>
     </div>
-    <div class="bg-cyan-50 dark:bg-cyan-900/20 border border-cyan-200 dark:border-cyan-500/40 rounded-lg p-4 space-y-2 transition-colors">
-      <h3 class="text-sm font-semibold text-cyan-900 dark:text-cyan-100">How GPT‑5 was used</h3>
-      <p class="text-xs text-cyan-800 dark:text-cyan-100">Researchers supplied definitions, goals, and partial derivations; GPT‑5 suggested calculations, expansions, and Poisson parallels. Every AI step was checked, rewritten, or discarded.</p>
-      <ul class="list-disc ml-4 text-[11px] text-cyan-700 dark:text-cyan-100 space-y-1">
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">How GPT‑5 was used</h3>
+      <p class="text-xs panel-muted">Researchers supplied definitions, goals, and partial derivations; GPT‑5 suggested calculations, expansions, and Poisson parallels. Every AI step was checked, rewritten, or discarded.</p>
+      <ul class="list-disc ml-4 text-[11px] panel-muted space-y-1">
         <li>Transcripts (Appendix) document prompt templates, corrections, and retries.</li>
         <li>When GPT‑5 hallucinated statements, authors demanded explicit references or corrected algebra.</li>
-        <li>Counterexample search: GPT‑5’s failures highlighted missing assumptions, leading to the “sharpness” discussion.</li>
+        <li>Counterexample search: GPT‑5's failures highlighted missing assumptions, leading to the "sharpness" discussion.</li>
       </ul>
     </div>
   </div>
 
-  <section class="grid md:grid-cols-3 gap-4">
-    <article class="bg-card border border-subtle rounded-lg p-4 space-y-2 transition-colors">
-      <h5 class="text-sm font-semibold text-heading">Key insight</h5>
-      <p class="text-sm text-secondary">Pairing GPT‑5 brainstorming with Malliavin–Stein expertise turned a qualitative convergence theorem into explicit √κ₄ total-variation rates and surfaced the sharp parity assumptions.</p>
-    </article>
-    <article class="bg-card border border-subtle rounded-lg p-4 space-y-2 transition-colors">
-      <h5 class="text-sm font-semibold text-heading">Method</h5>
-      <p class="text-sm text-secondary">The team stepped through four tracked stages—goal framing, Malliavin–Stein reduction, cumulant control, and theorem write-up—logging GPT‑5 outputs and tightening constants via human derivations.</p>
-    </article>
-    <article class="bg-card border border-subtle rounded-lg p-4 space-y-2 transition-colors">
-      <h5 class="text-sm font-semibold text-heading">Implication</h5>
-      <p class="text-sm text-secondary">Quantitative bounds formerly missing from the literature are now accessible, but only with rigorous human validation—making audited AI proof notebooks a prerequisite for production math workflows.</p>
-    </article>
-  </section>
+  <!-- Key insight / Method / Implication trio -->
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Key insight</h3>
+      <p class="text-xs panel-muted">Pairing GPT‑5 brainstorming with Malliavin–Stein expertise turned a qualitative convergence theorem into explicit √κ₄ total-variation rates and surfaced the sharp parity assumptions.</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Method</h3>
+      <p class="text-xs panel-muted">The team stepped through four tracked stages—goal framing, Malliavin–Stein reduction, cumulant control, and theorem write-up—logging GPT‑5 outputs and tightening constants via human derivations.</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Implication</h3>
+      <p class="text-xs panel-muted">Quantitative bounds formerly missing from the literature are now accessible, but only with rigorous human validation—making audited AI proof notebooks a prerequisite for production math workflows.</p>
+    </div>
+  </div>
 
-  <div class="bg-card border border-subtle rounded-lg p-4 space-y-2 transition-colors">
+  <!-- Key terminology -->
+  <div class="panel panel-info p-4 space-y-2">
     <h3 class="text-sm font-semibold text-heading">Key terminology</h3>
-    <ul class="list-disc ml-5 text-xs text-secondary space-y-1">
+    <ul class="list-disc ml-5 text-xs panel-muted space-y-1">
       <li><strong>Fourth cumulant κ₄:</strong> Measures deviation of a zero-mean variable from Gaussianity; vanishes only for the normal law.</li>
       <li><strong>Total variation distance:</strong> Supremum over measurable sets of |P(Z ∈ A) − Φ(A)|—a strong convergence metric.</li>
       <li><strong>Wiener/Poisson chaos:</strong> Orthogonal families generated by multiple stochastic integrals; orders p and q indicate integration depth.</li>
@@ -91,23 +101,25 @@
     </ul>
   </div>
 
-  <div class="bg-card border border-subtle rounded-lg p-5 space-y-3 transition-colors">
-    <h3 class="text-sm font-semibold text-heading">🧪 Experiments & Evidence</h3>
-    <ul class="list-disc ml-5 text-sm text-secondary space-y-1">
+  <!-- Evidence -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🧪 Evidence</h3>
+    <ul class="list-disc ml-5 text-sm panel-muted space-y-1">
       <li><strong>Theorem 2.1:</strong> d<sub>TV</sub>(Z, 𝓝) ≤ √(6 κ₄(Z)) for Z = Iₚ(f)+I_q(g), p odd, q even.</li>
       <li><strong>Poisson extension:</strong> Same rate up to an additional parity constraint; counterexample shows necessity.</li>
       <li><strong>Manual verification:</strong> Authors compared AI derivations with classical Malliavin–Stein identities, ensuring no lemma relied on unverified claims.</li>
       <li><strong>Transparency assets:</strong> Full GPT‑5 transcripts + prompt protocol included in appendices.</li>
     </ul>
-  </div>
+  </section>
 
-  <section class="bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-500 rounded-lg p-5 space-y-2 transition-colors">
-    <h3 class="text-sm font-semibold text-amber-900 dark:text-amber-200">🔭 For your roadmap</h3>
-    <ul class="list-disc ml-5 text-sm text-amber-800 dark:text-amber-100 space-y-1">
-      <li>Adopt “AI proof notebooks”: store prompts, outputs, and human validations like the authors’ Appendix A/B.</li>
+  <!-- Forward-looking roadmap -->
+  <section class="panel panel-warning p-5 space-y-2">
+    <h3 class="text-sm font-semibold text-heading">🔭 For your roadmap</h3>
+    <ul class="list-disc ml-5 text-sm text-body space-y-1">
+      <li>Adopt "AI proof notebooks": store prompts, outputs, and human validations like the authors' Appendix A/B.</li>
       <li>Build quantitative benchmarks for AI-assisted derivations (rate bounds, counterexamples) rather than only qualitative statements.</li>
       <li>Train teams to interrogate LLM outputs—ask for references, inspect algebra, and demand explicit constants.</li>
-      <li>Explore cross-domain extensions: the authors’ workflow could apply to other probabilistic or analytic open problems.</li>
+      <li>Explore cross-domain extensions: the authors' workflow could apply to other probabilistic or analytic open problems.</li>
     </ul>
   </section>
-</div>
+</section>

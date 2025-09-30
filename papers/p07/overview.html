@@ -1,63 +1,56 @@
-<div class="space-y-5">
-  <div class="panel panel-info p-4 space-y-4">
-    <div class="flex flex-wrap md:flex-nowrap items-start justify-between gap-4">
-      <div class="space-y-1 md:max-w-3xl">
+<section class="space-y-5">
+  <!-- Paper header -->
+  <section class="panel panel-info p-4 space-y-4">
+    <div class="flex items-center justify-between gap-4">
+      <div class="flex-1 min-w-0">
         <h2 class="text-xl font-semibold text-heading">A Taxonomy of Transcendence</h2>
         <p class="text-sm panel-muted">Natalie Abreu, Edwin Zhang, Eran Malach, Naomi Saphra • COLM 2025 (arXiv:2508.17669)</p>
       </div>
-      <a href="https://arxiv.org/abs/2508.17669" target="_blank" rel="noopener" class="btn-soft text-xs font-semibold" data-accent="foundations">
+      <a href="https://arxiv.org/abs/2508.17669" target="_blank" rel="noopener" class="btn-soft text-xs font-semibold flex-shrink-0" data-accent="foundations">
         <span>View paper</span>
         <span aria-hidden="true">↗</span>
       </a>
     </div>
-    <p class="text-sm panel-muted leading-relaxed">
-      The authors formalise when an imitative language model can outperform every individual data source it learns from. They derive three “transcendence” modes—skill denoising, skill selection, and skill generalisation—then prove and test the data diversity conditions that unlock each one using a synthetic knowledge-graph of fictional experts.
+    <p class="text-sm leading-relaxed panel-muted">
+      The authors formalise when an imitative language model can outperform every individual data source it learns from. They derive three "transcendence" modes—skill denoising, skill selection, and skill generalisation—then prove and test the data diversity conditions that unlock each one using a synthetic knowledge-graph of fictional experts.
     </p>
-  </div>
-
-  <div class="panel panel-neutral panel-emphasis p-5 space-y-3">
-    <div class="flex items-center gap-2 text-heading">
-      <span aria-hidden="true" class="text-lg">🧭</span>
-      <h3 class="text-sm font-semibold tracking-wide uppercase">Executive quick take</h3>
+    <div class="panel panel-neutral-soft p-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Plain-language explainer</p>
+      <p class="panel-muted">Imagine learning to cook by watching 100 different chefs. Even if each chef makes occasional mistakes, you can spot the most common approach and avoid their errors. You can also recognize which chef is best at pasta vs desserts, and combine their techniques in new ways. This paper proves when AI can do the same with training data—learning beyond any single source.</p>
     </div>
+  </section>
+
+  <!-- Executive quick take -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <header class="flex items-center gap-2">
+      <span aria-hidden="true" class="text-lg">🧭</span>
+      <h3 class="text-sm font-semibold tracking-wide uppercase text-heading">Executive quick take</h3>
+    </header>
     <p class="text-sm text-body leading-relaxed">
-      “Anthropomorphising” a model—treating it like a single human mind—misses the point: it is trained to mimic a <em>mixture</em> of experts. If your dataset blends uncorrelated errors, differentiated expertise, and compositional examples, the resulting model can denoise, route, and recombine knowledge beyond any single contributor.
+      "Anthropomorphising" a model—treating it like a single human mind—misses the point: it is trained to mimic a <em>mixture</em> of experts. If your dataset blends uncorrelated errors, differentiated expertise, and compositional examples, the resulting model can denoise, route, and recombine knowledge beyond any single contributor.
     </p>
     <ul class="list-disc ml-5 text-sm panel-muted space-y-1">
       <li><strong>Denoise noise:</strong> Low-temperature decoding concentrates the majority vote when mistakes are independent.</li>
       <li><strong>Select specialists:</strong> Exposure-weighted sampling lets the model surface the right expert per context.</li>
       <li><strong>Compose skills:</strong> Rich multi-hop demonstrations bias the model toward latent structure over memorisation.</li>
     </ul>
-  </div>
+  </section>
 
-  <div class="panel panel-success panel-emphasis p-5 space-y-2">
+  <!-- Business relevance -->
+  <section class="panel panel-success p-5 space-y-3">
     <h3 class="text-sm font-semibold text-heading">💼 Business relevance</h3>
     <ul class="list-disc ml-5 text-sm text-body space-y-1">
       <li><strong>Data procurement:</strong> Curate contributor pools with complementary coverage instead of maximising volume from a single vendor.</li>
-      <li><strong>Safety budgets:</strong> Quantify correlated failure pockets—diversity that doesn’t break correlations won’t buy you transcendence.</li>
+      <li><strong>Safety budgets:</strong> Quantify correlated failure pockets—diversity that doesn't break correlations won't buy you transcendence.</li>
       <li><strong>Agent routing:</strong> The taxonomy mirrors ensemble and MoE deployments; it tells you which data knobs justify that complexity.</li>
     </ul>
     <div class="panel panel-neutral-soft p-3 mt-3 space-y-1 text-xs">
-      <p class="font-semibold text-heading">Derivative example (apply the paper’s setup)</p>
-      <p class="panel-muted">A support-automation team could simulate “experts” from billing, hardware, and policy teams. By varying how often each team writes about topics inside vs outside its remit, product ops can estimate when a unified LLM will denoise (low overlap errors), when it needs routing metadata (selection), and how many cross-domain playbooks are required before the model generalises rare two-hop escalations.</p>
+      <p class="font-semibold text-heading">Derivative example</p>
+      <p class="panel-muted">A support-automation team could simulate "experts" from billing, hardware, and policy teams. By varying how often each team writes about topics inside vs outside its remit, product ops can estimate when a unified LLM will denoise (low overlap errors), when it needs routing metadata (selection), and how many cross-domain playbooks are required before the model generalises rare two-hop escalations.</p>
     </div>
-  </div>
+  </section>
 
-  <div class="grid md:grid-cols-3 gap-4">
-    <div class="panel panel-neutral p-3 space-y-2">
-      <h5 class="text-sm font-semibold text-heading">Key insight</h5>
-      <p class="text-xs panel-muted">Transcendence is not mystical: it emerges precisely when training data supplies the statistical signals (variance, routing bias, compositional structure) the learner can exploit.</p>
-    </div>
-    <div class="panel panel-neutral p-3 space-y-2">
-      <h5 class="text-sm font-semibold text-heading">Method</h5>
-      <p class="text-xs panel-muted">The team derives sufficient conditions for each transcendence mode and instantiates them in controllable knowledge-graph corpora where GPT-2 is finetuned on templated paragraphs from simulated experts.</p>
-    </div>
-    <div class="panel panel-neutral p-3 space-y-2">
-      <h5 class="text-sm font-semibold text-heading">Implication</h5>
-      <p class="text-xs panel-muted">Architects can decide which diversity lever to fund—more experts, domain-aware sampling, or compositional exemplars—based on the failure mode they observe.</p>
-    </div>
-  </div>
-
+  <!-- Supporting callouts -->
   <div class="grid md:grid-cols-2 gap-4">
     <div class="panel panel-info p-4 space-y-2">
       <h3 class="text-sm font-semibold text-heading">Three modes cheat sheet</h3>
@@ -79,23 +72,41 @@
     </div>
   </div>
 
-  <div class="panel panel-neutral p-5 space-y-3">
-    <h3 class="text-sm font-semibold text-heading">🧪 Experiments & Evidence</h3>
+  <!-- Key insight / Method / Implication trio -->
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Key insight</h3>
+      <p class="text-xs panel-muted">Transcendence is not mystical: it emerges precisely when training data supplies the statistical signals (variance, routing bias, compositional structure) the learner can exploit.</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Method</h3>
+      <p class="text-xs panel-muted">The team derives sufficient conditions for each transcendence mode and instantiates them in controllable knowledge-graph corpora where GPT-2 is finetuned on templated paragraphs from simulated experts.</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Implication</h3>
+      <p class="text-xs panel-muted">Architects can decide which diversity lever to fund—more experts, domain-aware sampling, or compositional exemplars—based on the failure mode they observe.</p>
+    </div>
+  </div>
+
+  <!-- Evidence -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🧪 Evidence</h3>
     <ul class="list-disc ml-5 text-sm panel-muted space-y-1">
       <li><strong>Denoising:</strong> Finetuning GPT-2 on 10M samples from 100 experts with 20% coverage reaches &gt;80% factual accuracy using greedy decoding, beating any expert.</li>
       <li><strong>Selection:</strong> With coverage 0.1 and α ≥ 0.95, accuracy approaches 100% once the pool spans enough edge clusters (Fig. 5).</li>
       <li><strong>Generalisation:</strong> Across-expertise two-hop accuracy scales linearly with the count of within-expertise scaffolds; paraphrase diversity lifts it above co-occurrence baselines (Fig. 6).</li>
       <li><strong>Baselines:</strong> Relation-majority and direct-connection heuristics lag far behind the finetuned model on held-out multi-hop queries.</li>
     </ul>
-  </div>
+  </section>
 
-  <div class="panel panel-warning p-5 space-y-2">
+  <!-- Forward-looking roadmap -->
+  <section class="panel panel-warning p-5 space-y-2">
     <h3 class="text-sm font-semibold text-heading">🔭 For your roadmap</h3>
     <ul class="list-disc ml-5 text-sm text-body space-y-1">
       <li>Instrument instruction datasets to measure error correlation, topical coverage, and compositional depth.</li>
-      <li>Layer routing metadata or provenance tags when you suspect “selection” will help more than raw denoising.</li>
+      <li>Layer routing metadata or provenance tags when you suspect "selection" will help more than raw denoising.</li>
       <li>Invest in synthetic or logged multi-hop exemplars before expecting zero-shot cross-domain reasoning.</li>
-      <li>Explore “skill discovery” settings—an open question the authors flag for future transcendence modes.</li>
+      <li>Explore "skill discovery" settings—an open question the authors flag for future transcendence modes.</li>
     </ul>
-  </div>
-</div>
+  </section>
+</section>

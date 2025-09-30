@@ -1,10 +1,10 @@
-<div class="space-y-6" id="p07-explorer">
+<section class="space-y-6" id="p07-explorer">
   <section class="panel panel-neutral p-5 space-y-4">
     <div class="space-y-2">
-      <p class="text-[11px] font-semibold uppercase tracking-wide text-muted-soft">Choose the transcendence mode</p>
+      <p class="text-xs font-semibold uppercase tracking-wide text-heading">Choose the transcendence mode</p>
       <h3 class="text-sm font-semibold text-heading">See how data diversity unlocks denoising, selection, or generalisation</h3>
-      <p class="text-xs text-muted">Adjust the knobs the authors highlight to recreate each capability jump.</p>
-      <p class="text-[11px] text-muted-soft">Use the sliders to compare how a single expert performs versus the combined model for each mode.</p>
+      <p class="text-xs panel-muted">Adjust the knobs the authors highlight to recreate each capability jump.</p>
+      <p class="text-xs panel-muted">Use the sliders to compare how a single expert performs versus the combined model for each mode.</p>
     </div>
     <div class="view-toggle flex flex-wrap gap-2" id="p07-mode-buttons"></div>
   </section>
@@ -12,21 +12,21 @@
   <section class="panel panel-info p-5 space-y-4">
     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
       <div class="space-y-1">
-        <p class="text-[11px] font-semibold uppercase tracking-wide text-heading" id="p07-stage-heading"></p>
+        <p class="text-xs font-semibold uppercase tracking-wide text-heading" id="p07-stage-heading"></p>
         <h4 class="text-sm font-semibold text-heading" id="p07-stage-subheading"></h4>
       </div>
-      <div class="text-xs px-3 py-2 rounded-md border border-divider bg-card text-body shadow-sm" id="p07-stage-metric">—</div>
+      <div class="chip chip-neutral text-xs font-mono" id="p07-stage-metric">—</div>
     </div>
     <div id="p07-stage-controls" class="grid md:grid-cols-2 gap-3"></div>
   </section>
 
   <section class="panel panel-neutral p-5 space-y-3">
     <h4 class="text-sm font-semibold text-heading">What the paper suggests</h4>
-    <div id="p07-insights" class="space-y-2 text-sm text-body"></div>
+    <div id="p07-insights" class="space-y-2 text-sm panel-muted"></div>
   </section>
 
   <section class="panel panel-warning p-5 space-y-2">
     <h4 class="text-sm font-semibold text-heading">Apply it</h4>
     <ul id="p07-actions" class="list-disc ml-5 text-sm text-body space-y-1"></ul>
   </section>
-</div>
+</section>

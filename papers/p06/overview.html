@@ -1,25 +1,31 @@
-<div class="space-y-5">
-  <div class="panel panel-info p-4 space-y-4">
-    <div class="flex flex-wrap md:flex-nowrap items-start justify-between gap-4">
-      <div class="md:max-w-3xl space-y-1">
+<section class="space-y-5">
+  <!-- Paper header -->
+  <section class="panel panel-info p-4 space-y-4">
+    <div class="flex items-center justify-between gap-4">
+      <div class="flex-1 min-w-0">
         <h2 class="text-xl font-semibold text-heading">The Illusion of Diminishing Returns: Measuring Long Horizon Execution in LLMs</h2>
         <p class="text-sm panel-muted">Akshit Sinha, Arvindh Arun, Shashwat Goel, Steffen Staab, Jonas Geiping &bull; arXiv:2509.09677 (Sep 2025)</p>
       </div>
-      <a href="https://arxiv.org/abs/2509.09677" target="_blank" rel="noopener" class="btn-soft text-xs font-semibold" data-accent="foundations">
+      <a href="https://arxiv.org/abs/2509.09677" target="_blank" rel="noopener" class="btn-soft text-xs font-semibold flex-shrink-0" data-accent="foundations">
         <span>View paper</span>
-        <span aria-hidden="true">&#8599;</span>
+        <span aria-hidden="true">↗</span>
       </a>
     </div>
     <p class="text-sm leading-relaxed panel-muted">
-      The authors design a synthetic benchmark that removes planning and knowledge, forcing language models to execute long chains of retrieve-and-compose operations. They show that tiny improvements in per-step accuracy compound into exponential gains in horizon length, reveal a self-conditioning failure mode, and explain why &ldquo;thinking&rdquo; models with sequential test-time compute can run hundreds of steps longer than standard LLMs.
+      The authors design a synthetic benchmark that removes planning and knowledge, forcing language models to execute long chains of retrieve-and-compose operations. They show that tiny improvements in per-step accuracy compound into exponential gains in horizon length, reveal a self-conditioning failure mode, and explain why "thinking" models with sequential test-time compute can run hundreds of steps longer than standard LLMs.
     </p>
-  </div>
-
-  <div class="panel panel-neutral p-5 space-y-3">
-    <div class="flex items-center gap-2 text-heading">
-      <span class="text-lg" aria-hidden="true">🧠</span>
-      <h3 class="text-sm font-semibold tracking-wide uppercase">Executive quick take</h3>
+    <div class="panel panel-neutral-soft p-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Plain-language explainer</p>
+      <p class="panel-muted">Imagine a robot following a recipe step-by-step. If it's 95% accurate per step, it can complete a 20-step recipe reliably. But drop to 70% accuracy and it fails by step 5. This paper proves small accuracy gains multiply into huge gains in how many steps an AI can chain together—and shows "thinking" models can run 1,000+ steps where regular models fail at 2.</p>
     </div>
+  </section>
+
+  <!-- Executive quick take -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <header class="flex items-center gap-2">
+      <span aria-hidden="true" class="text-lg">🧠</span>
+      <h3 class="text-sm font-semibold tracking-wide uppercase text-heading">Executive quick take</h3>
+    </header>
     <p class="text-sm leading-relaxed text-body">
       Diminishing returns on single-step benchmarks do not mean LLM scaling has stalled. Once planning and knowledge are stripped away, larger models still execute far longer task horizons&mdash;and reasoning tokens or RL-trained &ldquo;thinking&rdquo; models eliminate self-conditioning failures entirely.
     </p>
@@ -28,9 +34,10 @@
       <li><strong>Execution bottleneck:</strong> Even models with 100% single-turn accuracy crumble after only a few turns.</li>
       <li><strong>Thinking advantage:</strong> DeepSeek R1 and GPT-5 Horizon run hundreds to 1,000+ steps in one shot; non-thinking peers fail at 2.</li>
     </ul>
-  </div>
+  </section>
 
-  <div class="panel panel-success p-5 space-y-3">
+  <!-- Business relevance -->
+  <section class="panel panel-success p-5 space-y-3">
     <h3 class="text-sm font-semibold text-heading">💼 Business relevance</h3>
     <ul class="list-disc ml-5 space-y-1 text-sm text-body">
       <li><strong>Long workflows:</strong> Agent deployments live or die by how many sequential actions they can perform without human rescue.</li>
@@ -39,10 +46,11 @@
     </ul>
     <div class="panel panel-neutral-soft p-3 mt-3 space-y-1 text-xs">
       <p class="font-semibold text-heading">Derivative example (patterned on the paper workflow)</p>
-      <p class="panel-muted">A customer-support automation team could simulate ticket escalation workflows with the paper key value sandbox: each turn retrieves the next policy clause, composes it with the running resolution state, and checks for policy breaches. By measuring horizon length and self-conditioning under injected errors, operations leaders can estimate when a bot needs supervisory handoff and which &ldquo;thinking&rdquo; models deliver the best return on investment.</p>
+      <p class="panel-muted">A customer-support automation team could simulate ticket escalation workflows with the paper key value sandbox: each turn retrieves the next policy clause, composes it with the running resolution state, and checks for policy breaches. By measuring horizon length and self-conditioning under injected errors, operations leaders can estimate when a bot needs supervisory handoff and which "thinking" models deliver the best return on investment.</p>
     </div>
-  </div>
+  </section>
 
+  <!-- Supporting callouts -->
   <div class="grid md:grid-cols-2 gap-4">
     <div class="panel panel-info p-4 space-y-2">
       <h3 class="text-sm font-semibold text-heading">Key mechanics</h3>
@@ -64,6 +72,7 @@
     </div>
   </div>
 
+  <!-- Key insight / Method / Implication trio -->
   <div class="grid md:grid-cols-3 gap-4">
     <div class="panel panel-neutral p-4 space-y-2">
       <h3 class="text-sm font-semibold text-heading">Key insight</h3>
@@ -79,8 +88,9 @@
     </div>
   </div>
 
-  <div class="panel panel-neutral p-4 space-y-2">
-    <h3 class="text-sm font-semibold text-heading">Terminology</h3>
+  <!-- Key terminology -->
+  <div class="panel panel-info p-4 space-y-2">
+    <h3 class="text-sm font-semibold text-heading">Key terminology</h3>
     <ul class="list-disc ml-5 space-y-1 text-xs panel-muted">
       <li><strong>Long-horizon execution:</strong> Number of sequential steps an LLM can perform correctly once the plan is fixed.</li>
       <li><strong>Turn complexity K:</strong> Number of retrieval and composition operations bundled into one response.</li>
@@ -89,17 +99,19 @@
     </ul>
   </div>
 
-  <div class="panel panel-neutral p-5 space-y-3">
-    <h3 class="text-sm font-semibold text-heading">🧪 Experiments and evidence</h3>
+  <!-- Evidence -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🧪 Evidence</h3>
     <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
       <li><strong>Scaling study:</strong> Qwen3 and Gemma3 families show that 32B models maintain &gt;50% accuracy beyond 15 turns, while 4B models drop before 5.</li>
       <li><strong>Counterfactual history:</strong> Injecting 75% incorrect turns slashes turn-100 accuracy by more than 30 points (self-conditioning), even in 200B+ models.</li>
       <li><strong>Thinking ablation:</strong> Qwen3-think variants keep turn-100 accuracy flat regardless of injected error history.</li>
       <li><strong>Single-turn capacity:</strong> Without chain-of-thought, even frontier non-thinking models struggle at K = 2; with thinking, GPT-5 Horizon reaches K &gt; 1000 and Claude 4 Sonnet approaches 400.</li>
     </ul>
-  </div>
+  </section>
 
-  <div class="panel panel-warning p-5 space-y-2">
+  <!-- Forward-looking roadmap -->
+  <section class="panel panel-warning p-5 space-y-2">
     <h3 class="text-sm font-semibold text-heading">🔭 For your roadmap</h3>
     <ul class="list-disc ml-5 space-y-1 text-sm text-body">
       <li>Track horizon length as a KPI alongside accuracy, because small step gains can unlock entire workflows.</li>
@@ -107,5 +119,5 @@
       <li>Budget for thinking tokens or reinforcement learning post-training if your use case requires long sequential execution.</li>
       <li>Combine reasoning models with context hygiene, such as forgetting or checkpoints, to mitigate drift.</li>
     </ul>
-  </div>
-</div>
+  </section>
+</section>

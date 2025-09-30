@@ -1,10 +1,10 @@
 <div class="paper-interactive-card space-y-6" id="p04-explorer">
-  <section class="bg-card border border-subtle rounded-lg p-5 space-y-4">
+  <section class="panel panel-neutral p-5 space-y-4">
     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
       <div>
-        <p class="text-[11px] font-semibold tracking-wide text-muted uppercase">Pick an evaluation slice</p>
+        <p class="text-[11px] font-semibold tracking-wide panel-muted uppercase">Pick an evaluation slice</p>
         <h3 class="text-sm font-semibold text-heading">Compare benchmark, stress tests, and reasoning prompts</h3>
-        <p class="text-xs text-muted-soft mt-1">Select a dataset and model to see the reported F1/accuracy, precision-recall trade-offs, and how far performance drops from PunEval.</p>
+        <p class="text-xs panel-muted mt-1">Select a dataset and model to see the reported F1/accuracy, precision-recall trade-offs, and how far performance drops from PunEval.</p>
       </div>
     </div>
     <div class="grid md:grid-cols-3 gap-3 text-sm">
@@ -20,7 +20,7 @@
       <div class="flex flex-col gap-2">
         <span class="font-medium text-heading">Model</span>
         <div class="flex flex-wrap gap-2" id="p04-models"></div>
-        <p class="text-xs text-muted-soft">Includes GPT-4o, DeepSeek-R1, Gemini 2.0, Llama 3.3-70B, Qwen 2.5-72B, Mistral 3-24B, and R1-D.</p>
+        <p class="text-xs panel-muted">Includes GPT-4o, DeepSeek-R1, Gemini 2.0, Llama 3.3-70B, Qwen 2.5-72B, Mistral 3-24B, and R1-D.</p>
       </div>
       <div class="flex flex-col gap-2">
         <span class="font-medium text-heading">Prompt style</span>
@@ -30,12 +30,12 @@
           <option value="words">Words rationale (pun pair)</option>
           <option value="wordsSenses">Words + senses rationale</option>
         </select>
-        <p class="text-xs text-muted-soft">Where available, metrics come from the paper; otherwise we reuse the best run.</p>
+        <p class="text-xs panel-muted">Where available, metrics come from the paper; otherwise we reuse the best run.</p>
       </div>
     </div>
-    <div class="bg-subtle border border-subtle rounded-md p-3 text-xs text-secondary space-y-1">
-      <p id="p04-dataset-helper">Switch datasets to see how the paper stress-tests pun detectors beyond the legacy benchmark.</p>
-      <p id="p04-prompt-helper" class="text-muted-soft">Prompt styles toggle how much structure and rationale the model must provide.</p>
+    <div class="panel panel-neutral-soft p-3 text-xs space-y-1">
+      <p id="p04-dataset-helper" class="text-body">Switch datasets to see how the paper stress-tests pun detectors beyond the legacy benchmark.</p>
+      <p id="p04-prompt-helper" class="panel-muted">Prompt styles toggle how much structure and rationale the model must provide.</p>
     </div>
   </section>
 
@@ -53,9 +53,9 @@
     <p id="p04-impact" class="text-sm panel-muted leading-relaxed">Business impact shows here after you pick a slice.</p>
   </section>
 
-  <section class="bg-card border border-subtle rounded-lg p-5 space-y-3">
+  <section class="panel panel-neutral p-5 space-y-3">
     <h4 class="text-sm font-semibold text-heading">What to watch</h4>
-    <div id="p04-observations" class="text-sm text-secondary space-y-2"></div>
+    <div id="p04-observations" class="text-sm text-body space-y-2"></div>
   </section>
 
   <section class="panel panel-warning p-5 space-y-2">

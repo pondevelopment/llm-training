@@ -2,7 +2,10 @@
 
 U## Overview content
 
-- [ ] **Paper header** (`panel panel-info`): Title (h2), authors • venue (year), link button with ↗ icon, 2-3 sentence summary
+- [ ] **Paper header** (`panel panel-info`): 
+  - [ ] Uses `flex justify-between` layout with title/authors on left
+  - [ ] "View paper" button positioned **top-right** with `btn-soft`, `data-accent="foundations"`, and ↗ icon
+  - [ ] Title (h2), authors • venue (year), 2-3 sentence summary
 - [ ] **Plain-language explainer**: Nested card (`panel panel-neutral-soft`) with 1-2 sentence analogy making the core insight accessible to non-experts
 - [ ] **Executive quick take** (`panel panel-neutral`): 🧭 icon + uppercase header, 2-3 sentences (practical ceiling + actionable signal), 3 bulleted key points
 - [ ] **Business relevance** (`panel panel-success`): 💼 icon, 3–4 stakeholder bullets, nested "Derivative example" card (`panel-neutral-soft`)

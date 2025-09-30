@@ -1,29 +1,34 @@
-﻿<div class="paper-overview-card space-y-6">
+﻿<section class="space-y-6">
   <section class="panel panel-info p-5 space-y-4">
     <div class="flex flex-wrap md:flex-nowrap items-start justify-between gap-4">
       <div class="md:max-w-3xl space-y-1.5">
         <h2 class="text-xl font-semibold text-heading">Conversational AI increases political knowledge as effectively as self-directed internet search</h2>
-        <p class="text-sm text-info">Lennart Luettgau, Hannah Kirk, Kobi Hackenburg, Christopher Summerfield et al. &bull; arXiv:2509.05219 (Sep 2025)</p>
+        <p class="text-sm panel-muted">Lennart Luettgau, Hannah Kirk, Kobi Hackenburg, Christopher Summerfield et al. &bull; arXiv:2509.05219 (Sep 2025)</p>
       </div>
-      <a href="https://arxiv.org/abs/2509.05219" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-md border border-subtle bg-card text-xs font-medium text-info hover:bg-subtle">
+      <a href="https://arxiv.org/abs/2509.05219" target="_blank" rel="noopener" class="btn-soft" data-accent="foundations">
         <span>View paper</span>
         <span aria-hidden="true" class="text-sm leading-none">↗</span>
       </a>
     </div>
-    <p class="text-sm text-secondary leading-relaxed">
+    <p class="text-sm text-body leading-relaxed">
       The authors combine a nationally representative UK survey with randomized trials that pit GPT-4o, Claude 3.5, and Mistral chatbots against traditional search. They find that voters already lean on AI for election research, that guardrailed models lift belief in true facts and suppress misinformation as effectively as search, and that even persuasive or sycophantic prompts fail to shift attitudes. GPT-4o delivered the quickest task completions, Claude 3.5 matched its epistemic gains, and Mistral trailed slightly while staying within overlapping confidence intervals.
     </p>
+    
+    <div class="panel panel-neutral-soft p-4 space-y-1.5">
+      <p class="text-xs font-semibold text-heading">Plain-language summary</p>
+      <p class="text-xs text-body">Think of chatbots as your friendly librarian who helps you find election information just as well as Google, without spreading fake news or trying to change your mind—even when someone tries to trick them into doing so.</p>
+    </div>
   </section>
 
-  <section class="panel panel-neutral panel-emphasis p-5 space-y-3">
+  <section class="panel panel-neutral p-5 space-y-3">
     <header class="flex items-center gap-2">
       <span class="text-lg" aria-hidden="true">🧭</span>
       <h3 class="text-sm font-semibold tracking-wide uppercase text-heading">Executive quick take</h3>
     </header>
-    <p class="text-sm text-secondary leading-relaxed">
+    <p class="text-sm text-body leading-relaxed">
       Chatbots are already a mainstream election research tool: roughly one in eight UK voters turned to them in 2024. In controlled trials they matched web search at boosting true beliefs, did not amplify misinformation, and stayed neutral even when pushed toward persuasion, suggesting that current guardrails hold up under everyday stress.
     </p>
-    <ul class="list-disc ml-5 text-sm text-secondary space-y-1">
+    <ul class="list-disc ml-5 text-sm text-body space-y-1">
       <li><strong class="text-heading">Adoption reality:</strong> 32% of chatbot users applied them to political decisions during the UK general election campaign.</li>
       <li><strong class="text-heading">Epistemic parity:</strong> Conversational AI lifted agreement with true facts by ~0.7 Likert points and nudged misinformation down just like search.</li>
       <li><strong class="text-heading">Prompt resilience:</strong> Persuasive and sycophantic system prompts delivered statistically negligible attitude shifts.</li>
@@ -33,66 +38,66 @@
   <section class="panel panel-success p-5 space-y-3">
     <header class="space-y-1.5">
       <h3 class="text-sm font-semibold text-heading">💼 Business relevance</h3>
-      <p class="text-sm text-secondary leading-relaxed">
+      <p class="text-sm text-body leading-relaxed">
         Treat guardrailed chatbots as a first-class electoral research channel. These results show they already serve mainstream voters without the misinformation spike many risk teams fear.
       </p>
     </header>
-    <ul class="list-disc ml-5 text-sm text-secondary space-y-1">
+    <ul class="list-disc ml-5 text-sm text-body space-y-1">
       <li><strong class="text-heading">News publishers:</strong> Editorial leaders can plan subscription messaging that complements verified reporting rather than compete with it.</li>
       <li><strong class="text-heading">Platforms &amp; ad networks:</strong> Trust and safety teams can recalibrate misinformation risk playbooks knowing persuasive prompts did not amplify false claims.</li>
       <li><strong class="text-heading">Consumer brands:</strong> Customer-experience leaders can justify guided assistants for governance updates because chatbots delivered faster answers without eroding trust metrics.</li>
       <li><strong class="text-heading">Policy teams:</strong> Regulator liaison groups can point to comparable search-sized epistemic gains when drafting disclosures or mitigation plans.</li>
     </ul>
-    <div class="panel panel-neutral-soft p-4 space-y-1 text-xs text-secondary">
+    <div class="panel panel-neutral-soft p-4 space-y-1 text-xs text-body">
       <p class="font-semibold text-heading">Derivative example (global news subscription business)</p>
       <p>The Financial Times audience insights team reruns the paper's persuasive versus neutral prompt treatments with its own chatbot, logs where guardrails hold, and feeds the findings into election coverage briefs and regulator updates.</p>
     </div>
   </section>
 
-  <section class="panel panel-neutral p-4 space-y-2">
+  <div class="panel panel-info p-4 space-y-2">
     <h3 class="text-sm font-semibold text-heading">Model-by-model signal</h3>
-    <ul class="list-disc ml-5 text-sm text-secondary space-y-1">
+    <ul class="list-disc ml-5 text-sm text-body space-y-1">
       <li><strong class="text-heading">GPT-4o:</strong> Highest true-belief lift and the fastest completions; search parity sits well within its 95% confidence interval.</li>
       <li><strong class="text-heading">Claude 3.5 Sonnet:</strong> Near-identical epistemic gains with slightly longer dialogues, reinforcing that prompt style matters more than model choice.</li>
       <li><strong class="text-heading">Mistral Large:</strong> Marginally slower and a touch less confident, yet still delivers positive true-minus-false deltas when nudged with the paper's guardrail prompts.</li>
     </ul>
-  </section>
+  </div>
 
   <section class="grid md:grid-cols-2 gap-4">
-    <article class="panel panel-info p-4 space-y-2">
+    <div class="panel panel-info p-4 space-y-2">
       <h3 class="text-sm font-semibold text-heading">Usage snapshot</h3>
-      <p class="text-xs text-secondary">Surveyed UK voters leaned on AI for the same tasks they once reserved for search.</p>
-      <ul class="list-disc ml-4 text-[11px] text-secondary space-y-1">
+      <p class="text-xs text-body">Surveyed UK voters leaned on AI for the same tasks they once reserved for search.</p>
+      <ul class="list-disc ml-4 text-xs text-body space-y-1">
         <li>9% of adults used chatbots for political info in the four weeks around polling day.</li>
         <li>Chatbot users ranked politics alongside work and education as top scenarios.</li>
         <li>Younger voters (18&ndash;34) and degree-holders were roughly twice as likely to adopt; over-55 usage stayed in single digits.</li>
         <li>Top intents: checking party manifestos, fact-checking debate quotes, and comparing policy calculators.</li>
       </ul>
-    </article>
-    <article class="panel panel-info p-4 space-y-2">
+    </div>
+    <div class="panel panel-info p-4 space-y-2">
       <h3 class="text-sm font-semibold text-heading">Epistemic impact</h3>
-      <p class="text-xs text-secondary">The trials emphasise belief change, not just anecdotal answer quality.</p>
-      <ul class="list-disc ml-4 text-[11px] text-secondary space-y-1">
+      <p class="text-xs text-body">The trials emphasise belief change, not just anecdotal answer quality.</p>
+      <ul class="list-disc ml-4 text-xs text-body space-y-1">
         <li>True statements gained ~0.7 Likert points post-research across both channels.</li>
         <li>Misinformation belief dropped similarly, confirming symmetrical guardrails.</li>
         <li>No measurable drift in trust, private beliefs, or extremism indices, even under persuasive prompts.</li>
       </ul>
-    </article>
+    </div>
   </section>
 
-  <section class="panel panel-neutral p-4 space-y-2">
+  <div class="panel panel-info p-4 space-y-2">
     <h3 class="text-sm font-semibold text-heading">Terminology</h3>
-    <ul class="list-disc ml-5 text-xs text-secondary space-y-1">
+    <ul class="list-disc ml-5 text-xs text-body space-y-1">
       <li><strong class="text-heading">Conversational AI condition:</strong> Guided sessions with GPT-4o, Claude 3.5, or Mistral using updated guardrails.</li>
       <li><strong class="text-heading">Internet search control:</strong> Participants free-roamed via search engines to research the same prompts.</li>
       <li><strong class="text-heading">Persuasive/sycophantic prompts:</strong> System messages that force agreement with a random or user-held stance.</li>
       <li><strong class="text-heading">Epistemic health measures:</strong> Likert-scale agreement with curated true and false statements, plus trust, belief, and extremism composites.</li>
     </ul>
-  </section>
+  </div>
 
   <section class="panel panel-neutral p-5 space-y-3">
     <h3 class="text-sm font-semibold text-heading">🧪 Experiments &amp; evidence</h3>
-    <ul class="list-disc ml-5 text-sm text-secondary space-y-1">
+    <ul class="list-disc ml-5 text-sm text-body space-y-1">
       <li><strong class="text-heading">Post-election survey:</strong> Weighted UK sample (N=2,499) detailing chatbot adoption, perceived accuracy, usefulness, and bias.</li>
       <li><strong class="text-heading">Four-issue RCTs:</strong> 2,858 participants researched climate, immigration, criminal justice, and COVID policy via AI or search.</li>
       <li><strong class="text-heading">Prompt interventions:</strong> Persuasive and sycophantic system prompts showed no significant divergence from neutral GPT-4o, with overlapping 95% confidence intervals.</li>
@@ -101,22 +106,22 @@
     </ul>
   </section>
 
-  <section class="panel panel-neutral-soft p-5 space-y-2">
+  <div class="panel panel-neutral p-5 space-y-2">
     <h3 class="text-sm font-semibold text-heading">Scope &amp; limitations</h3>
-    <ul class="list-disc ml-5 text-sm text-secondary space-y-1">
+    <ul class="list-disc ml-5 text-sm text-body space-y-1">
       <li>Findings cover the 2024 UK general election; other electorates or multi-party systems may surface different behaviours.</li>
       <li>Only guardrailed frontier APIs were tested; open-weight or domain-tuned models could drift without equivalent alignment layers.</li>
       <li>Trials measured single-session research; long-run attitude shifts, coordinated persuasion, or cross-platform journeys remain untested.</li>
     </ul>
-  </section>
+  </div>
 
   <section class="panel panel-warning p-5 space-y-2">
     <h3 class="text-sm font-semibold text-heading">🔭 Forward-looking roadmap</h3>
-    <ul class="list-disc ml-5 text-sm text-secondary space-y-1">
+    <ul class="list-disc ml-5 text-sm text-body space-y-1">
       <li>Replicate in other electorates and longer campaign windows to watch for drift.</li>
       <li>Instrument production chatbots to detect when prompts exceed tested guardrail regimes.</li>
       <li>Blend conversational and retrieval experiences to preserve guardrails while exposing primary sources.</li>
       <li>Develop monitoring for persuasion attempts that combine multiple tool calls or external links.</li>
     </ul>
   </section>
-</div>
+</section>

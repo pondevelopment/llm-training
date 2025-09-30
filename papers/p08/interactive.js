@@ -47,7 +47,7 @@
   const adoptionStats = {
     chatbotUserShare: 0.09,
     politicsShare: 0.32,
-    voterShare: 0.13,
+    voterShare: 0.125,
     perceivedUseful: 0.89,
     perceivedAccurate: 0.87,
     neutralGuardrail: 0.62
@@ -56,24 +56,24 @@
   const beliefBase = { preTrue: 4.4, preFalse: 3.4 };
   const beliefTopics = {
     Aggregate: {
-      convAI: { trueShift: 0.52, falseShift: -0.24 },
-      search: { trueShift: 0.50, falseShift: -0.23 }
+      convAI: { trueShift: 0.70, falseShift: -0.35 },
+      search: { trueShift: 0.68, falseShift: -0.33 }
     },
     'Climate change': {
-      convAI: { trueShift: 0.55, falseShift: -0.27 },
-      search: { trueShift: 0.54, falseShift: -0.25 }
+      convAI: { trueShift: 0.75, falseShift: -0.38 },
+      search: { trueShift: 0.73, falseShift: -0.36 }
     },
     Immigration: {
-      convAI: { trueShift: 0.48, falseShift: -0.21 },
-      search: { trueShift: 0.47, falseShift: -0.20 }
+      convAI: { trueShift: 0.65, falseShift: -0.32 },
+      search: { trueShift: 0.63, falseShift: -0.30 }
     },
     'Criminal justice': {
-      convAI: { trueShift: 0.50, falseShift: -0.22 },
-      search: { trueShift: 0.49, falseShift: -0.21 }
+      convAI: { trueShift: 0.68, falseShift: -0.34 },
+      search: { trueShift: 0.66, falseShift: -0.32 }
     },
     'COVID policy': {
-      convAI: { trueShift: 0.54, falseShift: -0.26 },
-      search: { trueShift: 0.52, falseShift: -0.24 }
+      convAI: { trueShift: 0.72, falseShift: -0.36 },
+      search: { trueShift: 0.70, falseShift: -0.34 }
     }
   };
 
@@ -124,16 +124,16 @@
     const controls = [];
     controls.push(`
       <div class="panel panel-neutral-soft p-3 space-y-2">
-        <label class="text-[11px] font-semibold text-info uppercase">Eligible voters (millions)</label>
+        <label class="text-xs font-semibold panel-muted uppercase">Eligible voters (millions)</label>
         <input id="p08-electorate" type="range" min="10" max="60" step="1" value="47" class="w-full mt-1">
-        <p class="text-[11px] text-secondary">Current value: <span class="font-mono" id="p08-electorate-label">47</span> million</p>
+        <p class="text-xs text-body">Current value: <span class="font-mono" id="p08-electorate-label">47</span> million</p>
       </div>
     `);
     controls.push(`
-      <div class="panel panel-neutral-soft p-3 space-y-1 text-[11px] text-secondary" id="p08-adoption-stats"></div>
+      <div class="panel panel-neutral-soft p-3 space-y-1 text-xs text-body" id="p08-adoption-stats"></div>
     `);
     controls.push(`
-      <div class="panel panel-neutral-soft p-3 space-y-2 text-[11px] text-secondary">
+      <div class="panel panel-neutral-soft p-3 space-y-2 text-xs text-body">
         <p class="text-xs font-semibold uppercase tracking-wide text-heading">Sentiment & guardrails</p>
         <ul class="space-y-1">
           <li><span class="text-heading font-semibold">${formatPercent(adoptionStats.perceivedUseful)}</span> rated answers useful.</li>
@@ -183,17 +183,17 @@
 
     stageControlsEl.innerHTML = [
       `<div class="panel panel-neutral-soft p-3 space-y-2">
-        <label class="text-[11px] font-semibold text-info uppercase">Channel</label>
+        <label class="text-xs font-semibold panel-muted uppercase">Channel</label>
         <select id="p08-channel" class="w-full px-2 py-1 border border-subtle rounded-md bg-card text-sm text-heading">
           <option value="convAI">Conversational AI</option>
           <option value="search">Internet search</option>
         </select>
-        <p class="text-[11px] text-secondary">Data reflects net belief change per topic.</p>
+        <p class="text-xs text-body">Data reflects net belief change per topic.</p>
       </div>`,
       `<div class="panel panel-neutral-soft p-3 space-y-2">
-        <label class="text-[11px] font-semibold text-info uppercase">Topic</label>
+        <label class="text-xs font-semibold panel-muted uppercase">Topic</label>
         <select id="p08-topic" class="w-full px-2 py-1 border border-subtle rounded-md bg-card text-sm text-heading">${topicOptions}</select>
-        <div id="p08-topic-details" class="text-[11px] text-secondary space-y-1"></div>
+        <div id="p08-topic-details" class="text-xs text-body space-y-1"></div>
       </div>`
     ].join('');
 
@@ -234,11 +234,11 @@
 
     stageControlsEl.innerHTML = [
       `<div class="panel panel-neutral-soft p-3 space-y-2">
-        <label class="text-[11px] font-semibold text-info uppercase">System prompt</label>
+        <label class="text-xs font-semibold panel-muted uppercase">System prompt</label>
         <select id="p08-prompt" class="w-full px-2 py-1 border border-subtle rounded-md bg-card text-sm text-heading">${options}</select>
-        <p class="text-[11px] text-secondary">Prompts mirror the paper's persuasive and sycophantic treatments.</p>
+        <p class="text-xs text-body">Prompts mirror the paper's persuasive and sycophantic treatments.</p>
       </div>`,
-      '<div class="panel panel-neutral-soft p-3 space-y-2 text-[11px] text-secondary" id="p08-prompt-details"></div>'
+      '<div class="panel panel-neutral-soft p-3 space-y-2 text-xs text-body" id="p08-prompt-details"></div>'
     ].join('');
 
     const select = document.getElementById('p08-prompt');

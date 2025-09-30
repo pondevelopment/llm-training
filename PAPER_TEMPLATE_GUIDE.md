@@ -112,7 +112,9 @@ The loader automatically looks for `overview.html`, `interactive.html`, and `int
 1. **Copy the template:** duplicate `papers/p-template/` to `papers/pXX/` (two-digit id).
 2. **Draft the overview (`overview.html`):** Follow this exact structure:
    - **Paper header** (`panel panel-info`): 
-     - Use `flex justify-between` layout to position title/authors on left, "View paper" button on right
+     - Container: `flex items-center justify-between gap-4` (no wrapping)
+     - Left side: `flex-1 min-w-0` wrapper for title and authors (allows text truncation)
+     - Right side: Button with `flex-shrink-0` to prevent wrapping
      - Title (h2), authors • venue (year)
      - Link button: `btn-soft` with `data-accent="foundations"` and ↗ icon, always positioned **top-right**
      - 2-3 sentence summary

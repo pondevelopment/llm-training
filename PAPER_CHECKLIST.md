@@ -3,7 +3,9 @@
 U## Overview content
 
 - [ ] **Paper header** (`panel panel-info`): 
-  - [ ] Uses `flex justify-between` layout with title/authors on left
+  - [ ] Container uses `flex items-center justify-between gap-4` (no flex-wrap)
+  - [ ] Left wrapper: `flex-1 min-w-0` for title/authors
+  - [ ] Button has `flex-shrink-0` to stay on same line as title
   - [ ] "View paper" button positioned **top-right** with `btn-soft`, `data-accent="foundations"`, and ↗ icon
   - [ ] Title (h2), authors • venue (year), 2-3 sentence summary
 - [ ] **Plain-language explainer**: Nested card (`panel panel-neutral-soft`) with 1-2 sentence analogy making the core insight accessible to non-experts

@@ -1,6 +1,15 @@
 ﻿# Paper Template Guide
 
-This guide explains how to add or revise research paper explainers while keeping the new "papers" section consistent. Use it together with `PAPER_CHECKLIST.md` each time you ship a paper.
+This guide explains how to add or revise researc## Overview content guidelines
+
+- **Paper header:** Title (h2), authors • venue (year), link button with ↗ icon
+- **Executive quick take:** 🧭 icon + uppercase header, 2–3 sentences for architects/PMs (practical ceiling + actionable signal), 3 bulleted key points with bold labels
+- **Business relevance:** 💼 icon, 3–4 stakeholder bullets, nested "Derivative example" card (panel-neutral-soft) with concrete replication workflow
+- **Callout boxes:** keep each under ~120 words. Unpack terminology or experimental levers
+- **Evidence:** 🧪 icon, cite key theorem/experiment with precise phrases (e.g., "recall@2 saturates at 0.42 even with oracle embeddings")
+- **Roadmap:** 🔭 icon, frame as next steps ("Audit how your retriever chunking aligns with LIMIT assumptions")
+- **Icons used:** 🧭 Executive quick take, 💼 Business relevance, 🧪 Evidence, 🔭 Roadmap
+- **Encoding:** store as UTF-8 with `\n` endings so emoji and punctuation render correctly.explainers while keeping the new "papers" section consistent. Use it together with `PAPER_CHECKLIST.md` each time you ship a paper.
 
 ## Repository layout
 
@@ -46,14 +55,15 @@ The loader automatically looks for `overview.html`, `interactive.html`, and `int
 ## Authoring workflow
 
 1. **Copy the template:** duplicate `papers/p-template/` to `papers/pXX/` (two-digit id).
-2. **Draft the overview (`overview.html`):**
-   - Lead with an **Executive quick take** that summarises the practical ceiling or lesson for architects/decision-makers.
-   - Immediately follow with a **Business relevance** block (emerald styling) that spells out 3–4 stakeholder impacts. Nest a white “Derivative example” card inside this block showing how a team could replicate the paper’s setup with their own data.
-   - Layer supporting callouts that unpack the paper’s mechanics (e.g., “How top-k maps to retrieval results”, “Embedding-model sensitivities”). Name and scope them to the paper—keep each under ~120 words.
-   - Keep the trio of cards (`Key insight`, `Method`, `Implication`) focused and scannable.
-   - Provide an **Evidence** list citing the main theoretical/empirical results.
-   - End with **Forward-looking / roadmap** bullets that tell practitioners what to monitor next.
-   - Use Tailwind classes already present in the repo. Stick to semantic HTML (`<ul>`, `<li>`, `<code>`) for structure.
+2. **Draft the overview (`overview.html`):** Follow this exact structure:
+   - **Paper header** (`panel panel-info`): Title, authors/venue, paper link button (`btn-soft` with `data-accent="foundations"`), and 2-3 sentence summary
+   - **Executive quick take** (`panel panel-neutral` with 🧭 icon): Icon + uppercase header, 2-3 sentence summary for architects/PMs, 3 bulleted key points
+   - **Business relevance** (`panel panel-success` with 💼 icon): 3-4 stakeholder bullets, nested "Derivative example" card (`panel panel-neutral-soft`)
+   - **Supporting callouts** (optional, `panel panel-info`): 2-column grid unpacking concepts (~80-120 words each)
+   - **Key insight / Method / Implication** (`panel panel-neutral`): 3-column grid
+   - **Evidence** (`panel panel-neutral` with 🧪 icon): Bulleted list with precise metrics
+   - **Roadmap** (`panel panel-warning` with 🔭 icon): Actionable next steps
+   - Use theme classes: `panel panel-[type]`, `text-heading`, `panel-muted`, `text-body`
 3. **Build the interactive (`interactive.html` + `interactive.js`):**
    - Reuse the controls from the template and tailor the copy to the paper. The default layout expects:
      - Embedding design controls (dimension slider, corpus size, top-k requirement).

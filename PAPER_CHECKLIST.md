@@ -1,6 +1,16 @@
 # Paper Checklist
 
-Use this checklist whenever you add or update a paper explainer.
+U## Overview content
+
+- [ ] **Paper header** (`panel panel-info`): Title (h2), authors • venue (year), link button with ↗ icon, 2-3 sentence summary
+- [ ] **Executive quick take** (`panel panel-neutral`): 🧭 icon + uppercase header, 2-3 sentences (practical ceiling + actionable signal), 3 bulleted key points
+- [ ] **Business relevance** (`panel panel-success`): 💼 icon, 3–4 stakeholder bullets, nested "Derivative example" card (`panel-neutral-soft`)
+- [ ] **Supporting callouts** (optional, `panel panel-info`): 2-column grid unpacking concepts (~80-120 words each)
+- [ ] **Key insight / Method / Implication** (`panel panel-neutral`): 3-column grid with focused cards
+- [ ] **Evidence** (`panel panel-neutral`): 🧪 icon, bulleted list citing ≥2 concrete results with precise metrics
+- [ ] **Roadmap** (`panel panel-warning`): 🔭 icon, actionable next steps (not generic advice)
+- [ ] All sections use theme classes: `panel panel-[type]`, `text-heading`, `panel-muted`, `text-body`
+- [ ] Icon consistency: 🧭 Executive quick take, 💼 Business relevance, 🧪 Evidence, 🔭 Roadmaphecklist whenever you add or update a paper explainer.
 
 ## Before you start
 

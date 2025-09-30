@@ -1,36 +1,96 @@
-﻿<div class="space-y-4">
-  <div class="bg-sky-50 border border-sky-200 p-3 rounded-lg">
-    <h4 class="font-semibold text-sky-900">📌 Paper at a glance</h4>
-    <p class="text-sm text-sky-800">Summarize the motivation, core idea, and contribution in 2–3 sentences.</p>
+﻿<div class="space-y-5">
+  <!-- Paper header -->
+  <div class="panel panel-info p-4 space-y-4">
+    <div class="flex flex-wrap items-start justify-between gap-4">
+      <div>
+        <h2 class="text-xl font-semibold text-heading">[Paper Title]</h2>
+        <p class="text-sm panel-muted">[Authors] • [Venue/arXiv] ([Year])</p>
+      </div>
+      <a href="[PAPER_URL]" target="_blank" rel="noopener" class="btn-soft text-xs font-semibold" data-accent="foundations">
+        <span>View paper</span>
+        <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+    <p class="text-sm leading-relaxed panel-muted">
+      [Brief summary: 2-3 sentences explaining the paper's main contribution and findings]
+    </p>
   </div>
-  <div class="grid md:grid-cols-3 gap-4">
-    <div class="bg-white border border-gray-200 rounded-lg p-3">
-      <h5 class="text-sm font-semibold text-gray-900">Key Insight</h5>
-      <p class="text-xs text-gray-600">Describe the most impactful theoretical or empirical result.</p>
+
+  <!-- Executive quick take -->
+  <div class="panel panel-neutral p-5 space-y-3">
+    <div class="flex items-center gap-2 text-heading">
+      <span aria-hidden="true" class="text-lg">🧭</span>
+      <h3 class="text-sm font-semibold tracking-wide uppercase">Executive quick take</h3>
     </div>
-    <div class="bg-white border border-gray-200 rounded-lg p-3">
-      <h5 class="text-sm font-semibold text-gray-900">Method</h5>
-      <p class="text-xs text-gray-600">Explain the technical approach, architecture, or proof sketch.</p>
-    </div>
-    <div class="bg-white border border-gray-200 rounded-lg p-3">
-      <h5 class="text-sm font-semibold text-gray-900">Implications</h5>
-      <p class="text-xs text-gray-600">Highlight how practitioners should adapt pipelines or evaluations.</p>
-    </div>
-  </div>
-  <div class="bg-white border border-gray-200 rounded-lg p-4 space-y-2">
-    <h4 class="font-semibold text-gray-900">🧪 Experiments & Evidence</h4>
-    <ul class="list-disc ml-5 text-sm text-gray-700 space-y-1">
-      <li>List a critical experiment, benchmark, or ablation.</li>
-      <li>Call out any surprising negative results or limitations.</li>
-      <li>Note publicly released assets (code, datasets, checkpoints).</li>
+    <p class="text-sm leading-relaxed text-body">
+      [2-3 sentences for architects/PMs: practical ceiling, actionable signal]
+    </p>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>First key point:</strong> [explanation]</li>
+      <li><strong>Second key point:</strong> [explanation]</li>
+      <li><strong>Third key point:</strong> [explanation]</li>
     </ul>
   </div>
-  <div class="bg-amber-50 border border-amber-200 rounded-lg p-4">
-    <h4 class="font-semibold text-amber-900">🔭 Forward-looking questions</h4>
-    <ul class="list-disc ml-5 text-sm text-amber-800 space-y-1">
-      <li>Pose a follow-up experiment or replication idea.</li>
-      <li>Discuss how the paper shifts best practices.</li>
-      <li>Mention open problems the paper surfaces.</li>
+
+  <!-- Business relevance -->
+  <div class="panel panel-success p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">💼 Business relevance</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+      <li><strong>Stakeholder 1:</strong> [specific impact and action]</li>
+      <li><strong>Stakeholder 2:</strong> [specific impact and action]</li>
+      <li><strong>Stakeholder 3:</strong> [specific impact and action]</li>
+    </ul>
+    <div class="panel panel-neutral-soft p-3 mt-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Derivative example</p>
+      <p class="panel-muted">[Concrete workflow teams can replicate with their own data]</p>
+    </div>
+  </div>
+
+  <!-- Supporting callouts (optional, add as needed) -->
+  <div class="grid md:grid-cols-2 gap-4">
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">[Concept 1 title]</h3>
+      <p class="text-xs panel-muted">[Explanation ~80-120 words]</p>
+    </div>
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">[Concept 2 title]</h3>
+      <p class="text-xs panel-muted">[Explanation ~80-120 words]</p>
+    </div>
+  </div>
+
+  <!-- Key insight / Method / Implication trio -->
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Key insight</h3>
+      <p class="text-xs panel-muted">[Most impactful theoretical or empirical result]</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Method</h3>
+      <p class="text-xs panel-muted">[Technical approach, architecture, or proof sketch]</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Implication</h3>
+      <p class="text-xs panel-muted">[How practitioners should adapt pipelines or evaluations]</p>
+    </div>
+  </div>
+
+  <!-- Evidence -->
+  <div class="panel panel-neutral p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🧪 Evidence</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>[Result 1]:</strong> [precise citation or metric]</li>
+      <li><strong>[Result 2]:</strong> [precise citation or metric]</li>
+      <li><strong>[Result 3]:</strong> [precise citation or metric]</li>
+    </ul>
+  </div>
+
+  <!-- Forward-looking roadmap -->
+  <div class="panel panel-warning p-5 space-y-2">
+    <h3 class="text-sm font-semibold text-heading">🔭 For your roadmap</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+      <li>[Next step 1: actionable monitoring or experiment]</li>
+      <li>[Next step 2: architectural adaptation]</li>
+      <li>[Next step 3: evaluation design change]</li>
     </ul>
   </div>
 </div>

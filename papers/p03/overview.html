@@ -103,7 +103,7 @@
     </div>
   </div>
 
-  <section class="panel panel-neutral p-5 space-y-3">
+    <section class="panel panel-neutral p-5 space-y-3">
     <h3 class="text-sm font-semibold text-heading">🧪 Experiments &amp; Evidence</h3>
     <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
       <li><strong>Long vs. short corpora:</strong> NarrativeQA recall@1 climbs from 4.2% (64 tokens) to 10.7% (1024); SQuAD falls from 64.2% (64) to 38.6% (1024).</li>
@@ -112,6 +112,39 @@
       <li><strong>Stitched corpora:</strong> For scarce long-form sets, the authors stitch QA pairs to 50k-character docs, highlighting a need for native long-document benchmarks.</li>
     </ul>
   </section>
+
+  <section class="panel panel-warning p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🔭 For your roadmap</h3>
+    <p class="text-sm text-body">Chunk sizing should be treated as a per-corpus, per-embedder design decision. Below are key audit points and the model-specific sensitivities to consider:</p>
+    
+    <div class="panel panel-info p-4 space-y-2">
+      <h4 class="text-sm font-semibold text-heading">Embedding-model sensitivities</h4>
+      <p class="text-xs text-body leading-relaxed">The Stella embedder (decoder lineage, 130k context) thrives on large chunks, while Snowflake (encoder, 8k context) peaks with compact windows. Chunk decisions should match the embedder's pretraining context length and positional encoding.</p>
+      <ul class="list-disc ml-4 text-xs text-body space-y-1">
+        <li>Stella gains 5–8% recall on long-document sets at 512–1024 tokens.</li>
+        <li>Snowflake leads on SQuAD/COVID-QA at 64–128 tokens but lags on 1024.</li>
+        <li>Mixing embedders may require dataset-specific chunk configs.</li>
+      </ul>
+    </div>
+    
+    <div class="panel panel-info p-4 space-y-2">
+      <h4 class="text-sm font-semibold text-heading">What counts as a document</h4>
+      <p class="text-xs text-body leading-relaxed">The paper treats each chunked window as the retrieval unit. Long reports are sliced into overlapping passages, while stitched corpora combine multiple QA pairs into a single pseudo-document.</p>
+      <ul class="list-disc ml-4 text-xs text-body space-y-1">
+        <li>Original PDFs average 6–10k tokens; windows roll every 32–64 tokens to preserve context.</li>
+        <li>Overlap is capped at 50% to avoid bloating the index while keeping answer spans intact.</li>
+        <li>When documents are stitched, tracking provenance per chunk becomes essential for evaluation.</li>
+      </ul>
+    </div>
+    
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+      <li>Instrument chunk-size sweeps (recall@k, latency, overlap cost) for every new corpus.</li>
+      <li>Align chunk windows to embedder context limits and positional encodings.</li>
+      <li>Add semantic relevance checks (beyond string match) before shipping larger chunks.</li>
+      <li>Contribute long-document QA datasets with ground-truth spans to reduce stitched proxies.</li>
+    </ul>
+  </section>
+</section>
 
   <section class="panel panel-warning p-5 space-y-2">
     <h3 class="text-sm font-semibold text-heading">🔭 For your roadmap</h3>

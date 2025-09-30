@@ -10,6 +10,11 @@ U## Overview content
 - [ ] **Key insight / Method / Implication** (`panel panel-neutral`): 3-column grid with focused cards
 - [ ] **Evidence** (`panel panel-neutral`): 🧪 icon, bulleted list citing ≥2 concrete results with precise metrics
 - [ ] **Roadmap** (`panel panel-warning`): 🔭 icon, actionable next steps (not generic advice)
+  - [ ] Uses `panel panel-warning` with theme classes only (never hardcoded amber/cyan colors)
+  - [ ] Includes context paragraph introducing the roadmap items
+  - [ ] Optional: Nested subsections use `panel panel-info` with `<h4>` headings and descriptive content
+  - [ ] Closes with actionable bulleted list (3-5 items)
+  - [ ] Never uses `panel-emphasis` or inline styles
 - [ ] All sections use theme classes: `panel panel-[type]`, `text-heading`, `panel-muted`, `text-body`
 - [ ] Icon consistency: 🧭 Executive quick take, 💼 Business relevance, 🧪 Evidence, 🔭 Roadmaphecklist whenever you add or update a paper explainer.
 

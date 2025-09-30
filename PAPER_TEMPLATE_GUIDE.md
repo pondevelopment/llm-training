@@ -1,8 +1,30 @@
 ﻿# Paper Template Guide
 
 This guide explains how to add or revise researc## Overview content## Interactive design guidelines
-
-### Structure and semantic HTML
+- **Roadmap bullets:** frame them as next steps ("Audit how your retriever chunking aligns with LIMIT assumptions"), not generic advice.
+- **Roadmap subsections:** if you need to expand on specific topics within the roadmap:
+  - Use nested `panel panel-info` callouts with descriptive headings
+  - Keep each subsection focused (2-4 paragraphs max)
+  - Never use hardcoded colors (amber, cyan, etc.) - always use theme classes
+  - Example structure:
+    ```html
+    <section class="panel panel-warning p-5 space-y-3">
+      <h3 class="text-sm font-semibold text-heading">🔭 For your roadmap</h3>
+      <p class="text-sm text-body">Opening context paragraph...</p>
+      
+      <!-- Optional nested callout -->
+      <div class="panel panel-info p-4 space-y-2">
+        <h4 class="text-sm font-semibold text-heading">Subsection title</h4>
+        <p class="text-sm text-body">Detailed content...</p>
+      </div>
+      
+      <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+        <li>Action item one</li>
+        <li>Action item two</li>
+      </ul>
+    </section>
+    ```
+- **Encoding:** store as UTF-8 with `\n` endings so emoji and punctuation render correctly.## Structure and semantic HTML
 
 - **Root wrapper:** Use `<section class="space-y-6" id="pXX-explorer">` (semantic HTML, not generic div)
 - **NO inline styles:** Never use `<style>` blocks in interactive.html - use Tailwind utility classes with theme tokens
@@ -96,6 +118,10 @@ The loader automatically looks for `overview.html`, `interactive.html`, and `int
    - **Key insight / Method / Implication** (`panel panel-neutral`): 3-column grid
    - **Evidence** (`panel panel-neutral` with 🧪 icon): Bulleted list with precise metrics
    - **Roadmap** (`panel panel-warning` with 🔭 icon): Actionable next steps
+     - **Structure:** Simple bulleted list (3-5 items) with actionable next steps
+     - **Nested callouts (if needed):** Use `panel panel-info` for subsections that need expansion
+     - **Never use:** Hardcoded amber/cyan colors, panel-emphasis, or inline styles
+     - **Example:** See P01 for simple list format; P03 demonstrates nested callouts with proper theme classes
    - Use theme classes: `panel panel-[type]`, `text-heading`, `panel-muted`, `text-body`
 3. **Build the interactive (`interactive.html` + `interactive.js`):**
    - Reuse the controls from the template and tailor the copy to the paper. The default layout expects:

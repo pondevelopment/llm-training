@@ -1,6 +1,38 @@
 ﻿# Paper Template Guide
 
-This guide explains how to add or revise researc## Overview content guidelines
+This guide explains how to add or revise researc## Overview content## Interactive design guidelines
+
+### Structure and semantic HTML
+
+- **Root wrapper:** Use `<section class="space-y-6" id="pXX-explorer">` (semantic HTML, not generic div)
+- **NO inline styles:** Never use `<style>` blocks in interactive.html - use Tailwind utility classes with theme tokens
+- **NO panel-emphasis:** This creates double borders - use single panel classes only
+- **Panel class guidelines:**
+  - Controls/inputs: `panel panel-info` or `panel panel-neutral`
+  - Results/output: `panel panel-neutral` with nested `panel-neutral-soft` for metrics
+  - Insights/warnings: `panel panel-warning` or `panel panel-success`
+  - Never stack panel classes (e.g., `panel panel-info panel-emphasis` ❌)
+- **Consistent spacing:** Use `space-y-*` on containers, `gap-*` for grids/flex layouts
+- **Min-height for dynamic content:** Use `min-h-[2.75rem]` directly in classes instead of custom CSS
+
+### Content and functionality
+
+- Provide helpful defaults: choose dimension/corpus/k values that mirror the paper's baseline.
+- Explain the **lexical reranker** checkbox directly under the control (e.g., "second-pass BM25 scorer to rescue misses").
+- Show real-world scenario labels in the simulator (`Customer support`, `Product catalog`, `Legal discovery`, etc.). Each scenario should:
+  - Describe the workflow in 1–2 sentences (`scenario.description`).
+  - Supply 8–10 query objects with `name`, `docs` (array of expected hits), and optional `hint` for follow-up guidance.
+  - Let `updateScenarioUI()` adjust the slider bounds automatically (keep the API intact).
+- Surface follow-up nudges when the simulated query misses (e.g., "Consider boosting term X or adding metadata filters").
+- Keep the coverage gauge consistent (green ≥60%, amber 30–59%, red <30%).
+- Comment constants inside `interactive.js` if you change boost factors or retention heuristics.
+
+### Theme classes to use
+
+- Text: `text-heading`, `text-body`, `text-muted`, `panel-muted`
+- Backgrounds: `bg-card`, `bg-surface`, panel classes
+- Borders: `border-divider`, `border-subtle`
+- Focus states: `focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]`
 
 - **Paper header:** Title (h2), authors • venue (year), link button with ↗ icon, 2-3 sentence summary
 - **Plain-language explainer:** Nested card (`panel panel-neutral-soft`) with 1-2 sentence analogy or everyday explanation for non-experts

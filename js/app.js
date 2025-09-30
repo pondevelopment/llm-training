@@ -120,8 +120,10 @@ class LLMQuestionApp {
             if (e.ctrlKey || e.metaKey) return;
             const key = e.key.toLowerCase();
             if(this.mode === 'paper'){
-                if(key === 's'){ e.preventDefault(); this.copyPaperLink(); }
-                else if(e.key === 'Escape'){ e.preventDefault(); this.exitPaperView(); }
+                if (e.key === 'ArrowLeft') { e.preventDefault(); this.showPrevPaper(); return; }
+                if (e.key === 'ArrowRight') { e.preventDefault(); this.showNextPaper(); return; }
+                if(key === 's'){ e.preventDefault(); this.copyPaperLink(); return; }
+                if(e.key === 'Escape'){ e.preventDefault(); this.exitPaperView(); return; }
                 return;
             }
             if (e.key === 'ArrowLeft') { e.preventDefault(); this.showPrev(); }
@@ -239,7 +241,8 @@ class LLMQuestionApp {
                     .map(([key,value]) => ({ id: Number(key), meta: value }))
                     .filter(item => Number.isFinite(item.id) && item.id > 0)
                     .sort((a,b) => b.id - a.id);
-                this.availablePapers = entries.map(item => item.id);
+                const paperIds = entries.map(item => item.id);
+                this.availablePapers = paperIds.slice().sort((a,b)=>a-b);
                 this.paperMeta = manifest;
                 this.updateFooterPaperCount(entries.length);
                 if(!entries.length){
@@ -426,7 +429,7 @@ class LLMQuestionApp {
         this.isLoading = true;
         try {
             const paper = await this.paperLoader.loadPaper(id);
-            this.currentPaperIndex = paper.index || id;
+            this.currentPaperIndex = Number(paper.index || id);
             this.updatePaperContent(paper);
         } catch (error) {
             console.error(`Display paper ${id} failed`, error);
@@ -495,8 +498,9 @@ class LLMQuestionApp {
                     const disabled = idx === -1 ? 'disabled' : '';
                     const stateClasses = idx === -1 ? 'related-question-disabled' : '';
                     return `<li>
-    <button type="button" data-related-question="${q}" class="related-question group w-full text-left px-3 py-2 text-sm rounded-md ${stateClasses}" ${disabled}>
+    <button type="button" data-related-question="${q}" class="related-question group w-full text-left px-3 py-2 text-xs rounded-md ${stateClasses}" ${disabled}>
         <span class="related-question-title">Question ${nice}</span>
+        <span class="related-question-separator">·</span>
         <span class="related-question-subtext">${title}</span>
     </button>
 </li>`;
@@ -632,6 +636,20 @@ class LLMQuestionApp {
     async showPrev(){ if(this.activePath){ if(this.activePath.pos>0){ const prevQ=this.activePath.sequence[this.activePath.pos-1]; return this.displayQuestion(this.availableQuestions.indexOf(prevQ)); } else { this.exitPath(); }} if(this.currentQuestionIndex>0) await this.displayQuestion(this.currentQuestionIndex-1); }
     async jumpTo(){ if(!this.elements.questionNavDropdown) return; const newIdx=parseInt(this.elements.questionNavDropdown.value,10); if(newIdx!==this.currentQuestionIndex) await this.displayQuestion(newIdx); }
     async preloadAdjacent(){ const list=[]; if(this.currentQuestionIndex>0) list.push(this.availableQuestions[this.currentQuestionIndex-1]); if(this.currentQuestionIndex<this.totalQuestions-1) list.push(this.availableQuestions[this.currentQuestionIndex+1]); if(list.length) this.questionLoader.preloadQuestions(list); }
+
+    getPaperNavigationTarget(offset){
+        if(!Array.isArray(this.availablePapers) || !this.availablePapers.length) return null;
+        const currentId = Number(this.currentPaperIndex);
+        if(!Number.isFinite(currentId) || currentId < 1) return null;
+        const list = this.availablePapers;
+        const position = list.indexOf(currentId);
+        if(position === -1) return null;
+        const candidate = list[position + offset];
+        const numericCandidate = Number(candidate);
+        return Number.isFinite(numericCandidate) && numericCandidate > 0 ? numericCandidate : null;
+    }
+    async showNextPaper(){ const nextId = this.getPaperNavigationTarget(1); if(nextId) await this.showPaper(nextId); }
+    async showPrevPaper(){ const prevId = this.getPaperNavigationTarget(-1); if(prevId) await this.showPaper(prevId); }
 
     /* -------------- UI Helpers -------------- */
     populateQuestionDropdown(){

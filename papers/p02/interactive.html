@@ -1,10 +1,5 @@
-﻿<style>
-  #p02-explorer .p02-note {
-    min-height: 2.75rem;
-  }
-</style>
-<div id="p02-explorer" class="paper-interactive-card space-y-6">
-  <section class="panel panel-info panel-emphasis p-5 space-y-5">
+﻿<section class="space-y-6" id="p02-explorer">
+  <section class="panel panel-info p-5 space-y-5">
     <header class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
       <div>
         <p class="text-[11px] font-semibold uppercase tracking-wide text-info">Step 1 &middot; Base model guarantee</p>
@@ -50,11 +45,11 @@
         <p class="text-xs font-semibold uppercase tracking-wide text-heading">Guaranteed hallucination rate</p>
         <p class="text-sm text-heading">Generative error &gt;= <span id="p02-base-bound" class="font-semibold">0%</span></p>
       </div>
-      <p id="p02-base-note" class="p02-note text-xs text-muted md:text-right">With near-perfect calibration the floor collapses; with drift it jumps back up.</p>
+      <p id="p02-base-note" class="text-xs text-muted md:text-right min-h-[2.75rem]">With near-perfect calibration the floor collapses; with drift it jumps back up.</p>
     </div>
   </section>
 
-  <section class="panel panel-accent panel-emphasis p-5 space-y-4">
+  <section class="panel panel-accent p-5 space-y-4">
     <header>
       <p class="text-[11px] font-semibold uppercase tracking-wide text-accent">Step 2 &middot; Coverage of rare facts</p>
       <h3 class="text-sm font-semibold text-heading">How many once-seen facts did pre-training capture?</h3>
@@ -103,7 +98,7 @@
         <span class="text-xs text-muted">Treat this as the probability that the guess is actually right.</span>
       </label>
     </div>
-    <div class="panel panel-warning panel-emphasis p02-note p-4 text-sm" id="p02-rule-note">
+    <div class="panel panel-warning p-4 text-sm min-h-[2.75rem]" id="p02-rule-note">
       Binary grading rewards guessing: the expected score is higher when you answer even at 55% confidence.
     </div>
   </section>
@@ -113,8 +108,6 @@
     <h3 class="text-sm font-semibold text-heading">What the numbers imply for this paper</h3>
     <div id="p02-summary" class="space-y-2 text-sm text-secondary"></div>
   </section>
-</div>
-
-
+</section>
 
 

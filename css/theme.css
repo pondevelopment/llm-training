@@ -991,45 +991,55 @@ html.dark .paper-related-card {
   background-color: color-mix(in srgb, var(--accent-soft) 40%, var(--color-card) 60%);
 }
 .paper-related-card .related-question {
-  background-color: var(--color-card);
-  border: 1px solid var(--accent-border);
+  background-color: transparent;
+  border: none;
   color: var(--accent-text);
-  transition: background-color .2s ease, color .2s ease, border-color .2s ease, transform .2s ease;
-  display: block;
+  transition: background-color .2s ease, color .2s ease, transform .2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 .paper-related-card .related-question:hover,
 .paper-related-card .related-question:focus-visible {
-  background-color: var(--accent-strong);
-  border-color: var(--accent-strong);
-  color: #fff;
-  transform: translateY(-1px);
+  background-color: var(--accent-soft);
+  color: var(--accent-strong);
+  transform: translateX(2px);
   outline: none;
 }
 .paper-related-card .related-question.related-question-disabled,
 .paper-related-card .related-question:disabled {
-  opacity: 0.55;
+  opacity: 0.5;
   cursor: not-allowed;
   pointer-events: none;
-  border-color: var(--color-border-subtle);
-  background-color: color-mix(in srgb, var(--accent-soft) 15%, var(--color-card) 85%);
+  background-color: transparent;
   color: var(--color-muted);
 }
 .paper-related-card .related-question-title {
-  display: block;
   font-weight: 600;
   color: inherit;
+  white-space: nowrap;
+}
+.paper-related-card .related-question-separator {
+  color: color-mix(in srgb, var(--accent-text) 50%, var(--color-body) 50%);
+  font-weight: 300;
 }
 .paper-related-card .related-question-subtext {
-  display: block;
-  margin-top: 0.15rem;
-  font-size: 0.75rem;
   color: color-mix(in srgb, var(--accent-text) 70%, var(--color-body) 30%);
   transition: color .2s ease;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.paper-related-card .related-question:hover .related-question-separator,
+.paper-related-card .related-question:focus-visible .related-question-separator {
+  color: var(--accent-strong);
 }
 .paper-related-card .related-question:hover .related-question-subtext,
 .paper-related-card .related-question:focus-visible .related-question-subtext {
-  color: rgba(255, 255, 255, 0.92);
+  color: var(--accent-strong);
 }
+.paper-related-card .related-question.related-question-disabled .related-question-separator,
 .paper-related-card .related-question.related-question-disabled .related-question-subtext {
   color: var(--color-muted-soft);
 }

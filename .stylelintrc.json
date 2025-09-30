@@ -1,0 +1,25 @@
+{
+  "extends": ["stylelint-config-standard"],
+  "rules": {
+    "color-no-hex": true,
+    "function-disallowed-list": ["rgb", "rgba", "hsl", "hsla", "lab", "lch", "oklab", "oklch"],
+    "declaration-property-value-disallowed-list": {
+      "/color$/": ["/^(?!var\\(--)(?!inherit$)(?!transparent$)(?!currentcolor$)(?!initial$)(?!unset$).+/i"],
+      "background": ["/^(?!var\\(--)(?!inherit$)(?!transparent$)(?!initial$)(?!unset$).+/i"],
+      "background-image": ["/^(?!var\\(--)(?!none$).+/i"],
+      "box-shadow": ["/^(?!var\\(--)(?!none$).+/i"],
+      "outline": ["/^(?!var\\(--)(?!inherit$)(?!transparent$)(?!initial$)(?!unset$).+/i"],
+      "text-decoration-color": ["/^(?!var\\(--)(?!inherit$)(?!transparent$)(?!currentcolor$)(?!initial$)(?!unset$).+/i"]
+    },
+    "selector-class-pattern": null,
+    "custom-property-empty-line-before": null,
+    "alpha-value-notation": null,
+    "color-function-notation": null,
+    "hue-degree-notation": null,
+    "media-feature-range-notation": null,
+    "font-family-name-quotes": null,
+    "rule-empty-line-before": null,
+    "color-hex-length": null
+  },
+  "ignoreFiles": ["css/theme.css", "css/share.css"]
+}

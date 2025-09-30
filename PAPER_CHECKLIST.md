@@ -41,6 +41,14 @@ U## Overview content
 
 ## Interactive component
 
+- [ ] **Root wrapper:** `<section class="space-y-6" id="pXX-explorer">` (semantic HTML, not div)
+- [ ] **NO inline styles:** No `<style>` blocks - use Tailwind utility classes only
+- [ ] **NO panel-emphasis:** Use single panel classes only (no double borders)
+- [ ] **Panel structure:**
+  - [ ] Controls/inputs: `panel panel-info` or `panel panel-neutral`
+  - [ ] Results/output: `panel panel-neutral` with nested `panel-neutral-soft` for metrics
+  - [ ] Insights/warnings: `panel panel-warning` or `panel panel-success`
+- [ ] **Min-height for dynamic content:** Use inline Tailwind classes like `min-h-[2.75rem]` instead of custom CSS
 - [ ] Dimension / corpus / k sliders match paper defaults and include helper text
 - [ ] Design tweaks: vectors-per-document slider, lexical reranker checkbox (with explanation), token retention slider
 - [ ] Coverage outlook shows single-vector, multi-vector, and reranker metrics with colour-coded bar

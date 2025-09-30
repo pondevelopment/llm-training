@@ -5,7 +5,7 @@ Use this checklist when creating or updating questions for the LLM Questions app
 ## Before you start
 
 - [ ] Review `QUESTION_TEMPLATE_GUIDE.md` for conventions and examples
-- [ ] Decide the learning goal and 2ñ3 contrasting approaches you'll highlight
+- [ ] Decide the learning goal and 2‚Äì3 contrasting approaches you'll highlight
 - [ ] Confirm whether you are migrating a legacy question or adding a brand new one
 
 ## File setup (new or migrated questions)
@@ -24,19 +24,19 @@ Use this checklist when creating or updating questions for the LLM Questions app
 ### Title & basics
 
 - [ ] Title is clear, specific, under ~80 characters, and follows the `XX. Question text?` pattern
-- [ ] Related questions (ìRecommended readingî) link to relevant ids
+- [ ] Related questions (‚ÄúRecommended reading‚Äù) link to relevant ids
 - [ ] Emojis are used sparingly to aid scannability (and are stored as UTF-8)
 
 ### Answer section (`answer.html`)
 
 - [ ] Includes a core concept panel using semantic helpers (e.g., `panel panel-info`) describing the idea + analogy
-- [ ] Comparison/approach panels (2ñ3) use semantic classes (e.g., `panel panel-success`, `panel panel-accent`) to highlight trade-offs
-- [ ] ìWhy this mattersî panel lists 3ñ4 concise bullets
+- [ ] Comparison/approach panels (2‚Äì3) use semantic classes (e.g., `panel panel-success`, `panel panel-accent`) to highlight trade-offs
+- [ ] ‚ÄúWhy this matters‚Äù panel lists 3‚Äì4 concise bullets
 - [ ] Optional extras (examples, callouts) use semantic HTML (`<code>`, `<ul>`, etc.)
 
 ### Interactive component (`interactive.html` + `interactive.js`)
 
-- [ ] Use semantic containers (`panelÖ`, `chipÖ`, `view-toggle`) instead of raw Tailwind colour utilities
+- [ ] Use semantic containers (`panel‚Ä¶`, `chip‚Ä¶`, `view-toggle`) instead of raw Tailwind colour utilities
 - [ ] Sane defaults show an informative initial state
 - [ ] Controls carry helper text explaining what the user is tuning (sliders, radios, etc.)
 - [ ] Visual feedback updates immediately on user input (indicator, results, legend, explanation)

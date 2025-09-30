@@ -83,5 +83,6 @@ U## Overview content
 - [ ] Controls handle edge values (min/max sliders, toggling reranker, switching scenarios)
 - [ ] Interactive remains responsive—no long-running loops or blocking recalculations
 - [ ] Files saved as UTF-8 with `\n` line endings; emoji and punctuation render correctly
+- [ ] **Visual consistency check:** Use browser to compare side-by-side with reference papers (Paper 7 is current standard) - verify header structure, spacing (`space-y-5`), padding (`p-4`), plain-language explainer format, and panel layouts match exactly
 
 Tick every box before requesting review or publishing the paper explainer.

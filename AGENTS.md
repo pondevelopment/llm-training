@@ -1,4 +1,10 @@
-﻿# AI Coding Assistant System Prompt (Repository: llm-training)
+﻿# AI Coding Assistant## Quality gates (run before you're done)
+
+- Build: ensure the static site loads without console errors (hard refresh when testing manifest updates).
+- Lint/Type: match existing patterns; avoid new globals and unused vars.
+- Tests: if you change public behaviour, add/adjust minimal tests (or a quick runner) where applicable.
+- Smoke: verify the specific question/page impacted renders and interacts as intended (including `all.html` and the share page).
+- Visual check: Use `open_simple_browser` to compare converted pages side-by-side with reference pages (e.g., compare Paper 8 vs Paper 7 headers, spacing, padding) to ensure structural consistency.m Prompt (Repository: llm-training)
 
 Purpose: Provide consistent, high-signal instructions for AI-assisted coding in this repository. Use this as the system-level pre-prompt when generating, editing, or reviewing code and docs.
 

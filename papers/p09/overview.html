@@ -1,25 +1,30 @@
-<div class="space-y-5">
-  <div class="panel panel-info p-4 space-y-4">
-    <div class="flex flex-wrap md:flex-nowrap items-start justify-between gap-4">
-      <div class="md:max-w-3xl space-y-2">
+<section class="space-y-5">
+  <section class="panel panel-info p-4 space-y-4">
+    <div class="flex items-center justify-between gap-4">
+      <div class="flex-1 min-w-0">
         <h2 class="text-xl font-semibold text-heading">Training Compute-Optimal Large Language Models</h2>
         <p class="text-sm panel-muted">Jordan Hoffmann, Sebastian Borgeaud, Arthur Mensch, Elena Buchatskaya et al. &bull; arXiv:2203.15556 (Mar 2022)</p>
       </div>
-      <a href="https://arxiv.org/abs/2203.15556" target="_blank" rel="noopener" class="btn-soft text-xs font-semibold" data-accent="foundations">
+      <a href="https://arxiv.org/abs/2203.15556" target="_blank" rel="noopener" class="btn-soft text-xs font-semibold flex-shrink-0" data-accent="foundations">
         <span>View paper</span>
         <span aria-hidden="true">↗</span>
       </a>
     </div>
-    <p class="text-sm leading-relaxed text-body">
+    <p class="text-sm leading-relaxed panel-muted">
       DeepMind revisits scaling laws across 400 transformer runs and shows that, for a fixed compute budget, recent mega-models waste FLOPs by undertraining on data. The team proposes the compute-optimal Chinchilla recipe&mdash;grow model parameters and tokens in lockstep&mdash;and proves that a 70B parameter model trained on 1.4T tokens beats much larger peers at lower inference cost.
     </p>
-  </div>
-
-  <div class="panel panel-neutral p-5 space-y-3">
-    <div class="flex items-center gap-2 text-heading">
-      <span class="text-lg" aria-hidden="true">🧭</span>
-      <h3 class="text-sm font-semibold tracking-wide uppercase">Executive quick take</h3>
+    
+    <div class="panel panel-neutral-soft p-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Plain-language explainer</p>
+      <p class="panel-muted">Think of training an AI like baking bread: you need the right balance of ingredients (model size) and kneading time (training data). Most giant models use too much flour but don't knead long enough—Chinchilla shows that a smaller, well-kneaded loaf turns out better and costs less to bake.</p>
     </div>
+  </section>
+
+  <section class="panel panel-neutral p-5 space-y-3">
+    <header class="flex items-center gap-2">
+      <span class="text-lg" aria-hidden="true">🧭</span>
+      <h3 class="text-sm font-semibold tracking-wide uppercase text-heading">Executive quick take</h3>
+    </header>
     <p class="text-sm leading-relaxed text-body">
       Stop scaling parameters without scaling tokens. The paper finds the optimal frontier when tokens seen roughly equal 20 &times; the parameter count (in billions). GPT-3 and Gopher sat 3&ndash;4&times; off that curve; Chinchilla shows that matching FLOPs to more data yields higher accuracy and cheaper deployment.
     </p>
@@ -28,9 +33,9 @@
       <li><strong>Undertrained reality:</strong> Legacy 175B+ models missed the compute-optimal loss by a wide margin.</li>
       <li><strong>Deployment upside:</strong> Smaller, fully trained models deliver better evals per dollar and lower latency.</li>
     </ul>
-  </div>
+  </section>
 
-  <div class="panel panel-success p-5 space-y-3">
+  <section class="panel panel-success p-5 space-y-3">
     <h3 class="text-sm font-semibold text-heading">💼 Business relevance</h3>
     <ul class="list-disc ml-5 space-y-1 text-sm text-body">
       <li><strong>Infrastructure planners:</strong> Capacity teams at AWS, Azure, or GCP can forecast GPU demand from the 1:1 parameter-to-token scaling rule instead of chasing ever-bigger models.</li>
@@ -41,13 +46,13 @@
       <p class="font-semibold text-heading">Derivative example (enterprise model roadmap)</p>
       <p class="panel-muted">A telecom ML platform audits its fine-tuning fleet, flags models whose token exposure is under 10 &times; params, and reallocates budget to extend training runs before approving pricier architectures.</p>
     </div>
-  </div>
+  </section>
 
-  <div class="grid md:grid-cols-2 gap-4">
+  <section class="grid md:grid-cols-2 gap-4">
     <div class="panel panel-info p-4 space-y-2">
       <h3 class="text-sm font-semibold text-heading">Scaling law refresh</h3>
       <p class="text-xs panel-muted">Re-derived loss vs. compute surfaces for modern transformers.</p>
-      <ul class="list-disc ml-4 space-y-1 text-[11px] panel-muted">
+      <ul class="list-disc ml-4 space-y-1 text-xs panel-muted">
         <li>Trained 400+ models from 70M to 16B parameters on 5&ndash;500B tokens.</li>
         <li>Fit new exponents for loss vs. model size, data, and compute using joint regression.</li>
         <li>Optimal loss occurs when FLOPs split evenly between model growth and data growth.</li>
@@ -56,13 +61,13 @@
     <div class="panel panel-info p-4 space-y-2">
       <h3 class="text-sm font-semibold text-heading">Chinchilla outcome</h3>
       <p class="text-xs panel-muted">Compute-optimal training wins across downstream tasks.</p>
-      <ul class="list-disc ml-4 space-y-1 text-[11px] panel-muted">
+      <ul class="list-disc ml-4 space-y-1 text-xs panel-muted">
         <li>70B parameters, 1.4T tokens (20 tokens per parameter).</li>
         <li>Matches Gopher's 2.8 &times; 10<sup>23</sup> FLOPs yet improves MMLU by 7 points.</li>
         <li>Inference costs drop around 4&times; thanks to the smaller parameter count.</li>
       </ul>
     </div>
-  </div>
+  </section>
 
   <div class="panel panel-neutral p-4 space-y-2">
     <h3 class="text-sm font-semibold text-heading">What the scaling fit actually looks like</h3>
@@ -100,4 +105,4 @@
       <li>Revisit fine-tuning budgets so adapters inherit compute-optimal pretraining.</li>
     </ul>
   </div>
-</div>
+</section>

@@ -1,9 +1,9 @@
 <div class="space-y-5">
-  <section class="panel panel-info p-4 space-y-4">
-    <div class="flex flex-wrap md:flex-nowrap items-start justify-between gap-4">
-      <div class="md:max-w-3xl space-y-1">
+  <div class="panel panel-info p-4 space-y-4">
+    <div class="flex flex-wrap items-start justify-between gap-4">
+      <div>
         <h2 class="text-xl font-semibold text-heading">Why Language Models Hallucinate</h2>
-        <p class="text-sm panel-muted">Adam Tauman Kalai &bull; Ofir Nachum &bull; Santosh S. Vempala &bull; Edwin Zhang &bull; arXiv (2025-09-04)</p>
+        <p class="text-sm panel-muted">Adam Tauman Kalai • Ofir Nachum • Santosh S. Vempala • Edwin Zhang • arXiv (2025-09-04)</p>
       </div>
       <a href="https://cdn.openai.com/pdf/d04913be-3f6f-4d2b-b283-ff432ef4aaa5/why-language-models-hallucinate.pdf" target="_blank" rel="noopener" class="btn-soft text-xs font-semibold" data-accent="foundations">
         <span>View paper</span>
@@ -17,27 +17,24 @@
       <p class="font-semibold text-heading">Plain-language explainer</p>
       <p class="panel-muted">Imagine grading every answer with only "right" or "wrong." If the model can't tell a false fact from a true one, it learns to guess with confidence. The authors show that's exactly what today's training and evaluation loops encourage.</p>
     </div>
-  </section>
+  </div>
 
-  <section class="panel panel-neutral p-5 space-y-3">
-    <header class="flex items-center gap-2">
+  <div class="panel panel-neutral p-5 space-y-3">
+    <div class="flex items-center gap-2 text-heading">
       <span aria-hidden="true" class="text-lg">🧭</span>
-      <h3 class="text-sm font-semibold tracking-wide uppercase text-heading">Executive quick take</h3>
-    </header>
+      <h3 class="text-sm font-semibold tracking-wide uppercase">Executive quick take</h3>
+    </div>
     <p class="text-sm leading-relaxed text-body">Cross-entropy makes base models calibrated, but that calibration inherits the misclassification risk of the induced validity classifier. Reinforcement learning and instruction tuning then optimise for benchmarks that refuse to accept "I don't know," so the system learns to bluff.</p>
     <ul class="list-disc ml-5 text-sm panel-muted space-y-1">
       <li><strong>Calibration watch:</strong> large |δ| gaps signal post-training drift from the cross-entropy optimum.</li>
       <li><strong>Singleton mass:</strong> facts seen once in pretraining set an irreducible floor on hallucinations.</li>
       <li><strong>Scoring alignment:</strong> when benchmarks award nothing for abstaining, guessing stays rational.</li>
     </ul>
-  </section>
+  </div>
 
-  <section class="panel panel-success p-5 space-y-3">
-    <header class="flex items-center gap-2">
-      <span aria-hidden="true" class="text-lg">💼</span>
-      <h3 class="text-sm font-semibold text-heading">Business relevance</h3>
-    </header>
-    <ul class="list-disc ml-5 text-sm text-body space-y-1">
+  <div class="panel panel-success p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">💼 Business relevance</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
       <li><strong>Product risk:</strong> instrument calibration and abstention UX so low-confidence turns fall back to tools or humans.</li>
       <li><strong>Evaluation policy:</strong> switch binary leaderboards to penalty scoring or confidence targets to reward uncertainty.</li>
       <li><strong>Governance:</strong> report calibration error and singleton coverage to substantiate claims about hallucination rates.</li>
@@ -47,49 +44,36 @@
       <p class="font-semibold text-heading">Derivative example: scoring-rule rollout</p>
       <p class="panel-muted">A healthcare knowledge base squad restates its QA suite with explicit abstention bonuses, logging when the assistant defers and using the deltas in release reviews to prove mitigations really curb hallucinations.</p>
     </div>
-  </section>
+  </div>
 
-  <section class="panel panel-neutral p-5 space-y-3">
-    <h3 class="text-sm font-semibold text-heading">Supporting callouts</h3>
-    <div class="grid md:grid-cols-3 gap-4">
-      <article class="panel panel-neutral-soft p-4 space-y-2">
-        <h4 class="text-sm font-semibold text-heading">IIV reduction</h4>
-        <p class="text-sm panel-muted">Treat "Is this response valid?" as a classifier. If it still mislabels some strings, a calibrated generator must output those mistakes at least twice as often.</p>
-      </article>
-      <article class="panel panel-neutral-soft p-4 space-y-2">
-        <h4 class="text-sm font-semibold text-heading">Singleton rate</h4>
-        <p class="text-sm panel-muted">Good–Turing estimates imply that once-seen facts set the hallucination floor. A 20% singleton share means ≥20% inevitable misses.</p>
-      </article>
-      <article class="panel panel-neutral-soft p-4 space-y-2">
-        <h4 class="text-sm font-semibold text-heading">Scoring rules</h4>
-        <p class="text-sm panel-muted">Most leaderboards give 1 point for correct, 0 for blank or wrong. Guessing wins unless the evaluation adds explicit penalties or confidence targets.</p>
-      </article>
+  <div class="grid md:grid-cols-2 gap-4">
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">IIV reduction</h3>
+      <p class="text-xs panel-muted">Treat "Is this response valid?" as a classifier. If it still mislabels some strings, a calibrated generator must output those mistakes at least twice as often.</p>
     </div>
-  </section>
-
-  <section class="panel panel-neutral p-5 space-y-3">
-    <h3 class="text-sm font-semibold text-heading">Key insights trio</h3>
-    <div class="grid md:grid-cols-3 gap-4">
-      <article class="panel panel-neutral-soft p-4 space-y-2">
-        <h4 class="text-sm font-semibold text-heading">Key insight</h4>
-        <p class="text-sm panel-muted">Calibrated generators inherit the misclassification risk of their validity classifier—if it can't perfectly separate valid from invalid, hallucinations are inevitable.</p>
-      </article>
-      <article class="panel panel-neutral-soft p-4 space-y-2">
-        <h4 class="text-sm font-semibold text-heading">Method</h4>
-        <p class="text-sm panel-muted">Good–Turing estimates show once-seen facts set a hard floor: 20% singleton coverage means ≥20% unavoidable errors without fresh evidence.</p>
-      </article>
-      <article class="panel panel-neutral-soft p-4 space-y-2">
-        <h4 class="text-sm font-semibold text-heading">Implication</h4>
-        <p class="text-sm panel-muted">Binary scoring rewards guessing. Switch to confidence-aware penalties or abstention bonuses to align evaluation with uncertainty.</p>
-      </article>
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Singleton rate</h3>
+      <p class="text-xs panel-muted">Good–Turing estimates imply that once-seen facts set the hallucination floor. A 20% singleton share means ≥20% inevitable misses.</p>
     </div>
-  </section>
+  </div>
 
-  <section class="panel panel-neutral p-5 space-y-3">
-    <header class="flex items-center gap-2">
-      <span aria-hidden="true" class="text-lg">🧪</span>
-      <h3 class="text-sm font-semibold text-heading">Evidence</h3>
-    </header>
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Key insight</h3>
+      <p class="text-xs panel-muted">Calibrated generators inherit the misclassification risk of their validity classifier—if it can't perfectly separate valid from invalid, hallucinations are inevitable.</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Method</h3>
+      <p class="text-xs panel-muted">Good–Turing estimates show once-seen facts set a hard floor: 20% singleton coverage means ≥20% unavoidable errors without fresh evidence.</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Implication</h3>
+      <p class="text-xs panel-muted">Binary scoring rewards guessing. Switch to confidence-aware penalties or abstention bonuses to align evaluation with uncertainty.</p>
+    </div>
+  </div>
+
+  <div class="panel panel-neutral p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🧪 Evidence</h3>
     <ul class="list-disc ml-5 text-sm panel-muted space-y-1">
       <li><strong>Theorem 1:</strong> generative error ≥ 2 × IIV misclassification − calibration gap.</li>
       <li><strong>Theorem 2:</strong> singleton rate minus small constants lower-bounds error in arbitrary-facts setting.</li>
@@ -98,13 +82,10 @@
       <li><strong>Appendix F:</strong> ten mainstream benchmarks reviewed—only WildBench gives partial credit for "I don't know."</li>
       <li><strong>Observation 1:</strong> binary scoring dominates leaderboards, rewarding bluffing over abstention.</li>
     </ul>
-  </section>
+  </div>
 
-  <section class="panel panel-warning p-5 space-y-2">
-    <header class="flex items-center gap-2">
-      <span aria-hidden="true" class="text-lg">🔭</span>
-      <h3 class="text-sm font-semibold text-heading">Roadmap</h3>
-    </header>
+  <div class="panel panel-warning p-5 space-y-2">
+    <h3 class="text-sm font-semibold text-heading">🔭 For your roadmap</h3>
     <ul class="list-disc ml-5 text-sm text-body space-y-1">
       <li>Track calibration (e.g., empirical |δ|) across releases; sharp shifts flag post-training drift encouraging bluffing.</li>
       <li>Measure singleton coverage in knowledge bases to quantify unavoidable hallucination floors.</li>

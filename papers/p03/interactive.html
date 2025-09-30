@@ -1,200 +1,90 @@
-<section class="space-y-6" id="p03-explorer"><section class="space-y-6" id="p03-ex          <span>      <div class="space-y-1">
-
-  <section class="panel panel-info p-5 space-y-4">        <h4 class="text-sm font-semibold text-heading">Design tweaks to explore</h4>
-
-    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">        <p class="text-xs text-body">Mirror the paper's mitigation levers by adjusting vectors per document, adding a lexical reranker, and managing token retention.</p>
-
-      <div>      </div>
-
-        <p class="text-[11px] font-semibold tracking-wide panel-muted uppercase">Choose your retrieval setting</p>      <p class="text-[11px] panel-muted md:text-right">Assumptions follow the authors' ablation notes: multi-vector indexing helps scattered answers, rerankers add a lexical lift, truncation penalises long-span recall.</p>
-
-        <h3 class="text-sm font-semibold text-heading">Select a dataset profile and embedder</h3>    </div>
-
-        <p class="text-xs panel-muted mt-1">The paper benchmarks six QA corpora across Stella (decoder) and Snowflake (encoder). Pick one to see how chunk size drives recall.</p>    <div class="grid md:grid-cols-2 gap-4 text-sm text-body">pan>
-
-      </div>        </div>
-
-    </div>        <p class="text-xs panel-muted">Slide to compare the paper's tested windows.</p>
-
-    <div class="grid md:grid-cols-3 gap-3 text-sm">      </div>
-
-      <label class="flex flex-col gap-2">    </div>
-
-        <span class="font-medium text-heading">Dataset profile</span>  </section>
-
-        <select id="p03-dataset" class="w-full px-3 py-2 border border-divider rounded-md text-sm bg-card text-heading focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
-
-          <option value="squad">SQuAD (factoid, Wikipedia)</option>  <section class="panel panel-neutral p-5 space-y-4">
-
-          <option value="covidqa">COVID-QA (biomedical)</option>  <section class="panel panel-info p-5 space-y-4">
-
-          <option value="newsqa">NewsQA (news, medium spans)</option>    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-
-          <option value="nq">Natural Questions (web search)</option>      <div>
-
-          <option value="techqa">TechQA (enterprise support)</option>        <p class="text-[11px] font-semibold tracking-wide text-accent uppercase">Choose your retrieval setting</p>
-
-          <option value="narrativeqa">NarrativeQA (long narratives)</option>        <h3 class="text-sm font-semibold text-heading">Select a dataset profile and embedder</h3>
-
-        </select>        <p class="text-xs text-secondary mt-1">The paper benchmarks six QA corpora across Stella (decoder) and Snowflake (encoder). Pick one to see how chunk size drives recall.</p>
-
-      </label>      </div>
-
-      <div class="flex flex-col gap-2">    </div>
-
-        <span class="font-medium text-heading">Embedding model</span>    <div class="grid md:grid-cols-3 gap-3 text-sm text-secondary">
-
-        <div class="flex flex-wrap gap-2">      <label class="flex flex-col gap-2">
-
-          <button type="button" class="p03-embed-toggle px-3 py-1.5 text-xs font-medium rounded-md border border-divider bg-card text-body hover:bg-subtle transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[color:var(--accent-strong)]" data-embed="stella">Stella (decoder)</button>        <span class="font-medium text-heading">Dataset profile</span>
-
-          <button type="button" class="p03-embed-toggle px-3 py-1.5 text-xs font-medium rounded-md border border-divider bg-card text-body hover:bg-subtle transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[color:var(--accent-strong)]" data-embed="snowflake">Snowflake (encoder)</button>        <select id="p03-dataset" class="w-full px-3 py-2 border border-divider rounded-md text-sm bg-card text-heading focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
-
-        </div>          <option value="squad">SQuAD (factoid, Wikipedia)</option>
-
-        <p class="text-xs panel-muted">Stella was trained with 130k context; Snowflake with 8k context.</p>          <option value="covidqa">COVID-QA (biomedical)</option>
-
-      </div>          <option value="newsqa">NewsQA (news, medium spans)</option>
-
-      <div class="flex flex-col gap-2">          <option value="nq">Natural Questions (web search)</option>
-
-        <span class="font-medium text-heading">Chunk size (tokens)</span>          <option value="techqa">TechQA (enterprise support)</option>
-
-        <input id="p03-chunk" type="range" min="0" max="4" step="1" value="0" class="w-full">          <option value="narrativeqa">NarrativeQA (long narratives)</option>
-
-        <div class="flex items-center justify-between text-[11px] panel-muted">        </select>
-
-          <span>64</span>      </label>
-
-          <span>128</span>      <div class="flex flex-col gap-2">
-
-          <span>256</span>        <span class="font-medium text-heading">Embedding model</span>
-
-          <span>512</span>        <div class="flex flex-wrap gap-2">
-
-          <span>1024</span>          <button type="button" class="p03-embed-toggle px-3 py-1.5 text-xs font-medium rounded-md border border-divider bg-card text-body hover:bg-subtle transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[color:var(--accent-strong)]" data-embed="stella">Stella (decoder)</button>
-
-        </div>          <button type="button" class="p03-embed-toggle px-3 py-1.5 text-xs font-medium rounded-md border border-divider bg-card text-body hover:bg-subtle transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[color:var(--accent-strong)]" data-embed="snowflake">Snowflake (encoder)</button>
-
-        <p class="text-xs panel-muted">Slide to compare the paper's tested windows.</p>        </div>
-
-      </div>        <p class="text-xs panel-muted">Stella was trained with 130k context; Snowflake with 8k context.</p>
-
-    </div>      </div>
-
-  </section>      <div class="flex flex-col gap-2">
-
-        <span class="font-medium text-heading">Chunk size (tokens)</span>
-
-  <section class="panel panel-neutral p-5 space-y-4">        <input id="p03-chunk" type="range" min="0" max="4" step="1" value="0" class="w-full">
-
-    <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-3">        <div class="flex items-center justify-between text-[11px] panel-muted">
-
-      <div class="space-y-1">          <span>64</span>
-
-        <h4 class="text-sm font-semibold text-heading">Design tweaks to explore</h4>          <span>128</span>
-
-        <p class="text-xs text-body">Mirror the paper's mitigation levers by adjusting vectors per document, adding a lexical reranker, and managing token retention.</p>          <span>256</span>
-
-      </div>          <span>512</span>
-
-      <p class="text-[11px] panel-muted md:text-right">Assumptions follow the authors' ablation notes: multi-vector indexing helps scattered answers, rerankers add a lexical lift, truncation penalises long-span recall.</p>          <span>1024</span>
-
-    </div>        </div>
-
-    <div class="grid md:grid-cols-2 gap-4 text-sm">        <p class="text-xs text-muted-soft">Slide to compare the paper’s tested windows.</p>
-
-      <div class="space-y-3">      </div>
-
-        <label class="flex flex-col gap-2">    </div>
-
-          <span class="font-medium text-heading">Vectors per document <span id="p03-vectors-label" class="font-mono text-xs panel-muted">1</span></span>  </section>
-
-          <input id="p03-vectors" type="range" min="1" max="6" step="1" value="1" class="w-full">
-
-          <p class="text-xs panel-muted">Higher values approximate field-aware indexing or splitting each document into multiple vectors.</p>  <section class="bg-card border border-subtle rounded-xl p-5 space-y-4 transition-colors">
-
-        </label>    <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-3">
-
-        <label class="flex items-start gap-3">      <div class="space-y-1">
-
-          <input id="p03-reranker" type="checkbox" class="mt-0.5 h-4 w-4 rounded border border-divider bg-card accent-[color:var(--accent-strong)]">        <h4 class="text-sm font-semibold text-heading">Design tweaks to explore</h4>
-
-          <span class="text-sm text-body">Enable lexical reranker <span class="block text-xs panel-muted">Adds a BM25-style second pass; helps tight spans and noisy embeddings.</span></span>        <p class="text-xs text-secondary">Mirror the paper’s mitigation levers by adjusting vectors per document, adding a lexical reranker, and managing token retention.</p>
-
-        </label>      </div>
-
-      </div>      <p class="text-[11px] text-muted-soft md:text-right">Assumptions follow the authors’ ablation notes: multi-vector indexing helps scattered answers, rerankers add a lexical lift, truncation penalises long-span recall.</p>
-
-      <div class="space-y-3">    </div>
-
-        <label class="flex flex-col gap-2">    <div class="grid md:grid-cols-2 gap-4 text-sm text-secondary">
-
-          <span class="font-medium text-heading">Token retention <span id="p03-retention-label" class="font-mono text-xs panel-muted">100%</span></span>      <div class="space-y-3">
-
-          <input id="p03-retention" type="range" min="60" max="100" step="5" value="100" class="w-full">        <label class="flex flex-col gap-2">
-
-          <p class="text-xs panel-muted">Truncation mimics shorter context limits; dial it down to see how aggressive pruning hurts recall.</p>          <span class="font-medium text-heading">Vectors per document <span id="p03-vectors-label" class="font-mono text-xs panel-muted">1</span></span>
-
-        </label>          <input id="p03-vectors" type="range" min="1" max="6" step="1" value="1" class="w-full">
-
-        <p class="text-xs panel-muted">Combine settings to match your deployment (e.g., vectors=3, reranker on, retention=85% for hybrid stacks).</p>          <p class="text-xs panel-muted">Higher values approximate field-aware indexing or splitting each document into multiple vectors.</p>
-
-      </div>        </label>
-
-    </div>        <label class="flex items-start gap-3">
-
-  </section>          <input id="p03-reranker" type="checkbox" class="mt-0.5">
-
-          <span class="text-sm text-body">Enable lexical reranker <span class="block text-xs panel-muted">Adds a BM25-style second pass; helps tight spans and noisy embeddings.</span></span>
-
-  <section class="panel panel-neutral p-5 space-y-3">        </label>
-
-    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">      </div>
-
-      <div>      <div class="space-y-3">
-
-        <p class="text-[11px] font-semibold uppercase tracking-wide panel-muted">Recall outlook</p>        <label class="flex flex-col gap-2">
-
-        <h4 class="text-sm font-semibold text-heading">Expected recall@1 when chunking at <span id="p03-chunk-label" class="font-mono">64</span> tokens</h4>          <span class="font-medium text-heading">Token retention <span id="p03-retention-label" class="font-mono text-xs panel-muted">100%</span></span>
-
-      </div>          <input id="p03-retention" type="range" min="60" max="100" step="5" value="100" class="w-full">
-
-      <div class="panel panel-neutral-soft px-3 py-1.5 rounded-md">          <p class="text-xs panel-muted">Truncation mimics shorter context limits; dial it down to see how aggressive pruning hurts recall.</p>
-
-        <span class="text-xs font-mono text-heading" id="p03-recall">—</span>        </label>
-
-      </div>        <p class="text-xs panel-muted">Combine settings to match your deployment (e.g., vectors=3, reranker on, retention=85% for hybrid stacks).</p>
-
-    </div>      </div>
-
-    <div id="p03-chart" class="grid gap-2 text-xs text-body"></div>    </div>
-
-  </section>  </section>
-
-
-
-  <section class="panel panel-neutral p-5 space-y-3">  <section class="panel panel-info p-5 space-y-3">
-
-    <h4 class="text-sm font-semibold text-heading">What the paper suggests</h4>    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-
-    <div id="p03-observations" class="text-sm text-body space-y-2"></div>      <div>
-
-    <div class="grid md:grid-cols-3 gap-3" id="p03-dataset-meta"></div>        <p class="text-[11px] font-semibold uppercase tracking-wide text-heading">Recall outlook</p>
-
-  </section>        <h4 class="text-sm font-semibold text-heading">Expected recall@1 when chunking at <span id="p03-chunk-label" class="font-mono">64</span> tokens</h4>
-
+<section class="space-y-6" id="p03-explorer">
+  <section class="panel panel-info p-5 space-y-4">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+      <div>
+        <p class="text-[11px] font-semibold tracking-wide panel-muted uppercase">Choose your retrieval setting</p>
+        <h3 class="text-sm font-semibold text-heading">Select a dataset profile and embedder</h3>
+        <p class="text-xs panel-muted mt-1">The paper benchmarks six QA corpora across Stella (decoder) and Snowflake (encoder). Pick one to see how chunk size drives recall.</p>
       </div>
+    </div>
+    <div class="grid md:grid-cols-3 gap-3 text-sm">
+      <label class="flex flex-col gap-2">
+        <span class="font-medium text-heading">Dataset profile</span>
+        <select id="p03-dataset" class="w-full px-3 py-2 border border-divider rounded-md text-sm bg-card text-heading focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
+          <option value="squad">SQuAD (factoid, Wikipedia)</option>
+          <option value="covidqa">COVID-QA (biomedical)</option>
+          <option value="newsqa">NewsQA (news, medium spans)</option>
+          <option value="nq">Natural Questions (web search)</option>
+          <option value="techqa">TechQA (enterprise support)</option>
+          <option value="narrativeqa">NarrativeQA (long narratives)</option>
+        </select>
+      </label>
+      <div class="flex flex-col gap-2">
+        <span class="font-medium text-heading">Embedding model</span>
+        <div class="flex flex-wrap gap-2">
+          <button type="button" class="p03-embed-toggle px-3 py-1.5 text-xs font-medium rounded-md border border-divider bg-card text-body hover:bg-subtle transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[color:var(--accent-strong)]" data-embed="stella">Stella (decoder)</button>
+          <button type="button" class="p03-embed-toggle px-3 py-1.5 text-xs font-medium rounded-md border border-divider bg-card text-body hover:bg-subtle transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-[color:var(--accent-strong)]" data-embed="snowflake">Snowflake (encoder)</button>
+        </div>
+        <p class="text-xs panel-muted">Stella was trained with 130k context; Snowflake with 8k context.</p>
+      </div>
+      <div class="flex flex-col gap-2">
+        <span class="font-medium text-heading">Chunk size (tokens)</span>
+        <input id="p03-chunk" type="range" min="0" max="4" step="1" value="0" class="w-full">
+        <div class="flex items-center justify-between text-[11px] panel-muted">
+          <span>64</span>
+          <span>128</span>
+          <span>256</span>
+          <span>512</span>
+          <span>1024</span>
+        </div>
+        <p class="text-xs panel-muted">Slide to compare the paper's tested windows.</p>
+      </div>
+    </div>
+  </section>
 
-  <section class="panel panel-warning p-5 space-y-2">      <div class="text-xs font-mono panel panel-neutral-soft px-3 py-1.5 rounded-md text-heading" id="p03-recall">—</div>
+  <section class="panel panel-neutral p-5 space-y-4">
+    <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-3">
+      <div class="space-y-1">
+        <h4 class="text-sm font-semibold text-heading">Design tweaks to explore</h4>
+        <p class="text-xs text-body">Mirror the paper's mitigation levers by adjusting vectors per document, adding a lexical reranker, and managing token retention.</p>
+      </div>
+      <p class="text-[11px] panel-muted md:text-right">Assumptions follow the authors' ablation notes: multi-vector indexing helps scattered answers, rerankers add a lexical lift, truncation penalises long-span recall.</p>
+    </div>
+    <div class="grid md:grid-cols-2 gap-4 text-sm">
+      <div class="space-y-3">
+        <label class="flex flex-col gap-2">
+          <span class="font-medium text-heading">Vectors per document <span id="p03-vectors-label" class="font-mono text-xs panel-muted">1</span></span>
+          <input id="p03-vectors" type="range" min="1" max="6" step="1" value="1" class="w-full">
+          <p class="text-xs panel-muted">Higher values approximate field-aware indexing or splitting each document into multiple vectors.</p>
+        </label>
+        <label class="flex items-start gap-3">
+          <input id="p03-reranker" type="checkbox" class="mt-0.5 h-4 w-4 rounded border border-divider bg-card accent-[color:var(--accent-strong)]">
+          <span class="text-sm text-body">Enable lexical reranker <span class="block text-xs panel-muted">Adds a BM25-style second pass; helps tight spans and noisy embeddings.</span></span>
+        </label>
+      </div>
+      <div class="space-y-3">
+        <label class="flex flex-col gap-2">
+          <span class="font-medium text-heading">Token retention <span id="p03-retention-label" class="font-mono text-xs panel-muted">100%</span></span>
+          <input id="p03-retention" type="range" min="60" max="100" step="5" value="100" class="w-full">
+          <p class="text-xs panel-muted">Truncation mimics shorter context limits; dial it down to see how aggressive pruning hurts recall.</p>
+        </label>
+        <p class="text-xs panel-muted">Combine settings to match your deployment (e.g., vectors=3, reranker on, retention=85% for hybrid stacks).</p>
+      </div>
+    </div>
+  </section>
 
-    <h4 class="text-sm font-semibold text-heading">Implementation to-do list</h4>    </div>
-
-    <ul id="p03-actions" class="list-disc ml-5 space-y-1 text-body"></ul>    <div id="p03-chart" class="grid gap-2 text-xs text-body"></div>
-
-  </section>  </section>
-
-</section>
+  <section class="panel panel-neutral p-5 space-y-3">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+      <div>
+        <p class="text-[11px] font-semibold uppercase tracking-wide panel-muted">Recall outlook</p>
+        <h4 class="text-sm font-semibold text-heading">Expected recall@1 when chunking at <span id="p03-chunk-label" class="font-mono">64</span> tokens</h4>
+      </div>
+      <div class="panel panel-neutral-soft px-3 py-1.5 rounded-md">
+        <span class="text-xs font-mono text-heading" id="p03-recall">—</span>
+      </div>
+    </div>
+    <div id="p03-chart" class="grid gap-2 text-xs text-body"></div>
+  </section>
 
   <section class="panel panel-neutral p-5 space-y-3">
     <h4 class="text-sm font-semibold text-heading">What the paper suggests</h4>

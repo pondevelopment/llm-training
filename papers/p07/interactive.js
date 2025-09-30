@@ -243,15 +243,15 @@ const interactiveScript = () => {
       const safe = clamp01(value);
       const width = safe === 0 ? 0 : Math.max(4, Math.round(safe * 100));
       return '<div class="space-y-1">' +
-        '<div class="flex items-center justify-between text-[11px] panel-muted"><span>' + label + '</span><span class="font-mono text-xs text-heading">' + formatPercent(safe) + '</span></div>' +
+        '<div class="flex items-center justify-between text-xs panel-muted"><span>' + label + '</span><span class="font-mono text-xs text-heading">' + formatPercent(safe) + '</span></div>' +
         '<div class="h-1.5 rounded-full bg-subtle overflow-hidden"><div class="h-full rounded-full" style="width:' + width + '%; background:' + fill + ';"></div></div>' +
         '</div>';
     };
     els.metric.innerHTML = '<div class="space-y-3">' +
       gauge(result.model, 'Mixture model', 'var(--tone-indigo-strong)') +
       gauge(result.baseline, 'Any single expert', 'var(--color-muted)') +
-      '<p class="text-[11px] font-medium ' + deltaClass + '">Gap vs solo expert: ' + deltaText + '</p>' +
-      '<p class="text-[11px] panel-muted">' + result.note + '</p>' +
+      '<p class="text-xs font-medium ' + deltaClass + '">Gap vs solo expert: ' + deltaText + '</p>' +
+      '<p class="text-xs panel-muted">' + result.note + '</p>' +
       '</div>';
   };
 
@@ -260,7 +260,7 @@ const interactiveScript = () => {
     wrapper.className = 'panel panel-neutral-soft p-3 space-y-2';
 
     const label = document.createElement('label');
-    label.className = 'flex items-center justify-between text-[11px] font-semibold uppercase tracking-wide text-heading';
+    label.className = 'flex items-center justify-between text-xs font-semibold uppercase tracking-wide text-heading';
     label.setAttribute('for', 'p07-' + config.key);
     const labelText = document.createElement('span');
     labelText.textContent = config.label;
@@ -284,7 +284,7 @@ const interactiveScript = () => {
     wrapper.appendChild(input);
 
     const helper = document.createElement('p');
-    helper.className = 'text-[11px] panel-muted leading-snug';
+    helper.className = 'text-xs panel-muted leading-snug';
     helper.textContent = config.helper;
     wrapper.appendChild(helper);
 

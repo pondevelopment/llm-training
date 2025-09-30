@@ -52,37 +52,34 @@
     </div>
   </section>
 
-  <div class="grid md:grid-cols-2 gap-4">
-    <section class="panel panel-info p-4 space-y-2">
-      <h3 class="text-sm font-semibold text-heading">Pun types at a glance</h3>
-      <p class="text-xs text-body">The study tracks two standard categories: heterographic puns use different written forms (sail/sale), while homographic puns reuse the same token with multiple senses (hit/hit). A pun pair is the (<em>w<sub>p</sub></em>, <em>w<sub>a</sub></em>) that triggers both readings.</p>
-            <ul class="list-disc ml-4 text-[11px] panel-muted space-y-1">
-        <li><strong>Rationale prompts</strong> force models to output the pun pair plus senses.</li>
-        <li><strong>R1</strong> (DeepSeek) and GPT‑4o best identify correct pairs (~1.5/2 words right).</li>
-        <li>Mistral struggles: under 1 word of the pair correct on average, often hallucinates senses.</li>
+  <section class="panel panel-info p-4 space-y-2">
+    <h3 class="text-sm font-semibold text-heading">Pun types at a glance</h3>
+    <p class="text-xs text-body">The study tracks two standard categories: heterographic puns use different written forms (sail/sale), while homographic puns reuse the same token with multiple senses (hit/hit). A pun pair is the (<em>w<sub>p</sub></em>, <em>w<sub>a</sub></em>) that triggers both readings.</p>
+    <ul class="list-disc ml-4 text-[11px] panel-muted space-y-1">
+      <li><strong>Rationale prompts</strong> force models to output the pun pair plus senses.</li>
+      <li><strong>R1</strong> (DeepSeek) and GPT‑4o best identify correct pairs (~1.5/2 words right).</li>
+      <li>Mistral struggles: under 1 word of the pair correct on average, often hallucinates senses.</li>
+    </ul>
+    <div class="panel panel-neutral-soft p-3 text-[11px] space-y-2">
+      <p class="font-semibold text-heading">Quick examples</p>
+      <ul class="list-disc ml-4 panel-muted space-y-1">
+        <li><strong>Heterographic:</strong> "I bought a boat because it was for <em>sale</em>." → pun pair (<em>sail</em>, <em>sale</em>); senses: to navigate vs. to purchase cheaply.</li>
+        <li><strong>Homographic:</strong> "The math book has too many <em>problems</em>." → same token (<em>problems</em>) meaning exercises vs. difficulties.</li>
+        <li><strong>Ruined homophone (PunBreak):</strong> swap <em>dragon</em> in "Long fairy tales tend to dra<strong>g on</strong>" with <em>wyvern</em>; humans notice the wordplay disappears, LLMs often still say "pun".</li>
       </ul>
-      <div class="panel panel-neutral-soft p-3 text-[11px] space-y-2">
-        <p class="font-semibold text-heading">Quick examples</p>
-        <ul class="list-disc ml-4 panel-muted space-y-1">
-          <li><strong>Heterographic:</strong> "I bought a boat because it was for <em>sale</em>." → pun pair (<em>sail</em>, <em>sale</em>); senses: to navigate vs. to purchase cheaply.</li>
-          <li><strong>Homographic:</strong> "The math book has too many <em>problems</em>." → same token (<em>problems</em>) meaning exercises vs. difficulties.</li>
-          <li><strong>Ruined homophone (PunBreak):</strong> swap <em>dragon</em> in "Long fairy tales tend to dra<strong>g on</strong>" with <em>wyvern</em>; humans notice the wordplay disappears, LLMs often still say "pun".</li>
-        </ul>
-      </div>
-    </section>
     </div>
-          </ul>
-    </section>
-    <section class="panel panel-info p-4 space-y-2">
-      <h3 class="text-sm font-semibold text-heading">Benchmarks introduced</h3>
-      <p class="text-xs text-body"><strong>PunnyPattern</strong> pairs six popular English pun templates with matched non-puns; <strong>PunBreak</strong> swaps the pun word for synonyms, homophones, or random tokens (plus random sentences). Both include 1,200+ examples with pun-pair annotations.</p>
-      <ul class="list-disc ml-4 text-[11px] panel-muted space-y-1">
-        <li>F1 drops 4–13 pts on PunnyPattern; precision down 16–23 pts.</li>
-        <li>On PunBreak, non-pun accuracy falls to 0.33–0.59 (homophone swaps hardest).</li>
-        <li>Control sentences score &gt;0.8 accuracy → failures stem from pun-like structure, not general bias.</li>
-      </ul>
-    </section>
-  </div>
+  </section>
+
+  <section class="panel panel-info p-4 space-y-2">
+    <h3 class="text-sm font-semibold text-heading">Benchmarks introduced</h3>
+    <p class="text-xs text-body"><strong>PunnyPattern</strong> pairs six popular English pun templates with matched non-puns; <strong>PunBreak</strong> swaps the pun word for synonyms, homophones, or random tokens (plus random sentences). Both include 1,200+ examples with pun-pair annotations.</p>
+    <ul class="list-disc ml-4 text-[11px] panel-muted space-y-1">
+      <li>F1 drops 4–13 pts on PunnyPattern; precision down 16–23 pts.</li>
+      <li>On PunBreak, non-pun accuracy falls to 0.33–0.59 (homophone swaps hardest).</li>
+      <li>Control sentences score &gt;0.8 accuracy → failures stem from pun-like structure, not general bias.</li>
+    </ul>
+  </section>
+
 
   <section class="panel panel-info p-4 space-y-2">
     <h3 class="text-sm font-semibold text-heading">How the paper measures success</h3>

@@ -1,5 +1,5 @@
 <div class="space-y-5">
-  <div class="panel panel-info p-4 space-y-4">
+  <section class="panel panel-info p-4 space-y-4">
     <div class="flex flex-wrap items-start justify-between gap-4">
       <div>
         <h2 class="text-xl font-semibold text-heading">On the Theoretical Limitations of Embedding-Based Retrieval</h2>
@@ -17,13 +17,13 @@
       <p class="font-semibold text-heading">Plain-language explainer</p>
       <p class="panel-muted">Think of squeezing a library card catalog into a filing cabinet with only 1,024 drawers. No matter how carefully you organize, some book combinations will share the same drawer. The authors prove this isn't a training problem—it's a mathematical limit of cramming documents into fixed-size vectors.</p>
     </div>
-  </div>
+  </section>
 
-  <div class="panel panel-neutral p-5 space-y-3">
-    <div class="flex items-center gap-2 text-heading">
+  <section class="panel panel-neutral p-5 space-y-3">
+    <header class="flex items-center gap-2">
       <span aria-hidden="true" class="text-lg">🧭</span>
-      <h3 class="text-sm font-semibold tracking-wide uppercase">Executive quick take</h3>
-    </div>
+      <h3 class="text-sm font-semibold tracking-wide uppercase text-heading">Executive quick take</h3>
+    </header>
     <p class="text-sm leading-relaxed text-body">
       Retrieval-augmented systems that rely on a single embedding per document have a hard ceiling: no matter how many tokens you feed into the encoder, you are still squeezing everything into a <em>d</em>-dimensional vector. Once users ask for more than \(O(d^k)\) distinct top-<em>k</em> answers, recall will fall off even if you retrain, fine-tune, or add more labels.
     </p>
@@ -32,9 +32,9 @@
       <li><strong>Mitigation options:</strong> Add multiple vectors per doc (fields, passages), blend lexical search, or introduce metadata filters before ranking.</li>
       <li><strong>Governance cue:</strong> Track recall on adversarial or high-stakes queries—when it drops, you need more signals, not just more training.</li>
     </ul>
-  </div>
+  </section>
 
-  <div class="panel panel-success p-5 space-y-3">
+  <section class="panel panel-success p-5 space-y-3">
     <h3 class="text-sm font-semibold text-heading">💼 Business relevance</h3>
     <ul class="list-disc ml-5 space-y-1 text-sm text-body">
       <li><strong>Customer search:</strong> Single-vector indexes miss diverse intents; track frustrated queries and schedule a multi-vector or hybrid upgrade once recall plateaus.</li>
@@ -45,7 +45,7 @@
       <p class="font-semibold text-heading">Derivative example (patterned on the paper's LIMIT audit)</p>
       <p class="panel-muted">A regulated support portal can log the queries auditors watch, build LIMIT-style contrastive pairs, and trigger a multi-vector rollout when recall dips against policy thresholds.</p>
     </div>
-  </div>
+  </section>
 
   <div class="grid md:grid-cols-2 gap-4">
     <div class="panel panel-info p-4 space-y-2">
@@ -79,21 +79,21 @@
     </div>
   </div>
 
-  <div class="panel panel-neutral p-5 space-y-3">
+  <section class="panel panel-neutral p-5 space-y-3">
     <h3 class="text-sm font-semibold text-heading">🧪 Evidence</h3>
     <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
       <li><strong>Top-<em>k</em> subset bound:</strong> In a <em>d</em>-dimensional space, at most \(O(d^k)\) distinct top-<em>k</em> sets are realizable—far below \({n \choose k}\) when the corpus is large.</li>
       <li><strong>Optimal embeddings still fail:</strong> Even when the embedding vectors are optimized directly on LIMIT labels, recall@2 plateaus near the theoretical ceiling.</li>
       <li><strong>LIMIT dataset:</strong> Tasks constructed with simple keyword patterns expose these failures; popular commercial APIs and open-source encoders miss &gt;40% of relevant pairs.</li>
     </ul>
-  </div>
+  </section>
 
-  <div class="panel panel-warning p-5 space-y-2">
+  <section class="panel panel-warning p-5 space-y-2">
     <h3 class="text-sm font-semibold text-heading">🔭 For your roadmap</h3>
     <ul class="list-disc ml-5 space-y-1 text-sm text-body">
       <li>Probe how your retriever scales with corpus growth—track unique top-<em>k</em> sets vs. an oracle baseline.</li>
       <li>Experiment with multi-representation retrievers (e.g., per-field vectors, hybrid BM25 rerankers, learned contexts).</li>
       <li>Design evaluation suites like LIMIT that match user-critical edge cases rather than average-case workloads.</li>
     </ul>
-  </div>
+  </section>
 </div>

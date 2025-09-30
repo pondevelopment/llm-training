@@ -1,11 +1,5 @@
 <section class="space-y-5">
-  <section class="panel pane        <li>SQuAD drops 20 points when oversized to 1024 tokens—too much noise.</li>
-      </ul>
-    </div>
-    <div class="panel panel-info p-4 space-y-2">
-      <h3 class="text-sm font-semibold text-heading">Embedding-model sensitivities</h3>
-      <p class="text-xs panel-muted leading-relaxed">The Stella embedder (decoder lineage, 130k context) thrives on large chunks, while Snowflake (encoder, 8k context) peaks with compact windows. Chunk decisions should match the embedder's pretraining context length and positional encoding.</p>
-      <ul class="list-disc ml-4 text-[11px] panel-muted space-y-1">p-4 space-y-4">
+  <section class="panel panel-info p-4 space-y-4">
     <div class="flex flex-wrap items-start justify-between gap-4">
       <div>
         <h2 class="text-xl font-semibold text-heading">Rethinking Chunk Size for Long-Document Retrieval</h2>
@@ -60,13 +54,13 @@
       <ul class="list-disc ml-4 text-[11px] panel-muted space-y-1">
         <li>NarrativeQA recall@1 triples when moving from 64 → 1024 tokens.</li>
         <li>TechQA improves from 5% → 71% recall@1 by scaling to 512–1024 tokens.</li>
-        <li>SQuAD drops 20 points when oversized to 1024 tokens—too much noise.</li>
+                <li>SQuAD drops 20 points when oversized to 1024 tokens—too much noise.</li>
       </ul>
-    </article>
-    <article class="bg-cyan-50 dark:bg-cyan-900/20 border border-cyan-200 dark:border-cyan-500/40 rounded-lg p-4 space-y-2 transition-colors">
-      <h3 class="text-sm font-semibold text-cyan-900 dark:text-cyan-100">Embedding-model sensitivities</h3>
-      <p class="text-xs text-cyan-800 dark:text-cyan-100 leading-relaxed">The Stella embedder (decoder lineage, 130k context) thrives on large chunks, while Snowflake (encoder, 8k context) peaks with compact windows. Chunk decisions should match the embedder’s pretraining context length and positional encoding.</p>
-      <ul class="list-disc ml-4 text-[11px] text-cyan-700 dark:text-cyan-100 space-y-1">
+    </div>
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Embedding-model sensitivities</h3>
+      <p class="text-xs panel-muted leading-relaxed">The Stella embedder (decoder lineage, 130k context) thrives on large chunks, while Snowflake (encoder, 8k context) peaks with compact windows. Chunk decisions should match the embedder's pretraining context length and positional encoding.</p>
+      <ul class="list-disc ml-4 text-[11px] panel-muted space-y-1">
         <li>Stella gains 5–8% recall on long-document sets at 512–1024 tokens.</li>
         <li>Snowflake leads on SQuAD/COVID-QA at 64–128 tokens but lags on 1024.</li>
         <li>Mixing embedders may require dataset-specific chunk configs.</li>
@@ -90,7 +84,7 @@
       <li><strong>Recall@1:</strong> % of questions where the correct chunk was the very first result.</li>
       <li><strong>Recall@5:</strong> % of questions where the correct chunk was somewhere in the top 5 results.</li>
       <li>Higher recall is better—more retrieved chunks include the answer span.</li>
-            <li>The paper reports Recall@1 primarily (what the interactive shows) and includes Recall@2-5 for completeness.</li>
+      <li>The paper reports Recall@1 primarily (what the interactive shows) and includes Recall@2-5 for completeness.</li>
     </ul>
   </div>
 
@@ -112,6 +106,46 @@
   <section class="panel panel-neutral p-5 space-y-3">
     <h3 class="text-sm font-semibold text-heading">🧪 Experiments &amp; Evidence</h3>
     <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>Long vs. short corpora:</strong> NarrativeQA recall@1 climbs from 4.2% (64 tokens) to 10.7% (1024); SQuAD falls from 64.2% (64) to 38.6% (1024).</li>
+      <li><strong>Model bias:</strong> Snowflake peaks at 54.2% recall@1 on COVID-QA with 1024 tokens, while Stella peaks at 52.1% with 64-token chunks.</li>
+      <li><strong>Open-source assets:</strong> LlamaIndex pipeline + scripts released at <a href="https://github.com/fraunhofer-iais/chunking-strategies" class="text-link hover:underline" target="_blank" rel="noopener">fraunhofer-iais/chunking-strategies</a>.</li>
+      <li><strong>Stitched corpora:</strong> For scarce long-form sets, the authors stitch QA pairs to 50k-character docs, highlighting a need for native long-document benchmarks.</li>
+    </ul>
+  </section>
+
+  <section class="panel panel-warning p-5 space-y-2">
+    <h3 class="text-sm font-semibold text-heading">🔭 For your roadmap</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+      </ul>
+    </article>
+    <article class="bg-cyan-50 dark:bg-cyan-900/20 border border-cyan-200 dark:border-cyan-500/40 rounded-lg p-4 space-y-2 transition-colors">
+      <h3 class="text-sm font-semibold text-cyan-900 dark:text-cyan-100">Embedding-model sensitivities</h3>
+      <p class="text-xs text-cyan-800 dark:text-cyan-100 leading-relaxed">The Stella embedder (decoder lineage, 130k context) thrives on large chunks, while Snowflake (encoder, 8k context) peaks with compact windows. Chunk decisions should match the embedder’s pretraining context length and positional encoding.</p>
+      <ul class="list-disc ml-4 text-[11px] text-cyan-700 dark:text-cyan-100 space-y-1">
+        <li>Stella gains 5–8% recall on long-document sets at 512–1024 tokens.</li>
+        <li>Snowflake leads on SQuAD/COVID-QA at 64–128 tokens but lags on 1024.</li>
+        <li>Mixing embedders may require dataset-specific chunk configs.</li>
+      </ul>
+    </article>
+    <article class="bg-cyan-50 dark:bg-cyan-900/20 border border-cyan-200 dark:border-cyan-500/40 rounded-lg p-4 space-y-2 transition-colors">
+      <h3 class="text-sm font-semibold text-cyan-900 dark:text-cyan-100">What counts as a document</h3>
+      <p class="text-xs text-cyan-800 dark:text-cyan-100 leading-relaxed">The paper treats each chunked window as the retrieval unit. Long reports are sliced into overlapping passages, while stitched corpora combine multiple QA pairs into a single pseudo-document.</p>
+      <ul class="list-disc ml-4 text-[11px] text-cyan-700 dark:text-cyan-100 space-y-1">
+        <li>Original PDFs average 6–10k tokens; windows roll every 32–64 tokens to preserve context.</li>
+        <li>Overlap is capped at 50% to avoid bloating the index while keeping answer spans intact.</li>
+        <li>When documents are stitched, tracking provenance per chunk becomes essential for evaluation.</li>
+      </ul>
+    </article>
+  </section>
+
+  <section class="bg-cyan-50 dark:bg-cyan-900/20 border border-cyan-200 dark:border-cyan-500/40 rounded-lg p-4 space-y-2 transition-colors">
+    <h3 class="text-sm font-semibold text-cyan-900 dark:text-cyan-100">What Recall@<em>k</em> measures</h3>
+    <p class="text-xs text-cyan-800 dark:text-cyan-100 leading-relaxed">For each question, the retriever ranks all chunks and we check whether the chunk containing the ground-truth answer appears in the top <em>k</em> of that ranking.</p>
+    <ul class="list-disc ml-4 text-[11px] text-cyan-700 dark:text-cyan-100 space-y-1">
+      <li><strong>Recall@1:</strong> % of questions where the correct chunk was the very first result.</li>
+      <li><strong>Recall@5:</strong> % of questions where the correct chunk was somewhere in the top 5 results.</li>
+      <li>Higher recall is better—more retrieved chunks include the answer span.</li>
+      <li>The paper reports Recall@1 primarily (what the interactive shows) and includes Recall@2-5 for completeness.</li>
     </ul>
   </section>
 
@@ -140,9 +174,9 @@
     </ul>
   </section>
 
-  <section class="panel panel-warning p-5 space-y-2">
-    <h3 class="text-sm font-semibold text-heading">🔭 For your roadmap</h3>
-    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+  <section class="bg-amber-50 dark:bg-amber-900/25 border border-amber-200 dark:border-amber-500/40 rounded-xl p-5 space-y-2 transition-colors">
+    <h3 class="text-sm font-semibold text-amber-900 dark:text-amber-100">🔭 For your roadmap</h3>
+    <ul class="list-disc ml-5 text-sm text-amber-800 dark:text-amber-100 space-y-1">
       <li>Instrument chunk-size sweeps (recall@k, latency, overlap cost) for every new corpus.</li>
       <li>Align chunk windows to embedder context limits and positional encodings.</li>
       <li>Add semantic relevance checks (beyond string match) before shipping larger chunks.</li>

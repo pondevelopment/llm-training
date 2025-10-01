@@ -1,4 +1,4 @@
-﻿const interactiveScript = () => {
+const interactiveScript = () => {
   const root = document.getElementById('p16-lab');
   if (!root) return;
 
@@ -27,10 +27,10 @@
           detail: 'Hands-on experiments, data quality, and specialist judgement dominate the timeline.'
         }
       ],
-      summary: 'Low coverage keeps humans in the driver’s seat. Investments should target near-term copilots and better tooling rather than massive automation.',
+      summary: 'Low coverage keeps humans in the driver's seat. Investments should target near-term copilots and better tooling rather than massive automation.',
       actions: [
         'Catalog repetitive tasks suitable for copilots and measure time saved.',
-        'Upgrade data management so AI assists don’t struggle with messy inputs.'
+        'Upgrade data management so AI assists don't struggle with messy inputs.'
       ]
     },
     cobotics: {
@@ -84,8 +84,7 @@
       const subtitle = btn.querySelector('.p16-scenario-sub');
       if (subtitle) {
         subtitle.classList.toggle('text-indigo-100', isActive);
-        subtitle.classList.toggle('text-muted', !isActive);
-        subtitle.classList.toggle('dark:text-slate-300', !isActive);
+        subtitle.classList.toggle('panel-muted', !isActive);
       }
       if (isActive) {
         btn.classList.add('bg-indigo-600', 'text-white', 'border-indigo-500', 'dark:bg-indigo-500', 'dark:border-indigo-400');
@@ -106,9 +105,9 @@
     contextLabelEl.textContent = scenario.label;
     leversEl.innerHTML = scenario.levers
       .map((lever) => `
-        <div class="bg-card border border-subtle dark:border-slate-700 rounded-md p-3 transition-colors">
-          <div class="text-xs font-semibold text-heading dark:text-slate-100">${lever.title}</div>
-          <p class="text-[11px] text-muted dark:text-slate-300 mt-1">${lever.detail}</p>
+        <div class="panel panel-neutral-soft p-3 text-xs space-y-1">
+          <div class="font-semibold">${lever.title}</div>
+          <p class="panel-muted">${lever.detail}</p>
         </div>
       `)
       .join('');

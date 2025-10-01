@@ -1,52 +1,52 @@
-﻿<div id="p16-lab" class="space-y-6">
-  <section class="bg-gradient-to-r from-slate-50 via-indigo-50 to-slate-50 dark:from-slate-900/40 dark:via-indigo-900/20 dark:to-slate-900/40 border border-indigo-100 dark:border-indigo-500/40 rounded-lg p-4 transition-colors">
-    <h4 class="text-sm font-semibold text-indigo-900 dark:text-indigo-100">Scenario chooser</h4>
+<div id="p16-lab" class="space-y-6">
+  <section class="panel panel-info p-4">
+    <h4 class="text-sm font-semibold">Scenario chooser</h4>
     <div id="p16-scenarios" class="mt-3 grid md:grid-cols-3 gap-2">
-      <button type="button" data-scenario="baseline" class="p16-scenario inline-flex flex-col items-start gap-1 px-3 py-2 text-xs font-medium border border-subtle dark:border-indigo-500/40 rounded-md bg-card text-indigo-700 dark:text-indigo-100 hover:bg-subtle dark:hover:bg-indigo-900/40 transition-colors" aria-pressed="true">
+      <button type="button" data-scenario="baseline" class="p16-scenario chip chip-info" aria-pressed="true">
         <span>Human-led lab</span>
-        <span class="p16-scenario-sub text-[10px] text-muted dark:text-slate-300 transition-colors">Low AI coverage</span>
+        <span class="p16-scenario-sub text-[10px] panel-muted">Low AI coverage</span>
       </button>
-      <button type="button" data-scenario="cobotics" class="p16-scenario inline-flex flex-col items-start gap-1 px-3 py-2 text-xs font-medium border border-subtle dark:border-indigo-500/40 rounded-md bg-card text-indigo-700 dark:text-indigo-100 hover:bg-subtle dark:hover:bg-indigo-900/40 transition-colors" aria-pressed="false">
+      <button type="button" data-scenario="cobotics" class="p16-scenario chip chip-info" aria-pressed="false">
         <span>Hybrid copilots</span>
-        <span class="p16-scenario-sub text-[10px] text-muted dark:text-slate-300 transition-colors">Balanced tasks</span>
+        <span class="p16-scenario-sub text-[10px] panel-muted">Balanced tasks</span>
       </button>
-      <button type="button" data-scenario="machine" class="p16-scenario inline-flex flex-col items-start gap-1 px-3 py-2 text-xs font-medium border border-subtle dark:border-indigo-500/40 rounded-md bg-card text-indigo-700 dark:text-indigo-100 hover:bg-subtle dark:hover:bg-indigo-900/40 transition-colors" aria-pressed="false">
+      <button type="button" data-scenario="machine" class="p16-scenario chip chip-info" aria-pressed="false">
         <span>Machine-dominant</span>
-        <span class="p16-scenario-sub text-[10px] text-muted dark:text-slate-300 transition-colors">AI covers most work</span>
+        <span class="p16-scenario-sub text-[10px] panel-muted">AI covers most work</span>
       </button>
     </div>
-    <p class="mt-2 text-xs text-indigo-700 dark:text-indigo-200">Each scenario varies the three levers from the paper: task coverage, relative productivity, and bottleneck pressure.</p>
+    <p class="mt-2 text-xs panel-muted">Each scenario varies the three levers from the paper: task coverage, relative productivity, and bottleneck pressure.</p>
   </section>
 
   <section class="grid md:grid-cols-3 gap-4" id="p16-metrics">
-    <article class="bg-card border border-subtle dark:border-slate-700 rounded-lg p-4 space-y-2 transition-colors">
-      <div class="text-[11px] uppercase tracking-wide text-indigo-600 dark:text-indigo-300 font-semibold">Task coverage</div>
-      <p id="p16-metric-coverage" class="text-2xl font-semibold text-heading dark:text-slate-100">--</p>
-      <p class="text-xs text-muted dark:text-slate-300">Share of R&amp;D tasks AI can tackle.</p>
+    <article class="panel panel-neutral-soft p-4 space-y-2">
+      <div class="text-xs uppercase tracking-wide text-indigo-600 dark:text-indigo-300 font-semibold">Task coverage</div>
+      <p id="p16-metric-coverage" class="text-2xl font-semibold">--</p>
+      <p class="text-xs panel-muted">Share of R&amp;D tasks AI can tackle.</p>
     </article>
-    <article class="bg-card border border-subtle dark:border-slate-700 rounded-lg p-4 space-y-2 transition-colors">
-      <div class="text-[11px] uppercase tracking-wide text-emerald-600 dark:text-emerald-300 font-semibold">Relative productivity</div>
-      <p id="p16-metric-productivity" class="text-2xl font-semibold text-heading dark:text-slate-100">--</p>
-      <p class="text-xs text-muted dark:text-slate-300">AI speed/quality multiple versus human scientists.</p>
+    <article class="panel panel-neutral-soft p-4 space-y-2">
+      <div class="text-xs uppercase tracking-wide text-emerald-600 dark:text-emerald-300 font-semibold">Relative productivity</div>
+      <p id="p16-metric-productivity" class="text-2xl font-semibold">--</p>
+      <p class="text-xs panel-muted">AI speed/quality multiple versus human scientists.</p>
     </article>
-    <article class="bg-card border border-subtle dark:border-slate-700 rounded-lg p-4 space-y-2 transition-colors">
-      <div class="text-[11px] uppercase tracking-wide text-rose-600 dark:text-rose-300 font-semibold">Bottleneck pressure</div>
-      <p id="p16-metric-bottleneck" class="text-2xl font-semibold text-heading dark:text-slate-100">--</p>
-      <p class="text-xs text-muted dark:text-slate-300">How tight complementary limits (labs, data, oversight) are.</p>
+    <article class="panel panel-neutral-soft p-4 space-y-2">
+      <div class="text-xs uppercase tracking-wide text-rose-600 dark:text-rose-300 font-semibold">Bottleneck pressure</div>
+      <p id="p16-metric-bottleneck" class="text-2xl font-semibold">--</p>
+      <p class="text-xs panel-muted">How tight complementary limits (labs, data, oversight) are.</p>
     </article>
   </section>
 
-  <section class="bg-card border border-subtle dark:border-slate-700 rounded-lg p-5 space-y-3 transition-colors">
+  <section class="panel panel-neutral-soft p-5 space-y-3">
     <div class="flex items-center justify-between gap-3">
-      <h4 class="text-sm font-semibold text-heading dark:text-slate-100">Incidence and investment focus</h4>
-      <span id="p16-context-label" class="text-xs font-mono border border-indigo-200 dark:border-indigo-500/40 bg-indigo-50 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-100 px-2 py-1 rounded transition-colors">--</span>
+      <h4 class="text-sm font-semibold">Incidence and investment focus</h4>
+      <span id="p16-context-label" class="chip chip-info">--</span>
     </div>
-    <div id="p16-levers" class="grid md:grid-cols-2 gap-3 text-sm text-secondary dark:text-slate-200"></div>
+    <div id="p16-levers" class="grid md:grid-cols-2 gap-3 text-sm text-body"></div>
   </section>
 
-  <section class="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-500/40 rounded-lg p-5 space-y-3 transition-colors">
-    <h4 class="text-sm font-semibold text-amber-900 dark:text-amber-100">Action list</h4>
-    <p id="p16-summary" class="text-sm text-amber-800 dark:text-amber-100 leading-relaxed"></p>
-    <ul id="p16-actions" class="list-disc ml-5 text-sm text-amber-800 dark:text-amber-100 space-y-1"></ul>
+  <section class="panel panel-warning p-5 space-y-3">
+    <h4 class="text-sm font-semibold">Action list</h4>
+    <p id="p16-summary" class="text-sm text-body leading-relaxed"></p>
+    <ul id="p16-actions" class="list-disc ml-5 text-sm text-body space-y-1"></ul>
   </section>
 </div>

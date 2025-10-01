@@ -121,7 +121,7 @@ const interactiveScript = () => {
 
     const severityToClass = (score) => {
       if (score >= 0.6) return 'panel-warning';
-      if (score >= 0.35) return 'panel-accent';
+      if (score >= 0.35) return 'panel-info';
       return 'panel-success';
     };
 
@@ -134,7 +134,7 @@ const interactiveScript = () => {
         const label = score >= 0.6 ? 'High' : score >= 0.35 ? 'Medium' : 'Managed';
         return '<article class="panel ' + style + ' p-3 space-y-2">' +
           '<div class="flex items-center justify-between text-heading"><h4 class="text-sm font-semibold">' + info.title + '</h4>' +
-          '<span class="text-[11px] font-semibold uppercase tracking-wide">' + label + '</span></div>' +
+          '<span class="text-xs font-semibold uppercase tracking-wide">' + label + '</span></div>' +
           '<p class="text-xs panel-muted leading-snug">' + info.description + '</p>' +
         '</article>';
       })

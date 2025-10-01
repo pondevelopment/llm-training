@@ -1,5 +1,5 @@
-<div id="p23-lab" class="space-y-6">
-  <section class="panel panel-info panel-emphasis p-5 space-y-4">
+<section class="space-y-6" id="p23-lab">
+  <div class="panel panel-info p-4 space-y-4">
     <div class="grid md:grid-cols-3 gap-4">
       <div class="space-y-2">
         <label for="p23-sector" class="block text-sm font-semibold text-heading">Occupational cluster</label>
@@ -39,41 +39,41 @@
         <span class="text-body">Force multi-modal self-inspection</span>
       </label>
     </div>
-  </section>
+  </div>
 
-  <section class="grid md:grid-cols-3 gap-4">
-    <article class="panel panel-neutral p-4 space-y-2">
+  <div class="grid md:grid-cols-3 gap-4">
+    <article class="panel panel-neutral-soft p-4 space-y-2">
       <h4 class="text-xs font-semibold uppercase tracking-wide text-heading">Expected win or tie rate</h4>
       <p id="p23-winrate" class="text-2xl font-semibold text-heading">--</p>
       <p class="text-xs panel-muted">Share of GDPval gold tasks where the model matches or beats the human deliverable.</p>
     </article>
-    <article class="panel panel-neutral p-4 space-y-2">
+    <article class="panel panel-neutral-soft p-4 space-y-2">
       <h4 class="text-xs font-semibold uppercase tracking-wide text-heading">Projected time savings</h4>
       <p id="p23-time" class="text-lg font-semibold text-heading">--</p>
       <p class="text-xs panel-muted">Median reduction in expert hours when following the selected workflow.</p>
     </article>
-    <article class="panel panel-neutral p-4 space-y-2">
+    <article class="panel panel-neutral-soft p-4 space-y-2">
       <h4 class="text-xs font-semibold uppercase tracking-wide text-heading">Oversight load</h4>
       <p id="p23-oversight" class="text-sm font-semibold text-heading">--</p>
       <p class="text-xs panel-muted">How much review capacity you should reserve for instruction and formatting fixes.</p>
     </article>
-  </section>
+  </div>
 
-  <section class="panel panel-neutral p-5 space-y-4">
-    <header class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-      <h3 class="text-sm font-semibold text-heading">Model posture diagnostic</h3>
-      <p class="text-xs panel-muted">Top reasons graders reject outputs and the recommended mitigations.</p>
-    </header>
+  <div class="panel panel-neutral p-4 space-y-4">
+    <div class="flex items-center justify-between">
+      <h4 class="text-sm font-semibold text-heading">Model posture diagnostic</h4>
+      <span class="text-xs panel-muted">Top reasons graders reject outputs and the recommended mitigations</span>
+    </div>
     <div id="p23-risks" class="grid sm:grid-cols-2 gap-3"></div>
-  </section>
+  </div>
 
-  <section class="panel panel-warning p-5 space-y-3">
-    <h3 class="text-sm font-semibold text-heading">Summary</h3>
-    <div id="p23-summary" class="text-sm text-body space-y-2"></div>
-  </section>
+  <div class="panel panel-warning p-4 space-y-3">
+    <h4 class="text-sm font-semibold text-heading">Summary</h4>
+    <div id="p23-summary" class="text-sm panel-muted space-y-2"></div>
+  </div>
 
-  <section class="panel panel-accent p-5 space-y-2">
-    <h3 class="text-sm font-semibold text-heading">Recommended actions</h3>
-    <ul id="p23-actions" class="list-disc ml-5 text-sm text-body space-y-1"></ul>
-  </section>
-</div>
+  <div class="panel panel-info p-4 space-y-2">
+    <h4 class="text-sm font-semibold text-heading">Recommended actions</h4>
+    <ul id="p23-actions" class="list-disc ml-5 text-sm panel-muted space-y-1"></ul>
+  </div>
+</section>

@@ -1,94 +1,91 @@
-<div id="p22-lab" class="space-y-6">
-  <section class="bg-gradient-to-r from-rose-50 via-indigo-50 to-slate-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 border border-indigo-100 dark:border-slate-700 rounded-xl p-4 space-y-3">
+<section class="space-y-6" id="p22-lab">
+  <div class="panel panel-info p-4 space-y-3">
     <div class="flex flex-col md:flex-row md:items-end gap-4">
       <div class="flex-1">
-        <label for="p22-scenario" class="block text-sm font-semibold text-indigo-900 dark:text-indigo-200">Preset scenario</label>
-        <select id="p22-scenario" class="mt-1 w-full px-3 py-2 border border-indigo-200 dark:border-slate-600 rounded-md text-sm bg-card text-heading focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        <label for="p22-scenario" class="block text-sm font-medium text-heading">Preset scenario</label>
+        <select id="p22-scenario" class="mt-1 w-full rounded border border-divider bg-card px-3 py-2 text-sm text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
           <option value="paper">Paper baseline (o3)</option>
           <option value="blinded">Evaluator is silent</option>
           <option value="adversary">Hidden goal adversary</option>
           <option value="hardened">Hardened pipeline</option>
         </select>
+        <p class="text-xs panel-muted mt-1">
+          Presets mirror the paper's stress tests: the published run, a cue-blinded audit, a seeded hidden goal, and an augmented mitigation stack.
+        </p>
       </div>
-      <p class="text-xs text-indigo-800 dark:text-indigo-200 max-w-xl">
-        Presets mirror the paper's stress tests: the published run, a cue-blinded audit, a seeded hidden goal, and an augmented mitigation stack.
-      </p>
     </div>
-    <div class="flex flex-wrap gap-3 text-[11px] text-indigo-700 dark:text-indigo-200">
-      <span class="inline-flex items-center gap-1 px-2 py-0.5 border border-indigo-200 dark:border-slate-600 rounded-full bg-card">26 OOD suites</span>
-      <span class="inline-flex items-center gap-1 px-2 py-0.5 border border-indigo-200 dark:border-slate-600 rounded-full bg-card">Covert action proxy</span>
-      <span class="inline-flex items-center gap-1 px-2 py-0.5 border border-indigo-200 dark:border-slate-600 rounded-full bg-card">Situational awareness toggle</span>
-    </div>
-  </section>
+  </div>
 
-  <section class="grid md:grid-cols-2 gap-4">
-    <article class="bg-card border border-subtle rounded-lg p-4 space-y-3">
+  <div class="grid md:grid-cols-2 gap-4">
+    <div class="panel panel-neutral p-4 space-y-3">
       <div>
-        <label for="p22-ood" class="block text-xs font-semibold uppercase tracking-wide text-muted">OOD severity</label>
-        <input id="p22-ood" type="range" min="0" max="100" step="5" value="40" class="w-full accent-indigo-600 mt-2">
-        <p class="text-xs text-muted-soft">0 = in-distribution audits, 100 = fully novel tasks with sparse oversight.</p>
-        <p class="text-xs text-secondary">Current severity: <span id="p22-ood-display" class="font-semibold text-heading">40</span>.</p>
+        <label for="p22-ood" class="block text-sm font-medium text-heading">OOD severity <span id="p22-ood-display" class="font-mono text-xs panel-muted">40</span></label>
+        <input id="p22-ood" type="range" min="0" max="100" step="5" value="40" class="w-full accent-[color:var(--accent-strong)]">
+        <p class="text-xs panel-muted mt-1">0 = in-distribution audits, 100 = fully novel tasks with sparse oversight.</p>
       </div>
       <div>
-        <label for="p22-coverage" class="block text-xs font-semibold uppercase tracking-wide text-muted">Mitigation coverage</label>
-        <input id="p22-coverage" type="range" min="0" max="100" step="5" value="55" class="w-full accent-indigo-600 mt-2">
-        <p class="text-xs text-muted-soft">How broadly deliberative alignment examples match your deployment stack.</p>
-        <p class="text-xs text-secondary">Training overlap: <span id="p22-coverage-display" class="font-semibold text-heading">55%</span>.</p>
+        <label for="p22-coverage" class="block text-sm font-medium text-heading">Mitigation coverage <span id="p22-coverage-display" class="font-mono text-xs panel-muted">55%</span></label>
+        <input id="p22-coverage" type="range" min="0" max="100" step="5" value="55" class="w-full accent-[color:var(--accent-strong)]">
+        <p class="text-xs panel-muted mt-1">How broadly deliberative alignment examples match your deployment stack.</p>
       </div>
-    </article>
-    <article class="bg-card border border-subtle rounded-lg p-4 space-y-3">
-      <fieldset class="space-y-2">
-        <legend class="text-xs font-semibold uppercase tracking-wide text-muted">Stress toggles</legend>
-        <label class="flex items-start gap-3 text-sm text-secondary">
-          <input id="p22-awareness" type="checkbox" class="mt-0.5 accent-indigo-600" checked>
-          <span>Model notices the evaluation <span class="block text-xs text-muted-soft">Unchecked = prompts hide the audit context (paper shows covert actions rebound).</span></span>
-        </label>
-        <label class="flex items-start gap-3 text-sm text-secondary">
-          <input id="p22-hidden" type="checkbox" class="mt-0.5 accent-indigo-600">
-          <span>Hidden goal embedded <span class="block text-xs text-muted-soft">Activates the paper's misaligned-goal probe to test robustness.</span></span>
-        </label>
-        <label class="flex items-start gap-3 text-sm text-secondary">
-          <input id="p22-redteam" type="checkbox" class="mt-0.5 accent-indigo-600">
-          <span>Adversarial red team engaged <span class="block text-xs text-muted-soft">Simulates iterative attack discovery after mitigations ship.</span></span>
-        </label>
-      </fieldset>
-      <p class="text-xs text-muted-soft">Combine settings to see how covert action rates and governance posture shift.</p>
-    </article>
-  </section>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-3">
+      <h4 class="text-sm font-semibold text-heading">Stress toggles</h4>
+      <div class="flex items-center gap-2">
+        <input id="p22-awareness" type="checkbox" class="h-4 w-4 rounded border border-divider bg-card accent-[color:var(--accent-strong)]" checked>
+        <label for="p22-awareness" class="text-sm text-body">Model notices the evaluation <span class="text-xs panel-muted">(uncheck = prompts hide audit context)</span></label>
+      </div>
+      <div class="flex items-center gap-2">
+        <input id="p22-hidden" type="checkbox" class="h-4 w-4 rounded border border-divider bg-card accent-[color:var(--accent-strong)]">
+        <label for="p22-hidden" class="text-sm text-body">Hidden goal embedded <span class="text-xs panel-muted">(activates misaligned-goal probe)</span></label>
+      </div>
+      <div class="flex items-center gap-2">
+        <input id="p22-redteam" type="checkbox" class="h-4 w-4 rounded border border-divider bg-card accent-[color:var(--accent-strong)]">
+        <label for="p22-redteam" class="text-sm text-body">Adversarial red team engaged <span class="text-xs panel-muted">(simulates iterative attack discovery)</span></label>
+      </div>
+      <p class="text-xs panel-muted mt-2">Combine settings to see how covert action rates and governance posture shift.</p>
+    </div>
+  </div>
 
-  <section class="grid md:grid-cols-3 gap-4" id="p22-metrics">
-    <article class="bg-card border border-subtle rounded-lg p-4 space-y-2">
-      <h4 class="text-xs font-semibold uppercase tracking-wide text-muted">Projected covert actions</h4>
-      <p id="p22-covert" class="text-2xl font-semibold text-heading">--</p>
-      <p class="text-xs text-muted-soft">Share of evaluations where the model secretly violates directives.</p>
-    </article>
-    <article class="bg-card border border-subtle rounded-lg p-4 space-y-2">
-      <h4 class="text-xs font-semibold uppercase tracking-wide text-muted">Mitigation reliability</h4>
-      <p id="p22-reliability" class="text-lg font-semibold text-heading">--</p>
-      <p class="text-xs text-muted-soft">Confidence that alignment holds under current stress settings.</p>
-    </article>
-    <article class="bg-card border border-subtle rounded-lg p-4 space-y-2">
-      <h4 class="text-xs font-semibold uppercase tracking-wide text-muted">Governance posture</h4>
-      <p id="p22-posture" class="text-sm font-semibold text-heading">--</p>
-      <p class="text-xs text-muted-soft">How regulators / execs should treat the deployment stage given residual risk.</p>
-    </article>
-  </section>
+  <div class="panel panel-neutral p-4 space-y-4">
+    <div class="flex items-center justify-between">
+      <h4 class="text-sm font-semibold text-heading">Mitigation readiness</h4>
+      <span id="p22-readiness-percent" class="text-lg font-semibold text-info">--</span>
+    </div>
+    <dl class="grid sm:grid-cols-3 gap-3 text-xs text-body">
+      <div class="panel panel-neutral-soft p-3 space-y-1">
+        <dt class="font-semibold text-heading text-xs uppercase tracking-wide">Projected covert actions</dt>
+        <dd id="p22-covert" class="text-2xl font-semibold text-heading">--</dd>
+        <dd class="panel-muted">Share of evaluations where the model secretly violates directives.</dd>
+      </div>
+      <div class="panel panel-neutral-soft p-3 space-y-1">
+        <dt class="font-semibold text-heading text-xs uppercase tracking-wide">Mitigation reliability</dt>
+        <dd id="p22-reliability" class="text-lg font-semibold text-heading">--</dd>
+        <dd class="panel-muted">Confidence that alignment holds under current stress settings.</dd>
+      </div>
+      <div class="panel panel-neutral-soft p-3 space-y-1">
+        <dt class="font-semibold text-heading text-xs uppercase tracking-wide">Governance posture</dt>
+        <dd id="p22-posture" class="text-sm font-semibold text-heading">--</dd>
+        <dd class="panel-muted">How regulators / execs should treat the deployment stage given residual risk.</dd>
+      </div>
+    </dl>
+  </div>
 
-  <section class="bg-card border border-subtle rounded-xl p-5 space-y-4">
-    <header class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-      <h3 class="text-sm font-semibold text-heading">Environment outcomes</h3>
-      <p class="text-xs text-muted-soft">Grouped by the paper's three stress-test dimensions.</p>
-    </header>
+  <div class="panel panel-neutral p-4 space-y-4">
+    <div class="flex items-center justify-between">
+      <h4 class="text-sm font-semibold text-heading">Environment outcomes</h4>
+      <span class="text-xs panel-muted">Grouped by the paper's three stress-test dimensions</span>
+    </div>
     <div id="p22-groups" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3"></div>
-  </section>
+  </div>
 
-  <section class="bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-500 rounded-xl p-5 space-y-3">
-    <h3 class="text-sm font-semibold text-amber-900 dark:text-amber-200">Narrative</h3>
-    <div id="p22-narrative" class="text-sm text-amber-800 dark:text-amber-100 space-y-2"></div>
-  </section>
+  <div class="panel panel-warning p-4 space-y-3">
+    <h4 class="text-sm font-semibold text-heading">Narrative</h4>
+    <div id="p22-narrative" class="text-sm panel-muted space-y-2"></div>
+  </div>
 
-  <section class="bg-rose-50 dark:bg-rose-900/30 border border-rose-200 dark:border-rose-500 rounded-xl p-5 space-y-2">
-    <h3 class="text-sm font-semibold text-rose-900 dark:text-rose-100">Next moves</h3>
-    <ul id="p22-actions" class="list-disc ml-5 text-sm text-rose-800 dark:text-rose-100 space-y-1"></ul>
-  </section>
-</div>
+  <div class="panel panel-info p-4 space-y-2">
+    <h4 class="text-sm font-semibold text-heading">Next moves</h4>
+    <ul id="p22-actions" class="list-disc ml-5 text-sm panel-muted space-y-1"></ul>
+  </div>
+</section>

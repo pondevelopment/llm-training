@@ -27,10 +27,10 @@ const interactiveScript = () => {
           detail: 'Hands-on experiments, data quality, and specialist judgement dominate the timeline.'
         }
       ],
-      summary: 'Low coverage keeps humans in the driver's seat. Investments should target near-term copilots and better tooling rather than massive automation.',
+      summary: 'Low coverage keeps humans in the driver\'s seat. Investments should target near-term copilots and better tooling rather than massive automation.',
       actions: [
         'Catalog repetitive tasks suitable for copilots and measure time saved.',
-        'Upgrade data management so AI assists don't struggle with messy inputs.'
+        'Upgrade data management so AI assists don\'t struggle with messy inputs.'
       ]
     },
     cobotics: {
@@ -81,18 +81,6 @@ const interactiveScript = () => {
     scenarioButtons.forEach((btn) => {
       const isActive = btn.dataset.scenario === scenarioKey;
       btn.setAttribute('aria-pressed', isActive ? 'true' : 'false');
-      const subtitle = btn.querySelector('.p16-scenario-sub');
-      if (subtitle) {
-        subtitle.classList.toggle('text-indigo-100', isActive);
-        subtitle.classList.toggle('panel-muted', !isActive);
-      }
-      if (isActive) {
-        btn.classList.add('bg-indigo-600', 'text-white', 'border-indigo-500', 'dark:bg-indigo-500', 'dark:border-indigo-400');
-        btn.classList.remove('bg-card', 'text-indigo-700', 'dark:text-indigo-100', 'border-subtle', 'dark:border-indigo-500/40');
-      } else {
-        btn.classList.remove('bg-indigo-600', 'text-white', 'border-indigo-500', 'dark:bg-indigo-500', 'dark:border-indigo-400');
-        btn.classList.add('bg-card', 'text-indigo-700', 'dark:text-indigo-100', 'border-subtle', 'dark:border-indigo-500/40');
-      }
     });
   };
 

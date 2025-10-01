@@ -1,80 +1,77 @@
-<div id="p19-tracker" class="paper-interactive-card space-y-6">
-  <div class="bg-gradient-to-r from-slate-50 via-indigo-50 to-slate-50 border border-indigo-100 rounded-lg p-4 space-y-3">
-    <label for="p19-scenario" class="block text-sm font-semibold text-indigo-900">Select measurement stance</label>
-    <select id="p19-scenario" class="w-full px-3 py-2 border border-indigo-200 rounded-md text-sm bg-card text-heading focus:outline-none focus:ring-2 focus:ring-indigo-500">
+<div id="p19-tracker" class="space-y-6">
+  <section class="panel panel-info p-4 space-y-3">
+    <label for="p19-scenario" class="block text-sm font-semibold">Select measurement stance</label>
+    <select id="p19-scenario" class="w-full px-3 py-2 border border-subtle rounded-md text-sm bg-card focus:outline-none focus:ring-2 focus:ring-indigo-500">
       <option value="today">Typical official stats (2024)</option>
       <option value="sprint">Measurement sprint team</option>
       <option value="ahead">Frontier instrumentation</option>
     </select>
-    <p class="text-[11px] text-indigo-700">Preset mixes combine administrative data, private telemetry, and environmental tracing assumptions drawn from the paper.</p>
-  </div>
+    <p class="text-xs panel-muted">Preset mixes combine administrative data, private telemetry, and environmental tracing assumptions drawn from the paper.</p>
+  </section>
 
-  <div class="grid md:grid-cols-2 gap-4">
-    <div class="bg-card border border-subtle rounded-lg p-4 space-y-4">
+  <section class="grid md:grid-cols-2 gap-4">
+    <article class="panel panel-neutral-soft p-4 space-y-4">
       <div>
-        <label for="p19-household" class="block text-xs font-medium text-secondary">Share of household AI usage captured in stats (%)</label>
+        <label for="p19-household" class="block text-xs font-medium">Share of household AI usage captured in stats (%)</label>
         <input id="p19-household" type="range" min="0" max="100" value="15" step="5" class="w-full accent-indigo-500">
-        <p class="text-[11px] text-muted-soft mt-1">Higher numbers reflect free-tier usage estimates, shadow pricing, or stated-preference surveys.</p>
+        <p class="text-xs panel-muted mt-1">Higher numbers reflect free-tier usage estimates, shadow pricing, or stated-preference surveys.</p>
       </div>
       <div>
-        <label for="p19-inputs" class="block text-xs font-medium text-secondary">Coverage of AI input ledger (compute, data, labour) (%)</label>
+        <label for="p19-inputs" class="block text-xs font-medium">Coverage of AI input ledger (compute, data, labour) (%)</label>
         <input id="p19-inputs" type="range" min="0" max="100" value="25" step="5" class="w-full accent-indigo-500">
-        <p class="text-[11px] text-muted-soft mt-1">Driven by supplier reporting, MRIO tables, and occupational microdata.</p>
+        <p class="text-xs panel-muted mt-1">Driven by supplier reporting, MRIO tables, and occupational microdata.</p>
       </div>
       <div>
-        <label for="p19-quality" class="block text-xs font-medium text-secondary">Quality-adjusted output deflators in place (%)</label>
+        <label for="p19-quality" class="block text-xs font-medium">Quality-adjusted output deflators in place (%)</label>
         <input id="p19-quality" type="range" min="0" max="100" value="10" step="5" class="w-full accent-indigo-500">
-        <p class="text-[11px] text-muted-soft mt-1">Proxy for service outcome tracking in healthcare, public services, and personalised pricing audits.</p>
+        <p class="text-xs panel-muted mt-1">Proxy for service outcome tracking in healthcare, public services, and personalised pricing audits.</p>
       </div>
-    </div>
+    </article>
 
-    <div class="bg-card border border-subtle rounded-lg p-4 space-y-3">
+    <article class="panel panel-neutral-soft p-4 space-y-3">
       <fieldset class="space-y-2">
-        <legend class="text-xs font-semibold text-secondary uppercase tracking-wide">Instrumentation toggles</legend>
-        <label class="flex items-start gap-2 text-sm text-secondary">
+        <legend class="text-xs font-semibold uppercase tracking-wide">Instrumentation toggles</legend>
+        <label class="flex items-start gap-2 text-sm text-body">
           <input id="p19-energy" type="checkbox" class="mt-1 accent-indigo-500">
-          <span><strong>Energy &amp; water telemetry</strong><br><span class="text-[11px] text-muted-soft">Datacentre power, cooling water, and emissions linked to AI workloads.</span></span>
+          <span><strong>Energy &amp; water telemetry</strong><br><span class="text-xs panel-muted">Datacentre power, cooling water, and emissions linked to AI workloads.</span></span>
         </label>
-        <label class="flex items-start gap-2 text-sm text-secondary">
+        <label class="flex items-start gap-2 text-sm text-body">
           <input id="p19-time" type="checkbox" class="mt-1 accent-indigo-500">
-          <span><strong>Continuous time-use feeds</strong><br><span class="text-[11px] text-muted-soft">Task-level diaries or platform logs for work and household automation.</span></span>
+          <span><strong>Continuous time-use feeds</strong><br><span class="text-xs panel-muted">Task-level diaries or platform logs for work and household automation.</span></span>
         </label>
-        <label class="flex items-start gap-2 text-sm text-secondary">
+        <label class="flex items-start gap-2 text-sm text-body">
           <input id="p19-data" type="checkbox" class="mt-1 accent-indigo-500">
-          <span><strong>Platform data-sharing MOUs</strong><br><span class="text-[11px] text-muted-soft">Aggregated usage metrics from major AI providers.</span></span>
+          <span><strong>Platform data-sharing MOUs</strong><br><span class="text-xs panel-muted">Aggregated usage metrics from major AI providers.</span></span>
         </label>
-        <label class="flex items-start gap-2 text-sm text-secondary">
+        <label class="flex items-start gap-2 text-sm text-body">
           <input id="p19-fairness" type="checkbox" class="mt-1 accent-indigo-500">
-          <span><strong>Fairness telemetry feeds</strong><br><span class="text-[11px] text-muted-soft">Bias audits that pair output logs with protected-attribute proxies.</span></span>
+          <span><strong>Fairness telemetry feeds</strong><br><span class="text-xs panel-muted">Bias audits that pair output logs with protected-attribute proxies.</span></span>
         </label>
       </fieldset>
-      <p class="text-[11px] text-muted-soft">Toggle the infrastructure the chapter recommends for satellite accounts and faster policy feedback loops.</p>
-    </div>
-  </div>
+      <p class="text-xs panel-muted">Toggle the infrastructure the chapter recommends for satellite accounts and faster policy feedback loops.</p>
+    </article>
+  </section>
 
-  <div class="grid md:grid-cols-3 gap-4" id="p19-metrics">
-    <div class="bg-slate-900 text-slate-100 rounded-lg p-4 space-y-2">
-      <div class="text-[11px] uppercase tracking-wide text-slate-300 font-semibold">Visibility score</div>
+  <section class="grid md:grid-cols-3 gap-4" id="p19-metrics">
+    <article class="panel panel-neutral p-4 space-y-2">
+      <div class="text-xs uppercase tracking-wide font-semibold">Visibility score</div>
       <p id="p19-visibility" class="text-2xl font-semibold">38</p>
-      <p class="text-xs text-slate-300">Weighted blend of captured usage, input coverage, and quality deflators.</p>
-    </div>
-    <div class="bg-card border border-subtle rounded-lg p-4 space-y-2">
-      <div class="text-[11px] uppercase tracking-wide text-rose-600 font-semibold">Lag risk</div>
-      <p id="p19-lag" class="text-2xl font-semibold text-heading">High</p>
-      <p class="text-xs text-muted-soft">Chance AI-driven change outruns official metrics, echoing the paper&rsquo;s warning.</p>
-    </div>
-    <div class="bg-emerald-50 border border-emerald-200 rounded-lg p-4 space-y-2">
-      <div class="text-[11px] uppercase tracking-wide text-emerald-700 font-semibold">Recommended next move</div>
-      <p id="p19-action" class="text-base font-semibold text-emerald-900">Launch AI ledger pilot</p>
-      <p class="text-xs text-emerald-800">Updates as controls change to reflect the proposed measurement roadmap.</p>
-    </div>
-  </div>
+      <p class="text-xs panel-muted">Weighted blend of captured usage, input coverage, and quality deflators.</p>
+    </article>
+    <article class="panel panel-neutral-soft p-4 space-y-2">
+      <div class="text-xs uppercase tracking-wide text-rose-600 dark:text-rose-400 font-semibold">Lag risk</div>
+      <p id="p19-lag" class="text-2xl font-semibold">High</p>
+      <p class="text-xs panel-muted">Chance AI-driven change outruns official metrics, echoing the paper&rsquo;s warning.</p>
+    </article>
+    <article class="panel panel-success p-4 space-y-2">
+      <div class="text-xs uppercase tracking-wide font-semibold">Recommended next move</div>
+      <p id="p19-action" class="text-base font-semibold">Launch AI ledger pilot</p>
+      <p class="text-xs text-body">Updates as controls change to reflect the proposed measurement roadmap.</p>
+    </article>
+  </section>
 
-  <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-5 space-y-3">
-    <h4 class="text-sm font-semibold text-yellow-900">Diagnostic narrative</h4>
-    <div id="p19-explanation" class="space-y-2 text-sm text-yellow-800"></div>
-  </div>
+  <section class="panel panel-warning p-5 space-y-3">
+    <h4 class="text-sm font-semibold">Diagnostic narrative</h4>
+    <div id="p19-explanation" class="space-y-2 text-sm text-body"></div>
+  </section>
 </div>
-
-
-

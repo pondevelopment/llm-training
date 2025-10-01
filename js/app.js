@@ -265,16 +265,16 @@ class LLMQuestionApp {
         const meta = entry?.meta || {};
         const safeId = Number.isFinite(id) && id > 0 ? id : 1;
         const niceId = safeId.toString().padStart(2,'0');
-        const title = this.escapeHtml(meta.title || `Paper ${safeId}`);
-        const summary = this.escapeHtml(meta.summary || 'Interactive overview coming soon.');
+        const title = meta.title || `Paper ${safeId}`;
+        const summary = meta.summary || 'Interactive overview coming soon.';
         const authors = Array.isArray(meta.authors) ? meta.authors.join(', ') : '';
-        const authorHtml = authors ? `<p class="text-xs text-muted-soft">By ${this.escapeHtml(authors)}</p>` : '';
+        const authorHtml = authors ? `<p class="text-xs text-muted-soft">By ${authors}</p>` : '';
         const venueParts = [];
         if(meta.venue) venueParts.push(meta.venue);
         if(meta.year) venueParts.push(String(meta.year));
-        const venueHtml = venueParts.length ? `<p class="text-xs text-muted-soft">${this.escapeHtml(venueParts.join(' &bull; '))}</p>` : '';
+        const venueHtml = venueParts.length ? `<p class="text-xs text-muted-soft">${venueParts.join(' &bull; ')}</p>` : '';
         const tags = Array.isArray(meta.tags) ? meta.tags.slice(0,3) : [];
-        const tagChips = tags.map(tag => `<span class="tag-chip">${this.escapeHtml(tag)}</span>`).join('');
+        const tagChips = tags.map(tag => `<span class="tag-chip">${tag}</span>`).join('');
         const tagsHtml = tagChips ? `<div class="flex flex-wrap gap-1.5">${tagChips}</div>` : '';
         const shareHref = `p/${safeId}.html`;
         const routeHref = this.canonicalPaperHash(safeId);
@@ -469,16 +469,16 @@ class LLMQuestionApp {
         if(paper.meta?.year) venueBits.push(String(paper.meta.year));
         if(this.elements.paperVenue){
             if(venueBits.length){
-                this.elements.paperVenue.textContent = venueBits.join(' &bull; ');
+                this.elements.paperVenue.innerHTML = venueBits.join(' &bull; ');
                 this.elements.paperVenue.classList.remove('hidden');
             } else {
-                this.elements.paperVenue.textContent = '';
+                this.elements.paperVenue.innerHTML = '';
                 this.elements.paperVenue.classList.add('hidden');
             }
         }
         const tags = Array.isArray(paper.meta?.tags) ? paper.meta.tags.slice(0,4) : [];
         if(this.elements.paperTags){
-            this.elements.paperTags.innerHTML = tags.map(tag => `<span class="tag-chip">${this.escapeHtml(tag)}</span>`).join('');
+            this.elements.paperTags.innerHTML = tags.map(tag => `<span class="tag-chip">${tag}</span>`).join('');
             this.elements.paperTags.classList.toggle('hidden', tags.length === 0);
         }
         if(this.elements.paperSummary){
@@ -494,7 +494,7 @@ class LLMQuestionApp {
                 const items = related.map(q => {
                     const idx = this.availableQuestions.indexOf(q);
                     const nice = String(q).padStart(2,'0');
-                    const title = this.escapeHtml(this.getQuestionTitle(q));
+                    const title = this.getQuestionTitle(q);
                     const disabled = idx === -1 ? 'disabled' : '';
                     const stateClasses = idx === -1 ? 'related-question-disabled' : '';
                     return `<li>

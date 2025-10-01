@@ -135,8 +135,8 @@ const interactiveScript = () => {
       .map((channel) => `
         <article class="panel panel-neutral-soft p-3 space-y-2">
           <div class="text-xs font-semibold text-heading">${channel.title}</div>
-          <p class="text-[11px] text-secondary">${channel.status}</p>
-          <p class="text-[11px] text-muted">${channel.note}</p>
+          <p class="text-xs text-body">${channel.status}</p>
+          <p class="text-xs panel-muted">${channel.note}</p>
         </article>
       `)
       .join('');

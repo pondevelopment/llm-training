@@ -144,9 +144,9 @@ const interactiveScript = () => {
     ];
 
     const severityClass = (score) => {
-      if (score >= 0.6) return 'border-rose-200 bg-rose-50 text-rose-800';
-      if (score >= 0.35) return 'border-amber-200 bg-amber-50 text-amber-800';
-      return 'border-emerald-200 bg-emerald-50 text-emerald-800';
+      if (score >= 0.6) return 'panel-warning';
+      if (score >= 0.35) return 'panel-info';
+      return 'panel-success';
     };
 
     const severityLabel = (score) => {
@@ -160,12 +160,12 @@ const interactiveScript = () => {
         const catalog = riskCatalog[key];
         if (!catalog) return '';
         return (
-          `<article class="border rounded-lg p-3 space-y-1 ${severityClass(score)}">` +
-          `<div class="flex items-center justify-between">` +
+          `<article class="panel ${severityClass(score)} p-3 space-y-1">` +
+          `<div class="flex items-center justify-between text-heading">` +
           `<h4 class="text-sm font-semibold">${catalog.title}</h4>` +
-          `<span class="text-[11px] font-semibold uppercase tracking-wide">${severityLabel(score)}</span>` +
+          `<span class="text-xs font-semibold uppercase tracking-wide">${severityLabel(score)}</span>` +
           '</div>' +
-          `<p class="text-xs leading-snug">${catalog.detail}</p>` +
+          `<p class="text-xs panel-muted leading-snug">${catalog.detail}</p>` +
           '</article>'
         );
       })

@@ -1,27 +1,27 @@
-<div id="p24-lab" class="space-y-6">
-  <section class="bg-gradient-to-r from-slate-50 via-sky-50 to-slate-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 border border-sky-100 dark:border-slate-700 rounded-xl p-4 space-y-4">
+<section class="space-y-6" id="p24-lab">
+  <div class="panel panel-info p-4 space-y-4">
     <div class="grid md:grid-cols-3 gap-4">
       <div>
-        <label for="p24-scenario" class="block text-sm font-semibold text-sky-900 dark:text-sky-100">Work scenario</label>
-        <select id="p24-scenario" class="mt-1 w-full px-3 py-2 border border-sky-200 dark:border-slate-600 rounded-md text-sm bg-card text-heading focus:outline-none focus:ring-2 focus:ring-sky-500">
+        <label for="p24-scenario" class="block text-sm font-semibold text-heading">Work scenario</label>
+        <select id="p24-scenario" class="mt-1 w-full px-3 py-2 border border-divider rounded-md text-sm bg-card text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
           <option value="routine">Routine triage (structured rubrics, low novelty)</option>
           <option value="analytical" selected>Analytical reasoning (multi-step problem solving)</option>
           <option value="synthesis">Cross-domain synthesis (ambiguous brief, high stakes)</option>
         </select>
-        <p class="text-[11px] text-sky-800 dark:text-sky-200 mt-2">Scenario controls task difficulty and collaborative friction captured by the paper's &beta; and &gamma; terms.</p>
+        <p class="text-xs panel-muted mt-2">Scenario controls task difficulty and collaborative friction captured by the paper's &beta; and &gamma; terms.</p>
       </div>
       <div>
-        <label for="p24-model" class="block text-sm font-semibold text-sky-900 dark:text-sky-100">AI partner</label>
-        <select id="p24-model" class="mt-1 w-full px-3 py-2 border border-sky-200 dark:border-slate-600 rounded-md text-sm bg-card text-heading focus:outline-none focus:ring-2 focus:ring-sky-500">
+        <label for="p24-model" class="block text-sm font-semibold text-heading">AI partner</label>
+        <select id="p24-model" class="mt-1 w-full px-3 py-2 border border-divider rounded-md text-sm bg-card text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
           <option value="gpt4o" selected>GPT-4o (frontier, high synergy)</option>
           <option value="llama">Llama-3.1-8B (mid-capability)</option>
         </select>
-        <p class="text-[11px] text-sky-800 dark:text-sky-200 mt-2">Models differ in baseline collaborative boost observed in the study.</p>
+        <p class="text-xs panel-muted mt-2">Models differ in baseline collaborative boost observed in the study.</p>
       </div>
       <div>
-        <label for="p24-ability" class="block text-sm font-semibold text-sky-900 dark:text-sky-100">Solo accuracy percentile</label>
-        <input id="p24-ability" type="range" min="30" max="90" step="1" value="60" class="w-full accent-sky-600 mt-2">
-        <div class="flex justify-between text-[11px] text-sky-800 dark:text-sky-200 mt-1">
+        <label for="p24-ability" class="block text-sm font-semibold text-heading">Solo accuracy percentile</label>
+        <input id="p24-ability" type="range" min="30" max="90" step="1" value="60" class="w-full mt-2">
+        <div class="flex justify-between text-xs panel-muted mt-1">
           <span>Developing</span>
           <span><span id="p24-ability-value">60</span>th percentile</span>
           <span>Expert</span>
@@ -30,74 +30,74 @@
     </div>
     <div class="grid md:grid-cols-3 gap-4">
       <div>
-        <label for="p24-tom-trait" class="block text-sm font-semibold text-sky-900 dark:text-sky-100">Theory of Mind trait</label>
-        <input id="p24-tom-trait" type="range" min="0" max="100" step="5" value="55" class="w-full accent-sky-600 mt-2">
-        <p class="text-[11px] text-sky-800 dark:text-sky-200 mt-1">Higher values mean users routinely infer partner beliefs, per the paper's LM-assisted ratings (<span id="p24-tom-trait-value">55</span>/100).</p>
+        <label for="p24-tom-trait" class="block text-sm font-semibold text-heading">Theory of Mind trait</label>
+        <input id="p24-tom-trait" type="range" min="0" max="100" step="5" value="55" class="w-full mt-2">
+        <p class="text-xs panel-muted mt-1">Higher values mean users routinely infer partner beliefs, per the paper's LM-assisted ratings (<span id="p24-tom-trait-value">55</span>/100).</p>
       </div>
       <div>
-        <label for="p24-tom-state" class="block text-sm font-semibold text-sky-900 dark:text-sky-100">In-dialogue ToM focus</label>
-        <input id="p24-tom-state" type="range" min="0" max="100" step="5" value="60" class="w-full accent-sky-600 mt-2">
-        <p class="text-[11px] text-sky-800 dark:text-sky-200 mt-1">Captures moment-to-moment perspective taking within this session (<span id="p24-tom-state-value">60</span>/100).</p>
+        <label for="p24-tom-state" class="block text-sm font-semibold text-heading">In-dialogue ToM focus</label>
+        <input id="p24-tom-state" type="range" min="0" max="100" step="5" value="60" class="w-full mt-2">
+        <p class="text-xs panel-muted mt-1">Captures moment-to-moment perspective taking within this session (<span id="p24-tom-state-value">60</span>/100).</p>
       </div>
       <div>
         <fieldset class="space-y-2">
-          <legend class="text-sm font-semibold text-sky-900 dark:text-sky-100">Workflow scaffolds</legend>
-          <label class="flex items-center gap-2 text-[12px] text-sky-800 dark:text-sky-200">
-            <input id="p24-scaffold" type="checkbox" class="accent-sky-600" checked>
+          <legend class="text-sm font-semibold text-heading">Workflow scaffolds</legend>
+          <label class="flex items-center gap-2 text-xs text-body">
+            <input id="p24-scaffold" type="checkbox" class="h-4 w-4 rounded border border-divider bg-card accent-[color:var(--accent-strong)]" checked>
             Structured prompt checklist
           </label>
-          <label class="flex items-center gap-2 text-[12px] text-sky-800 dark:text-sky-200">
-            <input id="p24-brief" type="checkbox" class="accent-sky-600" checked>
+          <label class="flex items-center gap-2 text-xs text-body">
+            <input id="p24-brief" type="checkbox" class="h-4 w-4 rounded border border-divider bg-card accent-[color:var(--accent-strong)]" checked>
             Delegation includes context and acceptance tests
           </label>
-          <label class="flex items-center gap-2 text-[12px] text-sky-800 dark:text-sky-200">
-            <input id="p24-oversight" type="checkbox" class="accent-sky-600">
+          <label class="flex items-center gap-2 text-xs text-body">
+            <input id="p24-oversight" type="checkbox" class="h-4 w-4 rounded border border-divider bg-card accent-[color:var(--accent-strong)]">
             Reviewer spot-check already in place
           </label>
         </fieldset>
       </div>
     </div>
-  </section>
+  </div>
 
-  <section class="grid md:grid-cols-3 gap-4">
-    <article class="bg-card border border-subtle rounded-lg p-4 space-y-2">
-      <h4 class="text-xs font-semibold uppercase tracking-wide text-muted">Solo accuracy</h4>
+  <div class="grid md:grid-cols-3 gap-4">
+    <article class="panel panel-neutral-soft p-4 space-y-2">
+      <h4 class="text-xs font-semibold uppercase tracking-wide text-heading">Solo accuracy</h4>
       <p id="p24-solo" class="text-2xl font-semibold text-heading">--</p>
-      <p class="text-xs text-muted-soft">Expected correctness when the human works alone on this task family.</p>
+      <p class="text-xs panel-muted">Expected correctness when the human works alone on this task family.</p>
     </article>
-    <article class="bg-card border border-subtle rounded-lg p-4 space-y-2">
-      <h4 class="text-xs font-semibold uppercase tracking-wide text-muted">Human + AI accuracy</h4>
+    <article class="panel panel-neutral-soft p-4 space-y-2">
+      <h4 class="text-xs font-semibold uppercase tracking-wide text-heading">Human + AI accuracy</h4>
       <p id="p24-team" class="text-2xl font-semibold text-heading">--</p>
-      <p class="text-xs text-muted-soft">Model-assisted performance after accounting for ability, difficulty, and ToM.</p>
+      <p class="text-xs panel-muted">Model-assisted performance after accounting for ability, difficulty, and ToM.</p>
     </article>
-    <article class="bg-card border border-subtle rounded-lg p-4 space-y-2">
-      <h4 class="text-xs font-semibold uppercase tracking-wide text-muted">Synergy uplift</h4>
+    <article class="panel panel-neutral-soft p-4 space-y-2">
+      <h4 class="text-xs font-semibold uppercase tracking-wide text-heading">Synergy uplift</h4>
       <p id="p24-boost" class="text-2xl font-semibold text-heading">--</p>
-      <p class="text-xs text-muted-soft">Additional percentage points attributable to collaboration, capped by task headroom.</p>
+      <p class="text-xs panel-muted">Additional percentage points attributable to collaboration, capped by task headroom.</p>
     </article>
-  </section>
+  </div>
 
-  <section class="bg-card border border-subtle rounded-xl p-5 space-y-4">
-    <header class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+  <div class="panel panel-neutral p-4 space-y-4">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
       <div>
-        <h3 class="text-sm font-semibold text-heading">Collaboration diagnostic</h3>
-        <p class="text-xs text-muted-soft">Maps to the paper's &kappa; estimates and highlights likely failure modes.</p>
+        <h4 class="text-sm font-semibold text-heading">Collaboration diagnostic</h4>
+        <p class="text-xs panel-muted">Maps to the paper's &kappa; estimates and highlights likely failure modes.</p>
       </div>
       <div class="text-right">
         <div id="p24-collab-score" class="text-lg font-semibold text-heading">--</div>
-        <div id="p24-collab-label" class="text-xs text-muted-soft">--</div>
+        <div id="p24-collab-label" class="text-xs panel-muted">--</div>
       </div>
-    </header>
+    </div>
     <div id="p24-risks" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3"></div>
-  </section>
+  </div>
 
-  <section class="bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-500 rounded-xl p-5 space-y-3">
-    <h3 class="text-sm font-semibold text-amber-900 dark:text-amber-100">What to expect</h3>
-    <div id="p24-summary" class="text-sm text-amber-800 dark:text-amber-100 space-y-2"></div>
-  </section>
+  <div class="panel panel-warning p-4 space-y-3">
+    <h4 class="text-sm font-semibold text-heading">What to expect</h4>
+    <div id="p24-summary" class="text-sm panel-muted space-y-2"></div>
+  </div>
 
-  <section class="bg-rose-50 dark:bg-rose-900/30 border border-rose-200 dark:border-rose-500 rounded-xl p-5 space-y-2">
-    <h3 class="text-sm font-semibold text-rose-900 dark:text-rose-100">Recommended next steps</h3>
-    <ul id="p24-actions" class="list-disc ml-5 text-sm text-rose-800 dark:text-rose-100 space-y-1"></ul>
-  </section>
-</div>
+  <div class="panel panel-info p-4 space-y-2">
+    <h4 class="text-sm font-semibold text-heading">Recommended next steps</h4>
+    <ul id="p24-actions" class="list-disc ml-5 text-sm panel-muted space-y-1"></ul>
+  </div>
+</section>

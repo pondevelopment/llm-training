@@ -1,36 +1,42 @@
-<div class="paper-overview-card space-y-6">
-  <section class="bg-slate-900 text-slate-100 border border-slate-800 rounded-xl p-5 space-y-3">
-    <header class="flex flex-col gap-2">
-      <h2 class="text-lg font-semibold tracking-wide uppercase text-slate-200">Executive quick take</h2>
-      <p class="text-sm leading-relaxed text-slate-200">
+<section class="space-y-5">
+  <section class="panel panel-neutral p-5 space-y-3">
+    <div class="flex flex-col gap-2">
+      <div class="flex items-center gap-2">
+        <span aria-hidden="true" class="text-lg">📋</span>
+        <h2 class="text-lg font-semibold tracking-wide uppercase text-heading">Executive quick take</h2>
+      </div>
+      <p class="text-sm leading-relaxed text-body">
         Human-AI performance is best measured as a partnership. A Bayesian item-response model shows GPT-4o lifts
         average human accuracy by 29 percentage points (Llama-3.1-8B adds 23) once you control for task difficulty
         and user skill. Collaboration ability is distinct from solo problem solving, and Theory of Mind signals explain
         who actually captures the boost.
       </p>
-    </header>
-    <ul class="list-disc ml-5 text-sm text-slate-200 space-y-1">
+    </div>
+    <ul class="list-disc ml-5 text-sm text-body space-y-1">
       <li>Synergy peaks on the hardest questions, while easy items reach the ceiling fast.</li>
       <li>Users with Theory of Mind rich prompts earn higher-quality AI replies, regardless of solo ability.</li>
       <li>Moment-to-moment perspective taking matters: ToM spikes during a dialogue nudge models toward better answers.</li>
     </ul>
   </section>
 
-  <section class="bg-emerald-50 border border-emerald-200 rounded-xl p-5 space-y-3">
-    <header>
-      <h3 class="text-sm font-semibold text-emerald-900">Business relevance</h3>
-      <p class="text-sm text-emerald-800 leading-relaxed">
+  <section class="panel panel-success p-5 space-y-3">
+    <div>
+      <div class="flex items-center gap-2 mb-2">
+        <span aria-hidden="true" class="text-lg">💼</span>
+        <h3 class="text-sm font-semibold text-heading">Business relevance</h3>
+      </div>
+      <p class="text-sm text-body leading-relaxed">
         Treat synergy scores as a governance metric. They show which workflows deserve custom training, coaching, or
         interface tweaks long before aggregate productivity data arrives.
       </p>
-    </header>
-    <ul class="list-disc ml-5 text-sm text-emerald-800 space-y-1">
-      <li><strong>Product and ops leads:</strong> Track synergy uplift per task family and redeploy scarce fine-tuning cycles where human-AI pairs underperform.</li>
-      <li><strong>Learning and enablement:</strong> Coach analysts on mental-model prompts that surface Theory of Mind cues, especially for high-difficulty queues.</li>
-      <li><strong>Risk and compliance:</strong> Flag low-synergy teams for heavier review load until prompt hygiene or scaffolding raises collaborative ability.</li>
-      <li><strong>Research and model teams:</strong> Benchmark assistant releases on synergy deltas, not just static accuracy, to justify launch readiness.</li>
+    </div>
+    <ul class="list-disc ml-5 text-sm text-body space-y-1">
+      <li><strong class="text-heading">Product and ops leads:</strong> Track synergy uplift per task family and redeploy scarce fine-tuning cycles where human-AI pairs underperform.</li>
+      <li><strong class="text-heading">Learning and enablement:</strong> Coach analysts on mental-model prompts that surface Theory of Mind cues, especially for high-difficulty queues.</li>
+      <li><strong class="text-heading">Risk and compliance:</strong> Flag low-synergy teams for heavier review load until prompt hygiene or scaffolding raises collaborative ability.</li>
+      <li><strong class="text-heading">Research and model teams:</strong> Benchmark assistant releases on synergy deltas, not just static accuracy, to justify launch readiness.</li>
     </ul>
-    <div class="bg-card border border-subtle rounded-lg p-4 space-y-2 text-xs text-secondary">
+    <div class="panel panel-neutral-soft p-4 space-y-2 text-xs text-body">
       <p class="font-semibold text-heading">Derivative example: Synergy control chart</p>
       <p>
         A customer-support org logs every agent-AI interaction, fits the paper's IRT model weekly, and reviews the
@@ -41,17 +47,17 @@
   </section>
 
   <section class="grid md:grid-cols-2 gap-4">
-    <article class="bg-card border border-subtle rounded-lg p-4 space-y-2">
+    <article class="panel panel-info p-4 space-y-2">
       <h4 class="text-sm font-semibold text-heading">How the synergy model works</h4>
-      <ul class="list-disc ml-4 text-sm text-secondary space-y-1">
+      <ul class="list-disc ml-4 text-sm text-body space-y-1">
         <li>Extends item response theory with two latent abilities: solo skill (&theta;) and collaborative skill (&kappa;).</li>
         <li>Decomposes each question into solo difficulty (&beta;) plus extra collaborative friction (&gamma;).</li>
         <li>Computes per-user boosts (&kappa;<sub>total</sub> - &theta;) to quantify how much the AI improves outcomes.</li>
       </ul>
     </article>
-    <article class="bg-card border border-subtle rounded-lg p-4 space-y-2">
+    <article class="panel panel-info p-4 space-y-2">
       <h4 class="text-sm font-semibold text-heading">What the numbers reveal</h4>
-      <ul class="list-disc ml-4 text-sm text-secondary space-y-1">
+      <ul class="list-disc ml-4 text-sm text-body space-y-1">
         <li>Largest lifts appear on top-quartile difficulty questions; easy tasks saturate quickly.</li>
         <li>Lower solo performers see the biggest absolute gains, but ToM-rich experts still benefit meaningfully.</li>
         <li>Human plus GPT-4o outperforms GPT-4o alone, shrinking the solo gap between GPT-4o and Llama-3.1-8B.</li>
@@ -60,32 +66,35 @@
   </section>
 
   <section class="grid md:grid-cols-3 gap-4">
-    <article class="bg-card border border-subtle rounded-lg p-4 space-y-2">
-      <h5 class="text-sm font-semibold text-heading">Key insight</h5>
-      <p class="text-sm text-secondary">
+    <article class="panel panel-neutral p-3 space-y-1">
+      <h5 class="text-xs font-semibold uppercase tracking-wide text-heading">Key insight</h5>
+      <p class="text-xs text-body">
         Collaboration ability is a separate asset. Hiring or coaching for perspective taking unlocks materially better
         AI assistance even when baseline technical skill is unchanged.
       </p>
     </article>
-    <article class="bg-card border border-subtle rounded-lg p-4 space-y-2">
-      <h5 class="text-sm font-semibold text-heading">Method</h5>
-      <p class="text-sm text-secondary">
+    <article class="panel panel-neutral p-3 space-y-1">
+      <h5 class="text-xs font-semibold uppercase tracking-wide text-heading">Method</h5>
+      <p class="text-xs text-body">
         Bayesian multilevel IRT with leave-one-out validation, applied to 667 participants answering 396 ChatBench
         math, physics, and moral reasoning questions with and without AI support.
       </p>
     </article>
-    <article class="bg-card border border-subtle rounded-lg p-4 space-y-2">
-      <h5 class="text-sm font-semibold text-heading">Implication</h5>
-      <p class="text-sm text-secondary">
+    <article class="panel panel-neutral p-3 space-y-1">
+      <h5 class="text-xs font-semibold uppercase tracking-wide text-heading">Implication</h5>
+      <p class="text-xs text-body">
         Evaluation pipelines should capture conversation-level features such as ToM cues and delegation patterns
         alongside accuracy so model releases reward socially aware workflows.
       </p>
     </article>
   </section>
 
-  <section class="bg-card border border-subtle rounded-xl p-5 space-y-2">
-    <h4 class="text-sm font-semibold text-heading">Evidence</h4>
-    <ul class="list-disc ml-5 text-sm text-secondary space-y-1">
+  <section class="panel panel-neutral-soft p-5 space-y-2">
+    <div class="flex items-center gap-2">
+      <span aria-hidden="true" class="text-lg">📊</span>
+      <h4 class="text-sm font-semibold text-heading">Evidence</h4>
+    </div>
+    <ul class="list-disc ml-5 text-sm text-body space-y-1">
       <li>Human plus GPT-4o pairs average 29 percentage-point gains versus human solo; Llama-3.1-8B adds 23 points.</li>
       <li>Model comparison yields &Delta;ELPD = 50.9 (SE 10.2) in favor of separate solo versus collaborative abilities; R-hat scores sit at 1.00.</li>
       <li>Theory of Mind trait scores predict collaborative ability (+0.65, 95% CI [0.01, 1.29]) but not solo skill.</li>
@@ -93,13 +102,16 @@
     </ul>
   </section>
 
-  <section class="bg-amber-50 border border-amber-200 rounded-xl p-5 space-y-2">
-    <h4 class="text-sm font-semibold text-amber-900">Forward-looking roadmap</h4>
-    <ul class="list-disc ml-5 text-sm text-amber-800 space-y-1">
+  <section class="panel panel-warning p-5 space-y-2">
+    <div class="flex items-center gap-2">
+      <span aria-hidden="true" class="text-lg">🗺️</span>
+      <h4 class="text-sm font-semibold text-heading">Forward-looking roadmap</h4>
+    </div>
+    <ul class="list-disc ml-5 text-sm text-body space-y-1">
       <li>Instrument production chat logs to fit synergy models regularly and publish distributional shifts.</li>
       <li>Bundle perspective-taking prompts or UI nudges when deploying assistants into heterogeneous teams.</li>
       <li>Test whether ToM-aware model routing (for example reranker callbacks or plan-and-refine loops) raises collaborative ability further.</li>
       <li>Extend benchmarks beyond multiple-choice to open-ended or multi-turn tasks so synergy scores cover real workflows.</li>
     </ul>
   </section>
-</div>
+</section>

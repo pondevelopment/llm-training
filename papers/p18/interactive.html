@@ -1,65 +1,65 @@
 <div id="p18-budget" class="space-y-6">
-  <section class="panel panel-info panel-emphasis p-5 space-y-4">
-    <h4 class="text-sm font-semibold text-heading">Risk &amp; mitigation levers</h4>
+  <section class="panel panel-info p-5 space-y-4">
+    <h4 class="text-sm font-semibold">Risk &amp; mitigation levers</h4>
     <div class="grid md:grid-cols-2 gap-4">
       <div class="space-y-3">
         <div>
-          <label for="p18-risk" class="block text-xs font-semibold text-heading">Annual existential risk (%) <span id="p18-risk-value" class="text-[11px] panel-muted ml-1">1.0%</span></label>
+          <label for="p18-risk" class="block text-xs font-semibold">Annual existential risk (%) <span id="p18-risk-value" class="text-xs panel-muted ml-1">1.0%</span></label>
           <input id="p18-risk" type="range" min="0.1" max="5" value="1" step="0.1" class="w-full accent-indigo-500">
-          <p class="text-[11px] panel-muted mt-1">Baseline probability of catastrophe in the risk window.</p>
+          <p class="text-xs panel-muted mt-1">Baseline probability of catastrophe in the risk window.</p>
         </div>
         <div>
-          <label for="p18-phi" class="block text-xs font-semibold text-heading">Mitigable share of risk (%) <span id="p18-phi-value" class="text-[11px] panel-muted ml-1">50%</span></label>
+          <label for="p18-phi" class="block text-xs font-semibold">Mitigable share of risk (%) <span id="p18-phi-value" class="text-xs panel-muted ml-1">50%</span></label>
           <input id="p18-phi" type="range" min="0" max="100" value="50" step="1" class="w-full accent-indigo-500">
-          <p class="text-[11px] panel-muted mt-1">Portion of the hazard that spending can actually eliminate (\(\phi\)).</p>
+          <p class="text-xs panel-muted mt-1">Portion of the hazard that spending can actually eliminate (\(\phi\)).</p>
         </div>
       </div>
       <div class="space-y-3">
         <div>
-          <label for="p18-alpha" class="block text-xs font-semibold text-heading">Risk reduction sensitivity (\(\alpha\)) <span id="p18-alpha-value" class="text-[11px] panel-muted ml-1">1.20</span></label>
+          <label for="p18-alpha" class="block text-xs font-semibold">Risk reduction sensitivity (\(\alpha\)) <span id="p18-alpha-value" class="text-xs panel-muted ml-1">1.20</span></label>
           <input id="p18-alpha" type="range" min="0.2" max="2.5" value="1.2" step="0.05" class="w-full accent-indigo-500">
-          <p class="text-[11px] panel-muted mt-1">Higher values mean each GDP point cuts the mitigable hazard more aggressively.</p>
+          <p class="text-xs panel-muted mt-1">Higher values mean each GDP point cuts the mitigable hazard more aggressively.</p>
         </div>
         <div>
-          <label for="p18-years" class="block text-xs font-semibold text-heading">Investment window (years) <span id="p18-years-value" class="text-[11px] panel-muted ml-1">10</span></label>
+          <label for="p18-years" class="block text-xs font-semibold">Investment window (years) <span id="p18-years-value" class="text-xs panel-muted ml-1">10</span></label>
           <input id="p18-years" type="range" min="1" max="25" value="10" step="1" class="w-full accent-indigo-500">
-          <p class="text-[11px] panel-muted mt-1">How long the hazard remains live; the budget is applied each year in this window.</p>
+          <p class="text-xs panel-muted mt-1">How long the hazard remains live; the budget is applied each year in this window.</p>
         </div>
       </div>
     </div>
     <div>
-      <label for="p18-vsl" class="block text-xs font-semibold text-heading">Value of statistical life (million USD) <span id="p18-vsl-value" class="text-[11px] panel-muted ml-1">10.0</span></label>
+      <label for="p18-vsl" class="block text-xs font-semibold">Value of statistical life (million USD) <span id="p18-vsl-value" class="text-xs panel-muted ml-1">10.0</span></label>
       <input id="p18-vsl" type="range" min="5" max="20" value="10" step="0.5" class="w-full accent-indigo-500">
-      <p class="text-[11px] panel-muted mt-1">Regulatory agencies currently use $10M; increase if you weight lives or future welfare more heavily.</p>
+      <p class="text-xs panel-muted mt-1">Regulatory agencies currently use $10M; increase if you weight lives or future welfare more heavily.</p>
     </div>
     <div class="flex flex-wrap items-center gap-2 text-xs panel-muted">
-      <span class="font-semibold text-heading">Quick configurations:</span>
-      <button type="button" class="btn-soft px-3 py-1" data-scenario="baseline">Baseline (15.8%)</button>
-      <button type="button" class="btn-soft px-3 py-1" data-scenario="cautious">Lower hazard (8% range)</button>
-      <button type="button" class="btn-soft px-3 py-1" data-scenario="bleak">High risk &amp; effective (20%+)</button>
+      <span class="font-semibold">Quick configurations:</span>
+      <button type="button" class="chip chip-info" data-scenario="baseline">Baseline (15.8%)</button>
+      <button type="button" class="chip chip-info" data-scenario="cautious">Lower hazard (8% range)</button>
+      <button type="button" class="chip chip-info" data-scenario="bleak">High risk &amp; effective (20%+)</button>
     </div>
   </section>
 
   <section id="p18-metrics" class="grid md:grid-cols-3 gap-4">
-    <article class="panel panel-neutral p-4 space-y-2">
-      <p class="text-[11px] uppercase tracking-wide font-semibold text-heading">Optimal spend</p>
-      <p id="p18-metric-spend" class="text-2xl font-semibold text-heading">15.8% GDP</p>
+    <article class="panel panel-neutral-soft p-4 space-y-2">
+      <p class="text-xs uppercase tracking-wide font-semibold">Optimal spend</p>
+      <p id="p18-metric-spend" class="text-2xl font-semibold">15.8% GDP</p>
       <p class="text-xs panel-muted">Share of GDP per year that maximises net benefit under the assumptions above.</p>
     </article>
-    <article class="panel panel-neutral p-4 space-y-2">
-      <p class="text-[11px] uppercase tracking-wide font-semibold text-heading">Residual risk</p>
-      <p id="p18-metric-risk" class="text-2xl font-semibold text-heading">0.6% / yr</p>
+    <article class="panel panel-neutral-soft p-4 space-y-2">
+      <p class="text-xs uppercase tracking-wide font-semibold">Residual risk</p>
+      <p id="p18-metric-risk" class="text-2xl font-semibold">0.6% / yr</p>
       <p class="text-xs panel-muted">Annual catastrophe probability after optimal mitigation, including the non-mitigable floor.</p>
     </article>
-    <article class="panel panel-neutral p-4 space-y-2">
-      <p class="text-[11px] uppercase tracking-wide font-semibold text-heading">Per-capita spend</p>
-      <p id="p18-metric-capita" class="text-2xl font-semibold text-heading">$14,000</p>
+    <article class="panel panel-neutral-soft p-4 space-y-2">
+      <p class="text-xs uppercase tracking-wide font-semibold">Per-capita spend</p>
+      <p id="p18-metric-capita" class="text-2xl font-semibold">$14,000</p>
       <p class="text-xs panel-muted">Dollar equivalent assuming $90k GDP per capita.</p>
     </article>
   </section>
 
   <section class="panel panel-warning p-5 space-y-3">
-    <h4 class="text-sm font-semibold text-heading">Narrative</h4>
+    <h4 class="text-sm font-semibold">Narrative</h4>
     <div id="p18-explanation" class="space-y-2 text-sm text-body"></div>
   </section>
 </div>

@@ -156,9 +156,9 @@
     contextLabelEl.textContent = scenario.label;
     leversEl.innerHTML = scenario.levers
       .map((lever) => `
-        <div class="panel panel-neutral p-3 space-y-1 transition-colors">
-          <div class="text-xs font-semibold text-heading">${lever.title}</div>
-          <p class="text-[11px] text-secondary mt-1">${lever.detail}</p>
+        <div class="panel panel-neutral-soft p-3 space-y-1 text-xs">
+          <div class="font-semibold text-heading">${lever.title}</div>
+          <p class="panel-muted">${lever.detail}</p>
         </div>
       `)
       .join('');

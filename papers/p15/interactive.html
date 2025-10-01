@@ -1,61 +1,61 @@
-﻿<div id="p15-lab" class="space-y-6">
-  <div class="panel panel-info p-4 space-y-3 transition-colors">
+﻿<section id="p15-lab" class="space-y-5">
+  <div class="panel panel-info p-4 space-y-3">
     <h4 class="text-sm font-semibold text-heading">Choose framing</h4>
-    <p class="text-xs text-muted">Each scenario pairs a model assumption with the fee mix the paper analyses.</p>
+    <p class="text-xs panel-muted">Each scenario pairs a model assumption with the fee mix the paper analyses.</p>
     <div id="p15-scenarios" class="grid md:grid-cols-4 gap-2">
-      <button type="button" data-scenario="model1" class="p15-scenario inline-flex flex-col items-start gap-1 px-3 py-2 text-xs font-medium border border-subtle rounded-md bg-card text-secondary hover:bg-subtle transition-colors" aria-pressed="true">
+      <button type="button" data-scenario="model1" class="p15-scenario chip chip-info" aria-pressed="true">
         <span>Model&nbsp;1</span>
-        <span class="p15-scenario-sub text-[10px] text-muted transition-colors">Traded baseline</span>
+        <span class="p15-scenario-sub text-xs text-muted">Traded baseline</span>
       </button>
-      <button type="button" data-scenario="model2" class="p15-scenario inline-flex flex-col items-start gap-1 px-3 py-2 text-xs font-medium border border-subtle rounded-md bg-card text-secondary hover:bg-subtle transition-colors" aria-pressed="false">
+      <button type="button" data-scenario="model2" class="p15-scenario chip chip-info" aria-pressed="false">
         <span>Model&nbsp;2</span>
-        <span class="p15-scenario-sub text-[10px] text-muted transition-colors">CPI shock</span>
+        <span class="p15-scenario-sub text-xs text-muted">CPI shock</span>
       </button>
-      <button type="button" data-scenario="model3" class="p15-scenario inline-flex flex-col items-start gap-1 px-3 py-2 text-xs font-medium border border-subtle rounded-md bg-card text-secondary hover:bg-subtle transition-colors" aria-pressed="false">
+      <button type="button" data-scenario="model3" class="p15-scenario chip chip-info" aria-pressed="false">
         <span>Model&nbsp;3</span>
-        <span class="p15-scenario-sub text-[10px] text-muted transition-colors">Adoption frontier</span>
+        <span class="p15-scenario-sub text-xs text-muted">Adoption frontier</span>
       </button>
-      <button type="button" data-scenario="policy" class="p15-scenario inline-flex flex-col items-start gap-1 px-3 py-2 text-xs font-medium border border-subtle rounded-md bg-card text-secondary hover:bg-subtle transition-colors" aria-pressed="false">
+      <button type="button" data-scenario="policy" class="p15-scenario chip chip-info" aria-pressed="false">
         <span>Policy mix</span>
-        <span class="p15-scenario-sub text-[10px] text-muted transition-colors">Dual-fee cap</span>
+        <span class="p15-scenario-sub text-xs text-muted">Dual-fee cap</span>
       </button>
     </div>
   </div>
 
   <div class="grid md:grid-cols-4 gap-4" id="p15-metrics">
-    <div class="panel panel-neutral p-4 space-y-2 transition-colors">
-      <div class="text-[11px] uppercase tracking-wide text-info font-semibold">Real wage (unskilled)</div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <div class="text-xs uppercase tracking-wide text-info font-semibold">Real wage (unskilled)</div>
       <p id="p15-metric-wage" class="text-2xl font-semibold text-heading">--</p>
-      <p class="text-xs text-muted">Change in purchasing power of displaced workers.</p>
+      <p class="text-xs panel-muted">Change in purchasing power of displaced workers.</p>
     </div>
-    <div class="panel panel-neutral p-4 space-y-2 transition-colors">
-      <div class="text-[11px] uppercase tracking-wide text-warning font-semibold">CPI pressure</div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <div class="text-xs uppercase tracking-wide text-warning font-semibold">CPI pressure</div>
       <p id="p15-metric-cpi" class="text-2xl font-semibold text-heading">--</p>
-      <p class="text-xs text-muted">How non-tradables amplify prices.</p>
+      <p class="text-xs panel-muted">How non-tradables amplify prices.</p>
     </div>
-    <div class="panel panel-neutral p-4 space-y-2 transition-colors">
-      <div class="text-[11px] uppercase tracking-wide text-success font-semibold">Variety / entry</div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <div class="text-xs uppercase tracking-wide text-success font-semibold">Variety / entry</div>
       <p id="p15-metric-variety" class="text-2xl font-semibold text-heading">--</p>
-      <p class="text-xs text-muted">Availability of AI-enabled products.</p>
+      <p class="text-xs panel-muted">Availability of AI-enabled products.</p>
     </div>
-    <div class="panel panel-neutral p-4 space-y-2 transition-colors">
-      <div class="text-[11px] uppercase tracking-wide text-info font-semibold">Rent leakage</div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <div class="text-xs uppercase tracking-wide text-info font-semibold">Rent leakage</div>
       <p id="p15-metric-leak" class="text-2xl font-semibold text-heading">--</p>
-      <p class="text-xs text-muted">Share of surplus captured by foreign suppliers.</p>
+      <p class="text-xs panel-muted">Share of surplus captured by foreign suppliers.</p>
     </div>
   </div>
 
-  <div class="panel panel-neutral p-5 space-y-3 transition-colors">
+  <div class="panel panel-neutral p-5 space-y-3">
     <div class="flex items-center justify-between gap-3">
       <h4 class="text-sm font-semibold text-heading">What drives this outcome</h4>
-      <span id="p15-context-label" class="text-xs font-mono rounded px-2 py-1 border border-subtle bg-card text-secondary">--</span>
+      <span id="p15-context-label" class="chip chip-neutral text-xs font-mono">--</span>
     </div>
-    <div id="p15-levers" class="grid md:grid-cols-2 gap-3 text-sm text-secondary"></div>
+    <div id="p15-levers" class="grid md:grid-cols-2 gap-3"></div>
   </div>
 
-  <div class="panel panel-warning p-5 space-y-3 transition-colors">
+  <div class="panel panel-warning p-5 space-y-3">
     <h4 class="text-sm font-semibold text-heading">Policy &amp; operator moves</h4>
-    <p id="p15-summary" class="text-sm leading-relaxed"></p>
-    <ul id="p15-actions" class="list-disc ml-5 text-sm space-y-1"></ul>
+    <p id="p15-summary" class="text-sm text-body leading-relaxed"></p>
+    <ul id="p15-actions" class="list-disc ml-5 text-sm text-body space-y-1"></ul>
   </div>
-</div>
+</section>

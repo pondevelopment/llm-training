@@ -1,6 +1,7 @@
 import { ThemeProvider } from './components/shared/ThemeProvider';
 import { Panel } from './components/shared/Panel';
 import { Chip } from './components/shared/Chip';
+import { IntroSection } from './components/intro/IntroSection';
 import './styles/theme.css';
 
 function App() {
@@ -23,40 +24,24 @@ function App() {
 
         {/* Main Content */}
         <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="space-y-12">
-            {/* Welcome Section */}
-            <section>
-              <h2 className="text-3xl font-bold text-heading mb-4">
-                Welcome to Agentic Search
-              </h2>
-              <p className="text-lg text-body mb-6">
-                Discover how AI agents plan, discover tools, and synthesize answers through multi-step workflows.
-              </p>
+          <div className="space-y-20">
+            {/* Section 1: Traditional vs Agentic */}
+            <IntroSection />
+
+            {/* Progress Indicator */}
+            <div className="max-w-3xl mx-auto">
               <Panel variant="info">
                 <p className="text-body">
-                  <strong>🚀 Phase 0 Complete!</strong> The foundation is set up with:
+                  <strong>✅ Section 1 Complete!</strong> You've seen how agentic search differs from traditional search.
                 </p>
-                <ul className="list-disc list-inside mt-2 space-y-1 text-body">
-                  <li>Vite + React + TypeScript environment</li>
-                  <li>Existing theme system integrated (light/dark mode)</li>
-                  <li>Shared components (Panel, Chip, ThemeProvider)</li>
-                  <li>Mock data structures ready</li>
-                  <li>Configured for GitHub Pages deployment</li>
-                </ul>
-                <p className="mt-4 panel-muted text-sm">
-                  Next up: Phase 1 - Building the Intro section with side-by-side comparison!
+                <p className="mt-2 panel-muted text-sm">
+                  Continue scrolling to explore the full tutorial (coming in future phases).
                 </p>
               </Panel>
-            </section>
+            </div>
 
             {/* Coming Soon Sections */}
             <section className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              <Panel variant="info">
-                <h3 className="text-xl font-bold text-heading mb-2">Section 1</h3>
-                <p className="text-body mb-2">Traditional vs Agentic Search</p>
-                <Chip>Coming in Phase 1</Chip>
-              </Panel>
-
               <Panel variant="info">
                 <h3 className="text-xl font-bold text-heading mb-2">Section 2</h3>
                 <p className="text-body mb-2">Agents & Toolbox</p>

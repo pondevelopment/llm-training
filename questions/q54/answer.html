@@ -11,7 +11,7 @@
     </ul>
   </div>
 
-  <div class="panel panel-info panel-emphasis p-5 space-y-2">
+  <div class="panel panel-info p-5 space-y-2">
     <h3 class="font-semibold text-heading">&#129514; Core Idea: Logits = Unnormalized Preference Scores</h3>
     <p class="text-sm text-body leading-relaxed">A <strong>logit</strong> is a raw, unnormalized score the model assigns to each candidate next token. Apply softmax once at the end to convert the vector of logits \(\mathbf{z}\) into a probability distribution \(p\). Until then, they are flexible for adjustments (temperature, biasing, masking).</p>
     <div class="math-display">$$ p_i = \operatorname{softmax}(z)_i = \frac{e^{z_i}}{\sum_j e^{z_j}} $$</div>
@@ -19,7 +19,7 @@
   </div>
 
   <div class="grid md:grid-cols-3 gap-4">
-    <div class="panel panel-success panel-emphasis p-4 space-y-2">
+    <div class="panel panel-success p-4 space-y-2">
       <h4 class="font-semibold text-heading">1. Invariance</h4>
       <ul class="text-xs text-body space-y-1">
         <li><strong>Shift:</strong> Adding constant \(c\) to all logits leaves softmax unchanged.</li>
@@ -27,7 +27,7 @@
         <li><strong>Implication:</strong> Only differences matter.</li>
       </ul>
     </div>
-    <div class="panel panel-accent panel-emphasis p-4 space-y-2">
+    <div class="panel panel-accent p-4 space-y-2">
       <h4 class="font-semibold text-heading">2. Scaling &amp; sharpness</h4>
       <ul class="text-xs text-body space-y-1">
         <li><strong>Multiply by \(\alpha &gt; 1\):</strong> Distribution becomes sharper.</li>
@@ -35,7 +35,7 @@
         <li><strong>Entropy:</strong> Controlled by relative gaps.</li>
       </ul>
     </div>
-    <div class="panel panel-warning panel-emphasis p-4 space-y-2">
+    <div class="panel panel-warning p-4 space-y-2">
       <h4 class="font-semibold text-heading">3. Masking &amp; bias</h4>
       <ul class="text-xs text-body space-y-1">
         <li><strong>Mask:</strong> Set disallowed logits to \(-\infty\) (or large negative).</li>

@@ -12,7 +12,7 @@
     </ul>
   </div>
 
-  <div class="panel panel-info panel-emphasis p-4 space-y-2">
+  <div class="panel panel-info p-4 space-y-2">
     <h4 class="font-semibold">🧭 From Logits to a Chosen Token</h4>
     <p class="text-sm">The model emits raw scores (logits) \(\mathbf{z}\). A decoding strategy transforms them into a concrete next token while trading off <strong>quality</strong>, <strong>determinism</strong>, <strong>diversity</strong>, <strong>latency</strong>, and <strong>control</strong>.</p>
     <div class="math-display">$$ p_i = \operatorname{softmax}(z)_i = \frac{e^{z_i}}{\sum_j e^{z_j}} $$</div>
@@ -20,7 +20,7 @@
   </div>
 
   <div class="grid md:grid-cols-3 gap-4">
-    <div class="panel panel-success panel-emphasis p-3 space-y-1">
+    <div class="panel panel-success p-3 space-y-1">
       <h5 class="font-medium">1. Deterministic / Search</h5>
       <ul class="text-xs space-y-1">
         <li><strong>Greedy:</strong> \(\arg\max_i p_i\)</li>
@@ -30,7 +30,7 @@
         <li><strong>Cons:</strong> Can collapse / lack creativity</li>
       </ul>
     </div>
-    <div class="panel panel-accent panel-emphasis p-3 space-y-1">
+    <div class="panel panel-accent p-3 space-y-1">
       <h5 class="font-medium">2. Probabilistic Sampling</h5>
       <ul class="text-xs space-y-1">
         <li><strong>Top-k:</strong> Truncate to highest <code>k</code></li>
@@ -40,7 +40,7 @@
         <li><strong>Pros:</strong> Diversity &amp; controllable randomness</li>
       </ul>
     </div>
-    <div class="panel panel-warning panel-emphasis p-3 space-y-1">
+    <div class="panel panel-warning p-3 space-y-1">
       <h5 class="font-medium">3. Advanced / Controlled</h5>
       <ul class="text-xs space-y-1">
         <li><strong>Contrastive:</strong> Large − &lambda;·small model</li>

@@ -11,25 +11,25 @@
     </ul>
   </div>
 
-  <div class="panel panel-info panel-emphasis p-4 space-y-2">
+  <div class="panel panel-info p-4 space-y-2">
     <h4 class="font-semibold text-heading">🔍 Core Question</h4>
     <p class="text-sm text-body leading-relaxed"><strong>You should NOT fine-tune by default.</strong> Move upward through adaptation steps: better prompting → retrieval (RAG) → lightweight parameter adaptation (adapters / LoRA) → <strong>full or targeted fine-tuning</strong> only if persistent, structural, or distributional gaps remain and retrieval cannot bridge them efficiently.</p>
   </div>
 
   <div class="grid md:grid-cols-4 gap-4 text-sm">
-    <div class="panel panel-success panel-emphasis p-3 stacked-card">
+    <div class="panel panel-success p-3">
       <h5 class="font-medium text-heading">Prompting</h5>
       <p class="small-caption text-muted">Fast iteration. Great for style &amp; task framing. Weak on private / large corpora.</p>
     </div>
-    <div class="panel panel-info panel-emphasis p-3 stacked-card">
+    <div class="panel panel-info p-3">
       <h5 class="font-medium text-heading">RAG</h5>
       <p class="small-caption text-muted">Fresh facts &amp; proprietary knowledge via retrieval. Needs high hit rate + grounding.</p>
     </div>
-    <div class="panel panel-accent panel-emphasis p-3 stacked-card">
+    <div class="panel panel-accent p-3">
       <h5 class="font-medium text-heading">Adapters</h5>
       <p class="small-caption text-muted">Parameter-efficient shaping: style, format, compliance layers.</p>
     </div>
-    <div class="panel panel-warning panel-emphasis p-3 stacked-card">
+    <div class="panel panel-warning p-3">
       <h5 class="font-medium text-heading">Full Fine-tune</h5>
       <p class="small-caption text-muted">Expensive &amp; sticky. Use when distribution shift + stable domain + scale justify.</p>
     </div>
@@ -49,49 +49,49 @@
   <div class="panel panel-neutral p-4 space-y-3">
     <h4 class="font-semibold text-heading">📊 Decision Signals (quick scan)</h4>
     <div class="grid md:grid-cols-2 gap-3 text-sm">
-      <div class="panel panel-neutral-soft p-3 stacked-card">
+      <div class="panel panel-neutral-soft p-3">
         <div class="flex items-center justify-between gap-2">
           <span class="font-medium text-heading">Fresh / rapidly changing facts</span>
           <span class="chip chip-info text-[10px]">RAG</span>
         </div>
         <p class="small-caption text-body">Prefer <strong>RAG</strong>. Fine-tuning lags updates; hybrid only if formatting/style also critical.</p>
       </div>
-      <div class="panel panel-neutral-soft p-3 stacked-card">
+      <div class="panel panel-neutral-soft p-3">
         <div class="flex items-center justify-between gap-2">
           <span class="font-medium text-heading">Stable proprietary corpus</span>
           <span class="chip chip-accent text-[10px]">Fine-tune</span>
         </div>
         <p class="small-caption text-body">If updates are infrequent &amp; scale high, a targeted fine-tune (or hybrid) amortizes lookup cost.</p>
       </div>
-      <div class="panel panel-neutral-soft p-3 stacked-card">
+      <div class="panel panel-neutral-soft p-3">
         <div class="flex items-center justify-between gap-2">
           <span class="font-medium text-heading">Strict output schema / JSON</span>
           <span class="chip chip-accent text-[10px]">Adapter</span>
         </div>
         <p class="small-caption text-body">Start with <strong>adapter / constrained decoding</strong>; full fine-tune only if persistent structural errors remain.</p>
       </div>
-      <div class="panel panel-neutral-soft p-3 stacked-card">
+      <div class="panel panel-neutral-soft p-3">
         <div class="flex items-center justify-between gap-2">
           <span class="font-medium text-heading">Ultra low latency (&lt;300ms)</span>
           <span class="chip chip-success text-[10px]">Prompt</span>
         </div>
         <p class="small-caption text-body">Avoid extra retrieval hops. Cache + distilled / adapter variants; hybrid only if facts must stay fresh.</p>
       </div>
-      <div class="panel panel-neutral-soft p-3 stacked-card">
+      <div class="panel panel-neutral-soft p-3">
         <div class="flex items-center justify-between gap-2">
           <span class="font-medium text-heading">Per-user personalization</span>
           <span class="chip chip-accent text-[10px]">Fine-tune / Hybrid</span>
         </div>
         <p class="small-caption text-body">High granularity personalization often needs <strong>adapter stacks or selective fine-tune</strong>.</p>
       </div>
-      <div class="panel panel-neutral-soft p-3 stacked-card">
+      <div class="panel panel-neutral-soft p-3">
         <div class="flex items-center justify-between gap-2">
           <span class="font-medium text-heading">Massive query volume</span>
           <span class="chip chip-accent text-[10px]">Fine-tune</span>
         </div>
         <p class="small-caption text-body">Per-query retrieval cost dominates at scale; <strong>model-internalization</strong> can lower marginal latency.</p>
       </div>
-      <div class="panel panel-neutral-soft p-3 stacked-card md:col-span-2">
+      <div class="panel panel-neutral-soft p-3 md:col-span-2">
         <div class="flex items-center justify-between gap-2">
           <span class="font-medium text-heading">Mitigate hallucinations</span>
           <span class="chip chip-info text-[10px]">RAG / Hybrid</span>
@@ -113,7 +113,7 @@
     </ul>
   </div>
 
-  <div class="panel panel-accent panel-emphasis p-4">
+  <div class="panel panel-accent p-4">
     <h4 class="font-semibold text-heading mb-2">⚠️ Pitfalls</h4>
     <ul class="text-sm text-body space-y-1">
       <li>Premature fine-tune for volatile knowledge (better: RAG updates).</li>

@@ -5,11 +5,11 @@
         <span class="chip chip-info text-xs uppercase tracking-wide">Inputs</span>
         Compare deployment costs
       </h4>
-      <p class="text-xs text-muted mt-1">Tune the monthly volume and cost levers to see where SaaS pricing crosses self-host spend.</p>
+      <p class="text-xs panel-muted mt-1">Tune the monthly volume and cost levers to see where SaaS pricing crosses self-host spend.</p>
     </div>
     <div class="space-y-1 text-sm">
       <label class="block text-xs font-medium text-muted uppercase tracking-wide" for="q52-scenario">Scenario Preset</label>
-      <select id="q52-scenario" class="w-full px-3 py-2 border border-subtle rounded-md bg-card text-body text-xs focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500">
+      <select id="q52-scenario" class="w-full px-3 py-2 border border-subtle rounded-md bg-card text-body text-xs focus:outline-none focus:ring-2 focus:ring-[color:var(--accent-strong)] focus:border-[color:var(--accent-strong)]">
         <option value="custom">-- Custom (edit values) --</option>
       </select>
       <p class="text-[11px] text-muted-soft">Load typical volume patterns to jump-start comparisons.</p>
@@ -17,43 +17,43 @@
     <div class="grid md:grid-cols-3 gap-4 text-sm">
       <div class="space-y-1">
         <label class="block text-xs font-medium text-muted uppercase tracking-wide" for="q52-requests">Monthly Requests (R)</label>
-        <input id="q52-requests" type="number" min="0" value="50000" class="w-full px-3 py-2 border border-subtle rounded-md bg-card text-body focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+        <input id="q52-requests" type="number" min="0" value="50000" class="w-full px-3 py-2 border border-subtle rounded-md bg-card text-body focus:outline-none focus:ring-2 focus:ring-[color:var(--accent-strong)] focus:border-[color:var(--accent-strong)]" />
       </div>
       <div class="space-y-1">
         <label class="block text-xs font-medium text-muted uppercase tracking-wide" for="q52-tp">Prompt Tokens (T_p)</label>
-        <input id="q52-tp" type="number" min="1" value="300" class="w-full px-3 py-2 border border-subtle rounded-md bg-card text-body focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+        <input id="q52-tp" type="number" min="1" value="300" class="w-full px-3 py-2 border border-subtle rounded-md bg-card text-body focus:outline-none focus:ring-2 focus:ring-[color:var(--accent-strong)] focus:border-[color:var(--accent-strong)]" />
       </div>
       <div class="space-y-1">
         <label class="block text-xs font-medium text-muted uppercase tracking-wide" for="q52-tc">Completion Tokens (T_c)</label>
-        <input id="q52-tc" type="number" min="1" value="250" class="w-full px-3 py-2 border border-subtle rounded-md bg-card text-body focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+        <input id="q52-tc" type="number" min="1" value="250" class="w-full px-3 py-2 border border-subtle rounded-md bg-card text-body focus:outline-none focus:ring-2 focus:ring-[color:var(--accent-strong)] focus:border-[color:var(--accent-strong)]" />
       </div>
     </div>
     <div class="grid md:grid-cols-4 gap-4 text-sm">
       <div class="space-y-1">
         <label class="block text-xs font-medium text-muted uppercase tracking-wide" for="q52-price">SaaS $ / 1K tokens (P_{1K})</label>
-        <input id="q52-price" type="number" min="0" step="0.001" value="0.02" class="w-full px-3 py-2 border border-subtle rounded-md bg-card text-body focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+        <input id="q52-price" type="number" min="0" step="0.001" value="0.02" class="w-full px-3 py-2 border border-subtle rounded-md bg-card text-body focus:outline-none focus:ring-2 focus:ring-[color:var(--accent-strong)] focus:border-[color:var(--accent-strong)]" />
       </div>
       <div class="space-y-1">
         <label class="block text-xs font-medium text-muted uppercase tracking-wide" for="q52-gpu-rate">GPU Hourly Rate (H_GPU)</label>
-        <input id="q52-gpu-rate" type="number" min="0" step="0.1" value="2.5" class="w-full px-3 py-2 border border-subtle rounded-md bg-card text-body focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+        <input id="q52-gpu-rate" type="number" min="0" step="0.1" value="2.5" class="w-full px-3 py-2 border border-subtle rounded-md bg-card text-body focus:outline-none focus:ring-2 focus:ring-[color:var(--accent-strong)] focus:border-[color:var(--accent-strong)]" />
       </div>
       <div class="space-y-1">
         <label class="block text-xs font-medium text-muted uppercase tracking-wide" for="q52-gpus">GPU Count (G)</label>
-        <input id="q52-gpus" type="number" min="0" value="4" class="w-full px-3 py-2 border border-subtle rounded-md bg-card text-body focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+        <input id="q52-gpus" type="number" min="0" value="4" class="w-full px-3 py-2 border border-subtle rounded-md bg-card text-body focus:outline-none focus:ring-2 focus:ring-[color:var(--accent-strong)] focus:border-[color:var(--accent-strong)]" />
       </div>
       <div class="space-y-1">
         <label class="block text-xs font-medium text-muted uppercase tracking-wide" for="q52-util">Utilization (U, 0–1)</label>
-        <input id="q52-util" type="number" min="0" max="1" step="0.05" value="0.55" class="w-full px-3 py-2 border border-subtle rounded-md bg-card text-body focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+        <input id="q52-util" type="number" min="0" max="1" step="0.05" value="0.55" class="w-full px-3 py-2 border border-subtle rounded-md bg-card text-body focus:outline-none focus:ring-2 focus:ring-[color:var(--accent-strong)] focus:border-[color:var(--accent-strong)]" />
       </div>
     </div>
     <div class="grid md:grid-cols-2 gap-4 text-sm">
       <div class="space-y-1">
         <label class="block text-xs font-medium text-muted uppercase tracking-wide" for="q52-overhead">Monthly Overhead O ($)</label>
-        <input id="q52-overhead" type="number" min="0" step="100" value="15000" class="w-full px-3 py-2 border border-subtle rounded-md bg-card text-body focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+        <input id="q52-overhead" type="number" min="0" step="100" value="15000" class="w-full px-3 py-2 border border-subtle rounded-md bg-card text-body focus:outline-none focus:ring-2 focus:ring-[color:var(--accent-strong)] focus:border-[color:var(--accent-strong)]" />
       </div>
       <div class="space-y-1">
         <label class="block text-xs font-medium text-muted uppercase tracking-wide" for="q52-cache">Cache Hit % (hybrid)</label>
-        <input id="q52-cache" type="number" min="0" max="100" step="5" value="20" class="w-full px-3 py-2 border border-subtle rounded-md bg-card text-body focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" />
+        <input id="q52-cache" type="number" min="0" max="100" step="5" value="20" class="w-full px-3 py-2 border border-subtle rounded-md bg-card text-body focus:outline-none focus:ring-2 focus:ring-[color:var(--accent-strong)] focus:border-[color:var(--accent-strong)]" />
       </div>
     </div>
     <p class="text-[11px] text-muted-soft leading-relaxed">Assumes a 30-day month and excludes networking or storage minutiae. Hybrid mode reduces effective SaaS spend via cache hits. Pricing defaults mirror September 2025 public averages—adjust inputs for your vendors.</p>
@@ -65,6 +65,6 @@
     <div id="q52-results" class="grid md:grid-cols-3 gap-4 text-sm"></div>
     <div id="q52-break" class="panel panel-neutral p-3 font-mono text-sm"></div>
     <div id="q52-which" class="panel panel-info p-3 text-sm font-medium"></div>
-    <div id="q52-expl" class="panel panel-warning panel-emphasis p-4 text-sm space-y-2"></div>
+    <div id="q52-expl" class="panel panel-warning p-4 text-sm space-y-2"></div>
   </div>
 </div>

@@ -208,35 +208,35 @@
     </div>
     <div class="q51-rail flex flex-wrap items-center gap-1" role="tablist" aria-label="LLM training lifecycle">
       <button role="tab" data-stage="pretrain" aria-selected="false" title="Massive self-supervised objective builds general priors" class="q51-stage">1. Pre-train</button>
-      <span class="q51-divider" aria-hidden="true">&rarr;</span>
+      <span class="q51-divider" aria-hidden="true">→</span>
       <button role="tab" data-stage="adapt" aria-selected="false" title="Supervised or parameter-efficient specialization" class="q51-stage">2. Adapt</button>
-      <span class="q51-divider" aria-hidden="true">&rarr;</span>
+      <span class="q51-divider" aria-hidden="true">→</span>
       <button role="tab" data-stage="align" aria-selected="false" title="Preference optimization (RLHF or DPO)" class="q51-stage">3. Align</button>
-      <span class="q51-divider" aria-hidden="true">&rarr;</span>
+      <span class="q51-divider" aria-hidden="true">→</span>
       <button role="tab" data-stage="opt" aria-selected="false" title="Latency and cost efficiency improvements" class="q51-stage">4. Optimize</button>
-      <span class="q51-divider" aria-hidden="true">&rarr;</span>
+      <span class="q51-divider" aria-hidden="true">→</span>
       <button role="tab" data-stage="guard" aria-selected="false" title="Safety, grounding, and policy controls" class="q51-stage">5. Guard</button>
-      <span class="q51-divider" aria-hidden="true">&rarr;</span>
+      <span class="q51-divider" aria-hidden="true">→</span>
       <button role="tab" data-stage="monitor" aria-selected="false" title="Continuous evaluation and feedback loops" class="q51-stage">6. Monitor</button>
     </div>
-    <p class="small-caption text-muted mt-2">Ordered flow from pre-training &rarr; monitoring. Use &larr;/&rarr; or 1&ndash;6 keys to navigate. Tooltips outline the intent of each stage.</p>
+    <p class="small-caption text-muted mt-2">Ordered flow from pre-training → monitoring. Use &larr;/→ or 1&ndash;6 keys to navigate. Tooltips outline the intent of each stage.</p>
   </div>
 
   <div class="question-card">
     <div class="flex items-center justify-between flex-wrap gap-3">
-      <h4 class="font-medium text-heading">&#x1F4CA; Stage profile</h4>
+      <h4 class="font-medium text-heading">📊 Stage profile</h4>
       <span id="q51-stage-indicator" class="chip chip-info text-xs"></span>
     </div>
     <div id="q51-metrics" class="q51-metric-grid"></div>
   </div>
 
   <div class="question-card">
-    <h5 class="font-semibold text-heading mb-2">&#x1F9E0; Explanation</h5>
+    <h5 class="font-semibold text-heading mb-2">🧠 Explanation</h5>
     <div id="q51-explain" class="q51-explain space-y-2 text-sm"></div>
   </div>
 
-  <div class="panel panel-success panel-emphasis p-4 space-y-2">
-    <h5 class="font-semibold">&#x1F4A1; Insight</h5>
+  <div class="panel panel-success p-4 space-y-2">
+    <h5 class="font-semibold">💡 Insight</h5>
     <div id="q51-insight" class="text-sm" aria-live="polite"></div>
   </div>
 </div>

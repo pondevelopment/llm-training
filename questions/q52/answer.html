@@ -11,13 +11,13 @@
   </div>
 
   <div class="question-card space-y-4">
-    <div class="panel panel-info panel-emphasis p-4 space-y-3">
+    <div class="panel panel-info p-4 space-y-3">
       <h4 class="font-semibold text-heading">💰 What is LLM Cost Estimation?</h4>
       <p class="text-sm">Cost estimation weighs usage-based API pricing against infrastructure plus operations spend to find the break-even volume where self-hosting becomes cheaper. Think of it as ride-hailing (pay per trip) versus owning a car (capex, fuel, and maintenance).</p>
     </div>
 
     <div class="grid md:grid-cols-3 gap-4 text-sm">
-      <div class="panel panel-success panel-emphasis p-4 space-y-2">
+      <div class="panel panel-success p-4 space-y-2">
         <h5 class="font-medium text-heading">SaaS API</h5>
         <p>Pay per 1K tokens with minimal operations overhead.</p>
         <code class="text-xs">Cost ∝ requests × tokens</code>
@@ -27,7 +27,7 @@
         <p>Upfront and ongoing GPU + staffing costs amortised over volume.</p>
         <code class="text-xs">Cost ≈ (GPU hrs × rate × util) + O</code>
       </div>
-      <div class="panel panel-warning panel-emphasis p-4 space-y-2">
+      <div class="panel panel-warning p-4 space-y-2">
         <h5 class="font-medium text-heading">Hybrid / orchestrated</h5>
         <p>Blend caches and routing to send heavy or sensitive traffic to self-hosted capacity.</p>
         <code class="text-xs">Smart routing → lower blended cost per 1K</code>
@@ -35,7 +35,7 @@
     </div>
   </div>
 
-  <div class="panel panel-warning panel-emphasis p-4 space-y-2">
+  <div class="panel panel-warning p-4 space-y-2">
     <h4 class="font-semibold text-heading">🎯 Why this matters</h4>
     <ul class="list-disc ml-5 text-sm space-y-1">
       <li><strong>Unit economics:</strong> Justify feature viability and pricing models.</li>

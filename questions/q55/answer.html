@@ -12,7 +12,7 @@
     </ul>
   </div>
 
-  <div class="panel panel-info panel-emphasis p-4 space-y-4">
+  <div class="panel panel-info p-4 space-y-4">
     <h4 class="font-semibold text-heading">🛑 Why Stopping Matters</h4>
     <p class="text-sm text-body leading-relaxed">A generation session is a <strong>constrained optimisation</strong>: maximise utility (clarity, completeness, safety) while minimising cost (tokens, latency, risk). Choosing <em>when to stop</em> is as important as choosing <em>what to emit next</em>. Done well, stopping feels invisible; done poorly, users see cut sentences, runaway rambles, malformed JSON, or policy leaks.</p>
     <div class="grid md:grid-cols-2 gap-3 text-sm">
@@ -56,27 +56,27 @@
   </div>
 
   <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-    <div class="panel panel-success panel-emphasis p-3 shadow-sm space-y-1">
+    <div class="panel panel-success p-3 shadow-sm space-y-1">
       <h5 class="font-medium text-heading">1. Token / Budget Based</h5>
       <p class="text-xs text-body leading-snug">Hard limits: EOS token, max tokens, timeout.</p>
     </div>
-    <div class="panel panel-accent panel-emphasis p-3 shadow-sm space-y-1">
+    <div class="panel panel-accent p-3 shadow-sm space-y-1">
       <h5 class="font-medium text-heading">2. Pattern / String Based</h5>
       <p class="text-xs text-body leading-snug">Substring or delimiter match (normalise + longest-first).</p>
     </div>
-    <div class="panel panel-warning panel-emphasis p-3 shadow-sm space-y-1">
+    <div class="panel panel-warning p-3 shadow-sm space-y-1">
       <h5 class="font-medium text-heading">3. Structural Completion</h5>
       <p class="text-xs text-body leading-snug">Detect balanced or closed syntactic containers.</p>
     </div>
-    <div class="panel panel-warning panel-emphasis p-3 shadow-sm space-y-1">
+    <div class="panel panel-warning p-3 shadow-sm space-y-1">
       <h5 class="font-medium text-heading">4. Safety / Quality</h5>
       <p class="text-xs text-body leading-snug">Policy triggers, degeneracy, repetition loops.</p>
     </div>
-    <div class="panel panel-info panel-emphasis p-3 shadow-sm space-y-1">
+    <div class="panel panel-info p-3 shadow-sm space-y-1">
       <h5 class="font-medium text-heading">5. Probabilistic / Dynamic</h5>
       <p class="text-xs text-body leading-snug">Entropy or marginal utility thresholds detect saturation.</p>
     </div>
-    <div class="panel panel-neutral panel-emphasis p-3 shadow-sm space-y-1">
+    <div class="panel panel-neutral p-3 shadow-sm space-y-1">
       <h5 class="font-medium text-heading">6. Human / Operational</h5>
       <p class="text-xs text-body leading-snug">External interrupts: user cancel, channel close, budget guard.</p>
     </div>
@@ -93,7 +93,7 @@
     </ul>
   </div>
 
-  <div class="panel panel-warning panel-emphasis p-4 space-y-1">
+  <div class="panel panel-warning p-4 space-y-1">
     <h4 class="font-semibold text-heading">⚠️ Common Pitfalls</h4>
     <ul class="list-disc pl-5 text-sm text-body space-y-1">
       <li>Partial stop sequence split across streaming chunks.</li>

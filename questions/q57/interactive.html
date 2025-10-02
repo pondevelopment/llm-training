@@ -7,7 +7,7 @@
       <option value="extraction">Structured extraction (JSON / slots)</option>
     </select>
     <div class="space-y-1">
-      <label for="q57-example-select" class="block text-xs text-muted">Preview exemplar pack</label>
+      <label for="q57-example-select" class="block text-xs panel-muted">Preview exemplar pack</label>
       <select id="q57-example-select" class="select-control text-xs"></select>
     </div>
     <pre id="q57-example" class="panel panel-neutral-soft text-[11px] leading-relaxed p-3 overflow-x-auto whitespace-pre-wrap"></pre>
@@ -18,15 +18,15 @@
       <label class="block text-sm font-medium text-heading mb-3">📐 Demonstration settings</label>
       <div class="grid md:grid-cols-3 gap-4 text-sm">
         <div class="panel panel-neutral-soft p-3 space-y-2">
-          <div class="flex items-center justify-between text-xs text-muted"><span>Shots</span><span id="q57-shots-val">3</span></div>
+          <div class="flex items-center justify-between text-xs panel-muted"><span>Shots</span><span id="q57-shots-val">3</span></div>
           <input id="q57-shots" type="range" min="0" max="6" step="1" value="3" class="w-full">
         </div>
         <div class="panel panel-neutral-soft p-3 space-y-2">
-          <div class="flex items-center justify-between text-xs text-muted"><span>Example fidelity</span><span id="q57-fidelity-val">80%</span></div>
+          <div class="flex items-center justify-between text-xs panel-muted"><span>Example fidelity</span><span id="q57-fidelity-val">80%</span></div>
           <input id="q57-fidelity" type="range" min="30" max="100" step="5" value="80" class="w-full">
         </div>
         <div class="panel panel-neutral-soft p-3 space-y-2">
-          <div class="flex items-center justify-between text-xs text-muted"><span>Coverage / diversity</span><span id="q57-coverage-val">70%</span></div>
+          <div class="flex items-center justify-between text-xs panel-muted"><span>Coverage / diversity</span><span id="q57-coverage-val">70%</span></div>
           <input id="q57-coverage" type="range" min="30" max="100" step="5" value="70" class="w-full">
         </div>
       </div>
@@ -48,17 +48,17 @@
       <label class="panel panel-neutral-soft p-3 cursor-pointer hover:bg-subtle">
         <input class="sr-only" type="radio" name="q57-format" value="balanced" checked>
         <div class="font-medium text-heading mb-1">Balanced</div>
-        <p class="text-xs text-muted">Instruction + answer with light structure.</p>
+        <p class="text-xs panel-muted">Instruction + answer with light structure.</p>
       </label>
       <label class="panel panel-neutral-soft p-3 cursor-pointer hover:bg-subtle">
         <input class="sr-only" type="radio" name="q57-format" value="structured">
         <div class="font-medium text-heading mb-1">Structured</div>
-        <p class="text-xs text-muted">Delimiters, slot labels, JSON scaffolding.</p>
+        <p class="text-xs panel-muted">Delimiters, slot labels, JSON scaffolding.</p>
       </label>
       <label class="panel panel-neutral-soft p-3 cursor-pointer hover:bg-subtle">
         <input class="sr-only" type="radio" name="q57-format" value="minimal">
         <div class="font-medium text-heading mb-1">Minimal</div>
-        <p class="text-xs text-muted">Few cues; relies on raw examples.</p>
+        <p class="text-xs panel-muted">Few cues; relies on raw examples.</p>
       </label>
     </div>
     <div class="panel panel-neutral-soft p-3 text-[12px] leading-relaxed space-y-2">
@@ -77,7 +77,7 @@
       <div id="q57-indicator" class="chip chip-neutral text-xs font-medium"></div>
     </div>
     <div id="q57-output" class="min-h-[80px] p-3 rounded-lg border-2 border-dashed border-divider bg-card text-sm text-body"></div>
-    <div id="q57-legend" class="text-xs text-muted"></div>
+    <div id="q57-legend" class="text-xs panel-muted"></div>
   </div>
 
   <div class="panel panel-warning p-4 space-y-2">

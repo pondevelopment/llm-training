@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Tutorials - LLM Training</title>
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../css/theme.css">
+    <script src="../js/theme-init.js"></script>
+</head>
+<body class="bg-background text-body">
+    <div class="min-h-screen">
+        <!-- Header -->
+        <header class="bg-card border-b border-divider sticky top-0 z-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center space-x-4">
+                        <a href="../index.html" class="text-heading hover:text-accent transition-colors">
+                            <span class="text-xl font-bold">← LLM Training</span>
+                        </a>
+                        <span class="text-muted">|</span>
+                        <h1 class="text-2xl font-bold text-heading">Interactive Tutorials</h1>
+                    </div>
+                    <button id="theme-toggle" 
+                            class="p-2 rounded-lg bg-card-secondary hover:bg-card-tertiary transition-colors"
+                            aria-label="Toggle theme">
+                        <svg class="w-5 h-5 theme-icon-light" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path>
+                        </svg>
+                        <svg class="w-5 h-5 theme-icon-dark hidden" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="mb-12">
+                <h2 class="text-3xl font-bold text-heading mb-4">Learn by Doing</h2>
+                <p class="text-lg text-body max-w-3xl">
+                    Interactive tutorials that help you understand complex AI concepts through hands-on simulations and visualizations.
+                </p>
+            </div>
+
+            <!-- Tutorial Grid -->
+            <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                <!-- Agentic Search Tutorial -->
+                <a href="agentic-search/index.html" 
+                   class="panel panel-info hover:panel-emphasis transition-all duration-300 group">
+                    <div class="flex flex-col h-full">
+                        <div class="flex items-center mb-4">
+                            <div class="w-12 h-12 rounded-lg bg-accent/10 flex items-center justify-center text-accent text-2xl mr-4">
+                                🤖
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-bold text-heading group-hover:text-accent transition-colors">
+                                    Agentic Search
+                                </h3>
+                                <span class="chip chip-info mt-2">Interactive</span>
+                            </div>
+                        </div>
+                        <p class="text-body mb-4 flex-grow">
+                            Discover how AI agents plan, discover tools via MCP, and synthesize answers through multi-step workflows. Perfect for marketers!
+                        </p>
+                        <div class="flex items-center text-sm text-muted">
+                            <span>⏱️ ~15 minutes</span>
+                            <span class="mx-2">•</span>
+                            <span>5 sections</span>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Placeholder for Future Tutorials -->
+                <div class="panel border-dashed opacity-50">
+                    <div class="flex flex-col h-full items-center justify-center text-center py-8">
+                        <div class="text-4xl mb-4">🚧</div>
+                        <h3 class="text-xl font-bold text-heading mb-2">More Coming Soon</h3>
+                        <p class="text-muted">
+                            Additional interactive tutorials in development
+                        </p>
+                    </div>
+                </div>
+
+                <div class="panel border-dashed opacity-50">
+                    <div class="flex flex-col h-full items-center justify-center text-center py-8">
+                        <div class="text-4xl mb-4">💡</div>
+                        <h3 class="text-xl font-bold text-heading mb-2">Have an Idea?</h3>
+                        <p class="text-muted">
+                            Suggest topics you'd like to explore interactively
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-card border-t border-divider mt-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <p class="text-center text-muted">
+                    <a href="../index.html" class="link-primary hover:underline">Home</a>
+                    <span class="mx-2">•</span>
+                    <a href="../all.html" class="link-primary hover:underline">All Questions</a>
+                    <span class="mx-2">•</span>
+                    <a href="../papers.html" class="link-primary hover:underline">Papers</a>
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="../js/theme.js"></script>
+</body>
+</html>

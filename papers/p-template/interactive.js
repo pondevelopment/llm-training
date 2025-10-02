@@ -41,7 +41,7 @@
     const config = scenarios[key] || scenarios.baseline;
     metricLabel.textContent = config.metric;
     chart.innerHTML = config.chart;
-    explanation.innerHTML = config.description.map(p => <p></p>).join('');
+    explanation.innerHTML = config.description.map(p => `<p>${p}</p>`).join('');
   };
 
   scenarioSelect.addEventListener('change', render);

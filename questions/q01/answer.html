@@ -1,6 +1,6 @@
 <div class="space-y-4">
   <div class="panel panel-info p-3">
-    <h4 class="font-semibold mb-1">&#x1F4F0; Recommended reading (related)</h4>
+    <h4 class="font-semibold mb-1">📰 Recommended reading (related)</h4>
     <ul class="list-disc ml-5 text-sm space-y-1">
       <li><a href="#question-02" class="underline">Question 2: How do attention mechanisms work in transformers?</a></li>
       <li><a href="#question-09" class="underline">Question 9: What is a transformer architecture?</a></li>
@@ -9,33 +9,33 @@
     </ul>
   </div>
 
-  <div class="panel panel-info panel-emphasis p-4 space-y-2">
-    <h4 class="font-semibold">&#x1F527; What is Tokenization?</h4>
+  <div class="panel panel-info p-4 space-y-2">
+    <h4 class="font-semibold">🔧 What is Tokenization?</h4>
     <p>Tokenization breaks down raw text into smaller units called <strong>tokens</strong> that LLMs can process. Think of it as cutting up a sentence into digestible pieces.</p>
   </div>
 
   <div class="grid md:grid-cols-3 gap-4">
-    <div class="panel panel-success panel-emphasis p-3 stacked-card">
+    <div class="panel panel-success p-3">
       <h5 class="font-medium">Word-level</h5>
       <p class="text-sm">Splits by spaces and punctuation</p>
-      <span class="chip chip-success font-mono text-xs">"Hello world!" &rarr; ["Hello", "world", "!"]</span>
+      <span class="chip chip-success font-mono text-xs">"Hello world!" → ["Hello", "world", "!"]</span>
     </div>
 
-    <div class="panel panel-accent panel-emphasis p-3 stacked-card">
+    <div class="panel panel-accent p-3">
       <h5 class="font-medium">Subword (BPE)</h5>
       <p class="text-sm">Breaks words into meaningful parts</p>
-      <span class="chip chip-accent font-mono text-xs">"unhappy" &rarr; ["un", "happy"]</span>
+      <span class="chip chip-accent font-mono text-xs">"unhappy" → ["un", "happy"]</span>
     </div>
 
-    <div class="panel panel-warning panel-emphasis p-3 stacked-card">
+    <div class="panel panel-warning p-3">
       <h5 class="font-medium">Character-level</h5>
       <p class="text-sm">Each character is a token</p>
-      <span class="chip chip-warning font-mono text-xs">"hi" &rarr; ["h", "i"]</span>
+      <span class="chip chip-warning font-mono text-xs">"hi" → ["h", "i"]</span>
     </div>
   </div>
 
   <div class="panel panel-warning p-4 space-y-2">
-    <h4 class="font-semibold">&#x1F3AF; Why This Matters</h4>
+    <h4 class="font-semibold">🎯 Why This Matters</h4>
     <ul class="list-disc ml-5 text-sm space-y-1">
       <li><strong>Vocabulary size:</strong> Affects model memory and training time</li>
       <li><strong>Unknown words:</strong> Subword tokenization handles new terms better</li>

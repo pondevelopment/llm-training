@@ -1,54 +1,54 @@
 <div class="space-y-6">
   <!-- Input Section -->
   <div class="question-card">
-    <label for="q1-text-select" class="block text-sm font-medium text-heading mb-2">&#x1F4DD; Select Text to Tokenize</label>
-    <select id="q1-text-select" class="w-full px-3 py-2 border border-subtle rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-card text-body shadow-sm">
+    <label for="q1-text-select" class="block text-sm font-medium text-heading mb-2">📝 Select Text to Tokenize</label>
+    <select id="q1-text-select" class="w-full px-3 py-2 border border-subtle rounded-md focus:outline-none focus:ring-2 focus:ring-[color:var(--accent-strong)] focus:border-[color:var(--accent-strong)] bg-card text-body shadow-sm">
       <option value="The unbelievable transformation is happening!">The unbelievable transformation is happening!</option>
       <option value="cryptocurrency blockchain technology">cryptocurrency blockchain technology</option>
       <option value="Hello, world! How are you today?">Hello, world! How are you today?</option>
       <option value="AI revolutionizes everything continuously.">AI revolutionizes everything continuously.</option>
       <option value="tokenization">tokenization</option>
     </select>
-    <p class="text-xs text-muted mt-1">Pick a phrase to explore how tokenization differs by strategy.</p>
+    <p class="text-xs panel-muted mt-1">Pick a phrase to explore how tokenization differs by strategy.</p>
   </div>
 
   <!-- Strategy Selection -->
   <div class="question-card space-y-3">
-    <label class="block text-sm font-medium text-heading">&#x1F3AF; Choose Tokenization Strategy</label>
+    <label class="block text-sm font-medium text-heading">🎯 Choose Tokenization Strategy</label>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
       <label class="question-strategy" data-strategy="word">
         <input type="radio" name="q1-strategy" value="word" checked>
-        <div class="stacked-card">
+        <div>
           <div class="flex items-center justify-between">
             <span class="font-medium text-heading">Word-level</span>
             <span class="chip chip-success text-xs">Simple</span>
           </div>
-          <p class="text-xs text-muted">Splits text by spaces and punctuation</p>
-          <div class="question-token-example" data-tone="emerald">"Hello!" &rarr; ["Hello", "!"]</div>
+          <p class="text-xs panel-muted">Splits text by spaces and punctuation</p>
+          <div class="question-token-example" data-tone="emerald">"Hello!" → ["Hello", "!"]</div>
         </div>
       </label>
 
       <label class="question-strategy" data-strategy="subword">
         <input type="radio" name="q1-strategy" value="subword">
-        <div class="stacked-card">
+        <div>
           <div class="flex items-center justify-between">
             <span class="font-medium text-heading">Subword (BPE)</span>
             <span class="chip chip-info text-xs">Smart</span>
           </div>
-          <p class="text-xs text-muted">Breaks words into meaningful parts</p>
-          <div class="question-token-example" data-tone="purple">"unhappy" &rarr; ["un", "happy"]</div>
+          <p class="text-xs panel-muted">Breaks words into meaningful parts</p>
+          <div class="question-token-example" data-tone="purple">"unhappy" → ["un", "happy"]</div>
         </div>
       </label>
 
       <label class="question-strategy" data-strategy="char">
         <input type="radio" name="q1-strategy" value="char">
-        <div class="stacked-card">
+        <div>
           <div class="flex items-center justify-between">
             <span class="font-medium text-heading">Character-level</span>
             <span class="chip chip-warning text-xs">Detailed</span>
           </div>
-          <p class="text-xs text-muted">Each character becomes a token</p>
-          <div class="question-token-example" data-tone="amber">"hi" &rarr; ["h", "i"]</div>
+          <p class="text-xs panel-muted">Each character becomes a token</p>
+          <div class="question-token-example" data-tone="amber">"hi" → ["h", "i"]</div>
         </div>
       </label>
     </div>
@@ -56,14 +56,14 @@
 
   <!-- Quick Examples -->
   <div class="question-card flex flex-wrap items-center gap-2">
-    <span class="text-sm font-medium text-heading">&#x1F4A1; Quick Examples:</span>
+    <span class="text-sm font-medium text-heading">💡 Quick Examples:</span>
     <button id="q1-oov-btn" class="btn-soft text-xs">Try: "cryptocurrency blockchain technology"</button>
   </div>
 
   <!-- Results Section -->
   <div class="question-card space-y-3">
     <div class="flex items-center justify-between">
-      <h4 class="font-medium text-heading">&#x1F3A8; Tokenization Results</h4>
+      <h4 class="font-medium text-heading">🎨 Tokenization Results</h4>
       <div id="q1-strategy-indicator" class="strategy-indicator text-xs font-medium px-2 py-1 rounded border border-subtle bg-subtle text-secondary"></div>
     </div>
     <div id="q1-output" class="question-output"></div>
@@ -72,7 +72,7 @@
 
   <!-- Educational Comparison -->
   <div id="q1-comparison" class="panel panel-warning p-4 space-y-2">
-    <h4 class="font-medium mb-2">&#x1F4CA; Why This Strategy?</h4>
+    <h4 class="font-medium mb-2">📊 Why This Strategy?</h4>
     <div id="q1-explanation" class="text-sm"></div>
   </div>
 </div>

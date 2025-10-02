@@ -89,21 +89,21 @@ Question 1 (q01) should serve as the template reference after conversion.
 
 | Q# | Title | Status | Notes |
 |----|-------|--------|-------|
-| 36 | What is model quantization? | ⬜ | |
-| 37 | What is distillation? | ⬜ | |
-| 38 | What is the difference between encoder-only, decoder-only, and encoder-decoder models? | ⬜ | |
-| 39 | What is mixture of experts (MoE)? | ⬜ | |
-| 40 | What is the difference between dense and sparse models? | ⬜ | |
-| 41 | What is LoRA and parameter-efficient fine-tuning? | ⬜ | |
-| 42 | What is the difference between pre-training and post-training? | ⬜ | |
-| 43 | What is curriculum learning? | ⬜ | |
-| 44 | What is data augmentation for LLMs? | ⬜ | |
-| 45 | What is synthetic data generation? | ⬜ | |
-| 46 | What is the difference between online and offline learning? | ⬜ | |
-| 47 | What is perplexity and how is it used? | ⬜ | |
-| 48 | What is the difference between perplexity and accuracy? | ⬜ | |
-| 49 | What is cross-entropy loss? | ⬜ | |
-| 50 | What is KL divergence? | ⬜ | |
+| 36 | What is model quantization? | ✅✅ | Batch converted |
+| 37 | What is distillation? | ✅ | Batch converted |
+| 38 | What is the difference between encoder-only, decoder-only, and encoder-decoder models? | ✅✅ | Batch converted |
+| 39 | What is mixture of experts (MoE)? | ✅ | Batch converted |
+| 40 | What is the difference between dense and sparse models? | ✅✅ | Batch converted |
+| 41 | What is LoRA and parameter-efficient fine-tuning? | ✅✅ | Batch converted |
+| 42 | What is the difference between pre-training and post-training? | ✅ | Batch converted |
+| 43 | What is curriculum learning? | ✅ | Batch converted |
+| 44 | What is data augmentation for LLMs? | ✅ | Batch converted; fixed line endings |
+| 45 | What is synthetic data generation? | ✅✅ | Batch converted; fixed line endings |
+| 46 | What is the difference between online and offline learning? | ✅ | Batch converted |
+| 47 | What is perplexity and how is it used? | ✅✅ | Batch converted; fixed line endings |
+| 48 | What is the difference between perplexity and accuracy? | ✅ | Batch converted |
+| 49 | What is cross-entropy loss? | ✅✅ | Batch converted; fixed line endings |
+| 50 | What is KL divergence? | ✅✅ | Batch converted |
 
 ### Advanced Topics (Questions 51-57)
 

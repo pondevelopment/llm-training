@@ -45,25 +45,25 @@ Question 1 (q01) should serve as the template reference after conversion.
 | Q# | Title | Status | Notes |
 |----|-------|--------|-------|
 | 1 | What is tokenization and why does it matter? | ✅✅✅ | **TEMPLATE QUESTION** - Fully converted |
-| 2 | How do attention mechanisms work in transformers? | ⬜ | |
-| 3 | What is the difference between training, fine-tuning, and inference? | ⬜ | |
-| 4 | What is a loss function and how does it guide learning? | ⬜ | |
-| 5 | What are hyperparameters and how do you tune them? | ⬜ | |
-| 6 | What is gradient descent and backpropagation? | ⬜ | |
-| 7 | What is overfitting and underfitting? | ⬜ | |
-| 8 | What is the difference between supervised, unsupervised, and reinforcement learning? | ⬜ | |
-| 9 | What is a transformer architecture? | ⬜ | |
-| 10 | What are embeddings and why do they matter? | ⬜ | |
-| 11 | What is the difference between training from scratch and transfer learning? | ⬜ | |
-| 12 | Tokens vs. words — how are they different? | ⬜ | |
-| 13 | What is context window and why does it limit performance? | ⬜ | |
-| 14 | What are positional encodings? | ⬜ | |
-| 15 | What is the difference between autoregressive and masked language models? | ⬜ | |
-| 16 | What are out-of-vocabulary words and how do models handle them? | ⬜ | Has panel-emphasis, text-body |
-| 17 | What is the difference between deterministic and stochastic outputs? | ⬜ | |
-| 18 | What is temperature in sampling? | ⬜ | |
-| 19 | What is top-k and top-p (nucleus) sampling? | ⬜ | |
-| 20 | What is beam search and when should you use it? | ⬜ | |
+| 2 | How do attention mechanisms work in transformers? | ✅✅ | Batch converted (commit 705648e) |
+| 3 | What is the difference between training, fine-tuning, and inference? | ✅✅ | Batch converted (commit 705648e) |
+| 4 | What is a loss function and how does it guide learning? | ✅✅ | Batch converted (commit 705648e) |
+| 5 | What are hyperparameters and how do you tune them? | ✅✅ | Batch converted; fixed UTF-8 encoding |
+| 6 | What is gradient descent and backpropagation? | ✅ | Batch converted (commit 705648e) |
+| 7 | What is overfitting and underfitting? | ✅ | Batch converted (commit 705648e) |
+| 8 | What is the difference between supervised, unsupervised, and reinforcement learning? | ✅ | Batch converted (commit 705648e) |
+| 9 | What is a transformer architecture? | ✅✅ | Batch converted (commit 705648e) |
+| 10 | What are embeddings and why do they matter? | ✅ | Batch converted (commit 705648e) |
+| 11 | What is the difference between training from scratch and transfer learning? | ✅ | Batch converted (commit 705648e) |
+| 12 | Tokens vs. words — how are they different? | ✅✅ | Batch converted (commit 705648e) |
+| 13 | What is context window and why does it limit performance? | ✅ | Batch converted (commit 705648e) |
+| 14 | What are positional encodings? | ✅✅ | Batch converted (commit 705648e) |
+| 15 | What is the difference between autoregressive and masked language models? | ✅✅ | Batch converted (commit 705648e) |
+| 16 | What are out-of-vocabulary words and how do models handle them? | ✅✅ | Batch converted (commit 705648e) |
+| 17 | What is the difference between deterministic and stochastic outputs? | ✅✅ | Batch converted; fixed line endings |
+| 18 | What is temperature in sampling? | ✅✅ | Batch converted (commit 705648e) |
+| 19 | What is top-k and top-p (nucleus) sampling? | ✅✅ | Batch converted (commit 705648e) |
+| 20 | What is beam search and when should you use it? | ✅ | Batch converted (commit 705648e) |
 
 ### Prompting & Interaction (Questions 21-35)
 

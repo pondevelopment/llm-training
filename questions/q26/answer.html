@@ -9,12 +9,12 @@
     </ul>
   </div>
 
-  <div class="panel panel-info panel-emphasis p-4 space-y-2">
+  <div class="panel panel-info p-4 space-y-2">
     <h4 class="font-semibold">🔗 What are Embedding Gradients?</h4>
     <p class="text-sm leading-relaxed">Embedding gradients tell us how to adjust each word's vector representation to reduce the model's prediction error. Think of it like tuning a musical instrument—if a note sounds off, the gradient shows exactly how much to tighten or loosen each string (dimension). The chain rule connects the final loss back to each embedding: ∂L/∂E = (∂L/∂logits) × (∂logits/∂E), allowing the model to refine word meanings through training.</p>
   </div>
 
-  <div class="panel panel-success panel-emphasis p-4 space-y-2">
+  <div class="panel panel-success p-4 space-y-2">
     <h4 class="font-semibold">⛓️ The Chain Rule in Action</h4>
     <p class="text-sm">During backpropagation, gradients flow backward through the network layers:</p>
     <ul class="text-sm space-y-1">
@@ -40,7 +40,7 @@
   </div>
 
   <div class="grid md:grid-cols-3 gap-4">
-    <div class="panel panel-success panel-emphasis p-3 space-y-2">
+    <div class="panel panel-success p-3 space-y-2">
       <h5 class="font-medium">Forward Pass</h5>
       <p class="text-sm">Embeddings → Hidden → Logits → Loss</p>
       <code class="text-xs font-mono">E → h → ŷ → L</code>
@@ -48,7 +48,7 @@
       <div class="small-caption">✓ Computes predictions</div>
       <div class="small-caption">✓ Calculates loss</div>
     </div>
-    <div class="panel panel-accent panel-emphasis p-3 space-y-2">
+    <div class="panel panel-accent p-3 space-y-2">
       <h5 class="font-medium">Backward Pass</h5>
       <p class="text-sm">Loss → Logits → Hidden → Embeddings</p>
       <code class="text-xs font-mono">∂L/∂L → ∂L/∂ŷ → ∂L/∂h → ∂L/∂E</code>
@@ -56,7 +56,7 @@
       <div class="small-caption">✓ Uses the chain rule</div>
       <div class="small-caption">✓ Updates parameters</div>
     </div>
-    <div class="panel panel-warning panel-emphasis p-3 space-y-2">
+    <div class="panel panel-warning p-3 space-y-2">
       <h5 class="font-medium">Parameter Update</h5>
       <p class="text-sm">Apply gradients to refine embeddings</p>
       <code class="text-xs font-mono">E<sub>new</sub> = E - α × ∂L/∂E</code>
@@ -116,7 +116,7 @@
     </div>
   </div>
 
-  <div class="panel panel-warning panel-emphasis p-4 space-y-2">
+  <div class="panel panel-warning p-4 space-y-2">
     <h4 class="font-semibold">⚠️ Gradient Computation Challenges</h4>
     <ul class="text-sm space-y-2">
       <li><strong>Sparse Updates:</strong> Only embeddings of words present in the batch receive gradients. Rare words update slowly, potentially remaining poorly trained.</li>

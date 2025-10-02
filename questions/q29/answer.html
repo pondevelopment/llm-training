@@ -16,7 +16,7 @@
         A mathematical measure that quantifies how one probability distribution differs from another—essential for training and aligning language models.
       </p>
     </div>
-    <div class="panel panel-info panel-emphasis p-4 space-y-3 text-sm">
+    <div class="panel panel-info p-4 space-y-3 text-sm">
       <div class="font-medium text-heading">Core mathematical definition</div>
       <div class="math-display">$$D_{KL}(P||Q) = \sum_{x} P(x) \log \frac{P(x)}{Q(x)}$$</div>
       <p class="panel-muted">where \( P(x) \) is the true distribution and \( Q(x) \) is the approximating distribution</p>
@@ -30,7 +30,7 @@
       📐 Mathematical properties
     </h4>
     <div class="grid md:grid-cols-2 gap-4">
-      <div class="panel panel-info panel-emphasis p-4 space-y-3">
+      <div class="panel panel-info p-4 space-y-3">
         <h5 class="font-medium text-heading text-center">Essential properties</h5>
         <div class="panel panel-neutral p-3 space-y-2">
           <div class="text-sm font-medium text-heading">Non-negativity</div>
@@ -43,7 +43,7 @@
           <p class="small-caption text-muted">Order matters, so it is not a true distance metric</p>
         </div>
       </div>
-      <div class="panel panel-success panel-emphasis p-4 space-y-3">
+      <div class="panel panel-success p-4 space-y-3">
         <h5 class="font-medium text-heading">Information-theory view</h5>
         <ul class="text-sm space-y-2 list-disc list-inside">
           <li><strong>Relative entropy:</strong> extra bits spent when encoding with Q instead of P.</li>
@@ -76,7 +76,7 @@
         <p class="panel-muted">Prevents catastrophic drift by anchoring the model to a prior distribution.</p>
       </div>
     </div>
-    <div class="panel panel-accent panel-emphasis p-3 text-sm text-center">
+    <div class="panel panel-accent p-3 text-sm text-center">
       <strong>Key insight:</strong> KL divergence gives a principled knob for how far an LLM may move during training.
     </div>
   </div>
@@ -89,7 +89,7 @@
     <div class="grid md:grid-cols-2 gap-4">
       <div class="panel panel-neutral p-4 space-y-3">
         <h5 class="font-medium text-heading">Numerical stability</h5>
-        <div class="panel panel-warning panel-emphasis p-3 space-y-2">
+        <div class="panel panel-warning p-3 space-y-2">
           <div class="math-display">$$
 \begin{align*}
 D_{KL}(P||Q) = & \sum P(x) \left[\log P(x) \right. \\

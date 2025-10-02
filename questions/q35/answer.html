@@ -13,7 +13,7 @@
   </div>
 
   <!-- Definition / Core Concept -->
-  <div class="panel panel-info panel-emphasis p-4 space-y-3">
+  <div class="panel panel-info p-4 space-y-3">
     <h4 class="font-semibold">🧠 Core Idea</h4>
     <p class="text-sm"><strong>Parameter‑Efficient Fine‑Tuning (PEFT)</strong> reduces <em>catastrophic forgetting</em> by freezing most pretrained weights (θ<sub>base</sub>) and introducing a small, trainable subset (Δθ)—adapters, low‑rank matrices, prefixes, bias terms. Because the original representation space stays largely intact, gradients from new tasks cannot overwrite previously learned generalizations.</p>
     <div class="grid md:grid-cols-4 gap-3 text-xs">
@@ -51,7 +51,7 @@
 
   <!-- Comparison Cards -->
   <div class="grid lg:grid-cols-4 md:grid-cols-2 gap-4 text-sm">
-    <div class="panel panel-success panel-emphasis p-3 space-y-1">
+    <div class="panel panel-success p-3 space-y-1">
       <h5 class="font-semibold">LoRA / QLoRA</h5>
       <ul class="list-disc ml-4 text-xs space-y-1 panel-muted">
         <li>Low‑rank residual update</li>
@@ -59,7 +59,7 @@
         <li>Mergeable at inference</li>
       </ul>
     </div>
-    <div class="panel panel-accent panel-emphasis p-3 space-y-1">
+    <div class="panel panel-accent p-3 space-y-1">
       <h5 class="font-semibold">Adapters</h5>
       <ul class="list-disc ml-4 text-xs space-y-1 panel-muted">
         <li>Bottleneck MLP blocks</li>
@@ -67,7 +67,7 @@
         <li>Stable gradients</li>
       </ul>
     </div>
-    <div class="panel panel-warning panel-emphasis p-3 space-y-1">
+    <div class="panel panel-warning p-3 space-y-1">
       <h5 class="font-semibold">Prefix / P‑Tuning</h5>
       <ul class="list-disc ml-4 text-xs space-y-1 panel-muted">
         <li>Train virtual tokens</li>
@@ -75,7 +75,7 @@
         <li>Fast adaptation</li>
       </ul>
     </div>
-    <div class="panel panel-accent panel-emphasis p-3 space-y-1">
+    <div class="panel panel-accent p-3 space-y-1">
       <h5 class="font-semibold">BitFit / Bias‑Only</h5>
       <ul class="list-disc ml-4 text-xs space-y-1 panel-muted">
         <li>Update only biases</li>

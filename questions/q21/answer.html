@@ -1,6 +1,6 @@
 <div class="space-y-4">
   <div class="panel panel-info p-3 space-y-2">
-    <h4 class="font-semibold">&#x1F4DA; Recommended reading (related topics)</h4>
+    <h4 class="font-semibold">📚 Recommended reading (related topics)</h4>
     <ul class="list-disc ml-5 text-sm space-y-1">
       <li><a href="#question-07" class="underline">Question 7: Embeddings and semantic meaning</a></li>
       <li><a href="#question-10" class="underline">Question 10: Embeddings and initialization in LLMs</a></li>
@@ -10,7 +10,7 @@
     </ul>
   </div>
 
-  <div class="panel panel-info panel-emphasis p-4 space-y-2">
+  <div class="panel panel-info p-4 space-y-2">
     <h4 class="font-semibold">&#x1F4CD; What are positional encodings?</h4>
     <p class="text-sm leading-relaxed">
       Positional encodings are mathematical representations added to token embeddings to give transformers a sense of
@@ -20,7 +20,7 @@
   </div>
 
   <div class="grid md:grid-cols-3 gap-4">
-    <div class="panel panel-success panel-emphasis p-3 space-y-2 q21-answer-card">
+    <div class="panel panel-success p-3 space-y-2 q21-answer-card">
       <h5 class="font-medium">Sinusoidal (fixed)</h5>
       <p class="text-sm panel-muted">
         Uses sine and cosine functions with different frequencies to create unique patterns for each position.
@@ -30,7 +30,7 @@
       </div>
     </div>
 
-    <div class="panel panel-accent panel-emphasis p-3 space-y-2 q21-answer-card">
+    <div class="panel panel-accent p-3 space-y-2 q21-answer-card">
       <h5 class="font-medium">Learned embeddings</h5>
       <p class="text-sm panel-muted">
         Trainable position vectors that the model learns during training, similar to word embeddings.
@@ -38,7 +38,7 @@
       <div class="math-display text-xs">$$ pos_{emb} = \mathrm{Embedding}(max_{len}, d_{model}) $$</div>
     </div>
 
-    <div class="panel panel-warning panel-emphasis p-3 space-y-2 q21-answer-card">
+    <div class="panel panel-warning p-3 space-y-2 q21-answer-card">
       <h5 class="font-medium">Relative encodings</h5>
       <p class="text-sm panel-muted">
         Focus on relative distances between tokens rather than absolute positions. Examples include RoPE (rotary) and
@@ -58,7 +58,7 @@
   </div>
 
   <div class="panel panel-warning p-4">
-    <h4 class="font-semibold mb-2">&#x1F3AF; Why positional encodings matter</h4>
+    <h4 class="font-semibold mb-2">🎯 Why positional encodings matter</h4>
     <ul class="text-sm space-y-1">
       <li>&bull; <strong>Order awareness:</strong> Self-attention is permutation-invariant, so encodings write order into the inputs.</li>
       <li>&bull; <strong>Sequence understanding:</strong> Translation, summarisation, and reasoning collapse without positional cues.</li>

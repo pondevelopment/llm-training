@@ -9,7 +9,7 @@
     </ul>
   </div>
 
-  <div class="panel panel-info panel-emphasis p-4 space-y-2">
+  <div class="panel panel-info p-4 space-y-2">
     <h4 class="font-semibold text-heading">⚡ What is ReLU and its derivative?</h4>
     <p>The ReLU (Rectified Linear Unit) function is defined as <strong>\( f(x) = \max(0, x) \)</strong>. Its derivative is remarkably simple: <strong>1 for positive inputs, 0 for negative inputs</strong>. That binary behaviour is why ReLU is so popular—it either passes gradients through unchanged or blocks them entirely.</p>
     <div class="math-display">
@@ -36,19 +36,19 @@
   </div>
 
   <div class="grid md:grid-cols-3 gap-4">
-    <div class="panel panel-success panel-emphasis p-3 space-y-2">
+    <div class="panel panel-success p-3 space-y-2">
       <h5 class="font-medium text-heading">ReLU</h5>
       <p class="text-sm">Simple step-function derivative</p>
       <div class="panel panel-neutral-soft p-2 font-mono text-xs">f'(x) = {1 if x &gt; 0, 0 if x &le; 0}</div>
       <p class="small-caption text-success">✓ No vanishing gradients for x &gt; 0</p>
     </div>
-    <div class="panel panel-accent panel-emphasis p-3 space-y-2">
+    <div class="panel panel-accent p-3 space-y-2">
       <h5 class="font-medium text-heading">Sigmoid</h5>
       <p class="text-sm">Smooth but problematic derivative</p>
       <div class="panel panel-neutral-soft p-2 font-mono text-xs">f'(x) = σ(x)(1 - σ(x))</div>
       <p class="small-caption text-warning">⚠ Vanishing gradients (max 0.25)</p>
     </div>
-    <div class="panel panel-warning panel-emphasis p-3 space-y-2">
+    <div class="panel panel-warning p-3 space-y-2">
       <h5 class="font-medium text-heading">Tanh</h5>
       <p class="text-sm">Better than sigmoid yet still limited</p>
       <div class="panel panel-neutral-soft p-2 font-mono text-xs">f'(x) = 1 - \tanh^2(x)</div>
@@ -56,7 +56,7 @@
     </div>
   </div>
 
-  <div class="panel panel-success panel-emphasis p-4 space-y-2">
+  <div class="panel panel-success p-4 space-y-2">
     <h4 class="font-semibold text-heading">🎯 Why ReLU's derivative is revolutionary</h4>
     <ul class="list-disc ml-5 text-sm space-y-1">
       <li><strong>Solves vanishing gradients:</strong> Gradient is either 0 or 1, preventing exponential decay through layers.</li>
@@ -67,7 +67,7 @@
     </ul>
   </div>
 
-  <div class="panel panel-warning panel-emphasis p-4 space-y-2">
+  <div class="panel panel-warning p-4 space-y-2">
     <h4 class="font-semibold text-heading">⚠️ The dead neuron problem</h4>
     <p class="text-sm">When ReLU receives consistently negative inputs its gradient stays at 0, leaving that neuron permanently inactive. Variants like Leaky ReLU and ELU introduce a small negative slope so gradients keep flowing and neurons remain trainable.</p>
   </div>

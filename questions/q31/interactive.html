@@ -159,27 +159,27 @@
     <label for="q31-input-value" class="block text-sm font-medium text-heading">🧠 Neural network configuration</label>
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
       <div class="space-y-1">
-        <label for="q31-input-value" class="text-xs text-muted">Input (x)</label>
+        <label for="q31-input-value" class="text-xs panel-muted">Input (x)</label>
         <input type="range" id="q31-input-value" min="-2" max="2" step="0.1" value="1.0" class="w-full" aria-describedby="q31-input-display" aria-label="Input value x">
         <span id="q31-input-display" class="chip chip-neutral text-xs font-mono" aria-live="polite">1.0</span>
       </div>
       <div class="space-y-1">
-        <label for="q31-weight1" class="text-xs text-muted">Weight w₁</label>
+        <label for="q31-weight1" class="text-xs panel-muted">Weight w₁</label>
         <input type="range" id="q31-weight1" min="-2" max="2" step="0.1" value="0.5" class="w-full" aria-describedby="q31-weight1-display" aria-label="Weight w1">
         <span id="q31-weight1-display" class="chip chip-neutral text-xs font-mono" aria-live="polite">0.5</span>
       </div>
       <div class="space-y-1">
-        <label for="q31-weight2" class="text-xs text-muted">Weight w₂</label>
+        <label for="q31-weight2" class="text-xs panel-muted">Weight w₂</label>
         <input type="range" id="q31-weight2" min="-2" max="2" step="0.1" value="0.8" class="w-full" aria-describedby="q31-weight2-display" aria-label="Weight w2">
         <span id="q31-weight2-display" class="chip chip-neutral text-xs font-mono" aria-live="polite">0.8</span>
       </div>
       <div class="space-y-1">
-        <label for="q31-target" class="text-xs text-muted">Target (y)</label>
+        <label for="q31-target" class="text-xs panel-muted">Target (y)</label>
         <input type="range" id="q31-target" min="0" max="1" step="0.1" value="0.7" class="w-full" aria-describedby="q31-target-display" aria-label="Target value y">
         <span id="q31-target-display" class="chip chip-neutral text-xs font-mono" aria-live="polite">0.7</span>
       </div>
     </div>
-    <p class="text-xs text-muted">Adjust parameters to see how gradients flow through the network.</p>
+    <p class="text-xs panel-muted">Adjust parameters to see how gradients flow through the network.</p>
   </div>
 
   <div class="question-card space-y-3">
@@ -192,8 +192,8 @@
             <span class="font-medium text-heading">Sigmoid</span>
             <span class="chip chip-info text-xs">Smooth</span>
           </div>
-          <p class="text-xs text-muted font-mono">σ(x) = 1 / (1 + e<sup>−x</sup>)</p>
-          <p class="text-xs text-muted-soft">Classic activation with smooth gradients.</p>
+          <p class="text-xs panel-muted font-mono">σ(x) = 1 / (1 + e<sup>−x</sup>)</p>
+          <p class="text-xs panel-muted-soft">Classic activation with smooth gradients.</p>
         </div>
       </label>
       <label class="question-strategy" data-activation="tanh">
@@ -203,8 +203,8 @@
             <span class="font-medium text-heading">Tanh</span>
             <span class="chip chip-success text-xs">Centered</span>
           </div>
-          <p class="text-xs text-muted font-mono">tanh(x) = (e<sup>x</sup> − e<sup>−x</sup>)/(e<sup>x</sup> + e<sup>−x</sup>)</p>
-          <p class="text-xs text-muted-soft">Zero-centred outputs strengthen gradient flow.</p>
+          <p class="text-xs panel-muted font-mono">tanh(x) = (e<sup>x</sup> − e<sup>−x</sup>)/(e<sup>x</sup> + e<sup>−x</sup>)</p>
+          <p class="text-xs panel-muted-soft">Zero-centred outputs strengthen gradient flow.</p>
         </div>
       </label>
       <label class="question-strategy" data-activation="relu">
@@ -214,8 +214,8 @@
             <span class="font-medium text-heading">ReLU</span>
             <span class="chip chip-warning text-xs">Modern</span>
           </div>
-          <p class="text-xs text-muted font-mono">ReLU(x) = max(0, x)</p>
-          <p class="text-xs text-muted-soft">Keeps gradients alive while avoiding saturation.</p>
+          <p class="text-xs panel-muted font-mono">ReLU(x) = max(0, x)</p>
+          <p class="text-xs panel-muted-soft">Keeps gradients alive while avoiding saturation.</p>
         </div>
       </label>
     </div>

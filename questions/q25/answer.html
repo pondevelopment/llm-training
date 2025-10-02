@@ -1,30 +1,30 @@
 ﻿<div class="space-y-4">
   <div class="panel panel-info p-3">
-    <h4 class="font-semibold mb-1">&#x1F4DA; Recommended reading</h4>
+    <h4 class="font-semibold mb-1">📚 Recommended reading</h4>
     <ul class="list-disc ml-5 text-sm space-y-1">
       <li><a href="#question-23" class="underline">Question 23: How is the softmax function applied in attention mechanisms?</a></li>
       <li><a href="#question-29" class="underline">Question 29: What is KL divergence and how is it used?</a></li>
     </ul>
   </div>
 
-  <div class="panel panel-info panel-emphasis p-4 space-y-2">
-    <h4 class="font-semibold">&#x1F3AF; What is Cross-Entropy Loss?</h4>
+  <div class="panel panel-info p-4 space-y-2">
+    <h4 class="font-semibold">🎯 What is Cross-Entropy Loss?</h4>
     <p>Cross-entropy loss measures how far the model&apos;s predicted probability distribution is from the true distribution. Think of it as a surprise meter: if the model assigns high probability to the correct word, the loss is low; if it is confidently wrong, the loss spikes.</p>
   </div>
 
-  <div class="panel panel-success panel-emphasis p-4 space-y-2">
-    <h4 class="font-semibold">&#x1F4A1; Real-World Analogy</h4>
+  <div class="panel panel-success p-4 space-y-2">
+    <h4 class="font-semibold">💡 Real-World Analogy</h4>
     <p>Imagine you are a weather forecaster sharing daily odds. Cross-entropy acts like your credibility score.</p>
     <ul class="list-disc ml-5 text-sm space-y-1">
-      <li>90% chance of rain and it rains &rarr; <strong>Low loss</strong> (great calibration).</li>
-      <li>10% chance of rain and it rains &rarr; <strong>High loss</strong> (confidently wrong).</li>
-      <li>50% chance of rain &rarr; <strong>Medium loss</strong> (hedging bets).</li>
+      <li>90% chance of rain and it rains → <strong>Low loss</strong> (great calibration).</li>
+      <li>10% chance of rain and it rains → <strong>High loss</strong> (confidently wrong).</li>
+      <li>50% chance of rain → <strong>Medium loss</strong> (hedging bets).</li>
       <li>The logarithm makes confident mistakes hurt much more than uncertainty.</li>
     </ul>
   </div>
 
   <div class="panel panel-neutral p-4 space-y-3">
-    <h4 class="font-semibold">&#x1F4D0; The Cross-Entropy Formula</h4>
+    <h4 class="font-semibold">📐 The Cross-Entropy Formula</h4>
     <div id="q25-formula" class="math-display">
 $$\begin{aligned}
 L &= -\sum_i y_i\log(\hat{p}_i) \
@@ -40,7 +40,7 @@ L &= -\sum_i y_i\log(\hat{p}_i) \
   </div>
 
   <div class="grid md:grid-cols-3 gap-4">
-    <div class="panel panel-success panel-emphasis p-3 space-y-2">
+    <div class="panel panel-success p-3 space-y-2">
       <h5 class="font-medium">Cross-Entropy Loss</h5>
       <p class="text-sm panel-muted">Measures distance between true and predicted probability distributions.</p>
       <span class="chip chip-success text-xs font-mono">L = -log(p_{correct})</span>
@@ -50,7 +50,7 @@ L &= -\sum_i y_i\log(\hat{p}_i) \
         <li>Handles uncertainty gracefully.</li>
       </ul>
     </div>
-    <div class="panel panel-accent panel-emphasis p-3 space-y-2">
+    <div class="panel panel-accent p-3 space-y-2">
       <h5 class="font-medium">Mean Squared Error</h5>
       <p class="text-sm panel-muted">Squares the difference between predicted and true values.</p>
       <span class="chip chip-accent text-xs font-mono">L = (y - &#x005E;y)^2</span>
@@ -60,7 +60,7 @@ L &= -\sum_i y_i\log(\hat{p}_i) \
         <li>Easy to interpret.</li>
       </ul>
     </div>
-    <div class="panel panel-warning panel-emphasis p-3 space-y-2">
+    <div class="panel panel-warning p-3 space-y-2">
       <h5 class="font-medium">Hinge Loss</h5>
       <p class="text-sm panel-muted">Maximises the margin between correct and incorrect classes.</p>
       <span class="chip chip-warning text-xs font-mono">L = max(0, 1 - y&#x00B7;&#x005E;y)</span>
@@ -96,8 +96,8 @@ L &= -\sum_i y_i\log(\hat{p}_i) \
     </div>
   </div>
 
-  <div class="panel panel-warning panel-emphasis p-4 space-y-3">
-    <h4 class="font-semibold">&#x1F4DA; In Language Modelling Context</h4>
+  <div class="panel panel-warning p-4 space-y-3">
+    <h4 class="font-semibold">📚 In Language Modelling Context</h4>
     <ul class="list-disc ml-5 text-sm space-y-2">
       <li><strong>Next-token prediction:</strong> compare the model&apos;s distribution against a one-hot vector for the actual token.</li>
       <li><strong>Vocabulary size:</strong> scales to 50K+ outputs while rewarding confident correct predictions.</li>
@@ -136,7 +136,7 @@ L &= -\sum_i y_i\log(\hat{p}_i) \
   </div>
 
   <div class="panel panel-warning p-4 space-y-2">
-    <h4 class="font-semibold">&#x1F3AF; Why Not Other Loss Functions?</h4>
+    <h4 class="font-semibold">🎯 Why Not Other Loss Functions?</h4>
     <ul class="list-disc ml-5 text-sm space-y-2">
       <li><strong>Accuracy:</strong> not differentiable, so it cannot guide gradient descent.</li>
       <li><strong>MSE:</strong> treats probability differences linearly and ignores distribution shape.</li>

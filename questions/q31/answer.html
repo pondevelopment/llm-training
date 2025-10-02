@@ -9,7 +9,7 @@
     </ul>
   </div>
 
-  <div class="panel panel-info panel-emphasis p-4 space-y-2">
+  <div class="panel panel-info p-4 space-y-2">
     <h4 class="font-semibold">🔧 What is Backpropagation?</h4>
     <p>Backpropagation is the <strong>gradient computation algorithm</strong> that lets neural networks learn. It pushes the output error backward through each layer using the chain rule so every weight knows how much it contributed to the mistake. Think of it as accountability tracing: when a prediction is off, backprop assigns blame and suggests the precise adjustment for every parameter.</p>
   </div>
@@ -35,19 +35,19 @@
   </div>
 
   <div class="grid md:grid-cols-3 gap-4">
-    <div class="panel panel-success panel-emphasis p-3 stacked-card">
+    <div class="panel panel-success p-3">
       <h5 class="font-medium">1. Forward pass</h5>
       <p class="text-sm">Compute predictions and cache intermediate activations.</p>
       <div class="chip chip-success text-xs font-mono w-fit">z = W·x + b → a = σ(z) → y_hat = f(a)</div>
       <p class="text-xs text-muted">✓ Store activations for reuse in the backward pass.</p>
     </div>
-    <div class="panel panel-accent panel-emphasis p-3 stacked-card">
+    <div class="panel panel-accent p-3">
       <h5 class="font-medium">2. Loss computation</h5>
       <p class="text-sm">Compare the prediction with the target to measure error.</p>
       <div class="chip chip-accent text-xs font-mono w-fit">L = loss(y_hat, y_true)</div>
       <p class="text-xs text-muted">⚠️ Produces a single scalar that summarises performance.</p>
     </div>
-    <div class="panel panel-warning panel-emphasis p-3 stacked-card">
+    <div class="panel panel-warning p-3">
       <h5 class="font-medium">3. Backward pass</h5>
       <p class="text-sm">Propagate gradients layer by layer using the chain rule.</p>
       <div class="chip chip-warning text-xs font-mono w-fit">∂L/∂W = chain_rule(∂L/∂y, ∂y/∂a, ∂a/∂z, ∂z/∂W)</div>
@@ -66,7 +66,7 @@
     </ul>
   </div>
 
-  <div class="panel panel-info panel-emphasis p-4 space-y-2">
+  <div class="panel panel-info p-4 space-y-2">
     <h4 class="font-semibold">🌐 Computational graph view</h4>
     <p class="text-sm">Deep learning libraries represent models as <strong>computational graphs</strong>. The forward pass pushes values through the graph, while the backward pass walks the graph in reverse to accumulate gradients automatically.</p>
     <div class="panel panel-neutral-soft p-2 text-xs font-mono">
@@ -75,7 +75,7 @@
     </div>
   </div>
 
-  <div class="panel panel-accent panel-emphasis p-4 space-y-3">
+  <div class="panel panel-accent p-4 space-y-3">
     <h4 class="font-semibold">⚠️ Backpropagation challenges</h4>
     <div class="grid md:grid-cols-2 gap-3 text-sm">
       <p><strong>Vanishing gradients:</strong> In deep stacks, derivatives multiply into extremely small values so early layers barely learn.</p>

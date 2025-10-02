@@ -1,6 +1,6 @@
 <div class="space-y-6" id="q21-interactive-root">
   <div class="panel panel-info p-4 space-y-3">
-    <label for="q21-text-select" class="text-sm font-medium text-heading">&#x1F4DD; Choose a sentence to analyse</label>
+    <label for="q21-text-select" class="text-sm font-medium text-heading">📝 Choose a sentence to analyse</label>
     <select id="q21-text-select" class="select-control">
       <option value="The king wore a crown">The king wore a crown (Order matters for meaning)</option>
       <option value="Hello world from transformers">Hello world from transformers (Simple greeting)</option>
@@ -17,7 +17,7 @@
   </div>
 
   <div class="panel panel-neutral p-4 space-y-3">
-    <span class="text-sm font-medium text-heading">&#x1F3AF; Choose positional encoding type</span>
+    <span class="text-sm font-medium text-heading">🎯 Choose positional encoding type</span>
     <div class="grid grid-cols-1 gap-3 md:grid-cols-3">
       <label class="q21-encoding-card panel panel-neutral-soft p-3" data-encoding="sinusoidal">
         <div class="flex items-start gap-3">
@@ -63,15 +63,15 @@
     </div>
   </div>
 
-  <div class="flex flex-wrap items-center gap-2 text-xs text-muted">
-    <span>&#x1F4A1; Quick tip:</span>
+  <div class="flex flex-wrap items-center gap-2 text-xs panel-muted">
+    <span>💡 Quick tip:</span>
     <span class="chip chip-info text-xs">Try different sentences and encoding types to see how patterns change.</span>
   </div>
 
   <div class="panel panel-neutral p-4 space-y-3">
     <div class="flex flex-wrap items-center justify-between gap-2">
-      <h4 class="font-medium text-heading">&#x1F3A8; Positional encoding visualisation</h4>
-      <div class="flex flex-wrap items-center gap-3 text-xs text-muted">
+      <h4 class="font-medium text-heading">🎨 Positional encoding visualisation</h4>
+      <div class="flex flex-wrap items-center gap-3 text-xs panel-muted">
         <label for="q21-viz-mode" class="text-muted">View</label>
         <select id="q21-viz-mode" class="select-control text-xs" style="width: 10rem;">
           <option value="bars" selected>Bars</option>
@@ -82,11 +82,11 @@
       </div>
     </div>
     <div id="q21-output" class="panel panel-neutral-soft min-h-[200px] border-2 border-dashed border-transparent" aria-live="polite"></div>
-    <div id="q21-legend" class="text-xs text-muted"></div>
+    <div id="q21-legend" class="text-xs panel-muted"></div>
   </div>
 
   <div id="q21-comparison" class="panel panel-warning p-4 space-y-2">
-    <h4 class="font-medium text-heading">&#x1F4CA;  Why this encoding type?</h4>
+    <h4 class="font-medium text-heading">📊  Why this encoding type?</h4>
     <div id="q21-explanation" class="text-sm text-body" aria-live="polite"></div>
   </div>
 </div>

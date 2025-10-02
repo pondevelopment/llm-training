@@ -232,23 +232,23 @@
         <label class="block space-y-1">
           <span class="text-xs font-semibold text-secondary">Sequence Length: <span id="q32-seq-length-display" class="font-mono text-heading">3</span></span>
           <input id="q32-seq-length" type="range" min="2" max="8" value="3" class="w-full mt-1" aria-label="Sequence length slider" />
-          <div id="q32-seq-feedback" class="text-xs text-muted mt-1"></div>
+          <div id="q32-seq-feedback" class="text-xs panel-muted mt-1"></div>
         </label>
         <label class="block space-y-1">
           <span class="text-xs font-semibold text-secondary">Key / Value Dimension (d_k): <span id="q32-dim-k-display" class="font-mono text-heading">4</span></span>
           <input id="q32-dim-k" type="range" min="2" max="12" value="4" class="w-full mt-1" aria-label="Key dimension slider" />
-          <div id="q32-dim-feedback" class="text-xs text-muted mt-1"></div>
+          <div id="q32-dim-feedback" class="text-xs panel-muted mt-1"></div>
         </label>
         <label class="block space-y-1">
           <span class="text-xs font-semibold text-secondary">Temperature: <span id="q32-temperature-display" class="font-mono text-heading">1.0</span></span>
           <input id="q32-temperature" type="range" min="0.2" max="3" step="0.1" value="1" class="w-full mt-1" aria-label="Temperature slider" />
-          <div id="q32-temp-feedback" class="text-xs text-muted mt-1"></div>
+          <div id="q32-temp-feedback" class="text-xs panel-muted mt-1"></div>
         </label>
         <label class="inline-flex items-center gap-2">
           <input id="q32-scaling" type="checkbox" checked aria-label="Toggle scaling by square root d k" />
           <span class="text-xs text-secondary">Apply √d_k scaling</span>
         </label>
-        <div id="q32-scaling-feedback" class="text-xs text-muted"></div>
+        <div id="q32-scaling-feedback" class="text-xs panel-muted"></div>
       </div>
 
       <div class="space-y-4">
@@ -261,7 +261,7 @@
         </div>
         <div class="space-y-2">
           <button id="q32-toggle-guide" class="text-xs underline text-link">Hide Guide</button>
-          <div id="q32-guide-content" class="space-y-2 text-xs text-muted">
+          <div id="q32-guide-content" class="space-y-2 text-xs panel-muted">
             <p><strong>Sequence Length</strong> changes how many tokens attend to each other (matrix size).</p>
             <p><strong>d_k</strong> changes scale of dot products; higher values make scaling more important.</p>
             <p><strong>Temperature</strong> sharpens (low) or smooths (high) the softmax distribution.</p>
@@ -309,7 +309,7 @@
             </div>
           </div>
           <p class="text-sm text-muted mt-3">Colour-coded matrix showing attention patterns.</p>
-          <div class="flex items-center text-xs text-muted gap-3">
+          <div class="flex items-center text-xs panel-muted gap-3">
             <div class="flex items-center gap-1">
               <span class="q32-heatmap-swatch q32-heatmap-swatch--high" aria-hidden="true"></span>
               <span>High</span>

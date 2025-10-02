@@ -1,5 +1,5 @@
 <div class="space-y-6">
-  <div class="panel panel-info panel-emphasis p-4 space-y-3">
+  <div class="panel panel-info p-4 space-y-3">
     <label for="q23-scores-select" class="block text-sm font-medium text-heading">📝 Select attention score pattern</label>
     <select id="q23-scores-select" aria-label="Attention scores pattern" class="field-select w-full">
       <option value="3.2, 1.8, 2.5, 0.9, 2.1">Mixed Scores: [3.2, 1.8, 2.5, 0.9, 2.1]</option>
@@ -36,7 +36,7 @@
           <span class="font-medium text-heading">Bar chart</span>
           <span class="chip chip-info text-xs">Visual</span>
         </div>
-        <p class="text-xs text-muted">Show probabilities as coloured bars for quick comparison.</p>
+        <p class="text-xs panel-muted">Show probabilities as coloured bars for quick comparison.</p>
       </label>
 
       <label class="panel panel-neutral-soft p-3 space-y-2 cursor-pointer transition-colors" data-role="q23-mode-card" data-mode="table">
@@ -45,7 +45,7 @@
           <span class="font-medium text-heading">Data table</span>
           <span class="chip chip-accent text-xs">Precise</span>
         </div>
-        <p class="text-xs text-muted">Inspect exact numerical values and intermediate calculations.</p>
+        <p class="text-xs panel-muted">Inspect exact numerical values and intermediate calculations.</p>
       </label>
     </div>
   </div>
@@ -61,7 +61,7 @@
       <div id="q23-mode-indicator" class="chip chip-neutral text-xs font-medium">Bar Chart</div>
     </div>
     <div id="q23-output" class="min-h-[200px]" aria-live="polite"></div>
-    <div id="q23-legend" class="text-xs text-muted" aria-live="polite"></div>
+    <div id="q23-legend" class="text-xs panel-muted" aria-live="polite"></div>
   </div>
 
   <div class="panel panel-warning p-4 space-y-2">

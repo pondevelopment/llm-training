@@ -10,7 +10,7 @@
     <p class="small-caption panel-muted mt-2">These build conceptual grounding for scaling, softmax distribution, gradient flow, and extension to multi-head attention.</p>
   </div>
 
-  <div class="panel panel-info panel-emphasis p-4 space-y-2">
+  <div class="panel panel-info p-4 space-y-2">
     <h4 class="font-semibold">🎯 What is Transformer Attention?</h4>
     <p>Attention in transformers is a mechanism that allows the model to <strong>focus on different parts of the input sequence</strong> when processing each token. It's computed using three matrices: <strong>Query (Q)</strong>, <strong>Key (K)</strong>, and <strong>Value (V)</strong>. Think of it like a search engine: the Query asks "what am I looking for?", Keys answer "what information do I contain?", and Values provide "the actual information to use".</p>
   </div>
@@ -24,28 +24,28 @@
   </div>
 
   <div class="grid md:grid-cols-4 gap-4">
-    <div class="panel panel-info panel-emphasis p-3 space-y-2 stacked-card">
+    <div class="panel panel-info p-3 space-y-2">
       <h5 class="font-medium">1. Dot Product</h5>
       <p class="text-sm panel-muted">Compute similarity between queries and keys</p>
       <div class="math-display">\[\mathbf{Q}\mathbf{K}^T\]</div>
       <p class="small-caption">🔍 Measures relevance: higher values = more similar</p>
     </div>
 
-    <div class="panel panel-accent panel-emphasis p-3 space-y-2 stacked-card">
+    <div class="panel panel-accent p-3 space-y-2">
       <h5 class="font-medium">2. Scale</h5>
       <p class="text-sm panel-muted">Normalize by dimension to prevent saturation</p>
       <div class="math-display">\[\frac{\mathbf{Q}\mathbf{K}^T}{\sqrt{d_k}}\]</div>
       <p class="small-caption">⚖️ Prevents gradients from vanishing in softmax</p>
     </div>
 
-    <div class="panel panel-warning panel-emphasis p-3 space-y-2 stacked-card">
+    <div class="panel panel-warning p-3 space-y-2">
       <h5 class="font-medium">3. Softmax</h5>
       <p class="text-sm panel-muted">Convert to probability distribution</p>
       <div class="math-display">\[\text{softmax}(\text{scores})\]</div>
       <p class="small-caption">📊 Creates attention weights that sum to 1</p>
     </div>
 
-    <div class="panel panel-success panel-emphasis p-3 space-y-2 stacked-card">
+    <div class="panel panel-success p-3 space-y-2">
       <h5 class="font-medium">4. Weighted Sum</h5>
       <p class="text-sm panel-muted">Combine values using attention weights</p>
       <div class="math-display">\[\text{weights} \cdot \mathbf{V}\]</div>

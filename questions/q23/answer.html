@@ -1,5 +1,5 @@
 <div class="space-y-4">
-  <div class="panel panel-info panel-emphasis p-3">
+  <div class="panel panel-info p-3">
     <h4 class="font-semibold mb-1">📚 Recommended reading</h4>
     <ul class="list-disc ml-5 text-sm space-y-1">
       <li><a href="#question-2" class="underline">Question 2: How does the attention mechanism function in transformer models?</a></li>
@@ -9,7 +9,7 @@
     </ul>
   </div>
 
-  <div class="panel panel-info panel-emphasis p-4 space-y-2">
+  <div class="panel panel-info p-4 space-y-2">
     <h4 class="font-semibold">🎯 What is Softmax in Attention?</h4>
     <p>The softmax function converts raw attention scores (similarity values) into a probability distribution that sums to 1. Think of it like converting preference ratings into percentages—if you rate 3 restaurants as 8, 6, and 4, softmax converts these to probabilities like 65%, 24%, and 11%.</p>
   </div>
@@ -28,19 +28,19 @@
   </div>
 
   <div class="grid md:grid-cols-3 gap-4">
-    <div class="panel panel-info panel-emphasis p-3 flex flex-col gap-2 h-full">
+    <div class="panel panel-info p-3 flex flex-col gap-2 h-full">
       <h5 class="font-medium">Low Temperature (T &lt; 1.0)</h5>
       <p class="text-sm">Makes probabilities more “peaked” by emphasizing differences between scores.</p>
       <span class="chip chip-info text-xs font-mono mt-auto self-start">[3, 2, 1] → [0.67, 0.24, 0.09]</span>
     </div>
 
-    <div class="panel panel-success panel-emphasis p-3 flex flex-col gap-2 h-full">
+    <div class="panel panel-success p-3 flex flex-col gap-2 h-full">
       <h5 class="font-medium">Normal Temperature (1.0)</h5>
       <p class="text-sm">Standard softmax behavior with a balanced probability distribution.</p>
       <span class="chip chip-success text-xs font-mono mt-auto self-start">[3, 2, 1] → [0.58, 0.31, 0.11]</span>
     </div>
 
-    <div class="panel panel-warning panel-emphasis p-3 flex flex-col gap-2 h-full">
+    <div class="panel panel-warning p-3 flex flex-col gap-2 h-full">
       <h5 class="font-medium">High Temperature (T &gt; 1.0)</h5>
       <p class="text-sm">Flattens the probabilities, reducing differences between scores.</p>
       <span class="chip chip-warning text-xs font-mono mt-auto self-start">[3, 2, 1] → [0.42, 0.34, 0.24]</span>

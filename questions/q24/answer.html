@@ -9,12 +9,12 @@
     </ul>
   </div>
 
-  <div class="panel panel-info panel-emphasis p-4 space-y-2">
+  <div class="panel panel-info p-4 space-y-2">
     <h4 class="font-semibold">🎯 What is the dot product in self-attention?</h4>
     <p>The dot product in self-attention asks “How similar are these two tokens?” When a transformer reads “The cat sat on the mat”, the token “cat” attends strongly to “sat” (an action) and weakly to “the” (a determiner). The dot product scores that similarity using each token’s embedding.</p>
   </div>
 
-  <div class="panel panel-success panel-emphasis p-4 space-y-2">
+  <div class="panel panel-success p-4 space-y-2">
     <h4 class="font-semibold">💡 Real-world analogy</h4>
     <p>Think of word vectors as personality profiles with traits like <em>formality</em>, <em>emotion</em>, <em>action</em>, <em>concreteness</em>, and <em>time</em>. Dot products check how aligned these traits are.</p>
     <ul class="list-disc ml-5 text-sm space-y-1">
@@ -32,19 +32,19 @@
   </div>
 
   <div class="grid md:grid-cols-3 gap-4">
-    <div class="panel panel-success panel-emphasis p-3 space-y-2 stacked-card">
+    <div class="panel panel-success p-3 space-y-2">
       <h5 class="font-medium">High similarity</h5>
       <p class="text-sm">Semantically related words reinforce each other.</p>
       <span class="chip chip-success font-mono text-xs">"king" → "queen"</span>
       <div class="text-xs panel-muted">Dot product &gt; 0 → aligned traits.</div>
     </div>
-    <div class="panel panel-neutral-soft p-3 space-y-2 stacked-card">
+    <div class="panel panel-neutral-soft p-3 space-y-2">
       <h5 class="font-medium">Low similarity</h5>
       <p class="text-sm">Unrelated tokens barely interact.</p>
       <span class="chip chip-neutral font-mono text-xs">"the" → "elephant"</span>
       <div class="text-xs panel-muted">Dot product ≈ 0 → minimal overlap.</div>
     </div>
-    <div class="panel panel-warning panel-emphasis p-3 space-y-2 stacked-card">
+    <div class="panel panel-warning p-3 space-y-2">
       <h5 class="font-medium">Opposite meaning</h5>
       <p class="text-sm">Contradictory words can oppose attention.</p>
       <span class="chip chip-warning font-mono text-xs">"hot" → "cold"</span>
@@ -76,7 +76,7 @@
     </div>
   </div>
 
-  <div class="panel panel-warning panel-emphasis p-4 space-y-2">
+  <div class="panel panel-warning p-4 space-y-2">
     <h4 class="font-semibold">⚡ Computational complexity</h4>
     <div class="text-sm space-y-1">
       <p><strong>Quadratic cost O(n²):</strong> Every token compares with every other token (n × n dot products).</p>

@@ -48,7 +48,7 @@ The client fetches `/questions/manifest.json` to discover question assets. Each 
 ## Content structure tips
 
 - Headings: `h4` for section titles, `h5` for cards, `p` for descriptive text.
-- Use the shared semantic helpers (`panel panel-info`, `panel panel-success panel-emphasis`, `chip chip-info`) rather than raw Tailwind colour utilities such as `bg-indigo-50` or `border-blue-200`.
+- Use the shared semantic helpers (`panel panel-info`, `panel panel-success`, `chip chip-info`) rather than raw Tailwind colour utilities such as `bg-indigo-50` or `border-blue-200`.
 - Keep paragraphs concise (2–3 sentences) and lean on lists for quick scanning.
 - Prefer semantic HTML (`<ul>`, `<li>`, `<code>`) over custom spans.
 

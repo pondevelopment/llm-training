@@ -19,7 +19,7 @@ U## Overview content
   - [ ] Includes context paragraph introducing the roadmap items
   - [ ] Optional: Nested subsections use `panel panel-info` with `<h4>` headings and descriptive content
   - [ ] Closes with actionable bulleted list (3-5 items)
-  - [ ] Never uses `panel-emphasis` or inline styles
+  - [ ] Never uses inline styles
 - [ ] All sections use theme classes: `panel panel-[type]`, `text-heading`, `panel-muted`, `text-body`
 - [ ] Icon consistency: 🧭 Executive quick take, 💼 Business relevance, 🧪 Evidence, 🔭 Roadmaphecklist whenever you add or update a paper explainer.
 
@@ -53,11 +53,11 @@ U## Overview content
 
 - [ ] **Root wrapper:** `<section class="space-y-6" id="pXX-explorer">` (semantic HTML, not div)
 - [ ] **NO inline styles:** No `<style>` blocks - use Tailwind utility classes only
-- [ ] **NO panel-emphasis:** Use single panel classes only (no double borders)
 - [ ] **Panel structure:**
   - [ ] Controls/inputs: `panel panel-info` or `panel panel-neutral`
   - [ ] Results/output: `panel panel-neutral` with nested `panel-neutral-soft` for metrics
   - [ ] Insights/warnings: `panel panel-warning` or `panel panel-success`
+  - [ ] Use single panel classes only (e.g., `panel panel-info` ✅)
 - [ ] **Min-height for dynamic content:** Use inline Tailwind classes like `min-h-[2.75rem]` instead of custom CSS
 - [ ] Dimension / corpus / k sliders match paper defaults and include helper text
 - [ ] Design tweaks: vectors-per-document slider, lexical reranker checkbox (with explanation), token retention slider

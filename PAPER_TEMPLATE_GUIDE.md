@@ -28,12 +28,11 @@ This guide explains how to add or revise researc## Overview content## Interactiv
 
 - **Root wrapper:** Use `<section class="space-y-6" id="pXX-explorer">` (semantic HTML, not generic div)
 - **NO inline styles:** Never use `<style>` blocks in interactive.html - use Tailwind utility classes with theme tokens
-- **NO panel-emphasis:** This creates double borders - use single panel classes only
 - **Panel class guidelines:**
   - Controls/inputs: `panel panel-info` or `panel panel-neutral`
   - Results/output: `panel panel-neutral` with nested `panel-neutral-soft` for metrics
   - Insights/warnings: `panel panel-warning` or `panel panel-success`
-  - Never stack panel classes (e.g., `panel panel-info panel-emphasis` ❌)
+  - Use single panel classes only (e.g., `panel panel-info` ✅)
 - **Consistent spacing:** Use `space-y-*` on containers, `gap-*` for grids/flex layouts
 - **Min-height for dynamic content:** Use `min-h-[2.75rem]` directly in classes instead of custom CSS
 
@@ -127,7 +126,7 @@ The loader automatically looks for `overview.html`, `interactive.html`, and `int
    - **Roadmap** (`panel panel-warning` with 🔭 icon): Actionable next steps
      - **Structure:** Simple bulleted list (3-5 items) with actionable next steps
      - **Nested callouts (if needed):** Use `panel panel-info` for subsections that need expansion
-     - **Never use:** Hardcoded amber/cyan colors, panel-emphasis, or inline styles
+     - **Never use:** Hardcoded amber/cyan colors or inline styles
      - **Example:** See P01 for simple list format; P03 demonstrates nested callouts with proper theme classes
    - Use theme classes: `panel panel-[type]`, `text-heading`, `panel-muted`, `text-body`
 3. **Build the interactive (`interactive.html` + `interactive.js`):**

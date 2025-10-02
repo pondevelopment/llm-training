@@ -7,7 +7,7 @@
       <li><a class="underline" href="#question-39">Question 39: Discriminative vs generative heads</a></li>
     </ul>
   </div>
-  <div class="panel panel-info panel-emphasis p-4 space-y-2">
+  <div class="panel panel-info p-4 space-y-2">
     <h4 class="font-semibold">⚡ Key Idea</h4>
     <p class="text-sm leading-relaxed">Adaptive Softmax splits a large vocabulary into a <strong>frequent head</strong> and one or more <strong>rare tails</strong>. At training time it computes the head for <em>all</em> tokens and only the <em>relevant tail</em> for the gold label. Rare tails use <strong>reduced projection dimensions</strong>, cutting multiply-adds and parameters while preserving accuracy on frequent words.</p>
     <div class="text-xs panel-muted space-y-1">
@@ -22,21 +22,21 @@ $$</div>
     </div>
   </div>
   <div class="grid md:grid-cols-3 gap-4">
-    <div class="panel panel-success panel-emphasis p-3 space-y-2">
+    <div class="panel panel-success p-3 space-y-2">
       <h5 class="font-medium">🔵 Full Softmax</h5>
       <ul class="list-disc ml-4 text-sm space-y-1">
         <li>Compute over the <strong>entire</strong> vocabulary</li>
         <li>Delivers maximum accuracy but is expensive</li>
       </ul>
     </div>
-    <div class="panel panel-accent panel-emphasis p-3 space-y-2">
+    <div class="panel panel-accent p-3 space-y-2">
       <h5 class="font-medium">🟣 Adaptive Softmax</h5>
       <ul class="list-disc ml-4 text-sm space-y-1">
         <li>Head plus a small set of tails per example</li>
         <li>Tail projections shrink: d_i = α_i · d</li>
       </ul>
     </div>
-    <div class="panel panel-warning panel-emphasis p-3 space-y-2">
+    <div class="panel panel-warning p-3 space-y-2">
       <h5 class="font-medium">🟠 When to use</h5>
       <ul class="list-disc ml-4 text-sm space-y-1">
         <li>Very large vocabularies (50k–1M)</li>

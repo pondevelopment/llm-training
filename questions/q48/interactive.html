@@ -286,14 +286,14 @@
     }
     }</style>
             <!-- Controls -->
-            <div class="panel panel-info panel-emphasis p-4 space-y-4">
+            <div class="panel panel-info p-4 space-y-4">
                 <div class="grid md:grid-cols-4 gap-3" aria-label="Hyperparameter controls">
                     <div>
                         <label for="q48-lr" class="block text-sm font-medium text-heading mb-1">Learning rate (η)
                             <span class="q48-tip" title="Too high -> divergence; too low -> slow convergence; sweet spot often ~1e-4-5e-3 for many transformer fine-tunes.">ℹ️</span>
                         </label>
                         <input id="q48-lr" type="range" min="-4" max="-1" step="0.1" value="-2.5" class="w-full" aria-describedby="q48-lr-help q48-lr-val" aria-label="Learning rate log10 slider">
-                        <div id="q48-lr-help" class="text-xs text-muted">Log10 scale: η = 10^x | current: <span id="q48-lr-val" class="font-semibold"></span></div>
+                        <div id="q48-lr-help" class="text-xs panel-muted">Log10 scale: η = 10^x | current: <span id="q48-lr-val" class="font-semibold"></span></div>
                     </div>
                     <div>
                         <label for="q48-bs" class="block text-sm font-medium text-heading mb-1">Batch size
@@ -306,26 +306,26 @@
                             <option>64</option>
                             <option>128</option>
                         </select>
-                        <div class="text-xs text-muted">Samples / optimizer step</div>
+                        <div class="text-xs panel-muted">Samples / optimizer step</div>
                     </div>
                     <div>
                         <label for="q48-wd" class="block text-sm font-medium text-heading mb-1">Weight decay
                             <span class="q48-tip" title="L2 penalty: prevents weights growing too large; too high shrinks signal -> underfitting.">ℹ️</span>
                         </label>
                         <input id="q48-wd" type="range" min="0" max="0.1" step="0.005" value="0.01" class="w-full" aria-label="Weight decay slider">
-                        <div class="text-xs text-muted">L2 strength: <span id="q48-wd-val" class="font-semibold"></span></div>
+                        <div class="text-xs panel-muted">L2 strength: <span id="q48-wd-val" class="font-semibold"></span></div>
                     </div>
                     <div>
                         <label for="q48-do" class="block text-sm font-medium text-heading mb-1">Dropout
                             <span class="q48-tip" title="Randomly drops activations: improves generalization; too high slows learning & reduces capacity.">ℹ️</span>
                         </label>
                         <input id="q48-do" type="range" min="0" max="0.7" step="0.05" value="0.1" class="w-full" aria-label="Dropout probability slider">
-                        <div class="text-xs text-muted">p(drop): <span id="q48-do-val" class="font-semibold"></span></div>
+                        <div class="text-xs panel-muted">p(drop): <span id="q48-do-val" class="font-semibold"></span></div>
                     </div>
                 </div>
                 <div class="mt-4 flex flex-wrap items-center" aria-label="Detected regimes"><div id="q48-regimes" class="flex flex-wrap"></div>
                     <button id="q48-snapshot-btn" class="ml-auto q48-btn" data-variant="primary" type="button">Copy snapshot</button>
-                    <span id="q48-snapshot-status" class="text-xs text-muted ml-2"></span>
+                    <span id="q48-snapshot-status" class="text-xs panel-muted ml-2"></span>
                 </div>
             </div>
 
@@ -340,7 +340,7 @@
                                 <div id="q48-meter" class="q48-meter"></div>
                             </div>
                         </div>
-                        <div class="text-xs text-muted mt-1">Heuristic based on η, batch size, and regularization.</div>
+                        <div class="text-xs panel-muted mt-1">Heuristic based on η, batch size, and regularization.</div>
                     </div>
                     <div>
                         <div class="text-sm font-medium text-success mb-1">Good points</div>
@@ -357,7 +357,7 @@
             <div class="panel panel-neutral p-4 space-y-4" aria-label="Synthetic training dynamics">
                 <div class="flex items-center justify-between">
                     <h4 class="text-sm font-semibold text-heading">Synthetic training curves (heuristic)</h4>
-                    <div class="text-xs text-muted">Not real data - shaped by current hyperparameters</div>
+                    <div class="text-xs panel-muted">Not real data - shaped by current hyperparameters</div>
                 </div>
                 <div class="grid md:grid-cols-3 gap-4">
                     <div class="col-span-2">
@@ -372,7 +372,7 @@
                         <div>
                             <div class="text-xs font-medium text-muted mb-1">Gradient noise</div>
                             <div class="h-2 rounded q48-progress-track overflow-hidden"><div id="q48-noise-bar" class="q48-noise-bar"></div></div>
-                            <div id="q48-noise-text" class="text-xs text-muted mt-1"></div>
+                            <div id="q48-noise-text" class="text-xs panel-muted mt-1"></div>
                         </div>
                         <div>
                             <div class="text-xs font-medium text-muted mb-1">Effective step size</div>
@@ -401,7 +401,7 @@
                     <button id="q48-capture-a" type="button" class="q48-btn" data-variant="primary">Capture A</button>
                     <button id="q48-capture-b" type="button" class="q48-btn" data-variant="secondary" disabled>Capture B</button>
                     <button id="q48-clear-ab" type="button" class="q48-btn" data-variant="neutral" disabled>Clear</button>
-                    <span id="q48-ab-status" class="text-xs text-muted"></span>
+                    <span id="q48-ab-status" class="text-xs panel-muted"></span>
                 </div>
                 <div id="q48-ab-panel" class="hidden text-xs panel panel-neutral-soft p-3 space-y-2">
                     <div class="font-semibold text-heading">A vs B Differences</div>
@@ -429,17 +429,17 @@
                     <div class="flex gap-2 flex-wrap">
                         <button id="q48-run-lr-finder" type="button" class="q48-btn" data-variant="warning">Run LR finder</button>
                         <button id="q48-export-trail" type="button" class="q48-btn" data-variant="secondary">Export trail</button>
-                        <span id="q48-adv-status" class="text-xs text-muted"></span>
+                        <span id="q48-adv-status" class="text-xs panel-muted"></span>
                     </div>
                 </div>
                 <div class="grid md:grid-cols-3 gap-4">
                     <div class="col-span-2 space-y-3">
                         <div>
-                            <div class="flex items-center justify-between mb-1"><span class="text-xs font-medium text-heading">LR finder (synthetic sweep)</span><span id="q48-lr-window" class="text-xs text-muted"></span></div>
+                            <div class="flex items-center justify-between mb-1"><span class="text-xs font-medium text-heading">LR finder (synthetic sweep)</span><span id="q48-lr-window" class="text-xs panel-muted"></span></div>
                             <canvas id="q48-lr-finder" width="460" height="120" class="w-full border border-divider bg-card rounded" aria-label="Learning rate finder synthetic curve"></canvas>
                         </div>
                         <div>
-                            <div class="flex items-center justify-between mb-1"><span class="text-xs font-medium text-heading">Noise vs signal (gradient direction drift)</span><span id="q48-noise-ratio" class="text-xs text-muted"></span></div>
+                            <div class="flex items-center justify-between mb-1"><span class="text-xs font-medium text-heading">Noise vs signal (gradient direction drift)</span><span id="q48-noise-ratio" class="text-xs panel-muted"></span></div>
                             <canvas id="q48-noise-signal" width="460" height="110" class="w-full border border-divider bg-card rounded" aria-label="Noise vs signal scatter"></canvas>
                         </div>
                     </div>
@@ -462,7 +462,7 @@
 
             <!-- Output -->
             <div id="q48-expl" class="panel panel-warning p-4 text-sm" aria-live="polite"></div>
-            <div id="q48-change" class="text-xs text-muted" aria-live="polite"></div>
+            <div id="q48-change" class="text-xs panel-muted" aria-live="polite"></div>
         </div>
 
 

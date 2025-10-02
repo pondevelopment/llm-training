@@ -11,7 +11,7 @@
     <p class="text-xs text-muted">Attention mechanics, masking, context, and architecture trade-offs.</p>
   </div>
 
-  <div class="panel panel-info panel-emphasis p-4 space-y-3">
+  <div class="panel panel-info p-4 space-y-3">
     <h4 class="font-semibold text-heading">🧭 Core Idea</h4>
     <p class="text-sm">Encoders form <strong>bidirectional contextual embeddings</strong>. Decoders generate <strong>left‑to‑right</strong> under a causal mask. Encoder–decoder stacks add <strong>cross-attention</strong> so each target step can consult the full encoded source plus its history.</p>
     <div class="math-display">$$\text{Attention}(\mathbf{Q},\mathbf{K},\mathbf{V}) = \text{softmax}\!\left(\frac{\mathbf{Q}\mathbf{K}^T}{\sqrt{d_k}}\right)\mathbf{V}$$</div>
@@ -24,17 +24,17 @@
   </div>
 
   <div class="grid md:grid-cols-3 gap-4">
-    <div class="panel panel-success panel-emphasis p-3 space-y-2">
+    <div class="panel panel-success p-3 space-y-2">
       <h5 class="font-medium text-heading">Encoder‑only (e.g., BERT)</h5>
       <p class="text-sm text-muted">Bidirectional self-attention creates rich token representations for classification, retrieval, and embedding tasks. No autoregressive generation.</p>
       <span class="chip chip-success text-xs font-mono">input → contextual embeddings → head (CLS)</span>
     </div>
-    <div class="panel panel-accent panel-emphasis p-3 space-y-2">
+    <div class="panel panel-accent p-3 space-y-2">
       <h5 class="font-medium text-heading">Decoder‑only (e.g., GPT)</h5>
       <p class="text-sm text-muted">Causal self-attention: token t sees only tokens 1…t−1. Suited for next-token generation and long-form synthesis.</p>
       <span class="chip chip-accent text-xs font-mono">p(y<sub>t</sub> | y<sub>&lt; t</sub>)</span>
     </div>
-    <div class="panel panel-warning panel-emphasis p-3 space-y-2">
+    <div class="panel panel-warning p-3 space-y-2">
       <h5 class="font-medium text-heading">Encoder–decoder (e.g., T5)</h5>
       <p class="text-sm text-muted">Decoder uses masked self-attention <em>and</em> cross-attention to encoder states. Ideal for sequence-to-sequence tasks like translation and summarization.</p>
       <span class="chip chip-warning text-xs font-mono">x → encoder → decoder → y</span>

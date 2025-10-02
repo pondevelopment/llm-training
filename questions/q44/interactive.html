@@ -1,6 +1,6 @@
 ﻿<div class="space-y-6" id="q44-interactive">
   <div class="question-card space-y-4">
-    <div class="flex flex-wrap items-center gap-2 text-xs text-muted md:flex-nowrap md:overflow-x-auto">
+    <div class="flex flex-wrap items-center gap-2 text-xs panel-muted md:flex-nowrap md:overflow-x-auto">
       <span class="font-semibold text-heading">Presets:</span>
       <button type="button" data-q44-preset="starter" class="chip chip-success text-xs q44-chip">Starter (K=4, s=0.7, p0=0.45, CoT off)</button>
       <button type="button" data-q44-preset="high-sim" class="chip chip-success text-xs q44-chip">High similarity (K=6, s=0.9)</button>
@@ -51,17 +51,17 @@
 
   <div class="grid md:grid-cols-3 gap-4">
     <div class="question-card space-y-3">
-      <h5 class="font-semibold text-heading text-sm">&#x1F4C8; Accuracy vs baseline</h5>
+      <h5 class="font-semibold text-heading text-sm">📈 Accuracy vs baseline</h5>
       <div id="q44-bars" class="q44-bar-stack" aria-live="polite"></div>
       <p class="small-caption text-muted">Top bar = baseline; second = effective few-shot accuracy.</p>
     </div>
     <div class="question-card space-y-3">
-      <h5 class="font-semibold text-heading text-sm">&#x1F4CA; Metrics</h5>
+      <h5 class="font-semibold text-heading text-sm">📊 Metrics</h5>
       <div id="q44-metrics" class="q44-metrics-list text-sm space-y-2" aria-live="polite"></div>
       <div id="q44-guide" class="small-caption text-muted" aria-live="polite"></div>
     </div>
     <div class="question-card space-y-3">
-      <h5 class="font-semibold text-heading text-sm">&#x1F9E0; Explanation</h5>
+      <h5 class="font-semibold text-heading text-sm">🧠 Explanation</h5>
       <div id="q44-explain" class="text-sm text-body space-y-2" aria-live="polite"></div>
     </div>
   </div>

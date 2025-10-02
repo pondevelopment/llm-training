@@ -10,7 +10,7 @@
     <p class="small-caption panel-muted">These reinforce how normalization, residual routing, and path shortening preserve gradient flow.</p>
   </div>
 
-  <div class="panel panel-info panel-emphasis p-4 space-y-3">
+  <div class="panel panel-info p-4 space-y-3">
     <h4 class="font-semibold">🧠 Core Idea</h4>
     <p class="text-sm">Transformers keep gradients healthy with <strong>residual connections</strong>, <strong>LayerNorm</strong> (typically <em>pre-norm</em>), and <strong>parallel attention paths</strong> that shorten effective depth.</p>
     <div class="text-xs panel-muted space-y-2">
@@ -27,21 +27,21 @@
   </div>
 
   <div class="grid md:grid-cols-3 gap-4">
-    <div class="panel panel-success panel-emphasis p-3 stacked-card">
+    <div class="panel panel-success p-3">
       <h5 class="font-medium">🟢 Plain Deep Stack</h5>
       <ul class="list-disc list-inside text-sm space-y-1">
         <li>Multiplicative chain of gains</li>
         <li>Per-layer gain \(g &lt; 1\) ⇒ decay \(g^L\)</li>
       </ul>
     </div>
-    <div class="panel panel-accent panel-emphasis p-3 stacked-card">
+    <div class="panel panel-accent p-3">
       <h5 class="font-medium">🟣 Residual + Pre-LN</h5>
       <ul class="list-disc list-inside text-sm space-y-1">
         <li>Always includes identity gradient \(\mathbf{I}\)</li>
         <li>LN centers/scales → stable Jacobians</li>
       </ul>
     </div>
-    <div class="panel panel-warning panel-emphasis p-3 stacked-card">
+    <div class="panel panel-warning p-3">
       <h5 class="font-medium">🟠 Multi-head Attention</h5>
       <ul class="list-disc list-inside text-sm space-y-1">
         <li>Parallel, short-range paths</li>

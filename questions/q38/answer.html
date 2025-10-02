@@ -9,7 +9,7 @@
     </ul>
   </div>
 
-  <div class="panel panel-info panel-emphasis p-4 space-y-3">
+  <div class="panel panel-info p-4 space-y-3">
     <h4 class="font-semibold">🧠 Key idea</h4>
     <p class="text-sm leading-relaxed"><strong>Chain-of-Thought (CoT)</strong> prompting asks the model to <strong>show intermediate steps</strong> rather than jumping straight to the final answer. This structured reasoning improves results on multi-step tasks (math word problems, logic, program synthesis).</p>
     <div id="q38-key-math" class="math-display text-xs font-mono"></div>
@@ -17,7 +17,7 @@
   </div>
 
   <div class="grid md:grid-cols-3 gap-4">
-    <div class="panel panel-success panel-emphasis p-3 space-y-2">
+    <div class="panel panel-success p-3 space-y-2">
       <h5 class="font-semibold text-sm">Direct answer</h5>
       <p class="text-sm">Model outputs an answer immediately. <strong>Lowest cost</strong>, but can fail on multi-step logic.</p>
       <div class="math-display text-xs font-mono">$$ y = f(\text{prompt}) $$</div>
@@ -27,7 +27,7 @@
       </ul>
     </div>
 
-    <div class="panel panel-accent panel-emphasis p-3 space-y-2">
+    <div class="panel panel-accent p-3 space-y-2">
       <h5 class="font-semibold text-sm">Single CoT</h5>
       <p class="text-sm">Ask the model to “think step by step.” Decomposes reasoning and surfaces intermediate checks.</p>
       <div class="math-display text-xs font-mono">$$ y = g(s_1, s_2, \dots, s_T) $$</div>
@@ -37,7 +37,7 @@
       <p class="text-xs panel-muted">For self-consistency, sample <span class="font-mono">m</span> CoT chains at moderate temperature and vote on the final answer.</p>
     </div>
 
-    <div class="panel panel-warning panel-emphasis p-3 space-y-2">
+    <div class="panel panel-warning p-3 space-y-2">
       <h5 class="font-semibold text-sm">Self-consistency</h5>
       <p class="text-sm">Sample multiple diverse CoT chains and <strong>vote</strong> on the final answer. Robust to a bad chain.</p>
       <div class="math-display text-xs font-mono">$$ P_{\mathrm{SC}} = \sum_{k=t}^{m} \binom{m}{k} p^{k} (1-p)^{m-k} $$</div>

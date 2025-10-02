@@ -325,7 +325,7 @@
       <div class="space-y-1">
         <label class="block text-xs font-semibold text-heading" for="q47-n">Context size / N</label>
         <input id="q47-n" aria-label="Context size slider" type="range" min="1" max="10" value="3" class="w-full q47-range">
-        <div class="text-xs text-muted">N-gram order or transformer visible tokens</div>
+        <div class="text-xs panel-muted">N-gram order or transformer visible tokens</div>
       </div>
       <div class="space-y-1">
         <label class="block text-xs font-semibold text-heading" for="q47-L">Sequence length</label>
@@ -335,7 +335,7 @@
           <option>32</option>
           <option>64</option>
         </select>
-        <div class="text-xs text-muted">Tokens in sequence</div>
+        <div class="text-xs panel-muted">Tokens in sequence</div>
       </div>
     </div>
     <div class="grid md:grid-cols-3 gap-3 text-xs">
@@ -346,15 +346,15 @@
           <option value="addk">Add-k</option>
           <option value="kneser">Kneser-Ney</option>
         </select>
-        <div class="text-xs text-muted">Adjusts sparsity handling</div>
+        <div class="text-xs panel-muted">Adjusts sparsity handling</div>
       </div>
-      <div class="col-span-2 text-xs text-muted flex items-center">Smoothing only affects n-gram perplexity (illustrative heuristic).</div>
+      <div class="col-span-2 text-xs panel-muted flex items-center">Smoothing only affects n-gram perplexity (illustrative heuristic).</div>
     </div>
     <div class="grid md:grid-cols-3 gap-3 text-xs">
       <div class="space-y-1">
         <label class="block text-xs font-semibold text-heading" for="q47-mem">Memory cap <span id="q47-mem-label" class="font-normal text-muted-soft">(transformer only)</span></label>
         <input id="q47-mem" type="range" min="4" max="64" value="64" aria-label="Memory context cap" class="w-full q47-range">
-        <div class="text-xs text-muted">Limits usable tokens. <span id="q47-mem-readout" class="font-medium text-accent"></span></div>
+        <div class="text-xs panel-muted">Limits usable tokens. <span id="q47-mem-readout" class="font-medium text-accent"></span></div>
       </div>
       <div class="space-y-1">
         <label class="block text-xs font-semibold text-heading" for="q47-factor">Subword factor</label>
@@ -364,9 +364,9 @@
           <option value="1.5">1.5&times;</option>
           <option value="2">2.0&times;</option>
         </select>
-        <div class="text-xs text-muted">Approximate tokens per word</div>
+        <div class="text-xs panel-muted">Approximate tokens per word</div>
       </div>
-      <div class="text-xs text-muted flex items-center">Shows scaling pressure (cost ~ L^2).</div>
+      <div class="text-xs panel-muted flex items-center">Shows scaling pressure (cost ~ L^2).</div>
     </div>
   </div>
 
@@ -380,9 +380,9 @@
           <div class="q47-impact-meter" data-level="neutral" role="presentation">
             <div id="q47-meter" class="q47-impact-meter-fill" data-level="neutral" style="width:0%"></div>
           </div>
-          <div id="q47-coverage" class="text-xs text-muted"></div>
+          <div id="q47-coverage" class="text-xs panel-muted"></div>
         </div>
-        <div class="text-xs text-muted-soft">Visibility ratio relative to full sequence length.</div>
+        <div class="text-xs panel-muted-soft">Visibility ratio relative to full sequence length.</div>
       </div>
       <div>
         <div class="text-sm font-medium text-success mb-1">Good for</div>
@@ -402,8 +402,8 @@
 
   <!-- Explanation & Guide -->
   <div id="q47-expl" class="panel panel-warning p-4 text-sm" aria-live="polite"></div>
-  <div id="q47-guide" class="panel panel-info panel-emphasis p-3 text-xs" aria-live="polite"></div>
-  <div id="q47-change" class="text-xs text-muted"></div>
+  <div id="q47-guide" class="panel panel-info p-3 text-xs" aria-live="polite"></div>
+  <div id="q47-change" class="text-xs panel-muted"></div>
   <div id="q47-prob" class="panel panel-neutral-soft p-3 text-xs" aria-live="polite"></div>
 
   <!-- Compare Panel -->
@@ -415,7 +415,7 @@
       <button type="button" id="q47-clearCmp" class="chip chip-warning">Clear</button>
     </div>
     <div class="grid md:grid-cols-3 gap-3" id="q47-compare-slots"></div>
-    <div id="q47-compare-delta" class="text-xs text-muted"></div>
+    <div id="q47-compare-delta" class="text-xs panel-muted"></div>
   </div>
 
   <!-- Model Math Pane -->

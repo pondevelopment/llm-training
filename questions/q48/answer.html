@@ -8,14 +8,14 @@
     </ul>
   </div>
 
-  <div class="panel panel-info panel-emphasis p-4 space-y-2">
+  <div class="panel panel-info p-4 space-y-2">
     <h4 class="font-semibold">🧭 Core Idea</h4>
     <p>Hyperparameters are preset values that control training dynamics (learning rate, batch size, regularization strength, etc.). They are chosen before or outside training, influence <em>how</em> parameters are learned, and do <strong>not</strong> receive gradient updates.</p>
     <div class="math-display">$$\theta_{t+1} = \theta_t - \eta \nabla_{\theta} \mathcal{L}(\theta_t)$$</div>
   </div>
 
   <div class="grid md:grid-cols-3 gap-4">
-    <div class="panel panel-success panel-emphasis p-3 stacked-card">
+    <div class="panel panel-success p-3">
       <h5 class="font-medium">🌱 Examples</h5>
       <ul class="text-sm list-disc pl-5 space-y-1">
         <li>Learning rate (η)</li>
@@ -23,7 +23,7 @@
         <li>Weight decay / dropout</li>
       </ul>
     </div>
-    <div class="panel panel-accent panel-emphasis p-3 stacked-card">
+    <div class="panel panel-accent p-3">
       <h5 class="font-medium">🚫 Not hyperparameters</h5>
       <ul class="text-sm list-disc pl-5 space-y-1">
         <li>Model weights (learned parameters)</li>
@@ -31,7 +31,7 @@
         <li>Gradients during backprop</li>
       </ul>
     </div>
-    <div class="panel panel-warning panel-emphasis p-3 stacked-card">
+    <div class="panel panel-warning p-3">
       <h5 class="font-medium">🎯 Why it matters</h5>
       <ul class="text-sm list-disc pl-5 space-y-1">
         <li>Controls stability, speed, and generalization</li>

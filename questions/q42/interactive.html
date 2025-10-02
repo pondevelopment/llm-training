@@ -390,7 +390,7 @@
       <button type="button" id="q42-adv-toggle" class="chip chip-neutral text-xs cursor-pointer q42-advanced-toggle" aria-expanded="false">Show advanced ▾</button>
     </div>
     <div class="flex flex-wrap items-center gap-2 text-xs">
-      <label class="flex items-center gap-2 text-xs text-muted">
+      <label class="flex items-center gap-2 text-xs panel-muted">
         <input id="q42-baseline" type="checkbox" class="accent-current scale-90">
         <span>Baseline overlay</span>
       </label>
@@ -410,7 +410,7 @@
       <div class="space-y-2">
         <label class="flex items-center gap-2 text-sm font-semibold text-heading">Zipf exponent s <span class="text-accent cursor-help" title="Higher s = steeper frequency drop; more mass concentrated in head.">?</span></label>
         <input id="q42-zipf" type="range" min="1.00" max="1.20" step="0.01" value="1.08" class="w-full q42-slider">
-        <div class="text-center text-xs text-muted">s=<span id="q42-zipf-val" class="font-mono text-heading">1.08</span></div>
+        <div class="text-center text-xs panel-muted">s=<span id="q42-zipf-val" class="font-mono text-heading">1.08</span></div>
       </div>
       <div class="space-y-2">
         <label class="flex items-center gap-2 text-sm font-semibold text-heading">Bucket cutoffs <span class="text-accent cursor-help" title="Defines head, tail 1, tail 2 boundaries by rank (inclusive).">?</span></label>
@@ -457,7 +457,7 @@
   <div class="panel panel-neutral p-4 space-y-3">
     <div class="flex items-center justify-between">
       <h5 class="font-semibold text-heading text-sm">🧱 Bucket Coverage</h5>
-      <span id="q42-spark-legend" class="text-xs text-muted"></span>
+      <span id="q42-spark-legend" class="text-xs panel-muted"></span>
     </div>
     <div id="q42-coverage" class="q42-meter-group text-xs space-y-2" aria-live="polite"></div>
     <div class="space-y-3">
@@ -483,7 +483,7 @@
       <button id="q42-clear" type="button" class="chip chip-neutral text-xs cursor-pointer">Clear</button>
     </div>
     <div id="q42-compare" class="text-xs space-y-2"></div>
-    <div id="q42-sensitivity" class="text-xs text-muted"></div>
+    <div id="q42-sensitivity" class="text-xs panel-muted"></div>
   </div>
 </div>
 

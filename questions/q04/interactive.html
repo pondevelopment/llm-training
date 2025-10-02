@@ -1,14 +1,14 @@
 <div class="space-y-6">
   <!-- Model Configuration -->
   <div class="question-card space-y-2">
-    <label for="q4-model-size" class="block text-sm font-medium text-heading">&#x1F3D7;&#xFE0F; Select model size to fine-tune</label>
+    <label for="q4-model-size" class="block text-sm font-medium text-heading">🏗 Select model size to fine-tune</label>
     <select id="q4-model-size" class="w-full px-3 py-2 border border-subtle rounded-md focus:outline-none focus:ring-2 focus:ring-[color:var(--accent-strong)] focus:border-[color:var(--accent-strong)] bg-card text-body shadow-sm">
       <option value="small" selected>Small model (1.3B parameters)</option>
       <option value="medium">Medium model (7B parameters)</option>
       <option value="large">Large model (13B parameters)</option>
       <option value="xl">XL model (70B parameters)</option>
     </select>
-    <p class="small-caption text-muted">&#x1F446; Compare how memory requirements scale with size.</p>
+    <p class="small-caption text-muted">👆 Compare how memory requirements scale with size.</p>
   </div>
 
   <!-- Fine-tuning Method Selection -->
@@ -99,7 +99,7 @@
       </div>
       <div class="space-y-3">
         <div class="panel panel-info p-3 space-y-2">
-          <h6 class="font-medium text-heading">&#x1F5A5;&#xFE0F; Memory requirements</h6>
+          <h6 class="font-medium text-heading">🖥 Memory requirements</h6>
           <div class="text-2xl font-bold text-heading" id="q4-memory-value">~50 GB</div>
           <div class="context-meter" data-tone="sky">
             <div id="q4-memory-bar" class="context-meter-fill" style="width: 20%"></div>
@@ -107,7 +107,7 @@
           <p class="small-caption text-muted" id="q4-memory-note">GPU memory usage</p>
         </div>
         <div class="panel panel-success p-3 space-y-2">
-          <h6 class="font-medium text-heading">&#x26A1; Training speed</h6>
+          <h6 class="font-medium text-heading">⚡ Training speed</h6>
           <div class="text-lg font-bold text-heading" id="q4-speed-value">3x faster</div>
           <div class="context-meter" data-tone="emerald">
             <div id="q4-speed-bar" class="context-meter-fill" style="width: 75%"></div>
@@ -115,7 +115,7 @@
           <p class="small-caption text-muted" id="q4-speed-note">Versus full fine-tuning</p>
         </div>
         <div class="panel panel-accent p-3 space-y-2">
-          <h6 class="font-medium text-heading">&#x1F4AF; Parameter efficiency</h6>
+          <h6 class="font-medium text-heading">💯 Parameter efficiency</h6>
           <div class="text-lg font-bold text-heading" id="q4-efficiency-value">99.6% reduction</div>
           <div class="context-meter" data-tone="purple">
             <div id="q4-efficiency-bar" class="context-meter-fill" style="width: 95%"></div>
@@ -129,7 +129,7 @@
   <!-- Quantization Explorer -->
   <div class="question-card space-y-4">
     <div class="flex items-center justify-between gap-3">
-      <h4 class="font-medium text-heading">&#x1F9E9; Quantization explorer (4-bit vs 16-bit)</h4>
+      <h4 class="font-medium text-heading">🧩 Quantization explorer (4-bit vs 16-bit)</h4>
       <button id="q4-quant-refresh" class="btn-soft text-xs">Regenerate sample</button>
     </div>
     <p class="small-caption text-muted">See how weight distributions shift when you quantize the frozen base model. NF4 concentrates bins around zero so typical transformer weights stay close to their original values.</p>
@@ -186,10 +186,10 @@
 
   <!-- Practical Scenarios -->
   <div class="question-card space-y-3">
-    <h4 class="font-medium text-heading">&#x1F3AE; Practical scenarios</h4>
+    <h4 class="font-medium text-heading">🎮 Practical scenarios</h4>
     <div class="grid md:grid-cols-2 gap-3">
       <button id="q4-gpu-check" class="inline-flex flex-col items-start gap-1 px-3 py-2 text-sm font-medium border border-subtle rounded-md bg-card text-secondary hover:bg-subtle transition-colors">
-        <span class="text-heading">&#x1F5A5;&#xFE0F; Check GPU compatibility</span>
+        <span class="text-heading">🖥 Check GPU compatibility</span>
         <span class="small-caption text-muted">Match methods to common single-GPU budgets.</span>
       </button>
       <button id="q4-cost-calc" class="inline-flex flex-col items-start gap-1 px-3 py-2 text-sm font-medium border border-subtle rounded-md bg-card text-secondary hover:bg-subtle transition-colors">
@@ -204,7 +204,7 @@
 
   <!-- Educational Explanation -->
   <div id="q4-explanation" class="panel panel-warning p-4 space-y-2">
-    <h4 class="font-medium">&#x1F4D2; How it works</h4>
+    <h4 class="font-medium">📒 How it works</h4>
     <div id="q4-explanation-content" class="text-sm">
       Select a fine-tuning method above to see how different approaches balance memory efficiency, training speed, and parameter reduction. Each method represents a different trade-off in the efficiency versus flexibility spectrum.
     </div>

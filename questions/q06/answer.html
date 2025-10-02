@@ -10,7 +10,7 @@
   </div>
 
   <div class="panel panel-info p-4 space-y-2">
-    <h4 class="font-semibold">&#x1F319;&#xFE0F; What is temperature?</h4>
+    <h4 class="font-semibold">🌙 What is temperature?</h4>
     <p>Temperature is the <strong>creativity dial</strong> for language models. It rescales logits before softmax: low values sharpen the distribution so the model acts cautious, while high values flatten it and let adventurous tokens surface. It is the quickest lever for balancing coherence and novelty.</p>
   </div>
 
@@ -19,10 +19,10 @@
       <h5 class="font-medium">Low temperature (0.1&ndash;0.5)</h5>
       <p class="text-sm">Conservative, laser-focused token choices.</p>
       <div class="text-xs space-y-1">
-        <div>&#x2705; <strong>Coherent:</strong> Sticks to the prompt.</div>
-        <div>&#x2705; <strong>Reliable:</strong> Minimal surprises.</div>
-        <div>&#x274C; <strong>Repetitive:</strong> Can loop phrases.</div>
-        <div>&#x274C; <strong>Flat tone:</strong> Creative flair disappears.</div>
+        <div>✅ <strong>Coherent:</strong> Sticks to the prompt.</div>
+        <div>✅ <strong>Reliable:</strong> Minimal surprises.</div>
+        <div>❌ <strong>Repetitive:</strong> Can loop phrases.</div>
+        <div>❌ <strong>Flat tone:</strong> Creative flair disappears.</div>
       </div>
       <span class="chip chip-success text-xs mt-2">Best for: factual answers, summaries</span>
     </div>
@@ -31,10 +31,10 @@
       <h5 class="font-medium">Medium temperature (0.7&ndash;1.2)</h5>
       <p class="text-sm">Balanced mix of coherence and variation.</p>
       <div class="text-xs space-y-1">
-        <div>&#x2705; <strong>Natural:</strong> Reads like human prose.</div>
-        <div>&#x2705; <strong>Engaging:</strong> Adds light surprises.</div>
-        <div>&#x2705; <strong>Versatile:</strong> Works for most tasks.</div>
-        <div>⚠&#xFE0F; <strong>Prompt sensitive:</strong> Needs guardrails.</div>
+        <div>✅ <strong>Natural:</strong> Reads like human prose.</div>
+        <div>✅ <strong>Engaging:</strong> Adds light surprises.</div>
+        <div>✅ <strong>Versatile:</strong> Works for most tasks.</div>
+        <div>⚠ <strong>Prompt sensitive:</strong> Needs guardrails.</div>
       </div>
       <span class="chip chip-accent text-xs mt-2">Best for: chat, narratives, ideation</span>
     </div>
@@ -43,17 +43,17 @@
       <h5 class="font-medium">High temperature (1.5&ndash;2.0)</h5>
       <p class="text-sm">Experimental, high-entropy sampling.</p>
       <div class="text-xs space-y-1">
-        <div>&#x2705; <strong>Creative:</strong> Unexpected combinations.</div>
-        <div>&#x2705; <strong>Diverse:</strong> Wide vocabulary usage.</div>
-        <div>&#x274C; <strong>Noisy:</strong> Logic quickly degrades.</div>
-        <div>&#x274C; <strong>Risky:</strong> Harder to moderate.</div>
+        <div>✅ <strong>Creative:</strong> Unexpected combinations.</div>
+        <div>✅ <strong>Diverse:</strong> Wide vocabulary usage.</div>
+        <div>❌ <strong>Noisy:</strong> Logic quickly degrades.</div>
+        <div>❌ <strong>Risky:</strong> Harder to moderate.</div>
       </div>
       <span class="chip chip-warning text-xs mt-2">Best for: poetry, brainstorming, prompts</span>
     </div>
   </div>
 
   <div class="panel panel-warning p-4 space-y-2">
-    <h4 class="font-semibold">&#x1F4CC; Why temperature matters</h4>
+    <h4 class="font-semibold">📌 Why temperature matters</h4>
     <ul class="list-disc ml-5 text-sm space-y-1">
       <li><strong>Mathematical control:</strong> Directly shapes the softmax output and entropy.</li>
       <li><strong>User experience:</strong> Lets product teams tune tone, creativity, and repeatability.</li>
@@ -63,7 +63,7 @@
   </div>
 
   <div class="panel panel-neutral p-4 space-y-2">
-    <h4 class="font-semibold">&#x2139;&#xFE0F; Practical notes</h4>
+    <h4 class="font-semibold">ℹ Practical notes</h4>
     <ul class="list-disc ml-5 text-sm space-y-1">
       <li>Pair temperature with top-k/p sampling or frequency penalties to fine-tune diversity.</li>
       <li>Expose preset values (e.g., 0.2, 0.8, 1.5) so operators can A/B output styles quickly.</li>

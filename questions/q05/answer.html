@@ -19,10 +19,10 @@
       <h5 class="font-medium">Greedy decoding</h5>
       <p class="text-sm">Selects the single most likely token at each step.</p>
       <div class="text-xs space-y-1">
-        <div>&#x2705; <strong>Fast:</strong> One forward pass per token.</div>
-        <div>&#x2705; <strong>Deterministic:</strong> Same prompt, same answer.</div>
-        <div>&#x274C; <strong>Myopic:</strong> Ignores options that unlock better endings.</div>
-        <div>&#x274C; <strong>Loops:</strong> Prone to repeating phrases.</div>
+        <div>✅ <strong>Fast:</strong> One forward pass per token.</div>
+        <div>✅ <strong>Deterministic:</strong> Same prompt, same answer.</div>
+        <div>❌ <strong>Myopic:</strong> Ignores options that unlock better endings.</div>
+        <div>❌ <strong>Loops:</strong> Prone to repeating phrases.</div>
       </div>
     </div>
 
@@ -30,16 +30,16 @@
       <h5 class="font-medium">Beam search</h5>
       <p class="text-sm">Maintains several promising continuations and expands them in parallel.</p>
       <div class="text-xs space-y-1">
-        <div>&#x2705; <strong>Higher quality:</strong> Explores multiple paths.</div>
-        <div>&#x2705; <strong>Recoverable:</strong> Can backtrack from weak early picks.</div>
-        <div>&#x274C; <strong>Slower:</strong> Needs extra compute and memory.</div>
-        <div>&#x274C; <strong>Tighter beams:</strong> Still risks bland, over-optimized text.</div>
+        <div>✅ <strong>Higher quality:</strong> Explores multiple paths.</div>
+        <div>✅ <strong>Recoverable:</strong> Can backtrack from weak early picks.</div>
+        <div>❌ <strong>Slower:</strong> Needs extra compute and memory.</div>
+        <div>❌ <strong>Tighter beams:</strong> Still risks bland, over-optimized text.</div>
       </div>
     </div>
   </div>
 
   <div class="panel panel-warning p-4 space-y-2">
-    <h4 class="font-semibold">&#x1F4CC; Why this matters</h4>
+    <h4 class="font-semibold">📌 Why this matters</h4>
     <ul class="list-disc ml-5 text-sm space-y-1">
       <li><strong>Quality versus latency:</strong> Wider beams improve coherence but add milliseconds per token.</li>
       <li><strong>Product fit:</strong> Creative tools prefer diversity; form-fill workflows value stability.</li>
@@ -49,7 +49,7 @@
   </div>
 
   <div class="panel panel-neutral p-4 space-y-2">
-    <h4 class="font-semibold">&#x2139;&#xFE0F; Practical notes</h4>
+    <h4 class="font-semibold">ℹ Practical notes</h4>
     <ul class="list-disc ml-5 text-sm space-y-1">
       <li>Combine beam search with sampling or penalties to avoid over-optimised, high-probability clichés.</li>
       <li>Clamp beam width for latency budgets; many production flows stop at widths of 2â4.</li>

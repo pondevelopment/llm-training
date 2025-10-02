@@ -5,11 +5,11 @@
   <div class="question-card space-y-3">
     <div class="flex items-start justify-between gap-3">
       <div>
-        <h4 class="font-semibold text-heading">&#x1F393; How this simulator works</h4>
+        <h4 class="font-semibold text-heading">🎓 How this simulator works</h4>
         <p class="small-caption text-muted">Follow the three-stage RLHF loop: collect feedback, train a reward model, then optimise with PPO.</p>
       </div>
       <div class="flex items-center gap-2 text-xs">
-        <button id="q8-tour-btn" class="btn-soft">&#x25B6; Start guided tour</button>
+        <button id="q8-tour-btn" class="btn-soft">▶ Start guided tour</button>
         <button id="q8-how-toggle" class="btn-soft" aria-expanded="true">Hide</button>
       </div>
     </div>
@@ -23,7 +23,7 @@
         <div class="font-semibold">Controls</div>
         <ul class="list-disc list-inside space-y-0.5">
           <li><strong>💡 Try training examples:</strong> Loads a curated prompt + responses and simulates feedback.</li>
-          <li><strong>&#x1F504; Reset progress:</strong> Clears state and returns to Stage 1.</li>
+          <li><strong>🔄 Reset progress:</strong> Clears state and returns to Stage 1.</li>
           <li><strong>Stage cards:</strong> Manually switch stages whenever you want to inspect them.</li>
         </ul>
       </div>
@@ -34,7 +34,7 @@
   <!-- Stage picker -->
   <div class="question-card space-y-3">
     <div class="flex items-center justify-between text-sm text-heading">
-      <span class="font-medium">&#x1F504; Select RLHF training stage</span>
+      <span class="font-medium">🔄 Select RLHF training stage</span>
       <span id="q8-overall-progress" class="small-caption text-muted">Stage 1/3</span>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-3" id="q8-stage-picker">
@@ -86,7 +86,7 @@
   <!-- Quick actions -->
   <div class="question-card flex flex-wrap items-center gap-3">
     <button id="q8-example-btn" class="btn-soft text-xs">💡 Try training example</button>
-    <button id="q8-reset-btn" class="btn-soft text-xs">&#x1F504; Reset progress</button>
+    <button id="q8-reset-btn" class="btn-soft text-xs">🔄 Reset progress</button>
   </div>
 
   <!-- Stage 1: Data collection -->

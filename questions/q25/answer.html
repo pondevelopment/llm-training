@@ -34,8 +34,8 @@ L &= -\sum_i y_i\log(\hat{p}_i) \
     <ul class="list-disc ml-5 text-sm space-y-1">
       <li><strong>L</strong> &mdash; total cross-entropy loss.</li>
       <li><strong>y<sub>i</sub></strong> &mdash; true probability (1 for the correct token, 0 otherwise).</li>
-      <li><strong>&#x005E;p<sub>i</sub></strong> &mdash; model probability for token <em>i</em>.</li>
-      <li><strong>&#x03A3;</strong> runs over every token in the vocabulary.</li>
+      <li><strong>^p<sub>i</sub></strong> &mdash; model probability for token <em>i</em>.</li>
+      <li><strong>Σ</strong> runs over every token in the vocabulary.</li>
     </ul>
   </div>
 
@@ -53,7 +53,7 @@ L &= -\sum_i y_i\log(\hat{p}_i) \
     <div class="panel panel-accent p-3 space-y-2">
       <h5 class="font-medium">Mean Squared Error</h5>
       <p class="text-sm panel-muted">Squares the difference between predicted and true values.</p>
-      <span class="chip chip-accent text-xs font-mono">L = (y - &#x005E;y)^2</span>
+      <span class="chip chip-accent text-xs font-mono">L = (y - ^y)^2</span>
       <ul class="list-disc ml-5 text-xs space-y-1">
         <li>Not probability-aware.</li>
         <li>Weak gradients for rare words.</li>
@@ -63,7 +63,7 @@ L &= -\sum_i y_i\log(\hat{p}_i) \
     <div class="panel panel-warning p-3 space-y-2">
       <h5 class="font-medium">Hinge Loss</h5>
       <p class="text-sm panel-muted">Maximises the margin between correct and incorrect classes.</p>
-      <span class="chip chip-warning text-xs font-mono">L = max(0, 1 - y&#x00B7;&#x005E;y)</span>
+      <span class="chip chip-warning text-xs font-mono">L = max(0, 1 - y·^y)</span>
       <ul class="list-disc ml-5 text-xs space-y-1">
         <li>No probability output.</li>
         <li>Not differentiable everywhere.</li>
@@ -73,7 +73,7 @@ L &= -\sum_i y_i\log(\hat{p}_i) \
   </div>
 
   <div class="panel panel-info p-4 space-y-4">
-    <h4 class="font-semibold">&#x1FAA8; Why Cross-Entropy Works So Well</h4>
+    <h4 class="font-semibold">🪨 Why Cross-Entropy Works So Well</h4>
     <div class="grid md:grid-cols-2 gap-4 text-sm">
       <div class="space-y-2">
         <h6 class="font-medium">Mathematical Properties</h6>
@@ -106,7 +106,7 @@ L &= -\sum_i y_i\log(\hat{p}_i) \
   </div>
 
   <div class="panel panel-accent p-4 space-y-4">
-    <h4 class="font-semibold">&#x1F3B2; Loss in Action</h4>
+    <h4 class="font-semibold">🎲 Loss in Action</h4>
     <div class="grid md:grid-cols-2 gap-4 text-sm">
       <div class="space-y-2">
         <h6 class="font-medium">Good prediction (low loss)</h6>
@@ -114,7 +114,7 @@ L &= -\sum_i y_i\log(\hat{p}_i) \
           <div>Context: &quot;I love eating&quot;</div>
           <div>True next: &quot;pizza&quot; (index 1542)</div>
           <div>Model predicts:</div>
-          <div>&bull; pizza: 0.75 &#x2714;</div>
+          <div>&bull; pizza: 0.75 ✔</div>
           <div>&bull; food: 0.15</div>
           <div>&bull; pasta: 0.10</div>
           <div class="text-success">Loss = -log(0.75) = 0.29</div>
@@ -128,7 +128,7 @@ L &= -\sum_i y_i\log(\hat{p}_i) \
           <div>Model predicts:</div>
           <div>&bull; elephant: 0.60</div>
           <div>&bull; randomly: 0.35</div>
-          <div>&bull; pizza: 0.05 &#x2714;</div>
+          <div>&bull; pizza: 0.05 ✔</div>
           <div class="text-danger">Loss = -log(0.05) = 3.00</div>
         </div>
       </div>

@@ -1,7 +1,7 @@
 ﻿<div class="space-y-6">
   <!-- Input Section -->
   <div class="question-card space-y-2">
-    <label for="q3-text-input" class="block text-sm font-medium text-heading">&#x1F4DD; Document to analyze</label>
+    <label for="q3-text-input" class="block text-sm font-medium text-heading">📝 Document to analyze</label>
     <textarea id="q3-text-input" rows="4" class="field-textarea" placeholder="Paste text to explore context window trade-offs...">Large Language Models represent a breakthrough in artificial intelligence, transforming how we interact with computers through natural language. These models, trained on vast datasets, can understand and generate human-like text with remarkable fluency. The context window is a crucial architectural feature that determines how much preceding text the model can reference when generating each new token. A larger context window allows for better coherence across longer texts but comes with significant computational costs. Modern models like GPT-4 have context windows of 8K to 128K tokens, enabling them to process entire documents or maintain context across very long conversations. This capability is essential for tasks such as document summarization, creative writing, code generation, and complex problem-solving that requires maintaining awareness of multiple interconnected concepts throughout a lengthy interaction.</textarea>
     <p class="small-caption text-muted">Edit the text to see how each window size maintains (or loses) context.</p>
     <div class="context-token-summary" id="q3-token-summary"></div>
@@ -30,7 +30,7 @@
 
   <!-- Window Size Selection -->
   <div class="question-card space-y-4">
-    <span class="text-sm font-medium text-heading">&#x1F3AF; Choose context window size</span>
+    <span class="text-sm font-medium text-heading">🎯 Choose context window size</span>
 
     <!-- Demo presets -->
     <div id="q3-demo-section" class="context-card-grid">
@@ -87,7 +87,7 @@
   <!-- Quick tools -->
   <div class="question-card space-y-3">
     <div class="flex flex-wrap items-center gap-2">
-      <span class="text-sm font-medium text-heading">&#x1F4A1; Quick helpers</span>
+      <span class="text-sm font-medium text-heading">💡 Quick helpers</span>
       <button id="q3-example-btn" class="btn-soft">Try: research summary sample</button>
     </div>
     <div class="context-lorem">
@@ -106,7 +106,7 @@
   <!-- Analysis Output -->
   <div class="question-card space-y-3">
     <div class="flex items-center justify-between gap-3">
-      <span class="text-sm font-medium text-heading">&#x1F4C8; Window analysis</span>
+      <span class="text-sm font-medium text-heading">📈 Window analysis</span>
       <span id="q3-window-indicator" class="chip chip-info context-indicator">Medium window</span>
     </div>
     <div id="q3-output" class="question-output context-output">Enter or edit text above to begin...</div>
@@ -116,7 +116,7 @@
   <!-- Performance Metrics -->
   <div class="grid md:grid-cols-3 gap-4">
     <div class="panel panel-success p-3 space-y-2">
-      <h5 class="font-medium">&#x1F4C8; Coherence quality</h5>
+      <h5 class="font-medium">📈 Coherence quality</h5>
       <div class="context-meter" data-tone="emerald">
         <div id="q3-coherence-bar" class="context-meter-fill" style="width: 60%"></div>
       </div>
@@ -132,7 +132,7 @@
     </div>
 
     <div class="panel panel-info p-3 space-y-2">
-      <h5 class="font-medium">&#x1F3AF; Use case fit</h5>
+      <h5 class="font-medium">🎯 Use case fit</h5>
       <div class="context-meter" data-tone="sky">
         <div id="q3-usecase-bar" class="context-meter-fill" style="width: 70%"></div>
       </div>
@@ -147,7 +147,7 @@
       <span class="small-caption text-muted">See how window size affects downstream tasks</span>
     </div>
     <div class="context-simulation-actions">
-      <button id="q3-summarize-btn" class="btn-soft">&#x1F4C4; Generate summary</button>
+      <button id="q3-summarize-btn" class="btn-soft">📄 Generate summary</button>
       <button id="q3-qa-btn" class="btn-soft">&#x2753; Answer questions</button>
     </div>
     <div id="q3-demo-output" class="panel panel-neutral hidden">
@@ -157,7 +157,7 @@
 
   <!-- Educational Explanation -->
   <div id="q3-explanation" class="panel panel-warning p-4 space-y-2">
-    <h4 class="font-medium">&#x1F4DA; How context windows work</h4>
+    <h4 class="font-medium">📚 How context windows work</h4>
     <div id="q3-explanation-content" class="text-sm">
       Select a window size above and edit the text to explore how much context each configuration can preserve before summarisation quality drops.
     </div>

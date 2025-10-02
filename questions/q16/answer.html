@@ -7,13 +7,13 @@
     </ul>
   </div>
 
-  <div class="panel panel-info panel-emphasis p-4 space-y-2">
+  <div class="panel panel-info p-4 space-y-2">
     <h4 class="font-semibold">🛠️ What are Out-of-Vocabulary (OOV) words?</h4>
     <p>Out-of-vocabulary words are the unfamiliar ingredients in a recipe. Older NLP systems replaced them with an “unknown” token, erasing nuance. Modern subword tokenizers split unfamiliar words into smaller, known pieces so models keep meaning even when they have never seen the exact term.</p>
   </div>
 
   <div class="grid md:grid-cols-3 gap-4">
-    <div class="panel panel-success panel-emphasis p-3 stacked-card">
+    <div class="panel panel-success p-3">
       <div class="space-y-1">
         <h5 class="font-medium">🧩 Byte-Pair Encoding (BPE)</h5>
         <p class="text-sm text-body">Merges the most frequent character pairs to build a vocabulary of reusable subwords.</p>
@@ -21,7 +21,7 @@
       <div class="panel panel-neutral-soft font-mono text-xs p-2">"cryptocurrency" → ["crypto", "currency"]</div>
     </div>
 
-    <div class="panel panel-accent panel-emphasis p-3 stacked-card">
+    <div class="panel panel-accent p-3">
       <div class="space-y-1">
         <h5 class="font-medium">🎯 SentencePiece</h5>
         <p class="text-sm text-body">Treats text as raw bytes so it can tokenise any language without a pre-tokeniser.</p>
@@ -29,7 +29,7 @@
       <div class="panel panel-neutral-soft font-mono text-xs p-2">"▁crypto" + "currency"</div>
     </div>
 
-    <div class="panel panel-warning panel-emphasis p-3 stacked-card">
+    <div class="panel panel-warning p-3">
       <div class="space-y-1">
         <h5 class="font-medium">🔧 WordPiece</h5>
         <p class="text-sm text-body">Selects merges that maximise likelihood and leans on continuation markers.</p>
@@ -65,7 +65,7 @@
   </div>
 
   <div class="grid md:grid-cols-2 gap-4">
-    <div class="panel panel-info p-3 stacked-card">
+    <div class="panel panel-info p-3">
       <div class="space-y-1">
         <h5 class="font-medium">🌍 Multilingual handling</h5>
         <p class="text-sm text-body">Subword vocabularies naturally capture cross-lingual patterns when languages share roots or scripts.</p>
@@ -73,7 +73,7 @@
       <div class="panel panel-neutral-soft font-mono text-xs p-2">"Tokyo" + "駅" → ["To", "ky", "o", "駅"]</div>
     </div>
 
-    <div class="panel panel-success p-3 stacked-card">
+    <div class="panel panel-success p-3">
       <div class="space-y-1">
         <h5 class="font-medium">🧪 Adaptive vocabularies</h5>
         <p class="text-sm text-body">Some models expand vocabularies during domain fine-tuning to catch specialised terms.</p>
@@ -130,7 +130,7 @@
     </div>
   </div>
 
-  <div class="panel panel-warning panel-emphasis p-4 space-y-2 text-sm">
+  <div class="panel panel-warning p-4 space-y-2 text-sm">
     <h4 class="font-semibold">⚠️ Challenges and considerations</h4>
     <p><strong>Semantic boundaries:</strong> Subword splits may ignore morphology, muddying meaning.</p>
     <p><strong>Sequence length:</strong> More tokens per word mean higher compute costs.</p>

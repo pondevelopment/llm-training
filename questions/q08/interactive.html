@@ -19,10 +19,10 @@
         <li><strong>Stage 2 &ndash; Reward model:</strong> Train a preference predictor with the collected comparisons.</li>
         <li><strong>Stage 3 &ndash; RL optimisation:</strong> Run PPO training and evaluate alignment metrics.</li>
       </ol>
-      <div class="panel panel-neutral panel-emphasis p-3 text-xs space-y-1">
+      <div class="panel panel-neutral p-3 text-xs space-y-1">
         <div class="font-semibold">Controls</div>
         <ul class="list-disc list-inside space-y-0.5">
-          <li><strong>&#x1F4A1; Try training examples:</strong> Loads a curated prompt + responses and simulates feedback.</li>
+          <li><strong>💡 Try training examples:</strong> Loads a curated prompt + responses and simulates feedback.</li>
           <li><strong>&#x1F504; Reset progress:</strong> Clears state and returns to Stage 1.</li>
           <li><strong>Stage cards:</strong> Manually switch stages whenever you want to inspect them.</li>
         </ul>
@@ -65,17 +65,17 @@
   <!-- Stage overview chips -->
   <div class="question-card">
     <div class="grid md:grid-cols-3 gap-4 text-sm">
-      <div class="panel panel-neutral panel-emphasis p-3 text-center space-y-2">
+      <div class="panel panel-neutral p-3 text-center space-y-2">
         <div id="q8-stage1-icon" class="q8-stage-icon" data-state="idle">1</div>
         <div class="font-semibold">Feedback collected</div>
         <div id="q8-stage1-status" class="q8-stage-status small-caption text-muted" data-state="idle">Awaiting comparisons</div>
       </div>
-      <div class="panel panel-neutral panel-emphasis p-3 text-center space-y-2">
+      <div class="panel panel-neutral p-3 text-center space-y-2">
         <div id="q8-stage2-icon" class="q8-stage-icon" data-state="idle">2</div>
         <div class="font-semibold">Reward model</div>
         <div id="q8-stage2-status" class="q8-stage-status small-caption text-muted" data-state="idle">Training pending</div>
       </div>
-      <div class="panel panel-neutral panel-emphasis p-3 text-center space-y-2">
+      <div class="panel panel-neutral p-3 text-center space-y-2">
         <div id="q8-stage3-icon" class="q8-stage-icon" data-state="idle">3</div>
         <div class="font-semibold">RL optimisation</div>
         <div id="q8-stage3-status" class="q8-stage-status small-caption text-muted" data-state="idle">Not started</div>
@@ -85,18 +85,18 @@
 
   <!-- Quick actions -->
   <div class="question-card flex flex-wrap items-center gap-3">
-    <button id="q8-example-btn" class="btn-soft text-xs">&#x1F4A1; Try training example</button>
+    <button id="q8-example-btn" class="btn-soft text-xs">💡 Try training example</button>
     <button id="q8-reset-btn" class="btn-soft text-xs">&#x1F504; Reset progress</button>
   </div>
 
   <!-- Stage 1: Data collection -->
   <div id="q8-collection-panel" class="question-card space-y-4">
     <div class="flex items-center justify-between gap-3">
-      <h4 class="font-medium text-heading">&#x1F4DD; Stage 1 &middot; Collect preference data</h4>
+      <h4 class="font-medium text-heading">📝 Stage 1 &middot; Collect preference data</h4>
       <span class="chip chip-info text-xs">Compare responses A/B five times</span>
     </div>
 
-    <div class="panel panel-neutral panel-emphasis p-4 space-y-3">
+    <div class="panel panel-neutral p-4 space-y-3">
       <div class="flex items-center justify-between">
         <div>
           <div class="font-semibold text-heading text-sm" id="q8-current-prompt">Prompt will appear here</div>
@@ -138,16 +138,16 @@
   <!-- Stage 2: Reward model -->
   <div id="q8-reward-panel" class="question-card space-y-4 hidden">
     <div class="flex items-center justify-between gap-3">
-      <h4 class="font-medium text-heading">&#x1F9E0; Stage 2 &middot; Train reward model</h4>
+      <h4 class="font-medium text-heading">🧠 Stage 2 &middot; Train reward model</h4>
       <span class="chip chip-accent text-xs">Requires collected comparisons</span>
     </div>
-    <div class="panel panel-neutral panel-emphasis p-4 space-y-4">
+    <div class="panel panel-neutral p-4 space-y-4">
       <div class="grid md:grid-cols-2 gap-4">
         <div class="panel panel-accent p-3 space-y-1">
           <h6 class="font-medium text-heading">Training data</h6>
-          <div class="text-sm text-body">&#x1F4CA; Preference pairs: <span id="q8-training-pairs">0</span></div>
-          <div class="text-sm text-body">&#x1F3AF; Quality annotations: <span id="q8-quality-data">0</span></div>
-          <div class="text-sm text-body">&#x1F4C8; Training accuracy: <span id="q8-model-accuracy">0%</span></div>
+          <div class="text-sm text-body">📊 Preference pairs: <span id="q8-training-pairs">0</span></div>
+          <div class="text-sm text-body">🎯 Quality annotations: <span id="q8-quality-data">0</span></div>
+          <div class="text-sm text-body">📈 Training accuracy: <span id="q8-model-accuracy">0%</span></div>
         </div>
         <div class="panel panel-warning p-3 space-y-1">
           <h6 class="font-medium text-heading">Reward predictions</h6>
@@ -159,7 +159,7 @@
         </div>
       </div>
       <div class="panel panel-neutral p-3 text-sm space-y-2">
-        <button id="q8-train-reward" class="btn-soft">&#x1F9E0; Train reward model</button>
+        <button id="q8-train-reward" class="btn-soft">🧠 Train reward model</button>
         <div id="q8-reward-status" class="small-caption text-muted">Click to start reward-model training.</div>
       </div>
     </div>
@@ -168,10 +168,10 @@
   <!-- Stage 3: RL optimisation -->
   <div id="q8-optimize-panel" class="question-card space-y-4 hidden">
     <div class="flex items-center justify-between gap-3">
-      <h4 class="font-medium text-heading">&#x1F3AF; Stage 3 &middot; Reinforcement learning optimisation</h4>
+      <h4 class="font-medium text-heading">🎯 Stage 3 &middot; Reinforcement learning optimisation</h4>
       <span class="chip chip-warning text-xs">Simulated PPO loop</span>
     </div>
-    <div class="panel panel-neutral panel-emphasis p-4 space-y-4">
+    <div class="panel panel-neutral p-4 space-y-4">
       <div class="grid md:grid-cols-3 gap-4">
         <div class="panel panel-warning p-3 space-y-2">
           <div class="flex items-start justify-between gap-2">
@@ -230,8 +230,8 @@
       </div>
 
       <div class="flex flex-wrap gap-3">
-        <button id="q8-run-ppo" class="btn-soft">&#x1F680; Run PPO training</button>
-        <button id="q8-evaluate" class="btn-soft">&#x1F4CA; Evaluate model</button>
+        <button id="q8-run-ppo" class="btn-soft">🚀 Run PPO training</button>
+        <button id="q8-evaluate" class="btn-soft">📊 Evaluate model</button>
       </div>
       <div id="q8-rl-status" class="small-caption text-muted">Run PPO training to update the metrics.</div>
     </div>

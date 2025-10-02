@@ -8,7 +8,7 @@
       <li><a href="#question-25" class="underline">Question 25: Cross-Entropy Loss – trains the token distribution you sample from</a></li>
     </ul>
   </div>
-  <div class="panel panel-info panel-emphasis p-4 space-y-2">
+  <div class="panel panel-info p-4 space-y-2">
     <h4 class="font-semibold">🎲 What is Sampling in Text Generation?</h4>
     <p class="text-sm leading-relaxed"><strong>Sampling methods control how language models choose the next token during text generation.</strong> Instead of always picking the most probable word (greedy decoding), sampling introduces controlled randomness to create more diverse and creative outputs. Think of it like a creative writer choosing between several good word options rather than always using the most obvious one.</p>
   </div>
@@ -17,7 +17,7 @@
     <p class="text-sm panel-muted">Sampling operates over <strong>tokens</strong>, which are usually <em>subword pieces</em> (not whole words). A word can be split into multiple tokens (for example, "unbelievable" → "un", "believ", "able"). In this demo we visualize whole words as tokens for clarity, but the same principles apply at the token level.</p>
   </div>
   <div class="grid md:grid-cols-3 gap-4">
-    <div class="q12-approach panel panel-success panel-emphasis p-3">
+    <div class="q12-approach panel panel-success p-3">
       <h5 class="font-medium">🔢 Top-k Sampling</h5>
       <p class="text-sm">Selects from the k most probable tokens for random sampling, ensuring controlled diversity.</p>
       <div class="q12-approach-foot text-xs">
@@ -25,7 +25,7 @@
         <div class="chip chip-success text-xs">Fixed vocabulary size — always considers exactly k options</div>
       </div>
     </div>
-    <div class="q12-approach panel panel-accent panel-emphasis p-3">
+    <div class="q12-approach panel panel-accent p-3">
       <h5 class="font-medium">🎯 Top-p Sampling (Nucleus)</h5>
       <p class="text-sm">Chooses tokens whose cumulative probability exceeds threshold p, adapting to context.</p>
       <div class="q12-approach-foot text-xs">
@@ -33,7 +33,7 @@
         <div class="chip chip-accent text-xs">Dynamic vocabulary size — adapts to probability distribution</div>
       </div>
     </div>
-    <div class="q12-approach panel panel-warning panel-emphasis p-3">
+    <div class="q12-approach panel panel-warning p-3">
       <h5 class="font-medium">⚡ Greedy Decoding</h5>
       <p class="text-sm">Always selects the most probable token for deterministic, predictable output.</p>
       <div class="q12-approach-foot text-xs">

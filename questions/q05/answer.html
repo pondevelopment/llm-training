@@ -1,6 +1,6 @@
 <div class="space-y-4">
   <div class="panel panel-info p-3">
-    <h4 class="font-semibold mb-1">&#x1F4DA; Recommended reading (related)</h4>
+    <h4 class="font-semibold mb-1">📚 Recommended reading (related)</h4>
     <ul class="list-disc ml-5 text-sm space-y-1">
       <li><a href="#question-06" class="underline">Question 6: What is temperature in text generation and how does it affect output?</a></li>
       <li><a href="#question-12" class="underline">Question 12: How do top-k and top-p sampling differ in text generation?</a></li>
@@ -9,13 +9,13 @@
     </ul>
   </div>
 
-  <div class="panel panel-info panel-emphasis p-4 space-y-2">
-    <h4 class="font-semibold">&#x1F4A1; What is a text generation strategy?</h4>
+  <div class="panel panel-info p-4 space-y-2">
+    <h4 class="font-semibold">💡 What is a text generation strategy?</h4>
     <p>Generation strategies decide <strong>which token comes next</strong> when the model predicts many plausible options. They balance confidence in the highest-probability token with the need for variety so the model avoids repetitive, low-quality loops.</p>
   </div>
 
   <div class="grid md:grid-cols-2 gap-4">
-    <div class="panel panel-success panel-emphasis p-3 stacked-card">
+    <div class="panel panel-success p-3">
       <h5 class="font-medium">Greedy decoding</h5>
       <p class="text-sm">Selects the single most likely token at each step.</p>
       <div class="text-xs space-y-1">
@@ -26,7 +26,7 @@
       </div>
     </div>
 
-    <div class="panel panel-accent panel-emphasis p-3 stacked-card">
+    <div class="panel panel-accent p-3">
       <h5 class="font-medium">Beam search</h5>
       <p class="text-sm">Maintains several promising continuations and expands them in parallel.</p>
       <div class="text-xs space-y-1">
@@ -43,7 +43,7 @@
     <ul class="list-disc ml-5 text-sm space-y-1">
       <li><strong>Quality versus latency:</strong> Wider beams improve coherence but add milliseconds per token.</li>
       <li><strong>Product fit:</strong> Creative tools prefer diversity; form-fill workflows value stability.</li>
-      <li><strong>Safety:</strong> Broader search uncovers alternative phrasings—both better and riskier.</li>
+      <li><strong>Safety:</strong> Broader search uncovers alternative phrasingsâboth better and riskier.</li>
       <li><strong>Evaluation:</strong> Understanding the decoder helps explain when outputs drift.</li>
     </ul>
   </div>
@@ -51,8 +51,8 @@
   <div class="panel panel-neutral p-4 space-y-2">
     <h4 class="font-semibold">&#x2139;&#xFE0F; Practical notes</h4>
     <ul class="list-disc ml-5 text-sm space-y-1">
-      <li>Combine beam search with sampling or penalties to avoid over-optimised, high-probability clich�s.</li>
-      <li>Clamp beam width for latency budgets; many production flows stop at widths of 2–4.</li>
+      <li>Combine beam search with sampling or penalties to avoid over-optimised, high-probability clichés.</li>
+      <li>Clamp beam width for latency budgets; many production flows stop at widths of 2â4.</li>
       <li>Logging per-beam scores offers breadcrumbs for debugging and trust analysis.</li>
     </ul>
   </div>

@@ -7,12 +7,12 @@
     </ul>
   </div>
 
-  <div class="panel panel-info panel-emphasis p-4 space-y-2">
+  <div class="panel panel-info p-4 space-y-2">
     <h4 class="font-semibold"> 🎯 What is overfitting?</h4>
     <p class="text-sm leading-relaxed"><strong>Overfitting happens when a model memorizes the training set instead of learning general patterns.</strong> Think of a student who memorizes past exam questions but struggles when the wording changes—the model performs brilliantly on training data yet fumbles on new inputs.</p>
   </div>
 
-  <div class="panel panel-warning panel-emphasis p-4 space-y-2">
+  <div class="panel panel-warning p-4 space-y-2">
     <h4 class="font-semibold"> ⚠️ Signs of overfitting in LLMs</h4>
     <ul class="text-sm space-y-1">
       <li><strong>Training vs validation gap:</strong> Training loss keeps falling while validation loss rises.</li>
@@ -23,21 +23,21 @@
   </div>
 
   <div class="grid md:grid-cols-3 gap-4">
-    <div class="panel panel-success panel-emphasis p-3 space-y-2">
+    <div class="panel panel-success p-3 space-y-2">
       <h5 class="font-medium">🎯 Regularization</h5>
       <p class="text-sm">Add penalties so weights stay small and the model stays simple.</p>
       <div class="math-display text-xs">$$ \text{L2: } \lambda \lVert w \rVert_2^2 \quad \text{or L1: } \lambda \lVert w \rVert_1 $$</div>
       <p class="text-xs">Useful when you can tolerate slower convergence in exchange for stability.</p>
     </div>
 
-    <div class="panel panel-accent panel-emphasis p-3 space-y-2">
+    <div class="panel panel-accent p-3 space-y-2">
       <h5 class="font-medium">🎲 Dropout</h5>
       <p class="text-sm">Randomly disables neurons during training so the network learns redundant features.</p>
       <code class="text-xs block">p = 0.1 - 0.5</code>
       <p class="text-xs">Dial it up for small datasets; dial it down when you already have heavy regularization.</p>
     </div>
 
-    <div class="panel panel-warning panel-emphasis p-3 space-y-2">
+    <div class="panel panel-warning p-3 space-y-2">
       <h5 class="font-medium">⏹️ Early stopping</h5>
       <p class="text-sm">Monitor validation loss and halt training when improvements stall.</p>
       <code class="text-xs block">patience = 3 - 10 epochs</code>

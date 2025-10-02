@@ -1,5 +1,5 @@
 <div class="space-y-6">
-  <div class="panel panel-info panel-emphasis p-4 space-y-3">
+  <div class="panel panel-info p-4 space-y-3">
     <label for="q13-task-select" class="block text-sm font-medium text-heading">📋 Select a Task to Optimize</label>
     <select id="q13-task-select" class="select-control">
       <option value="0" selected>Email Classification (Spam/Not Spam)</option>
@@ -9,7 +9,7 @@
       <option value="4">Data Extraction from Text</option>
       <option value="5">Language Translation</option>
     </select>
-    <p class="text-xs text-muted">Choose different tasks to see how prompt engineering techniques adapt to various use cases!</p>
+    <p class="text-xs panel-muted">Choose different tasks to see how prompt engineering techniques adapt to various use cases!</p>
   </div>
 
   <div class="panel panel-neutral p-4 space-y-3">
@@ -19,7 +19,7 @@
         <input type="radio" name="q13-strategy" value="basic" class="mt-1" checked>
         <div class="flex flex-col gap-1 h-full">
           <div class="font-medium text-sm text-heading">Basic</div>
-          <div class="text-xs text-muted">Simple instruction</div>
+          <div class="text-xs panel-muted">Simple instruction</div>
           <div class="pt-1 mt-auto">
             <span class="chip chip-warning text-xs font-semibold">Often unclear</span>
           </div>
@@ -30,7 +30,7 @@
         <input type="radio" name="q13-strategy" value="zero-shot" class="mt-1">
         <div class="flex flex-col gap-1 h-full">
           <div class="font-medium text-sm text-heading">Zero-Shot</div>
-          <div class="text-xs text-muted">Clear, detailed task</div>
+          <div class="text-xs panel-muted">Clear, detailed task</div>
           <div class="pt-1 mt-auto">
             <span class="chip chip-info text-xs font-semibold">Good baseline</span>
           </div>
@@ -41,7 +41,7 @@
         <input type="radio" name="q13-strategy" value="few-shot" class="mt-1">
         <div class="flex flex-col gap-1 h-full">
           <div class="font-medium text-sm text-heading">Few-Shot</div>
-          <div class="text-xs text-muted">With examples</div>
+          <div class="text-xs panel-muted">With examples</div>
           <div class="pt-1 mt-auto">
             <span class="chip chip-success text-xs font-semibold">Most reliable</span>
           </div>
@@ -52,7 +52,7 @@
         <input type="radio" name="q13-strategy" value="chain-of-thought" class="mt-1">
         <div class="flex flex-col gap-1 h-full">
           <div class="font-medium text-sm text-heading">CoT</div>
-          <div class="text-xs text-muted">Step-by-step</div>
+          <div class="text-xs panel-muted">Step-by-step</div>
           <div class="pt-1 mt-auto">
             <span class="chip chip-accent text-xs font-semibold">Best reasoning</span>
           </div>
@@ -63,7 +63,7 @@
         <input type="radio" name="q13-strategy" value="structured-json" class="mt-1">
         <div class="flex flex-col gap-1 h-full">
           <div class="font-medium text-sm text-heading">Structured JSON</div>
-          <div class="text-xs text-muted">Schema-constrained</div>
+          <div class="text-xs panel-muted">Schema-constrained</div>
           <div class="pt-1 mt-auto">
             <span class="chip chip-accent text-xs font-semibold">Parsable</span>
           </div>
@@ -74,7 +74,7 @@
         <input type="radio" name="q13-strategy" value="grounded" class="mt-1">
         <div class="flex flex-col gap-1 h-full">
           <div class="font-medium text-sm text-heading">Grounded</div>
-          <div class="text-xs text-muted">Use provided context</div>
+          <div class="text-xs panel-muted">Use provided context</div>
           <div class="pt-1 mt-auto">
             <span class="chip chip-neutral text-xs font-semibold">Citations</span>
           </div>
@@ -89,7 +89,7 @@
       <span id="q13-strategy-indicator" class="chip chip-warning text-xs font-semibold">Basic</span>
     </div>
     <div id="q13-prompt-display" class="min-h-[120px] p-4 bg-card border border-divider rounded font-mono text-sm whitespace-pre-wrap text-body"></div>
-    <div class="flex justify-between items-center text-xs text-muted">
+    <div class="flex justify-between items-center text-xs panel-muted">
       <span id="q13-prompt-length">Prompt length: 0 characters</span>
       <button id="q13-copy-prompt" type="button" class="chip chip-info text-xs font-semibold">📋 Copy Prompt</button>
     </div>
@@ -103,15 +103,15 @@
     <div class="grid md:grid-cols-3 gap-4">
       <div class="text-center space-y-1">
         <div class="text-lg font-bold text-info" id="q13-accuracy">45%</div>
-        <div class="text-xs text-muted">Accuracy</div>
+        <div class="text-xs panel-muted">Accuracy</div>
       </div>
       <div class="text-center space-y-1">
         <div class="text-lg font-bold text-success" id="q13-consistency">60%</div>
-        <div class="text-xs text-muted">Consistency</div>
+        <div class="text-xs panel-muted">Consistency</div>
       </div>
       <div class="text-center space-y-1">
         <div class="text-lg font-bold text-accent" id="q13-efficiency">Low</div>
-        <div class="text-xs text-muted">Token Efficiency</div>
+        <div class="text-xs panel-muted">Token Efficiency</div>
       </div>
     </div>
     <div class="bg-subtle border border-divider rounded-full h-6 relative overflow-hidden">

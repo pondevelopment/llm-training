@@ -1,6 +1,6 @@
 <div class="space-y-4">
   <div class="panel panel-info p-3">
-    <h4 class="font-semibold mb-1">&#x1F4DA; Recommended reading (related)</h4>
+    <h4 class="font-semibold mb-1">📚 Recommended reading (related)</h4>
     <ul class="list-disc ml-5 text-sm space-y-1">
       <li><a href="#question-05" class="underline">Question 5: How does beam search improve text generation compared to greedy decoding?</a></li>
       <li><a href="#question-12" class="underline">Question 12: How do top-k and top-p sampling differ in text generation?</a></li>
@@ -9,13 +9,13 @@
     </ul>
   </div>
 
-  <div class="panel panel-info panel-emphasis p-4 space-y-2">
+  <div class="panel panel-info p-4 space-y-2">
     <h4 class="font-semibold">&#x1F319;&#xFE0F; What is temperature?</h4>
     <p>Temperature is the <strong>creativity dial</strong> for language models. It rescales logits before softmax: low values sharpen the distribution so the model acts cautious, while high values flatten it and let adventurous tokens surface. It is the quickest lever for balancing coherence and novelty.</p>
   </div>
 
   <div class="grid md:grid-cols-3 gap-4">
-    <div class="panel panel-success panel-emphasis p-3 stacked-card">
+    <div class="panel panel-success p-3">
       <h5 class="font-medium">Low temperature (0.1&ndash;0.5)</h5>
       <p class="text-sm">Conservative, laser-focused token choices.</p>
       <div class="text-xs space-y-1">
@@ -27,19 +27,19 @@
       <span class="chip chip-success text-xs mt-2">Best for: factual answers, summaries</span>
     </div>
 
-    <div class="panel panel-accent panel-emphasis p-3 stacked-card">
+    <div class="panel panel-accent p-3">
       <h5 class="font-medium">Medium temperature (0.7&ndash;1.2)</h5>
       <p class="text-sm">Balanced mix of coherence and variation.</p>
       <div class="text-xs space-y-1">
         <div>&#x2705; <strong>Natural:</strong> Reads like human prose.</div>
         <div>&#x2705; <strong>Engaging:</strong> Adds light surprises.</div>
         <div>&#x2705; <strong>Versatile:</strong> Works for most tasks.</div>
-        <div>&#x26A0;&#xFE0F; <strong>Prompt sensitive:</strong> Needs guardrails.</div>
+        <div>⚠&#xFE0F; <strong>Prompt sensitive:</strong> Needs guardrails.</div>
       </div>
       <span class="chip chip-accent text-xs mt-2">Best for: chat, narratives, ideation</span>
     </div>
 
-    <div class="panel panel-warning panel-emphasis p-3 stacked-card">
+    <div class="panel panel-warning p-3">
       <h5 class="font-medium">High temperature (1.5&ndash;2.0)</h5>
       <p class="text-sm">Experimental, high-entropy sampling.</p>
       <div class="text-xs space-y-1">

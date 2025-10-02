@@ -2,7 +2,7 @@
   <!-- Input Section -->
   <div class="question-card space-y-2">
     <label for="q2-text-select" class="block text-sm font-medium text-heading">&#x1F5D2; Select a Sentence to Analyze</label>
-    <select id="q2-text-select" class="w-full px-3 py-2 border border-subtle rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 bg-card text-body shadow-sm">
+    <select id="q2-text-select" class="w-full px-3 py-2 border border-subtle rounded-md focus:outline-none focus:ring-2 focus:ring-[color:var(--accent-strong)] focus:border-[color:var(--accent-strong)] bg-card text-body shadow-sm">
       <option value="The cat chased the mouse through the garden">The cat chased the mouse through the garden</option>
       <option value="The red car stopped at the traffic light">The red car stopped at the traffic light</option>
       <option value="The intelligent student solved the difficult problem quickly">The intelligent student solved the difficult problem quickly</option>
@@ -14,7 +14,7 @@
 
   <!-- Attention Type Selection -->
   <div class="question-card space-y-3">
-    <label class="block text-sm font-medium text-heading">&#x1F3AF; Attention Pattern Type</label>
+    <label class="block text-sm font-medium text-heading">🎯 Attention Pattern Type</label>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
       <label class="question-strategy" data-tone="emerald">
         <input type="radio" name="q2-attention-type" value="semantic" checked>
@@ -24,7 +24,7 @@
             <span class="chip chip-success">Meaning-based</span>
           </div>
           <p class="small-caption text-muted">Focuses on words with related meanings.</p>
-          <div class="question-token-example" data-tone="emerald">"chased" &rarr; cat, mouse</div>
+          <div class="question-token-example" data-tone="emerald">"chased" → cat, mouse</div>
         </div>
       </label>
 
@@ -36,7 +36,7 @@
             <span class="chip chip-info">Grammar-based</span>
           </div>
           <p class="small-caption text-muted">Highlights grammatically related tokens.</p>
-          <div class="question-token-example" data-tone="purple">"cat" &rarr; the, chased</div>
+          <div class="question-token-example" data-tone="purple">"cat" → the, chased</div>
         </div>
       </label>
 
@@ -48,7 +48,7 @@
             <span class="chip chip-warning">Distance-based</span>
           </div>
           <p class="small-caption text-muted">Prefers nearby words in the sequence.</p>
-          <div class="question-token-example" data-tone="amber">"mouse" &rarr; the, through</div>
+          <div class="question-token-example" data-tone="amber">"mouse" → the, through</div>
         </div>
       </label>
     </div>
@@ -56,14 +56,14 @@
 
   <!-- Quick Examples -->
   <div class="question-card flex flex-wrap items-center gap-2">
-    <span class="text-sm font-medium text-heading">&#x1F4A1; Quick Examples:</span>
+    <span class="text-sm font-medium text-heading">💡 Quick Examples:</span>
     <button id="q2-example-btn" class="btn-soft">Try: "The red car stopped at the traffic light"</button>
   </div>
 
   <!-- Attention Visualization -->
   <div class="question-card space-y-3">
     <div class="flex items-center justify-between gap-3">
-      <h4 class="font-medium text-heading flex items-center gap-2">&#x1F3A8; Attention Visualization <span class="chip chip-info chip-tag">Interactive</span></h4>
+      <h4 class="font-medium text-heading flex items-center gap-2">�� Attention Visualization <span class="chip chip-info chip-tag">Interactive</span></h4>
       <div id="q2-attention-indicator" class="chip chip-info attention-indicator">
         <span class="attention-indicator-dot"></span>
         <span class="attention-indicator-label">Click a word below</span>
@@ -85,7 +85,7 @@
 
   <!-- Educational Explanation -->
   <div id="q2-explanation" class="panel panel-warning p-4 space-y-2">
-    <h4 class="font-medium">&#x1F4DA; How Attention Works</h4>
+    <h4 class="font-medium">📚 How Attention Works</h4>
     <div id="q2-explanation-content" class="text-sm">
       Select an attention pattern above and click on a word to see how the mechanism routes context. The thickness of each connection represents attention strength.
     </div>

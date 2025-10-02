@@ -6,7 +6,7 @@
     </ul>
   </div>
 
-  <div class="panel panel-info panel-emphasis p-4 space-y-2">
+  <div class="panel panel-info p-4 space-y-2">
     <h4 class="font-semibold">&#129504; Transformer vs Seq2Seq evolution</h4>
     <p>Transformers revolutionised sequence-to-sequence learning by replacing sequential RNNs with parallel self-attention. It is like switching from reading a book word-by-word to instantly referencing any passage while remembering how every part connects.</p>
   </div>
@@ -22,17 +22,17 @@
   </div>
 
   <div class="grid md:grid-cols-3 gap-4">
-    <div class="panel panel-success panel-emphasis p-3 space-y-2 stacked-card">
+    <div class="panel panel-success p-3 space-y-2">
       <h5 class="font-medium">&#128640; Parallel processing</h5>
       <p class="text-sm">Self-attention evaluates every token simultaneously.</p>
-      <div class="panel panel-neutral-soft p-2 text-xs font-mono rounded-md mt-auto">RNN: n sequential steps &rarr; Transformer: 1 parallel round (per layer)</div>
+      <div class="panel panel-neutral-soft p-2 text-xs font-mono rounded-md mt-auto">RNN: n sequential steps → Transformer: 1 parallel round (per layer)</div>
     </div>
-    <div class="panel panel-accent panel-emphasis p-3 space-y-2 stacked-card">
+    <div class="panel panel-accent p-3 space-y-2">
       <h5 class="font-medium">&#127919; Long-range dependencies</h5>
       <p class="text-sm">Each position can attend to any other position directly.</p>
       <div class="math-display text-xs mt-auto">$$\mathrm{Attention}(Q,K,V) = \mathrm{softmax} \left( \frac{QK^{T}}{\sqrt{d_k}} \right) V$$</div>
     </div>
-    <div class="panel panel-warning panel-emphasis p-3 space-y-2 stacked-card">
+    <div class="panel panel-warning p-3 space-y-2">
       <h5 class="font-medium">&#128205; Positional encoding</h5>
       <p class="text-sm">Maintains order without sequential computation.</p>
       <div class="math-display text-xs mt-auto">$$\begin{align*}
@@ -45,7 +45,7 @@
   <div class="panel panel-warning p-4 space-y-2">
     <h4 class="font-semibold">&#9888; Traditional Seq2Seq limitations</h4>
     <ul class="list-disc ml-5 text-sm space-y-1">
-      <li><strong>Sequential bottleneck:</strong> Tokens must be processed one by one (h<sub>1</sub> &rarr; h<sub>2</sub> &rarr; h<sub>3</sub>&hellip;), blocking GPU parallelism.</li>
+      <li><strong>Sequential bottleneck:</strong> Tokens must be processed one by one (h<sub>1</sub> → h<sub>2</sub> → h<sub>3</sub>&hellip;), blocking GPU parallelism.</li>
       <li><strong>Vanishing gradients:</strong> Early information fades as it passes through many timesteps.</li>
       <li><strong>Fixed context vector:</strong> Encoder compresses the entire sentence into a single vector.</li>
       <li><strong>Slow training:</strong> Limited parallelism reduces throughput.</li>

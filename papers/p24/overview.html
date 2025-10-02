@@ -1,21 +1,39 @@
 <section class="space-y-5">
-  <section class="panel panel-neutral p-5 space-y-3">
-    <div class="flex flex-col gap-2">
-      <div class="flex items-center gap-2">
-        <span aria-hidden="true" class="text-lg">📋</span>
-        <h2 class="text-lg font-semibold tracking-wide uppercase text-heading">Executive quick take</h2>
+  <section class="panel panel-info p-4 space-y-4">
+    <div class="flex items-center justify-between gap-4">
+      <div class="flex-1 min-w-0">
+        <h2 class="text-xl font-semibold text-heading">Quantifying Human-AI Synergy</h2>
+        <p class="text-sm panel-muted">Christoph Riedl, Ben Weidmann &bull; PsyArXiv (2025-09-22)</p>
       </div>
-      <p class="text-sm leading-relaxed text-body">
-        Human-AI performance is best measured as a partnership. A Bayesian item-response model shows GPT-4o lifts
-        average human accuracy by 29 percentage points (Llama-3.1-8B adds 23) once you control for task difficulty
-        and user skill. Collaboration ability is distinct from solo problem solving, and Theory of Mind signals explain
-        who actually captures the boost.
-      </p>
+      <a href="https://psyarxiv.com/preprints/psyarxiv/wh79t" target="_blank" rel="noopener" class="btn-soft text-xs font-semibold flex-shrink-0" data-accent="foundations">
+        <span>View paper</span>
+        <span aria-hidden="true">↗</span>
+      </a>
     </div>
-    <ul class="list-disc ml-5 text-sm text-body space-y-1">
-      <li>Synergy peaks on the hardest questions, while easy items reach the ceiling fast.</li>
-      <li>Users with Theory of Mind rich prompts earn higher-quality AI replies, regardless of solo ability.</li>
-      <li>Moment-to-moment perspective taking matters: ToM spikes during a dialogue nudge models toward better answers.</li>
+    <p class="text-sm leading-relaxed panel-muted">
+      Bayesian IRT separates solo skill, collaborative skill, and AI lift on ChatBench, revealing 29-point boosts from GPT-4o and the outsized role of Theory of Mind.
+    </p>
+    <div class="panel panel-neutral-soft p-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Plain-language explainer</p>
+      <p class="panel-muted">Working with AI is like playing doubles tennis: your individual skill matters, but so does knowing when to pass the ball to your partner. The authors show that people who naturally consider the AI's "perspective" get better answers—even if they're not the strongest solo players.</p>
+    </div>
+  </section>
+
+  <section class="panel panel-neutral p-5 space-y-3">
+    <header class="flex items-center gap-2">
+      <span aria-hidden="true" class="text-lg">🧭</span>
+      <h3 class="text-sm font-semibold tracking-wide uppercase text-heading">Executive quick take</h3>
+    </header>
+    <p class="text-sm leading-relaxed text-body">
+      Human-AI performance is best measured as a partnership. A Bayesian item-response model shows GPT-4o lifts
+      average human accuracy by 29 percentage points (Llama-3.1-8B adds 23) once you control for task difficulty
+      and user skill. Collaboration ability is distinct from solo problem solving, and Theory of Mind signals explain
+      who actually captures the boost.
+    </p>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>Synergy peaks</strong> on the hardest questions, while easy items reach the ceiling fast.</li>
+      <li><strong>Theory of Mind matters:</strong> Users with ToM-rich prompts earn higher-quality AI replies, regardless of solo ability.</li>
+      <li><strong>Moment-to-moment perspective taking:</strong> ToM spikes during a dialogue nudge models toward better answers.</li>
     </ul>
   </section>
 

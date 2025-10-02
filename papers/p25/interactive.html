@@ -1,57 +1,57 @@
-<div id="p25-lab" class="space-y-6">
-  <section class="bg-gradient-to-r from-slate-50 via-indigo-50 to-slate-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 border border-indigo-100 dark:border-slate-700 rounded-xl p-4 space-y-4">
+<section class="space-y-6" id="p25-lab">
+  <div class="panel panel-info p-4 space-y-4">
     <div class="grid md:grid-cols-3 gap-4">
       <div>
-        <label for="p25-scenario" class="block text-sm font-semibold text-indigo-900 dark:text-indigo-200">Organizational focus</label>
-        <select id="p25-scenario" class="mt-1 w-full px-3 py-2 border border-indigo-200 dark:border-slate-600 rounded-md text-sm bg-card text-heading focus:outline-none focus:ring-2 focus:ring-indigo-500">
+        <label for="p25-scenario" class="block text-sm font-semibold text-heading">Organizational focus</label>
+        <select id="p25-scenario" class="mt-1 w-full px-3 py-2 border border-divider rounded-md text-sm bg-card text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
           <option value="sales">Enterprise sales quotas</option>
           <option value="product">Product roadmap velocity</option>
           <option value="support">Customer support SLAs</option>
           <option value="compliance">Regulatory compliance</option>
         </select>
-        <p class="text-[11px] text-indigo-800 dark:text-indigo-200 mt-2">Pick the area where leadership signals may not match the rewards.</p>
+        <p class="text-xs panel-muted mt-2">Pick the area where leadership signals may not match the rewards.</p>
       </div>
       <div>
-        <label for="p25-immediacy" class="block text-sm font-semibold text-indigo-900 dark:text-indigo-200">Reward immediacy</label>
-        <input id="p25-immediacy" type="range" min="0" max="2" step="1" value="2" class="w-full accent-indigo-600 mt-2">
-        <p class="text-[11px] text-indigo-800 dark:text-indigo-200 mt-1">0 = long-term milestones, 1 = balanced, 2 = short-term payouts tied to metric A.</p>
+        <label for="p25-immediacy" class="block text-sm font-semibold text-heading">Reward immediacy</label>
+        <input id="p25-immediacy" type="range" min="0" max="2" step="1" value="2" class="w-full mt-2">
+        <p class="text-xs panel-muted mt-1">0 = long-term milestones, 1 = balanced, 2 = short-term payouts tied to metric A.</p>
       </div>
       <div>
-        <label for="p25-visibility" class="block text-sm font-semibold text-indigo-900 dark:text-indigo-200">Visibility of desired behavior (B)</label>
-        <input id="p25-visibility" type="range" min="0" max="2" step="1" value="1" class="w-full accent-indigo-600 mt-2">
-        <p class="text-[11px] text-indigo-800 dark:text-indigo-200 mt-1">Higher settings mean leaders regularly showcase the behavior they hope for.</p>
+        <label for="p25-visibility" class="block text-sm font-semibold text-heading">Visibility of desired behavior (B)</label>
+        <input id="p25-visibility" type="range" min="0" max="2" step="1" value="1" class="w-full mt-2">
+        <p class="text-xs panel-muted mt-1">Higher settings mean leaders regularly showcase the behavior they hope for.</p>
       </div>
     </div>
     <div class="grid md:grid-cols-3 gap-4">
       <div>
-        <label for="p25-payout" class="block text-sm font-semibold text-indigo-900 dark:text-indigo-200">Payout concentration</label>
-        <input id="p25-payout" type="range" min="0" max="2" step="1" value="2" class="w-full accent-indigo-600 mt-2">
-        <p class="text-[11px] text-indigo-800 dark:text-indigo-200 mt-1">0 = diversified rewards (B linked), 2 = all cash/recognition tied to metric A.</p>
+        <label for="p25-payout" class="block text-sm font-semibold text-heading">Payout concentration</label>
+        <input id="p25-payout" type="range" min="0" max="2" step="1" value="2" class="w-full mt-2">
+        <p class="text-xs panel-muted mt-1">0 = diversified rewards (B linked), 2 = all cash/recognition tied to metric A.</p>
       </div>
       <div class="md:col-span-2">
-        <p class="text-xs font-semibold uppercase tracking-wide text-indigo-900 dark:text-indigo-200 mb-2">Mitigation levers</p>
-        <div class="flex flex-wrap gap-4 text-xs text-indigo-800 dark:text-indigo-200">
+        <p class="text-xs font-semibold uppercase tracking-wide text-heading mb-2">Mitigation levers</p>
+        <div class="flex flex-wrap gap-4 text-xs text-body">
           <label class="inline-flex items-center gap-2">
-            <input id="p25-leading" type="checkbox" class="accent-indigo-600" checked>
+            <input id="p25-leading" type="checkbox" class="h-4 w-4 rounded border border-divider bg-card accent-[color:var(--accent-strong)]" checked>
             <span>Publish leading indicators for B</span>
           </label>
           <label class="inline-flex items-center gap-2">
-            <input id="p25-recognition" type="checkbox" class="accent-indigo-600">
+            <input id="p25-recognition" type="checkbox" class="h-4 w-4 rounded border border-divider bg-card accent-[color:var(--accent-strong)]">
             <span>Peer recognition tied to B</span>
           </label>
           <label class="inline-flex items-center gap-2">
-            <input id="p25-debrief" type="checkbox" class="accent-indigo-600">
+            <input id="p25-debrief" type="checkbox" class="h-4 w-4 rounded border border-divider bg-card accent-[color:var(--accent-strong)]">
             <span>After-action reviews on misses</span>
           </label>
         </div>
-        <p class="text-[11px] text-indigo-800 dark:text-indigo-200 mt-2">Toggle the practices you actually run today; the model shows what behavior you are really buying.</p>
+        <p class="text-xs panel-muted mt-2">Toggle the practices you actually run today; the model shows what behavior you are really buying.</p>
       </div>
     </div>
-  </section>
+  </div>
 
-  <section class="grid md:grid-cols-3 gap-4">
-    <article class="bg-card border border-subtle rounded-lg p-4 space-y-2">
-      <h4 class="text-xs font-semibold uppercase tracking-wide text-muted">Behavior being reinforced</h4>
+  <div class="grid md:grid-cols-3 gap-4">
+    <article class="panel panel-neutral-soft p-4 space-y-2">
+      <h4 class="text-xs font-semibold uppercase tracking-wide text-heading">Behavior being reinforced</h4>
       <p id="p25-behavior" class="text-sm font-semibold text-heading">--</p>
       <p class="text-xs text-muted-soft">Most visible payoff employees perceive given the current reward stack.</p>
     </article>

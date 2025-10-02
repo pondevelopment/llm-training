@@ -69,21 +69,21 @@ Question 1 (q01) should serve as the template reference after conversion.
 
 | Q# | Title | Status | Notes |
 |----|-------|--------|-------|
-| 21 | What is few-shot learning and in-context learning? | ⬜ | |
-| 22 | What is chain-of-thought prompting? | ⬜ | |
-| 23 | What is zero-shot prompting? | ⬜ | |
-| 24 | What is prompt engineering? | ⬜ | |
-| 25 | What is retrieval-augmented generation (RAG)? | ⬜ | |
-| 26 | What are prompt templates and why use them? | ⬜ | |
-| 27 | What is the difference between system, user, and assistant messages? | ⬜ | |
-| 28 | What is function calling and tool use? | ⬜ | |
-| 29 | What is prompt injection and jailbreaking? | ⬜ | |
-| 30 | What is the difference between open-ended and constrained generation? | ⬜ | |
-| 31 | What is constitutional AI and RLHF? | ⬜ | |
-| 32 | What are LLM agents? | ⬜ | |
-| 33 | What is the difference between streaming and batch generation? | ⬜ | |
-| 34 | What is the difference between chat and completion endpoints? | ⬜ | |
-| 35 | What is the difference between instruction-tuned and base models? | ⬜ | |
+| 21 | What is few-shot learning and in-context learning? | ✅ | Batch converted |
+| 22 | What is chain-of-thought prompting? | ✅✅ | Batch converted |
+| 23 | What is zero-shot prompting? | ✅ | Batch converted |
+| 24 | What is prompt engineering? | ✅✅ | Batch converted |
+| 25 | What is retrieval-augmented generation (RAG)? | ✅✅ | Batch converted; fixed line endings |
+| 26 | What are prompt templates and why use them? | ✅ | Batch converted |
+| 27 | What is the difference between system, user, and assistant messages? | ✅✅ | Batch converted |
+| 28 | What is function calling and tool use? | ✅✅ | Batch converted |
+| 29 | What is prompt injection and jailbreaking? | ✅ | Batch converted |
+| 30 | What is the difference between open-ended and constrained generation? | ✅✅ | Batch converted |
+| 31 | What is constitutional AI and RLHF? | ✅✅ | Batch converted |
+| 32 | What are LLM agents? | ✅✅ | Batch converted |
+| 33 | What is the difference between streaming and batch generation? | ✅ | Batch converted |
+| 34 | What is the difference between chat and completion endpoints? | ✅ | Batch converted |
+| 35 | What is the difference between instruction-tuned and base models? | ✅ | Batch converted |
 
 ### Architecture & Training (Questions 36-50)
 

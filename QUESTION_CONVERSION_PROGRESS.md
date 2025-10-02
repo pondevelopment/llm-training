@@ -1,0 +1,164 @@
+# Question Conversion Progress
+
+## Goal
+Convert all 57 questions to use semantic theme tokens instead of hardcoded colors, ensuring full light/dark mode compatibility.
+
+## Conversion Pattern (Based on Paper Template)
+
+### Answer.html conversions:
+1. **Remove** `panel-emphasis` from all panels (use plain `panel panel-info`, `panel panel-success`, etc.)
+2. **Remove** `stacked-card` class (deprecated)
+3. **Replace** `text-body` → `panel-muted` in list items and secondary text
+4. **Keep** heading structure as-is (h4, h5 are appropriate for questions)
+5. **Fix** HTML entities → proper Unicode (emoji, quotes, etc.)
+
+### Interactive.html conversions:
+1. **Replace** raw Tailwind color utilities → semantic helpers
+   - `bg-indigo-50` → `panel panel-info`
+   - `text-indigo-600` → semantic text classes
+   - `border-indigo-200` → `border-divider`
+2. **Use** semantic chip classes: `chip chip-info`, `chip chip-success`, etc.
+3. **Use** `panel-muted` for secondary text, `text-heading` for headers
+4. **Fix** focus states: `focus-visible:outline` with CSS variables
+
+### Interactive.js conversions:
+1. Usually minimal changes needed
+2. Verify no hardcoded color strings in JS
+3. Ensure proper theme token references if dynamically creating elements
+
+## Reference Question
+Question 1 (q01) should serve as the template reference after conversion.
+
+## Progress Tracking
+
+### Status Legend
+- ⬜ Not started
+- 🔄 In progress
+- ✅ Completed (answer.html)
+- ✅✅ Completed (answer.html + interactive.html)
+- ✅✅✅ Fully completed (all files verified)
+
+---
+
+### Foundations Track (Questions 1-20)
+
+| Q# | Title | Status | Notes |
+|----|-------|--------|-------|
+| 1 | What is tokenization and why does it matter? | ⬜ | Reference question |
+| 2 | How do attention mechanisms work in transformers? | ⬜ | |
+| 3 | What is the difference between training, fine-tuning, and inference? | ⬜ | |
+| 4 | What is a loss function and how does it guide learning? | ⬜ | |
+| 5 | What are hyperparameters and how do you tune them? | ⬜ | |
+| 6 | What is gradient descent and backpropagation? | ⬜ | |
+| 7 | What is overfitting and underfitting? | ⬜ | |
+| 8 | What is the difference between supervised, unsupervised, and reinforcement learning? | ⬜ | |
+| 9 | What is a transformer architecture? | ⬜ | |
+| 10 | What are embeddings and why do they matter? | ⬜ | |
+| 11 | What is the difference between training from scratch and transfer learning? | ⬜ | |
+| 12 | Tokens vs. words — how are they different? | ⬜ | |
+| 13 | What is context window and why does it limit performance? | ⬜ | |
+| 14 | What are positional encodings? | ⬜ | |
+| 15 | What is the difference between autoregressive and masked language models? | ⬜ | |
+| 16 | What are out-of-vocabulary words and how do models handle them? | ⬜ | Has panel-emphasis, text-body |
+| 17 | What is the difference between deterministic and stochastic outputs? | ⬜ | |
+| 18 | What is temperature in sampling? | ⬜ | |
+| 19 | What is top-k and top-p (nucleus) sampling? | ⬜ | |
+| 20 | What is beam search and when should you use it? | ⬜ | |
+
+### Prompting & Interaction (Questions 21-35)
+
+| Q# | Title | Status | Notes |
+|----|-------|--------|-------|
+| 21 | What is few-shot learning and in-context learning? | ⬜ | |
+| 22 | What is chain-of-thought prompting? | ⬜ | |
+| 23 | What is zero-shot prompting? | ⬜ | |
+| 24 | What is prompt engineering? | ⬜ | |
+| 25 | What is retrieval-augmented generation (RAG)? | ⬜ | |
+| 26 | What are prompt templates and why use them? | ⬜ | |
+| 27 | What is the difference between system, user, and assistant messages? | ⬜ | |
+| 28 | What is function calling and tool use? | ⬜ | |
+| 29 | What is prompt injection and jailbreaking? | ⬜ | |
+| 30 | What is the difference between open-ended and constrained generation? | ⬜ | |
+| 31 | What is constitutional AI and RLHF? | ⬜ | |
+| 32 | What are LLM agents? | ⬜ | |
+| 33 | What is the difference between streaming and batch generation? | ⬜ | |
+| 34 | What is the difference between chat and completion endpoints? | ⬜ | |
+| 35 | What is the difference between instruction-tuned and base models? | ⬜ | |
+
+### Architecture & Training (Questions 36-50)
+
+| Q# | Title | Status | Notes |
+|----|-------|--------|-------|
+| 36 | What is model quantization? | ⬜ | |
+| 37 | What is distillation? | ⬜ | |
+| 38 | What is the difference between encoder-only, decoder-only, and encoder-decoder models? | ⬜ | |
+| 39 | What is mixture of experts (MoE)? | ⬜ | |
+| 40 | What is the difference between dense and sparse models? | ⬜ | |
+| 41 | What is LoRA and parameter-efficient fine-tuning? | ⬜ | |
+| 42 | What is the difference between pre-training and post-training? | ⬜ | |
+| 43 | What is curriculum learning? | ⬜ | |
+| 44 | What is data augmentation for LLMs? | ⬜ | |
+| 45 | What is synthetic data generation? | ⬜ | |
+| 46 | What is the difference between online and offline learning? | ⬜ | |
+| 47 | What is perplexity and how is it used? | ⬜ | |
+| 48 | What is the difference between perplexity and accuracy? | ⬜ | |
+| 49 | What is cross-entropy loss? | ⬜ | |
+| 50 | What is KL divergence? | ⬜ | |
+
+### Advanced Topics (Questions 51-57)
+
+| Q# | Title | Status | Notes |
+|----|-------|--------|-------|
+| 51 | What is the difference between continuous and discrete prompts? | ⬜ | |
+| 52 | What is prompt tuning vs fine-tuning? | ⬜ | |
+| 53 | What is neural scaling laws? | ⬜ | |
+| 54 | What is emergent behavior in LLMs? | ⬜ | |
+| 55 | What is the difference between instruction following and conversation? | ⬜ | |
+| 56 | When should you fine-tune instead of using RAG? | ⬜ | Has panel-emphasis, text-body, stacked-card |
+| 57 | What is the difference between multimodal and text-only models? | ⬜ | Has panel-emphasis |
+
+---
+
+## Conversion Workflow
+
+1. **Pick a question** from the list above
+2. **Mark as 🔄** in this file
+3. **Convert answer.html**:
+   - Remove `panel-emphasis`
+   - Remove `stacked-card`
+   - Replace `text-body` → `panel-muted`
+   - Fix HTML entities
+4. **Convert interactive.html** (if exists):
+   - Replace hardcoded colors with semantic helpers
+   - Update chip classes
+   - Fix focus states
+5. **Check interactive.js** (if exists):
+   - Verify no hardcoded colors
+6. **Test locally**: Load the question and verify rendering
+7. **Mark as ✅/✅✅/✅✅✅** based on completion
+8. **Commit** with message: `QXX: Convert to semantic theme tokens`
+9. **Update this file** with completion status
+
+## Batch Commit Strategy
+
+- Convert questions in logical groups (e.g., 5-10 at a time)
+- Commit each group together: `Q1-Q10: Convert to semantic theme tokens`
+- Push after each batch to avoid large merge conflicts
+
+## Notes
+
+- Questions don't have plain-language explainers (unlike papers), so that pattern doesn't apply
+- Questions use `h4`/`h5` which is appropriate for their structure (unlike papers which standardized on `h3`)
+- Some questions have no interactive component (answer.html only)
+- The `stacked-card` class is deprecated and should be removed everywhere
+- Use Question 1 as the reference once it's converted
+
+## Completion Summary
+
+- **Total Questions**: 57
+- **Completed**: 0
+- **In Progress**: 0
+- **Remaining**: 57
+- **Percentage**: 0%
+
+Last updated: 2025-10-02

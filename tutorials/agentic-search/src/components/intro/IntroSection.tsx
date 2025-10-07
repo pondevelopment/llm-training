@@ -17,6 +17,75 @@ export function IntroSection() {
         </p>
       </div>
 
+      {/* What You'll Learn */}
+      <div className="panel p-6 max-w-3xl mx-auto">
+        <h3 className="text-lg font-bold text-heading mb-3">What You'll Learn in This Tutorial</h3>
+        <div className="grid gap-3 sm:grid-cols-2">
+          <div className="flex items-start gap-2">
+            <span className="text-lg">🔍</span>
+            <div>
+              <p className="font-semibold text-heading text-sm">Traditional Search</p>
+              <p className="text-xs text-muted">Returns links—you do the work</p>
+            </div>
+          </div>
+          <div className="flex items-start gap-2">
+            <span className="text-lg">🤖</span>
+            <div>
+              <p className="font-semibold text-heading text-sm">Agentic Search</p>
+              <p className="text-xs text-muted">AI plans, researches, synthesizes</p>
+            </div>
+          </div>
+          <div className="flex items-start gap-2">
+            <span className="text-lg">🧰</span>
+            <div>
+              <p className="font-semibold text-heading text-sm">Tool Discovery</p>
+              <p className="text-xs text-muted">How agents find APIs via MCP</p>
+            </div>
+          </div>
+          <div className="flex items-start gap-2">
+            <span className="text-lg">⚡</span>
+            <div>
+              <p className="font-semibold text-heading text-sm">Live Workflow</p>
+              <p className="text-xs text-muted">Step-by-step simulation</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Key Insight */}
+      <div className="panel panel-info p-6 max-w-3xl mx-auto">
+        <div className="flex items-start gap-4">
+          <div className="text-3xl">💡</div>
+          <div>
+            <h3 className="text-lg font-bold text-heading mb-2">Key Difference</h3>
+            <p className="text-body leading-relaxed">
+              Traditional search returns <strong>links for you to review</strong>. 
+              Agentic search uses AI to <strong>plan, research, and synthesize</strong> an 
+              answer tailored to your goal—like having a research assistant.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Scenario Setup */}
+      <div className="panel panel-warning p-6 max-w-3xl mx-auto">
+        <div className="flex items-start gap-4">
+          <div className="text-3xl">🚴‍♂️</div>
+          <div>
+            <h3 className="text-lg font-bold text-heading mb-2">The Scenario</h3>
+            <p className="text-body leading-relaxed mb-3">
+              You're a <strong>beginner cyclist</strong> looking to buy your first road bike. 
+              Your budget is <strong>$1,500</strong> and you want the best value for money.
+            </p>
+            <div className="text-sm panel-muted space-y-1">
+              <p><strong>Your goal:</strong> Find the top 3 road bikes that match your needs</p>
+              <p><strong>What to compare:</strong> Frame material, weight, components, reviews, and availability</p>
+              <p><strong>Exercise:</strong> Click "Next" to step through how each approach handles this search</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* View Toggle */}
       <div className="flex justify-center gap-2">
         <button
@@ -53,21 +122,6 @@ export function IntroSection() {
 
       {/* Comparison Component */}
       <SearchComparison view={currentView} />
-
-      {/* Key Insight */}
-      <div className="panel panel-info p-6 max-w-3xl mx-auto">
-        <div className="flex items-start gap-4">
-          <div className="text-3xl">💡</div>
-          <div>
-            <h3 className="text-lg font-bold text-heading mb-2">Key Difference</h3>
-            <p className="text-body leading-relaxed">
-              Traditional search returns <strong>links for you to review</strong>. 
-              Agentic search uses AI to <strong>plan, research, and synthesize</strong> an 
-              answer tailored to your goal—like having a research assistant.
-            </p>
-          </div>
-        </div>
-      </div>
     </section>
   );
 }

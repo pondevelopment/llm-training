@@ -16,7 +16,7 @@ export function Panel({ children, variant = 'default', className = '' }: PanelPr
   };
 
   return (
-    <div className={`${variantClasses[variant]} ${className}`}>
+    <div className={`${variantClasses[variant]} p-6 ${className}`}>
       {children}
     </div>
   );

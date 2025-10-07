@@ -475,6 +475,7 @@ html.dark .select-control option {
 }
 
 .bg-surface { background-color: var(--color-surface); }
+.bg-background { background-color: var(--color-surface); }
 .bg-card { background-color: var(--color-card); }
 .bg-subtle { background-color: var(--color-subtle-bg); }
 .text-heading { color: var(--color-heading); }
@@ -830,6 +831,56 @@ html.dark .bg-gray-200 {
 
 .btn-accent[disabled],
 .btn-soft[disabled] {
+  opacity: 0.55;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.5rem 1.05rem;
+  background-color: var(--accent-strong);
+  color: #fff;
+  border: 1px solid transparent;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+  transition: background-color .2s ease, color .2s ease, border-color .2s ease, box-shadow .2s ease;
+}
+.btn-primary:hover { background-color: var(--accent-strong-hover); }
+.btn-primary:focus-visible {
+  outline: 2px solid var(--accent-strong-hover);
+  outline-offset: 2px;
+}
+
+.btn-secondary {
+  background-color: var(--color-card);
+  color: var(--color-heading);
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  padding: 0.5rem 1.05rem;
+  font-weight: 600;
+  line-height: 1.2;
+  transition: background-color .2s ease, color .2s ease, border-color .2s ease;
+}
+.btn-secondary:hover { 
+  background-color: var(--color-subtle-bg);
+  border-color: var(--color-muted);
+}
+.btn-secondary:focus-visible {
+  outline: 2px solid var(--accent-strong);
+  outline-offset: 2px;
+}
+
+.btn-primary[disabled],
+.btn-secondary[disabled] {
   opacity: 0.55;
   cursor: not-allowed;
   pointer-events: none;

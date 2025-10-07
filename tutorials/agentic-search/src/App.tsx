@@ -2,7 +2,9 @@ import { ThemeProvider } from './components/shared/ThemeProvider';
 import { Panel } from './components/shared/Panel';
 import { Chip } from './components/shared/Chip';
 import { IntroSection } from './components/intro/IntroSection';
-import './styles/theme.css';
+import { ToolboxSection } from './components/toolbox/ToolboxSection';
+import '../../../css/theme.css'; // Import main site theme directly
+import './styles/tutorial.css'; // Tutorial-specific additions
 
 function App() {
   return (
@@ -10,44 +12,46 @@ function App() {
       <div className="min-h-screen bg-background text-body">
         {/* Header */}
         <header className="bg-card border-b border-divider sticky top-0 z-40">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <div className="flex items-center space-x-4">
-              <a href="../../index.html" className="text-heading hover:text-accent transition-colors">
-                <span className="text-xl font-bold">← LLM Training</span>
-              </a>
-              <span className="text-muted">|</span>
-              <h1 className="text-2xl font-bold text-heading">Agentic Search Tutorial</h1>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
+              <div className="flex items-center gap-2 sm:gap-4">
+                <a href="../../index.html" className="text-heading hover:text-accent transition-colors whitespace-nowrap">
+                  <span className="text-base sm:text-xl font-bold">← LLM Training</span>
+                </a>
+                <span className="text-muted hidden sm:inline">|</span>
+                <h1 className="text-lg sm:text-2xl font-bold text-heading text-center sm:text-left">
+                  Agentic Search Tutorial
+                </h1>
+              </div>
               <Chip variant="info">Interactive</Chip>
             </div>
           </div>
         </header>
 
         {/* Main Content */}
-        <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="space-y-20">
-            {/* Section 1: Traditional vs Agentic */}
-            <IntroSection />
+        <main className="w-full">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
+            <div className="space-y-12 sm:space-y-16 lg:space-y-20">
+              {/* Section 1: Traditional vs Agentic */}
+              <IntroSection />
 
-            {/* Progress Indicator */}
-            <div className="max-w-3xl mx-auto">
-              <Panel variant="info">
-                <p className="text-body">
-                  <strong>✅ Section 1 Complete!</strong> You've seen how agentic search differs from traditional search.
-                </p>
-                <p className="mt-2 panel-muted text-sm">
-                  Continue scrolling to explore the full tutorial (coming in future phases).
-                </p>
-              </Panel>
-            </div>
+              {/* Section 2: Toolbox Explorer */}
+              <ToolboxSection />
 
-            {/* Coming Soon Sections */}
-            <section className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              <Panel variant="info">
-                <h3 className="text-xl font-bold text-heading mb-2">Section 2</h3>
-                <p className="text-body mb-2">Agents & Toolbox</p>
-                <Chip>Coming in Phase 2</Chip>
-              </Panel>
+              {/* Progress Indicator */}
+              <div className="max-w-3xl mx-auto">
+                <Panel variant="success">
+                  <p className="text-body text-sm sm:text-base">
+                    <strong>✅ Sections 1-2 Complete!</strong> You've explored traditional vs agentic search and the agent's toolbox.
+                  </p>
+                  <p className="mt-2 panel-muted text-xs sm:text-sm">
+                    Continue scrolling to learn about MCP manifests and see a real workflow (coming in future phases).
+                  </p>
+                </Panel>
+              </div>
 
+              {/* Coming Soon Sections */}
+              <section className="grid gap-4 sm:gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
               <Panel variant="info">
                 <h3 className="text-xl font-bold text-heading mb-2">Section 3</h3>
                 <p className="text-body mb-2">MCP & .well-known</p>
@@ -66,19 +70,20 @@ function App() {
                 <Chip>Coming in Phase 5</Chip>
               </Panel>
             </section>
+            </div>
           </div>
         </main>
 
         {/* Footer */}
-        <footer className="bg-card border-t border-divider mt-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <p className="text-center text-muted">
-              <a href="../index.html" className="link-primary hover:underline">Tutorials</a>
-              <span className="mx-2">•</span>
-              <a href="../../index.html" className="link-primary hover:underline">Home</a>
-            </p>
-          </div>
-        </footer>
+      <footer className="bg-card border-t border-divider w-full mt-12 sm:mt-16 lg:mt-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+          <p className="text-center text-muted text-sm sm:text-base">
+            <a href="../index.html" className="link-primary hover:underline">Tutorials</a>
+            <span className="mx-2">•</span>
+            <a href="../../index.html" className="link-primary hover:underline">Home</a>
+          </p>
+        </div>
+      </footer>
       </div>
     </ThemeProvider>
   );

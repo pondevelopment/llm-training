@@ -34,17 +34,58 @@
 
         <!-- Main Content -->
         <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div class="mb-16">
-                <h2 class="text-4xl font-bold text-heading mb-6">Learn by Doing</h2>
-                <p class="text-xl text-body max-w-3xl leading-relaxed">
-                    Interactive tutorials that help you understand complex AI concepts through hands-on simulations and visualizations.
-                </p>
+            <!-- Hero Section -->
+            <div class="mb-12">
+                <div class="panel panel-info p-8 mb-8">
+                    <div class="max-w-4xl">
+                        <h2 class="text-4xl font-bold text-heading mb-4">Interactive Tutorials</h2>
+                        <p class="text-xl text-body leading-relaxed mb-6">
+                            Go beyond reading—experience AI concepts through hands-on simulations, visualizations, and step-by-step walkthroughs. 
+                            Perfect for understanding complex topics like agentic workflows, prompt engineering, and model behaviors.
+                        </p>
+                        <div class="flex flex-wrap gap-3">
+                            <div class="chip chip-info">🎮 Interactive Demos</div>
+                            <div class="chip chip-info">📊 Live Visualizations</div>
+                            <div class="chip chip-info">⚡ Immediate Feedback</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Why Interactive? -->
+                <div class="grid gap-4 md:grid-cols-3 mb-12">
+                    <div class="panel p-6">
+                        <div class="text-3xl mb-3">🧠</div>
+                        <h3 class="font-bold text-heading mb-2">Learn by Doing</h3>
+                        <p class="text-sm panel-muted">
+                            Interact with simulations and see concepts in action rather than just reading about them.
+                        </p>
+                    </div>
+                    <div class="panel p-6">
+                        <div class="text-3xl mb-3">🔄</div>
+                        <h3 class="font-bold text-heading mb-2">Experiment Freely</h3>
+                        <p class="text-sm panel-muted">
+                            Try different parameters, see immediate results, and build intuition through exploration.
+                        </p>
+                    </div>
+                    <div class="panel p-6">
+                        <div class="text-3xl mb-3">🎯</div>
+                        <h3 class="font-bold text-heading mb-2">Stay Engaged</h3>
+                        <p class="text-sm panel-muted">
+                            Active learning keeps you focused and helps concepts stick better than passive reading.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Available Tutorials -->
+            <div class="mb-6">
+                <h2 class="text-3xl font-bold text-heading mb-4">Available Tutorials</h2>
             </div>
 
             <!-- Tutorial Grid -->
             <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                 <!-- Agentic Search Tutorial -->
-                <a href="agentic-search/index.html" 
+                <a href="agentic-search/dist/index.html" 
                    class="block panel panel-info p-6 hover:shadow-lg hover:scale-[1.02] transition-all duration-300 group no-underline">
                     <div class="flex flex-col h-full">
                         <div class="flex items-start gap-4 mb-4">
@@ -55,16 +96,30 @@
                                 <h3 class="text-xl font-bold text-heading group-hover:text-accent transition-colors mb-2">
                                     Agentic Search
                                 </h3>
-                                <span class="chip chip-info">Interactive</span>
+                                <div class="flex gap-2">
+                                    <span class="chip chip-info">Interactive</span>
+                                    <span class="chip chip-success">Beginner-Friendly</span>
+                                </div>
                             </div>
                         </div>
-                        <p class="text-body mb-4 flex-grow leading-relaxed">
-                            Discover how AI agents plan, discover tools via MCP, and synthesize answers through multi-step workflows. Perfect for marketers!
+                        <p class="text-body mb-3 leading-relaxed">
+                            See how AI agents transform single queries into multi-step research workflows using tools, planning, and synthesis.
                         </p>
-                        <div class="flex items-center text-sm panel-muted pt-3 border-t border-divider">
-                            <span>⏱️ ~15 minutes</span>
-                            <span class="mx-2">•</span>
+                        <div class="mb-4 flex-grow">
+                            <p class="text-sm font-semibold text-heading mb-2">You'll explore:</p>
+                            <ul class="text-sm panel-muted space-y-1">
+                                <li>• Traditional vs Agentic Search comparison</li>
+                                <li>• 8 interactive tools (APIs, analytics, CRM)</li>
+                                <li>• MCP manifests and tool discovery</li>
+                                <li>• Step-by-step workflow simulation</li>
+                            </ul>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-2 text-sm panel-muted pt-3 border-t border-divider">
+                            <span>⏱️ ~15 min</span>
+                            <span>•</span>
                             <span>5 sections</span>
+                            <span>•</span>
+                            <span>🎯 Marketing focus</span>
                         </div>
                     </div>
                 </a>

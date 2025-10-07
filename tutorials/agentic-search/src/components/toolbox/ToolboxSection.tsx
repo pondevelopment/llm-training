@@ -71,12 +71,12 @@ export function ToolboxSection() {
       </div>
 
       {/* Tool Grid */}
-      <div className="max-w-3xl mx-auto">
-        <p className="text-center text-sm text-muted mb-4">
+      <div className="max-w-6xl mx-auto">
+        <p className="text-center text-sm text-muted mb-6">
           👇 Click any tool below to explore its capabilities and manifest
         </p>
+        <ToolGrid tools={tools} onToolClick={handleToolClick} />
       </div>
-      <ToolGrid tools={tools} onToolClick={handleToolClick} />
 
       {/* Info Panel */}
       <div className="panel panel-info p-6 max-w-3xl mx-auto">

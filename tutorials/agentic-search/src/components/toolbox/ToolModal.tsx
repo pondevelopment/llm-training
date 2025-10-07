@@ -36,14 +36,15 @@ export function ToolModal({ tool, onClose }: ToolModalProps) {
         onClick={onClose}
       />
 
-      {/* Modal */}
-      <motion.div
-        className="fixed inset-4 md:inset-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 md:w-full md:max-w-3xl md:max-h-[90vh] z-50"
-        initial={{ opacity: 0, scale: 0.9, y: 20 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.9, y: 20 }}
-        transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-      >
+      {/* Modal Container - Flexbox Centering */}
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
+        <motion.div
+          className="w-full max-w-3xl max-h-[90vh] pointer-events-auto"
+          initial={{ opacity: 0, scale: 0.9, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.9, y: 20 }}
+          transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+        >
         <div className="panel h-full overflow-y-auto">
           <div className="p-6 md:p-8 space-y-6">
             {/* Header */}
@@ -140,6 +141,7 @@ export function ToolModal({ tool, onClose }: ToolModalProps) {
           </div>
         </div>
       </motion.div>
+      </div>
     </AnimatePresence>
   );
 }

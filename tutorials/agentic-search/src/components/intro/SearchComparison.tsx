@@ -47,7 +47,7 @@ export function SearchComparison({ view }: SearchComparisonProps) {
       icon: '🔧', 
       label: 'Discover Tools', 
       desc: 'Find relevant APIs/data',
-      example: 'Agent finds: Product Search API, Review aggregator, Price comparison tool, Bike specs database'
+      example: 'Agent discovers MCP server at pon.bike/.well-known/mcp.json → exposes: Product Search, Inventory Check, Specs Comparison, Review Aggregator tools'
     },
     { 
       icon: '⚡', 

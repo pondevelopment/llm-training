@@ -1,4 +1,4 @@
-# Agentic Search Tutorial - Implementation Plan
+#Th
 
 ## Project Overview
 
@@ -322,7 +322,7 @@ const agenticSteps = [5 steps]
 
 ## Progress Tracking
 
-### Current Status: Phase 1 Complete ✅ → Ready for Phase 2
+### Current Status: Phase 2 Complete ✅ → Ready for Phase 3
 
 **Phase 0 Completed:**
 - [x] Created `agentic-search` branch
@@ -353,12 +353,30 @@ const agenticSteps = [5 steps]
 - ✅ Key insight panel
 - ✅ Integrated into App.tsx
 
-**Next Steps - Phase 2:**
-1. Create ToolboxSection component
-2. Build ToolGrid with 8 tool cards
-3. Create ToolModal for detail view
-4. Add "plug-in" animation when tool selected
-5. Display tool capabilities and manifest snippets
+**Phase 2 Completed:**
+- ✅ Created ToolboxSection component with explainer panel
+- ✅ Built ToolGrid with 8 interactive tool cards
+- ✅ Created ToolModal for detail view with capabilities
+- ✅ Added Framer Motion animations (hover, open, close)
+- ✅ Displayed tool capabilities and manifest snippets
+- ✅ Keyboard accessibility (Escape to close modal)
+- ✅ Enhanced with "Understanding Agent Tools" explainer
+
+**Recent Updates (Oct 7):**
+- ✅ Added independent per-column steppers (Traditional: 3 steps, Agentic: 5 steps)
+- ✅ Replaced bike brands with Pon.bike portfolio (Cannondale, Cervélo, Focus)
+- ✅ Added original customer question to first Agentic step
+- ✅ Updated "Discover Tools" to show MCP server discovery at pon.bike/.well-known/mcp.json
+- ✅ Enhanced landing page with hero section and learning objectives
+- ✅ Added "The Scenario" explainer panel for road bike shopping context
+
+**Next Steps - Phase 3: MCP & `.well-known` Discovery**
+1. Create MCPSection component
+2. Build DiscoverySim with animated discovery flow
+3. Show agent discovering MCP server at /.well-known/mcp.json
+4. Create ManifestExplorer with syntax highlighting
+5. Add hover tooltips explaining manifest fields
+6. Include educational disclaimer about simplified format
 
 ---
 

@@ -67,6 +67,34 @@ export function ToolModal({ tool, onClose }: ToolModalProps) {
               </button>
             </div>
 
+            {/* Detailed Description */}
+            {tool.detailedDescription && (
+              <div className="panel panel-info p-4">
+                <p className="text-body leading-relaxed">{tool.detailedDescription}</p>
+              </div>
+            )}
+
+            {/* Use Cases */}
+            {tool.useCases && tool.useCases.length > 0 && (
+              <div>
+                <h3 className="text-xl font-bold text-heading mb-3 flex items-center gap-2">
+                  <span>💡</span>
+                  <span>Practical Use Cases</span>
+                </h3>
+                <ul className="space-y-2">
+                  {tool.useCases.map((useCase, index) => (
+                    <li
+                      key={index}
+                      className="flex items-start gap-3 text-body"
+                    >
+                      <span className="text-[var(--color-success)] mt-1">✓</span>
+                      <span>{useCase}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
             {/* Capabilities */}
             <div>
               <h3 className="text-xl font-bold text-heading mb-3 flex items-center gap-2">
@@ -124,18 +152,9 @@ export function ToolModal({ tool, onClose }: ToolModalProps) {
             <div className="flex gap-3 pt-4 border-t border-[var(--color-border)]">
               <button
                 onClick={onClose}
-                className="btn-secondary flex-1 py-2 px-4 rounded-lg font-medium transition-all"
+                className="btn-secondary w-full py-2 px-4 rounded-lg font-medium transition-all"
               >
                 Close
-              </button>
-              <button
-                className="btn-primary flex-1 py-2 px-4 rounded-lg font-medium transition-all"
-                onClick={() => {
-                  // Could navigate to detailed docs or implementation guide
-                  alert('In a real app, this would link to detailed API docs or integration guides.');
-                }}
-              >
-                Learn More →
               </button>
             </div>
           </div>

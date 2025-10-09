@@ -2,7 +2,22 @@
 
 ## Project Overview
 
-**Goal:** Build an interactive tutorial teaching marketers about agentic search, agents, tools, MCP, and `.well-known` manifests.
+**Goal:**Why Added:** Tutorial currently explains HOW agentic search works (mechanics) but not HOW TO OPTIMIZE for it (practical application). This phase bridges that gap with real-world data and frameworks.
+
+### 🚧 In Progress (Phase 6)
+
+**Navigation & Integration** - Connecting tutorial to main site
+
+- Already has landing page and hero button
+- Adding header navigation link
+- Testing mobile responsiveness
+
+### 📋 Remaining (Phases 7-8)
+
+- **Phase 7:** Polish, accessibility, performance optimization
+- **Phase 8:** Documentation, deployment to GitHub Pages
+
+---nteractive tutorial teaching marketers about agentic search, agents, tools, MCP, and `.well-known` manifests.
 
 **Approach:** 
 - **Option A - Integrated** into existing site
@@ -37,8 +52,13 @@
 
 **Why Added:** Tutorial currently explains HOW agentic search works (mechanics) but not HOW TO OPTIMIZE for it (practical application). This phase bridges that gap with real-world data and frameworks.
 
-### 📋 Remaining (Phases 6-8)
-- **Phase 6:** Navigation integration, tutorial landing page
+### � In Progress (Phase 6)
+**Navigation & Integration** - Connecting tutorial to main site
+- Already has landing page and hero button
+- Adding header navigation link
+- Testing mobile responsiveness
+
+### 📋 Remaining (Phases 7-8)
 - **Phase 7:** Polish, accessibility, performance optimization
 - **Phase 8:** Documentation, deployment to GitHub Pages
 

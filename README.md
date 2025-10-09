@@ -18,6 +18,36 @@ This project is a single-page, static web app covering an expanding set of essen
 - Math rendering via MathJax (inline and display equations)
 - Lightweight: pure HTML/JS/CSS; no build step needed; mobile-friendly
 
+## 🤖 Interactive Tutorials
+
+In addition to the Q&A format, this repository includes comprehensive interactive tutorials:
+
+### Agentic Search Tutorial
+
+**[Launch Tutorial →](https://pondevelopment.github.io/llm-training/tutorials/agentic-search/)**
+
+An interactive deep-dive into agentic search, teaching marketers and developers how AI agents discover and use tools through the Model Context Protocol (MCP).
+
+**What you'll learn:**
+- Traditional search vs. agentic search comparison
+- How AI agents discover tools through `.well-known/ai-plugin.json` manifests
+- The Model Context Protocol (MCP) and tool discovery
+- 6 realistic customer-facing scenarios (bike shop example)
+- FEED optimization framework with real conversion data (15.9% vs 1.8%)
+- Common limitations and how to address them
+
+**Features:**
+- 6 interactive sections with hands-on simulations
+- Toolbox explorer with 8 interactive tools
+- Live scenario player showing step-by-step agent reasoning
+- Conversion metrics and optimization strategies
+- Dark/light theme support
+- Mobile-responsive design
+
+**Tech stack:** React + TypeScript + Vite + Framer Motion
+
+**Location:** `/tutorials/agentic-search/`
+
 ## 📡 Topics covered (selection)
 
 - Tokenization, embeddings, attention and multi-head attention
@@ -50,6 +80,12 @@ top-50-llm-questions/
 |   |-- manifest.json         # Maps paper ids to ./papers/pXX folders
 |   |-- p-template/           # Copy to pXX/ when authoring a new paper
 |   \-- p01/                  # Paper assets (overview/interactive files)
+|-- tutorials/
+|   |-- index.html            # Tutorials landing page
+|   \-- agentic-search/       # Interactive agentic search tutorial (React + Vite)
+|       |-- src/              # React components and TypeScript source
+|       |-- dist/             # Production build (deployed to GitHub Pages)
+|       \-- README.md         # Tutorial-specific documentation
 |-- QUESTION_TEMPLATE_GUIDE.md            # Question authoring guidance
 |-- QUESTION_CHECKLIST.md                 # Question review & test checklist
 |-- PAPER_TEMPLATE_GUIDE.md               # Paper authoring guidance
@@ -150,6 +186,7 @@ This project is open source under the [MIT License](LICENSE).
 
 ## 🏾 Recent updates
 
+- **NEW:** Interactive Agentic Search Tutorial - comprehensive guide to AI agents and MCP
 - Added question 51 (end-to-end LLM lifecycle) and interactive pipeline explorer
 - Added questions 46-50 with interactive explorers
 - Added searchable Glossary with cross-links to questions

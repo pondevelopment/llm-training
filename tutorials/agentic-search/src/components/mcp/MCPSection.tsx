@@ -94,7 +94,7 @@ export function MCPSection() {
               <p className="text-body text-sm leading-relaxed">
                 Watch step-by-step as an agent discovers the pon.bike MCP server, 
                 fetches the manifest, and learns what tools are available. 
-                Click "Play Auto" to see the full flow, or step through manually.
+                Use the controls to step through each phase of the discovery process.
               </p>
             </div>
             <DiscoverySimulator />

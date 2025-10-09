@@ -60,7 +60,10 @@ export function TutorialPage({ onBackToOverview }: TutorialPageProps) {
             Section {currentSection} of {sections.length}
           </p>
           <p className="text-xs text-muted">
-            {Math.round((currentSection / sections.length) * 100)}% Complete
+            {currentSection === sections.length 
+              ? '✓ Complete' 
+              : `${sections.find(s => s.id === currentSection)?.icon} ${sections.find(s => s.id === currentSection)?.title}`
+            }
           </p>
         </div>
         <div className="w-full h-2 bg-card-secondary rounded-full overflow-hidden">

@@ -37,19 +37,25 @@ export function ToolboxSection() {
             or search engines. Unlike traditional search (which just returns links), agents can actively 
             <em> call these tools</em> to gather data, analyze information, and take actions.
           </p>
+          <p>
+            <strong>The challenge:</strong> How does an agent discover what tools are available? 
+            Traditional APIs require hardcoded integrations. But with <strong>Model Context Protocol (MCP)</strong>, 
+            agents can dynamically discover tools, read their capabilities, and learn how to use them—all 
+            automatically. We'll explore MCP in detail in Section 3.
+          </p>
           <div className="grid gap-3 sm:grid-cols-2 mt-4">
             <div className="flex items-start gap-2">
               <span className="text-lg">📡</span>
               <div>
                 <p className="font-semibold text-heading">Data Tools</p>
-                <p className="text-xs text-muted">APIs, search engines, databases</p>
+                <p className="text-xs text-muted">APIs, search engines, product databases</p>
               </div>
             </div>
             <div className="flex items-start gap-2">
               <span className="text-lg">📊</span>
               <div>
                 <p className="font-semibold text-heading">Analysis Tools</p>
-                <p className="text-xs text-muted">Analytics, keyword research, CRM</p>
+                <p className="text-xs text-muted">Analytics, reviews, comparisons</p>
               </div>
             </div>
             <div className="flex items-start gap-2">
@@ -62,7 +68,7 @@ export function ToolboxSection() {
             <div className="flex items-start gap-2">
               <span className="text-lg">📋</span>
               <div>
-                <p className="font-semibold text-heading">Manifests</p>
+                <p className="font-semibold text-heading">Tool Manifests</p>
                 <p className="text-xs text-muted">Describe capabilities & parameters</p>
               </div>
             </div>

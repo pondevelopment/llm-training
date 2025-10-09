@@ -21,6 +21,58 @@ export interface Tool {
 
 export const tools: Tool[] = [
   {
+    id: 'product-search',
+    name: 'Product Search API',
+    icon: '🛍️',
+    description: 'Searches e-commerce sites and product databases with advanced filtering',
+    detailedDescription: 'The Product Search API connects to multiple e-commerce platforms (Amazon, specialized retailers, manufacturer sites) and aggregates product data. Agents can filter by specifications, price ranges, user ratings, availability, and even niche criteria like "women\'s geometry bikes" or "Linux-compatible laptops." Unlike browsing shopping sites manually, agents retrieve structured product data with all specs, reviews, and pricing in one call.',
+    useCases: [
+      'Find bikes with specific frame geometry and size ranges',
+      'Compare laptops by CPU benchmarks and display specs',
+      'Filter products by real customer reviews (4+ stars)',
+      'Check stock availability across multiple retailers',
+      'Identify products matching budget and feature requirements'
+    ],
+    capabilities: [
+      'Multi-site product search',
+      'Filter by detailed specs',
+      'Price comparison',
+      'Review aggregation',
+      'Stock checking',
+      'Specification extraction'
+    ],
+    exampleOutput: 'Structured product list with specs, prices, ratings, and availability',
+    manifestSnippet: {
+      name: 'ProductSearchAPI',
+      version: '1.0',
+      functions: [
+        {
+          name: 'searchProducts',
+          description: 'Search products across e-commerce sites',
+          params: { 
+            query: 'string', 
+            category: 'string',
+            filters: 'object (price, rating, specs)',
+            limit: 'number'
+          },
+          returns: 'Product[]'
+        },
+        {
+          name: 'getProductDetails',
+          description: 'Get full specifications and reviews for a product',
+          params: { productId: 'string' },
+          returns: 'ProductDetail'
+        },
+        {
+          name: 'compareProducts',
+          description: 'Side-by-side comparison of product specifications',
+          params: { productIds: 'string[]' },
+          returns: 'ComparisonMatrix'
+        }
+      ]
+    }
+  },
+  {
     id: 'search-api',
     name: 'Search API',
     icon: '🔍',

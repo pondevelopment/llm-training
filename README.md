@@ -24,7 +24,7 @@ In addition to the Q&A format, this repository includes comprehensive interactiv
 
 ### Agentic Search Tutorial
 
-**[Launch Tutorial →](https://pondevelopment.github.io/llm-training/tutorials/agentic-search/)**
+**[Launch Tutorial →](https://pondevelopment.github.io/llm-training/tutorials/agentic-search/dist/)**
 
 An interactive deep-dive into agentic search, teaching marketers and developers how AI agents discover and use tools through the Model Context Protocol (MCP).
 

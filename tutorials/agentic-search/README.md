@@ -2,7 +2,7 @@
 
 An interactive deep-dive tutorial teaching marketers and developers how AI agents discover and use tools through the Model Context Protocol (MCP).
 
-**Live Demo:** [https://pondevelopment.github.io/llm-training/tutorials/agentic-search/](https://pondevelopment.github.io/llm-training/tutorials/agentic-search/)
+**Live Demo:** [https://pondevelopment.github.io/llm-training/tutorials/agentic-search/dist/](https://pondevelopment.github.io/llm-training/tutorials/agentic-search/dist/)
 
 ## 📚 What You'll Learn
 

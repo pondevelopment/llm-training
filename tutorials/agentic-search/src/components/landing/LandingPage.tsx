@@ -176,15 +176,27 @@ export function LandingPage({ onStartTutorial }: LandingPageProps) {
             />
 
             <SectionPreviewCard
-              icon="🎓"
-              title="Section 5: Takeaways & FAQ"
-              description="Recap key concepts and get answers to common questions about agentic search"
+              icon="🎯"
+              title="Section 5: Optimization"
+              description="Learn practical strategies to make your products and services visible in agentic search"
               features={[
-                '6 essential takeaways',
-                '10 frequently asked questions',
-                'Action steps for building agent-friendly services'
+                'FEED framework for optimization',
+                'Real conversion metrics (15.9% vs 1.8%)',
+                'Common limitations and solutions'
               ]}
               delay={0.5}
+            />
+
+            <SectionPreviewCard
+              icon="🎓"
+              title="Section 6: Takeaways"
+              description="Recap essential concepts and understand the future of agentic search"
+              features={[
+                '7 essential takeaways',
+                'Next steps for implementation',
+                'Building agent-friendly services'
+              ]}
+              delay={0.6}
             />
           </div>
         </motion.div>

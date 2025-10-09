@@ -1,8 +1,6 @@
 import { motion } from 'framer-motion';
 import { takeaways } from '../../data/takeaways';
-import { faqData } from '../../data/faqData';
 import { TakeawayCard } from './TakeawayCard';
-import { FAQItemComponent } from './FAQItem';
 
 /**
  * SummarySection (Phase 5)
@@ -91,29 +89,6 @@ export function SummarySection() {
           </div>
         </div>
       </motion.div>
-
-      {/* FAQ Section */}
-      <section className="space-y-6">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 1 }}
-          className="text-center"
-        >
-          <h3 className="text-2xl font-bold text-text-primary mb-2">
-            ❓ Frequently Asked Questions
-          </h3>
-          <p className="text-text-secondary">
-            Common questions about agentic search, tools, and implementation
-          </p>
-        </motion.div>
-
-        <div className="space-y-3 max-w-4xl mx-auto">
-          {faqData.map((item, index) => (
-            <FAQItemComponent key={item.id} item={item} index={index} />
-          ))}
-        </div>
-      </section>
 
       {/* Final Message */}
       <motion.div

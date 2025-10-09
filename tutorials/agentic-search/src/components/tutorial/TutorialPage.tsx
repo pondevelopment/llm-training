@@ -18,7 +18,7 @@ const sections = [
   { id: 3, title: 'MCP Discovery', icon: '📋', component: MCPSection },
   { id: 4, title: 'Scenario Player', icon: '🎬', component: ScenarioSection },
   { id: 5, title: 'Optimization', icon: '🎯', component: OptimizationSection },
-  { id: 6, title: 'Takeaways & FAQ', icon: '🎓', component: SummarySection },
+  { id: 6, title: 'Takeaways', icon: '🎓', component: SummarySection },
 ];
 
 export function TutorialPage({ onBackToOverview }: TutorialPageProps) {

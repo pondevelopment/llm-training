@@ -80,7 +80,7 @@ export function OptimizationSection() {
           </p>
         </motion.div>
 
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="space-y-4 max-w-4xl mx-auto">
           {feedFramework.map((pillar, index) => (
             <FEEDCard key={pillar.id} pillar={pillar} index={index} />
           ))}
@@ -150,9 +150,19 @@ export function OptimizationSection() {
         transition={{ duration: 0.6, delay: 1.7 }}
         className="panel-inset p-4 max-w-3xl mx-auto text-center"
       >
-        <p className="text-xs text-muted">
+        <p className="text-xs text-muted mb-2">
           <strong>Data Source:</strong> Metrics and insights from ChatGPT Shopping (launched April 2025), 
-          Seer Interactive study, Semrush research, and SearchEngineLand analysis (October 2025). 
+          Seer Interactive study, Semrush research, and{' '}
+          <a 
+            href="https://searchengineland.com/chatgpt-shopping-ecommerce-seo-optimization-guide-449583"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-accent-primary hover:underline font-medium"
+          >
+            SearchEngineLand analysis (October 2025)
+          </a>.
+        </p>
+        <p className="text-xs text-muted">
           The agentic search landscape is evolving rapidly — principles remain sound, but specific 
           numbers may change as platforms mature.
         </p>

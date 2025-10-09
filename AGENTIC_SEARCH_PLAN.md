@@ -14,6 +14,34 @@
 
 **Branch:** `agentic-search`
 
+**Status:** Phases 0-5 Complete ✅ | **Next:** Phase 5.5 - Optimization Deep Dive
+
+---
+
+## Quick Status Summary
+
+### ✅ Completed (Phases 0-5)
+- **Phase 0:** Project setup, Vite + React, theme integration
+- **Phase 1:** Intro section with traditional vs agentic comparison
+- **Phase 2:** Toolbox explorer with 8 interactive tools
+- **Phase 3:** MCP discovery simulation with manifest viewer
+- **Phase 4:** 6 customer-facing scenario walkthroughs (bike shop)
+- **Phase 5:** Takeaways + FAQ section
+
+### 🚧 In Progress (Phase 5.5)
+**NEW: Optimization Deep Dive** - Based on ChatGPT Shopping insights (Oct 2025)
+- Add FEED optimization framework (Full data, External validation, Engaging copy, Dynamic monitoring)
+- Real conversion metrics (15.9% vs 1.8%, 4.4x multiplier)
+- Common limitations (variant confusion, price lag, volatility)
+- Practical implementation guidance
+
+**Why Added:** Tutorial currently explains HOW agentic search works (mechanics) but not HOW TO OPTIMIZE for it (practical application). This phase bridges that gap with real-world data and frameworks.
+
+### 📋 Remaining (Phases 6-8)
+- **Phase 6:** Navigation integration, tutorial landing page
+- **Phase 7:** Polish, accessibility, performance optimization
+- **Phase 8:** Documentation, deployment to GitHub Pages
+
 ---
 
 ## Architecture Decisions
@@ -192,28 +220,110 @@ const agenticSteps = [5 steps]
 
 ---
 
-### Phase 5: Section 5 - Takeaways & FAQ
+### Phase 5: Section 5 - Takeaways & FAQ ✅ COMPLETE
 **Content:**
 - Key concept recap
 - Action prompts (make services agent-friendly)
 - Collapsible FAQ
 
 **Components:**
-- `SummarySection.tsx` - Main container
-- `TakeawayCards.tsx` - Icon-based summary cards
-- `FAQ.tsx` - Collapsible Q&A list
+- `SummarySection.tsx` - Main container ✅
+- `TakeawayCards.tsx` - Icon-based summary cards ✅
+- `FAQ.tsx` - Collapsible Q&A list ✅
 
 **Interactions:**
-- Expand/collapse FAQ items
+- Expand/collapse FAQ items ✅
 - Optional: Copy snippet for manifest template
 
 **Mock Data:**
 ```ts
-// faq.ts - Common questions about agentic search
-// takeaways.ts - Key learning points
+// faq.ts - Common questions about agentic search ✅
+// takeaways.ts - Key learning points ✅
 ```
 
-**Deliverable:** Summary section with FAQ
+**Deliverable:** ✅ Summary section with FAQ
+
+---
+
+### Phase 5.5: Enhancement - Optimization Deep Dive (NEW)
+**Goal:** Add practical optimization guidance based on ChatGPT Shopping insights
+
+**Content:**
+- What makes products/services rankable in agentic search
+- The FEED optimization framework
+- Real performance metrics and conversions
+- Known limitations and challenges
+
+**New Components:**
+- `OptimizationSection.tsx` - New section between Scenario Player and Takeaways
+  - Introduction panel: "Making Your Services Agent-Ready"
+  - FEED framework cards (4 interactive cards)
+  - Metrics panel: Real conversion data
+  - Limitations panel: What breaks and why
+  - Vertical-specific tips (optional)
+
+**New Sub-Components:**
+- `FEEDCard.tsx` - Interactive card for each pillar
+  - **F**ull Product Data: Schema, structured feeds, GTINs, variants
+  - **E**xternal Validation: Reviews, off-site mentions, trust signals
+  - **E**ngaging Copy: Benefit-led, use-case focused, not just specs
+  - **D**ynamic Monitoring: Tracking visibility, conversions, volatility
+- `MetricsPanel.tsx` - Conversion comparison visualization
+  - Show: 15.9% (ChatGPT) vs 1.8% (Google Organic)
+  - LLM visitor worth 4.4x organic visitor
+  - Traffic volume context (<1% currently)
+- `LimitationsPanel.tsx` - Common failure modes
+  - Variant confusion (black → navy)
+  - Price/stock lag
+  - Result volatility
+  - Limited slots ("not in shortlist = invisible")
+
+**Interactions:**
+- Click FEED cards to expand details
+- Hover metrics for sources/context
+- Toggle between different vertical examples (Electronics, Fashion, Food)
+
+**Mock Data:**
+```ts
+// optimizationTips.ts
+export const feedFramework = [
+  { id: 'full-data', title: 'Full Product Data', ...examples },
+  { id: 'external-validation', title: 'External Validation', ...examples },
+  { id: 'engaging-copy', title: 'Engaging Copy', ...examples },
+  { id: 'dynamic-monitoring', title: 'Dynamic Monitoring', ...examples }
+];
+
+export const conversionMetrics = {
+  chatgpt: { rate: 15.9, source: 'Seer Interactive 2025' },
+  organic: { rate: 1.8, source: 'Seer Interactive 2025' },
+  multiplier: 4.4,
+  trafficShare: '<1%'
+};
+
+export const commonIssues = [
+  { type: 'variant-confusion', ...examples },
+  { type: 'price-lag', ...examples },
+  { type: 'volatility', ...examples },
+  { type: 'limited-slots', ...examples }
+];
+```
+
+**Integration Points:**
+- Add after Section 4 (Scenario Player)
+- Update navigation to show "Section 5: Optimization" + "Section 6: Takeaways"
+- Update FAQ to reference FEED framework
+- Add "Make Your Service Agent-Ready" call-to-action in Takeaways
+
+**Visual Design:**
+- Use existing panel system with new variant: `panel-optimization`
+- Color scheme: Purple/pink accents (different from existing blue/green)
+- Icons: 📊 (data), ⭐ (validation), ✍️ (copy), 📈 (monitoring)
+
+**Educational Disclaimers:**
+- Note: "Data from ChatGPT Shopping (Oct 2025), may change as platform evolves"
+- Note: "Framework applies to product search; adapt principles for other domains"
+
+**Deliverable:** New optimization section with FEED framework, metrics, and limitations
 
 ---
 
@@ -370,13 +480,47 @@ const agenticSteps = [5 steps]
 - ✅ Enhanced landing page with hero section and learning objectives
 - ✅ Added "The Scenario" explainer panel for road bike shopping context
 
-**Next Steps - Phase 3: MCP & `.well-known` Discovery**
-1. Create MCPSection component
-2. Build DiscoverySim with animated discovery flow
-3. Show agent discovering MCP server at /.well-known/mcp.json
-4. Create ManifestExplorer with syntax highlighting
-5. Add hover tooltips explaining manifest fields
-6. Include educational disclaimer about simplified format
+**Phase 3 Completed:**
+- ✅ Created MCPSection component with discovery simulation
+- ✅ Built interactive MCP discovery flow with animations
+- ✅ Added ManifestExplorer with syntax highlighting
+- ✅ Included hover tooltips explaining manifest fields
+- ✅ Added educational disclaimer about simplified format
+
+**Phase 4 Completed:**
+- ✅ Replaced 5 marketing scenarios with customer-facing scenarios
+- ✅ Created 6 complete customer journey workflows (bike shop examples)
+- ✅ Fixed all emoji encoding issues
+- ✅ Removed auto-play, added user-controlled navigation
+- ✅ Added scenario selector grid
+- ✅ Improved navigation buttons to stay on single line
+- ✅ All scenarios focus on real customer searches and needs
+
+**Phase 5 Completed:**
+- ✅ Created SummarySection with key takeaways
+- ✅ Built collapsible FAQ with 10 items
+- ✅ Added "Make Your Service Agent-Friendly" call-to-action
+- ✅ Integrated into tutorial flow
+
+**Next Steps - Phase 5.5: Optimization Deep Dive (NEW PRIORITY)**
+1. Create OptimizationSection.tsx component
+2. Build FEED framework with 4 interactive cards:
+   - Full Product Data (schema, structured feeds, GTINs)
+   - External Validation (reviews, trust signals)
+   - Engaging Copy (benefit-led descriptions)
+   - Dynamic Monitoring (tracking, conversions)
+3. Add MetricsPanel showing real conversion data (15.9% vs 1.8%)
+4. Create LimitationsPanel covering common issues
+5. Add new optimizationTips.ts data file
+6. Update navigation to accommodate new section
+7. Update FAQ to reference FEED framework
+8. Add optimization guidance to Takeaways section
+
+**Why Now:**
+- Tutorial currently shows HOW agentic search works (mechanics)
+- Missing: HOW TO OPTIMIZE for agentic search (practical application)
+- Article insights provide real-world data and frameworks
+- Makes tutorial more actionable for practitioners
 
 ---
 
@@ -486,6 +630,265 @@ const agenticSteps = [5 steps]
 
 ---
 
-**Last Updated:** Oct 2, 2025  
-**Current Phase:** 0 - Setup  
-**Next Milestone:** Phase 0 complete → Begin Phase 1
+## Phase 5.5 Implementation Plan (Detailed)
+
+### Step 1: Create Data Structure
+**File:** `/src/data/optimizationTips.ts`
+
+```typescript
+export interface FEEDPillar {
+  id: string;
+  letter: 'F' | 'E' | 'D';
+  title: string;
+  subtitle: string;
+  icon: string;
+  description: string;
+  examples: {
+    winner: string[];
+    failure: string[];
+  };
+  implementation: {
+    step: string;
+    detail: string;
+  }[];
+}
+
+export const feedFramework: FEEDPillar[] = [
+  {
+    id: 'full-data',
+    letter: 'F',
+    title: 'Full Product Data',
+    subtitle: 'Complete, consistent structured information',
+    icon: '📊',
+    description: 'Products with complete metadata, structured feeds, and proper identifiers consistently appear in agent results.',
+    examples: {
+      winner: [
+        'Complete schema.org/Product markup',
+        'All variants with size, color, SKU',
+        'GTIN/MPN identifiers present',
+        'Real-time pricing and stock sync'
+      ],
+      failure: [
+        'Missing product schema',
+        'Ambiguous variant labels (S vs Small)',
+        'Stale pricing data',
+        'Incomplete specifications'
+      ]
+    },
+    implementation: [
+      { step: 'Add JSON-LD schema', detail: 'Include Product, Offer, AggregateRating types' },
+      { step: 'Enrich product feeds', detail: 'Ensure GTIN, brand, model, specs complete' },
+      { step: 'Sync inventory', detail: 'Keep pricing and stock current across all channels' }
+    ]
+  },
+  // ... 3 more pillars
+];
+
+export const conversionMetrics = {
+  chatgpt: { rate: 15.9, label: 'ChatGPT Shopping', source: 'Seer Interactive, 2025' },
+  organic: { rate: 1.8, label: 'Google Organic', source: 'Seer Interactive, 2025' },
+  multiplier: 4.4,
+  multiplierLabel: 'LLM visitor worth vs organic',
+  trafficShare: '<1%',
+  trafficNote: 'Currently small but growing fast',
+  prediction: 'AI search visitors surpass traditional by 2028'
+};
+
+export const commonLimitations = [
+  {
+    id: 'variant-confusion',
+    title: 'Variant Mismatch',
+    icon: '🔀',
+    problem: 'User asks for "black sneakers," receives navy blue',
+    cause: 'Inconsistent color naming or vague variant data',
+    impact: 'Customer frustration, lost trust, returns',
+    mitigation: 'Standardize variant attributes; use color codes'
+  },
+  // ... 3 more limitations
+];
+```
+
+**Tasks:**
+- [x] Create optimizationTips.ts ✅
+- [x] Define all 4 FEED pillars with examples ✅
+- [x] Add conversion metrics data ✅
+- [x] Document 4 common limitations ✅
+- [x] Add vertical patterns (bonus) ✅
+
+---
+
+### Step 2: Build OptimizationSection Component
+**File:** `/src/components/optimization/OptimizationSection.tsx`
+
+**Structure:**
+```tsx
+export function OptimizationSection() {
+  return (
+    <div className="space-y-8">
+      {/* Hero/Intro */}
+      <motion.div className="panel-surface p-8">
+        <h3>Making Your Services Agent-Ready</h3>
+        <p>Learn what makes products and services visible and successful in agentic search</p>
+      </motion.div>
+
+      {/* FEED Framework */}
+      <section>
+        <h4>The FEED Optimization Framework</h4>
+        <div className="grid md:grid-cols-2 gap-4">
+          {feedFramework.map(pillar => (
+            <FEEDCard key={pillar.id} pillar={pillar} />
+          ))}
+        </div>
+      </section>
+
+      {/* Metrics */}
+      <MetricsPanel metrics={conversionMetrics} />
+
+      {/* Limitations */}
+      <LimitationsPanel limitations={commonLimitations} />
+
+      {/* CTA */}
+      <div className="panel-inset">
+        <h4>Start Optimizing Today</h4>
+        <p>These principles apply whether you're selling products, offering services, or building APIs</p>
+      </div>
+    </div>
+  );
+}
+```
+
+**Tasks:**
+- [x] Create OptimizationSection.tsx ✅
+- [x] Build layout with intro, FEED, metrics, limitations sections ✅
+- [x] Add Framer Motion animations ✅
+- [x] Integrate with tutorial navigation (Pending)
+
+---
+
+### Step 3: Build FEEDCard Component ✅ COMPLETE
+**File:** `/src/components/optimization/FEEDCard.tsx`
+
+**Features:**
+- Collapsible/expandable card ✅
+- Shows letter badge (F, E, E, D) ✅
+- Winner/Failure examples ✅
+- Implementation steps ✅
+- Hover effects and animations ✅
+
+---
+
+### Step 4: Build MetricsPanel Component ✅ COMPLETE
+**File:** `/src/components/optimization/MetricsPanel.tsx`
+
+**Visual Design:**
+- Bar chart comparison (15.9% vs 1.8%) ✅
+- Multiplier callout (4.4x worth) ✅
+- Traffic share context (<1% currently) ✅
+- Future prediction (2028 overtake) ✅
+- Source citations ✅
+
+---
+
+### Step 5: Build LimitationsPanel Component ✅ COMPLETE
+**File:** `/src/components/optimization/LimitationsPanel.tsx`
+
+**Content:**
+- 4 common issues ✅
+- Problem, cause, impact, mitigation for each ✅
+- Severity badges and color coding ✅
+- Scannable layout ✅
+
+---
+
+### Step 6: Integration Updates ✅ COMPLETE
+
+**Navigation:**
+- Update section numbering (5 → Optimization, 6 → Takeaways)
+- Add new navigation button
+- Update progress indicator
+
+**FAQ Updates:**
+- Add Q: "How do I optimize for agentic search?"
+- Answer: "Follow the FEED framework (see Section 5)..."
+
+**Takeaways Updates:**
+- Add takeaway: "Optimization matters" with FEED reference
+
+**Landing Page:**
+- Update learning objectives to include optimization
+
+**Tasks:**
+- [x] Update TutorialPage.tsx section list ✅
+- [x] Add "Optimization" to navigation ✅
+- [x] Update FAQ data ✅ (Added: "How do I optimize for agentic search?")
+- [x] Update takeaways data ✅ (Added Takeaway #7: "Optimize Early for 4-9× Returns")
+- [x] Update landing page objectives ✅ (Added 5th objective: Optimization with FEED framework)
+
+---
+
+### Step 7: Testing & Refinement (READY FOR TESTING)
+
+**Implementation Changes:**
+
+- ✅ Changed FEED cards from 2x2 grid to single-column layout (better readability)
+- ✅ Enhanced card design with:
+  - Two-column layout for What Works / What Fails
+  - Green/red color coding with numbered badges
+  - Hover effects on implementation steps
+  - Border-left accent bars for visual separation
+- ✅ Added SearchEngineLand article link in data disclaimer
+- ✅ Removed FAQ section entirely (redundant with main content)
+- ✅ Updated navigation: "Takeaways & FAQ" → "Takeaways"
+- ✅ Updated landing page section previews (now shows 6 sections)
+
+**Test Cases:**
+
+- [ ] FEED cards expand/collapse correctly
+- [ ] Single-column layout displays well on all screen sizes
+- [ ] What Works / What Fails comparison is clear and scannable
+- [ ] Numbered badges and hover effects work smoothly
+- [ ] Metrics display accurately (bars animate correctly)
+- [ ] Limitations panel has proper severity color coding
+- [ ] All animations smooth (expand/collapse, hover states)
+- [ ] Navigation shows 6 sections correctly
+- [ ] Mobile responsive (320px, 768px, 1024px)
+- [ ] Keyboard accessible (focus rings visible)
+- [ ] SearchEngineLand link opens in new tab
+- [ ] Landing page shows 6 section previews (not 5)
+- [ ] Takeaways shows 7 items (not 6)
+
+**Testing Instructions:**
+
+1. Navigate to Section 5 (Optimization) from tutorial nav
+2. Expand each FEED card (F, E, E, D) - verify two-column layout with green/red coding
+3. Test hover effects on implementation steps
+4. Check metrics bars animate correctly (15.9% vs 1.8%)
+5. Verify SearchEngineLand link opens in new tab
+6. Review limitations panel for clarity and severity colors
+7. Test on mobile width (320px, 768px, 1024px)
+8. Tab through with keyboard (focus rings visible)
+9. Verify landing page shows 6 section cards (including Optimization)
+10. Check Takeaways section shows 7 items
+11. Confirm no FAQ section exists
+
+---
+
+### Estimated Timeline
+
+**Total Time:** ~8-10 hours
+
+- Data structure: 1 hour
+- OptimizationSection: 1.5 hours
+- FEEDCard: 2 hours
+- MetricsPanel: 1.5 hours
+- LimitationsPanel: 1 hour
+- Integration: 1.5 hours
+- Testing: 1.5 hours
+
+**Completion Target:** Can be done in 1-2 focused sessions
+
+---
+
+**Last Updated:** Oct 9, 2025  
+**Current Phase:** Phase 5 Complete → Phase 5.5 (Optimization) Ready to Start  
+**Next Milestone:** Phase 5.5 complete → Deploy updated tutorial

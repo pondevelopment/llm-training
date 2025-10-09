@@ -78,12 +78,12 @@ export function TutorialPage({ onBackToOverview }: TutorialPageProps) {
 
       {/* Section Navigation Tabs */}
       <div className="max-w-4xl mx-auto">
-        <div className="flex flex-wrap gap-2 justify-center">
+        <div className="flex gap-2 justify-center">
           {sections.map((section) => (
             <button
               key={section.id}
               onClick={() => setCurrentSection(section.id)}
-              className={`px-4 py-2 rounded-lg font-medium transition-all flex items-center gap-2 ${
+              className={`px-3 py-2 rounded-lg font-medium transition-all flex items-center gap-1.5 ${
                 currentSection === section.id
                   ? 'bg-accent text-white shadow-lg scale-105'
                   : section.id < currentSection
@@ -92,7 +92,7 @@ export function TutorialPage({ onBackToOverview }: TutorialPageProps) {
               }`}
             >
               <span className="text-lg">{section.icon}</span>
-              <span className="text-sm hidden sm:inline">{section.title}</span>
+              <span className="text-xs hidden lg:inline">{section.title}</span>
               {section.id < currentSection && (
                 <span className="text-xs">✓</span>
               )}

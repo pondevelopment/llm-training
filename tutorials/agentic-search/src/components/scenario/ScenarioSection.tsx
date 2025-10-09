@@ -4,21 +4,18 @@ import { ScenarioPlayer } from './ScenarioPlayer';
 /**
  * Phase 4: Scenario Player
  * 
- * Shows a real-world agentic search workflow where an agent
- * helps plan Q4 content strategy for a bike shop by:
- * 1. Breaking down the goal
- * 2. Discovering and calling Trends API
- * 3. Discovering and calling Keyword Tool
- * 4. Analyzing competitors
- * 5. Refining based on data
- * 6. Synthesizing a complete content plan
+ * Shows real-world customer-facing agentic search workflows:
+ * - Buying the right bike for specific needs
+ * - Booking a test ride at nearby store
+ * - Getting company information and support
+ * - Finding accessories for their setup
  * 
  * Features:
- * - Step-by-step playback (manual or auto-play)
+ * - Step-by-step navigation
  * - Shows agent reasoning at each step
  * - Displays tool calls and data returned
  * - Highlights insights generated
- * - Traceability: trace final insights back to steps
+ * - Multiple customer journey scenarios
  */
 export function ScenarioSection() {
   return (
@@ -37,25 +34,26 @@ export function ScenarioSection() {
               Watch Agentic Search in Action
             </h3>
             <p className="text-text-secondary text-lg leading-relaxed mb-4">
-              Let's see how an agentic system handles a real-world task: helping a bike shop 
-              owner plan their Q4 content strategy. Watch as the agent:
+              Experience how an agentic system helps real customers find exactly what they need. 
+              Watch as the agent assists with common customer tasks like buying a bike, booking a test ride, 
+              or getting support. See how it:
             </p>
             <ul className="space-y-2 text-text-secondary">
               <li className="flex items-start gap-2">
                 <span className="text-accent-primary mt-1">•</span>
-                <span>Breaks down the goal into sub-tasks</span>
+                <span>Understands customer needs and constraints</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-accent-primary mt-1">•</span>
-                <span>Discovers and calls external tools (Trends API, Keyword Tool, Competitor Lens)</span>
+                <span>Searches products, checks inventory, and compares options</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-accent-primary mt-1">•</span>
-                <span>Iterates and refines based on data</span>
+                <span>Books appointments and finds nearby locations</span>
               </li>
               <li className="flex items-start gap-2">
                 <span className="text-accent-primary mt-1">•</span>
-                <span>Synthesizes insights into an actionable plan</span>
+                <span>Delivers personalized recommendations with clear reasoning</span>
               </li>
             </ul>
           </div>
@@ -64,10 +62,10 @@ export function ScenarioSection() {
         {/* Key Highlight */}
         <div className="mt-6 panel-inset p-4 border-l-4 border-accent-primary">
           <p className="text-text-primary font-medium">
-            💡 <span className="font-bold">Key Insight:</span> Notice how the agent makes 
-            decisions at each step based on previous results. This is <span className="text-accent-primary font-semibold">agentic 
-            search</span> — not just retrieving documents, but orchestrating a multi-step workflow 
-            with reasoning, tool use, and iteration.
+            💡 <span className="font-bold">Key Insight:</span> Notice how the agent adapts 
+            to each customer's unique situation. This is <span className="text-accent-primary font-semibold">agentic 
+            search</span> — not just showing search results, but understanding needs, comparing options, 
+            checking real-time availability, and guiding customers to the perfect solution.
           </p>
         </div>
       </motion.div>

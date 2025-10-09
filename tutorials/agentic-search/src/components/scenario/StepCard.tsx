@@ -1,10 +1,10 @@
 import { motion } from 'framer-motion';
 import type { ScenarioStep } from '../../data/scenarioSteps';
-import { insightTraceMap } from '../../data/scenarioSteps';
 
 interface StepCardProps {
   step: ScenarioStep;
   showTrace: boolean;
+  traceMap?: Record<string, number[]>;
 }
 
 /**
@@ -20,7 +20,7 @@ interface StepCardProps {
  * - Duration badge
  * - Traceability highlights (when showTrace is true on final step)
  */
-export function StepCard({ step, showTrace }: StepCardProps) {
+export function StepCard({ step, showTrace, traceMap = {} }: StepCardProps) {
   const hasInsights = step.insights && step.insights.length > 0;
   const hasTool = !!step.toolUsed;
 
@@ -124,7 +124,7 @@ export function StepCard({ step, showTrace }: StepCardProps) {
           <div className="space-y-2">
             {step.insights!.map((insight, idx) => {
               // Check if this insight should be highlighted (traceability)
-              const shouldHighlight = showTrace && insight in insightTraceMap;
+              const shouldHighlight = showTrace && traceMap && insight in traceMap;
 
               return (
                 <motion.div

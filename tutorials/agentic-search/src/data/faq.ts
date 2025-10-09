@@ -35,6 +35,10 @@ export const faq: FAQItem[] = [
   {
     question: 'How do I get started with agentic search?',
     answer: 'Start by understanding how agents think (plan → discover → execute → synthesize). Then explore platforms that offer agentic capabilities, and consider how your own data and services could be made more agent-friendly.'
+  },
+  {
+    question: 'How do I optimize for agentic search?',
+    answer: 'Focus on the FEED framework: Full product data (complete specs, GTINs, variants), External validation (reviews, ratings, trust signals), Engaging copy (benefit-led descriptions), and Dynamic monitoring (track conversions and adapt). Agentic search converts 4-9× higher than traditional search, but requires structured, comprehensive data.'
   }
 ];
 

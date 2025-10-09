@@ -88,12 +88,13 @@ export function LandingPage({ onStartTutorial }: LandingPageProps) {
             What You'll Learn
           </h2>
           
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
             {[
               { icon: '🔄', title: 'Search Comparison', desc: 'Traditional vs Agentic approaches' },
               { icon: '🧰', title: 'Tool Discovery', desc: 'How agents find and use APIs' },
               { icon: '📋', title: 'MCP Protocol', desc: 'Standardized tool manifests' },
-              { icon: '⚡', title: 'Live Workflow', desc: 'Step-by-step simulation' }
+              { icon: '⚡', title: 'Live Workflow', desc: 'Step-by-step simulation' },
+              { icon: '🎯', title: 'Optimization', desc: 'FEED framework & conversion tactics' }
             ].map((item, index) => (
               <motion.div
                 key={index}

@@ -41,5 +41,11 @@ export const takeaways: Takeaway[] = [
     icon: '🚀',
     title: 'Agent-Friendly Design Matters',
     description: 'Services that publish MCP manifests, structure data clearly, and provide good documentation will be more discoverable and useful to agents—opening new distribution channels.'
+  },
+  {
+    id: 7,
+    icon: '🎯',
+    title: 'Optimize Early for 4-9× Returns',
+    description: 'Agentic search delivers 15.9% conversion rates vs 1.8% for traditional search. Use the FEED framework (Full data, External validation, Engaging copy, Dynamic monitoring) to capture this opportunity before markets mature.'
   }
 ];

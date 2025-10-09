@@ -1,8 +1,21 @@
 import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { SearchComparison } from './SearchComparison';
+import { searchScenarios, defaultScenario, defaultPersona, getDefaultPersona, type SearchScenario, type SearchPersona } from '../../data/searchScenarios';
 
 export function IntroSection() {
   const [currentView, setCurrentView] = useState<'both' | 'traditional' | 'agentic'>('both');
+  const [selectedScenario, setSelectedScenario] = useState<SearchScenario>(defaultScenario);
+  const [selectedPersona, setSelectedPersona] = useState<SearchPersona>(defaultPersona);
+
+  // When scenario changes, reset to first persona
+  const handleScenarioChange = (scenarioId: string) => {
+    const scenario = searchScenarios.find(s => s.id === scenarioId);
+    if (scenario) {
+      setSelectedScenario(scenario);
+      setSelectedPersona(getDefaultPersona(scenario));
+    }
+  };
 
   return (
     <section id="intro" className="space-y-8 scroll-mt-20">
@@ -67,23 +80,74 @@ export function IntroSection() {
         </div>
       </div>
 
-      {/* Scenario Setup */}
-      <div className="panel panel-warning p-6 max-w-3xl mx-auto">
-        <div className="flex items-start gap-4">
-          <div className="text-3xl">🚴‍♂️</div>
+      {/* Scenario & Persona Selectors */}
+      <div className="max-w-3xl mx-auto space-y-4">
+        <div className="panel p-4 space-y-4">
           <div>
-            <h3 className="text-lg font-bold text-heading mb-2">The Scenario</h3>
-            <p className="text-body leading-relaxed mb-3">
-              You're a <strong>beginner cyclist</strong> looking to buy your first road bike. 
-              Your budget is <strong>$1,500</strong> and you want the best value for money.
-            </p>
-            <div className="text-sm panel-muted space-y-1">
-              <p><strong>Your goal:</strong> Find the top 3 road bikes that match your needs</p>
-              <p><strong>What to compare:</strong> Frame material, weight, components, reviews, and availability</p>
-              <p><strong>Exercise:</strong> Click "Next" to step through how each approach handles this search</p>
-            </div>
+            <label htmlFor="scenario-select" className="block text-sm font-bold text-heading mb-2">
+              📋 Choose a Scenario to Compare:
+            </label>
+            <select
+              id="scenario-select"
+              value={selectedScenario.id}
+              onChange={(e) => handleScenarioChange(e.target.value)}
+              className="w-full px-4 py-3 rounded-lg bg-surface-secondary text-text-primary border-2 border-border-primary hover:border-accent-primary focus:border-accent-primary focus:outline-none transition-colors font-medium"
+            >
+              {searchScenarios.map(scenario => (
+                <option key={scenario.id} value={scenario.id}>
+                  {scenario.icon} {scenario.title}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div>
+            <label htmlFor="persona-select" className="block text-sm font-bold text-heading mb-2">
+              👤 Choose Your Searcher Profile:
+            </label>
+            <select
+              id="persona-select"
+              value={selectedPersona.id}
+              onChange={(e) => {
+                const persona = selectedScenario.personas.find(p => p.id === e.target.value);
+                if (persona) setSelectedPersona(persona);
+              }}
+              className="w-full px-4 py-3 rounded-lg bg-surface-secondary text-text-primary border-2 border-border-primary hover:border-accent-primary focus:border-accent-primary focus:outline-none transition-colors font-medium"
+            >
+              {selectedScenario.personas.map(persona => (
+                <option key={persona.id} value={persona.id}>
+                  {persona.icon} {persona.label}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
+
+        {/* Persona Context - Animated */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={`${selectedScenario.id}-${selectedPersona.id}`}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            className="panel panel-warning p-6"
+          >
+            <div className="flex items-start gap-4">
+              <div className="text-4xl">{selectedPersona.icon}</div>
+              <div className="flex-1">
+                <h3 className="text-lg font-bold text-heading mb-2">Your Search Context</h3>
+                <p className="text-body leading-relaxed mb-3">
+                  {selectedPersona.description}
+                </p>
+                <div className="text-sm panel-muted space-y-1">
+                  <p><strong>Your goal:</strong> {selectedPersona.userGoal}</p>
+                  <p><strong>Exercise:</strong> Use the view toggle below and click "Next" to step through how each approach handles this search</p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </AnimatePresence>
       </div>
 
       {/* View Toggle */}
@@ -121,7 +185,7 @@ export function IntroSection() {
       </div>
 
       {/* Comparison Component */}
-      <SearchComparison view={currentView} />
+      <SearchComparison view={currentView} persona={selectedPersona} />
     </section>
   );
 }

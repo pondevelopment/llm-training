@@ -1,67 +1,47 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import type { SearchPersona } from '../../data/searchScenarios';
 
 interface SearchComparisonProps {
   view: 'both' | 'traditional' | 'agentic';
+  persona: SearchPersona;
 }
 
-export function SearchComparison({ view }: SearchComparisonProps) {
+export function SearchComparison({ view, persona }: SearchComparisonProps) {
   const [traditionalStep, setTraditionalStep] = useState(0);
   const [agenticStep, setAgenticStep] = useState(0);
 
-  const traditionalSteps = [
-    { 
-      icon: '🔍', 
-      label: 'User Query', 
-      desc: 'Enter search terms',
-      example: 'You type: "best road bike for beginners under $1500"'
-    },
-    { 
-      icon: '📋', 
-      label: 'List of Links', 
-      desc: 'Review 10 blue links',
-      example: 'Google returns: BikeRadar article, REI buying guide, Reddit threads, manufacturer websites, review blogs...'
-    },
-    { 
-      icon: '👤', 
-      label: 'Manual Review', 
-      desc: 'You read and synthesize',
-      example: 'You open 8 tabs, read reviews, compare specs (frame material, weight, gearing), check availability, read user comments, note prices'
-    },
-  ];
+  // Reset steps when persona changes
+  useEffect(() => {
+    setTraditionalStep(0);
+    setAgenticStep(0);
+  }, [persona.id]);
 
-  const agenticSteps = [
-    { 
-      icon: '🎯', 
-      label: 'Understand Goal', 
-      desc: 'Agent interprets intent',
-      example: 'You ask: "best road bike for beginners under $1500"\n\nAgent recognizes: beginner cyclist + budget constraint ($1500) + road bike category + need specs comparison'
-    },
-    { 
-      icon: '📝', 
-      label: 'Plan Sub-tasks', 
-      desc: 'Break down into steps',
-      example: '1. Search top road bikes under $1500\n2. Get detailed specs & reviews\n3. Check current pricing & availability\n4. Compare for beginner-friendliness'
-    },
-    { 
-      icon: '🔧', 
-      label: 'Discover Tools', 
-      desc: 'Find relevant APIs/data',
-      example: 'Agent discovers MCP server at pon.bike/.well-known/mcp.json → exposes: Product Search, Inventory Check, Specs Comparison, Review Aggregator tools'
-    },
-    { 
-      icon: '⚡', 
-      label: 'Execute & Iterate', 
-      desc: 'Call tools, refine results',
-      example: 'Searches 200+ bikes → filters price ≤$1500 → checks reviews >4 stars → prioritizes aluminum frame + beginner geometry'
-    },
-    { 
-      icon: '✨', 
-      label: 'Synthesize Answer', 
-      desc: 'Deliver goal-oriented result',
-      example: '"Top 3 beginner road bikes: Cannondale CAAD Optimo ($1,350, best value, legendary aluminum frame), Cervélo R2 ($1,450, race-inspired geometry), Focus Izalco Race ($1,280, comfortable endurance design). All have reliable Shimano components..."'
-    },
-  ];
+  // Map persona steps to component format
+  const traditionalSteps = persona.traditionalSteps.map(step => ({
+    icon: getStepIcon(step.step, 'traditional'),
+    label: step.label,
+    desc: '',
+    example: step.description
+  }));
+
+  const agenticSteps = persona.agenticSteps.map(step => ({
+    icon: getStepIcon(step.step, 'agentic'),
+    label: step.label,
+    desc: '',
+    example: step.description
+  }));
+
+  // Helper to get appropriate icon for each step
+  function getStepIcon(stepNumber: number, type: 'traditional' | 'agentic'): string {
+    if (type === 'traditional') {
+      const icons = ['🔍', '📋', '👤', '🔄', '✅'];
+      return icons[stepNumber - 1] || '📄';
+    } else {
+      const icons = ['🎯', '🔧', '⚡', '🔍', '✨'];
+      return icons[stepNumber - 1] || '🤖';
+    }
+  }
 
   // Traditional search controls
   const handleTraditionalNext = () => {

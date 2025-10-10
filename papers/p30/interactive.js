@@ -198,6 +198,7 @@ function interactiveScript() {
   const ksBar = document.getElementById('p30-ks-bar');
   const consistencyValue = document.getElementById('p30-consistency-value');
   const consistencyBar = document.getElementById('p30-consistency-bar');
+  const reliabilityText = document.getElementById('p30-reliability-text');
   const sample1Rating = document.getElementById('p30-sample1-rating');
   const sample1Text = document.getElementById('p30-sample1-text');
   const sample2Rating = document.getElementById('p30-sample2-rating');
@@ -264,7 +265,9 @@ function interactiveScript() {
     reliabilityValue.textContent = scenario.reliability.toFixed(2);
     const reliabilityPercent = Math.round((scenario.reliability / 0.72) * 100);
     reliabilityBar.style.width = `${reliabilityPercent}%`;
-    reliabilityBar.previousElementSibling.nextElementSibling.innerHTML = `<strong>${reliabilityPercent}%</strong> of human reliability achieved`;
+    if (reliabilityText) {
+      reliabilityText.innerHTML = `<strong>~${reliabilityPercent}%</strong> of human reliability achieved`;
+    }
     
     ksValue.textContent = scenario.ssrKS.toFixed(2);
     ksBar.style.width = `${scenario.ssrKS * 100}%`;

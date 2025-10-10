@@ -12,7 +12,7 @@
       </a>
     </div>
     <p class="text-sm leading-relaxed panel-muted">
-      This paper introduces Semantic Similarity Rating (SSR), a method that elicits textual responses from LLMs and maps them to realistic Likert scale distributions using embedding similarity. Tested on 57 personal care product surveys (9,300 human responses) from a leading corporation, SSR achieves 90% of human test-retest reliability while maintaining realistic response distributions (KS similarity > 0.85). This solves a critical problem: LLMs asked directly for numerical ratings produce unrealistic distributions, but SSR enables scalable consumer research with synthetic respondents that behave like real humans.
+      This paper introduces Semantic Similarity Rating (SSR), a method that elicits textual responses from LLMs and maps them to realistic Likert scale distributions (the familiar 1-5 or 1-7 rating scales like "strongly disagree" to "strongly agree") using embedding similarity. Tested on 57 personal care product surveys (9,300 human responses) from a leading corporation, SSR achieves 90% of human test-retest reliability while maintaining realistic response distributions (KS similarity > 0.85). This solves a critical problem: LLMs asked directly for numerical ratings produce unrealistic distributions, but SSR enables scalable consumer research with synthetic respondents that behave like real humans.
     </p>
     <div class="panel panel-neutral-soft p-3 space-y-1 text-xs">
       <p class="font-semibold text-heading">Plain-language explainer</p>
@@ -47,23 +47,27 @@
     </ul>
     <div class="panel panel-neutral-soft p-3 mt-3 space-y-1 text-xs">
       <p class="font-semibold text-heading">Derivative example</p>
-      <p class="panel-muted">Your team is evaluating 20 new shampoo formulations for launch. Before investing in 1,000-person panel studies ($50K each), run SSR pre-screening: generate 5,000 synthetic responses per formulation across 10 demographic segments (total: 100K synthetic ratings in 2-3 days). Identify the top 5 formulations based on predicted purchase intent and satisfaction scores. Then run traditional panel studies only on these finalists, reducing total research costs by 75% while maintaining confidence in the final selection. Use the qualitative feedback from SSR to refine marketing messaging and product positioning before human studies even begin.</p>
+      <p class="panel-muted">Your team is evaluating 20 new shampoo formulations for launch. Before investing in 1,000-person panel studies ($50K each), run SSR pre-screening: generate 5,000 synthetic responses per formulation across 10 demographic segments (total: 100K synthetic ratings in 2-3 days). Identify the top 5 formulations based on predicted purchase intent and satisfaction scores. Then run traditional panel studies only on these finalists, substantially reducing research costs while maintaining confidence in the final selection. Use the qualitative feedback from SSR to refine marketing messaging and product positioning before human studies even begin.</p>
     </div>
   </section>
 
   <!-- Supporting callouts -->
   <div class="grid md:grid-cols-2 gap-4">
     <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">What are Likert scales?</h3>
+      <p class="text-xs panel-muted">Likert scales are the most common rating format in surveys—those familiar 1-5 or 1-7 point scales like "strongly disagree" to "strongly agree" or "very dissatisfied" to "very satisfied." Named after psychologist Rensis Likert, they capture intensity of opinion with ordered categories. For example: 1 = strongly disagree, 2 = disagree, 3 = neutral, 4 = agree, 5 = strongly agree. They're ubiquitous in market research, employee surveys, academic studies, and customer feedback because they're easy to answer and analyze statistically. The challenge: LLMs asked directly for these numerical ratings produce unrealistic patterns, which is what SSR solves.</p>
+    </div>
+    <div class="panel panel-info p-4 space-y-2">
       <h3 class="text-sm font-semibold text-heading">What is Semantic Similarity Rating (SSR)?</h3>
       <p class="text-xs panel-muted">SSR is a two-step method: (1) Ask an LLM to write a textual response to a survey question (e.g., "Describe your opinion of this product"), (2) Measure the embedding similarity between that response and a set of reference statements that map to Likert scale points (e.g., "I strongly dislike this" = 1, "This is excellent" = 5). By computing cosine similarity in embedding space, SSR translates free-text opinions into numerical ratings while preserving the nuance and realism of natural language responses. This avoids the distribution collapse problem where LLMs asked directly for numbers produce unrealistic patterns.</p>
     </div>
     <div class="panel panel-info p-4 space-y-2">
       <h3 class="text-sm font-semibold text-heading">Why direct numerical ratings fail</h3>
-      <p class="text-xs panel-muted">When LLMs are asked "Rate this 1-5," they produce distributions with unrealistic characteristics: spikes at endpoints (1 and 5), missing middle values, and bimodal patterns that never appear in real human data. This happens because LLMs have learned associations between concepts and extreme numerical values during training, creating systematic biases. The paper demonstrates this empirically across multiple models—direct ratings consistently fail distributional tests (KS similarity < 0.6), making them unsuitable for market research where realistic response patterns are critical for validity.</p>
+      <p class="text-xs panel-muted">When LLMs are asked "Rate this 1-5," they produce distributions with unrealistic characteristics: spikes at endpoints (1 and 5), missing middle values, and bimodal patterns that never appear in real human data. This happens because LLMs have learned associations between concepts and extreme numerical values during training, creating systematic biases. The paper demonstrates this empirically across multiple models—direct ratings consistently fail distributional tests, making them unsuitable for market research where realistic response patterns are critical for validity.</p>
     </div>
     <div class="panel panel-info p-4 space-y-2">
       <h3 class="text-sm font-semibold text-heading">Test-retest reliability matters</h3>
-      <p class="text-xs panel-muted">Reliability measures consistency: if you ask the same respondent the same question twice, how similar are the answers? Human test-retest reliability on these surveys averages ~0.70-0.75 correlation. SSR achieves 90% of this (0.63-0.68 correlation), meaning synthetic respondents are nearly as consistent as real humans. This is critical for market research validity—if synthetic responses are noisy and inconsistent, they cannot reliably predict real consumer behavior. The high reliability of SSR-generated ratings means they can substitute for human responses in many research contexts.</p>
+      <p class="text-xs panel-muted">Reliability measures consistency: if you ask the same respondent the same question twice, how similar are the answers? Human test-retest reliability on consumer surveys typically ranges around 0.70-0.75 correlation. SSR achieves approximately 90% of human reliability, meaning synthetic respondents are nearly as consistent as real humans. This is critical for market research validity—if synthetic responses are noisy and inconsistent, they cannot reliably predict real consumer behavior. The high reliability of SSR-generated ratings means they can substitute for human responses in many research contexts.</p>
     </div>
     <div class="panel panel-info p-4 space-y-2">
       <h3 class="text-sm font-semibold text-heading">KS similarity quantifies realism</h3>
@@ -92,9 +96,9 @@
     <h3 class="text-sm font-semibold text-heading">🧪 Evidence</h3>
     <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
       <li><strong>Dataset scale:</strong> Tested on 57 personal care product surveys conducted by a leading corporation, comprising 9,300 human responses across diverse product categories and question types.</li>
-      <li><strong>High reliability:</strong> SSR achieves 90% of human test-retest reliability—human baseline correlation is 0.70-0.75, SSR achieves 0.63-0.68, demonstrating consistent and reproducible synthetic responses.</li>
+      <li><strong>High reliability:</strong> SSR achieves approximately 90% of human test-retest reliability, demonstrating consistent and reproducible synthetic responses across repeated measurements.</li>
       <li><strong>Realistic distributions:</strong> KS similarity > 0.85 between SSR synthetic ratings and human ratings across all 57 surveys, indicating statistically indistinguishable distribution shapes.</li>
-      <li><strong>Direct rating failure:</strong> LLMs asked directly for numerical ratings produce unrealistic distributions with KS similarity < 0.6, showing systematic biases toward extreme values and missing middle categories.</li>
+      <li><strong>Direct rating failure:</strong> LLMs asked directly for numerical ratings produce unrealistic distributions, showing systematic biases toward extreme values and missing middle categories.</li>
       <li><strong>Qualitative richness:</strong> SSR provides detailed textual explanations alongside each rating, enabling thematic analysis and insight mining at scale—something traditional numerical-only surveys cannot provide.</li>
       <li><strong>Robust across models:</strong> SSR methodology works across multiple LLM families tested in the paper, demonstrating it's a general technique rather than model-specific tuning.</li>
       <li><strong>Interpretable mappings:</strong> Reference statements used for similarity mapping are human-readable and editable, allowing researchers to customize the rating scale interpretation for domain-specific contexts.</li>
@@ -123,7 +127,7 @@
       <li><strong>Monitor reliability over time:</strong> Track test-retest correlation of SSR outputs as LLMs evolve; re-validate reference statements annually or when switching models to maintain research validity.</li>
       <li><strong>Mine qualitative feedback:</strong> Use the textual responses generated by SSR for thematic analysis, sentiment clustering, and feature importance ranking—capabilities unavailable in traditional numerical-only surveys.</li>
       <li><strong>A/B test survey instruments:</strong> Use SSR to simulate response patterns for different question wordings, scales, and ordering before fielding expensive human studies; optimize for clarity and unbiased distributions.</li>
-      <li><strong>Cost-benefit analysis:</strong> Calculate the ROI of SSR pre-screening in your context—typical savings are 50-75% reduction in panel costs by filtering concepts before human validation, with <5% degradation in final decision quality.</li>
+      <li><strong>Cost-benefit analysis:</strong> Calculate the ROI of SSR pre-screening in your context by filtering concepts before human validation; measure the balance between reduced research costs and maintained decision quality in your domain.</li>
     </ul>
   </section>
 </section>

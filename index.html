@@ -148,98 +148,11 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .interactive-btn {
-            padding: 0.5rem 1rem; /* px-4 py-2 */
-            background-color: #4f46e5; /* indigo-600 */
-            color: #ffffff; /* text-white */
-            font-size: 0.875rem; /* text-sm */
-            border-radius: 0.5rem; /* rounded-lg */
-            transition: background-color 200ms ease-in-out, color 200ms ease-in-out; /* transition-colors duration-200 */
-            font-weight: 500; /* font-medium */
-        }
-
-        .interactive-btn:hover {
-            background-color: #4338ca; /* hover:bg-indigo-700 */
-        }
-
-        .token {
-            display: inline-block; /* inline-block */
-            padding: 0.25rem 0.5rem; /* px-2 py-1 */
-            margin: 0.125rem 0.25rem; /* my-0.5 mx-1 */
-            background-color: #e0e7ff; /* bg-indigo-100 */
-            color: #3730a3; /* text-indigo-800 */
-            border-radius: 0.25rem; /* rounded */
-            font-size: 0.875rem; /* text-sm */
-            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; /* font-mono */
-            border: 1px solid #c7d2fe; /* border-indigo-200 */
-            cursor: pointer; /* cursor-pointer */
-            transition: background-color 150ms ease-in-out, color 150ms ease-in-out; /* transition-colors */
-        }
-
-        .token:hover {
-            background-color: #c7d2fe; /* hover:bg-indigo-200 */
-        }
-
-        .param-block {
-            width: 100%; /* w-full */
-            height: 1rem; /* h-4 */
-            background-color: #d1d5db; /* bg-gray-300 */
-            border-radius: 0.25rem; /* rounded */
-            transition: all 300ms ease-in-out; /* transition-all duration-300 */
-        }
-
-        .param-block.frozen {
-            background-color: #6b7280; /* bg-surface0 */
-        }
-
-        .param-block.quantized {
-            background-image: repeating-conic-gradient(#9ca3af 0% 25%, #d1d5db 0% 50%);
-            background-size: 4px 4px;
-        }
-
-        .param-block.adapter {
-            background-color: #22c55e; /* bg-green-500 */
-        }
-
-        .legend-item {
-            display: flex; /* flex */
-            align-items: center; /* items-center */
-            gap: 0.5rem; /* approximate space-x-2 */
-            font-size: 0.75rem; /* text-xs */
-        }
-
-        .legend-swatch {
-            width: 1rem; /* w-4 */
-            height: 1rem; /* h-4 */
-            border-radius: 0.25rem; /* rounded */
-            border: 1px solid #d1d5db; /* border-subtle */
-        }
-
         #question-viewer {
             transition: opacity 0.3s ease-in-out;
         }
 
-        /* Loading animation for dynamic content */
-        .loading-skeleton {
-            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; /* animate-pulse */
-            background-color: #e5e7eb; /* bg-subtle */
-            border-radius: 0.25rem; /* rounded */
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.5;
-            }
-        }
-
-        :root {
-            --math-color: #1f2937; /* Gray-800 baseline; adjust via theme overrides */
-        }
-
-        /* Enhanced Mathematical notation styles */
+        /* Mathematical notation styles */
         .math-display {
             display: block;
             background-color: var(--panel-bg, var(--color-card));
@@ -259,125 +172,6 @@
             border-color: var(--panel-border, var(--color-border));
         }
 
-        .math-inline {
-            background: rgba(99, 102, 241, 0.1);
-            padding: 4px 8px;
-            border-radius: 6px;
-            font-size: 0.9rem;
-            border: 1px solid rgba(99, 102, 241, 0.2);
-            font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
-        }
-
-        .math-matrix {
-            background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
-            border: 2px solid #cbd5e1;
-            border-radius: 8px;
-            padding: 16px;
-            font-family: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            text-align: center;
-            letter-spacing: 0.05em;
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.06);
-        }
-
-        .math-equation {
-            background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
-            border-left: 4px solid #3b82f6;
-            padding: 20px;
-            margin: 16px 0;
-            border-radius: 0 8px 8px 0;
-            box-shadow: 0 2px 4px rgba(59, 130, 246, 0.1);
-        }
-
-        .math-fraction {
-            display: inline-block;
-            vertical-align: middle;
-            text-align: center;
-        }
-
-        .math-fraction .numerator {
-            display: block;
-            border-bottom: 1px solid currentColor;
-            padding-bottom: 2px;
-        }
-
-        .math-fraction .denominator {
-            display: block;
-            padding-top: 2px;
-        }
-
-        /* Superscript and subscript improvements */
-        .math-sup {
-            font-size: 0.75em;
-            vertical-align: super;
-            line-height: 0;
-        }
-
-        .math-sub {
-            font-size: 0.75em;
-            vertical-align: sub;
-            line-height: 0;
-        }
-
-        /* Enhanced mathematical symbols and typography */
-        .math-symbol {
-            display: inline-block;
-            margin: 0 4px;
-            font-weight: 500;
-        }
-
-        /* Advanced fraction rendering */
-        .math-fraction {
-            display: inline-flex;
-            flex-direction: column;
-            align-items: center;
-            vertical-align: middle;
-            margin: 0 4px;
-            font-size: 0.95em;
-        }
-
-        .math-fraction .numerator {
-            display: block;
-            border-bottom: 2px solid currentColor;
-            padding: 2px 8px;
-            margin-bottom: 2px;
-            font-weight: 500;
-        }
-
-        .math-fraction .denominator {
-            display: block;
-            padding: 2px 8px;
-            margin-top: 2px;
-            font-weight: 500;
-        }
-
-        /* Enhanced superscript and subscript */
-        .math-sup {
-            font-size: 0.7em;
-            vertical-align: super;
-            line-height: 0;
-            font-weight: 600;
-            color: #1e40af;
-        }
-
-        .math-sub {
-            font-size: 0.7em;
-            vertical-align: sub;
-            line-height: 0;
-            font-weight: 600;
-            color: #dc2626;
-        }
-
-        /* Matrix bracket styling with better scaling */
-        .matrix-bracket {
-            font-size: 2.2em;
-            line-height: 0.8;
-            vertical-align: middle;
-            font-weight: 300;
-            color: #374151;
-        }
-
         /* MathJax integration styles */
         .MathJax {
             outline: none;
@@ -395,49 +189,8 @@
             overflow: visible;
             min-height: 1px;
             min-width: 1px;
-            /* Ensure equations scale to their container instead of overflowing */
             max-width: 100% !important;
             height: auto !important;
-        }
-
-        /* Mathematical expression highlighting */
-        .math-highlight {
-            background: linear-gradient(120deg, rgba(99, 102, 241, 0.1) 0%, rgba(167, 243, 208, 0.1) 100%);
-            border-radius: 4px;
-            padding: 2px 4px;
-            border: 1px solid rgba(99, 102, 241, 0.2);
-        }
-
-        /* Vector and matrix notation improvements */
-        .math-vector {
-            font-weight: bold;
-            color: #059669;
-        }
-
-        .math-matrix-symbol {
-            font-weight: bold;
-            font-style: italic;
-            color: #7c3aed;
-        }
-
-        /* Gradient and derivative notation */
-        .math-gradient {
-            font-size: 1.2em;
-            color: #dc2626;
-            font-weight: bold;
-        }
-
-        .math-partial {
-            font-style: italic;
-            color: #0891b2;
-            font-weight: 500;
-        }
-
-        /* Matrix bracket styling */
-        .matrix-bracket {
-            font-size: 2em;
-            line-height: 1;
-            vertical-align: middle;
         }
 
         /* Force MathJax containers to display inline to fix sentence flow */
@@ -445,7 +198,8 @@
             display: inline-block !important;
             vertical-align: middle;
         }
-        /* But for display equations, center them with block layout and horizontal scroll if needed */
+        
+        /* Display equations: center with block layout and horizontal scroll if needed */
         mjx-container[display="true"] {
             display: block !important;
             margin: 0.5rem auto;

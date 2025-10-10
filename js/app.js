@@ -62,7 +62,6 @@ class LLMQuestionApp {
             shareBtn: document.getElementById('share-btn'),
             questionViewer: document.getElementById('question-viewer'),
             navControls: document.getElementById('question-nav'),
-            questionNavDropdown: document.getElementById('question-nav-dropdown'),
             paperViewer: document.getElementById('paper-viewer'),
             paperIdentifier: document.getElementById('paper-identifier'),
             paperVenue: document.getElementById('paper-venue'),
@@ -97,7 +96,6 @@ class LLMQuestionApp {
         if(this.elements.nextBtn) this.elements.nextBtn.addEventListener('click', () => this.showNext());
         if(this.elements.prevBtn) this.elements.prevBtn.addEventListener('click', () => this.showPrev());
         if(this.elements.shareBtn) this.elements.shareBtn.addEventListener('click', () => this.copyShareableLink());
-        if(this.elements.questionNavDropdown) this.elements.questionNavDropdown.addEventListener('change', () => this.jumpTo());
         if(this.elements.paperShareBtn) this.elements.paperShareBtn.addEventListener('click', () => this.copyPaperLink());
         if(this.elements.paperBackBtn) this.elements.paperBackBtn.addEventListener('click', () => this.exitPaperView());
         if(this.elements.paperRelatedList){
@@ -289,9 +287,9 @@ class LLMQuestionApp {
   </div>
   <p class="text-sm text-muted leading-snug">${summary}</p>
   ${authorHtml}
-  <div class="flex items-center justify-between gap-2 pt-2">
-    <a href="${routeHref}" data-paper="${safeId}" class="px-3 py-1.5 text-xs font-medium btn-accent">Open overview</a>
-    ${tagsHtml}
+  ${tagsHtml}
+  <div class="flex justify-end pt-2 mt-auto">
+    <a href="${routeHref}" data-paper="${safeId}" class="px-3 py-1.5 text-xs font-medium whitespace-nowrap btn-accent">Open overview</a>
   </div>
 </article>`;
     }
@@ -634,7 +632,6 @@ class LLMQuestionApp {
     }
     async showNext(){ if(this.activePath){ if(this.activePath.pos < this.activePath.sequence.length-1){ const nextQ=this.activePath.sequence[this.activePath.pos+1]; return this.displayQuestion(this.availableQuestions.indexOf(nextQ)); } else { const done=this.activePath.key; this.exitPath(); this.notify(`Completed ${done} path!`); }} if(this.currentQuestionIndex < this.totalQuestions-1) await this.displayQuestion(this.currentQuestionIndex+1); }
     async showPrev(){ if(this.activePath){ if(this.activePath.pos>0){ const prevQ=this.activePath.sequence[this.activePath.pos-1]; return this.displayQuestion(this.availableQuestions.indexOf(prevQ)); } else { this.exitPath(); }} if(this.currentQuestionIndex>0) await this.displayQuestion(this.currentQuestionIndex-1); }
-    async jumpTo(){ if(!this.elements.questionNavDropdown) return; const newIdx=parseInt(this.elements.questionNavDropdown.value,10); if(newIdx!==this.currentQuestionIndex) await this.displayQuestion(newIdx); }
     async preloadAdjacent(){ const list=[]; if(this.currentQuestionIndex>0) list.push(this.availableQuestions[this.currentQuestionIndex-1]); if(this.currentQuestionIndex<this.totalQuestions-1) list.push(this.availableQuestions[this.currentQuestionIndex+1]); if(list.length) this.questionLoader.preloadQuestions(list); }
 
     getPaperNavigationTarget(offset){

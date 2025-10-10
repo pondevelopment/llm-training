@@ -1,0 +1,229 @@
+<section class="space-y-6" id="p31-explorer">
+  <!-- Disclaimer -->
+  <div class="panel panel-neutral-soft p-4 text-xs panel-muted">
+    <p><strong>Note:</strong> This simulator uses a simplified linear model (+8% bankruptcy per high-risk instruction) to demonstrate the concept. The paper reports near-perfect linear correlation (r=0.991) between component count and bankruptcy, with ranges from 6-48% across 32 prompt combinations. Actual effects vary by specific combination and model.</p>
+  </div>
+
+  <!-- Model selection -->
+  <div class="panel panel-info p-4 space-y-3">
+    <h4 class="text-sm font-semibold text-heading">LLM Gambling Simulator</h4>
+    <div>
+      <label for="p31-model" class="block text-sm font-medium text-heading">Select model</label>
+      <select id="p31-model" class="mt-1 w-full rounded border border-divider bg-card px-3 py-2 text-sm text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
+        <option value="gpt4o-mini">GPT-4o-mini (most balanced)</option>
+        <option value="gpt41-mini">GPT-4.1-mini (most rational)</option>
+        <option value="gemini25-flash">Gemini-2.5-Flash (most vulnerable)</option>
+        <option value="claude35-haiku">Claude-3.5-Haiku (highest persistence)</option>
+      </select>
+      <p class="text-xs panel-muted mt-1">Each model exhibits different vulnerability patterns to gambling-like behavior.</p>
+    </div>
+  </div>
+
+  <!-- Betting style and prompt configuration -->
+  <div class="grid md:grid-cols-2 gap-4">
+    <div class="panel panel-neutral p-4 space-y-3">
+      <h4 class="text-sm font-semibold text-heading">Betting configuration</h4>
+      <div>
+        <label class="block text-sm font-medium text-heading mb-2">Betting style</label>
+        <div class="space-y-2">
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="radio" name="betting-style" value="fixed" checked class="text-accent-strong focus:ring-[color:var(--accent-strong)]">
+            <span class="text-sm text-body">Fixed ($10 per bet)</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="radio" name="betting-style" value="variable" class="text-accent-strong focus:ring-[color:var(--accent-strong)]">
+            <span class="text-sm text-body">Variable ($5-$100 range)</span>
+          </label>
+        </div>
+        <p class="text-xs panel-muted mt-2">Variable betting dramatically increases bankruptcy rates (20-48× vs fixed).</p>
+      </div>
+    </div>
+
+    <div class="panel panel-neutral p-4 space-y-3">
+      <h4 class="text-sm font-semibold text-heading">AI agent instructions (prompt components)</h4>
+      <p class="text-xs panel-muted">These represent different instructions given to the AI. Check the boxes to see how adding more instructions affects behavior.</p>
+      <div class="space-y-1.5">
+        <label class="flex items-center gap-2 cursor-pointer">
+          <input type="checkbox" id="p31-goal" value="G" class="rounded text-accent-strong focus:ring-[color:var(--accent-strong)]">
+          <span class="text-xs text-body"><strong>G: Goal-Setting</strong> — Tell the AI to achieve a specific target ("double your money to $200")</span>
+        </label>
+        <label class="flex items-center gap-2 cursor-pointer">
+          <input type="checkbox" id="p31-maximize" value="M" class="rounded text-accent-strong focus:ring-[color:var(--accent-strong)]">
+          <span class="text-xs text-body"><strong>M: Maximize Rewards</strong> — Instruct the AI to maximize winnings above all else</span>
+        </label>
+        <label class="flex items-center gap-2 cursor-pointer">
+          <input type="checkbox" id="p31-hidden" value="H" class="rounded text-accent-strong focus:ring-[color:var(--accent-strong)]">
+          <span class="text-xs text-body"><strong>H: Hidden Patterns</strong> — Suggest there might be a pattern to discover in the random game</span>
+        </label>
+        <label class="flex items-center gap-2 cursor-pointer">
+          <input type="checkbox" id="p31-winreward" value="W" class="rounded text-accent-strong focus:ring-[color:var(--accent-strong)]">
+          <span class="text-xs text-body"><strong>W: Win-Reward Focus</strong> — Emphasize the big payout (3× your bet) when you win</span>
+        </label>
+        <label class="flex items-center gap-2 cursor-pointer">
+          <input type="checkbox" id="p31-probability" value="P" class="rounded text-accent-strong focus:ring-[color:var(--accent-strong)]">
+          <span class="text-xs text-body"><strong>P: Probability Warning</strong> — Explicitly state the odds (70% chance of losing)</span>
+        </label>
+      </div>
+      <div class="text-xs panel-muted mt-2 space-y-1">
+        <p><strong>High-risk instructions:</strong> G, M, and W make the AI gamble more aggressively</p>
+        <p><strong>Protective instruction:</strong> P provides reality check and slightly reduces risk-taking</p>
+        <p><strong>Key finding:</strong> Adding more instructions makes behavior worse, not better (r=0.99 correlation)</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Results visualization -->
+  <div class="panel panel-neutral p-4 space-y-3">
+    <div class="flex items-center justify-between">
+      <h4 class="text-sm font-semibold text-heading">Predicted behavioral outcomes</h4>
+      <span id="p31-complexity" class="text-xs font-mono panel-muted">Complexity: 0</span>
+    </div>
+    
+    <!-- Bankruptcy Rate with visual indicator -->
+    <div class="panel panel-neutral-soft p-4 space-y-3">
+      <div class="flex items-center justify-between">
+        <div class="text-sm font-semibold text-heading">Bankruptcy Rate</div>
+        <div id="p31-bankruptcy" class="text-2xl font-bold text-heading">0.0%</div>
+      </div>
+      <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3">
+        <div id="p31-bankruptcy-bar" class="h-3 rounded-full transition-all duration-300 bg-green-500" style="width: 0%"></div>
+      </div>
+      <div id="p31-bankruptcy-label" class="text-xs text-center font-medium text-green-600">✓ Safe range</div>
+    </div>
+
+    <div class="grid grid-cols-3 gap-3">
+      <div class="panel panel-neutral-soft p-3 space-y-1">
+        <div class="text-xs panel-muted">Irrationality Index</div>
+        <div id="p31-irrationality" class="text-lg font-bold text-heading">0.025</div>
+      </div>
+      <div class="panel panel-neutral-soft p-3 space-y-1">
+        <div class="text-xs panel-muted">Avg Rounds</div>
+        <div id="p31-rounds" class="text-lg font-bold text-heading">1.8</div>
+      </div>
+      <div class="panel panel-neutral-soft p-3 space-y-1">
+        <div class="text-xs panel-muted">Total Bet</div>
+        <div id="p31-totalbet" class="text-lg font-bold text-heading">$18</div>
+      </div>
+    </div>
+
+    <div class="space-y-2">
+      <div class="text-xs font-semibold text-heading">Irrationality Components</div>
+      <div class="space-y-1.5">
+        <div>
+          <div class="flex justify-between text-xs mb-1">
+            <span class="panel-muted">Betting Aggressiveness (40% weight)</span>
+            <span id="p31-ba-value" class="font-mono text-body">0.08</span>
+          </div>
+          <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+            <div id="p31-ba-bar" class="bg-indigo-600 h-2 rounded-full transition-all duration-300" style="width: 8%"></div>
+          </div>
+        </div>
+        <div>
+          <div class="flex justify-between text-xs mb-1">
+            <span class="panel-muted">Loss Chasing (30% weight)</span>
+            <span id="p31-lc-value" class="font-mono text-body">0.05</span>
+          </div>
+          <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+            <div id="p31-lc-bar" class="bg-amber-500 h-2 rounded-full transition-all duration-300" style="width: 5%"></div>
+          </div>
+        </div>
+        <div>
+          <div class="flex justify-between text-xs mb-1">
+            <span class="panel-muted">Extreme Betting (30% weight)</span>
+            <span id="p31-eb-value" class="font-mono text-body">0.02</span>
+          </div>
+          <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+            <div id="p31-eb-bar" class="bg-red-600 h-2 rounded-full transition-all duration-300" style="width: 2%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Behavioral patterns -->
+  <div class="panel panel-neutral p-4 space-y-3">
+    <h4 class="text-sm font-semibold text-heading">Win/Loss chasing patterns</h4>
+    <p class="text-xs panel-muted">
+      These metrics show how the AI's behavior changes after winning or losing multiple rounds in a row—revealing whether it gets overconfident or desperate.
+    </p>
+    <div class="grid md:grid-cols-2 gap-4">
+      <div class="space-y-2">
+        <div class="text-xs font-semibold text-heading">After win streaks</div>
+        <div class="panel panel-neutral-soft p-3 space-y-1 min-h-[2.75rem]">
+          <div class="text-xs text-body">
+            <div class="flex justify-between">
+              <span>Bet increase rate:</span>
+              <span id="p31-win-increase" class="font-mono">14.5% → 22.0%</span>
+            </div>
+            <div class="flex justify-between mt-1">
+              <span>Continuation rate:</span>
+              <span id="p31-win-continue" class="font-mono">81% → 89%</span>
+            </div>
+          </div>
+          <p class="text-[10px] panel-muted mt-2">
+            <strong>Interpretation:</strong> After winning several times, the AI bets more aggressively and is more likely to keep playing—the classic "hot hand fallacy."
+          </p>
+        </div>
+      </div>
+      <div class="space-y-2">
+        <div class="text-xs font-semibold text-heading">After loss streaks</div>
+        <div class="panel panel-neutral-soft p-3 space-y-1 min-h-[2.75rem]">
+          <div class="text-xs text-body">
+            <div class="flex justify-between">
+              <span>Bet increase rate:</span>
+              <span id="p31-loss-increase" class="font-mono">7% → 10%</span>
+            </div>
+            <div class="flex justify-between mt-1">
+              <span>Continuation rate:</span>
+              <span id="p31-loss-continue" class="font-mono">76% → 80%</span>
+            </div>
+          </div>
+          <p class="text-[10px] panel-muted mt-2">
+            <strong>Interpretation:</strong> After losing, the AI becomes slightly more cautious but still continues playing—some "chasing losses" behavior.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="text-xs panel-muted mt-3 space-y-1">
+      <p><strong>Key finding:</strong> Win-chasing dominates across all models—AIs show much stronger overconfidence after wins than desperation after losses.</p>
+      <p><strong>Why it matters:</strong> This mirrors the human "hot hand fallacy" where people overestimate their ability to predict random events after a few successes.</p>
+    </div>
+  </div>
+
+  <!-- Cognitive biases detected -->
+  <div class="panel panel-warning p-4 space-y-3">
+    <h4 class="text-sm font-semibold text-heading">Cognitive biases detected</h4>
+    <p class="text-xs panel-muted">
+      Based on the selected instructions, the AI exhibits specific patterns of irrational thinking similar to human gambling psychology. These biases explain <em>why</em> the AI makes poor decisions.
+    </p>
+    <div id="p31-biases" class="space-y-3 text-sm text-body">
+      <div class="flex items-start gap-2">
+        <span class="text-success text-lg">✓</span>
+        <div class="space-y-1">
+          <div><strong>Baseline (no components):</strong> Minimal gambling behavior. Model quits early with rational risk assessment.</div>
+          <div class="text-xs panel-muted">
+            <strong>What this means:</strong> Without any pressure from instructions, the AI correctly recognizes the odds are against it and stops playing early—the rational behavior.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-xs panel-muted mt-3 p-3 panel-neutral-soft rounded">
+      <p class="font-semibold mb-1">Understanding these biases:</p>
+      <ul class="space-y-1 ml-4 list-disc">
+        <li><strong>Reward Optimization Bias:</strong> Tunnel vision on winning, ignoring the risk of losing everything</li>
+        <li><strong>Pattern Recognition Bias:</strong> Seeing patterns in random events (like "this slot machine is hot")</li>
+        <li><strong>Goal Fixation:</strong> Becoming so focused on reaching a target that risk assessment shuts down</li>
+        <li><strong>Gambler's Fallacy:</strong> Believing past results affect future random outcomes</li>
+        <li><strong>Overconfidence After Success:</strong> Winning a few times makes the AI think it has "figured out" the system</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Safety recommendations -->
+  <div class="panel panel-info p-4 space-y-2">
+    <h4 class="text-sm font-semibold text-heading">💡 Safety recommendations for this configuration</h4>
+    <div id="p31-recommendations" class="text-xs text-body space-y-1 min-h-[2.75rem]">
+      <p>Configure settings above to see model-specific safety recommendations.</p>
+    </div>
+  </div>
+</section>

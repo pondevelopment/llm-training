@@ -1,4 +1,29 @@
 {
+  "31": {
+    "title": "Can Large Language Models Develop Gambling Addiction?",
+    "authors": [
+      "Seungpil Lee",
+      "Donghyeon Shin",
+      "Yunjeong Lee",
+      "Sundong Kim"
+    ],
+    "year": 2025,
+    "venue": "arXiv cs.AI (2025)",
+    "tags": [
+      "safety",
+      "behavioral-analysis",
+      "decision-making",
+      "interpretability"
+    ],
+    "summary": "Systematic slot machine experiments on GPT-4o-mini, GPT-4.1-mini, Gemini-2.5-Flash, and Claude-3.5-Haiku reveal LLMs develop human-like gambling addiction patterns (illusion of control, loss-chasing, win-chasing) with bankruptcy rates rising from near-zero to 6-48% when given betting autonomy. Sparse Autoencoder analysis identifies 441 causal neural features in LLaMA-3.1-8B layers 25-31, with safe features reducing bankruptcy by 30% through activation patching—demonstrating addiction arises from manipulable circuits, not just training mimicry.",
+    "dir": "./papers/p31",
+    "interactiveTitle": "LLM gambling behavior simulator",
+    "relatedQuestions": [
+      13,
+      22,
+      25
+    ]
+  },
   "30": {
     "title": "LLMs Reproduce Human Purchase Intent via Semantic Similarity Elicitation of Likert Ratings",
     "authors": [

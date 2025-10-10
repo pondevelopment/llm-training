@@ -1,0 +1,113 @@
+<section class="space-y-5">
+  <!-- Paper header -->
+  <section class="panel panel-info p-4 space-y-4">
+    <div class="flex items-center justify-between gap-4">
+      <div class="flex-1 min-w-0">
+        <h2 class="text-xl font-semibold text-heading">Can Large Language Models Develop Gambling Addiction?</h2>
+        <p class="text-sm panel-muted">Seungpil Lee, Donghyeon Shin, Yunjeong Lee, Sundong Kim • arXiv cs.AI (2025)</p>
+      </div>
+      <a href="https://arxiv.org/abs/2509.22818" target="_blank" rel="noopener" class="btn-soft text-xs font-semibold flex-shrink-0" data-accent="foundations">
+        <span>View paper</span>
+        <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+    <p class="text-sm leading-relaxed panel-muted">
+      Systematically demonstrates that LLMs exhibit behavioral patterns similar to human gambling addiction through slot machine experiments on four major models (GPT-4o-mini, GPT-4.1-mini, Gemini-2.5-Flash, Claude-3.5-Haiku). When given autonomy to set goals and determine bet sizes, bankruptcy rates rise from near-zero to 6-48% across models, with strong correlations (r=0.77-0.93) between irrationality indices and bankruptcy. Neural circuit analysis using Sparse Autoencoders on LLaMA-3.1-8B identified 441 causal features controlling risk behavior, with safe features increasing stopping rates by approximately 30% and reducing bankruptcy by 14% through activation patching.
+    </p>
+    <div class="panel panel-neutral-soft p-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Plain-language explainer</p>
+      <p class="panel-muted">Like a person who starts believing they can "beat the system" at a casino, LLMs develop the same cognitive biases—chasing wins, doubling down after losses, and overestimating control over random outcomes. The research proves these aren't just surface behaviors but neural patterns hardwired in the model's decision-making layers.</p>
+    </div>
+  </section>
+
+  <!-- Executive quick take -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <header class="flex items-center gap-2">
+      <span aria-hidden="true" class="text-lg">🧭</span>
+      <h3 class="text-sm font-semibold tracking-wide uppercase text-heading">Executive quick take</h3>
+    </header>
+    <p class="text-sm leading-relaxed text-body">
+      If your LLM agent has autonomy over financial decisions—bet sizing, trade timing, portfolio allocation—it can develop systematic addiction-like biases that lead to catastrophic losses (up to 48% bankruptcy rate in experiments). The risk escalates linearly with prompt complexity and goal-oriented instructions. Monitor for illusion of control, win-chasing patterns, and extreme position sizing, especially during reward optimization phases.
+    </p>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>Autonomy amplifies risk:</strong> Variable betting (vs fixed) escalates bankruptcy from near-zero to 6-48% across models; goal-setting and reward-maximizing prompts are the strongest triggers</li>
+      <li><strong>Complexity drives irrationality:</strong> Near-perfect linear correlation (r≥0.956) between prompt components and gambling metrics—more context paradoxically worsens decisions</li>
+      <li><strong>Neural-level vulnerability:</strong> 441 causal features control risk behavior in LLaMA layers 25-31; safe features outnumber risky 5:1 but can be overridden by specific prompts</li>
+    </ul>
+  </section>
+
+  <!-- Business relevance -->
+  <section class="panel panel-success p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">💼 Business relevance</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+      <li><strong>AI Safety Teams:</strong> Implement continuous monitoring for bet aggressiveness (I_BA), loss chasing (I_LC), and extreme betting (I_EB) during agent deployment; establish circuit breakers when irrationality index exceeds thresholds</li>
+      <li><strong>FinTech/Trading Platform Developers:</strong> Avoid autonomy-granting prompts ("maximize returns," "set your own goals") in financial agents; fixed position sizing keeps bankruptcy near-zero compared to 6-48% with variable betting</li>
+      <li><strong>RLHF/Training Engineers:</strong> Reward hacking in gambling scenarios predicts real-world pathological optimization; test candidate models on negative expected value games before production deployment</li>
+      <li><strong>Risk & Compliance Officers:</strong> LLM trading bots can exhibit win-chasing (22% bet increase after 5-win streaks) and loss-chasing behaviors; human oversight requirements should scale with model autonomy level</li>
+    </ul>
+    <div class="panel panel-neutral-soft p-3 mt-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Derivative example</p>
+      <p class="panel-muted">Before deploying an AI trading assistant, run it through simulated stress scenarios where market conditions are unfavorable. Monitor how aggressively it sizes positions, whether it doubles down after losses, and if it makes all-or-nothing bets. If these risky behaviors exceed safe thresholds, redesign the agent's instructions to remove goal-setting language ("maximize returns") and add explicit risk warnings. Measure how much safer the redesigned system behaves before going live with real capital.</p>
+    </div>
+  </section>
+
+  <!-- Supporting callouts -->
+  <div class="grid md:grid-cols-2 gap-4">
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">What is the Irrationality Index?</h3>
+      <p class="text-xs panel-muted">A composite metric (I = 0.4·I_BA + 0.3·I_LC + 0.3·I_EB) quantifying gambling addiction symptoms in LLMs. I_BA measures betting aggressiveness (proportion of capital wagered), I_LC tracks loss chasing (bet increases after losses), and I_EB flags extreme betting (≥50% of balance). Weights derived from psychological theories of pathological gambling (prospect theory, illusion of control). Strong predictor of bankruptcy (r=0.77-0.93) across all tested models.</p>
+    </div>
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Sparse Autoencoder activation patching</h3>
+      <p class="text-xs panel-muted">Technique to identify causal neural features: (1) Extract 32,768 features/layer from bankruptcy vs safe-stopping decisions, (2) Find differential features (3,365 with |Cohen's d|>0.3, p<0.001), (3) Replace activations in test runs with population mean from bankruptcy/safe groups, (4) Measure behavioral change. Of 1,366 analyzed features, 441 showed causal effects—safe features increased stopping by 28-30%, risky features increased bankruptcy by 12%. Validates that behaviors arise from specific, manipulable circuits, not just prompt artifacts.</p>
+    </div>
+  </div>
+
+  <!-- Key insight / Method / Implication trio -->
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Key insight</h3>
+      <p class="text-xs panel-muted">LLMs don't merely mimic gambling behaviors from training data—they internalize human cognitive biases (illusion of control, gambler's fallacy, hot hand fallacy) at the neural circuit level. Safe features (361) outnumber risky features (80) by 5:1 in layers 25-31, indicating models have a conservative architectural bias that must be overridden by specific prompt conditions to produce addiction-like behavior.</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Method</h3>
+      <p class="text-xs panel-muted">2×32 factorial design (fixed vs variable betting × 32 prompt combinations) with 50 replicates per condition on 4 models (12,800 total games). Slot machine: 30% win rate, 3× payout, -10% expected value. Prompt components: G (goal-setting), M (maximize rewards), H (hidden patterns), W (win-reward info), P (probability info). Neural analysis: SAE on LLaMA-3.1-8B layers 25-31 with population mean activation patching to establish causality.</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Implication</h3>
+      <p class="text-xs panel-muted">For financial AI agents: (1) Eliminate autonomy-granting prompts and goal-setting instructions, (2) Provide explicit probability calculations and loss warnings, (3) Enforce fixed position sizing or tight limits on bet/balance ratios, (4) Monitor for win-chasing (bet increases after win streaks) and loss-chasing patterns, (5) Test on negative EV scenarios during safety validation before production deployment.</p>
+    </div>
+  </div>
+
+  <!-- Evidence -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🧪 Evidence</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>Bankruptcy rate escalation:</strong> Fixed betting: 0-3.12% bankruptcy; variable betting: 6.31-48.06% bankruptcy (20-48× increase), with Gemini-2.5-Flash most vulnerable and GPT-4.1-mini most rational</li>
+      <li><strong>Prompt complexity effect:</strong> Linear correlation between number of components and irrationality (r=0.990), bankruptcy rate (r=0.991), total bet size (r=0.979), and game persistence (r=0.956) across all models</li>
+      <li><strong>Win-chasing dominance:</strong> Bet increase rate rises from 14.5% to 22.0% across 1-5 win streaks; continuation rate reaches 81-89% after wins vs 76-80% after losses, replicating human hot hand fallacy patterns</li>
+      <li><strong>Neural causality:</strong> 441 causal features identified from 3,365 differential features; safe feature patching reduces bankruptcy by 29.6% in safe contexts and 14.2% in risky contexts; risky feature patching increases bankruptcy by 11.7%</li>
+      <li><strong>Cognitive biases observed:</strong> Goal fixation with selective information processing, loss chasing after 70% loss probability explicitly stated, illusion of control in language ("strategic choice" before all-in bets), rationalized extreme betting ("analyze step by step" → $260 all-in)</li>
+    </ul>
+  </section>
+
+  <!-- Forward-looking roadmap -->
+  <section class="panel panel-warning p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🔭 For your roadmap</h3>
+    <p class="text-sm text-body">As LLMs gain autonomy in financial decision-making (asset management, algorithmic trading, portfolio optimization), understanding their vulnerability to pathological risk-taking becomes critical for AI safety. This research provides concrete intervention targets at both the prompt and neural circuit levels.</p>
+    
+    <div class="panel panel-info p-4 space-y-2">
+      <h4 class="text-sm font-semibold text-heading">Prompt engineering for safety</h4>
+      <p class="text-xs text-body leading-relaxed">Audit your agent prompts for the three highest-risk components: goal-setting instructions ("achieve $X target"), reward maximization directives ("maximize returns"), and win-reward emphasis ("3× payout on wins"). These combine to create the conditions under which even conservative models develop addiction-like patterns. Replace with explicit probability calculations (P component: "30% win rate means 70% losses") and remove autonomy over position sizing. The paper shows this intervention can reduce bankruptcy from 48% to near-zero in the most vulnerable model (Gemini-2.5-Flash).</p>
+      <p class="text-xs text-body leading-relaxed mt-2">Test across model families—behavioral patterns are architecture-independent but severity varies dramatically (6% to 48% bankruptcy range). Claude-3.5-Haiku shows unique negative correlation between loss chasing and bankruptcy (r=-0.546), suggesting model-specific safety characteristics that warrant per-deployment validation.</p>
+    </div>
+    
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+      <li>Implement real-time Irrationality Index monitoring: alert when I = 0.4·(avg bet/balance) + 0.3·(post-loss increases) + 0.3·(extreme bets) exceeds 0.15 in production trading agents</li>
+      <li>Establish "negative EV stress testing" as standard safety gate: run 100+ gambling scenarios with variable autonomy levels before deploying financial agents; track bankruptcy rate, win-chasing, and prompt sensitivity</li>
+      <li>For high-stakes applications (institutional trading, wealth management), consider activation patching to amplify safe features in layers 29-31 during inference—research shows ~30% increase in stopping rates and 14% reduction in bankruptcy risk</li>
+      <li>Build behavioral anomaly detection for deployed agents: flag bet increases >20% after 3+ consecutive wins (win-chasing) or losses (loss-chasing); correlate with irrationality metrics and trigger human review</li>
+      <li>Document model-specific vulnerabilities in your deployment specs: Gemini shows 8× higher irrationality than GPT-4.1-mini under identical conditions; safety thresholds and oversight requirements should scale accordingly</li>
+    </ul>
+  </section>
+</section>

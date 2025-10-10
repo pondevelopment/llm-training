@@ -1,4 +1,27 @@
 {
+  "29": {
+    "title": "Strategic Intelligence in Large Language Models: Evidence from Evolutionary Game Theory",
+    "authors": [
+      "Kenneth Payne",
+      "Baptiste Alloui-Cros"
+    ],
+    "year": 2025,
+    "venue": "arXiv cs.AI (2025)",
+    "tags": [
+      "game-theory",
+      "strategy",
+      "multi-agent",
+      "safety"
+    ],
+    "summary": "First evolutionary Iterated Prisoner's Dilemma (IPD) tournaments with LLMs reveal genuine strategic reasoning about time horizons and opponents, with distinct fingerprints: Gemini exploits ruthlessly, GPT cooperates naively, Claude forgives effectively.",
+    "dir": "./papers/p29",
+    "interactiveTitle": "Strategic fingerprint analyzer",
+    "relatedQuestions": [
+      13,
+      22,
+      50
+    ]
+  },
   "28": {
     "title": "Why Do Some Language Models Fake Alignment While Others Don't?",
     "authors": [

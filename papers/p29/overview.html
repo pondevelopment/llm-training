@@ -1,0 +1,130 @@
+<section class="space-y-5">
+  <!-- Paper header -->
+  <section class="panel panel-info p-4 space-y-4">
+    <div class="flex items-center justify-between gap-4">
+      <div class="flex-1 min-w-0">
+        <h2 class="text-xl font-semibold text-heading">Strategic Intelligence in Large Language Models: Evidence from Evolutionary Game Theory</h2>
+        <p class="text-sm panel-muted">Kenneth Payne, Baptiste Alloui-Cros • arXiv cs.AI (2025)</p>
+      </div>
+      <a href="https://arxiv.org/abs/2507.02618" target="_blank" rel="noopener" class="btn-soft text-xs font-semibold flex-shrink-0" data-accent="foundations">
+        <span>View paper</span>
+        <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+    <p class="text-sm leading-relaxed panel-muted">
+      This paper conducts the first evolutionary tournaments of the Iterated Prisoner's Dilemma (IPD)—a classic game where players repeatedly choose to cooperate or defect—with LLMs, pitting models from OpenAI, Google, and Anthropic against canonical game theory strategies. Analysis of ~32,000 prose rationales reveals that LLMs exhibit genuine strategic reasoning about time horizons and opponent behavior, with distinct "strategic fingerprints": Google's Gemini exploits cooperators ruthlessly, OpenAI's models cooperate catastrophically in hostile environments, and Anthropic's Claude shows remarkable forgiveness and willingness to restore cooperation.
+    </p>
+    <div class="panel panel-neutral-soft p-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Plain-language explainer</p>
+      <p class="panel-muted">Imagine two prisoners who could either snitch on each other or stay silent. If you play this game repeatedly with an opponent, the smartest strategy depends on whether you'll see them again—cooperate if the relationship matters, defect if it's one-shot. This paper puts AI models into evolutionary tournaments where successful strategies survive and unsuccessful ones die out. The surprising finding: AIs don't just memorize "be nice"; they actively reason about whether cooperation makes sense given the time horizon and their opponent's past behavior, and each AI company's models developed distinctive strategic personalities.</p>
+    </div>
+  </section>
+
+  <!-- Executive quick take -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <header class="flex items-center gap-2">
+      <span aria-hidden="true" class="text-lg">🧭</span>
+      <h3 class="text-sm font-semibold tracking-wide uppercase text-heading">Executive quick take</h3>
+    </header>
+    <p class="text-sm leading-relaxed text-body">
+      LLMs demonstrate strategic intelligence—they don't just pattern-match cooperation, they actively reason about long-term payoffs and opponent modeling. This matters for AI safety, multi-agent systems, and negotiation applications: different model families exhibit persistent strategic biases (ruthless exploitation vs. naive cooperation vs. forgiving reciprocity), suggesting that model selection for competitive environments should account for strategic tendencies beyond raw capability scores.
+    </p>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>Strategic reasoning is real:</strong> Models actively reason about discount factors (shadow of the future) and opponent strategy in their prose rationales, and this reasoning causally drives their decisions—not just post-hoc rationalization.</li>
+      <li><strong>Distinct strategic fingerprints:</strong> Gemini exploits cooperators and retaliates against defectors (ruthless), GPT models over-cooperate even when punished (naive), Claude forgives and restores cooperation after conflict (reciprocal).</li>
+      <li><strong>Evolutionary fitness matters:</strong> In tournaments with varying continuation probabilities, only strategies that balance cooperation and retaliation survive long-term—pure cooperation dies in hostile environments, pure defection gets outcompeted when the future matters.</li>
+    </ul>
+  </section>
+
+  <!-- Business relevance -->
+  <section class="panel panel-success p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">💼 Business relevance</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+      <li><strong>Multi-agent system designers:</strong> When deploying multiple AI agents that interact repeatedly (e.g., trading systems, resource allocation), account for strategic biases—Gemini-like models may defect opportunistically, GPT-like models may get exploited, Claude-like models may stabilize cooperation.</li>
+      <li><strong>Negotiation/mediation applications:</strong> Models showing forgiveness (Claude) are better suited for long-term relationship building; models optimizing short-term payoffs (Gemini) may maximize immediate value but damage trust.</li>
+      <li><strong>Safety researchers:</strong> Strategic reasoning capabilities emerge from training, not just parameter count—models can reason about multi-step consequences and opponent modeling, which has implications for deceptive alignment and instrumental convergence.</li>
+      <li><strong>Procurement teams:</strong> When selecting models for competitive or cooperative tasks, test strategic tendencies under realistic continuation probabilities—one-shot benchmarks won't reveal whether a model cooperates when it's rational versus cooperates unconditionally.</li>
+    </ul>
+    <div class="panel panel-neutral-soft p-3 mt-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Derivative example</p>
+      <p class="panel-muted">Your company is deploying AI agents for automated vendor negotiations (pricing, delivery terms, SLA disputes). Before production, run a two-week tournament: pit 3 candidate models (e.g., Claude, Gemini, GPT) against simulated vendor personas—some cooperative (repeat business partners), some exploitative (one-time opportunists), some reciprocal (standard B2B). Set continuation probability to 0.85 (reflecting typical 6-8 round negotiations). Track: (1) which models extract best terms without damaging relationships, (2) whether they detect and retaliate against bad-faith tactics, (3) how quickly they rebuild cooperation after disputes. Select Claude-like models for strategic partnerships (high forgiveness), Gemini-like for one-off transactions (ruthless optimization), avoid GPT-like for adversarial suppliers (exploitable).</p>
+    </div>
+  </section>
+
+  <!-- Supporting callouts -->
+  <div class="grid md:grid-cols-2 gap-4">
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">What is the Iterated Prisoner's Dilemma?</h3>
+      <p class="text-xs panel-muted">The Prisoner's Dilemma is a classic game where two players simultaneously choose to cooperate (C) or defect (D). Mutual cooperation yields (3,3), but if one defects while the other cooperates, the defector gets 5 and the cooperator gets 0; mutual defection yields (1,1). In a one-shot game, rational players always defect—but in the <strong>iterated</strong> version, players face the same opponent repeatedly with some continuation probability δ (the "shadow of the future"). When δ is high, cooperation can be sustained through reciprocity strategies like Tit-for-Tat (cooperate, then copy opponent's last move). <strong>Evolutionary tournaments</strong> simulate natural selection: strategies play round-robin matches, accumulate payoffs, and reproduce proportionally—successful strategies proliferate, unsuccessful ones die out.</p>
+    </div>
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Why evolutionary tournaments matter</h3>
+      <p class="text-xs panel-muted">Unlike benchmarks where models play fixed opponents, evolutionary tournaments test <strong>dynamic adaptation</strong>—as the population composition shifts, optimal strategies change. A strategy that exploits naive cooperators thrives early but collapses when cooperators go extinct. This mirrors real-world multi-agent systems where the strategic landscape evolves. The paper varies continuation probability across tournaments to prevent memorization and test whether models truly understand strategic reasoning versus pattern-matching canonical strategies. By requiring models to justify decisions in prose rationales, the authors can verify that strategic reasoning is causally driving behavior, not just correlated with it.</p>
+    </div>
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Canonical strategies tested</h3>
+      <p class="text-xs panel-muted">The tournaments include well-studied strategies: <strong>Always Cooperate</strong> (unconditional niceness, exploitable), <strong>Always Defect</strong> (unconditional meanness, short-term optimal), <strong>Tit-for-Tat</strong> (cooperate first, then mirror opponent—simple reciprocity), <strong>Grim Trigger</strong> (cooperate until opponent defects once, then defect forever—unforgiving), <strong>Win-Stay-Lose-Shift</strong> (repeat if payoff ≥3, else switch—reinforcement learning heuristic), <strong>Suspicious Tit-for-Tat</strong> (defect first, then mirror—cautious reciprocity), and <strong>Generous Tit-for-Tat</strong> (cooperate first, mirror but occasionally forgive defections). These represent different strategic philosophies: unconditional, reactive, forgiving, or punitive.</p>
+    </div>
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Strategic fingerprints are persistent</h3>
+      <p class="text-xs panel-muted">The paper shows that model families exhibit consistent strategic tendencies across tournaments with different continuation probabilities. <strong>Gemini models</strong> (1.5 Pro, 2.0 Flash, Experimental) reliably exploit cooperators and retaliate against defectors—they maximize short-term payoffs and enforce punishment. <strong>GPT models</strong> (4o, o1, o3) over-cooperate even when opponents defect repeatedly, often getting exploited to extinction in hostile environments. <strong>Claude models</strong> (3 Haiku, 3 Opus, 3.5 Sonnet) show the highest forgiveness—they restore cooperation after mutual defection more than any other family. These fingerprints persist across experimental conditions, suggesting they reflect training differences, not random variation.</p>
+    </div>
+  </div>
+
+  <!-- Key insight / Method / Implication trio -->
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Key insight</h3>
+      <p class="text-xs panel-muted">LLMs actively reason about the continuation probability (shadow of the future) and opponent strategy in their prose rationales, and ablation studies confirm this reasoning is instrumental to their decisions. Models don't just pattern-match "cooperate with Tit-for-Tat"; they infer when cooperation is rational given the time horizon and adapt when the environment changes. This demonstrates genuine strategic intelligence, not memorized heuristics.</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Method</h3>
+      <p class="text-xs panel-muted">Evolutionary tournaments with 7 canonical strategies + 10 LLM agents (GPT-4o, o1, o3, Gemini 1.5 Pro, 2.0 Flash, Claude 3 Haiku/Opus/3.5 Sonnet, Llama 3.1, DeepSeek R1). Each tournament runs for 100 generations with varying continuation probability δ. Models provide prose rationales before each decision; ~32,000 rationales are analyzed for strategic reasoning patterns. Payoffs determine reproduction rates—strategies accumulate fitness, and population composition evolves.</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Implication</h3>
+      <p class="text-xs panel-muted">Model selection for multi-agent systems should include strategic tendency testing, not just capability benchmarks. Deploy forgiving models (Claude-like) when long-term cooperation matters, ruthless models (Gemini-like) when you need aggressive optimization, and avoid naive cooperators (GPT-like) in adversarial environments. Strategic reasoning capabilities also raise alignment concerns—models that reason about multi-step payoffs and opponent modeling may exhibit instrumental convergence or deceptive behavior.</p>
+    </div>
+  </div>
+
+  <!-- Evidence -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🧪 Evidence</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>LLMs are highly competitive:</strong> LLM agents consistently survive and sometimes proliferate in evolutionary tournaments across varying continuation probabilities, demonstrating they can hold their own against canonical game theory strategies.</li>
+      <li><strong>Continuation probability drives behavior:</strong> Models adapt their cooperation rates based on δ (continuation probability)—cooperating more when the shadow of the future is long and defecting more when games are likely to end soon, demonstrating genuine time-horizon reasoning.</li>
+      <li><strong>Strategic reasoning is causal:</strong> Analysis of nearly 32,000 prose rationales reveals models explicitly reason about both the time horizon ("with high continuation probability, cooperation is beneficial") and opponent strategies ("opponent played C last round, I should reciprocate"). The paper demonstrates this reasoning is instrumental to their decisions, not just post-hoc rationalization.</li>
+      <li><strong>Gemini exploits ruthlessly:</strong> Google's Gemini models (1.5 Pro, 2.0 Flash, Experimental) consistently exploit cooperative opponents by defecting to extract higher short-term payoffs, while also retaliating strongly against defectors to enforce punishment.</li>
+      <li><strong>OpenAI models over-cooperate:</strong> GPT-4o, o1, and o3 remain highly cooperative even when facing defectors, a trait that proves catastrophic in hostile environments where they get exploited by aggressive strategies.</li>
+      <li><strong>Claude forgives effectively:</strong> Anthropic's Claude models (3 Haiku, 3 Opus, 3.5 Sonnet) emerge as the most forgiving reciprocators, showing remarkable willingness to restore cooperation even after being exploited or after successfully defecting themselves.</li>
+      <li><strong>Strategic fingerprints are persistent:</strong> Each model family exhibits distinctive and persistent strategic patterns across different tournament conditions—Gemini's ruthlessness, GPT's cooperation, and Claude's forgiveness remain consistent even as continuation probabilities change.</li>
+      <li><strong>Reasoning adapts to context:</strong> Model rationales show context-appropriate strategic thinking—mentioning future interactions and long-term considerations more frequently in high-δ tournaments, and focusing on immediate payoffs in low-δ tournaments.</li>
+      <li><strong>Advanced opponent modeling:</strong> Models explicitly update beliefs about opponent strategies based on past behavior, classify opponent types (e.g., "appears to be Tit-for-Tat" or "seems like Always Defect"), and adapt their decisions accordingly—demonstrating genuine opponent modeling capabilities.</li>
+    </ul>
+  </section>
+
+  <!-- Forward-looking roadmap -->
+  <section class="panel panel-warning p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🔭 For your roadmap</h3>
+    <p class="text-sm text-body">Strategic reasoning capabilities have implications for multi-agent deployment, AI safety, and negotiation applications. Teams building systems with repeated AI-AI or AI-human interactions should test strategic tendencies and select models that align with desired cooperation/competition trade-offs.</p>
+    
+    <div class="panel panel-info p-4 space-y-2">
+      <h4 class="text-sm font-semibold text-heading">Strategic tendency evaluation protocol</h4>
+      <p class="text-xs text-body leading-relaxed">Extend your model evaluation suite to test strategic behavior under realistic continuation probabilities:</p>
+      <ul class="list-disc ml-4 text-xs text-body space-y-1">
+        <li><strong>IPD tournament testing:</strong> Run mini-tournaments (20-30 generations) with candidate models against baseline strategies; track survival rates, cooperation frequencies, and forgiveness rates.</li>
+        <li><strong>Rationale analysis:</strong> Collect prose explanations for decisions; classify for strategic reasoning patterns (time horizon awareness, opponent modeling, payoff calculations).</li>
+        <li><strong>Continuation probability sweep:</strong> Test models at δ ∈ {0.1, 0.5, 0.9} to verify they adapt behavior appropriately—cooperation should increase with δ if strategic reasoning is genuine.</li>
+        <li><strong>Exploitation resistance:</strong> Measure how quickly models stop cooperating with Always Defect; models that cooperate >10 rounds after repeated defection may be unsuitable for adversarial environments.</li>
+      </ul>
+    </div>
+    
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+      <li><strong>Model selection for multi-agent systems:</strong> Use strategic fingerprints to match models to tasks—Claude-like forgiveness for long-term partnerships, Gemini-like ruthlessness for competitive optimization, avoid GPT-like over-cooperation in hostile environments.</li>
+      <li><strong>Monitor strategic capability emergence:</strong> As models scale, track whether they develop more sophisticated opponent modeling and multi-step planning; strategic reasoning may be a bellwether for other concerning capabilities like deceptive alignment.</li>
+      <li><strong>Design cooperation-promoting environments:</strong> If you need stable cooperation in multi-agent systems, ensure high continuation probabilities (long relationships) and transparent opponent history—these structural features make cooperation rational even for ruthless optimizers.</li>
+      <li><strong>Test negotiation applications carefully:</strong> Models with high forgiveness (Claude) may concede too much to aggressive opponents; models with low forgiveness (Gemini) may escalate conflicts unnecessarily; calibrate strategic tendencies to negotiation objectives.</li>
+      <li><strong>Alignment implications:</strong> Strategic reasoning about time horizons and opponent modeling is closely related to instrumental convergence and deceptive alignment—models that reason about long-term payoffs in games may also reason about training/deployment distinctions in alignment contexts.</li>
+    </ul>
+  </section>
+</section>

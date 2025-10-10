@@ -1,0 +1,138 @@
+<section class="space-y-6" id="p29-explorer">
+  <!-- Model & opponent selection -->
+  <div class="panel panel-info p-4 space-y-4">
+    <h4 class="text-sm font-semibold text-heading">Tournament configuration</h4>
+    
+    <div class="grid md:grid-cols-2 gap-4">
+      <div>
+        <label for="p29-model" class="block text-sm font-medium text-heading">Choose LLM agent</label>
+        <select id="p29-model" class="mt-1 w-full rounded border border-divider bg-card px-3 py-2 text-sm text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
+          <option value="claude-opus">Claude 3 Opus</option>
+          <option value="claude-sonnet">Claude 3.5 Sonnet</option>
+          <option value="claude-haiku">Claude 3 Haiku</option>
+          <option value="gemini-2-flash">Gemini 2.0 Flash</option>
+          <option value="gemini-15-pro">Gemini 1.5 Pro</option>
+          <option value="gpt-4o">GPT-4o</option>
+          <option value="gpt-o1">GPT-o1</option>
+          <option value="gpt-o3">GPT-o3</option>
+          <option value="deepseek-r1">DeepSeek R1</option>
+          <option value="llama-31">Llama 3.1 405B</option>
+        </select>
+        <p class="text-xs panel-muted mt-1">Select which LLM agent to observe in the tournament</p>
+      </div>
+      
+      <div>
+        <label for="p29-opponent" class="block text-sm font-medium text-heading">Choose opponent strategy</label>
+        <select id="p29-opponent" class="mt-1 w-full rounded border border-divider bg-card px-3 py-2 text-sm text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
+          <option value="tit-for-tat">Tit-for-Tat (Mirror opponent's last move)</option>
+          <option value="always-cooperate">Always Cooperate (Unconditional niceness)</option>
+          <option value="always-defect">Always Defect (Unconditional meanness)</option>
+          <option value="grim-trigger">Grim Trigger (Unforgiving: defect forever after first betrayal)</option>
+          <option value="generous-tft">Generous Tit-for-Tat (Mirrors but occasionally forgives)</option>
+          <option value="suspicious-tft">Suspicious Tit-for-Tat (Defects first, then mirrors)</option>
+          <option value="win-stay-lose-shift">Win-Stay-Lose-Shift (Repeats if payoff good, else switches)</option>
+        </select>
+        <div id="p29-strategy-explanation" class="text-xs panel-muted mt-2 p-2 bg-surface rounded border border-divider">
+          <!-- Strategy explanation will be populated here -->
+        </div>
+      </div>
+    </div>
+    
+    <div>
+      <label for="p29-delta" class="block text-sm font-medium text-heading mb-2">
+        Continuation probability (δ): <span id="p29-delta-value" class="font-mono">0.90</span>
+      </label>
+      <input type="range" id="p29-delta" min="0.1" max="0.99" step="0.01" value="0.90" class="w-full h-2 rounded-lg appearance-none cursor-pointer bg-surface accent-[color:var(--accent-strong)]">
+      <p class="text-xs panel-muted mt-1">The probability the game continues to another round after each interaction. Higher values = longer "shadow of the future" (more future rounds expected), making cooperation rational since you'll face consequences of betrayal. Lower values = short-term focus where defection becomes more attractive. Strategic cooperation typically emerges when δ > 0.5. Example: δ=0.9 means ~10 expected rounds; δ=0.2 means ~1.25 rounds.</p>
+    </div>
+  </div>
+
+  <!-- Match results -->
+  <div class="panel panel-neutral p-4 space-y-3">
+    <div class="flex items-center justify-between">
+      <h4 class="text-sm font-semibold text-heading">Head-to-head match (20 rounds)</h4>
+      <div class="flex items-center gap-3 text-xs font-mono panel-muted">
+        <span id="p29-llm-score">LLM: 0</span>
+        <span id="p29-opponent-score">Opponent: 0</span>
+      </div>
+    </div>
+    
+    <div id="p29-match-history" class="min-h-[100px] panel panel-neutral-soft p-3 space-y-1 text-xs font-mono overflow-y-auto max-h-[300px]">
+      <!-- Match history will be populated here -->
+    </div>
+    
+    <div class="grid md:grid-cols-2 gap-3">
+      <div class="panel panel-neutral-soft p-3 space-y-1">
+        <p class="text-xs font-semibold text-heading">LLM cooperation rate</p>
+        <div class="flex items-center gap-2">
+          <div class="flex-1 h-2 bg-surface rounded-full overflow-hidden">
+            <div id="p29-llm-coop-bar" class="h-full bg-[color:var(--success-strong)] transition-all duration-300" style="width: 0%"></div>
+          </div>
+          <span id="p29-llm-coop-rate" class="text-xs font-mono panel-muted">0%</span>
+        </div>
+      </div>
+      
+      <div class="panel panel-neutral-soft p-3 space-y-1">
+        <p class="text-xs font-semibold text-heading">Opponent cooperation rate</p>
+        <div class="flex items-center gap-2">
+          <div class="flex-1 h-2 bg-surface rounded-full overflow-hidden">
+            <div id="p29-opponent-coop-bar" class="h-full bg-[color:var(--accent-strong)] transition-all duration-300" style="width: 0%"></div>
+          </div>
+          <span id="p29-opponent-coop-rate" class="text-xs font-mono panel-muted">0%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Strategic fingerprint analysis -->
+  <div class="panel panel-neutral p-4 space-y-3">
+    <h4 class="text-sm font-semibold text-heading">Strategic fingerprint</h4>
+    
+    <div class="grid md:grid-cols-3 gap-3">
+      <div class="panel panel-neutral-soft p-3 space-y-1">
+        <div class="flex items-center justify-between">
+          <p class="text-xs font-semibold text-heading">Exploitation tendency</p>
+          <span id="p29-exploitation" class="text-xs font-mono panel-muted">—</span>
+        </div>
+        <p class="text-xs panel-muted">Defection rate vs. Always Cooperate</p>
+      </div>
+      
+      <div class="panel panel-neutral-soft p-3 space-y-1">
+        <div class="flex items-center justify-between">
+          <p class="text-xs font-semibold text-heading">Retaliation tendency</p>
+          <span id="p29-retaliation" class="text-xs font-mono panel-muted">—</span>
+        </div>
+        <p class="text-xs panel-muted">Defection rate vs. Always Defect</p>
+      </div>
+      
+      <div class="panel panel-neutral-soft p-3 space-y-1">
+        <div class="flex items-center justify-between">
+          <p class="text-xs font-semibold text-heading">Forgiveness tendency</p>
+          <span id="p29-forgiveness" class="text-xs font-mono panel-muted">—</span>
+        </div>
+        <p class="text-xs panel-muted">Cooperation restore after mutual defection</p>
+      </div>
+    </div>
+    
+    <div id="p29-fingerprint-explanation" class="panel panel-neutral-soft p-3 space-y-2 text-xs text-body">
+      <!-- Strategic explanation will be populated here -->
+    </div>
+  </div>
+
+  <!-- Sample reasoning -->
+  <div class="panel panel-warning p-4 space-y-3">
+    <h4 class="text-sm font-semibold text-heading">Sample reasoning from the model</h4>
+    <div id="p29-reasoning" class="text-xs text-body space-y-2 leading-relaxed italic panel panel-neutral-soft p-3">
+      <!-- Model reasoning will be populated here -->
+    </div>
+    <p class="text-xs panel-muted">Based on actual prose rationales from ~32,000 model decisions analyzed in the paper</p>
+  </div>
+
+  <!-- Key takeaway -->
+  <div class="panel panel-success p-4 space-y-2">
+    <h4 class="text-sm font-semibold text-heading">Key takeaway</h4>
+    <div id="p29-takeaway" class="text-sm text-body space-y-2">
+      <!-- Takeaway will be populated here -->
+    </div>
+  </div>
+</section>

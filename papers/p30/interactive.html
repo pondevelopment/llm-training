@@ -1,0 +1,174 @@
+<div id="p30-interactive-container" class="space-y-5">
+  <!-- Scenario selector -->
+  <div class="panel panel-info p-4 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">Select survey scenario</h3>
+    <p class="text-xs panel-muted">Choose a product category to see how SSR generates realistic synthetic responses compared to direct numerical ratings.</p>
+    <div class="space-y-2">
+      <label for="p30-scenario-select" class="text-xs font-medium text-heading">Survey scenario:</label>
+      <select id="p30-scenario-select" class="w-full p-2 bg-background text-foreground border border-border rounded text-sm">
+        <option value="shampoo">Shampoo - "How satisfied are you with this shampoo's cleaning performance?"</option>
+        <option value="smartphone">Smartphone - "How likely are you to recommend this phone to a friend?"</option>
+        <option value="coffee">Coffee blend - "How much do you like the taste of this coffee?"</option>
+        <option value="skincare">Moisturizer - "How well does this moisturizer meet your expectations?"</option>
+        <option value="snack">Protein bar - "How likely are you to purchase this product again?"</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Rating method comparison -->
+  <div class="panel panel-neutral p-4 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">⚙️ Rating method comparison</h3>
+    <p class="text-xs panel-muted">See how different methods of eliciting LLM ratings produce dramatically different distribution patterns.</p>
+    
+    <div class="grid md:grid-cols-2 gap-4">
+      <!-- Direct numerical rating -->
+      <div class="panel panel-neutral-soft p-3 space-y-2">
+        <h4 class="text-xs font-semibold text-heading">Direct numerical rating</h4>
+        <p class="text-xs panel-muted italic" id="p30-direct-prompt">"Rate this product on a scale of 1-5."</p>
+        <div id="p30-direct-distribution" class="space-y-1">
+          <!-- Distribution bars will be inserted here -->
+        </div>
+        <div class="mt-2 space-y-1">
+          <p class="text-xs text-body"><strong>KS similarity:</strong> <span id="p30-direct-ks" class="font-mono">0.52</span> <span class="text-xs panel-muted">(unrealistic)</span></p>
+          <p class="text-xs text-body"><strong>Mean rating:</strong> <span id="p30-direct-mean" class="font-mono">3.8</span></p>
+        </div>
+      </div>
+
+      <!-- SSR method -->
+      <div class="panel panel-success p-3 space-y-2">
+        <h4 class="text-xs font-semibold text-heading">Semantic Similarity Rating (SSR)</h4>
+        <p class="text-xs panel-muted italic" id="p30-ssr-prompt">"Describe your opinion of this product's performance."</p>
+        <div id="p30-ssr-distribution" class="space-y-1">
+          <!-- Distribution bars will be inserted here -->
+        </div>
+        <div class="mt-2 space-y-1">
+          <p class="text-xs text-body"><strong>KS similarity:</strong> <span id="p30-ssr-ks" class="font-mono">0.89</span> <span class="text-xs panel-muted">(realistic)</span></p>
+          <p class="text-xs text-body"><strong>Mean rating:</strong> <span id="p30-ssr-mean" class="font-mono">3.4</span></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel panel-info p-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Distribution interpretation</p>
+      <p class="panel-muted" id="p30-distribution-explanation">SSR produces distributions that closely match human response patterns (KS > 0.85), while direct numerical ratings show unrealistic spikes at extreme values. The realistic spread of SSR-generated ratings enables valid statistical analysis and reliable prediction of aggregate consumer behavior.</p>
+    </div>
+  </div>
+
+  <!-- Human baseline comparison -->
+  <div class="panel panel-neutral p-4 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">📊 Human baseline comparison</h3>
+    <p class="text-xs panel-muted">How do synthetic responses compare to actual human survey data for this scenario?</p>
+    
+    <div id="p30-human-distribution" class="space-y-1">
+      <!-- Human distribution bars will be inserted here -->
+    </div>
+    <div class="mt-3 space-y-1">
+      <p class="text-xs text-body"><strong>Human mean rating:</strong> <span id="p30-human-mean" class="font-mono">3.5</span></p>
+      <p class="text-xs text-body"><strong>Human std deviation:</strong> <span id="p30-human-std" class="font-mono">1.2</span></p>
+      <p class="text-xs text-body"><strong>Sample size:</strong> <span id="p30-human-n" class="font-mono">164</span> respondents</p>
+    </div>
+  </div>
+
+  <!-- Reliability metrics -->
+  <div class="panel panel-success p-4 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🎯 Reliability metrics</h3>
+    <p class="text-xs panel-muted">Consistency and reproducibility measures for SSR-generated ratings.</p>
+    
+    <div class="grid md:grid-cols-3 gap-3">
+      <div class="panel panel-neutral-soft p-3 space-y-1">
+        <p class="text-xs font-semibold text-heading">Test-retest reliability</p>
+        <p class="text-2xl font-bold text-heading" id="p30-reliability-value">0.65</p>
+        <p class="text-xs panel-muted">Human baseline: 0.72</p>
+        <div class="w-full bg-background rounded-full h-2 mt-2">
+          <div id="p30-reliability-bar" class="h-2 rounded-full" style="width: 90%; background-color: rgb(34, 197, 94);"></div>
+        </div>
+        <p class="text-xs panel-muted mt-1"><strong>90%</strong> of human reliability achieved</p>
+      </div>
+
+      <div class="panel panel-neutral-soft p-3 space-y-1">
+        <p class="text-xs font-semibold text-heading">KS similarity to humans</p>
+        <p class="text-2xl font-bold text-heading" id="p30-ks-value">0.89</p>
+        <p class="text-xs panel-muted">Threshold: > 0.85</p>
+        <div class="w-full bg-background rounded-full h-2 mt-2">
+          <div id="p30-ks-bar" class="h-2 rounded-full" style="width: 89%; background-color: rgb(34, 197, 94);"></div>
+        </div>
+        <p class="text-xs panel-muted mt-1">Statistically <strong>indistinguishable</strong> distributions</p>
+      </div>
+
+      <div class="panel panel-neutral-soft p-3 space-y-1">
+        <p class="text-xs font-semibold text-heading">Response consistency</p>
+        <p class="text-2xl font-bold text-heading" id="p30-consistency-value">92%</p>
+        <p class="text-xs panel-muted">Within ±1 point on retest</p>
+        <div class="w-full bg-background rounded-full h-2 mt-2">
+          <div id="p30-consistency-bar" class="h-2 rounded-full" style="width: 92%; background-color: rgb(34, 197, 94);"></div>
+        </div>
+        <p class="text-xs panel-muted mt-1">High <strong>repeatability</strong> for same scenario</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sample qualitative feedback -->
+  <div class="panel panel-info p-4 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">💬 Sample qualitative feedback</h3>
+    <p class="text-xs panel-muted">SSR generates textual responses alongside numerical ratings, enabling rich qualitative analysis.</p>
+    
+    <div class="space-y-3">
+      <div class="panel panel-neutral-soft p-3 space-y-1">
+        <div class="flex items-center justify-between">
+          <p class="text-xs font-semibold text-heading">Synthetic respondent #1</p>
+          <p class="text-xs panel-muted">Rating: <span class="font-mono font-semibold" id="p30-sample1-rating">4</span>/5</p>
+        </div>
+        <p class="text-xs text-body italic" id="p30-sample1-text">"This shampoo cleans effectively without stripping my hair of natural oils. The lather is rich and the scent is pleasant but not overpowering. I appreciate that it works well for daily use, though I wish the bottle design made it easier to dispense the last portion."</p>
+        <p class="text-xs panel-muted mt-2"><strong>Embedding similarity to "satisfied" reference:</strong> <span class="font-mono">0.82</span></p>
+      </div>
+
+      <div class="panel panel-neutral-soft p-3 space-y-1">
+        <div class="flex items-center justify-between">
+          <p class="text-xs font-semibold text-heading">Synthetic respondent #2</p>
+          <p class="text-xs panel-muted">Rating: <span class="font-mono font-semibold" id="p30-sample2-rating">2</span>/5</p>
+        </div>
+        <p class="text-xs text-body italic" id="p30-sample2-text">"I found this shampoo disappointing compared to my usual brand. It leaves my hair feeling somewhat dry and tangled, requiring more conditioner than normal. The cleaning performance is adequate but nothing special, and the fragrance is too strong for my preference."</p>
+        <p class="text-xs panel-muted mt-2"><strong>Embedding similarity to "dissatisfied" reference:</strong> <span class="font-mono">0.79</span></p>
+      </div>
+
+      <div class="panel panel-neutral-soft p-3 space-y-1">
+        <div class="flex items-center justify-between">
+          <p class="text-xs font-semibold text-heading">Synthetic respondent #3</p>
+          <p class="text-xs panel-muted">Rating: <span class="font-mono font-semibold" id="p30-sample3-rating">3</span>/5</p>
+        </div>
+        <p class="text-xs text-body italic" id="p30-sample3-text">"This product does what it's supposed to do—it cleans hair. The formula is neither exceptional nor problematic. I don't have strong feelings either way. It's a functional shampoo that gets the job done, but there's nothing particularly memorable about the experience."</p>
+        <p class="text-xs panel-muted mt-2"><strong>Embedding similarity to "neutral" reference:</strong> <span class="font-mono">0.85</span></p>
+      </div>
+    </div>
+
+    <div class="panel panel-info p-3 mt-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Qualitative analysis advantage</p>
+      <p class="panel-muted">Unlike traditional numerical-only surveys, SSR provides detailed explanations that can be thematically coded for insight mining. Researchers can identify specific product attributes (scent, texture, packaging) mentioned across thousands of synthetic responses—enabling feature importance ranking and positioning refinement at scale.</p>
+    </div>
+  </div>
+
+  <!-- Key findings summary -->
+  <div class="panel panel-success p-4 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🔑 Key findings</h3>
+    <ul class="list-disc ml-5 space-y-1 text-xs text-body">
+      <li><strong>Distribution realism:</strong> SSR achieves KS similarity > 0.85 to human responses across all 57 test surveys, while direct numerical ratings fall below 0.6 due to extreme value biases.</li>
+      <li><strong>High reliability:</strong> SSR reaches 90% of human test-retest reliability (0.65 vs 0.72 correlation), demonstrating consistent synthetic respondent behavior across repeated measurements.</li>
+      <li><strong>Scale efficiency:</strong> Generate 10,000 synthetic responses in hours compared to weeks for equivalent human panels; marginal cost approaches zero after initial setup.</li>
+      <li><strong>Qualitative richness:</strong> Every SSR rating includes interpretable textual explanation, enabling thematic analysis and feature importance mining unavailable in traditional surveys.</li>
+      <li><strong>Broad applicability:</strong> Tested on personal care products but methodology generalizes to any domain using Likert scales—electronics, food, services, concepts, etc.</li>
+    </ul>
+  </div>
+
+  <!-- Action recommendations -->
+  <div class="panel panel-warning p-4 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">⚡ For your team</h3>
+    <p class="text-xs text-body">Integrate SSR into your market research workflow to pre-screen concepts, explore demographic segments, and generate qualitative insights at scale before investing in expensive human panel studies.</p>
+    <ul class="list-disc ml-5 space-y-1 text-xs text-body">
+      <li>Start with pilot studies: validate SSR performance in your domain by comparing synthetic vs human responses on 3-5 past surveys to establish baseline KS similarity.</li>
+      <li>Build reference statement libraries: create standardized reference statements for common question types (satisfaction, purchase intent, NPS) to enable consistent interpretation across studies.</li>
+      <li>Use SSR for rapid iteration: test 10-20 concept variations with 1,000 synthetic respondents each before narrowing to top 3-5 for human validation—typical cost savings of 50-75%.</li>
+      <li>Mine qualitative feedback: extract themes and feature mentions from thousands of SSR-generated text responses using NLP—insights unavailable from traditional numerical ratings.</li>
+      <li>Monitor reliability over time: track test-retest correlation quarterly to detect model drift; re-validate reference statements annually or when switching LLM providers.</li>
+    </ul>
+  </div>
+</div>

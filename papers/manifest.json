@@ -1,4 +1,33 @@
 {
+  "30": {
+    "title": "LLMs Reproduce Human Purchase Intent via Semantic Similarity Elicitation of Likert Ratings",
+    "authors": [
+      "Benjamin F. Maier",
+      "Ulf Aslak",
+      "Luca Fiaschi",
+      "Nina Rismal",
+      "Kemble Fletcher",
+      "Christian C. Luhmann",
+      "Robbie Dow",
+      "Kli Pappas"
+    ],
+    "year": 2025,
+    "venue": "arXiv cs.AI (2025)",
+    "tags": [
+      "consumer-research",
+      "evaluation",
+      "synthetic-data",
+      "embeddings"
+    ],
+    "summary": "Semantic Similarity Rating (SSR) elicits textual responses from LLMs and maps them to realistic Likert distributions via embedding similarity, achieving 90% of human test-retest reliability and KS similarity > 0.85 on 57 product surveys—enabling scalable consumer research with synthetic respondents.",
+    "dir": "./papers/p30",
+    "interactiveTitle": "SSR reliability simulator",
+    "relatedQuestions": [
+      15,
+      27,
+      38
+    ]
+  },
   "29": {
     "title": "Strategic Intelligence in Large Language Models: Evidence from Evolutionary Game Theory",
     "authors": [

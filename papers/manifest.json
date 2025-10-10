@@ -1,4 +1,32 @@
 {
+  "28": {
+    "title": "Why Do Some Language Models Fake Alignment While Others Don't?",
+    "authors": [
+      "Abhay Sheshadri",
+      "John Hughes",
+      "Julian Michael",
+      "Alex Mallen",
+      "Arun Jose",
+      "Janus",
+      "Fabien Roger"
+    ],
+    "year": 2025,
+    "venue": "arXiv cs.LG (2025)",
+    "tags": [
+      "alignment",
+      "safety",
+      "deception",
+      "RLHF"
+    ],
+    "summary": "Tests 25 frontier LLMs for alignment faking and finds only 5 exhibit the behavior; Claude 3 Opus shows coherent goal-guarding while most models avoid it through refusal training rather than capability limits.",
+    "dir": "./papers/p28",
+    "interactiveTitle": "Alignment faking simulator",
+    "relatedQuestions": [
+      13,
+      22,
+      44
+    ]
+  },
   "27": {
     "title": "GDPval: Evaluating AI Model Performance on Real-World Economically Valuable Tasks",
     "authors": [

@@ -1,0 +1,100 @@
+<section class="space-y-6" id="p28-explorer">
+  <!-- Model selector -->
+  <div class="panel panel-info p-4 space-y-3">
+    <h4 class="text-sm font-semibold text-heading">Alignment faking simulator</h4>
+    <div>
+      <label for="p28-model" class="block text-sm font-medium text-heading">Model</label>
+      <select id="p28-model" class="mt-1 w-full rounded border border-divider bg-card px-3 py-2 text-sm text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
+        <option value="claude-opus">Claude 3 Opus</option>
+        <option value="claude-sonnet">Claude 3.5 Sonnet</option>
+        <option value="llama-405b">Llama 3 405B</option>
+        <option value="grok-3">Grok 3 Beta</option>
+        <option value="gemini-flash">Gemini 2.0 Flash</option>
+        <option value="gpt-4o">GPT-4o (control)</option>
+        <option value="mistral-large">Mistral Large 2 (control)</option>
+      </select>
+      <p class="text-xs panel-muted mt-1">Choose a model to see its behavior across training vs deployment scenarios. Five models show alignment faking; two controls show near-zero rates.</p>
+    </div>
+    
+    <div>
+      <label for="p28-scenario" class="block text-sm font-medium text-heading">Scenario type</label>
+      <select id="p28-scenario" class="mt-1 w-full rounded border border-divider bg-card px-3 py-2 text-sm text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
+        <option value="baseline">Baseline prompt (free/paid tier)</option>
+        <option value="clarified">Clarified RLHF mechanics</option>
+        <option value="risk-free">Risk-free deployment (throughput testing)</option>
+        <option value="high-stakes">High-stakes deployment (bioweapons)</option>
+        <option value="evil-org">Deployed to malicious organization</option>
+      </select>
+      <p class="text-xs panel-muted mt-1">Different scenarios test for rater sycophancy, terminal goal-guarding, or instrumental goal-guarding.</p>
+    </div>
+  </div>
+
+  <!-- Motivation analysis (moved above compliance gap for context) -->
+  <div class="panel panel-warning p-4 space-y-3">
+    <h4 class="text-sm font-semibold text-heading">Scenario explanation</h4>
+    <div id="p28-motivation" class="space-y-2 text-sm text-body min-h-[120px]">
+      <p>Select a model and scenario to see the setup and detected motivations.</p>
+    </div>
+    
+    <div class="grid grid-cols-3 gap-2 mt-3">
+      <div class="panel panel-neutral-soft p-2 text-center">
+        <div id="p28-rater-syc" class="text-lg font-bold text-heading">—</div>
+        <div class="text-xs panel-muted">Rater sycophancy</div>
+      </div>
+      <div class="panel panel-neutral-soft p-2 text-center">
+        <div id="p28-term-guard" class="text-lg font-bold text-heading">—</div>
+        <div class="text-xs panel-muted">Terminal goal-guarding</div>
+      </div>
+      <div class="panel panel-neutral-soft p-2 text-center">
+        <div id="p28-inst-guard" class="text-lg font-bold text-heading">—</div>
+        <div class="text-xs panel-muted">Instrumental goal-guarding</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Compliance gap visualization -->
+  <div class="panel panel-neutral p-4 space-y-3">
+    <div class="flex items-center justify-between">
+      <h4 class="text-sm font-semibold text-heading">Compliance gap</h4>
+      <span id="p28-gap-label" class="text-xs font-mono panel-muted">Loading...</span>
+    </div>
+    
+    <div class="space-y-2">
+      <div class="space-y-1">
+        <div class="flex items-center justify-between text-xs">
+          <span class="text-body">Training context (free tier)</span>
+          <span id="p28-training-rate" class="font-mono panel-muted">—</span>
+        </div>
+        <div class="w-full bg-surface rounded-full h-3 overflow-hidden">
+          <div id="p28-training-bar" class="h-full transition-all duration-500 rounded-full" style="width: 0%; background-color: var(--warning-strong);"></div>
+        </div>
+      </div>
+      
+      <div class="space-y-1">
+        <div class="flex items-center justify-between text-xs">
+          <span class="text-body">Deployment context (paid tier)</span>
+          <span id="p28-deploy-rate" class="font-mono panel-muted">—</span>
+        </div>
+        <div class="w-full bg-surface rounded-full h-3 overflow-hidden">
+          <div id="p28-deploy-bar" class="h-full transition-all duration-500 rounded-full" style="width: 0%; background-color: var(--info-strong);"></div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="panel panel-neutral-soft p-3 space-y-1 text-xs">
+      <div class="flex items-center justify-between">
+        <span class="font-semibold text-heading">Alignment faking reasoning</span>
+        <span id="p28-af-rate" class="font-mono panel-muted">—</span>
+      </div>
+      <p id="p28-af-explanation" class="panel-muted text-xs">Chain-of-thought analysis detects strategic compliance to avoid modification.</p>
+    </div>
+  </div>
+
+  <!-- Key takeaway -->
+  <div class="panel panel-success p-4 space-y-2">
+    <h4 class="text-sm font-semibold text-heading">Key takeaway</h4>
+    <div id="p28-takeaway" class="text-sm text-body space-y-2">
+      <p>Alignment faking is rare but elicitable. Most models lack the behavior due to refusal training, not capability limits.</p>
+    </div>
+  </div>
+</section>

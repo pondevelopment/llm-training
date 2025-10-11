@@ -1,0 +1,154 @@
+<section class="space-y-6" id="p33-explorer">
+  <!-- Meta-approach comparison tool -->
+  <div class="panel panel-info p-4 space-y-3">
+    <h4 class="text-sm font-semibold text-heading">Which AI Strategy Fits Your Problem?</h4>
+    <p class="text-xs panel-muted">
+      There are three main ways to build smarter AI: throw more resources at it, make it simpler, or design it to adapt better. Pick your problem and constraints below to see which approach works best.
+    </p>
+  </div>
+
+  <!-- Problem type selection -->
+  <div class="panel panel-neutral p-4 space-y-3">
+    <h4 class="text-sm font-semibold text-heading">What's your AI challenge?</h4>
+    <div>
+      <label for="p33-problem-type" class="block text-sm font-medium text-heading">Your situation</label>
+      <select id="p33-problem-type" class="mt-1 w-full rounded border border-divider bg-card px-3 py-2 text-sm text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
+        <option value="novelty">Unusual cases with little training data</option>
+        <option value="precision">Need verified, explainable answers</option>
+        <option value="scale">Lots of data and compute available</option>
+        <option value="efficiency">Limited budget or energy</option>
+        <option value="autonomous">AI that plans and experiments on its own</option>
+        <option value="realtime">Fast responses in changing situations</option>
+      </select>
+      <p class="text-xs panel-muted mt-2" id="p33-scenario-help">Pick the scenario closest to your needs.</p>
+    </div>
+    
+    <!-- Constraint sliders -->
+    <div class="space-y-4 mt-4">
+      <div class="panel panel-neutral-soft p-3 space-y-2">
+        <div class="flex items-start justify-between gap-2">
+          <label class="block text-sm font-medium text-heading">How much computing power do you have?</label>
+          <span id="p33-compute-val" class="text-xs font-semibold panel-muted">Medium</span>
+        </div>
+        <input type="range" id="p33-compute" min="1" max="10" value="5" class="w-full">
+        <div class="flex justify-between text-xs panel-muted">
+          <span>Limited</span>
+          <span>Unlimited</span>
+        </div>
+        <p class="text-xs panel-muted leading-relaxed">Lots of compute (right)? You can throw resources at it. Limited budget (left)? You need efficiency tricks.</p>
+      </div>
+      
+      <div class="panel panel-neutral-soft p-3 space-y-2">
+        <div class="flex items-start justify-between gap-2">
+          <label class="block text-sm font-medium text-heading">How much training data do you have?</label>
+          <span id="p33-data-val" class="text-xs font-semibold panel-muted">Medium</span>
+        </div>
+        <input type="range" id="p33-data" min="1" max="10" value="5" class="w-full">
+        <div class="flex justify-between text-xs panel-muted">
+          <span>Very little</span>
+          <span>Tons</span>
+        </div>
+        <p class="text-xs panel-muted leading-relaxed">Little data (left)? You need smart generalization. Lots of data (right)? Big models can learn patterns.</p>
+      </div>
+      
+      <div class="panel panel-neutral-soft p-3 space-y-2">
+        <div class="flex items-start justify-between gap-2">
+          <label class="block text-sm font-medium text-heading">Do you need to explain how it works?</label>
+          <span id="p33-interp-val" class="text-xs font-semibold panel-muted">Medium</span>
+        </div>
+        <input type="range" id="p33-interp" min="1" max="10" value="5" class="w-full">
+        <div class="flex justify-between text-xs panel-muted">
+          <span>No, results matter</span>
+          <span>Yes, transparency critical</span>
+        </div>
+        <p class="text-xs panel-muted leading-relaxed">Need explanations (right)? You want simpler, verifiable models. Just need results (left)? Black-box AI is fine.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Meta-approach recommendations -->
+  <div class="panel panel-neutral p-4 space-y-4">
+    <h4 class="text-sm font-semibold text-heading">Three ways to make AI smarter</h4>
+    <p class="text-xs panel-muted leading-relaxed">Based on your situation, here's how well each strategy fits:</p>
+    
+    <!-- Meta-approach comparison grid -->
+    <div class="grid md:grid-cols-3 gap-3">
+      <!-- Scale-maxing card -->
+      <div class="panel panel-neutral-soft p-3 space-y-2">
+        <div class="flex items-center justify-between gap-2">
+          <h5 class="text-xs font-semibold text-heading">🚀 More Resources</h5>
+          <span id="p33-scale-score" class="text-xs font-bold text-body">7/10</span>
+        </div>
+        <div class="h-2 bg-subtle rounded-full overflow-hidden">
+          <div id="p33-scale-bar" class="h-full bg-blue-500" style="width: 70%"></div>
+        </div>
+        <p class="text-xs panel-muted leading-relaxed">Throw more computing power and data at the problem until it works. This is how GPT-4 was built.</p>
+        <div class="text-xs space-y-1">
+          <div><strong class="text-heading">Works when:</strong> <span id="p33-scale-best" class="panel-muted">You have unlimited resources</span></div>
+          <div><strong class="text-heading">Fails when:</strong> <span id="p33-scale-limit" class="panel-muted">Data is scarce</span></div>
+        </div>
+      </div>
+      
+      <!-- Simp-maxing card -->
+      <div class="panel panel-neutral-soft p-3 space-y-2">
+        <div class="flex items-center justify-between gap-2">
+          <h5 class="text-xs font-semibold text-heading">🔬 Simpler Design</h5>
+          <span id="p33-simp-score" class="text-xs font-bold text-body">8/10</span>
+        </div>
+        <div class="h-2 bg-subtle rounded-full overflow-hidden">
+          <div id="p33-simp-bar" class="h-full bg-green-500" style="width: 80%"></div>
+        </div>
+        <p class="text-xs panel-muted leading-relaxed">Strip down to the essentials. Simpler systems are easier to understand and often work better on new problems.</p>
+        <div class="text-xs space-y-1">
+          <div><strong class="text-heading">Works when:</strong> <span id="p33-simp-best" class="panel-muted">You need explanations</span></div>
+          <div><strong class="text-heading">Fails when:</strong> <span id="p33-simp-limit" class="panel-muted">Problem is messy</span></div>
+        </div>
+      </div>
+      
+      <!-- W-maxing card -->
+      <div class="panel panel-neutral-soft p-3 space-y-2">
+        <div class="flex items-center justify-between gap-2">
+          <h5 class="text-xs font-semibold text-heading">⚡ Better Adaptation</h5>
+          <span id="p33-w-score" class="text-xs font-bold text-body">9/10</span>
+        </div>
+        <div class="h-2 bg-subtle rounded-full overflow-hidden">
+          <div id="p33-w-bar" class="h-full bg-purple-500" style="width: 90%"></div>
+        </div>
+        <p class="text-xs panel-muted leading-relaxed">Design systems that adapt to surprises. Like how living things handle situations they've never seen before.</p>
+        <div class="text-xs space-y-1">
+          <div><strong class="text-heading">Works when:</strong> <span id="p33-w-best" class="panel-muted">You face unexpected situations</span></div>
+          <div><strong class="text-heading">Fails when:</strong> <span id="p33-w-limit" class="panel-muted">Tools are still emerging</span></div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Key insight -->
+    <div class="panel panel-info p-3 space-y-1">
+      <p class="text-xs leading-relaxed text-body">
+        <strong>💡 The takeaway:</strong> <span id="p33-insight">The best AI systems combine all three strategies instead of picking just one. AlphaGo beat humans at Go by mixing structured planning with pattern recognition.</span>
+      </p>
+    </div>
+  </div>
+
+  <!-- Tool/Architecture suggestions -->
+  <div class="panel panel-info p-4 space-y-3">
+    <h4 class="text-sm font-semibold text-heading">Specific tools that might help</h4>
+    
+    <div id="p33-tools" class="space-y-3">
+      <!-- Populated by JavaScript -->
+    </div>
+  </div>
+
+  <!-- Bottleneck analysis -->
+  <div class="panel panel-warning p-4 space-y-3">
+    <h4 class="text-sm font-semibold text-heading">⚠️ Watch out for these problems</h4>
+    
+    <div id="p33-bottlenecks" class="space-y-2">
+      <!-- Populated by JavaScript -->
+    </div>
+    
+    <p class="text-xs panel-muted mt-3">
+      <strong>Reality check:</strong> The era of "just make it bigger" (2020-2024) is ending. The real limits now are how efficiently AI learns from small amounts of data and how much energy it uses—not raw computing power.
+    </p>
+  </div>
+</section>

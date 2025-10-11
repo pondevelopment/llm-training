@@ -1,0 +1,139 @@
+<section class="space-y-5">
+  <!-- Paper header -->
+  <section class="panel panel-info p-4 space-y-4">
+    <div class="flex items-center justify-between gap-4">
+      <div class="flex-1 min-w-0">
+        <h2 class="text-xl font-semibold text-heading">What the F*ck Is Artificial General Intelligence?</h2>
+        <p class="text-sm panel-muted">Michael Timothy Bennett • Australian National University (2025)</p>
+      </div>
+      <a href="https://arxiv.org/abs/2503.23923" target="_blank" rel="noopener" class="btn-soft text-xs font-semibold flex-shrink-0" data-accent="foundations">
+        <span>View paper</span>
+        <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+    <p class="text-sm leading-relaxed panel-muted">
+      A provocative and accessible survey that cuts through AGI hype to define intelligence as adaptation with limited resources. The paper frames AGI as an "artificial scientist" capable of autonomous experimentation, then maps the landscape of approaches: foundational tools (search vs approximation), hybrid architectures (AlphaGo, o3, NARS, AERA, Hyperon), and three meta-approaches for building intelligent systems. Scale-maxing (the "Embiggening" of LLMs via compute/data), simp-maxing (Ockham's Razor via compression), and w-maxing (Bennett's Razor via weakest constraints) represent different optimization philosophies. The conclusion identifies current bottlenecks—sample and energy efficiency—and argues AGI requires fusion of tools and meta-approaches, not just scaling.
+    </p>
+    <div class="panel panel-neutral-soft p-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Plain-language explainer</p>
+      <p class="panel-muted">If you're building AI, you face a choice: throw unlimited compute at the problem (scale-maxing), optimize for simplicity (simp-maxing), or design systems that adapt by weakening constraints (w-maxing). Scale-maxing dominated 2020-2024—GPT-3's 175B parameters, AlphaFold's data centers—but now shows diminishing returns and struggles with novelty. Your next model probably needs hybrid tools: search for precision (AlphaGo's move planning), approximation for messy data (neural networks), and meta-approaches that balance resource use, simplicity, and functional versatility. True AGI—an artificial scientist that can autonomously experiment—requires all three, not just bigger models.</p>
+    </div>
+  </section>
+
+  <!-- Executive quick take -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <header class="flex items-center gap-2">
+      <span aria-hidden="true" class="text-lg">🧭</span>
+      <h3 class="text-sm font-semibold tracking-wide uppercase text-heading">Executive quick take</h3>
+    </header>
+    <p class="text-sm leading-relaxed text-body">
+      The "Embiggening" (scale-maxing approximation via compute and data) has defined AI progress since GPT-3, but faces diminishing returns and fundamental sample-inefficiency limits—LLMs fail on genuine novelty by definition. AGI as an autonomous experimenter requires three meta-approaches working together: scale-maxing for brute-force coverage, simp-maxing (compression via Kolmogorov complexity) for generalization, and w-maxing (weakest functional constraints) for energy/sample efficiency. Hybrid architectures (o3, AlphaGo, NARS, Hyperon) already fuse search and approximation tools. The bottleneck has shifted from compute to efficiency.
+    </p>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>Scale-maxing ceiling reached:</strong> GPT-4 scale shows diminishing returns; novelty (edge cases with scarce data) remains unsolved because sample-inefficiency is structural—more data doesn't help when data doesn't exist</li>
+      <li><strong>Hybrid fusion required:</strong> o3 (chain-of-thought), AlphaGo (search + neural nets), cognitive architectures (NARS, AERA, Hyperon) demonstrate that combining search (precision) and approximation (parallelizable scalability) unlocks capabilities neither achieves alone</li>
+      <li><strong>Efficiency bottlenecks dominate:</strong> Sample efficiency determines edge-case handling; energy efficiency determines economic viability; w-maxing (weak constraints, delegated control to hardware) optimizes both simultaneously, unlike scale or simplicity alone</li>
+    </ul>
+  </section>
+
+  <!-- Business relevance -->
+  <section class="panel panel-success p-5 space-y-3">
+    <header class="flex items-center gap-2">
+      <span aria-hidden="true" class="text-lg">💼</span>
+      <h3 class="text-sm font-semibold tracking-wide uppercase text-heading">Business relevance</h3>
+    </header>
+    <ul class="list-disc ml-5 space-y-2 text-sm text-body">
+      <li><strong>Research Leadership:</strong> If your roadmap is "scale until AGI," this paper explains why diminishing returns and sample inefficiency mean your next breakthrough requires tool fusion (search + approximation) and efficiency optimization, not just bigger models</li>
+      <li><strong>Applied AI Teams:</strong> When deploying models for edge cases (fraud detection, medical diagnosis, industrial anomalies), recognize that scale-maxed LLMs structurally fail on novelty—consider hybrid approaches that combine symbolic reasoning (search) with learned patterns (approximation)</li>
+      <li><strong>Infrastructure/MLOps:</strong> Energy costs are becoming prohibitive; w-maxing (delegating control to lower abstraction levels, like hardware-level optimization) can yield efficiency gains that scale-maxing cannot, enabling cost-effective deployment at scale</li>
+      <li><strong>Product Strategy:</strong> AGI as "artificial scientist" implies autonomous agents that plan, experiment, and adapt—AERA, NARS, and Hyperon architectures offer modular frameworks for building such systems beyond monolithic LLMs, relevant for robotics, automation, and research-assistant applications</li>
+    </ul>
+    <div class="panel panel-neutral-soft p-4 space-y-2">
+      <h4 class="text-sm font-semibold text-heading">Derivative example: Three-phase AGI capability audit</h4>
+      <p class="text-xs leading-relaxed text-body">
+        Assess your AI system's readiness for autonomous operation by testing its meta-approach balance: (1) <strong>Scale test</strong> — measure performance vs training data size; if gains flatten but edge-case accuracy lags, you've hit scale-maxing limits. (2) <strong>Simplicity test</strong> — compress learned representations (pruning, quantization); if compressed model maintains accuracy, you're simp-maxing effectively; if it collapses, you're overfitting complexity. (3) <strong>Weakness test</strong> — deploy in novel scenarios with sparse training analogs; if the system adapts via transfer learning or causal reasoning, it's w-maxing (weak constraints allow flexibility); if it fails categorically, your constraints are too specific. A true AGI candidate should score well on all three: scalable, simple, and adaptable.
+      </p>
+    </div>
+  </section>
+
+  <!-- Supporting callouts -->
+  <section class="grid md:grid-cols-2 gap-4">
+    <div class="panel panel-info p-4 space-y-2">
+      <h4 class="text-sm font-semibold text-heading">Search vs Approximation tools</h4>
+      <p class="text-xs leading-relaxed panel-muted">
+        <strong>Search:</strong> Takes structure (rules, goals) and constructs solutions within constraints. Examples: A* pathfinding, theorem proving, AlphaGo move exploration. Pros: Verifiable, interpretable, precise. Cons: Sequential (ill-suited for GPU parallelization), expensive for large state spaces, requires well-defined problems.
+      </p>
+      <p class="text-xs leading-relaxed panel-muted">
+        <strong>Approximation:</strong> Adjusts parameters to map inputs to outputs that approximate training data. Examples: CNNs for images, transformers for text. Pros: Handles noisy data, parallelizes easily, scales on modern hardware. Cons: Imprecise, uninterpretable, sample and energy inefficient—struggles with edge cases by design.
+      </p>
+      <p class="text-xs leading-relaxed panel-muted">
+        Hybrids combine strengths: AlphaGo uses search (explore moves) and approximation (evaluate positions). o3 uses chain-of-thought (structured reasoning) and LLMs (generate candidates). Neuro-symbolic systems ground symbols in neural perception, enabling planning over learned representations.
+      </p>
+    </div>
+    <div class="panel panel-info p-4 space-y-2">
+      <h4 class="text-sm font-semibold text-heading">Computational dualism problem</h4>
+      <p class="text-xs leading-relaxed panel-muted">
+        Many AGI formalisms (AIXI, Legg-Hutter intelligence, Chollet's ARC) treat intelligence as a property of software interacting with the world through an interpreter (hardware, environment). This is <em>computational dualism</em>—separating "mind" (software) from "body" (hardware). The problem: Kolmogorov complexity (simplicity measure) depends on your choice of Turing machine. Change the interpreter, and the "optimal" agent changes. Intelligence scores become subjective.
+      </p>
+      <p class="text-xs leading-relaxed panel-muted">
+        <strong>Alternative:</strong> Enactive cognition treats the system as a whole—software, hardware, and environment together form a single adaptive process. Intelligence becomes objective adaptability: completing a superset of tasks across diverse embodiments. This frames sample and energy efficiency as intrinsic to intelligence (not external costs), explaining why biological systems delegate control to lower abstraction levels (cells self-organize) for better adaptation.
+      </p>
+    </div>
+  </section>
+
+  <!-- Key insight / Method / Implication -->
+  <section class="grid md:grid-cols-3 gap-4">
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h4 class="text-sm font-semibold text-heading">💡 Key insight</h4>
+      <p class="text-xs leading-relaxed text-body">
+        AGI requires fusion of meta-approaches, not dominance of one. Scale-maxing (Bitter Lesson) assumes infinite resources eventually solve everything, but "eventually" hides the cost. Simp-maxing (Ockham's Razor) optimizes form (compressibility) without guaranteeing functional generalization. W-maxing (Bennett's Razor) optimizes function (adaptability) by weakening constraints, yielding 110-500% better generalization than simplicity alone in experiments. The bottleneck has shifted from compute (solved by GPUs) to efficiency (sample/energy).
+      </p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h4 class="text-sm font-semibold text-heading">🔬 Method</h4>
+      <p class="text-xs leading-relaxed text-body">
+        Survey compares intelligence definitions (adaptation vs skill-acquisition vs goal-satisfaction), settling on adaptation with limited resources. Analyzes foundational tools (search: A*, theorem provers; approximation: neural nets, transformers) and their hybrids (AlphaGo, o3, AlphaGeometry). Taxonomizes meta-approaches into three buckets: scale-maxing (GPT-3, AlphaFold—brute-force via resources), simp-maxing (AIXI, MDL—compression via Kolmogorov complexity), w-maxing (Stack Theory, enactivism—weak constraints via functional delegation). Examines cognitive architectures (NARS, AERA, Hyperon) as comprehensive AGI frameworks.
+      </p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h4 class="text-sm font-semibold text-heading">⚡ Implication</h4>
+      <p class="text-xs leading-relaxed text-body">
+        "AGI via scaling" is incomplete—LLMs fail structurally on novelty (sparse data scenarios) and energy costs limit deployment. Next-generation systems must hybridize: search for interpretable precision, approximation for scalable learning, and efficiency optimization through weak constraints (delegating control to hardware, biological-style self-organization). Autonomous agents (artificial scientists) require modular architectures like NARS, AERA, Hyperon that integrate perception, memory, reasoning, and causal inference—not monolithic approximation models scaled indefinitely.
+      </p>
+    </div>
+  </section>
+
+  <!-- Evidence -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <header class="flex items-center gap-2">
+      <span aria-hidden="true" class="text-lg">🧪</span>
+      <h3 class="text-sm font-semibold tracking-wide uppercase text-heading">Evidence</h3>
+    </header>
+    <ul class="list-disc ml-5 space-y-2 text-sm panel-muted">
+      <li><strong>Scale-maxing dominance and limits:</strong> GPT-3 (175B parameters, 45TB text) demonstrates scaling success; however, performance gains now show diminishing returns and sample inefficiency remains structural—novelty by definition lacks training examples, causing inevitable failure on edge cases</li>
+      <li><strong>Hybrid superiority:</strong> AlphaGo defeated world Go champion via search (move exploration) + approximation (position evaluation). o3 uses chain-of-thought reasoning (structured search) with LLMs (approximation). AlphaGeometry fuses neural networks with symbolic geometry reasoning—demonstrating complementary strengths</li>
+      <li><strong>W-maxing generalization gains:</strong> Experiments on binary arithmetic show w-maxing (weakest constraints) achieves 110-500% better generalization than simp-maxing (Kolmogorov complexity) alone when both use same training data—weak constraints enable better handling of edge cases</li>
+      <li><strong>Cognitive architecture modularity:</strong> Hyperon (probabilistic logic + neural nets + knowledge metagraph), AERA (self-programming + analogy + causal models), NARS (non-axiomatic reasoning under insufficient knowledge) provide comprehensive AGI frameworks integrating perception, memory, planning, and autonomous experimentation beyond monolithic models</li>
+      <li><strong>Computational dualism critique:</strong> Kolmogorov complexity is interpreter-dependent—choice of Universal Turing Machine can make any agent "optimal" under Legg-Hutter intelligence, proving intelligence measures based on software alone are subjective; enactive cognition resolves this by formalizing whole-system adaptability</li>
+      <li><strong>Bottleneck shift confirmed:</strong> The Embiggening (2020-2024 scaling era) was enabled by GPU hardware improvements; current limitations are energy cost (unsustainable for deployment) and sample efficiency (cannot learn from sparse data), not compute availability</li>
+    </ul>
+  </section>
+
+  <!-- Roadmap -->
+  <section class="panel panel-warning p-5 space-y-3">
+    <header class="flex items-center gap-2">
+      <span aria-hidden="true" class="text-lg">🔭</span>
+      <h3 class="text-sm font-semibold tracking-wide uppercase text-heading">For your roadmap</h3>
+    </header>
+    <p class="text-sm leading-relaxed text-body">
+      Audit your AI strategy against the three meta-approaches: Are you scale-maxing without efficiency optimization? Simp-maxing form without measuring functional generalization? Ignoring w-maxing opportunities like hardware-level delegation or modular architectures? True AGI (autonomous experimentation) requires hybrid tools and balanced meta-approaches, not just scaling compute until breakthrough emerges.
+    </p>
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+      <li>Measure sample efficiency directly: test model performance on novel scenarios with sparse training analogs; if accuracy collapses, you're hitting scale-maxing limits and need hybrid approaches (search + approximation) or w-maxing (weaker constraints)</li>
+      <li>For edge-case applications (fraud, anomaly detection, medical diagnosis), prefer neuro-symbolic hybrids that ground search in learned representations—pure approximation (LLMs) will fail structurally on genuine novelty</li>
+      <li>Optimize energy efficiency via w-maxing: delegate control to lower abstraction levels (hardware acceleration, FPGA customization, biological-inspired self-organization) rather than scaling model size indefinitely—biology adapts better than AI because it optimizes across software and hardware simultaneously</li>
+      <li>If building autonomous agents (research assistants, robotics, automated experimentation), evaluate modular cognitive architectures (NARS for incremental learning under uncertainty, AERA for causal reasoning and self-programming, Hyperon for distributed scalability) as alternatives to monolithic LLMs</li>
+      <li>Track meta-approach balance: log where improvements come from—if 100% of gains are scale-maxing, you're vulnerable to diminishing returns; diversify into simp-maxing (compression, pruning, quantization) and w-maxing (constraint relaxation, modularity, multi-level optimization) for sustainable progress</li>
+    </ul>
+  </section>
+</section>

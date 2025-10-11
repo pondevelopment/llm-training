@@ -1,4 +1,28 @@
 {
+  "32": {
+    "title": "Performance or Principle: Resistance to Artificial Intelligence in the U.S. Labor Market",
+    "authors": [
+      "Simon Friis",
+      "James W. Riley"
+    ],
+    "year": 2025,
+    "venue": "Harvard Business School (2025)",
+    "tags": [
+      "economics",
+      "policy",
+      "labor-market",
+      "public-perception",
+      "ethics"
+    ],
+    "summary": "Large-scale U.S. survey (N=23,570 ratings across 940 occupations) reveals public resistance to AI automation divides into performance-based (88% of occupations—fades as AI improves) and principle-based (12%—permanent moral boundaries). Support rises from 30% to 58% of occupations when AI outperforms humans, but caregiving, therapy, and spiritual roles remain categorically off-limits. Protected occupations tend to have higher wages and disproportionately employ White/female workers, creating inequality trade-offs. Framework enables prediction of technology adoption resistance across domains.",
+    "dir": "./papers/p32",
+    "interactiveTitle": "AI automation resistance analyzer",
+    "relatedQuestions": [
+      14,
+      29,
+      43
+    ]
+  },
   "31": {
     "title": "Can Large Language Models Develop Gambling Addiction?",
     "authors": [

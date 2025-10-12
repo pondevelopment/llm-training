@@ -1,0 +1,132 @@
+﻿<section class="space-y-5">
+  <!-- Paper header -->
+  <section class="panel panel-info p-4 space-y-4">
+    <div class="flex items-center justify-between gap-4">
+      <div class="flex-1 min-w-0">
+        <h2 class="text-xl font-semibold text-heading">Emergent Coordination in Multi-Agent Language Models</h2>
+        <p class="text-sm panel-muted">Christoph Riedl • arXiv:2510.05174 (Oct 2025)</p>
+      </div>
+      <a href="https://arxiv.org/abs/2510.05174" target="_blank" rel="noopener" class="btn-soft text-xs font-semibold flex-shrink-0" data-accent="foundations">
+        <span>View paper</span>
+        <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+    <p class="text-sm leading-relaxed panel-muted">
+      Introduces an information-theoretic framework to measure whether multi-agent LLM systems exhibit higher-order collective structure versus being mere aggregates of independent agents. Using partial information decomposition of time-delayed mutual information (TDMI), the paper shows that prompt design—specifically adding personas and theory-of-mind instructions—can steer groups from temporal coupling to genuine coordinated complementarity, mirroring principles of human collective intelligence.
+    </p>
+    <div class="panel panel-neutral-soft p-3 space-y-2 text-xs">
+      <p class="font-semibold text-heading">Plain-language explainer</p>
+      <p class="panel-muted">Imagine hiring three consultants to solve a problem. They might all work independently and give you three similar answers (expensive redundancy), or they might coordinate—one researches, one critiques, one synthesizes—giving you complementary insights for the same cost. This paper shows you can measure the difference using information theory and, crucially, <em>engineer</em> real coordination by simply changing how you prompt the agents.</p>
+      <p class="panel-muted"><strong>Business value:</strong> Stop paying for redundant multi-agent systems that just run agents in parallel. The paper's framework lets you verify whether your system actually coordinates (justifying the complexity and cost) or whether a simpler single-agent approach would work just as well. Even better: the fix is often just better prompts—no infrastructure changes needed.</p>
+    </div>
+  </section>
+
+  <!-- Executive quick take -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <header class="flex items-center gap-2">
+      <span aria-hidden="true" class="text-lg">🧭</span>
+      <h3 class="text-sm font-semibold tracking-wide uppercase text-heading">Executive quick take</h3>
+    </header>
+    <p class="text-sm leading-relaxed text-body">
+      Multi-agent LLM systems often appear collaborative but may just be independent actors running in parallel. This paper provides a rigorous test: if agents show <strong>synergistic information</strong>—patterns no single agent timeline could produce alone—they're forming a genuine collective. The kicker: adding simple prompts like "think about what others might do" measurably shifts systems from loose aggregates to coordinated teams with complementary roles.
+    </p>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>Coordination as measurable emergence:</strong> Use information decomposition to distinguish real cross-agent synergy from coincidental temporal alignment.</li>
+      <li><strong>Prompt engineering unlocks structure:</strong> Personas create stable differentiation; theory-of-mind instructions add goal-directed complementarity.</li>
+      <li><strong>Practical governance:</strong> Track synergy metrics to verify whether multi-agent architectures justify their complexity versus single-agent ensembles.</li>
+    </ul>
+  </section>
+
+  <!-- Business relevance -->
+  <section class="panel panel-success p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">💼 Business relevance</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+      <li><strong>Platform architects:</strong> Validate whether your multi-agent orchestration truly coordinates or just runs agents in parallel; synergy metrics justify infrastructure spend.</li>
+      <li><strong>Product teams:</strong> Design prompts that enforce complementary roles (researcher + critic + synthesizer) rather than redundant perspectives, improving output diversity and reducing waste.</li>
+      <li><strong>Research leads:</strong> Establish baselines for collective AI behavior; measure when scaling to more agents provides diminishing returns versus unlocking emergent capabilities.</li>
+      <li><strong>Policy/compliance:</strong> Emergent coordination might produce unpredictable group behaviors; monitor synergy signals to detect when multi-agent systems deviate from individual agent policies.</li>
+    </ul>
+    <div class="panel panel-neutral-soft p-3 mt-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Derivative example</p>
+      <p class="panel-muted">A customer service team could log multi-agent support session transcripts, compute TDMI across agents handling routing/troubleshooting/escalation, and verify whether coordination prompts reduce redundant queries versus baseline round-robin assignment. Positive synergy signals justify cost of multi-agent orchestration; zero synergy suggests reverting to simpler single-agent workflows.</p>
+    </div>
+  </section>
+
+  <!-- Supporting callouts -->
+  <div class="grid md:grid-cols-2 gap-4">
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">What is time-delayed mutual information (TDMI)?</h3>
+      <p class="text-xs panel-muted">TDMI measures how much knowing one agent's past behavior reduces uncertainty about another agent's future actions. High TDMI alone could mean true coordination or just temporal correlation (like morning coffee routines). The paper uses partial information decomposition to split TDMI into <em>redundant</em> (predictable from any single agent), <em>unique</em> (agent-specific), and <em>synergistic</em> (only visible when observing the collective) components. Synergy is the smoking gun for emergent coordination.</p>
+    </div>
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">What is theory-of-mind (ToM) in LLMs?</h3>
+      <p class="text-xs panel-muted"><strong>Theory-of-mind</strong> is the ability to reason about others' mental states, beliefs, and intentions. In this paper, it's operationalized as a simple prompt instruction: <em>"Think about what other agents might do."</em> This triggers <strong>second-order reasoning</strong>—agents don't just react to tasks, they model what their teammates are likely doing and adjust to complement (not duplicate) their contributions. The result: agents actively coordinate to fill gaps rather than accidentally overlapping. It's the key ingredient that transforms differentiation into <em>goal-directed complementarity</em>.</p>
+    </div>
+  </div>
+  
+  <div class="panel panel-info p-4 space-y-2">
+    <h3 class="text-sm font-semibold text-heading">Three experimental interventions</h3>
+    <p class="text-xs panel-muted">The paper tests a simple guessing game with minimal feedback across three conditions: (1) <strong>Control</strong>—agents respond to shared group signal but don't see each other; shows temporal coupling but little cross-agent structure. (2) <strong>Personas</strong>—each agent assigned a role identity; introduces stable differentiation. (3) <strong>Personas + theory-of-mind</strong>—adding "think about what others might do" instruction; produces identity-linked differentiation <em>and</em> goal-directed complementarity. Results show synergy scales with intervention strength.</p>
+  </div>
+
+  <!-- Key insight / Method / Implication trio -->
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Key insight</h3>
+      <p class="text-xs panel-muted">Multi-agent LLM systems can be steered from mere aggregates (independent agents) to higher-order collectives (synergistic coordination) purely through prompt design—no architecture changes needed. Information decomposition provides a data-driven test to distinguish real emergence from temporal coincidence.</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Method</h3>
+      <p class="text-xs panel-muted">Apply partial information decomposition to TDMI, breaking agent interactions into redundant, unique, and synergistic information. Run controlled experiments with randomized interventions (control, personas, personas+ToM), compute entropy estimates, and validate against coordination-free baselines to confirm synergy is performance-relevant.</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Implication</h3>
+      <p class="text-xs panel-muted">Practitioners should instrument multi-agent systems with synergy metrics before scaling; zero synergy suggests reverting to simpler ensembles. Design prompts that enforce complementary roles and theory-of-mind reasoning to unlock coordination. Monitor for emergent behaviors that might deviate from individual agent policies.</p>
+    </div>
+  </div>
+
+  <!-- Evidence -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🧪 Evidence</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>Synergy scales with intervention:</strong> Control condition shows strong temporal coupling but minimal cross-agent synergy; personas add differentiation; personas+theory-of-mind produce goal-directed complementarity measured via information decomposition.</li>
+      <li><strong>Robust across estimators:</strong> Results hold using multiple entropy estimation methods (binning, KSG, Gaussian approximation) and two synergy measures (minimum mutual information, BROJA), ruling out methodological artifacts.</li>
+      <li><strong>Coordination-free baselines fail:</strong> Shuffled agent assignments and independent-agent controls show near-zero synergy, confirming measured coordination is genuine and not explained by temporal dynamics alone.</li>
+      <li><strong>Mirrors human collective intelligence:</strong> Observed patterns match established principles from human team research—effective groups require both alignment on shared goals and complementary contributions across members.</li>
+    </ul>
+  </section>
+
+  <!-- Forward-looking roadmap -->
+  <section class="panel panel-warning p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🔭 For your roadmap</h3>
+    <p class="text-sm text-body">
+      The paper establishes a foundation for measuring emergent coordination in multi-agent LLM systems. Practitioners can immediately apply these insights to existing multi-agent architectures and prompt designs.
+    </p>
+    
+    <div class="panel panel-info p-4 space-y-2">
+      <h4 class="text-sm font-semibold text-heading">Instrumentation priorities</h4>
+      <p class="text-xs text-body">Before scaling multi-agent systems, add telemetry to measure whether coordination is actually occurring versus just parallel execution.</p>
+      <ul class="list-disc ml-4 space-y-1 text-[11px] panel-muted">
+        <li>Log agent interaction traces with timestamps to compute TDMI and information decomposition metrics</li>
+        <li>Establish baseline synergy scores from coordination-free controls (shuffled assignments, independent runs)</li>
+        <li>Set thresholds: positive synergy justifies multi-agent complexity; near-zero suggests reverting to simpler ensembles</li>
+      </ul>
+    </div>
+
+    <div class="panel panel-info p-4 space-y-2">
+      <h4 class="text-sm font-semibold text-heading">Prompt engineering experiments</h4>
+      <p class="text-xs text-body">Systematically test whether coordination prompts unlock performance gains in your domain.</p>
+      <ul class="list-disc ml-4 space-y-1 text-[11px] panel-muted">
+        <li>Run A/B tests: baseline multi-agent system vs. adding personas vs. personas+theory-of-mind instructions</li>
+        <li>Design complementary roles (researcher/critic/synthesizer, extractor/validator/formatter) rather than redundant perspectives</li>
+        <li>Measure both synergy metrics and task performance to verify coordination translates to output quality</li>
+      </ul>
+    </div>
+
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+      <li>Build TDMI monitoring into production multi-agent systems to detect when coordination degrades or produces unexpected emergent behaviors</li>
+      <li>Extend framework to larger groups and more complex tasks; validate whether synergy patterns hold beyond simple guessing games</li>
+      <li>Investigate when emergent coordination might create policy/compliance risks—collective behaviors that deviate from individual agent constraints</li>
+    </ul>
+  </section>
+</section>

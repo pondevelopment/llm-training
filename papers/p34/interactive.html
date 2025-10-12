@@ -1,0 +1,136 @@
+﻿<section class="space-y-6" id="p34-explorer">
+  <!-- Experimental condition controls -->
+  <div class="panel panel-info p-4 space-y-3">
+    <h4 class="text-sm font-semibold text-heading">Simulation controls</h4>
+    <div>
+      <label for="p34-condition" class="block text-sm font-medium text-heading">Prompt intervention</label>
+      <select id="p34-condition" class="mt-1 w-full rounded border border-divider bg-card px-3 py-2 text-sm text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
+        <option value="control">Control (no personas, no theory-of-mind)</option>
+        <option value="personas">Personas only</option>
+        <option value="personas-tom">Personas + theory-of-mind</option>
+      </select>
+      <p id="p34-condition-desc" class="text-xs panel-muted mt-1">Control: agents respond to shared feedback only. Personas: assign role identities. +ToM: add "think about what others might do" instruction.</p>
+    </div>
+    <div>
+      <label for="p34-task" class="block text-sm font-medium text-heading">Task scenario</label>
+      <select id="p34-task" class="mt-1 w-full rounded border border-divider bg-card px-3 py-2 text-sm text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
+        <option value="guessing">Number guessing (paper baseline)</option>
+        <option value="research">Research + critique + synthesis</option>
+        <option value="support">Customer support routing</option>
+        <option value="analysis">Data extraction + validation</option>
+      </select>
+      <div id="p34-task-desc" class="text-xs panel-muted mt-1">
+        Agents independently guess a target number based on minimal group feedback. Simple task from the paper used to isolate coordination patterns without confounding domain complexity.
+      </div>
+    </div>
+    <div>
+      <label for="p34-agents" class="block text-sm font-medium text-heading">Number of agents <span id="p34-agents-label" class="font-mono text-xs panel-muted">3</span></label>
+      <input type="range" id="p34-agents" min="2" max="6" step="1" value="3" class="w-full">
+      <p class="text-xs panel-muted mt-1">The paper uses 3 agents; explore what happens with smaller or larger groups.</p>
+    </div>
+    <div>
+      <label for="p34-rounds" class="block text-sm font-medium text-heading">Interaction rounds <span id="p34-rounds-label" class="font-mono text-xs panel-muted">10</span></label>
+      <input type="range" id="p34-rounds" min="5" max="20" step="1" value="10" class="w-full">
+      <p class="text-xs panel-muted mt-1">More rounds let coordination patterns stabilize or emerge over time.</p>
+    </div>
+  </div>
+
+  <!-- Coordination metrics display -->
+  <div class="panel panel-neutral p-4 space-y-4">
+    <h4 class="text-sm font-semibold text-heading">Emergent coordination metrics</h4>
+    <p class="text-xs panel-muted">These metrics approximate information decomposition patterns from the paper. Higher synergy = more genuine coordination.</p>
+    
+    <dl class="grid sm:grid-cols-3 gap-3 text-xs text-body">
+      <div class="panel panel-neutral-soft p-3 space-y-1">
+        <dt class="font-semibold text-heading text-xs uppercase tracking-wide">Temporal coupling</dt>
+        <dd id="p34-temporal" class="text-sm font-semibold text-info">--</dd>
+        <p class="text-[11px] panel-muted">Correlation over time (high even without coordination)</p>
+      </div>
+      <div class="panel panel-neutral-soft p-3 space-y-1">
+        <dt class="font-semibold text-heading text-xs uppercase tracking-wide">Agent differentiation</dt>
+        <dd id="p34-differentiation" class="text-sm font-semibold text-info">--</dd>
+        <p class="text-[11px] panel-muted">Unique agent-specific patterns (personas enable this)</p>
+      </div>
+      <div class="panel panel-neutral-soft p-3 space-y-1">
+        <dt class="font-semibold text-heading text-xs uppercase tracking-wide">Synergistic coordination</dt>
+        <dd id="p34-synergy" class="text-sm font-semibold text-info">--</dd>
+        <p class="text-[11px] panel-muted">Cross-agent complementarity (ToM unlocks this)</p>
+      </div>
+    </dl>
+
+    <div>
+      <div class="flex items-center justify-between mb-2">
+        <span class="text-xs font-medium text-heading">Coordination strength</span>
+        <span id="p34-coordination-percent" class="text-sm font-semibold text-info">0%</span>
+      </div>
+      <div class="h-3 rounded-full bg-subtle overflow-hidden">
+        <div id="p34-coordination-bar" class="h-full rounded-full transition-all duration-300" style="width:0%"></div>
+      </div>
+      <p id="p34-coordination-note" class="text-xs panel-muted mt-1">Run the simulation to see emergent coordination patterns.</p>
+    </div>
+  </div>
+
+  <!-- Visualization of agent behavior over time -->
+  <div class="panel panel-neutral p-4 space-y-3">
+    <h4 class="text-sm font-semibold text-heading">Agent behavior timeline</h4>
+    <div id="p34-timeline" class="panel panel-neutral-soft p-4 min-h-[200px] text-xs text-body">
+      <p class="text-center panel-muted">Adjust controls above to visualize agent coordination patterns</p>
+    </div>
+    <div class="text-xs space-y-2">
+      <p class="text-body"><strong>Reading the timeline:</strong> Each row shows one agent's behavior across interaction rounds (left to right). Each block represents activity intensity in that round.</p>
+      <p class="panel-muted"><strong>Color hue</strong> = agent identity (starts similar, differentiates over time as coordination emerges). <strong>Brightness</strong> = activity level in that round. <strong>Pattern</strong> = coordination type:</p>
+      <ul class="list-disc list-inside panel-muted ml-2 space-y-1">
+        <li><strong>Similar colors throughout</strong> → Control: minimal differentiation, agents remain independent</li>
+        <li><strong>Colors diverge gradually</strong> → Personas: stable role identities emerge over time</li>
+        <li><strong>Colors diverge rapidly + complementary brightness patterns</strong> → Personas+ToM: agents actively coordinate (when one is bright, others dim = complementarity)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Information decomposition breakdown -->
+  <div class="grid md:grid-cols-2 gap-4">
+    <div class="panel panel-neutral p-4 space-y-3">
+      <h4 class="text-sm font-semibold text-heading">TDMI components</h4>
+      <div id="p34-tdmi-breakdown" class="space-y-3 text-xs">
+        <div class="space-y-0.5">
+          <div class="flex justify-between items-center">
+            <span class="text-body font-medium">Redundant</span>
+            <span id="p34-redundant" class="font-mono text-info">--</span>
+          </div>
+          <p class="text-[11px] panel-muted">Information shared by all agents (everyone reacting to the same signal)</p>
+        </div>
+        <div class="space-y-0.5">
+          <div class="flex justify-between items-center">
+            <span class="text-body font-medium">Unique</span>
+            <span id="p34-unique" class="font-mono text-info">--</span>
+          </div>
+          <p class="text-[11px] panel-muted">Agent-specific patterns (each agent's individual style or role)</p>
+        </div>
+        <div class="space-y-0.5">
+          <div class="flex justify-between items-center">
+            <span class="text-body font-medium">Synergistic</span>
+            <span id="p34-synergistic" class="font-mono text-info">--</span>
+          </div>
+          <p class="text-[11px] panel-muted">Cross-agent coordination (patterns only visible when observing the group)</p>
+        </div>
+      </div>
+      <p class="text-xs panel-muted mt-3 pt-3 border-t border-divider"><strong>Key:</strong> Synergy is the signal for genuine coordination—if it's near zero, agents aren't truly coordinating despite appearing to work together.</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-3">
+      <h4 class="text-sm font-semibold text-heading">Task performance</h4>
+      <div class="text-2xl font-mono text-info" id="p34-performance">--</div>
+      <p class="text-xs panel-muted">Group success rate on the guessing task. High coordination should correlate with better outcomes.</p>
+      <div id="p34-performance-detail" class="text-xs text-body space-y-1 mt-2">
+        <!-- Populated by simulation -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Interpretation panel -->
+  <div class="panel panel-warning p-4 space-y-2" id="p34-insight">
+    <h4 class="text-sm font-semibold text-heading">Coordination analysis</h4>
+    <div id="p34-insight-content" class="text-sm text-body space-y-2">
+      <p>Adjust controls above to see how different prompt interventions affect emergent coordination patterns.</p>
+    </div>
+  </div>
+</section>

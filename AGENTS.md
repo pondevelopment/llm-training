@@ -78,6 +78,54 @@ Always consult these when creating or updating any question or paper. They are t
 - Ensure all files remain UTF-8 encoded with `\n` line endings so emoji and punctuation render correctly.
 - Park temporary downloads or scratch exports under `tmp/` (gitignored) and delete them before you ship changes.
 
+## Documentation maintenance
+
+After completing work, review whether the patterns, decisions, or solutions introduced should be documented:
+
+### When to update AGENTS.md
+
+- You discovered a new best practice or workflow improvement
+- You solved a problem that took significant effort to resolve
+- You made architectural decisions that should guide future work
+- You identified common pitfalls or anti-patterns to avoid
+- You established new conventions for naming, structure, or organization
+
+### When to update template guides (PAPER_TEMPLATE_GUIDE.md, QUESTION_TEMPLATE_GUIDE.md)
+
+- You added new UI patterns or components that should be reused
+- You changed the structure or sections of papers/questions
+- You introduced new semantic classes or theme tokens
+- You updated the interactive component expectations or APIs
+- You added new quality checks or validation requirements
+
+### When to update checklists (PAPER_CHECKLIST.md, QUESTION_CHECKLIST.md)
+
+- You added steps to your workflow that should be mandatory
+- You discovered validation steps that catch common errors
+- You added new file types or integration points
+- You identified visual consistency checks that matter
+
+### Review triggers
+
+Explicitly consider updating docs after:
+
+- Creating your first instance of a new asset type (paper, question, tutorial)
+- Refactoring patterns across multiple files
+- Resolving ambiguous or underspecified requirements
+- Receiving feedback that reveals documentation gaps
+- Introducing tools, scripts, or automation
+
+### Self-check before completing
+
+Before marking work complete, ask:
+
+1. "Would future contributors benefit from knowing how I approached this?"
+2. "Did I diverge from existing guidelines? Should the guidelines change or should I realign?"
+3. "What took me longest to figure out? Should that be documented?"
+4. "Are there decisions here that I'd want to remember if I return in 6 months?"
+
+Keep documentation living and accurate—stale guidelines are worse than missing ones.
+
 Follow these instructions and the accompanying docs to keep new questions consistent, discoverable, and easy to maintain.
 
 

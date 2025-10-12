@@ -1,0 +1,148 @@
+<section class="space-y-5">
+  <!-- Paper header -->
+  <section class="panel panel-info p-4 space-y-4">
+    <div class="flex items-center justify-between gap-4">
+      <div class="flex-1 min-w-0">
+        <h2 class="text-xl font-semibold text-heading">Can GenAI Improve Academic Performance?</h2>
+        <p class="text-sm panel-muted">Dragan Filimonovic, Christian Rutzer, Conny Wunsch • University of Basel (2025)</p>
+      </div>
+      <a 
+        href="https://arxiv.org/pdf/2510.02408" 
+        target="_blank" 
+        rel="noopener"
+        class="btn-soft text-xs font-semibold flex-shrink-0"
+        data-accent="foundations">
+        <span>View paper</span>
+        <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+    <p class="text-sm leading-relaxed panel-muted">
+      This study provides the first large-scale empirical evidence on GenAI's impact on scientific productivity. Using matched author-level panel data from 32,480 social science researchers (2021-2024), the authors find that GenAI adoption increased publication output by 36% in 2024 compared to non-users, with modest gains in journal quality (+2%). Effects are strongest among early-career researchers, technically complex fields, and non-English-speaking countries.
+    </p>
+    <div class="panel panel-neutral-soft p-3 space-y-2 text-xs">
+      <p class="font-semibold text-heading">Plain-language explainer</p>
+      <p class="panel-muted">Imagine two equally talented researchers—one uses ChatGPT to polish drafts and speed up literature reviews, the other does everything manually. By year two, the first researcher publishes a third more papers without sacrificing quality. This isn't about cheating; it's about removing friction: language barriers shrink, technical writing gets faster, and structural barriers fall for those who previously struggled most with English-language publishing.</p>
+    </div>
+  </section>
+
+  <!-- Executive quick take -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <header class="flex items-center gap-2">
+      <span aria-hidden="true" class="text-lg">🧭</span>
+      <h3 class="text-sm font-semibold tracking-wide uppercase text-heading">Executive quick take</h3>
+    </header>
+    <p class="text-sm leading-relaxed text-body">
+    GenAI tools demonstrably boost research productivity without degrading quality, with the largest gains accruing to structurally disadvantaged groups. For research institutions, this isn't hypothetical—it's measurable. The 36% productivity lift in year two suggests GenAI isn't just a writing assistant; it's becoming infrastructure that reshapes who can participate effectively in global science.
+  </p>
+  <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+    <li><strong>Effect size:</strong> 15% productivity gain in year one, rising to 36% by year two—cumulative gains suggest network effects or learning curves, not one-time boosts</li>
+    <li><strong>Quality holds:</strong> Journal impact factors rose modestly (+1-2%), indicating GenAI isn't inflating output at the expense of rigor</li>
+    <li><strong>Equity signal:</strong> Non-English speakers and early-career researchers benefit most, pointing to GenAI as a partial corrective for linguistic and experience-based barriers in publishing</li>
+  </ul>
+</section>
+
+  <!-- Business relevance -->
+  <section class="panel panel-success p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">💼 Business relevance</h3>
+  <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+    <li><strong>Hiring signals:</strong> Candidates from non-English-speaking countries who adopted GenAI early may show artificially inflated CVs—control for publication dates post-2023 when evaluating research velocity</li>
+    <li><strong>Institutional policy:</strong> Providing enterprise GenAI subscriptions (ChatGPT Plus, Claude Pro) may yield measurable ROI in publication throughput for postdocs and junior faculty</li>
+    <li><strong>Equity interventions:</strong> Target GenAI training and access to early-career researchers and non-native English speakers to maximize impact per dollar spent</li>
+    <li><strong>Benchmarking risk:</strong> Comparing 2024 productivity to 2022 baselines without adjusting for GenAI penetration rates will systematically underestimate non-adopters' relative performance</li>
+  </ul>
+
+  <div class="panel panel-neutral-soft p-3 mt-3 space-y-1 text-xs">
+    <p class="font-semibold text-heading">Derivative example: audit your research team's GenAI adoption</p>
+    <ol class="list-decimal ml-5 space-y-1 panel-muted">
+      <li>Export publication metadata (titles, abstracts) for your team from 2021-2024</li>
+      <li>Run a keyword frequency analysis using the paper's 65 GenAI markers (see Table 1: "delve," "groundbreaking," "intricate," etc.)</li>
+      <li>Calculate each author's percentage change in GenAI-related term usage between 2021-2022 and 2023-2024</li>
+      <li>Cross-reference against productivity metrics (papers per year) and career stage—look for asymmetric gains skewed toward early-career or non-native English speakers</li>
+      <li>If gains are concentrated among adopters, pilot a GenAI training program for the rest of the team with quarterly publication velocity tracking</li>
+    </ol>
+  </div>
+</section>
+
+  <!-- Supporting callouts -->
+  <div class="grid md:grid-cols-2 gap-4">
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Why keyword detection works for adoption tracking</h3>
+      <p class="text-xs panel-muted">
+      GenAI models (especially GPT-3.5/4) exhibit distinctive lexical patterns—words like "delve," "meticulous," "intricate," and "underscore" appear at higher frequencies in LLM-generated text than human writing. The study tracks 65 such markers, filtered to those showing ≥200% frequency increases between 2022 and 2024. This method is computationally lightweight, transparent, and replicable across large datasets. While it doesn't capture GenAI use for coding or data analysis, it reliably identifies text-based adoption—the primary bottleneck in academic publishing.
+      </p>
+    </div>
+
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Propensity score matching: isolating the GenAI effect</h3>
+      <p class="text-xs panel-muted">
+      Self-selection bias is a major threat: perhaps GenAI adopters are simply more productive, tech-savvy, or ambitious. The authors address this with nearest-neighbor propensity score matching (3:1 control ratio), balancing pre-treatment publication counts, impact factors, career age, gender, field, and language proximity to English. Combined with author fixed effects, this design controls for time-invariant differences and ensures comparisons track within-person changes over time, not cross-sectional differences between high and low performers.
+      </p>
+    </div>
+  </div>
+
+  <!-- Key insight / Method / Implication trio -->
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Key insight</h3>
+      <p class="text-xs panel-muted">
+        GenAI adoption shows cumulative productivity gains (15%→36% over two years) concentrated among structurally disadvantaged groups, suggesting it reduces friction rather than amplifying existing advantages.
+      </p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Method</h3>
+      <p class="text-xs panel-muted">
+        Difference-in-differences with propensity score matching on 32,480 social science authors (2021-2024), identifying GenAI users via lexical markers in titles/abstracts, controlling for career stage, field, gender, and language background.
+      </p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Implication</h3>
+      <p class="text-xs panel-muted">
+        Institutions delaying GenAI access may inadvertently widen productivity gaps. Early evidence suggests targeted subsidies for non-English speakers and junior researchers yield highest ROI.
+      </p>
+    </div>
+  </div>
+
+  <!-- Evidence -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🧪 Evidence from the study</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+    <li><strong>Productivity trajectory:</strong> GenAI users published 15% more papers in 2023 and 36% more in 2024 compared to matched non-users (DiD estimates with author fixed effects)</li>
+    <li><strong>Quality stability:</strong> Mean journal impact factors (SJR, fixed at 2019 values) rose 1.3% in 2023 and 2.0% in 2024—modest but positive, ruling out quality dilution</li>
+    <li><strong>Heterogeneity by career stage:</strong> Early-career researchers show strongest gains; effects diminish for established authors with existing publication infrastructure</li>
+    <li><strong>Language advantage:</strong> Authors from non-English-speaking countries experience disproportionately large productivity gains, consistent with GenAI reducing language editing costs</li>
+    <li><strong>Field variation:</strong> Technically complex subfields (quantitative methods, computational social science) show larger effects than purely qualitative domains</li>
+    <li><strong>Robustness:</strong> Results stable across alternative keyword thresholds (100%, 200%, 500% frequency increases) and matching specifications (1:1, 1:2, 1:3 ratios)</li>
+    <li><strong>No gender gap:</strong> Productivity gains roughly equal for male and female adopters, contrasting with earlier preprint-based studies suggesting men benefit more</li>
+  </ul>
+</section>
+
+  <!-- Forward-looking roadmap -->
+  <section class="panel panel-warning p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🔭 For your roadmap</h3>
+    <p class="text-sm leading-relaxed text-body">
+    This study offers clear entry points for institutions and research managers tracking productivity in the GenAI era:
+  </p>
+  
+  <div class="panel panel-info p-4 space-y-2">
+    <h4 class="text-sm font-semibold text-heading">Institutional adoption tracking</h4>
+    <p class="text-xs panel-muted">
+      Replicate the keyword detection methodology on your organization's publication corpus. Export titles/abstracts from institutional repositories, calculate GenAI marker frequencies pre- and post-2023, and segment by department, career stage, and language background. This baseline lets you measure adoption velocity and identify groups falling behind.
+    </p>
+  </div>
+
+  <div class="panel panel-info p-4 space-y-2">
+    <h4 class="text-sm font-semibold text-heading">Targeted intervention design</h4>
+    <p class="text-xs panel-muted">
+      The study's findings suggest equity-focused policies yield highest returns. Prioritize GenAI training and subscription access for early-career researchers, non-native English speakers, and groups working in technically complex domains. Track publication velocity quarterly to measure program impact—expect 15-20% gains within 6-12 months if adoption is effective.
+    </p>
+  </div>
+
+  <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+    <li>Audit your hiring rubrics: are you inadvertently penalizing 2021-2022 productivity while rewarding post-GenAI publication surges?</li>
+    <li>Benchmark productivity expectations: update "papers per year" norms for junior faculty to account for GenAI-enabled acceleration</li>
+    <li>Monitor quality signals: track journal impact factor distributions over time to detect if GenAI enables upward mobility into higher-tier venues</li>
+    <li>Ethical guardrails: establish disclosure norms for GenAI use in authorship contribution statements to maintain research integrity</li>
+    <li>Long-term tracking: this study covers 2021-2024; effects may plateau, amplify, or shift as models improve and adoption saturates—plan for longitudinal follow-up</li>
+  </ul>
+</section>
+</section>

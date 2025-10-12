@@ -1,0 +1,152 @@
+<section class="space-y-6" id="p35-explorer">
+  <!-- Researcher Profile Controls -->
+  <div class="panel panel-info p-5 space-y-4">
+    <h3 class="text-sm font-semibold text-heading">Researcher Profile</h3>
+    <p class="text-sm text-muted">Configure researcher characteristics to estimate GenAI's impact on productivity and quality</p>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="space-y-2">
+        <label for="careerStage" class="text-sm font-medium text-body block">Career Stage</label>
+        <select id="careerStage" class="w-full px-3 py-2 border border-divider rounded bg-surface text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
+          <option value="early">Early-career (0-5 years)</option>
+          <option value="mid">Mid-career (6-15 years)</option>
+          <option value="established">Established (15+ years)</option>
+        </select>
+        <p class="text-xs text-muted">Early-career researchers show strongest gains</p>
+      </div>
+
+      <div class="space-y-2">
+        <label for="languageBackground" class="text-sm font-medium text-body block">Language Background</label>
+        <select id="languageBackground" class="w-full px-3 py-2 border border-divider rounded bg-surface text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
+          <option value="native">Native English speaker</option>
+          <option value="close">Close to English (Germanic/Romance)</option>
+          <option value="distant">Distant from English (Asian/African)</option>
+        </select>
+        <p class="text-xs text-muted">Non-English speakers benefit most from GenAI</p>
+      </div>
+
+      <div class="space-y-2">
+        <label for="fieldComplexity" class="text-sm font-medium text-body block">Field Complexity</label>
+        <select id="fieldComplexity" class="w-full px-3 py-2 border border-divider rounded bg-surface text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
+          <option value="qualitative">Qualitative (ethnography, theory)</option>
+          <option value="mixed">Mixed methods</option>
+          <option value="quantitative">Quantitative/Technical</option>
+        </select>
+        <p class="text-xs text-muted">Technical fields show larger productivity gains</p>
+      </div>
+
+      <div class="space-y-2">
+        <label for="baselineProductivity" class="text-sm font-medium text-body block">Baseline Productivity: <span id="baselineLabel">2.5</span> papers/year</label>
+        <input 
+          type="range" 
+          id="baselineProductivity" 
+          min="0.5" 
+          max="8" 
+          step="0.5" 
+          value="2.5"
+          class="w-full accent-[color:var(--accent-strong)]">
+        <p class="text-xs text-muted">Average publications per year before GenAI</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Adoption Timeline -->
+  <div class="panel panel-neutral p-5 space-y-4">
+    <h3 class="text-sm font-semibold text-heading">GenAI Adoption Timeline</h3>
+    
+    <div class="space-y-2">
+      <label for="adoptionYear" class="text-sm font-medium text-body block">Adoption Year</label>
+      <select id="adoptionYear" class="w-full px-3 py-2 border border-divider rounded bg-surface text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
+        <option value="2023">2023 (Early adopter)</option>
+        <option value="2024" selected>2024 (Typical adopter)</option>
+        <option value="2025">2025 (Late adopter)</option>
+      </select>
+      <p class="text-xs text-muted">When the researcher started using GenAI tools</p>
+    </div>
+
+    <div class="space-y-3">
+      <h4 class="text-sm font-medium text-body">Year-by-year projection</h4>
+      <div id="timeline" class="space-y-2"></div>
+    </div>
+  </div>
+
+  <!-- Impact Metrics -->
+  <div class="panel panel-neutral p-5 space-y-4">
+    <h3 class="text-sm font-semibold text-heading">Estimated Impact</h3>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="panel panel-neutral-soft p-4 space-y-2">
+        <div class="flex justify-between items-baseline">
+          <span class="text-xs uppercase tracking-wide text-muted">Productivity Gain (Year 1)</span>
+          <span id="productivityYear1" class="text-2xl font-bold text-heading">+15%</span>
+        </div>
+        <p class="text-xs text-body">Expected increase in publications</p>
+        <div class="text-sm text-body">
+          <span class="font-medium">Baseline:</span> <span id="baselinePapersY1">2.5</span> papers/year<br>
+          <span class="font-medium">With GenAI:</span> <span id="projectedPapersY1">2.9</span> papers/year
+        </div>
+      </div>
+
+      <div class="panel panel-neutral-soft p-4 space-y-2">
+        <div class="flex justify-between items-baseline">
+          <span class="text-xs uppercase tracking-wide text-muted">Productivity Gain (Year 2)</span>
+          <span id="productivityYear2" class="text-2xl font-bold text-heading">+36%</span>
+        </div>
+        <p class="text-xs text-body">Cumulative effect with experience</p>
+        <div class="text-sm text-body">
+          <span class="font-medium">Baseline:</span> <span id="baselinePapersY2">2.5</span> papers/year<br>
+          <span class="font-medium">With GenAI:</span> <span id="projectedPapersY2">3.4</span> papers/year
+        </div>
+      </div>
+
+      <div class="panel panel-neutral-soft p-4 space-y-2">
+        <div class="flex justify-between items-baseline">
+          <span class="text-xs uppercase tracking-wide text-muted">Quality Impact (Year 1)</span>
+          <span id="qualityYear1" class="text-2xl font-bold text-heading">+1.3%</span>
+        </div>
+        <p class="text-xs text-body">Change in avg. journal impact factor</p>
+        <p class="text-xs text-muted">Modest but positive—no quality dilution</p>
+      </div>
+
+      <div class="panel panel-neutral-soft p-4 space-y-2">
+        <div class="flex justify-between items-baseline">
+          <span class="text-xs uppercase tracking-wide text-muted">Quality Impact (Year 2)</span>
+          <span id="qualityYear2" class="text-2xl font-bold text-heading">+2.0%</span>
+        </div>
+        <p class="text-xs text-body">Continued improvement in venue quality</p>
+        <p class="text-xs text-muted">GenAI may enable upward journal mobility</p>
+      </div>
+    </div>
+
+    <!-- Cumulative Impact Bar -->
+    <div class="space-y-2 mt-4">
+      <div class="flex justify-between text-sm">
+        <span class="text-body font-medium">Cumulative 2-year gain</span>
+        <span id="cumulativeGain" class="font-bold text-heading">+8.0 papers</span>
+      </div>
+      <div class="w-full bg-surface rounded-full h-4 overflow-hidden border border-divider">
+        <div id="impactBar" class="h-full transition-all duration-500 rounded-full" style="width: 75%; background: linear-gradient(to right, #a5b4fc, #4f46e5);"></div>
+      </div>
+      <p class="text-xs text-muted">Extra publications over baseline in 2-year period</p>
+    </div>
+  </div>
+
+  <!-- Interpretation Panel -->
+  <div class="panel panel-success p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">Profile-Specific Insights</h3>
+    <div id="insights" class="text-sm text-body space-y-2">
+      <p>Configure researcher profile to see personalized insights based on study findings.</p>
+    </div>
+  </div>
+
+  <!-- Study Context -->
+  <div class="panel panel-neutral p-5 space-y-3">
+    <h4 class="text-sm font-semibold text-heading">About these estimates</h4>
+    <p class="text-sm text-body">
+      This calculator uses effect sizes from a difference-in-differences study of 32,480 social science researchers (2021-2024). Baseline effects: +15% productivity (year 1), +36% (year 2), +1.3-2.0% quality. Multipliers adjust for career stage, language background, and field complexity based on heterogeneity analysis in the original paper.
+    </p>
+    <p class="text-sm text-muted">
+      <strong>Limitations:</strong> Effects may not generalize to STEM fields, individual outcomes vary widely, and long-term equilibrium effects remain unknown. Use these projections as directional guidance, not precise forecasts.
+    </p>
+  </div>
+</section>

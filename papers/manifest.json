@@ -1,4 +1,30 @@
 {
+  "35": {
+    "title": "Can GenAI Improve Academic Performance?",
+    "authors": [
+      "Dragan Filimonovic",
+      "Christian Rutzer",
+      "Conny Wunsch"
+    ],
+    "year": 2025,
+    "venue": "University of Basel (2025)",
+    "tags": [
+      "genai",
+      "productivity",
+      "academic-writing",
+      "empirical-study",
+      "equity"
+    ],
+    "summary": "First large-scale empirical study on GenAI's impact on scientific productivity. Using matched panel data from 32,480 social science researchers (2021-2024), finds GenAI adoption increases publication output by 36% in year two with modest quality gains (+2% journal impact). Effects strongest for early-career researchers, non-English speakers, and technical fields—suggesting GenAI reduces structural barriers in academic publishing.",
+    "dir": "./papers/p35",
+    "interactiveTitle": "GenAI productivity impact calculator",
+    "relatedQuestions": [
+      1,
+      3,
+      12,
+      29
+    ]
+  },
   "34": {
     "title": "Emergent Coordination in Multi-Agent Language Models",
     "authors": [

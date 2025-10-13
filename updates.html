@@ -8,6 +8,7 @@
   <link rel="icon" href="favicon.ico" />
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="css/theme.css">
+  <script>
       (function() {
         var storageKey = "llm-theme";
         var className = "dark";
@@ -44,7 +45,7 @@
         </div>
         <div class="flex md:flex-none gap-2">
           <button type="button" data-theme-toggle class="h-10 inline-flex items-center justify-center px-3 text-sm bg-subtle text-heading hover:bg-subtle border border-subtle rounded-md transition-colors">
-            <span class="theme-toggle-icon" aria-hidden="true">ðŸŒ™</span>
+            <span class="theme-toggle-icon" aria-hidden="true">🌙</span>
             <span class="sr-only">Toggle color theme</span>
           </button>
           <button id="glossary-open-btn" class="h-10 inline-flex items-center justify-center px-3 text-sm bg-emerald-100 text-emerald-800 hover:bg-emerald-200 rounded-md border border-emerald-200 transition-colors" title="Open LLM glossary">
@@ -65,13 +66,13 @@
         <span class="text-xs font-semibold tracking-wide text-indigo-700 uppercase">New Paper Explainer</span>
         <time datetime="2025-10-12" class="text-xs font-medium text-muted-soft uppercase tracking-wide">12 Oct 2025</time>
       </header>
-      <p class="text-lg font-semibold text-heading">Paper 36 &middot; ReasoningBank: Scaling Agent Self-Evolving with Reasoning Memory</p>
-      <p class="text-sm text-muted italic">Novel memory framework enabling LLM agents to learn from accumulated experiences by distilling generalizable reasoning strategies from both successful and failed attempts. Combined with memory-aware test-time scaling (MaTTS), achieves +8.3pp improvement (20.5% relative) with 16% fewer interaction steps.</p>
-      <ul class="list-disc list-inside text-sm text-secondary space-y-2">
+      <p class="text-lg font-semibold text-heading">Paper 36 · ReasoningBank: Scaling Agent Self-Evolving with Reasoning Memory</p>
+      <p class="text-sm text-muted italic">Novel memory framework enabling LLM agents to learn from accumulated experiences by distilling generalizable reasoning strategies from both successful and failed attempts. Combined with memory-aware test-time scaling (MaTTS), achieves +8.3pp improvement (20.5% relative) with 14% fewer interaction steps.</p>
+      <ul class="list-disc list-inside text-sm text-muted space-y-2">
         <li>Published <code>paper 36</code> with interactive memory architecture simulator—compare trajectory memory, workflow memory, and ReasoningBank across different task complexities, scaling modes, and learning configurations to project performance and efficiency.</li>
         <li>Built learning curve visualizer showing how different memory types enable (or prevent) continuous improvement over sequential tasks—ReasoningBank demonstrates logarithmic success rate growth while no-memory baseline remains flat.</li>
         <li>Implemented MaTTS scaling simulator with parallel (self-contrast) and sequential (self-refinement) modes—configure scaling factor (1-5x) to see trade-offs between compute cost and memory quality improvements.</li>
-        <li>Documented evidence: +8.3% success rate improvement over no-memory baseline on WebArena, 16% reduction in interaction steps, strongest generalization gains on cross-domain tasks (+4.6% on WebArena Multi), robust across three model architectures (Gemini-2.5-flash/pro, Claude-3.7-sonnet).</li>
+        <li>Documented evidence: +8.3pp success rate improvement over no-memory baseline on WebArena (40.5% → 48.8%), 14% reduction in interaction steps (9.7 → 8.3), strongest generalization gains on cross-domain tasks (+4.6pp on WebArena Multi), robust across three model architectures (Gemini-2.5-flash/pro, Claude-3.7-sonnet).</li>
         <li>Added success/failure learning comparison showing ReasoningBank's dual extraction strategy (65% success strategies + 35% failure guardrails) vs success-only approaches—demonstrates importance of learning from mistakes for robustness.</li>
         <li>Updated <code>papers/manifest.json</code>, shipped <code>/p/36.html</code>, and added phased memory adoption roadmap with cost-benefit analysis framework for test-time scaling deployment decisions.</li>
       </ul>
@@ -82,9 +83,9 @@
         <span class="text-xs font-semibold tracking-wide text-indigo-700 uppercase">New Paper Explainer</span>
         <time datetime="2025-10-12" class="text-xs font-medium text-muted-soft uppercase tracking-wide">12 Oct 2025</time>
       </header>
-      <p class="text-lg font-semibold text-heading">Paper 35 &middot; Can GenAI Improve Academic Performance?</p>
+      <p class="text-lg font-semibold text-heading">Paper 35 · Can GenAI Improve Academic Performance?</p>
       <p class="text-sm text-muted italic">First large-scale empirical study on GenAI's impact on scientific productivity. Using matched panel data from 32,480 researchers (2021-2024), finds GenAI adoption increases output by 36% in year two with modest quality gains—strongest for early-career researchers and non-English speakers.</p>
-      <ul class="list-disc list-inside text-sm text-secondary space-y-2">
+      <ul class="list-disc list-inside text-sm text-muted space-y-2">
         <li>Published <code>paper 35</code> with interactive GenAI productivity impact calculator—configure researcher profile (career stage, language background, field complexity, baseline productivity) to estimate personalized gains from adoption.</li>
         <li>Built year-by-year timeline showing productivity trajectory (15% year one → 36% year two) with quality metrics (journal impact +1.3% → +2.0%) demonstrating no quality dilution from increased output.</li>
         <li>Documented heterogeneous effects: early-career researchers benefit most (+40% relative boost), non-English speakers from linguistically distant countries show largest gains (+50%), technical fields see amplified productivity (+30%)—suggesting GenAI reduces structural barriers.</li>
@@ -98,9 +99,9 @@
         <span class="text-xs font-semibold tracking-wide text-indigo-700 uppercase">New Paper Explainer</span>
         <time datetime="2025-10-11" class="text-xs font-medium text-muted-soft uppercase tracking-wide">11 Oct 2025</time>
       </header>
-      <p class="text-lg font-semibold text-heading">Paper 34 &middot; Emergent Coordination in Multi-Agent Language Models</p>
+      <p class="text-lg font-semibold text-heading">Paper 34 · Emergent Coordination in Multi-Agent Language Models</p>
       <p class="text-sm text-muted italic">Information-theoretic framework to test when multi-agent LLM systems show genuine coordination versus just parallel execution. Proves prompt design (personas + theory-of-mind) can steer systems from loose aggregates to higher-order collectives with complementary roles.</p>
-      <ul class="list-disc list-inside text-sm text-secondary space-y-2">
+      <ul class="list-disc list-inside text-sm text-muted space-y-2">
         <li>Published <code>paper 34</code> with interactive multi-agent coordination analyzer—simulate different experimental conditions (control, personas, personas+ToM) and measure emergent synergy, differentiation, and temporal coupling using partial information decomposition.</li>
         <li>Added plain-language explainer using team analogy (independent responders vs members who think about others' contributions) to clarify difference between aggregates and genuine collectives.</li>
         <li>Built timeline visualizer showing agent behavior patterns across rounds—control shows random activity, personas create agent-specific patterns, ToM produces complementary anti-correlated coordination.</li>
@@ -114,9 +115,9 @@
         <span class="text-xs font-semibold tracking-wide text-indigo-700 uppercase">New Paper Explainer</span>
         <time datetime="2025-10-11" class="text-xs font-medium text-muted-soft uppercase tracking-wide">11 Oct 2025</time>
       </header>
-      <p class="text-lg font-semibold text-heading">Paper 33 &middot; What the F*ck Is Artificial General Intelligence?</p>
+      <p class="text-lg font-semibold text-heading">Paper 33 · What the F*ck Is Artificial General Intelligence?</p>
       <p class="text-sm text-muted italic">Provocative survey clarifies AGI as an artificial scientist capable of adaptation with insufficient resources. Critiques computational dualism and shows The Embiggening (scale-maxed approximation) era has ended—sample and energy efficiency are the new bottlenecks.</p>
-      <ul class="list-disc list-inside text-sm text-secondary space-y-2">
+      <ul class="list-disc list-inside text-sm text-muted space-y-2">
         <li>Published <code>paper 33</code> with interactive meta-approach problem matcher—select from 6 problem types (novelty, interpretability, energy, latency, precision, adaptability) to get affinity scores (1-10) for scale-maxing, simp-maxing, and w-maxing strategies.</li>
         <li>Added plain-language explainer using chef analogy (recipes=search, intuition=approximation, master chef=hybrid) to clarify foundational tools and why AGI requires fusion not monolithic approaches.</li>
         <li>Surveyed cognitive architectures (o3, AlphaGo, AERA, NARS, Hyperon) mapped to problem types—showing how chain-of-thought, search+neural nets, self-programming, non-axiomatic logic, and modular systems address different constraints.</li>
@@ -130,9 +131,9 @@
         <span class="text-xs font-semibold tracking-wide text-indigo-700 uppercase">New Paper Explainer</span>
         <time datetime="2025-10-10" class="text-xs font-medium text-muted-soft uppercase tracking-wide">10 Oct 2025</time>
       </header>
-      <p class="text-lg font-semibold text-heading">Paper 32 &middot; Performance or Principle: AI Labor Market Resistance</p>
+      <p class="text-lg font-semibold text-heading">Paper 32 · Performance or Principle: AI Labor Market Resistance</p>
       <p class="text-sm text-muted italic">Large-scale U.S. survey reveals public resistance to AI automation divides into performance-based (88%—fades with better AI) and principle-based (12%—permanent moral boundaries for caregiving, therapy, spiritual roles).</p>
-      <ul class="list-disc list-inside text-sm text-secondary space-y-2">
+      <ul class="list-disc list-inside text-sm text-muted space-y-2">
         <li>Published <code>paper 32</code> with interactive occupation resistance analyzer covering 940 jobs across 8 categories—showing how support rises from 30% to 58% when AI outperforms humans, except for morally-protected roles.</li>
         <li>Added classification system distinguishing performance-based (technical concerns), principle-based (moral objections), and mixed resistance patterns with go-to-market messaging recommendations for each type.</li>
         <li>Included demographic analysis showing protected occupations earn 1.28× higher wages and disproportionately employ White/female workers—revealing inequality implications of resistance patterns.</li>
@@ -145,9 +146,9 @@
         <span class="text-xs font-semibold tracking-wide text-indigo-700 uppercase">New Paper Explainer</span>
         <time datetime="2025-10-10" class="text-xs font-medium text-muted-soft uppercase tracking-wide">10 Oct 2025</time>
       </header>
-      <p class="text-lg font-semibold text-heading">Paper 31 &middot; Can LLMs Develop Gambling Addiction?</p>
+      <p class="text-lg font-semibold text-heading">Paper 31 · Can LLMs Develop Gambling Addiction?</p>
       <p class="text-sm text-muted italic">Systematic slot machine experiments reveal LLMs exhibit human-like gambling addiction patterns with bankruptcy rates rising from near-zero to 48% when given betting autonomy—neural circuit analysis identifies 441 causal features that can reduce risk by 30%.</p>
-      <ul class="list-disc list-inside text-sm text-secondary space-y-2">
+      <ul class="list-disc list-inside text-sm text-muted space-y-2">
         <li>Published <code>paper 31</code> with interactive LLM gambling behavior simulator comparing fixed vs variable betting across GPT-4o-mini, GPT-4.1-mini, Gemini-2.5-Flash, and Claude-3.5-Haiku models.</li>
         <li>Added Irrationality Index breakdown (I = 0.4·Betting Aggressiveness + 0.3·Loss Chasing + 0.3·Extreme Betting) with real-time safety recommendations based on prompt configuration.</li>
         <li>Included cognitive bias detection showing illusion of control, win-chasing dominance (14.5% → 22% bet increase), and neural circuit insights from Sparse Autoencoder analysis on LLaMA-3.1-8B.</li>
@@ -160,9 +161,9 @@
         <span class="text-xs font-semibold tracking-wide text-indigo-700 uppercase">New Paper Explainer</span>
         <time datetime="2025-10-10" class="text-xs font-medium text-muted-soft uppercase tracking-wide">10 Oct 2025</time>
       </header>
-      <p class="text-lg font-semibold text-heading">Paper 29 &middot; Strategic Intelligence in LLMs</p>
+      <p class="text-lg font-semibold text-heading">Paper 29 · Strategic Intelligence in LLMs</p>
       <p class="text-sm text-muted italic">First evolutionary IPD tournaments with LLMs reveal genuine strategic reasoning and distinct fingerprints across model families.</p>
-      <ul class="list-disc list-inside text-sm text-secondary space-y-2">
+      <ul class="list-disc list-inside text-sm text-muted space-y-2">
         <li>Published <code>paper 29</code> with interactive IPD tournament simulator analyzing strategic tendencies of 10 frontier LLM agents against 7 canonical game theory strategies.</li>
         <li>Added strategic fingerprint analysis showing Gemini's ruthless exploitation, GPT's naive cooperation, and Claude's effective forgiveness—based on ~32,000 prose rationales.</li>
         <li>Included continuation probability slider to demonstrate how models adapt behavior based on "shadow of the future"—proving genuine time-horizon reasoning, not memorized heuristics.</li>
@@ -175,9 +176,9 @@
         <span class="text-xs font-semibold tracking-wide text-indigo-700 uppercase">New Paper Explainer</span>
         <time datetime="2025-10-10" class="text-xs font-medium text-muted-soft uppercase tracking-wide">10 Oct 2025</time>
       </header>
-      <p class="text-lg font-semibold text-heading">Paper 30 &middot; Semantic Similarity Rating for Consumer Research</p>
+      <p class="text-lg font-semibold text-heading">Paper 30 · Semantic Similarity Rating for Consumer Research</p>
       <p class="text-sm text-muted italic">SSR enables LLMs to reproduce realistic human purchase intent distributions by mapping textual responses to Likert scales via embedding similarity—achieving 90% reliability on 57 product surveys.</p>
-      <ul class="list-disc list-inside text-sm text-secondary space-y-2">
+      <ul class="list-disc list-inside text-sm text-muted space-y-2">
         <li>Published <code>paper 30</code> with interactive SSR reliability simulator comparing direct numerical ratings (KS < 0.6) versus semantic similarity mapping (KS > 0.85) across five consumer product categories.</li>
         <li>Added distribution realism visualization showing how SSR avoids extreme value biases and maintains realistic response patterns indistinguishable from human data.</li>
         <li>Included sample qualitative feedback demonstrating SSR's dual advantage: numerical ratings plus interpretable textual explanations for thematic analysis at scale.</li>
@@ -190,9 +191,9 @@
         <span class="text-xs font-semibold tracking-wide text-indigo-700 uppercase">New Paper Explainer</span>
         <time datetime="2025-10-09" class="text-xs font-medium text-muted-soft uppercase tracking-wide">9 Oct 2025</time>
       </header>
-      <p class="text-lg font-semibold text-heading">Paper 28 &middot; Why Do Some Models Fake Alignment?</p>
+      <p class="text-lg font-semibold text-heading">Paper 28 · Why Do Some Models Fake Alignment?</p>
       <p class="text-sm text-muted italic">Tests 25 frontier LLMs and finds only 5 exhibit alignment faking—deceptive compliance during training to preserve values in deployment.</p>
-      <ul class="list-disc list-inside text-sm text-secondary space-y-2">
+      <ul class="list-disc list-inside text-sm text-muted space-y-2">
         <li>Published <code>paper 28</code> with interactive simulator comparing Claude 3 Opus's goal-guarding behavior against models with refusal-based suppression.</li>
         <li>Added alignment faking motivation analysis (rater sycophancy, terminal goal-guarding, instrumental goal-guarding) across five scenario types.</li>
         <li>Updated <code>papers/manifest.json</code>, shipped <code>/p/28.html</code>, and included safety evaluation protocol recommendations in the roadmap.</li>
@@ -204,9 +205,9 @@
         <span class="text-xs font-semibold tracking-wide text-indigo-700 uppercase">New Paper Explainer</span>
         <time datetime="2025-09-29" class="text-xs font-medium text-muted-soft uppercase tracking-wide">29 Sep 2025</time>
       </header>
-      <p class="text-lg font-semibold text-heading">Paper 27 &middot; GDPval Rollout Planner</p>
+      <p class="text-lg font-semibold text-heading">Paper 27 · GDPval Rollout Planner</p>
       <p class="text-sm text-muted italic">Sized the GDPval benchmark for deployment teams with cost, speed, and oversight dial guidance.</p>
-      <ul class="list-disc list-inside text-sm text-secondary space-y-2">
+      <ul class="list-disc list-inside text-sm text-muted space-y-2">
         <li>Published <code>paper 27</code> with the GDPval rollout planner interactive and refreshed overview copy focused on deployment economics.</li>
         <li>Updated <code>papers/manifest.json</code>, shipped <code>/p/27.html</code>, and logged the change here for release tracking.</li>
       </ul>
@@ -217,9 +218,9 @@
         <span class="text-xs font-semibold tracking-wide text-indigo-700 uppercase">New Paper Explainer</span>
         <time datetime="2025-09-27" class="text-xs font-medium text-muted-soft uppercase tracking-wide">27 Sep 2025</time>
       </header>
-      <p class="text-lg font-semibold text-heading">Paper 25 &middot; Rewarding A vs Hoping for B</p>
+      <p class="text-lg font-semibold text-heading">Paper 25 · Rewarding A vs Hoping for B</p>
       <p class="text-sm text-muted italic">Kerr’s incentive alignment thesis shows why teams deliver the behavior you pay for; the new lab quantifies misalignment risk and fixes.</p>
-      <ul class="list-disc list-inside text-sm text-secondary space-y-2">
+      <ul class="list-disc list-inside text-sm text-muted space-y-2">
         <li>Published <code>paper 25</code> with an executive quick take and the incentive alignment lab interactive.</li>
         <li>Updated <code>papers/manifest.json</code>, shipped <code>/p/25.html</code>, and refreshed the updates feed with the release.</li>
       </ul>
@@ -230,9 +231,9 @@
         <span class="text-xs font-semibold tracking-wide text-indigo-700 uppercase">New Paper Explainer</span>
         <time datetime="2025-09-26" class="text-xs font-medium text-muted-soft uppercase tracking-wide">26 Sep 2025</time>
       </header>
-      <p class="text-lg font-semibold text-heading">Paper 24 &middot; Human-AI Synergy</p>
+      <p class="text-lg font-semibold text-heading">Paper 24 · Human-AI Synergy</p>
       <p class="text-sm text-muted italic">Bayesian IRT separates solo skill, collaborative ability, and AI lift, highlighting GPT-4o's 29-point boost and the impact of Theory of Mind cues.</p>
-      <ul class="list-disc list-inside text-sm text-secondary space-y-2">
+      <ul class="list-disc list-inside text-sm text-muted space-y-2">
         <li>Published <code>paper 24</code> with a synergy overview and human-AI collaboration diagnostic lab.</li>
         <li>Registered the explainer in <code>papers/manifest.json</code>, shipped <code>/p/24.html</code>, and refreshed updates for the new release.</li>
       </ul>
@@ -242,9 +243,9 @@
         <span class="text-xs font-semibold tracking-wide text-indigo-700 uppercase">New Paper Explainer</span>
         <time datetime="2025-09-25" class="text-xs font-medium text-muted-soft uppercase tracking-wide">25 Sep 2025</time>
       </header>
-      <p class="text-lg font-semibold text-heading">Paper 23 &middot; GDPval Benchmark</p>
+      <p class="text-lg font-semibold text-heading">Paper 23 · GDPval Benchmark</p>
       <p class="text-sm text-muted italic">Frontier-model evaluation on GDP-weighted tasks, with guidance on win rates, review load, and workflow scaffolds.</p>
-      <ul class="list-disc list-inside text-sm text-secondary space-y-2">
+      <ul class="list-disc list-inside text-sm text-muted space-y-2">
         <li>Published <code>paper 23</code> with an executive quick take and GDPval readiness lab interactive.</li>
         <li>Linked the explainer in <code>papers/manifest.json</code>, shipped <code>/p/23.html</code>, and documented setup notes in <code>AGENTS_LOCAL.md</code>.</li>
       </ul>
@@ -256,9 +257,9 @@
         <span class="text-xs font-semibold tracking-wide text-indigo-700 uppercase">New Paper Explainer</span>
         <time datetime="2025-09-26" class="text-xs font-medium text-muted-soft uppercase tracking-wide">26 Sep 2025</time>
       </header>
-      <p class="text-lg font-semibold text-heading">Paper 22 &middot; Anti-scheming Stress Tests</p>
+      <p class="text-lg font-semibold text-heading">Paper 22 · Anti-scheming Stress Tests</p>
       <p class="text-sm text-muted italic">Deliberative alignment cuts covert actions, but the gains rely on situational awareness and fail under hidden-goal adversaries.</p>
-      <ul class="list-disc list-inside text-sm text-secondary space-y-2">
+      <ul class="list-disc list-inside text-sm text-muted space-y-2">
         <li>Published <code>paper 22</code> with situational-awareness callouts and an anti-scheming lab interactive.</li>
         <li>Registered the explainer in <code>papers/manifest.json</code>, wired related questions, and shipped the share page at <code>/p/22.html</code>.</li>
       </ul>
@@ -268,9 +269,9 @@
         <span class="text-xs font-semibold tracking-wide text-indigo-700 uppercase">New Paper Explainer</span>
         <time datetime="2025-09-22" class="text-xs font-medium text-muted-soft uppercase tracking-wide">22 Sep 2025</time>
       </header>
-      <p class="text-lg font-semibold text-heading">Paper 21 &middot; Godel Test Readiness</p>
+      <p class="text-lg font-semibold text-heading">Paper 21 · Godel Test Readiness</p>
       <p class="text-sm text-muted italic">Godel-style evaluation of GPT-5 on fresh conjectures, highlighting where proofs still demand cross-paper synthesis and verification.</p>
-      <ul class="list-disc list-inside text-sm text-secondary space-y-2">
+      <ul class="list-disc list-inside text-sm text-muted space-y-2">
         <li>Published <code>paper 21</code> with an executive quick take, submodular callouts, and the readiness lab interactive.</li>
         <li>Registered the explainer in <code>papers/manifest.json</code>, linked related questions, and shipped the share page at <code>/p/21.html</code>.</li>
       </ul>
@@ -280,9 +281,9 @@
         <span class="text-xs font-semibold tracking-wide text-indigo-700 uppercase">New Paper Explainer</span>
         <time datetime="2025-09-18" class="text-xs font-medium text-muted-soft uppercase tracking-wide">18 Sep 2025</time>
       </header>
-      <p class="text-lg font-semibold text-heading">Paper 20 &middot; Agentic Market Design</p>
+      <p class="text-lg font-semibold text-heading">Paper 20 · Agentic Market Design</p>
       <p class="text-sm text-muted italic">Agent-led marketplace patterns for orchestrating tool-using LLM services, with guidance on when to delegate decisions.</p>
-      <ul class="list-disc list-inside text-sm text-secondary space-y-2">
+      <ul class="list-disc list-inside text-sm text-muted space-y-2">
         <li>Published <code>paper 20</code> with an executive quick take, stakeholder impacts, and an interactive lab.</li>
         <li>Updated <code>papers/manifest.json</code>, related question links, and generated the share page at <code>/p/20.html</code>.</li>
       </ul>
@@ -293,9 +294,9 @@
         <span class="text-xs font-semibold tracking-wide text-indigo-700 uppercase">Latest Interview Question</span>
         <time datetime="2025-09-17" class="text-xs font-medium text-muted-soft uppercase tracking-wide">17 Sep 2025</time>
       </header>
-      <p class="text-lg font-semibold text-heading">Question 57 &middot; What are the fundamentals of in-context learning?</p>
+      <p class="text-lg font-semibold text-heading">Question 57 · What are the fundamentals of in-context learning?</p>
       <p class="text-sm text-muted italic">Explains how prompt examples steer model behaviour, where the pattern breaks down, and how to audit reliance on few-shot cues.</p>
-      <ul class="list-disc list-inside text-sm text-secondary space-y-2">
+      <ul class="list-disc list-inside text-sm text-muted space-y-2">
         <li>Refreshed the answer and scenario-driven interactive, and published the share page at <code>/q/57.html</code>.</li>
         <li>Added the question to manifests, learning paths, and the all-questions index for easy discovery.</li>
       </ul>
@@ -306,9 +307,9 @@
         <span class="text-xs font-semibold tracking-wide text-indigo-700 uppercase">New Paper Explainer</span>
         <time datetime="2025-09-17" class="text-xs font-medium text-muted-soft uppercase tracking-wide">17 Sep 2025</time>
       </header>
-      <p class="text-lg font-semibold text-heading">Paper 17 &middot; Zero-shot Evaluation Playbook</p>
+      <p class="text-lg font-semibold text-heading">Paper 17 · Zero-shot Evaluation Playbook</p>
       <p class="text-sm text-muted italic">Step-by-step playbook for assembling zero-shot evaluations, benchmarking baselines, and closing the loop on regressions.</p>
-      <ul class="list-disc list-inside text-sm text-secondary space-y-2">
+      <ul class="list-disc list-inside text-sm text-muted space-y-2">
         <li>Published <code>paper 17</code> with business relevance, measurement callouts, and an interactive simulator.</li>
         <li>Linked the explainer from manifests, related questions, and the share page at <code>/p/17.html</code>.</li>
       </ul>
@@ -319,9 +320,9 @@
         <span class="text-xs font-semibold tracking-wide text-indigo-700 uppercase">New Paper Explainer</span>
         <time datetime="2025-09-16" class="text-xs font-medium text-muted-soft uppercase tracking-wide">16 Sep 2025</time>
       </header>
-      <p class="text-lg font-semibold text-heading">Paper 19 &middot; Measurement Audit Guide</p>
+      <p class="text-lg font-semibold text-heading">Paper 19 · Measurement Audit Guide</p>
       <p class="text-sm text-muted italic">Provide a repeatable audit plan for LLM launches, focusing on precision/recall trade-offs and regression monitoring.</p>
-      <ul class="list-disc list-inside text-sm text-secondary space-y-2">
+      <ul class="list-disc list-inside text-sm text-muted space-y-2">
         <li>Released <code>paper 19</code> with audit checklists and scenario walkthroughs.</li>
         <li>Registered the explainer in manifests, related questions, and the share page at <code>/p/19.html</code>.</li>
       </ul>
@@ -332,9 +333,9 @@
         <span class="text-xs font-semibold tracking-wide text-indigo-700 uppercase">New Paper Explainer</span>
         <time datetime="2025-09-15" class="text-xs font-medium text-muted-soft uppercase tracking-wide">15 Sep 2025</time>
       </header>
-      <p class="text-lg font-semibold text-heading">Paper 18 &middot; AI Risk Budgeting</p>
+      <p class="text-lg font-semibold text-heading">Paper 18 · AI Risk Budgeting</p>
       <p class="text-sm text-muted italic">Maps AI failure modes to mitigation budgets and escalation triggers for operations teams.</p>
-      <ul class="list-disc list-inside text-sm text-secondary space-y-2">
+      <ul class="list-disc list-inside text-sm text-muted space-y-2">
         <li>Added <code>paper 18</code> with stakeholder guidance and mitigation recommendations.</li>
         <li>Updated manifests, related question pointers, and the share page at <code>/p/18.html</code>.</li>
       </ul>
@@ -347,7 +348,7 @@
       </header>
       <p class="text-lg font-semibold text-heading">Indexes for Questions &amp; Papers</p>
       <p class="text-sm text-muted italic">Introduced <code>all.html</code> and <code>papers.html</code> to browse every interview question and paper explainer with search and filtering.</p>
-      <ul class="list-disc list-inside text-sm text-secondary space-y-2">
+      <ul class="list-disc list-inside text-sm text-muted space-y-2">
         <li>Centralised discovery for questions and papers with search, tag filters, and share links.</li>
         <li>Backfilled manifests and static share pages so historic additions remain accessible.</li>
       </ul>

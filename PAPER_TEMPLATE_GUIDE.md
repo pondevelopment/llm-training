@@ -1,7 +1,12 @@
 ﻿# Paper Template Guide
 
 This guide explains how to add or revise researc## Overview content## Interactive design guidelines
-- **Roadmap bullets:** frame them as next steps ("Audit how your retriever chunking aligns with LIMIT assumptions"), not generic advice.
+- **Roadmap bullets:** frame th## Interactive design guidelines
+
+- **Use concrete examples for technical concepts:** When introducing complex mechanisms (e.g., test-time scaling, memory architectures), add a relatable analogy in a highlighted panel before the technical controls. Examples: "Think of it like: trying multiple approaches in parallel vs. reflecting and refining iteratively" or "When learning to book flights, successes teach you the steps, failures teach you what to avoid." This dramatically improves comprehension.
+- Provide helpful defaults: choose dimension/corpus/k values that mirror the paper's baseline.
+- Explain the **lexical reranker** checkbox directly under the control (e.g., "second-pass BM25 scorer to rescue misses").
+- Show real-world scenario labels in the simulator (`Customer support`, `Product catalog`, `Legal discovery`, etc.). Each scenario should: next steps ("Audit how your retriever chunking aligns with LIMIT assumptions"), not generic advice.
 - **Roadmap subsections:** if you need to expand on specific topics within the roadmap:
   - Use nested `panel panel-info` callouts with descriptive headings
   - Keep each subsection focused (2-4 paragraphs max)

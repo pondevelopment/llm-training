@@ -1,6 +1,11 @@
 # Paper Checklist
 
-U## Overview content
+U## Ov## Before you start
+
+- [ ] Read `PAPER_TEMPLATE_GUIDE.md` for structure and interactive expectations
+- [ ] Confirm the paper's core claim, key evidence, and intended audience (architects/PMs vs researchers)
+- [ ] Identify 2–3 related interview questions for cross-linking
+- [ ] **Cross-check all statistics against source paper:** Verify exact numbers from tables/figures, not abstract claims. Calculate percentage changes yourself (e.g., verify "16% reduction" = (9.7-8.3)/9.7 = 14.4%). Use grep/search to find values in paper text or tables.w content
 
 - [ ] **Paper header** (`panel panel-info`): 
   - [ ] Container uses `flex items-center justify-between gap-4` (no flex-wrap)
@@ -51,6 +56,7 @@ U## Overview content
 
 ## Interactive component
 
+- [ ] **Add concrete examples for technical concepts:** Use highlighted panels (`panel panel-neutral-soft`) with real-world analogies before introducing complex controls (e.g., "Think of parallel scaling like trying multiple approaches" or "Flight booking: successes teach steps, failures teach guardrails")
 - [ ] **Root wrapper:** `<section class="space-y-6" id="pXX-explorer">` (semantic HTML, not div)
 - [ ] **NO inline styles:** No `<style>` blocks - use Tailwind utility classes only
 - [ ] **Panel structure:**

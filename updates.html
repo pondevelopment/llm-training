@@ -64,6 +64,23 @@
         <article class="bg-card border border-divider rounded-lg shadow-sm p-5 space-y-3">
       <header class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
         <span class="text-xs font-semibold tracking-wide text-indigo-700 uppercase">New Paper Explainer</span>
+        <time datetime="2025-10-13" class="text-xs font-medium text-muted-soft uppercase tracking-wide">13 Oct 2025</time>
+      </header>
+      <p class="text-lg font-semibold text-heading">Paper 37 · Quantifying Human-AI Synergy</p>
+      <p class="text-sm text-muted italic">Bayesian Item Response Theory framework separating individual ability (θ) from collaborative ability (κ) while controlling for task difficulty. Finds GPT-4o boosts human performance by 29pp and Llama-3.1-8B by 23pp across 667 users. Crucially, Theory of Mind predicts superior AI collaboration independent of solo problem-solving ability.</p>
+      <ul class="list-disc list-inside text-sm text-muted space-y-2">
+        <li>Published <code>paper 37</code> with interactive synergy calculator—configure your ability level (θ), Theory of Mind score, task difficulty (β), and domain to see personalized predictions of AI collaboration performance and boost estimates.</li>
+        <li>Built dual-ability decomposition visualizer showing how individual ability (θ) and collaborative ability (κ) are distinct yet correlated (ρs = 0.67)—users can compare solo vs with-AI performance across GPT-4o and Llama-3.1-8B.</li>
+        <li>Implemented model comparison panel with side-by-side GPT-4o (+29pp boost) vs Llama-3.1-8B (+23pp boost) predictions—includes confidence intervals, sample size adjustments, and personalized insights for deployment decisions.</li>
+        <li>Documented evidence: 667 participants, 2,072 solo observations across math/physics/moral reasoning tasks; dual-ability model strongly favored (ΔELPD = 50.9, SE = 10.2); higher-ability users perform best overall but lower-ability users see larger relative gains; Theory of Mind correlates with κ (ρ = 0.42, p < 0.001) but not θ.</li>
+        <li>Added task difficulty gradient analysis showing AI provides highest boost on hard problems (ρ = -0.91), supporting complementarity hypothesis—easy tasks show ceiling effects limiting synergy potential.</li>
+        <li>Updated <code>papers/manifest.json</code>, shipped <code>/p/37.html</code>, and added roadmap guidance for building internal synergy benchmarks, training collaborative ability (κ) separately from domain skills (θ), and using ToM assessments in hiring for AI-augmented roles.</li>
+      </ul>
+    </article>
+
+    <article class="bg-card border border-divider rounded-lg shadow-sm p-5 space-y-3">
+      <header class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
+        <span class="text-xs font-semibold tracking-wide text-indigo-700 uppercase">New Paper Explainer</span>
         <time datetime="2025-10-12" class="text-xs font-medium text-muted-soft uppercase tracking-wide">12 Oct 2025</time>
       </header>
       <p class="text-lg font-semibold text-heading">Paper 36 · ReasoningBank: Scaling Agent Self-Evolving with Reasoning Memory</p>

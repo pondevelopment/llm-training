@@ -1,4 +1,29 @@
 {
+  "37": {
+    "title": "Quantifying Human-AI Synergy",
+    "authors": [
+      "Ben Weidmann",
+      "Christoph Riedl"
+    ],
+    "year": 2025,
+    "venue": "UCL & Northeastern University (2025)",
+    "tags": [
+      "evaluation",
+      "human-ai-collaboration",
+      "benchmarking",
+      "theory-of-mind",
+      "irt-framework"
+    ],
+    "summary": "Introduces Bayesian Item Response Theory framework to quantify human-AI synergy by separating individual ability (θ) from collaborative ability (κ) while controlling for task difficulty. Applied to 667 users across math, physics, and moral reasoning, finds GPT-4o boosts performance by 29pp and Llama-3.1-8B by 23pp. Crucially, collaborative ability is distinct from solo ability—users with stronger Theory of Mind achieve superior AI collaboration.",
+    "dir": "./papers/p37",
+    "interactiveTitle": "Human-AI synergy calculator",
+    "relatedQuestions": [
+      24,
+      13,
+      7,
+      36
+    ]
+  },
   "36": {
     "title": "ReasoningBank: Scaling Agent Self-Evolving with Reasoning Memory",
     "authors": [

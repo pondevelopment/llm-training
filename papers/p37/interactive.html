@@ -1,0 +1,271 @@
+<section class="space-y-6" id="p37-explorer">
+  
+  <!-- Concrete analogy panel (per PAPER_TEMPLATE_GUIDE) -->
+  <div class="panel panel-neutral-soft p-4 space-y-2">
+    <h3 class="text-sm font-semibold text-heading">💡 Think of it like: skill-adjusted grading</h3>
+    <p class="text-xs panel-muted">
+      If Alice scores 80% on a hard calculus exam and Bob scores 85% on an easy algebra quiz, who's the better mathematician? Raw scores mislead because they mix <em>ability</em> and <em>task difficulty</em>. Item Response Theory (IRT) untangles these: it estimates each student's latent ability (θ) and each question's difficulty (β), then predicts performance. In this tool, we apply IRT to human-AI collaboration—measuring your solo ability (θ), your collaborative ability with AI (κ), and how much different AI models boost your performance. Just like skill-adjusted grading reveals that Alice is stronger despite the lower score, IRT reveals who benefits most from AI and on which tasks.
+    </p>
+  </div>
+
+  <!-- User profile configuration -->
+  <div class="panel panel-info p-5 space-y-4">
+    <h3 class="text-base font-semibold text-heading">Your profile</h3>
+    <p class="text-xs panel-muted">Configure your baseline characteristics to see personalized synergy predictions</p>
+    
+    <!-- Individual ability slider -->
+    <div class="space-y-2">
+      <label for="p37-ability" class="block text-sm font-medium text-heading">
+        Individual ability (θ)
+        <span class="font-normal text-muted text-xs">• How well you solve problems alone</span>
+      </label>
+      <div class="flex items-center gap-3">
+        <span class="text-xs text-muted w-12">Low</span>
+        <input 
+          type="range" 
+          id="p37-ability" 
+          min="0" 
+          max="100" 
+          value="50" 
+          step="10"
+          class="flex-1"
+          aria-label="Individual ability level">
+        <span class="text-xs text-muted w-12 text-right">High</span>
+      </div>
+      <div class="text-xs text-muted" id="p37-ability-display">Medium (50%ile)</div>
+    </div>
+
+    <!-- Theory of Mind slider -->
+    <div class="space-y-2">
+      <label for="p37-tom" class="block text-sm font-medium text-heading">
+        Theory of Mind score
+        <span class="font-normal text-muted text-xs">• Your perspective-taking ability</span>
+      </label>
+      <div class="flex items-center gap-3">
+        <span class="text-xs text-muted w-12">Low</span>
+        <input 
+          type="range" 
+          id="p37-tom" 
+          min="0" 
+          max="100" 
+          value="50" 
+          step="10"
+          class="flex-1"
+          aria-label="Theory of Mind score">
+        <span class="text-xs text-muted w-12 text-right">High</span>
+      </div>
+      <div class="text-xs text-muted" id="p37-tom-display">Medium (50%ile)</div>
+    </div>
+
+    <!-- Task domain selector -->
+    <div class="space-y-2">
+      <label for="p37-domain" class="block text-sm font-medium text-heading">
+        Task domain
+        <span class="font-normal text-muted text-xs">• Type of problems you're solving</span>
+      </label>
+      <select id="p37-domain" class="w-full p-2 text-sm border rounded bg-layer text-body">
+        <option value="math">Mathematics (algebra, calculus, logic)</option>
+        <option value="physics">Physics (mechanics, thermodynamics)</option>
+        <option value="moral">Moral reasoning (ethics, decision-making)</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Task configuration -->
+  <div class="panel panel-neutral p-5 space-y-4">
+    <h3 class="text-base font-semibold text-heading">Task configuration</h3>
+    <p class="text-xs panel-muted">Define the problem set characteristics</p>
+    
+    <!-- Task difficulty slider -->
+    <div class="space-y-2">
+      <label for="p37-difficulty" class="block text-sm font-medium text-heading">
+        Task difficulty (β)
+        <span class="font-normal text-muted text-xs">• Complexity of problems</span>
+      </label>
+      <div class="flex items-center gap-3">
+        <span class="text-xs text-muted w-12">Easy</span>
+        <input 
+          type="range" 
+          id="p37-difficulty" 
+          min="0" 
+          max="100" 
+          value="50" 
+          step="10"
+          class="flex-1"
+          aria-label="Task difficulty level">
+        <span class="text-xs text-muted w-12 text-right">Hard</span>
+      </div>
+      <div class="text-xs text-muted" id="p37-difficulty-display">Medium difficulty</div>
+    </div>
+
+    <!-- Number of tasks -->
+    <div class="space-y-2">
+      <label for="p37-num-tasks" class="block text-sm font-medium text-heading">
+        Number of tasks
+        <span class="font-normal text-muted text-xs">• Sample size for estimates</span>
+      </label>
+      <input 
+        type="number" 
+        id="p37-num-tasks" 
+        min="5" 
+        max="100" 
+        value="20" 
+        step="5"
+        class="w-full p-2 text-sm border rounded bg-layer text-body">
+      <div class="text-xs text-muted">Larger samples provide more reliable ability estimates</div>
+    </div>
+  </div>
+
+  <!-- AI model comparison -->
+  <div class="panel panel-info p-5 space-y-4">
+    <h3 class="text-base font-semibold text-heading">AI model comparison</h3>
+    <p class="text-xs panel-muted">Compare collaborative performance with different AI assistants</p>
+    
+    <!-- Model selector -->
+    <div class="space-y-2">
+      <label for="p37-model" class="block text-sm font-medium text-heading">
+        Select AI model
+      </label>
+      <select id="p37-model" class="w-full p-2 text-sm border rounded bg-layer text-body">
+        <option value="gpt4o">GPT-4o (high capability)</option>
+        <option value="llama">Llama-3.1-8B (lower capability)</option>
+        <option value="both">Compare both side-by-side</option>
+      </select>
+    </div>
+
+    <!-- Model baseline stats -->
+    <div class="grid grid-cols-2 gap-3 text-xs">
+      <div class="panel panel-neutral-soft p-3 space-y-1">
+        <div class="font-semibold text-heading">GPT-4o solo</div>
+        <div class="text-2xl font-bold text-body">71%</div>
+        <div class="text-muted">Accuracy without human</div>
+      </div>
+      <div class="panel panel-neutral-soft p-3 space-y-1">
+        <div class="font-semibold text-heading">Llama-3.1-8B solo</div>
+        <div class="text-2xl font-bold text-body">39%</div>
+        <div class="text-muted">Accuracy without human</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Results panel -->
+  <div class="panel panel-neutral p-5 space-y-4" id="p37-results">
+    <h3 class="text-base font-semibold text-heading">📊 Synergy predictions</h3>
+    <p class="text-xs panel-muted">Estimated performance based on your profile and task configuration</p>
+    
+    <!-- Ability decomposition -->
+    <div class="grid md:grid-cols-2 gap-4">
+      <div class="space-y-2">
+        <div class="text-sm font-medium text-heading">Individual ability (θ)</div>
+        <div class="h-8 bg-layer rounded-lg overflow-hidden relative">
+          <div 
+            id="p37-theta-bar" 
+            class="h-full transition-all duration-300"
+            style="background: linear-gradient(to right, #10b981, #059669); width: 50%;"
+            role="progressbar"
+            aria-valuenow="50"
+            aria-valuemin="0"
+            aria-valuemax="100">
+          </div>
+          <div class="absolute inset-0 flex items-center justify-center text-xs font-semibold text-heading">
+            <span id="p37-theta-value">55.5%</span>
+          </div>
+        </div>
+        <div class="text-xs text-muted">Your solo performance estimate</div>
+      </div>
+
+      <div class="space-y-2">
+        <div class="text-sm font-medium text-heading">Collaborative ability (κ)</div>
+        <div class="h-8 bg-layer rounded-lg overflow-hidden relative">
+          <div 
+            id="p37-kappa-bar" 
+            class="h-full transition-all duration-300"
+            style="background: linear-gradient(to right, #6366f1, #4f46e5); width: 75%;"
+            role="progressbar"
+            aria-valuenow="75"
+            aria-valuemin="0"
+            aria-valuemax="100">
+          </div>
+          <div class="absolute inset-0 flex items-center justify-center text-xs font-semibold text-heading">
+            <span id="p37-kappa-value">75.0%</span>
+          </div>
+        </div>
+        <div class="text-xs text-muted">Your performance with AI assistance</div>
+      </div>
+    </div>
+
+    <!-- Synergy boost calculation -->
+    <div class="panel panel-success p-4 space-y-3">
+      <div class="flex items-center justify-between">
+        <div class="text-sm font-semibold text-heading">Synergy boost</div>
+        <div class="text-2xl font-bold" style="color: #10b981;" id="p37-boost-value">+19.5pp</div>
+      </div>
+      <div class="text-xs text-muted" id="p37-boost-description">
+        AI collaboration improves your performance by 19.5 percentage points (95% CI: [16, 23])
+      </div>
+      
+      <!-- Model comparison (shown when "both" selected) -->
+      <div id="p37-model-comparison" class="hidden grid grid-cols-2 gap-3 mt-3">
+        <div class="panel panel-neutral-soft p-3 space-y-1 text-xs">
+          <div class="font-semibold text-heading">With GPT-4o</div>
+          <div class="text-xl font-bold" style="color: #6366f1;" id="p37-gpt4o-result">+29pp</div>
+          <div class="text-muted">Your boost: <span id="p37-gpt4o-final">84.5%</span></div>
+        </div>
+        <div class="panel panel-neutral-soft p-3 space-y-1 text-xs">
+          <div class="font-semibold text-heading">With Llama-3.1-8B</div>
+          <div class="text-xl font-bold" style="color: #8b5cf6;" id="p37-llama-result">+23pp</div>
+          <div class="text-muted">Your boost: <span id="p37-llama-final">78.5%</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Statistical details -->
+    <details class="text-xs space-y-2">
+      <summary class="cursor-pointer font-medium text-heading">Statistical details & uncertainty</summary>
+      <div class="mt-2 space-y-2 panel-muted">
+        <p><strong>Methodology:</strong> Predictions based on Bayesian IRT framework with dual-ability decomposition (θ for solo, κ for collaborative). Model estimates individual latent abilities while controlling for task difficulty (β) and AI capability (κ^AI).</p>
+        <p><strong>Confidence intervals:</strong> 95% CIs reflect posterior uncertainty from Bayesian estimation. Wider intervals occur with fewer tasks or more extreme ability levels due to limited data in distribution tails.</p>
+        <p><strong>Correlation structure:</strong> Individual and collaborative abilities correlate at ρs = 0.67 (moderate positive)—users with higher θ tend toward higher κ, but substantial independent variation exists (ΔELPD = 50.9 favoring dual-ability model).</p>
+        <p><strong>ToM effect size:</strong> Each 10-point increase in Theory of Mind predicts ~3pp increase in collaborative ability (κ), independent of individual ability (θ). This effect is mediated by better prompt formulation and response evaluation.</p>
+        <p id="p37-stats-detail">Additional model-specific statistics will appear here based on your selections.</p>
+      </div>
+    </details>
+  </div>
+
+  <!-- Dynamic insights -->
+  <div class="panel panel-warning p-5 space-y-3 min-h-[2.75rem]" id="p37-insights">
+    <h3 class="text-sm font-semibold text-heading">🔍 Personalized insights</h3>
+    <div id="p37-insights-list" class="space-y-2 text-xs panel-muted">
+      <p>Configure your profile and task settings to see tailored recommendations and observations.</p>
+    </div>
+  </div>
+
+  <!-- Comparison visualization (ability decomposition) -->
+  <div class="panel panel-info p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">Why θ ≠ κ: ability decomposition explained</h3>
+    <p class="text-xs panel-muted mb-3">
+      Individual ability (θ) and collaborative ability (κ) are empirically distinct skills. This chart shows how your abilities differ across contexts:
+    </p>
+    <div class="grid grid-cols-3 gap-2 text-center text-xs">
+      <div class="panel panel-neutral-soft p-3 space-y-1">
+        <div class="text-muted">Solo context</div>
+        <div class="text-2xl font-bold text-body" id="p37-decomp-solo">55%</div>
+        <div class="text-muted">θ only</div>
+      </div>
+      <div class="panel panel-success p-3 space-y-1">
+        <div class="text-muted">With AI</div>
+        <div class="text-2xl font-bold" style="color: #10b981;" id="p37-decomp-collab">75%</div>
+        <div class="text-muted">θ + κ + κ^AI</div>
+      </div>
+      <div class="panel panel-neutral-soft p-3 space-y-1">
+        <div class="text-muted">Gap explained by</div>
+        <div class="text-2xl font-bold" style="color: #6366f1;" id="p37-decomp-gap">κ + AI</div>
+        <div class="text-muted">Synergy</div>
+      </div>
+    </div>
+    <p class="text-xs text-muted mt-3">
+      <strong>Key implication:</strong> Training your solo skills (θ) won't automatically improve your AI collaboration (κ). You need separate interventions: prompt engineering practice, delegation judgment, Theory of Mind exercises, and response evaluation drills.
+    </p>
+  </div>
+
+</section>

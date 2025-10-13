@@ -1,0 +1,150 @@
+<section class="space-y-5">
+  <!-- Paper header -->
+  <section class="panel panel-info p-4 space-y-4">
+    <div class="flex items-center justify-between gap-4">
+      <div class="flex-1 min-w-0">
+        <h2 class="text-xl font-semibold text-heading">Quantifying Human-AI Synergy</h2>
+        <p class="text-sm panel-muted">Ben Weidmann, Christoph Riedl • UCL & Northeastern (2025)</p>
+      </div>
+      <a 
+        href="https://osf.io/preprints/psyarxiv/vbkmt" 
+        target="_blank" 
+        rel="noopener"
+        class="btn-soft text-xs font-semibold flex-shrink-0"
+        data-accent="foundations">
+        <span>View paper</span>
+        <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+    <p class="text-sm leading-relaxed panel-muted">
+      This paper introduces a Bayesian Item Response Theory framework to quantify human-AI synergy, separating individual ability from collaborative ability while controlling for task difficulty. Applied to 667 users across math, physics, and moral reasoning tasks, it finds GPT-4o boosts human performance by 29 percentage points and Llama-3.1-8B by 23pp. Crucially, collaborative ability is distinct from solo ability—users with stronger Theory of Mind achieve superior AI collaboration without improving solo performance.
+    </p>
+    <div class="panel panel-neutral-soft p-3 space-y-2 text-xs">
+      <p class="font-semibold text-heading">Plain-language explainer</p>
+      <p class="panel-muted">Imagine measuring a basketball player's skill: you'd look at free throws (individual ability) and assists (teamwork ability) separately, because great shooters aren't always great passers. This paper does the same for humans working with AI—it measures both your ability to solve problems alone (θ) and your ability to collaborate with AI (κ). Turns out, these are different skills: users who excel at perspective-taking collaborate better with AI, but that doesn't make them better solo problem-solvers. The framework lets you benchmark which AI models amplify human performance most, while accounting for the fact that some tasks are just harder than others.</p>
+    </div>
+  </section>
+
+  <!-- Executive quick take -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <header class="flex items-center gap-2">
+      <span aria-hidden="true" class="text-lg">🧭</span>
+      <h3 class="text-sm font-semibold tracking-wide uppercase text-heading">Executive quick take</h3>
+    </header>
+    <p class="text-sm leading-relaxed text-body">
+      Current AI benchmarks evaluate models in isolation, ignoring how they perform when collaborating with actual humans. This creates a measurement gap: a model that scores high on MMLU might still frustrate users, while a "weaker" model might deliver better real-world outcomes. This framework closes that gap by quantifying synergy—the performance boost AI provides to diverse users on varying tasks—enabling rigorous model comparisons beyond static prompt accuracy.
+    </p>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>Dual ability framework reveals hidden dynamics:</strong> Solo ability (θ) and collaborative ability (κ) are empirically distinct (ΔELPD = 50.9, p < 0.001)—optimizing for one doesn't guarantee the other, explaining why high-IQ users sometimes struggle with AI tools</li>
+      <li><strong>Complementarity beats equalization:</strong> GPT-4o provides 29pp boost while Llama-3.1-8B provides 23pp, with higher-ability users performing best overall—but lower-ability users see larger relative gains (ceiling effects limit top performers)</li>
+      <li><strong>Theory of Mind predicts synergy:</strong> Users who better infer AI's "mental state" achieve superior collaboration (ρ = 0.42, p < 0.001), and moment-to-moment fluctuations in perspective-taking predict response quality—suggesting ToM training could amplify AI value</li>
+    </ul>
+  </section>
+
+  <!-- Business relevance -->
+  <section class="panel panel-success p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">💼 Business relevance</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+      <li><strong>Model procurement ROI:</strong> Synergy metrics enable apples-to-apples comparison of AI assistants—GPT-4o's 6pp advantage over Llama-3.1-8B translates to measurable productivity differences for your user base, justifying cost differentials</li>
+      <li><strong>Deployment targeting:</strong> Framework identifies which users benefit most from AI (lower-ability users gain more relatively) and on which tasks (difficult problems show highest boost), optimizing rollout sequencing and training budgets</li>
+      <li><strong>Dual-track training needed:</strong> Since θ ≠ κ, conventional skill development doesn't automatically improve AI collaboration—organizations must teach prompt engineering, delegation judgment, and response evaluation as separate competencies</li>
+      <li><strong>Theory of Mind as hiring signal:</strong> Perspective-taking ability predicts collaborative success independent of domain expertise—consider ToM assessments when building AI-augmented teams, especially for roles requiring tight human-AI coordination</li>
+    </ul>
+
+    <div class="panel panel-neutral-soft p-3 mt-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Derivative example: pilot your own synergy benchmark</p>
+      <ol class="list-decimal ml-5 space-y-1 panel-muted">
+        <li>Select 20 representative tasks from your domain (e.g., customer support tickets, code reviews, content drafts) spanning easy/medium/hard difficulty</li>
+        <li>Recruit 30-50 employees; have each complete 10 tasks solo and 10 tasks with AI assistance (randomize order, control for task difficulty)</li>
+        <li>Record binary outcomes (correct/incorrect or accepted/rejected) and measure response time; also collect ToM scores via standard perspective-taking assessments</li>
+        <li>Fit IRT model using brms in R (see paper's Methods section) to estimate individual θ (solo ability), κ (collaborative ability), and model synergy κ^AI</li>
+        <li>Compare synergy across AI models (e.g., GPT-4 vs Claude vs Gemini) to quantify which delivers highest boost for your task distribution and user base</li>
+        <li>Analyze heterogeneous effects: identify which user segments (by θ, ToM, domain experience) benefit most, then tailor deployment and training accordingly</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Supporting callouts -->
+  <div class="grid md:grid-cols-2 gap-4">
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Why Item Response Theory for human-AI evaluation</h3>
+      <p class="text-xs panel-muted">
+        Standard benchmarks report aggregate accuracy, but this confounds task difficulty, user ability, and AI capability. IRT untangles these: it estimates latent "difficulty" for each task and "ability" for each user, then measures how much AI shifts the ability distribution. This Bayesian shrinkage approach prevents overfitting (especially with sparse data) and provides uncertainty estimates around synergy claims. The framework extends to multi-condition designs (solo vs with-AI), enabling controlled comparisons that isolate collaborative effects from learning or fatigue. Crucially, IRT is assumption-lean: it doesn't require experimental control groups or matched pairs, making it feasible for naturalistic deployment studies.
+      </p>
+    </div>
+
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Theory of Mind as collaboration substrate</h3>
+      <p class="text-xs panel-muted">
+        ToM—the ability to represent others' mental states—predicts human-human collaboration because it enables communication repair, ambiguity resolution, and contribution coordination. The authors hypothesize ToM matters for human-AI interaction due to LLMs' dialogic nature and semi-autonomous unpredictability: users must infer what the AI "knows," anticipate misinterpretations, and scaffold requests accordingly. Using LMRA (language model research assistant) to score dialogue excerpts for perspective-taking, they find both stable individual differences and within-user fluctuations in ToM predict AI response quality. This suggests ToM isn't just a proxy for intelligence—it's a distinct mechanism enabling adaptive interaction with non-human agents.
+      </p>
+    </div>
+  </div>
+
+  <!-- Key insight / Method / Implication trio -->
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Key insight</h3>
+      <p class="text-xs panel-muted">
+        Human-AI collaboration is a distinct skill (κ) separate from individual problem-solving ability (θ), mediated by Theory of Mind—evaluating AI models requires measuring synergy in realistic interactive settings, not just static prompt benchmarks.
+      </p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Method</h3>
+      <p class="text-xs panel-muted">
+        Bayesian IRT framework decomposes performance into user ability (θ, κ), task difficulty (β, γ), and AI capability (κ^AI); Bayes shrinkage stabilizes estimates; LOO cross-validation confirms θ ≠ κ; LMRA scores dialogue for ToM.
+      </p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Implication</h3>
+      <p class="text-xs panel-muted">
+        Interactive benchmarks that quantify synergy should complement static evaluations; ToM training may unlock AI value; model procurement decisions should weigh collaborative capability alongside solo performance.
+      </p>
+    </div>
+  </div>
+
+  <!-- Evidence -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🧪 Evidence from the study</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>Sample & design:</strong> 667 users, 2,072 solo observations, tasks span math/physics/moral reasoning; within-subjects design (each user completes tasks solo and with AI), controlling for order effects and learning</li>
+      <li><strong>Synergy quantification:</strong> GPT-4o boosts performance by 29 percentage points (95% CI: [26, 32]), Llama-3.1-8B by 23pp ([20, 26])—non-overlapping intervals confirm GPT-4o's advantage</li>
+      <li><strong>Baseline performance:</strong> Humans alone 55.5% correct; GPT-4o alone 71%; Llama-3.1-8B alone 39%; human-GPT-4o team significantly outperforms both solo conditions</li>
+      <li><strong>Dual ability framework:</strong> Model with separate θ and κ fits substantially better (ΔELPD = 50.9, SE = 10.2) than single-ability model; excellent convergence (R̂ = 1.00, ESS > 1,500)</li>
+      <li><strong>Task difficulty gradient:</strong> AI provides largest boost on most difficult tasks (ρ = -0.91 between task difficulty and AI boost), supporting complementarity hypothesis</li>
+      <li><strong>Heterogeneous effects:</strong> Higher-ability users perform best with AI (ρ = 0.67 between θ and κ_total), but lower-ability users gain more relatively (ρ = -0.91 between θ and boost size, driven by ceiling effects)</li>
+      <li><strong>Theory of Mind mechanism:</strong> ToM predicts collaborative ability (ρ = 0.42, p < 0.001) but not solo ability; moment-to-moment ToM fluctuations correlate with AI response quality; LMRA scores validated against gold-standard human ratings</li>
+      <li><strong>Model-invariant effects:</strong> Both GPT-4o and Llama-3.1-8B show stable impact across user ability distribution (no significant heterogeneity by θ level)</li>
+    </ul>
+  </section>
+
+  <!-- Forward-looking roadmap -->
+  <section class="panel panel-warning p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🔭 For your roadmap</h3>
+    <p class="text-sm leading-relaxed text-body">
+      This framework shifts AI evaluation from "How accurate is the model?" to "How much does the model improve human performance?" Organizations deploying AI assistants should adopt synergy benchmarks as a core procurement and training metric.
+    </p>
+    
+    <div class="panel panel-info p-4 space-y-2">
+      <h4 class="text-sm font-semibold text-heading">Building internal synergy benchmarks</h4>
+      <p class="text-xs panel-muted">
+        Start with domain-specific task batteries: customer support teams need 20-30 representative tickets (mix of FAQ, edge cases, escalations); engineering teams need code review scenarios or debugging tasks; content teams need writing/editing prompts. Ensure wide difficulty range (easy = routine lookups, hard = novel reasoning). Recruit cross-section of employees (junior to senior, high/low domain expertise) to establish baseline distribution of θ and κ. Run within-subjects design where each user completes ~half solo, ~half with-AI (randomize order, balance task difficulty). Track binary outcomes plus optional time-to-completion and user confidence ratings. Fit brms models (R package) following paper's specification—estimate θ, κ^human, κ^AI, β, γ for your specific context. Repeat quarterly to track learning effects and model capability drift.
+      </p>
+    </div>
+
+    <div class="panel panel-info p-4 space-y-2">
+      <h4 class="text-sm font-semibold text-heading">Training for collaborative ability (κ)</h4>
+      <p class="text-xs panel-muted">
+        Since θ ≠ κ, traditional skill training won't automatically improve AI collaboration. Design separate interventions: (1) Prompt engineering workshops focusing on context-setting, constraint specification, and iterative refinement—not just "how to write prompts" but "how to communicate intent to semi-autonomous systems." (2) Delegation judgment training: when to rely on AI output vs verify independently, recognizing overconfidence in AI suggestions. (3) Theory of Mind exercises: perspective-taking scenarios where users infer what information AI likely has/lacks, practice repairing communication breakdowns. (4) Response evaluation drills: spot-checking AI outputs for hallucinations, bias, or logical errors. Track pre/post κ estimates to validate training effectiveness. Consider hiring for ToM in roles requiring heavy AI collaboration.
+      </p>
+    </div>
+
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li>Extend synergy benchmarks to multi-turn interactions and complex tasks (current study focuses on single-question scenarios—real work involves extended dialogues and context accumulation)</li>
+      <li>Investigate whether ToM can be trained or amplified through scaffolded AI interactions, metacognitive prompts, or explicit perspective-taking exercises embedded in workflows</li>
+      <li>Compare synergy across AI modalities (text vs code assistants vs multimodal tools) to identify capability-specific deployment priorities</li>
+      <li>Develop synergy-aware fine-tuning: optimize models not just for solo accuracy but for their ability to boost diverse users—may require training data from human-AI collaborative sessions</li>
+      <li>Track synergy over time to detect capability drift, learning effects, and novelty decay (users may plateau as tasks become routine)</li>
+    </ul>
+  </section>
+</section>

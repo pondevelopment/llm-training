@@ -1,4 +1,31 @@
 {
+  "36": {
+    "title": "ReasoningBank: Scaling Agent Self-Evolving with Reasoning Memory",
+    "authors": [
+      "Siru Ouyang",
+      "Jun Yan",
+      "Chen-Yu Lee",
+      "Tomas Pfister"
+    ],
+    "year": 2025,
+    "venue": "Google Cloud AI Research (2025)",
+    "tags": [
+      "agent-memory",
+      "self-evolution",
+      "test-time-scaling",
+      "learning",
+      "reasoning"
+    ],
+    "summary": "Introduces ReasoningBank, a novel memory framework that enables LLM agents to learn from accumulated experiences by distilling generalizable reasoning strategies from both successful and failed attempts. Combined with memory-aware test-time scaling (MaTTS), achieves +8.3 percentage point improvement (20.5% relative) on WebArena while reducing interaction steps by 14%—establishing memory-driven experience scaling as a new dimension beyond compute and data.",
+    "dir": "./papers/p36",
+    "interactiveTitle": "Memory architecture simulator",
+    "relatedQuestions": [
+      1,
+      3,
+      13,
+      29
+    ]
+  },
   "35": {
     "title": "Can GenAI Improve Academic Performance?",
     "authors": [

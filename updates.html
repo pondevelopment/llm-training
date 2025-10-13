@@ -65,6 +65,23 @@
         <span class="text-xs font-semibold tracking-wide text-indigo-700 uppercase">New Paper Explainer</span>
         <time datetime="2025-10-12" class="text-xs font-medium text-muted-soft uppercase tracking-wide">12 Oct 2025</time>
       </header>
+      <p class="text-lg font-semibold text-heading">Paper 36 &middot; ReasoningBank: Scaling Agent Self-Evolving with Reasoning Memory</p>
+      <p class="text-sm text-muted italic">Novel memory framework enabling LLM agents to learn from accumulated experiences by distilling generalizable reasoning strategies from both successful and failed attempts. Combined with memory-aware test-time scaling (MaTTS), achieves +8.3pp improvement (20.5% relative) with 16% fewer interaction steps.</p>
+      <ul class="list-disc list-inside text-sm text-secondary space-y-2">
+        <li>Published <code>paper 36</code> with interactive memory architecture simulator—compare trajectory memory, workflow memory, and ReasoningBank across different task complexities, scaling modes, and learning configurations to project performance and efficiency.</li>
+        <li>Built learning curve visualizer showing how different memory types enable (or prevent) continuous improvement over sequential tasks—ReasoningBank demonstrates logarithmic success rate growth while no-memory baseline remains flat.</li>
+        <li>Implemented MaTTS scaling simulator with parallel (self-contrast) and sequential (self-refinement) modes—configure scaling factor (1-5x) to see trade-offs between compute cost and memory quality improvements.</li>
+        <li>Documented evidence: +8.3% success rate improvement over no-memory baseline on WebArena, 16% reduction in interaction steps, strongest generalization gains on cross-domain tasks (+4.6% on WebArena Multi), robust across three model architectures (Gemini-2.5-flash/pro, Claude-3.7-sonnet).</li>
+        <li>Added success/failure learning comparison showing ReasoningBank's dual extraction strategy (65% success strategies + 35% failure guardrails) vs success-only approaches—demonstrates importance of learning from mistakes for robustness.</li>
+        <li>Updated <code>papers/manifest.json</code>, shipped <code>/p/36.html</code>, and added phased memory adoption roadmap with cost-benefit analysis framework for test-time scaling deployment decisions.</li>
+      </ul>
+    </article>
+
+        <article class="bg-card border border-divider rounded-lg shadow-sm p-5 space-y-3">
+      <header class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
+        <span class="text-xs font-semibold tracking-wide text-indigo-700 uppercase">New Paper Explainer</span>
+        <time datetime="2025-10-12" class="text-xs font-medium text-muted-soft uppercase tracking-wide">12 Oct 2025</time>
+      </header>
       <p class="text-lg font-semibold text-heading">Paper 35 &middot; Can GenAI Improve Academic Performance?</p>
       <p class="text-sm text-muted italic">First large-scale empirical study on GenAI's impact on scientific productivity. Using matched panel data from 32,480 researchers (2021-2024), finds GenAI adoption increases output by 36% in year two with modest quality gains—strongest for early-career researchers and non-English speakers.</p>
       <ul class="list-disc list-inside text-sm text-secondary space-y-2">

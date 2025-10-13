@@ -1,0 +1,149 @@
+<section class="space-y-5">
+  <!-- Paper header -->
+  <section class="panel panel-info p-4 space-y-4">
+    <div class="flex items-center justify-between gap-4">
+      <div class="flex-1 min-w-0">
+        <h2 class="text-xl font-semibold text-heading">ReasoningBank: Scaling Agent Self-Evolving with Reasoning Memory</h2>
+        <p class="text-sm panel-muted">Siru Ouyang, Jun Yan, Chen-Yu Lee, Tomas Pfister • Google Cloud AI Research (2025)</p>
+      </div>
+      <a 
+        href="https://arxiv.org/pdf/2509.25140" 
+        target="_blank" 
+        rel="noopener"
+        class="btn-soft text-xs font-semibold flex-shrink-0"
+        data-accent="foundations">
+        <span>View paper</span>
+        <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+    <p class="text-sm leading-relaxed panel-muted">
+      This paper introduces ReasoningBank, a novel memory framework that enables LLM agents to learn from accumulated experiences across tasks. Unlike prior approaches that store only raw trajectories or successful workflows, ReasoningBank distills generalizable reasoning strategies from both successful and failed experiences. Combined with memory-aware test-time scaling (MaTTS), it achieves +8.3 percentage point improvement (20.5% relative) on WebArena with Gemini-2.5-flash while reducing interaction steps by 14% (from 9.7 to 8.3 steps).
+    </p>
+    <div class="panel panel-neutral-soft p-3 space-y-2 text-xs">
+      <p class="font-semibold text-heading">Plain-language explainer</p>
+      <p class="panel-muted">Imagine two customer service agents: one writes down "user asked about refund" after every interaction, while the other notes "when users mention 'refund' early, check order status first before explaining policy—saves 3 steps." The second agent isn't just recording what happened; they're capturing why it worked (or failed). ReasoningBank does this automatically—it learns strategic patterns from an agent's experience, including mistakes, so each new task benefits from accumulated wisdom rather than starting from scratch.</p>
+    </div>
+  </section>
+
+  <!-- Executive quick take -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <header class="flex items-center gap-2">
+      <span aria-hidden="true" class="text-lg">🧭</span>
+      <h3 class="text-sm font-semibold tracking-wide uppercase text-heading">Executive quick take</h3>
+    </header>
+    <p class="text-sm leading-relaxed text-body">
+      Current agent deployments treat each task in isolation—they can't learn from past mistakes or reuse successful strategies. ReasoningBank transforms agent memory from passive recording to active learning, extracting transferable reasoning patterns from both wins and losses. This isn't incremental; it's architectural: agents equipped with ReasoningBank become self-evolving systems that improve with every interaction.
+    </p>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>Memory quality matters more than volume:</strong> Distilled reasoning strategies (e.g., "prioritize account sections for personal data queries") outperform raw trajectory storage by 8.3% on WebArena, demonstrating that abstraction beats verbatim recall</li>
+      <li><strong>Failures are signal, not noise:</strong> Learning from unsuccessful attempts alongside successes produces more robust memory—agents avoid repeating mistakes and develop preventative guardrails that pure success-based memory misses</li>
+      <li><strong>Memory unlocks test-time scaling synergy:</strong> MaTTS creates a virtuous cycle where better memory guides smarter exploration, and richer exploration forges stronger memory—establishing experience scaling as a new dimension beyond compute and data</li>
+    </ul>
+  </section>
+
+  <!-- Business relevance -->
+  <section class="panel panel-success p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">💼 Business relevance</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+      <li><strong>Deployment efficiency:</strong> 14% reduction in interaction steps (9.7 → 8.3) means lower API costs and faster task completion—memory isn't just about accuracy, it's cost optimization that compounds over time</li>
+      <li><strong>Persistent agent viability:</strong> For customer support, DevOps automation, or research assistants that handle thousands of tasks, self-evolution capability determines whether agents plateau or improve—ReasoningBank enables the latter</li>
+      <li><strong>Failure mode documentation:</strong> Memory extracted from failed attempts acts as living documentation of edge cases and pitfalls—valuable for compliance, debugging, and training human operators</li>
+      <li><strong>Test-time scaling ROI:</strong> MaTTS shows that allocating more compute per task (parallel/sequential scaling) yields better returns when memory is present—justifying higher per-task budgets for critical deployments</li>
+    </ul>
+
+    <div class="panel panel-neutral-soft p-3 mt-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Derivative example: audit your agent's learning curve</p>
+      <ol class="list-decimal ml-5 space-y-1 panel-muted">
+        <li>Deploy a test agent on a fixed set of 20 recurring tasks (e.g., customer inquiries, code review requests) for 2 weeks</li>
+        <li>Track success rate and steps-to-completion for each task occurrence—expect raw agents to show flat or noisy trends</li>
+        <li>Implement ReasoningBank-style memory: after each task, have an LLM-as-judge label success/failure and extract 2-3 strategy items (e.g., "when X pattern appears, try Y first")</li>
+        <li>Store these items in a vector database, retrieve top-3 relevant memories at task start, inject them into system prompt</li>
+        <li>Re-run the same 20 tasks—measure improvement slope, step reduction, and memory reuse frequency to calculate ROI (memory storage cost vs efficiency gains)</li>
+        <li>For high-value tasks, enable MaTTS: generate 3-5 parallel attempts with self-contrast or 2-3 sequential refinements—compare quality of resulting memory items vs single-shot extraction</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Supporting callouts -->
+  <div class="grid md:grid-cols-2 gap-4">
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Why distilled strategies beat raw trajectories</h3>
+      <p class="text-xs panel-muted">
+        Raw trajectories are comprehensive but noisy—a 50-step web navigation session contains irrelevant clicks, dead ends, and environmental noise. Storing them verbatim inflates retrieval costs and dilutes signal. ReasoningBank extracts structured memory items with title, description, and actionable content (e.g., "Navigation Strategy: When searching order history, detect pagination mode first, examine all items, avoid infinite scroll traps"). This abstraction removes implementation details while preserving transferable reasoning patterns, making memory items both human-interpretable and machine-usable across diverse contexts.
+      </p>
+    </div>
+
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">LLM-as-judge for self-supervised learning</h3>
+      <p class="text-xs panel-muted">
+        The test-time learning paradigm assumes no ground-truth feedback during deployment—agents must self-evaluate. ReasoningBank uses LLM-as-a-judge to label completed trajectories as success/failure without external validation. This enables different extraction strategies: successful experiences contribute validated tactics, while failed ones supply counterfactual signals and preventative guardrails. Multiple memory items are extracted per trajectory to capture nuanced reasoning at different abstraction levels, forming a rich, self-curated knowledge base that evolves with each task.
+      </p>
+    </div>
+  </div>
+
+  <!-- Key insight / Method / Implication trio -->
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Key insight</h3>
+      <p class="text-xs panel-muted">
+        Agent memory should store transferable reasoning strategies abstracted from both successes and failures, not raw execution traces or success-only workflows—this enables self-evolution through continuous learning.
+      </p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Method</h3>
+      <p class="text-xs panel-muted">
+        Closed-loop memory process: retrieve relevant strategies → interact with environment → extract structured items via LLM-as-judge → consolidate into ReasoningBank. MaTTS scales experience through parallel self-contrast or sequential self-refinement.
+      </p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Implication</h3>
+      <p class="text-xs panel-muted">
+        Memory transforms agents from stateless task executors into self-evolving systems. Test-time scaling becomes more effective when memory-aware, establishing experience scaling as a viable alternative to model scaling.
+      </p>
+    </div>
+  </div>
+
+  <!-- Evidence -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🧪 Evidence from the study</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>WebArena benchmark:</strong> ReasoningBank achieves +8.3pp success rate improvement over memory-free baseline (Gemini-2.5-flash), with +7.2pp on Gemini-2.5-pro and +4.6pp on Claude-3.7-sonnet—consistency across model architectures confirms robustness</li>
+      <li><strong>Efficiency gains:</strong> Average interaction steps reduced by 14% (9.7 → 8.3 steps, saving 1.4 steps per task)—lower costs and faster completions without accuracy trade-offs</li>
+      <li><strong>Generalization stress tests:</strong> On WebArena Multi subset (cross-website tasks), ReasoningBank gains +4.6% while workflow-based memory (AWM) degrades—distilled strategies transfer better than domain-specific procedures</li>
+      <li><strong>Mind2Web cross-domain:</strong> Largest gains appear in most challenging generalization setting (cross-domain evaluation), demonstrating that abstracted reasoning patterns adapt to unfamiliar environments more effectively than trajectory replay</li>
+      <li><strong>SWE-Bench-Verified:</strong> +4.6% improvement on repository-level issue resolving with 10% fewer steps—applies beyond web browsing to code generation and debugging tasks</li>
+      <li><strong>MaTTS synergy:</strong> Parallel scaling (3-5 trajectories with self-contrast) and sequential scaling (2-3 refinement steps) both amplify memory quality—allocating more compute per task yields compounding returns when memory is present</li>
+      <li><strong>Memory composition:</strong> Extracting multiple items per trajectory at different abstraction levels creates richer signal than single-strategy extraction—validates hierarchical reasoning capture</li>
+    </ul>
+  </section>
+
+  <!-- Forward-looking roadmap -->
+  <section class="panel panel-warning p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🔭 For your roadmap</h3>
+    <p class="text-sm leading-relaxed text-body">
+      ReasoningBank establishes memory as infrastructure, not a feature. Teams deploying persistent agents should prioritize memory architecture early, treating it as foundational as model selection.
+    </p>
+    
+    <div class="panel panel-info p-4 space-y-2">
+      <h4 class="text-sm font-semibold text-heading">Phased memory adoption strategy</h4>
+      <p class="text-xs panel-muted">
+        Start with basic trajectory logging (week 1-2): store raw interaction histories to establish baseline performance and identify recurring task patterns. Implement structured extraction (week 3-4): add LLM-as-judge labeling and distill 2-3 strategy items per completed task using prompt templates from Appendix A.1 of the paper. Deploy retrieval layer (week 5-6): embed memory items, implement top-k semantic search, inject retrieved strategies into agent system prompts. Enable consolidation loop (week 7-8): periodically merge redundant memory items, prune low-utility strategies based on reuse frequency, track memory bank growth vs performance curves.
+      </p>
+    </div>
+
+    <div class="panel panel-info p-4 space-y-2">
+      <h4 class="text-sm font-semibold text-heading">Test-time scaling cost-benefit analysis</h4>
+      <p class="text-xs panel-muted">
+        MaTTS introduces compute overhead (3-5x for parallel, 2-3x for sequential scaling) that must be justified by downstream value. Prioritize high-stakes tasks: customer-facing resolutions, compliance-critical operations, or production incident responses where accuracy matters more than speed. Measure memory quality improvement: compare strategy extraction from single trajectory vs MaTTS-generated contrastive signals—track precision/recall of retrieved items on held-out tasks. Calculate break-even: if parallel scaling costs $0.50 vs $0.10 for single-shot, memory quality must improve success rate by >40% or reduce retry costs accordingly to justify deployment.
+      </p>
+    </div>
+
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li>Instrument failure modes: tag extracted memory items with failure categories (navigation dead-ends, incorrect assumptions, timeout patterns) to build taxonomies for monitoring and alerting</li>
+      <li>Version control for memory: treat ReasoningBank as a dataset—version snapshots, A/B test memory configurations, roll back problematic updates when performance regresses</li>
+      <li>Human-in-the-loop curation: surface high-reuse memory items to domain experts for validation, correction, or enhancement—blend automated extraction with manual refinement</li>
+      <li>Cross-agent memory sharing: explore federated memory architectures where multiple agent instances contribute to shared ReasoningBank—requires privacy-preserving aggregation and conflict resolution strategies</li>
+      <li>Long-term evolution tracking: monitor memory bank composition over months—measure strategy diversity, abstraction depth, and emergence of meta-strategies that reference other memory items</li>
+    </ul>
+  </section>
+</section>

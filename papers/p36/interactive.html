@@ -1,0 +1,244 @@
+<section class="space-y-6" id="p36-explorer">
+  <!-- Memory Type Comparison -->
+  <div class="panel panel-info p-5 space-y-4">
+    <h3 class="text-sm font-semibold text-heading">Memory Architecture Comparison</h3>
+    <p class="text-sm text-muted">Compare different memory approaches for agent systems</p>
+    
+    <div class="space-y-2">
+      <label for="memoryType" class="text-sm font-medium text-body block">Memory Type</label>
+      <select id="memoryType" class="w-full px-3 py-2 border border-divider rounded bg-surface text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
+        <option value="none">No Memory (baseline)</option>
+        <option value="trajectory">Trajectory Memory (raw histories)</option>
+        <option value="workflow">Workflow Memory (success-only procedures)</option>
+        <option value="reasoning" selected>ReasoningBank (distilled strategies)</option>
+      </select>
+      <p class="text-xs text-muted">Each approach stores different representations of experience</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+      <div class="space-y-2">
+        <label for="numTasks" class="text-sm font-medium text-body block">Number of Tasks: <span id="numTasksLabel">50</span></label>
+        <input 
+          type="range" 
+          id="numTasks" 
+          min="10" 
+          max="200" 
+          step="10" 
+          value="50"
+          class="w-full accent-[color:var(--accent-strong)]">
+        <p class="text-xs text-muted mt-1">Total tasks to simulate. More tasks = more learning opportunities, shown as batches of 10 in the curve below.</p>
+      </div>
+
+      <div class="space-y-2">
+        <label for="taskComplexity" class="text-sm font-medium text-body block">Task Complexity</label>
+        <select id="taskComplexity" class="w-full px-3 py-2 border border-divider rounded bg-surface text-body text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
+          <option value="simple">Simple (single-domain)</option>
+          <option value="moderate" selected>Moderate (cross-task)</option>
+          <option value="complex">Complex (cross-domain)</option>
+        </select>
+        <p class="text-xs text-muted mt-1">Simple: repetitive tasks in one domain. Moderate: varied tasks across domains. Complex: novel multi-domain scenarios requiring transfer learning.</p>
+      </div>
+
+      <div class="space-y-2">
+        <label for="failureRate" class="text-sm font-medium text-body block">Base Failure Rate: <span id="failureRateLabel">30%</span></label>
+        <input 
+          type="range" 
+          id="failureRate" 
+          min="10" 
+          max="50" 
+          step="5" 
+          value="30"
+          class="w-full accent-[color:var(--accent-strong)]">
+        <p class="text-xs text-muted mt-1">How often tasks fail initially. Higher rates provide more failure cases to learn from, but reduce starting performance.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Performance Metrics -->
+  <div class="panel panel-neutral p-5 space-y-4">
+    <h3 class="text-sm font-semibold text-heading">Projected Performance</h3>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="panel panel-neutral-soft p-4 space-y-2">
+        <div class="flex justify-between items-baseline">
+          <span class="text-xs uppercase tracking-wide text-muted">Success Rate</span>
+          <span id="successRate" class="text-2xl font-bold text-heading">48.8%</span>
+        </div>
+        <div class="w-full bg-surface rounded-full h-3 overflow-hidden border border-divider">
+          <div id="successBar" class="h-full transition-all duration-500" style="width: 48.8%; background: linear-gradient(to right, #6366f1, #4f46e5);"></div>
+        </div>
+        <p class="text-xs text-body">Percentage of tasks completed successfully</p>
+      </div>
+
+      <div class="panel panel-neutral-soft p-4 space-y-2">
+        <div class="flex justify-between items-baseline">
+          <span class="text-xs uppercase tracking-wide text-muted">Avg Steps per Task</span>
+          <span id="avgSteps" class="text-2xl font-bold text-heading">8.3</span>
+        </div>
+        <div class="w-full bg-surface rounded-full h-3 overflow-hidden border border-divider">
+          <div id="stepsBar" class="h-full transition-all duration-500" style="width: 83%; background: #10b981;"></div>
+        </div>
+        <p class="text-xs text-body">Lower is better—efficiency metric</p>
+      </div>
+
+      <div class="panel panel-neutral-soft p-4 space-y-2">
+        <div class="flex justify-between items-baseline">
+          <span class="text-xs uppercase tracking-wide text-muted">Memory Overhead</span>
+          <span id="memorySize" class="text-2xl font-bold text-heading">245 KB</span>
+        </div>
+        <p class="text-xs text-body">Storage cost per 50 tasks</p>
+      </div>
+
+      <div class="panel panel-neutral-soft p-4 space-y-2">
+        <div class="flex justify-between items-baseline">
+          <span class="text-xs uppercase tracking-wide text-muted">Retrieval Time</span>
+          <span id="retrievalTime" class="text-2xl font-bold text-heading">45 ms</span>
+        </div>
+        <p class="text-xs text-body">Average latency for memory lookup</p>
+      </div>
+    </div>
+
+    <!-- Learning Curve -->
+    <div class="space-y-3 mt-4">
+      <h4 class="text-sm font-medium text-body">Learning Curve Over Time</h4>
+      <div class="panel panel-neutral-soft p-4">
+        <div id="learningCurve" class="relative" style="height: 200px;"></div>
+      </div>
+      <p class="text-xs text-muted">Success rate improvement across task batches (each batch = 10 tasks). <strong>Note:</strong> Y-axis is zoomed to highlight improvement—actual changes are typically 5-15 percentage points.</p>
+    </div>
+  </div>
+
+  <!-- MaTTS Scaling Simulator -->
+  <div class="panel panel-info p-5 space-y-4">
+    <h3 class="text-sm font-semibold text-heading">Memory-Aware Test-Time Scaling (MaTTS)</h3>
+    <div class="panel panel-neutral-soft p-3 space-y-2">
+      <p class="text-sm text-body"><strong>Think of it like:</strong> When facing a tough problem, you can either (1) try multiple different approaches in parallel and pick the best, or (2) make an attempt, reflect on what went wrong, and refine your approach iteratively.</p>
+      <p class="text-xs text-muted">This costs more compute (more tries = more time), but improves both your immediate success rate <em>and</em> the quality of what you learn for next time.</p>
+    </div>
+    <p class="text-sm text-muted">Configure scaling to see the trade-off between extra compute cost and performance gains.</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="space-y-2">
+        <label for="scalingMode" class="text-sm font-medium text-body block">Scaling Mode</label>
+        <select id="scalingMode" class="w-full px-3 py-2 border border-divider rounded bg-surface text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
+          <option value="none">No Scaling (single trajectory)</option>
+          <option value="parallel" selected>Parallel Scaling (self-contrast)</option>
+          <option value="sequential">Sequential Scaling (self-refinement)</option>
+        </select>
+        <p class="text-xs text-muted">Parallel generates multiple attempts; Sequential refines iteratively</p>
+      </div>
+
+      <div class="space-y-2">
+        <label for="scalingFactor" class="text-sm font-medium text-body block">Scaling Factor: <span id="scalingFactorLabel">3</span>x</label>
+        <input 
+          type="range" 
+          id="scalingFactor" 
+          min="1" 
+          max="5" 
+          step="1" 
+          value="3"
+          class="w-full accent-[color:var(--accent-strong)]">
+        <p class="text-xs text-muted">Number of parallel trajectories or refinement iterations</p>
+      </div>
+    </div>
+
+    <!-- MaTTS Results -->
+    <div class="space-y-3">
+      <div class="panel panel-warning-soft p-3">
+        <div class="flex justify-between items-baseline">
+          <span class="text-sm font-medium text-body">With MaTTS Applied</span>
+          <span class="text-2xl font-bold text-heading" id="mattsNewSuccessRate">60.2%</span>
+        </div>
+        <p class="text-xs text-muted mt-1">Final success rate after scaling (compare to "Success Rate" above)</p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+        <div class="panel panel-neutral-soft p-3 space-y-1">
+          <span class="text-xs uppercase tracking-wide text-muted">Success Rate Lift</span>
+          <div class="text-xl font-bold text-heading" id="mattsSuccessLift">+12.4%</div>
+          <p class="text-xs text-muted">Improvement over no scaling</p>
+        </div>
+
+        <div class="panel panel-neutral-soft p-3 space-y-1">
+          <span class="text-xs uppercase tracking-wide text-muted">Compute Cost</span>
+          <div class="text-xl font-bold text-heading" id="mattsComputeCost">3.0x</div>
+          <p class="text-xs text-muted">Multiplier vs baseline</p>
+        </div>
+
+        <div class="panel panel-neutral-soft p-3 space-y-1">
+          <span class="text-xs uppercase tracking-wide text-muted">Memory Quality</span>
+          <div class="text-xl font-bold text-heading" id="mattsMemoryQuality">High</div>
+          <p class="text-xs text-muted">Contrastive signal strength</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Success/Failure Learning Visualizer -->
+  <div class="panel panel-success p-5 space-y-4">
+    <h3 class="text-sm font-semibold text-heading">Success vs Failure Learning</h3>
+    <div class="panel panel-neutral-soft p-3 space-y-2">
+      <p class="text-sm text-body"><strong>Real-world example:</strong> When learning to book flights online, successes teach you "Click 'Search Flights' → Select dates → Choose fare" (positive tactics). Failures teach you "Don't click 'Book' before reviewing — you can't undo" (preventative guardrails).</p>
+      <p class="text-xs text-muted">ReasoningBank captures both: what to do (from successes) and what to avoid (from failures). Traditional methods only keep successful trajectories.</p>
+    </div>
+
+    <div class="space-y-2">
+      <label for="learningMode" class="text-sm font-medium text-body block">Memory Source</label>
+      <select id="learningMode" class="w-full px-3 py-2 border border-divider rounded bg-surface text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
+        <option value="success-only">Success Only (traditional approach)</option>
+        <option value="both" selected>Success + Failure (ReasoningBank)</option>
+      </select>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+      <div class="panel panel-neutral-soft p-4 space-y-2">
+        <h4 class="text-sm font-semibold text-heading">Memory Composition</h4>
+        <div id="memoryComposition" class="space-y-2"></div>
+      </div>
+
+      <div class="panel panel-neutral-soft p-4 space-y-2">
+        <h4 class="text-sm font-semibold text-heading">Strategy Coverage</h4>
+        <div class="space-y-3">
+          <div class="space-y-1">
+            <div class="flex justify-between text-xs">
+              <span class="text-body">Positive tactics</span>
+              <span id="positiveTactics" class="font-bold text-heading">85%</span>
+            </div>
+            <div class="w-full bg-surface rounded-full h-2 overflow-hidden border border-divider">
+              <div id="positiveTacticsBar" class="h-full transition-all duration-300" style="width: 85%; background: #10b981;"></div>
+            </div>
+          </div>
+          <div class="space-y-1">
+            <div class="flex justify-between text-xs">
+              <span class="text-body">Preventative guardrails</span>
+              <span id="preventativeTactics" class="font-bold text-heading">45%</span>
+            </div>
+            <div class="w-full bg-surface rounded-full h-2 overflow-hidden border border-divider">
+              <div id="preventativeTacticsBar" class="h-full transition-all duration-300" style="width: 45%; background: #f59e0b;"></div>
+            </div>
+          </div>
+        </div>
+        <p class="text-xs text-muted">Proportion of memory items by type</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Insights Panel -->
+  <div class="panel panel-warning p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">Configuration Insights</h3>
+    <div id="insights" class="text-sm text-body space-y-2 min-h-[2.75rem]">
+      <p>Adjust settings above to see personalized insights based on your memory configuration.</p>
+    </div>
+  </div>
+
+  <!-- Study Context -->
+  <div class="panel panel-neutral p-5 space-y-3">
+    <h4 class="text-sm font-semibold text-heading">About this simulator</h4>
+    <p class="text-sm text-body">
+      This calculator projects performance based on empirical results from WebArena, Mind2Web, and SWE-Bench-Verified benchmarks. Base effects: ReasoningBank achieves +8.3% success rate over no-memory baseline (Gemini-2.5-flash) with 16% fewer steps. MaTTS parallel scaling (k=3) adds ~12% relative improvement with 3x compute cost. Sequential scaling (k=2-3) provides similar gains through iterative refinement.
+    </p>
+    <p class="text-sm text-muted">
+      <strong>Limitations:</strong> Results vary by task domain, model capability, and memory retrieval strategy. These projections assume semantic embedding-based retrieval with top-k=3. Actual performance depends on extraction prompt quality, consolidation strategy, and task similarity distribution. Use as directional guidance for planning memory architecture experiments.
+    </p>
+  </div>
+</section>

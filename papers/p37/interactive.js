@@ -77,9 +77,6 @@
    * @returns {object} {kappa, gpt4oKappa, llamaKappa}
    */
   function calculateCollaborativeAbility(abilityLevel, tomLevel, model, difficulty, domain, theta) {
-    // Collaborative ability correlates with individual (ρ = 0.67) but is distinct
-    const baseKappa = theta * BASE_METRICS.thetaKappaCorr;
-    
     // Apply modifiers
     const abilityMod = ABILITY_MODIFIERS[abilityLevel].kappa;
     const tomMod = TOM_EFFECTS[tomLevel];
@@ -87,15 +84,16 @@
     const domainEffect = DOMAIN_EFFECTS[domain].aiEffectiveness;
     
     // GPT-4o collaborative ability
+    // Start from theta, add AI boost, modify by collaboration style (ToM) and ability ceiling effects
     const gpt4oBoost = BASE_METRICS.gpt4oBoost * difficultyBoost * domainEffect;
     const gpt4oKappa = Math.max(0.25, Math.min(0.98, 
-      theta + baseKappa + abilityMod + tomMod + gpt4oBoost
+      theta + gpt4oBoost + abilityMod + tomMod
     ));
     
     // Llama collaborative ability
     const llamaBoost = BASE_METRICS.llamaBoost * difficultyBoost * domainEffect;
     const llamaKappa = Math.max(0.25, Math.min(0.98,
-      theta + baseKappa + abilityMod + tomMod + llamaBoost
+      theta + llamaBoost + abilityMod + tomMod
     ));
     
     // Return appropriate values based on model selection
@@ -145,63 +143,47 @@
     
     // Insight 1: Ability level context
     if (abilityLevel === 'high') {
-      insights.push('<strong>High-ability complementarity:</strong> You perform best overall with AI (' + 
-        (kappa * 100).toFixed(1) + '%), but your relative gain is smaller due to ceiling effects. ' +
-        'You gain more from AI on difficult tasks where your solo performance dips.');
+      insights.push('<strong>You\'re already skilled:</strong> Your solo accuracy is ' + 
+        (theta * 100).toFixed(0) + '%, and with AI you reach ' + (kappa * 100).toFixed(0) + '%. ' +
+        'Experts like you still benefit from AI, especially on harder problems where there\'s more room to improve.');
     } else if (abilityLevel === 'low') {
-      insights.push('<strong>Equalizing effect:</strong> Lower-ability users see the largest <em>relative</em> gains from AI (' +
-        ((boost / theta) * 100).toFixed(0) + '% improvement). AI democratizes access to problem-solving, ' +
-        'narrowing the performance gap between users.');
+      insights.push('<strong>AI levels the playing field:</strong> Beginners gain the most from AI assistance—your ' +
+        (boost * 100).toFixed(0) + 'pp boost means AI helps close the skill gap. ' +
+        'You\'ll improve faster by learning to work <em>with</em> AI rather than mastering everything solo first.');
     } else {
-      insights.push('<strong>Typical synergy profile:</strong> Your ' + (boost * 100).toFixed(1) + 'pp boost is close to the population average. ' +
-        'Both high and low-ability users exist at the extremes, each with different collaboration dynamics.');
+      insights.push('<strong>Average skill, big gains:</strong> Your ' + (boost * 100).toFixed(0) + 'pp boost is typical. ' +
+        'Most users see 20-30pp improvements when they learn to collaborate effectively with AI.');
     }
     
     // Insight 2: Theory of Mind effect
     if (tomLevel === 'high') {
-      insights.push('<strong>ToM advantage:</strong> Your strong perspective-taking ability (high ToM) predicts superior AI collaboration. ' +
-        'You likely formulate better prompts, anticipate AI misinterpretations, and evaluate responses more critically—skills that boost κ without improving θ.');
+      insights.push('<strong>You "get" AI:</strong> Your intuitive collaboration style means you naturally understand what AI can and can\'t do. ' +
+        'You probably write better prompts, catch AI mistakes faster, and know when to push back on suggestions.');
     } else if (tomLevel === 'low') {
-      insights.push('<strong>ToM training opportunity:</strong> Low Theory of Mind may limit your collaborative ability. ' +
-        'Consider practicing: inferring what information AI has/lacks, recognizing when to repair communication breakdowns, ' +
-        'and scaffolding requests to match AI\'s capabilities. Even small ToM gains predict meaningful κ improvements.');
+      insights.push('<strong>Opportunity to improve:</strong> A more literal collaboration style might mean you take AI outputs at face value. ' +
+        'Try this: Before asking AI anything, think "What information does it need? What might it misunderstand?" This builds better collaboration habits.');
     }
     
     // Insight 3: Task difficulty dynamics
     if (difficulty === 'hard') {
-      insights.push('<strong>Complementarity on hard tasks:</strong> AI provides the highest boost on difficult problems (ρ = -0.91 correlation). ' +
-        'On tasks where you struggle most, AI fills knowledge gaps and offers alternative solution paths—prioritize AI use here for maximum ROI.');
+      insights.push('<strong>Hard problems = biggest AI wins:</strong> The research shows AI helps most on difficult tasks—the kind where you\'d normally get stuck. ' +
+        'Don\'t waste AI on easy stuff. Save it for the hard problems where it provides the most value.');
     } else if (difficulty === 'easy') {
-      insights.push('<strong>Limited gains on easy tasks:</strong> When tasks are routine, there\'s less room for AI to add value. ' +
-        'Your solo performance already approaches ceiling (' + (theta * 100).toFixed(1) + '%), so AI boost is muted. ' +
-        'Reserve AI for complex problems where synergy is highest.');
+      insights.push('<strong>Easy tasks don\'t need much AI:</strong> You\'re already at ' + (theta * 100).toFixed(0) + '% accuracy on easy problems. ' +
+        'AI can\'t help much more—you\'re near the ceiling. Focus AI assistance on harder challenges.');
     }
     
     // Insight 4: Model comparison (if both selected)
     if (model === 'both' && gpt4oKappa && llamaKappa) {
-      const gpt4oBenefit = gpt4oKappa - llamaKappa;
-      insights.push('<strong>Model selection trade-off:</strong> GPT-4o provides ' + (gpt4oBenefit * 100).toFixed(1) + 'pp more lift than Llama-3.1-8B (' +
-        (gpt4oKappa * 100).toFixed(1) + '% vs ' + (llamaKappa * 100).toFixed(1) + '%). ' +
-        'This difference justifies cost premium when task complexity and stakes are high. For routine work, Llama may suffice.');
+      const gpt4oBenefit = (gpt4oKappa - llamaKappa) * 100;
+      insights.push('<strong>Premium vs budget:</strong> GPT-4o gives you ' + gpt4oBenefit.toFixed(0) + 'pp more improvement than Llama. ' +
+        'If you need maximum accuracy, GPT-4o is worth the cost. For everyday tasks where "good enough" works, Llama saves money.');
     } else if (model === 'gpt4o') {
-      insights.push('<strong>GPT-4o justification:</strong> At ' + (kappa * 100).toFixed(1) + '% accuracy with AI, you\'re ' +
-        (((kappa - BASE_METRICS.humanSolo) / BASE_METRICS.humanSolo) * 100).toFixed(0) + '% better than the solo baseline. ' +
-        'GPT-4o\'s 71% solo performance combines with your θ to produce strong collaborative outcomes—especially valuable when errors are costly.');
+      insights.push('<strong>Using the premium model:</strong> GPT-4o gets you to ' + (kappa * 100).toFixed(0) + '% accuracy. ' +
+        'It\'s the stronger model (71% solo) and provides the biggest boost. Best for high-stakes work where mistakes are expensive.');
     } else if (model === 'llama') {
-      insights.push('<strong>Llama-3.1-8B viability:</strong> Despite lower solo accuracy (39%), Llama still delivers a ' + (boost * 100).toFixed(1) + 'pp boost. ' +
-        'For cost-sensitive deployments or when marginal accuracy gains aren\'t critical, Llama offers substantial synergy at lower operational cost.');
-    }
-    
-    // Insight 5: θ ≠ κ reminder
-    if (Math.abs(BASE_METRICS.thetaKappaCorr - 1.0) > 0.2) {
-      insights.push('<strong>Dual-ability training:</strong> Since θ and κ correlate at only ρ = 0.67, improving your solo skills won\'t automatically improve AI collaboration. ' +
-        'Invest in prompt engineering, delegation judgment, and response evaluation as <em>separate competencies</em> from domain expertise.');
-    }
-    
-    // Insight 6: Sample size note
-    if (metrics.numTasks < 15) {
-      insights.push('<strong>Estimation uncertainty:</strong> With only ' + metrics.numTasks + ' tasks, your ability estimates have wide confidence intervals. ' +
-        'Increase sample size to ≥20 for more reliable θ and κ measurements (smaller standard errors).');
+      insights.push('<strong>Using the budget model:</strong> Llama still boosts you by ' + (boost * 100).toFixed(0) + 'pp despite being weaker (39% solo). ' +
+        'Good cost-performance trade-off for routine tasks where you don\'t need perfection.');
     }
     
     return insights;
@@ -236,30 +218,25 @@
    * Convert slider value to display text
    */
   function sliderToDisplay(value, type) {
-    const level = sliderToLevel(value);
-    const percentile = value;
-    
-    if (type === 'ability') {
-      if (level === 'low') return `Low (${percentile}%ile) • Below average problem-solving`;
-      if (level === 'medium') return `Medium (${percentile}%ile) • Average problem-solving`;
-      return `High (${percentile}%ile) • Above average problem-solving`;
-    } else if (type === 'tom') {
-      if (level === 'low') return `Low (${percentile}%ile) • Limited perspective-taking`;
-      if (level === 'medium') return `Medium (${percentile}%ile) • Average perspective-taking`;
-      return `High (${percentile}%ile) • Strong perspective-taking`;
-    } else if (type === 'difficulty') {
-      if (level === 'low') return 'Easy difficulty • Routine problems';
-      if (level === 'medium') return 'Medium difficulty • Typical problems';
-      return 'Hard difficulty • Complex problems';
-    }
+    // Return empty string - users understand from slider position
+    return '';
   }
 
   /**
    * Update all UI elements based on current configuration
    */
   function updateUI() {
+    console.log('updateUI called');
+    
+    // Check if elements exist (defensive coding for timing issues)
+    const abilityEl = document.getElementById('p37-ability');
+    if (!abilityEl) {
+      console.warn('Interactive elements not yet in DOM, skipping updateUI');
+      return;
+    }
+    
     // Get current values
-    const abilityValue = parseInt(document.getElementById('p37-ability').value);
+    const abilityValue = parseInt(abilityEl.value);
     const tomValue = parseInt(document.getElementById('p37-tom').value);
     const difficultyValue = parseInt(document.getElementById('p37-difficulty').value);
     const numTasks = parseInt(document.getElementById('p37-num-tasks').value);
@@ -284,6 +261,16 @@
     // Calculate synergy
     const synergy = calculateSynergy(theta, kappa, numTasks);
     
+    // Update model indicator
+    const modelIndicator = document.getElementById('p37-model-indicator');
+    if (model === 'both') {
+      modelIndicator.textContent = 'Comparing both models';
+    } else if (model === 'gpt4o') {
+      modelIndicator.textContent = 'Using GPT-4o';
+    } else {
+      modelIndicator.textContent = 'Using Llama-3.1-8B';
+    }
+    
     // Update ability bars
     const thetaPercent = (theta * 100).toFixed(1);
     const kappaPercent = (kappa * 100).toFixed(1);
@@ -303,7 +290,7 @@
     
     document.getElementById('p37-boost-value').textContent = '+' + boostPP + 'pp';
     document.getElementById('p37-boost-description').textContent = 
-      `AI collaboration improves your performance by ${boostPP} percentage points (95% CI: [${ciLowerPP}, ${ciUpperPP}])`;
+      `AI improves your accuracy by ${boostPP} percentage points`;
     
     // Handle model comparison display
     const comparisonDiv = document.getElementById('p37-model-comparison');
@@ -348,22 +335,14 @@
     insightsList.innerHTML = insights.map(insight => 
       `<p class="leading-relaxed">${insight}</p>`
     ).join('');
-    
-    // Update statistical details
-    const statsDetail = document.getElementById('p37-stats-detail');
-    const modelName = model === 'gpt4o' ? 'GPT-4o' : (model === 'llama' ? 'Llama-3.1-8B' : 'both models');
-    statsDetail.innerHTML = `
-      <strong>Current configuration:</strong> ${modelName}, ${difficulty} difficulty ${domain} tasks, 
-      n=${numTasks} observations. Individual ability θ = ${thetaPercent}%, collaborative ability κ = ${kappaPercent}%, 
-      synergy boost = ${boostPP}pp with 95% CI [${ciLowerPP}, ${ciUpperPP}]. 
-      Estimates stabilize with larger sample sizes (narrower CIs).
-    `;
   }
 
   /**
    * Initialize interactive controls
    */
   function init() {
+    console.log('Paper 37 interactive initializing...');
+    
     // Attach event listeners to all controls
     const controls = [
       'p37-ability',
@@ -377,31 +356,34 @@
     controls.forEach(id => {
       const element = document.getElementById(id);
       if (element) {
+        console.log(`Attaching listeners to ${id}`);
         element.addEventListener('input', updateUI);
         element.addEventListener('change', updateUI);
+      } else {
+        console.warn(`Element not found: ${id}`);
       }
     });
     
     // Initial render
+    console.log('Running initial updateUI...');
     updateUI();
   }
 
-  // Export for testing and external access
-  const interactiveScript = {
-    init,
-    calculateIndividualAbility,
-    calculateCollaborativeAbility,
-    calculateSynergy,
-    generateInsights,
-    BASE_METRICS
-  };
-
-  // Auto-initialize when DOM ready
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
+  // Create the initialization function to be called by paperLoader
+  function interactiveScript() {
+    // Wait a tick for DOM to be fully ready
+    setTimeout(() => {
+      init();
+    }, 0);
   }
+
+  // Export helper functions for testing and external access
+  interactiveScript.init = init;
+  interactiveScript.calculateIndividualAbility = calculateIndividualAbility;
+  interactiveScript.calculateCollaborativeAbility = calculateCollaborativeAbility;
+  interactiveScript.calculateSynergy = calculateSynergy;
+  interactiveScript.generateInsights = generateInsights;
+  interactiveScript.BASE_METRICS = BASE_METRICS;
 
   // Export to window and module
   if (typeof window !== 'undefined') {

@@ -418,14 +418,20 @@ export function OptimizationSection() {
                 <div className="flex-1">
                   <h5 className="text-lg font-bold text-text-primary mb-3">What You CAN'T Track (Yet)</h5>
                   
-                  <div className="space-y-3 text-sm text-text-secondary">
-                    <div className="flex items-start gap-2">
-                      <span className="text-text-primary font-bold flex-shrink-0">❌</span>
-                      <p>
-                        <strong className="text-text-primary">Client-side analytics for text browsers:</strong> 46% of agent visits 
-                        use text-only browsers that block JavaScript—GA4/client-side scripts don't run. <span className="font-semibold text-[#10b981]">✓ 
-                        Solution: Use server logs, Cloudflare, or CDN analytics instead.</span>
-                      </p>
+                  <div className="space-y-3 text-sm">
+                    <div>
+                      <div className="flex items-start gap-2 mb-2">
+                        <span className="text-text-primary font-bold flex-shrink-0">❌</span>
+                        <p className="text-text-secondary">
+                          <strong className="text-text-primary">Client-side analytics for text browsers:</strong> 46% of agent visits 
+                          use text-only browsers that block JavaScript—GA4/client-side scripts don't run.
+                        </p>
+                      </div>
+                      <div className="ml-6 p-3 bg-[#10b981]/10 rounded border-l-2 border-[#10b981]">
+                        <p className="text-sm text-text-secondary">
+                          <span className="font-bold text-[#10b981]">✓ Solution:</span> Use server logs, Cloudflare Analytics, or CDN metrics instead—they capture 100% of traffic.
+                        </p>
+                      </div>
                     </div>
                     <div className="flex items-start gap-2">
                       <span className="text-text-primary font-bold flex-shrink-0">❌</span>

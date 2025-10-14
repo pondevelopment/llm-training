@@ -1,7 +1,11 @@
 # Agentic Search Tutorial Enhancement Plan
 
 **Date Created**: October 14, 2025  
-**Research Source**: Search Engine Land AI SEO articles (Oct 2025)  
+**Research Source**: Search Engine Land AI SEO ar## Priority 3: Variant Management & Product Data
+
+**Status**: ✅ Complete  
+**Impact**: 🟡 High  
+**Effort**: Small (0.5 days)s (Oct 2025)  
 **Current Tutorial Version**: Basic FEED framework + JSON-LD callout
 
 ---
@@ -89,7 +93,7 @@ This plan outlines 10 priority areas to transform the tutorial from foundational
 
 ## Priority 2: Bing API & Search Behavior
 
-**Status**: ⏳ Not Started  
+**Status**: ✅ Complete  
 **Impact**: 🔥 Critical  
 **Effort**: Small (0.5 days)
 
@@ -102,23 +106,20 @@ This plan outlines 10 priority areas to transform the tutorial from foundational
 ### Implementation
 
 #### 2.1 Update "How Agents Choose Products" Section
-- [ ] **Location**: Within OptimizationSection or new subsection
-- [ ] **Add**:
-  - [ ] "Bing is the gateway": Explain Bing API → ChatGPT connection
-  - [ ] Real query examples agents generate:
-    - "Pizza Hut large Hawaiian pizza order page"
-    - "Berlin Italian restaurant reservation Sept. 20, 2025, 7 p.m."
-    - "2-bedroom apartment for sale Beacon Hill Boston"
-  - [ ] First position matters: 63% select #1 result
-  - [ ] Actionable: "Optimize for Bing Shopping feeds" with link to Bing Webmaster Tools
+- [x] **Location**: Within OptimizationSection or new subsection
+- [x] **Add**:
+  - [x] "Bing is the gateway": Explain Bing API → ChatGPT connection
+  - [x] Real query examples agents generate (structured query format shown)
+  - [x] First position matters: 63% select #1 result
+  - [x] Actionable: "Optimize for Bing Shopping feeds" with link to Bing Webmaster Tools
 
 #### 2.2 Add Bing Optimization Tips
-- [ ] **File**: `src/data/optimizationTips.ts`
-- [ ] **Content**:
-  - [ ] Submit product feeds to Bing Shopping
-  - [ ] Use Bing Webmaster Tools for validation
-  - [ ] Monitor Bing rankings alongside Google
-  - [ ] Note Shopify advantages in ChatGPT Shopping
+- [x] **File**: Added to OptimizationSection.tsx as action steps
+- [x] **Content**:
+  - [x] Submit product feeds to Bing Shopping
+  - [x] Use Bing Webmaster Tools for validation
+  - [x] Monitor Bing rankings alongside Google
+  - [x] Note Shopify advantages in ChatGPT Shopping
 
 ### Files to Modify
 - `src/components/optimization/OptimizationSection.tsx`
@@ -145,26 +146,26 @@ This plan outlines 10 priority areas to transform the tutorial from foundational
 ### Implementation
 
 #### 3.1 Expand "Full Product Data" Implementation
-- [ ] **Location**: `optimizationTips.ts` - Full Data pillar
-- [ ] **Add to failure examples**:
-  - [ ] "Ambiguous variant labels: 'S' vs 'Small' vs 'Small (fits 5'4"-5'6")'"
-  - [ ] "Stale pricing: Showing 20% off promotion that ended yesterday"
-  - [ ] "Generic color names: 'Dark Blue' when catalog uses 'Navy'"
+- [x] **Location**: `optimizationTips.ts` - Full Data pillar
+- [x] **Add to failure examples**:
+  - [x] "Ambiguous variant labels: 'S' vs 'Small' vs 'Small (fits 5'4"-5'6")'"
+  - [x] "Stale pricing: Showing 20% off promotion that ended yesterday"
+  - [x] "Generic color names: 'Dark Blue' when catalog uses 'Navy'"
+  - [x] Added "Inconsistent variant naming across products"
 
 #### 3.2 Add "Variant Standardization" Implementation Step
-- [ ] **New step in Full Data pillar**:
-  ```
-  Step: 'Standardize Variant Attributes'
-  Detail: 'Use consistent naming across all variants. Define color precisely (Navy, not Dark Blue). Include size context (Small - fits 5'4"-5'6"). Sync variant availability real-time. Agents fail to match ambiguous variants, sending users to competitors.'
-  ```
+- [x] **New step in Full Data pillar**:
+  - Renamed to "Standardize Variant Attributes"
+  - Expanded detail with precise guidance on size labels, color names, and context
+  - Emphasized agent failure risk for ambiguous variants
 
 ### Files to Modify
-- `src/data/optimizationTips.ts`
+- `src/data/optimizationTips.ts` ✅ Complete
 
 ### Success Criteria
-- [ ] Clear examples of variant naming failures
-- [ ] Actionable standardization guidance
-- [ ] Real-time sync recommendation
+- [x] Clear examples of variant naming failures
+- [x] Actionable standardization guidance
+- [x] Real-time sync recommendation
 
 ---
 

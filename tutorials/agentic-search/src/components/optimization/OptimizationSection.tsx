@@ -209,6 +209,128 @@ export function OptimizationSection() {
         </motion.div>
       </section>
 
+      {/* Bing API & Search Behavior Section */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 1.2 }}
+        className="panel-surface p-8"
+      >
+        <div className="flex items-start gap-4">
+          <div className="text-5xl">🔍</div>
+          <div className="flex-1">
+            <h4 className="text-2xl font-bold text-text-primary mb-4">
+              How Agents Actually Choose Products
+            </h4>
+            <p className="text-text-secondary leading-relaxed mb-4">
+              Understanding <span className="font-semibold text-text-primary">where agents look</span> is 
+              crucial for visibility. Recent research reveals a surprising finding: <strong className="text-accent-primary">92% 
+              of ChatGPT Shopping queries use Bing's Search API</strong>, not visual search results.
+            </p>
+            
+            <div className="panel-inset p-6 mb-6">
+              <div className="flex items-start gap-3 mb-4">
+                <span className="text-3xl">🎯</span>
+                <div className="flex-1">
+                  <h5 className="text-lg font-bold text-text-primary mb-2">The Bing API Connection</h5>
+                  <p className="text-text-secondary leading-relaxed mb-3">
+                    When you ask ChatGPT to find products, it doesn't search like you do. Instead of browsing 
+                    Google-style results, it calls <strong className="text-text-primary">Bing's Search API</strong> and 
+                    receives structured product data—essentially a feed of products matching your query.
+                  </p>
+                  <div className="bg-gradient-to-r from-[#0078d4]/10 to-[#106ebe]/10 border-l-4 border-[#0078d4] rounded p-4">
+                    <p className="text-sm text-text-secondary mb-2">
+                      <strong className="text-text-primary">Example Query Path:</strong>
+                    </p>
+                    <ol className="text-sm text-text-secondary space-y-1 list-decimal list-inside">
+                      <li>User: <em>"Find me noise-canceling headphones under $200"</em></li>
+                      <li>ChatGPT → Bing Search API: <code className="px-2 py-0.5 bg-[var(--color-surface)] rounded text-xs font-mono">query="noise-canceling headphones price:0-200"</code></li>
+                      <li>Bing API returns 10-20 structured product results</li>
+                      <li>ChatGPT selects 3-6 products and presents them</li>
+                    </ol>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="grid md:grid-cols-2 gap-4 mt-4">
+                <div className="bg-[var(--color-card)] rounded-lg p-4 border border-[var(--color-border)]">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-2xl">🥇</span>
+                    <span className="font-bold text-text-primary">First Position Dominance</span>
+                  </div>
+                  <p className="text-text-secondary text-sm leading-relaxed">
+                    <strong className="text-accent-primary text-lg">63%</strong> of agents select the 
+                    <strong className="text-text-primary"> first result</strong> from Bing's API. Position matters 
+                    enormously—there's no scrolling or "page 2" behavior.
+                  </p>
+                </div>
+                <div className="bg-[var(--color-card)] rounded-lg p-4 border border-[var(--color-border)]">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-2xl">📊</span>
+                    <span className="font-bold text-text-primary">Bing Shopping Feed</span>
+                  </div>
+                  <p className="text-text-secondary text-sm leading-relaxed">
+                    Products in <strong className="text-text-primary">Bing Shopping feeds</strong> appear in API 
+                    results. If you're not in Bing's index with proper product data, agents won't find you—even 
+                    with perfect SEO elsewhere.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-r from-[#10b981]/10 to-[#059669]/10 border-l-4 border-[#10b981] rounded-lg p-5">
+              <h5 className="text-lg font-bold text-text-primary mb-3 flex items-center gap-2">
+                <span>✅</span>
+                <span>Action Steps: Optimize for Bing</span>
+              </h5>
+              <ol className="space-y-3 text-text-secondary">
+                <li className="flex items-start gap-3">
+                  <span className="font-bold text-text-primary flex-shrink-0">1.</span>
+                  <div>
+                    <strong className="text-text-primary">Submit to Bing Shopping:</strong> Create a merchant 
+                    account at <a 
+                      href="https://www.bing.com/webmasters/" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="text-accent-primary hover:underline font-medium"
+                    >Bing Webmaster Tools</a> and submit your product feed (same format as Google Merchant Center).
+                  </div>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="font-bold text-text-primary flex-shrink-0">2.</span>
+                  <div>
+                    <strong className="text-text-primary">Monitor Bing Rankings:</strong> Track how your products 
+                    rank in Bing Shopping searches. First-position products get <span className="text-accent-primary font-semibold">9-10x 
+                    more agent selections</span> than position 5+.
+                  </div>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="font-bold text-text-primary flex-shrink-0">3.</span>
+                  <div>
+                    <strong className="text-primary">Use Bing-Friendly Platforms:</strong> Shopify users benefit 
+                    from native Bing Shopping integrations. Ensure your platform can submit clean product feeds to Bing.
+                  </div>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="font-bold text-text-primary flex-shrink-0">4.</span>
+                  <div>
+                    <strong className="text-text-primary">Optimize Product Titles:</strong> Bing API results prioritize 
+                    clear, keyword-rich titles. Format: <code className="px-2 py-0.5 bg-[var(--color-surface)] rounded text-xs font-mono">Brand + Product Type + Key Features</code> 
+                    <span className="text-text-muted text-xs block mt-1">Example: "Sony WH-1000XM5 Wireless Noise-Canceling Headphones - Black"</span>
+                  </div>
+                </li>
+              </ol>
+            </div>
+
+            <p className="text-text-secondary text-sm italic mt-4">
+              💡 <strong className="text-text-primary">Pro tip:</strong> While Google visibility still matters for 
+              traditional search, <span className="font-semibold">Bing is your gateway to agent traffic</span>. Many 
+              businesses ignore Bing—this is your competitive advantage.
+            </p>
+          </div>
+        </div>
+      </motion.div>
+
       {/* Conversion Metrics */}
       <MetricsPanel metrics={conversionMetrics} />
 

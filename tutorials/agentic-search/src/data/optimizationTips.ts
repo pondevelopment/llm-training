@@ -41,10 +41,12 @@ export const feedFramework: FEEDPillar[] = [
       failure: [
         'Missing or incomplete product schema',
         'Ambiguous variant labels ("S" vs "Small" vs "Small (fits 5\'4"-5\'6")")',
-        'Stale pricing data showing outdated promotions',
+        'Generic color names ("Dark Blue" when catalog uses "Navy")',
+        'Stale pricing data showing outdated promotions (e.g., "20% off" that ended yesterday)',
         'Incomplete specifications or missing technical details',
         'Out-of-stock items showing as available',
-        'Generic or missing product identifiers'
+        'Generic or missing product identifiers',
+        'Inconsistent variant naming across products (mixing "Large" and "L")'
       ]
     },
     implementation: [
@@ -61,8 +63,8 @@ export const feedFramework: FEEDPillar[] = [
         detail: 'Keep pricing, promotions, and stock levels current across all channels including product feeds.'
       },
       {
-        step: 'Standardize Attributes',
-        detail: 'Use consistent naming for variants (colors, sizes) and maintain structured attribute hierarchies.'
+        step: 'Standardize Variant Attributes',
+        detail: 'Use consistent naming for variants across all products. Size labels should match exactly (never mix "Large" and "L"). Color names must be precise and catalog-aligned ("Navy" not "Dark Blue"). Add context for sizing ("Small: fits 5\'4"-5\'6"" vs just "Small"). Agents fail to match products when variant labels are ambiguous or inconsistent—standardization is critical for visibility.'
       }
     ]
   },

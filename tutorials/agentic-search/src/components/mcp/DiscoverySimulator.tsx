@@ -334,7 +334,7 @@ export function DiscoverySimulator() {
                   ? scenario.outcome === 'success'
                     ? 'border-[var(--color-success)] bg-[var(--color-success)]/10'
                     : 'border-[var(--color-error)] bg-[var(--color-error)]/10'
-                  : 'border-transparent bg-card-secondary hover:bg-card-tertiary'
+                  : 'border-[var(--color-border)] bg-[var(--color-card)] hover:bg-[var(--color-subtle-bg)] hover:border-[var(--color-border-subtle)]'
               }`}
             >
               <div className="font-medium text-sm text-heading mb-1">
@@ -354,20 +354,20 @@ export function DiscoverySimulator() {
           <button
             onClick={handlePrev}
             disabled={currentStep === 0}
-            className="px-4 py-2 rounded-lg bg-card-secondary text-body text-sm font-medium hover:bg-card-tertiary transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+            className="btn-secondary disabled:opacity-40 disabled:cursor-not-allowed"
           >
             ← Prev
           </button>
           <button
             onClick={handleReset}
-            className="px-4 py-2 rounded-lg bg-card-secondary text-body text-sm font-medium hover:bg-card-tertiary transition-colors"
+            className="btn-secondary"
           >
             🔄 Reset
           </button>
           <button
             onClick={handleNext}
             disabled={currentStep >= discoverySteps.length - 1}
-            className="px-4 py-2 rounded-lg bg-accent text-white text-sm font-medium hover:bg-accent/90 transition-colors shadow-sm disabled:opacity-40 disabled:cursor-not-allowed"
+            className="btn-primary disabled:opacity-40 disabled:cursor-not-allowed"
           >
             Next →
           </button>

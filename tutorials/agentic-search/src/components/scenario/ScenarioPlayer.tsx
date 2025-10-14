@@ -105,21 +105,21 @@ export function ScenarioPlayer() {
           <button
             onClick={handlePrev}
             disabled={isFirstStep}
-            className="px-4 py-2 rounded-lg font-medium bg-surface-secondary text-text-primary hover:bg-surface-tertiary disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+            className="btn-secondary disabled:opacity-40 disabled:cursor-not-allowed"
           >
             ← Previous
           </button>
           <button
             onClick={handleNext}
             disabled={isFinalStep}
-            className="px-4 py-2 rounded-lg font-medium bg-accent-primary text-white hover:bg-accent-secondary disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+            className="btn-primary disabled:opacity-40 disabled:cursor-not-allowed"
           >
             Next →
           </button>
           <button
             onClick={handleReset}
             disabled={isFirstStep}
-            className="px-4 py-2 rounded-lg font-medium bg-surface-secondary text-text-primary hover:bg-surface-tertiary disabled:opacity-40 disabled:cursor-not-allowed transition-all"
+            className="btn-secondary disabled:opacity-40 disabled:cursor-not-allowed"
           >
             🔄 Reset
           </button>

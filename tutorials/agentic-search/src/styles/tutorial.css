@@ -42,8 +42,8 @@
   justify-content: center;
   gap: 0.45rem;
   padding: 0.5rem 1.05rem;
-  background-color: var(--color-card-secondary);
-  color: var(--color-body);
+  background-color: var(--color-card);
+  color: var(--color-heading);
   border: 1px solid var(--color-border);
   border-radius: 0.5rem;
   font-weight: 600;
@@ -52,7 +52,7 @@
 }
 
 .btn-secondary:hover {
-  background-color: var(--color-card-tertiary);
+  background-color: var(--color-subtle-bg);
   border-color: var(--color-border-subtle);
 }
 
@@ -63,24 +63,4 @@
 .btn-secondary:disabled {
   opacity: 0.5;
   cursor: not-allowed;
-}
-
-/* Dark mode adjustments for buttons */
-.dark .btn-primary {
-  background-color: var(--accent-strong);
-  color: #fff;
-}
-
-.dark .btn-primary:hover {
-  background-color: var(--accent-strong-hover);
-}
-
-.dark .btn-secondary {
-  background-color: var(--color-card-secondary);
-  color: var(--color-body);
-  border-color: var(--color-border);
-}
-
-.dark .btn-secondary:hover {
-  background-color: var(--color-card-tertiary);
 }

@@ -37,15 +37,15 @@ export function ToolModal({ tool, onClose }: ToolModalProps) {
       />
 
       {/* Modal Container - Flexbox Centering */}
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none">
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 pointer-events-none overflow-y-auto">
         <motion.div
-          className="w-full max-w-3xl max-h-[90vh] pointer-events-auto"
+          className="w-full max-w-3xl my-auto pointer-events-auto"
           initial={{ opacity: 0, scale: 0.9, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.9, y: 20 }}
           transition={{ type: 'spring', damping: 25, stiffness: 300 }}
         >
-        <div className="panel h-full overflow-y-auto">
+        <div className="panel max-h-[90vh] overflow-y-auto">
           <div className="p-6 md:p-8 space-y-6">
             {/* Header */}
             <div className="flex items-start justify-between gap-4">

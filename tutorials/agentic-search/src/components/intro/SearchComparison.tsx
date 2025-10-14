@@ -129,20 +129,20 @@ export function SearchComparison({ view, persona }: SearchComparisonProps) {
                     <button
                       onClick={handleTraditionalPrevious}
                       disabled={traditionalStep === 0}
-                      className="px-4 py-2 rounded-lg bg-card-secondary text-body text-sm font-medium hover:bg-card-tertiary transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                      className="btn-secondary disabled:opacity-40 disabled:cursor-not-allowed"
                     >
                       ← Prev
                     </button>
                     <button
                       onClick={handleTraditionalReset}
-                      className="px-4 py-2 rounded-lg bg-card-secondary text-body text-sm font-medium hover:bg-card-tertiary transition-colors"
+                      className="btn-secondary"
                     >
                       🔄 Reset
                     </button>
                     <button
                       onClick={handleTraditionalNext}
                       disabled={traditionalStep >= traditionalSteps.length - 1}
-                      className="px-4 py-2 rounded-lg bg-accent text-white text-sm font-medium hover:bg-accent/90 transition-colors shadow-sm disabled:opacity-40 disabled:cursor-not-allowed"
+                      className="btn-primary disabled:opacity-40 disabled:cursor-not-allowed"
                     >
                       Next →
                     </button>
@@ -197,20 +197,20 @@ export function SearchComparison({ view, persona }: SearchComparisonProps) {
                     <button
                       onClick={handleAgenticPrevious}
                       disabled={agenticStep === 0}
-                      className="px-4 py-2 rounded-lg bg-card-secondary text-body text-sm font-medium hover:bg-card-tertiary transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                      className="btn-secondary disabled:opacity-40 disabled:cursor-not-allowed"
                     >
                       ← Prev
                     </button>
                     <button
                       onClick={handleAgenticReset}
-                      className="px-4 py-2 rounded-lg bg-card-secondary text-body text-sm font-medium hover:bg-card-tertiary transition-colors"
+                      className="btn-secondary"
                     >
                       🔄 Reset
                     </button>
                     <button
                       onClick={handleAgenticNext}
                       disabled={agenticStep >= agenticSteps.length - 1}
-                      className="px-4 py-2 rounded-lg bg-accent text-white text-sm font-medium hover:bg-accent/90 transition-colors shadow-sm disabled:opacity-40 disabled:cursor-not-allowed"
+                      className="btn-primary disabled:opacity-40 disabled:cursor-not-allowed"
                     >
                       Next →
                     </button>

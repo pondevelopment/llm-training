@@ -65,7 +65,16 @@
         <option value="hybrid" selected>Hybrid (immediate missing knowledge, delayed rest)</option>
         <option value="delayed">All delayed (after conversation)</option>
       </select>
-      <div class="text-xs text-muted">Hybrid recommended for balancing SLA and annotation quality</div>
+      <div class="text-xs text-muted space-y-1">
+        <p><strong>Key insight:</strong> Only missing knowledge identification benefits significantly from immediate annotation (+12 percentage points agreement).</p>
+        <p><strong>Hybrid strategy:</strong> Agents flag missing knowledge in real-time (one click during conversation), then complete preference/adoption/relevance annotations post-interaction. This enables AITL in strict-SLA channels (live chat, phone) while maintaining high annotation quality.</p>
+        <p><strong>When to use each:</strong></p>
+        <ul class="list-disc list-inside pl-2 space-y-0.5">
+          <li><em>Immediate:</em> Async channels (email, messaging) with hours-long SLA where agents can pause</li>
+          <li><em>Hybrid (recommended):</em> All channels — balances SLA compliance with annotation quality</li>
+          <li><em>Delayed:</em> Only if missing knowledge is not critical (lower quality for that step)</li>
+        </ul>
+      </div>
     </div>
 
     <!-- Quality filter strictness -->
@@ -87,6 +96,20 @@
         <span class="text-xs text-muted w-16 text-right">Strict</span>
       </div>
       <div class="text-xs text-muted">Current: <span id="p38-filter-display" class="font-semibold">Medium</span> filtering</div>
+      <div class="text-xs text-muted space-y-1 mt-2">
+        <p><strong>What this does:</strong> Not all agent annotations are perfect. AITL uses a two-stage filter to remove low-quality annotations before training:</p>
+        <ol class="list-decimal list-inside pl-2 space-y-0.5">
+          <li><strong>Rule-based filter:</strong> Catches obvious issues (too short, generic, contradictory)</li>
+          <li><strong>LLM "virtual judge":</strong> GPT-4 evaluates remaining annotations for relevance and specificity</li>
+        </ol>
+        <p><strong>Strictness trade-off:</strong></p>
+        <ul class="list-disc list-inside pl-2 space-y-0.5">
+          <li><em>Lenient (10% filtered):</em> More training data, but some noise — good when data is scarce</li>
+          <li><em>Medium (20-30% filtered):</em> Balanced quality/volume — Airbnb's production setting</li>
+          <li><em>Strict (40% filtered):</em> Highest quality, less data — good when you have large annotation volume</li>
+        </ul>
+        <p class="text-xs italic">Airbnb found that filtering ~25% of annotations improved model performance by removing annotations like "looks good" (too generic) or contradictory preference judgments.</p>
+      </div>
     </div>
 
     <!-- Update frequency -->
@@ -100,6 +123,17 @@
         <option value="4">Monthly</option>
         <option value="12">Quarterly (traditional)</option>
       </select>
+      <div class="text-xs text-muted space-y-1 mt-2">
+        <p><strong>What this controls:</strong> How often you retrain and deploy updated models using accumulated annotations.</p>
+        <p><strong>The innovation velocity advantage:</strong></p>
+        <ul class="list-disc list-inside pl-2 space-y-0.5">
+          <li><em>Weekly:</em> 52 updates/year — rapid iteration, quick adaptation to new issues (13× faster than quarterly)</li>
+          <li><em>Bi-weekly:</em> 26 updates/year — balance between speed and operational overhead</li>
+          <li><em>Monthly:</em> 12 updates/year — conservative but still much faster than traditional</li>
+          <li><em>Quarterly:</em> 4 updates/year — traditional offline cycle (baseline for comparison)</li>
+        </ul>
+        <p><strong>Why weekly works:</strong> Airbnb automated their entire retraining pipeline (filtering → training → evaluation → deployment). What used to take weeks of manual work now runs unattended. This enabled them to reduce update cycles from 3 months to 1 week, dramatically improving model responsiveness to emerging customer issues.</p>
+      </div>
     </div>
   </div>
 
@@ -241,9 +275,15 @@
 
   <!-- Annotation timing comparison -->
   <div class="panel panel-info p-5 space-y-3">
-    <h3 class="text-sm font-semibold text-heading">⏱️ Annotation timing trade-offs</h3>
+    <h3 class="text-sm font-semibold text-heading">⏱️ Annotation timing trade-offs: The breakthrough insight</h3>
     <p class="text-sm panel-muted">
-      Airbnb's 2,000-case ablation study revealed that only missing knowledge identification benefits from immediate annotation. This insight enables AITL deployment in strict-SLA channels.
+      <strong>Question:</strong> Do agents need to complete all four annotation steps during the live conversation, or can some be deferred?
+    </p>
+    <p class="text-sm panel-muted">
+      <strong>Answer:</strong> Airbnb's 2,000-case ablation study revealed that <em>only missing knowledge identification</em> significantly benefits from immediate annotation (+12 percentage points agreement). The other three steps (preference judgment, adoption rationale, knowledge relevance) can be safely delayed to post-conversation without quality loss.
+    </p>
+    <p class="text-sm panel-muted">
+      <strong>Why this matters:</strong> This finding enables AITL deployment in strict-SLA channels (live chat, phone support) where agents cannot pause mid-conversation. Agents simply flag missing knowledge with a one-click button during the conversation, then complete the full annotation form after the interaction ends.
     </p>
     
     <div class="overflow-x-auto">

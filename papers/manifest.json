@@ -1,4 +1,40 @@
 {
+  "38": {
+    "title": "Agent-in-the-Loop: A Data Flywheel for Continuous Improvement",
+    "authors": [
+      "Cen (Mia) Zhao",
+      "Tiantian Zhang",
+      "Hanchen Su",
+      "Yufeng (Wayne) Zhang",
+      "Shaowei Su",
+      "Mingzhi Xu",
+      "Yu (Elaine) Liu",
+      "Wei Han",
+      "Jeremy Werner",
+      "Claire Na Cheng",
+      "Yashar Mehdad"
+    ],
+    "year": 2025,
+    "venue": "Airbnb, Inc. (arXiv 2025)",
+    "tags": [
+      "continuous-learning",
+      "human-in-the-loop",
+      "data-flywheel",
+      "customer-support",
+      "rag-systems",
+      "annotation"
+    ],
+    "summary": "Introduces Agent-in-the-Loop (AITL), a continuous learning framework that embeds four types of human feedback directly into live customer support: pairwise preferences, adoption rationales, knowledge relevance, and missing knowledge identification. Production pilot with 40 agents and 5,000+ cases demonstrates +11.7% recall@75, +14.8% precision@8, +8.4% helpfulness, and model update cycles reduced from 3 months to weeks, proving operational workflows can generate sustainable training data flywheels.",
+    "dir": "./papers/p38",
+    "interactiveTitle": "AITL deployment simulator",
+    "relatedQuestions": [
+      13,
+      24,
+      7,
+      36,
+      1
+    ]
+  },
   "37": {
     "title": "Quantifying Human-AI Synergy",
     "authors": [

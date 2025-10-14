@@ -64,6 +64,23 @@
         <article class="bg-card border border-divider rounded-lg shadow-sm p-5 space-y-3">
       <header class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
         <span class="text-xs font-semibold tracking-wide text-indigo-700 uppercase">New Paper Explainer</span>
+        <time datetime="2025-10-14" class="text-xs font-medium text-muted-soft uppercase tracking-wide">14 Oct 2025</time>
+      </header>
+      <p class="text-lg font-semibold text-heading">Paper 38 · Agent-in-the-Loop: A Data Flywheel for Continuous Improvement</p>
+      <p class="text-sm text-muted italic">Production framework that embeds four types of human feedback directly into live customer support operations: pairwise response preferences, adoption rationales, knowledge relevance checks, and missing knowledge identification. Reduces model update cycles from 3 months to weeks by creating self-sustaining data flywheel.</p>
+      <ul class="list-disc list-inside text-sm text-muted space-y-2">
+        <li>Published <code>paper 38</code> with interactive AITL deployment simulator—configure team size, cases per day, annotation timing strategy (immediate/hybrid/delayed), quality filter strictness, and update frequency to project annotation volume, quality metrics, model improvements, and ROI.</li>
+        <li>Built annotation agreement rate calculator showing impact of timing strategy on four annotation types—only missing knowledge identification requires immediate annotation (+12pp agreement boost), enabling AITL deployment in strict-SLA channels like live chat.</li>
+        <li>Documented Airbnb production results: 40 agents, 5,000+ cases, 11 annotations per agent daily without productivity loss; retrieval +11.7% recall@75, +14.8% precision@8; generation +8.4% helpfulness, +38.1% citation accuracy; agent adoption rate +4.5%—all from weekly retraining cycles.</li>
+        <li>Implemented ROI calculator accounting for annotation costs (agent time, infrastructure) vs benefits (improved adoption rate × time saved per case)—demonstrates positive ROI at scale when operational workflows generate training data as byproduct.</li>
+        <li>Added comparison table: AITL (human annotations, real-time mode, weekly updates, retrieval+ranking+generation) vs Arena Learning (AI-simulated self-play, offline mode, weekly updates, generation only)—shows AITL's multi-stage optimization and direct preference drift handling.</li>
+        <li>Updated <code>papers/manifest.json</code>, shipped <code>/p/38.html</code>, and added comprehensive deployment roadmap covering dual-response UI design, unified knowledge base architecture, four-step annotation workflow, review layers, automated retraining pipelines, and cross-channel deployment strategies.</li>
+      </ul>
+    </article>
+
+    <article class="bg-card border border-divider rounded-lg shadow-sm p-5 space-y-3">
+      <header class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
+        <span class="text-xs font-semibold tracking-wide text-indigo-700 uppercase">New Paper Explainer</span>
         <time datetime="2025-10-13" class="text-xs font-medium text-muted-soft uppercase tracking-wide">13 Oct 2025</time>
       </header>
       <p class="text-lg font-semibold text-heading">Paper 37 · Quantifying Human-AI Synergy</p>

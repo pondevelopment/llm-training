@@ -1,0 +1,151 @@
+<section class="space-y-5">
+  <!-- Paper header -->
+  <section class="panel panel-info p-4 space-y-4">
+    <div class="flex items-center justify-between gap-4">
+      <div class="flex-1 min-w-0">
+        <h2 class="text-xl font-semibold text-heading">Agent-in-the-Loop: A Data Flywheel for Continuous Improvement</h2>
+        <p class="text-sm panel-muted">Zhao, Zhang, Su, et al. (Airbnb) • arXiv 2025</p>
+      </div>
+      <a 
+        href="https://arxiv.org/abs/2510.06674" 
+        target="_blank" 
+        rel="noopener"
+        class="btn-soft text-xs font-semibold flex-shrink-0"
+        data-accent="foundations">
+        <span>View paper</span>
+        <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+    <p class="text-sm leading-relaxed panel-muted">
+      This paper introduces Agent-in-the-Loop (AITL), a continuous learning framework that embeds four types of human feedback directly into live customer support operations: pairwise response preferences, adoption rationales, knowledge relevance checks, and missing knowledge identification. Unlike offline batch annotation pipelines that take months, AITL reduces model update cycles to weeks by feeding real-time annotations from 40 US-based support agents back into retrieval, ranking, and generation training. Production results show +11.7% recall@75, +14.8% precision@8, +8.4% helpfulness, and +4.5% agent adoption rates, demonstrating that embedding human feedback loops into operational workflows creates a sustainable data flywheel for continuous LLM improvement.
+    </p>
+    <div class="panel panel-neutral-soft p-3 space-y-2 text-xs">
+      <p class="font-semibold text-heading">Plain-language explainer</p>
+      <p class="panel-muted">Think of a restaurant training new chefs: offline training means sending them to culinary school for months before they cook. Agent-in-the-Loop is like having master chefs annotate dishes in real-time ("this needs more salt," "great presentation," "missing garnish") while serving customers, then using that feedback to update training materials every week. Airbnb's system captures four types of feedback as support agents help customers: which AI response is better, whether they actually used it, whether retrieved knowledge was relevant, and what knowledge is missing. This creates a data flywheel—more interactions generate better annotations, which train better models, which generate better suggestions, which agents adopt more, creating more high-quality training data. Result: models improve continuously instead of decaying between quarterly retraining cycles.</p>
+    </div>
+  </section>
+
+  <!-- Executive quick take -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <header class="flex items-center gap-2">
+      <span aria-hidden="true" class="text-lg">🧭</span>
+      <h3 class="text-sm font-semibold tracking-wide uppercase text-heading">Executive quick take</h3>
+    </header>
+    <p class="text-sm leading-relaxed text-body">
+      Most LLM deployment strategies treat model updates as infrequent events—train once, deploy, let performance decay, retrain months later. This creates a data collection bottleneck: by the time you aggregate enough feedback, your model is already stale. AITL flips this paradigm by embedding annotation directly into the operational workflow, turning every customer interaction into a potential training signal. The result is a self-sustaining data flywheel where model improvements compound weekly instead of quarterly.
+    </p>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>Real-time feedback beats offline batching:</strong> Agents annotated 11 cases daily during normal work without productivity loss, achieving 83.2% preference agreement (offline: 63.5%) and 92.3% knowledge relevance agreement (offline: 43.6%)—live context dramatically improves annotation quality</li>
+      <li><strong>Comprehensive feedback loop:</strong> Unlike preference-only systems (RLHF, Arena Learning), AITL captures adoption rationales, knowledge gaps, and retrieval quality—updating retrieval (+11.7% recall), ranking (+14.8% precision), and generation (+8.4% helpfulness) simultaneously</li>
+      <li><strong>Hybrid annotation timing optimizes SLA compliance:</strong> Only missing knowledge identification requires immediate annotation (+12pp agreement boost); preference/adoption/relevance can be delayed post-conversation without quality loss, enabling deployment in strict-SLA channels like live chat</li>
+    </ul>
+  </section>
+
+  <!-- Business relevance -->
+  <section class="panel panel-success p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">💼 Business relevance</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+      <li><strong>Compress innovation cycles:</strong> Reducing model update cadence from 3 months to 1-2 weeks means you iterate 6-12× faster—critical for adapting to product launches, policy changes, seasonal demand shifts, and emerging customer pain points before competitors</li>
+      <li><strong>Prevent model decay:</strong> Static models lose 20+ percentage points of accuracy within years (Dai et al. 2025). AITL's continuous feedback prevents drift by incorporating evolving customer needs, new edge cases, and knowledge base updates weekly instead of quarterly</li>
+      <li><strong>Maximize agent leverage:</strong> 40 agents contributed 5,000+ annotated cases over weeks without dedicated annotation time—each case serves dual purpose (help customer + train model). This 2× data efficiency means annotation scales with support volume, not annotation budget</li>
+      <li><strong>Multi-stage optimization:</strong> Traditional RLHF focuses only on generation; AITL's four annotation types improve retrieval precision (+14.8%), ranking recall (+11.7%), generation helpfulness (+8.4%), and citation accuracy (+38.1%)—fixing the full RAG pipeline, not just final output</li>
+      <li><strong>Deployment flexibility via hybrid timing:</strong> Immediate annotation only for missing knowledge (when SLA permits brief delay), delayed annotation for preference/adoption/relevance—enables AITL in strict-SLA channels (live chat, phone) without sacrificing annotation quality</li>
+    </ul>
+
+    <div class="panel panel-neutral-soft p-3 mt-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Derivative example: Deploying AITL for technical support</p>
+      <ol class="list-decimal ml-5 space-y-1 panel-muted">
+        <li><strong>Unified knowledge base:</strong> Consolidate product docs, troubleshooting guides, internal wikis, FAQs, historical tickets, and dynamic context (account status, product version) into searchable corpus with metadata (author, last-updated, topic tags)</li>
+        <li><strong>Dual-response UI:</strong> Show agents two LLM-generated response candidates (potentially from different models or retrieval strategies) alongside retrieved knowledge snippets. Agents select preferred response and rate knowledge relevance during live support</li>
+        <li><strong>Four-step annotation workflow:</strong> (1) Preference: "Which response is better and by how much?" (2) Adoption: "Did you use this suggestion? Why or why not?" (3) Knowledge relevance: Score 1-5 how relevant each retrieved doc was. (4) Missing knowledge: Flag when you needed information that doesn't exist in the system</li>
+        <li><strong>Review layer:</strong> Sample 10-20% of annotations for human expert review + run all annotations through LLM-based verifier checking consistency between annotation and actual agent response sent to customer. Flag conflicts for resolution</li>
+        <li><strong>Automated retraining pipeline:</strong> Weekly: aggregate annotations, filter low-quality samples (rule-based thresholds + LLM judge), retrain retrieval (positive/negative pairs from knowledge relevance), ranking (pairwise from preferences), generation (ORPO/DPO from preference + adoption). Deploy updated models via A/B test</li>
+        <li><strong>Monitor flywheel health:</strong> Track annotation volume, agreement rates, model improvement deltas, agent adoption rates, customer satisfaction (CSAT). If annotation quality drops, increase review sampling. If model gains plateau, investigate annotation diversity or data quality</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Supporting callouts -->
+  <div class="grid md:grid-cols-2 gap-4">
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Why four annotation types matter</h3>
+      <p class="text-xs panel-muted">
+        Preference-only approaches (RLHF, Arena Learning) optimize generation but ignore two failure modes: (1) retrieving wrong documents, (2) missing knowledge entirely. AITL's Step 3 (knowledge relevance) provides direct retrieval training signal—agents score each retrieved doc's relevance, generating positive/negative pairs for dense retriever fine-tuning. This improved Airbnb's recall@75 by 11.7% and precision@8 by 14.8%, fixing upstream failures before generation even runs. Step 4 (missing knowledge) identifies knowledge base gaps that offline annotation can't discover because static test sets don't reveal evolving customer needs. Agents flag "I needed X policy but it's not documented," directly improving knowledge coverage and preventing future retrieval failures. This comprehensive feedback loop addresses the full RAG stack—retrieval, ranking, generation—not just final output quality.
+      </p>
+    </div>
+
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Annotation timing ablation study</h3>
+      <p class="text-xs panel-muted">
+        A key scalability concern: can AITL work in strict-SLA channels (live chat, phone) where agents can't pause mid-conversation to annotate? Airbnb's 2,000-case ablation compared immediate annotation (during interaction) vs delayed annotation (after interaction ended). Results: immediate annotation only improves missing knowledge identification (+12pp agreement, 63.9%→76.5%, p&lt;0.05). Steps 1-3 (preference, adoption, knowledge relevance) show negligible timing differences. Why? Missing knowledge requires in-the-moment awareness ("I need X policy right now but can't find it"), while preference/adoption/relevance judgments remain stable even after conversation ends. Recommendation: hybrid workflow—capture missing knowledge immediately when SLA permits brief delays (async messaging, email support), defer other annotations to post-interaction for strict-SLA channels. This maintains annotation quality while meeting response time requirements.
+      </p>
+    </div>
+  </div>
+
+  <!-- Key insight / Method / Implication trio -->
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Key insight</h3>
+      <p class="text-xs panel-muted">
+        Embedding multi-dimensional human feedback (preference, adoption, knowledge relevance, missing knowledge) directly into operational workflows creates a self-sustaining data flywheel that updates retrieval, ranking, and generation models weekly instead of quarterly, preventing model decay while scaling annotation with support volume.
+      </p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Method</h3>
+      <p class="text-xs panel-muted">
+        Four-step online annotation during live support (preference, adoption rationale, knowledge relevance, missing knowledge), reviewed by human expert + LLM verifier, filtered via rule-based thresholds + virtual judge, fed into weekly automated retraining pipeline using ORPO for generation and pairwise losses for retrieval/ranking.
+      </p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Implication</h3>
+      <p class="text-xs panel-muted">
+        Organizations should architect LLM systems for continuous learning from day one—dual-response UIs, annotation tooling, automated retraining pipelines, review layers—treating human feedback as a strategic asset that compounds over time, not a one-time alignment step.
+      </p>
+    </div>
+  </div>
+
+  <!-- Evidence -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🧪 Evidence from the study</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>Production pilot scale:</strong> 40 US-based support agents, 5,000+ customer cases annotated over weeks, async messaging channel (hours-long SLA), 11 cases annotated per agent per day without productivity loss compared to non-annotating agents</li>
+      <li><strong>Annotation quality improvements:</strong> Online annotation vs offline: Step 1 (preference) agreement 83.2% vs 63.5% (+31% relative improvement), Step 2 (adoption) 77.5% vs 72.1% (+7% improvement), Step 3 (knowledge relevance) 92.3% vs 43.6% (+111% improvement)—live context dramatically increases annotation reliability</li>
+      <li><strong>Retrieval gains:</strong> AITL fine-tuned models vs baseline: recall@75 improved 0.634→0.708 (+11.7%), precision@8 improved 0.357→0.410 (+14.8%); AITL beat offline fine-tuning (recall@75: 0.708 vs 0.670, precision@8: 0.410 vs 0.394)</li>
+      <li><strong>Generation quality gains:</strong> Helpfulness 0.658→0.713 (+8.4%, AITL beats offline 0.691), citation correctness 0.097→0.134 (+38.1%, beats offline 0.112), response correctness 0.851→0.882 (+3.6%, beats offline 0.868)</li>
+      <li><strong>Human preference validation:</strong> Pairwise evaluation showed 60.12% preferred AITL fine-tuned responses vs 33.32% for baseline, 6.57% no difference; agent adoption rate increased +4.5% overall</li>
+      <li><strong>Update cycle acceleration:</strong> Offline annotation pipeline took 3 months from data collection to model deployment; AITL pipeline completes weekly retraining cycles, 12× faster iteration</li>
+      <li><strong>Annotation timing ablation:</strong> 2,000-case controlled experiment comparing immediate vs delayed annotation; only missing knowledge step shows significant immediate annotation benefit (+12pp agreement, 63.9%→76.5%, p&lt;0.05); preference/adoption/relevance steps show negligible timing effects</li>
+      <li><strong>Review process validation:</strong> LLM-based verifier evaluations strongly correlate with human expert reviews (see Appendix G in paper), enabling scalable quality control with sampled human oversight</li>
+    </ul>
+  </section>
+
+  <!-- Forward-looking roadmap -->
+  <section class="panel panel-warning p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🔭 For your roadmap</h3>
+    <p class="text-sm leading-relaxed text-body">
+      AITL demonstrates that continuous learning pipelines are feasible for production LLM systems at scale. The key shift: stop treating human feedback as a pre-deployment alignment step, and start designing systems where operational workflows generate training data as a byproduct.
+    </p>
+    
+    <div class="panel panel-info p-4 space-y-2">
+      <h4 class="text-sm font-semibold text-heading">Architecting for continuous learning</h4>
+      <p class="text-xs panel-muted">
+        <strong>Dual-response UI design:</strong> Showing two candidate responses forces agents to make comparative judgments (higher-quality signal than absolute ratings). Implement by randomly ordering responses from: (1) different models (GPT-4 vs Claude), (2) different retrieval strategies (dense vs hybrid), (3) different prompts (concise vs detailed), (4) model versions (current vs retrained). This A/B testing layer provides natural preference data without disrupting workflows. Include one-click adoption buttons so preference annotation is automatic when agents copy-paste suggestions. <strong>Unified knowledge base:</strong> Consolidate docs, FAQs, wikis, historical cases, dynamic context (account status, product version, etc.) with rich metadata (author, last-updated, topic, customer segment). Use content management system that supports real-time updates so new knowledge is immediately retrievable. Track knowledge usage frequency to identify high-value vs low-value content. <strong>Annotation UI/UX:</strong> Minimize cognitive load—preference as three-button choice (significantly better / better / slightly better), adoption as checkbox with optional free-text rationale, knowledge relevance as star rating per document, missing knowledge as flagged keywords with auto-suggest from unstructured notes. Display all four steps in single sidebar, not separate modals. Save drafts automatically so agents can pause annotation mid-case without data loss.
+      </p>
+    </div>
+
+    <div class="panel panel-info p-4 space-y-2">
+      <h4 class="text-sm font-semibold text-heading">Automated retraining pipeline requirements</h4>
+      <p class="text-xs panel-muted">
+        <strong>Data aggregation & filtering:</strong> Stream annotations to data warehouse with partition keys (timestamp, agent_id, case_id, annotation_type). Apply rule-based filters first (e.g., require review score ≥0.7, preference margin ≥"slightly better"). Then run LLM-based virtual judge on remaining samples—score each annotation for consistency between agent's preference/adoption and actual message sent to customer. Discard samples with judge score &lt;0.6 to remove hallucinations and lazy annotations. Monitor filter pass rates; if &lt;50% of annotations pass, investigate annotation tool UX or agent training gaps. <strong>Weekly retraining schedule:</strong> Friday night: aggregate annotations from past week, filter, generate training pairs. Saturday: kick off distributed training jobs (retrieval dense embeddings, ranking cross-encoder, generation ORPO fine-tune) on Ray/Spark cluster. Sunday: batch inference on evaluation sets (ground-truth test cases + sampled production queries). Monday morning: review evaluation metrics, deploy via gradual rollout (5% agents → 50% → 100% over 3 days). Use parameter-efficient fine-tuning (LoRA/QLoRA) to reduce GPU costs and enable faster iteration. <strong>Evaluation framework:</strong> Combine automated metrics (recall@k, precision@k, helpfulness scores from preference model + LLM judge) with sampled human evaluation (50-100 cases per week for pairwise comparison). Track not just accuracy but adoption rate—if model improves on offline metrics but adoption drops, investigate whether improvements align with agent needs vs abstract quality.
+      </p>
+    </div>
+
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>Extend to multi-turn conversations:</strong> Current study focuses on single-message exchanges; production support often involves 5-10 turn dialogues. Annotate at conversation level (which response trajectory was better?) and turn level (which specific messages were adopted?). This captures dialogue coherence and multi-step reasoning quality</li>
+      <li><strong>Active learning for annotation prioritization:</strong> Not all cases provide equal training value—focus annotation effort on model-uncertain cases (low confidence scores), edge cases (rare intents, new products), and conflicting signals (generation suggests A, agent chooses B). Use uncertainty sampling to route high-value cases to experienced annotators</li>
+      <li><strong>Cross-channel deployment:</strong> Pilot tested async messaging (hours-long SLA); validate AITL in strict-SLA channels (live chat, phone) using hybrid timing (immediate missing knowledge, delayed preference/adoption/relevance). Measure annotation volume, quality, and agent satisfaction across channels</li>
+      <li><strong>Federated learning for privacy-sensitive domains:</strong> Some organizations can't centralize customer support logs (healthcare, finance). Explore federated AITL where models train locally per region/team, then aggregate updates—preserving privacy while maintaining data flywheel benefits</li>
+      <li><strong>Synergy with synthetic data:</strong> Use AITL-trained models to generate synthetic training cases (via self-play, prompt perturbations, backtranslation), then annotate synthetics via LLM judges. Supplement human annotations with high-quality synthetic data to scale beyond operational throughput</li>
+    </ul>
+  </section>
+</section>

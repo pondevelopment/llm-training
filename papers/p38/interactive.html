@@ -1,0 +1,425 @@
+<section class="space-y-6" id="p38-explorer">
+  
+  <!-- Concrete analogy panel -->
+  <div class="panel panel-neutral-soft p-4 space-y-2">
+    <h3 class="text-sm font-semibold text-heading">💡 Think of it like: quality control that improves the recipe</h3>
+    <p class="text-xs panel-muted">
+      Traditional LLM training is like printing a cookbook once, shipping it to restaurants, and never updating it even when chefs discover better techniques. Agent-in-the-Loop is like having head chefs taste dishes in real-time and annotate improvements ("needs more seasoning," "great plating," "missing ingredient: lemon zest"), then using those notes to update the cookbook every week. This interactive tool lets you simulate how different annotation strategies (immediate vs delayed, strict vs lenient filtering) impact model improvement cycles and annotation quality.
+    </p>
+  </div>
+
+  <!-- Configuration panel -->
+  <div class="panel panel-neutral p-5 space-y-4">
+    <h3 class="text-base font-semibold text-heading">Configure Your AITL Deployment</h3>
+    <p class="text-xs panel-muted">Set your team size, annotation strategy, and quality thresholds</p>
+    
+    <!-- Team size -->
+    <div class="space-y-2">
+      <label for="p38-team-size" class="block text-sm font-medium text-heading">
+        Support team size
+      </label>
+      <div class="flex items-center gap-3">
+        <span class="text-xs text-muted w-20">10 agents</span>
+        <input 
+          type="range" 
+          id="p38-team-size" 
+          min="10" 
+          max="200" 
+          value="40" 
+          step="10"
+          class="flex-1"
+          aria-label="Number of support agents">
+        <span class="text-xs text-muted w-20 text-right">200 agents</span>
+      </div>
+      <div class="text-xs text-muted">Current: <span id="p38-team-size-display" class="font-semibold">40 agents</span></div>
+    </div>
+
+    <!-- Cases per agent per day -->
+    <div class="space-y-2">
+      <label for="p38-cases-per-day" class="block text-sm font-medium text-heading">
+        Cases per agent per day
+      </label>
+      <div class="flex items-center gap-3">
+        <span class="text-xs text-muted w-16">5 cases</span>
+        <input 
+          type="range" 
+          id="p38-cases-per-day" 
+          min="5" 
+          max="30" 
+          value="11" 
+          step="1"
+          class="flex-1"
+          aria-label="Cases per agent per day">
+        <span class="text-xs text-muted w-16 text-right">30 cases</span>
+      </div>
+      <div class="text-xs text-muted">Current: <span id="p38-cases-display" class="font-semibold">11 cases/day</span></div>
+    </div>
+
+    <!-- Annotation timing strategy -->
+    <div class="space-y-2">
+      <label for="p38-timing" class="block text-sm font-medium text-heading">
+        Annotation timing strategy
+      </label>
+      <select id="p38-timing" class="w-full p-2 text-sm border rounded bg-layer text-body">
+        <option value="immediate">All immediate (during conversation)</option>
+        <option value="hybrid" selected>Hybrid (immediate missing knowledge, delayed rest)</option>
+        <option value="delayed">All delayed (after conversation)</option>
+      </select>
+      <div class="text-xs text-muted">Hybrid recommended for balancing SLA and annotation quality</div>
+    </div>
+
+    <!-- Quality filter strictness -->
+    <div class="space-y-2">
+      <label for="p38-filter" class="block text-sm font-medium text-heading">
+        Quality filter strictness
+      </label>
+      <div class="flex items-center gap-3">
+        <span class="text-xs text-muted w-16">Lenient</span>
+        <input 
+          type="range" 
+          id="p38-filter" 
+          min="0" 
+          max="100" 
+          value="50" 
+          step="10"
+          class="flex-1"
+          aria-label="Filter strictness">
+        <span class="text-xs text-muted w-16 text-right">Strict</span>
+      </div>
+      <div class="text-xs text-muted">Current: <span id="p38-filter-display" class="font-semibold">Medium</span> filtering</div>
+    </div>
+
+    <!-- Update frequency -->
+    <div class="space-y-2">
+      <label for="p38-update-freq" class="block text-sm font-medium text-heading">
+        Model update frequency
+      </label>
+      <select id="p38-update-freq" class="w-full p-2 text-sm border rounded bg-layer text-body">
+        <option value="1">Weekly (recommended)</option>
+        <option value="2">Bi-weekly</option>
+        <option value="4">Monthly</option>
+        <option value="12">Quarterly (traditional)</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Results panel -->
+  <div class="panel panel-success p-5 space-y-4" id="p38-results">
+    <h3 class="text-base font-semibold text-heading">📊 Expected Outcomes</h3>
+    <p class="text-xs panel-muted">Based on your configuration and Airbnb's production results</p>
+    
+    <!-- Annotation volume -->
+    <div class="panel panel-neutral-soft p-4 space-y-3">
+      <div class="flex items-center justify-between">
+        <div class="text-sm font-semibold text-heading">Weekly annotation volume</div>
+        <div class="text-3xl font-bold" style="color: #10b981;" id="p38-weekly-volume">2,200</div>
+      </div>
+      <div class="grid grid-cols-2 gap-3 text-xs">
+        <div>
+          <span class="text-muted">Monthly total:</span>
+          <span class="font-semibold text-body ml-1" id="p38-monthly-volume">8,800</span>
+        </div>
+        <div>
+          <span class="text-muted">Yearly total:</span>
+          <span class="font-semibold text-body ml-1" id="p38-yearly-volume">105,600</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Annotation quality by step -->
+    <div class="space-y-3">
+      <div class="text-sm font-semibold text-heading">Annotation agreement rates</div>
+      
+      <div class="space-y-2">
+        <div class="flex items-center justify-between text-xs">
+          <span class="text-muted">Step 1: Preference judgment</span>
+          <span class="font-semibold" id="p38-pref-agreement">83.2%</span>
+        </div>
+        <div class="h-2 bg-layer rounded-full overflow-hidden">
+          <div id="p38-pref-bar" class="h-full transition-all duration-300" style="background: linear-gradient(to right, #10b981, #059669); width: 83.2%;"></div>
+        </div>
+      </div>
+
+      <div class="space-y-2">
+        <div class="flex items-center justify-between text-xs">
+          <span class="text-muted">Step 2: Adoption rationale</span>
+          <span class="font-semibold" id="p38-adopt-agreement">77.5%</span>
+        </div>
+        <div class="h-2 bg-layer rounded-full overflow-hidden">
+          <div id="p38-adopt-bar" class="h-full transition-all duration-300" style="background: linear-gradient(to right, #10b981, #059669); width: 77.5%;"></div>
+        </div>
+      </div>
+
+      <div class="space-y-2">
+        <div class="flex items-center justify-between text-xs">
+          <span class="text-muted">Step 3: Knowledge relevance</span>
+          <span class="font-semibold" id="p38-knowledge-agreement">92.3%</span>
+        </div>
+        <div class="h-2 bg-layer rounded-full overflow-hidden">
+          <div id="p38-knowledge-bar" class="h-full transition-all duration-300" style="background: linear-gradient(to right, #10b981, #059669); width: 92.3%;"></div>
+        </div>
+      </div>
+
+      <div class="space-y-2">
+        <div class="flex items-center justify-between text-xs">
+          <span class="text-muted">Step 4: Missing knowledge</span>
+          <span class="font-semibold" id="p38-missing-agreement">76.5%</span>
+        </div>
+        <div class="h-2 bg-layer rounded-full overflow-hidden">
+          <div id="p38-missing-bar" class="h-full transition-all duration-300" style="background: linear-gradient(to right, #10b981, #059669); width: 76.5%;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Model performance improvements -->
+    <div class="space-y-3">
+      <div class="text-sm font-semibold text-heading">Model performance improvements</div>
+      
+      <div class="grid md:grid-cols-2 gap-3">
+        <div class="panel panel-info p-3 space-y-1">
+          <div class="text-xs font-semibold text-heading">Retrieval</div>
+          <div class="flex items-baseline gap-2">
+            <div class="text-2xl font-bold" style="color: #6366f1;">+11.7%</div>
+            <div class="text-xs text-muted">recall@75</div>
+          </div>
+          <div class="flex items-baseline gap-2">
+            <div class="text-2xl font-bold" style="color: #6366f1;">+14.8%</div>
+            <div class="text-xs text-muted">precision@8</div>
+          </div>
+        </div>
+
+        <div class="panel panel-info p-3 space-y-1">
+          <div class="text-xs font-semibold text-heading">Generation</div>
+          <div class="flex items-baseline gap-2">
+            <div class="text-2xl font-bold" style="color: #10b981;">+8.4%</div>
+            <div class="text-xs text-muted">helpfulness</div>
+          </div>
+          <div class="flex items-baseline gap-2">
+            <div class="text-2xl font-bold" style="color: #10b981;">+38.1%</div>
+            <div class="text-xs text-muted">citation accuracy</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filtered samples -->
+    <div class="panel panel-neutral-soft p-4 space-y-2">
+      <div class="flex items-center justify-between">
+        <div class="text-sm font-semibold text-heading">Quality filtering impact</div>
+      </div>
+      <div class="grid grid-cols-3 gap-3 text-xs text-center">
+        <div>
+          <div class="text-muted">Collected</div>
+          <div class="text-xl font-bold text-body" id="p38-collected">2,200</div>
+        </div>
+        <div>
+          <div class="text-muted">Filtered out</div>
+          <div class="text-xl font-bold" style="color: #ef4444;" id="p38-filtered">440</div>
+        </div>
+        <div>
+          <div class="text-muted">Used for training</div>
+          <div class="text-xl font-bold" style="color: #10b981;" id="p38-training">1,760</div>
+        </div>
+      </div>
+      <div class="text-xs text-muted mt-2">
+        <span id="p38-filter-rate">20%</span> filter rate balances quality and training data volume
+      </div>
+    </div>
+
+    <!-- Update cycles -->
+    <div class="panel panel-warning p-4 space-y-2">
+      <div class="text-sm font-semibold text-heading">Innovation velocity</div>
+      <div class="flex items-baseline gap-2">
+        <div class="text-3xl font-bold" style="color: #f59e0b;" id="p38-updates-per-year">52</div>
+        <div class="text-sm text-muted">model updates per year</div>
+      </div>
+      <div class="text-xs text-muted">
+        vs <span class="font-semibold">4 updates/year</span> with traditional quarterly cycles (<span id="p38-speedup" class="font-semibold" style="color: #10b981;">13×</span> faster)
+      </div>
+    </div>
+  </div>
+
+  <!-- Annotation timing comparison -->
+  <div class="panel panel-info p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">⏱️ Annotation timing trade-offs</h3>
+    <p class="text-sm panel-muted">
+      Airbnb's 2,000-case ablation study revealed that only missing knowledge identification benefits from immediate annotation. This insight enables AITL deployment in strict-SLA channels.
+    </p>
+    
+    <div class="overflow-x-auto">
+      <table class="w-full text-xs">
+        <thead>
+          <tr class="border-b border-divider">
+            <th class="text-left py-2 px-3 font-semibold text-heading">Annotation step</th>
+            <th class="text-center py-2 px-3 font-semibold text-heading">Immediate</th>
+            <th class="text-center py-2 px-3 font-semibold text-heading">Delayed</th>
+            <th class="text-center py-2 px-3 font-semibold text-heading">Δ Significant?</th>
+          </tr>
+        </thead>
+        <tbody class="text-muted">
+          <tr class="border-b border-divider">
+            <td class="py-2 px-3">Preference judgment</td>
+            <td class="text-center py-2 px-3">83.2%</td>
+            <td class="text-center py-2 px-3">82.7%</td>
+            <td class="text-center py-2 px-3">❌ No</td>
+          </tr>
+          <tr class="border-b border-divider">
+            <td class="py-2 px-3">Adoption rationale</td>
+            <td class="text-center py-2 px-3">77.5%</td>
+            <td class="text-center py-2 px-3">76.9%</td>
+            <td class="text-center py-2 px-3">❌ No</td>
+          </tr>
+          <tr class="border-b border-divider">
+            <td class="py-2 px-3">Knowledge relevance</td>
+            <td class="text-center py-2 px-3">92.3%</td>
+            <td class="text-center py-2 px-3">91.8%</td>
+            <td class="text-center py-2 px-3">❌ No</td>
+          </tr>
+          <tr>
+            <td class="py-2 px-3 font-semibold">Missing knowledge</td>
+            <td class="text-center py-2 px-3 font-semibold" style="color: #10b981;">76.5%</td>
+            <td class="text-center py-2 px-3 font-semibold">63.9%</td>
+            <td class="text-center py-2 px-3 font-semibold" style="color: #10b981;">✅ Yes (+12pp)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="panel panel-neutral-soft p-3 mt-3 space-y-2 text-xs">
+      <p class="font-semibold text-heading">Deployment recommendation</p>
+      <ul class="list-disc ml-5 space-y-1 panel-muted">
+        <li><strong>Async channels (email, messaging):</strong> Use immediate annotation for missing knowledge if SLA permits brief delays; defer preference/adoption/relevance to post-conversation</li>
+        <li><strong>Strict-SLA channels (live chat, phone):</strong> Defer all four annotation steps to after conversation ends; only missing knowledge shows quality degradation, but 63.9% agreement is still acceptable</li>
+        <li><strong>Hybrid approach:</strong> Let agents flag missing knowledge with one-click "Missing info" button during conversation (minimal SLA impact), complete full annotation form after conversation ends</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ROI calculator -->
+  <div class="panel panel-neutral p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">💰 ROI estimation</h3>
+    <p class="text-sm panel-muted">
+      Calculate the business impact of faster model iteration and improved performance
+    </p>
+    
+    <div class="grid md:grid-cols-2 gap-4">
+      <div class="space-y-3">
+        <div class="text-xs font-semibold text-heading">Cost inputs</div>
+        
+        <div class="space-y-1">
+          <label for="p38-annotation-time" class="text-xs text-muted">Annotation time per case (minutes)</label>
+          <input 
+            type="number" 
+            id="p38-annotation-time" 
+            min="1" 
+            max="10" 
+            value="3" 
+            step="0.5"
+            class="w-full p-2 text-sm border rounded bg-layer text-body">
+        </div>
+
+        <div class="space-y-1">
+          <label for="p38-agent-cost" class="text-xs text-muted">Agent hourly cost ($)</label>
+          <input 
+            type="number" 
+            id="p38-agent-cost" 
+            min="20" 
+            max="100" 
+            value="35" 
+            step="5"
+            class="w-full p-2 text-sm border rounded bg-layer text-body">
+        </div>
+
+        <div class="space-y-1">
+          <label for="p38-infra-cost" class="text-xs text-muted">Weekly infrastructure cost ($)</label>
+          <input 
+            type="number" 
+            id="p38-infra-cost" 
+            min="500" 
+            max="10000" 
+            value="2000" 
+            step="500"
+            class="w-full p-2 text-sm border rounded bg-layer text-body">
+        </div>
+      </div>
+
+      <div class="space-y-3">
+        <div class="text-xs font-semibold text-heading">Benefit inputs</div>
+        
+        <div class="space-y-1">
+          <label for="p38-adoption-value" class="text-xs text-muted">Value per adopted suggestion ($)</label>
+          <input 
+            type="number" 
+            id="p38-adoption-value" 
+            min="1" 
+            max="50" 
+            value="8" 
+            step="1"
+            class="w-full p-2 text-sm border rounded bg-layer text-body">
+          <div class="text-xs text-muted">Time saved + quality improvement per case</div>
+        </div>
+
+        <div class="space-y-1">
+          <label for="p38-adoption-rate" class="text-xs text-muted">Baseline adoption rate (%)</label>
+          <input 
+            type="number" 
+            id="p38-adoption-rate" 
+            min="10" 
+            max="90" 
+            value="45" 
+            step="5"
+            class="w-full p-2 text-sm border rounded bg-layer text-body">
+        </div>
+
+        <div class="space-y-1">
+          <label for="p38-total-cases" class="text-xs text-muted">Total weekly cases (all agents)</label>
+          <input 
+            type="number" 
+            id="p38-total-cases" 
+            min="1000" 
+            max="100000" 
+            value="15000" 
+            step="1000"
+            class="w-full p-2 text-sm border rounded bg-layer text-body">
+        </div>
+      </div>
+    </div>
+
+    <!-- ROI results -->
+    <div class="panel panel-success p-4 space-y-3 mt-4">
+      <div class="text-sm font-semibold text-heading">Estimated ROI</div>
+      
+      <div class="grid grid-cols-3 gap-3 text-center">
+        <div>
+          <div class="text-xs text-muted">Weekly cost</div>
+          <div class="text-xl font-bold text-body">$<span id="p38-roi-cost">3,850</span></div>
+        </div>
+        <div>
+          <div class="text-xs text-muted">Weekly benefit</div>
+          <div class="text-xl font-bold" style="color: #10b981;">$<span id="p38-roi-benefit">5,445</span></div>
+        </div>
+        <div>
+          <div class="text-xs text-muted">Net benefit</div>
+          <div class="text-xl font-bold" style="color: #10b981;">$<span id="p38-roi-net">1,595</span></div>
+        </div>
+      </div>
+
+      <div class="text-xs text-muted text-center mt-2">
+        Annual ROI: <span id="p38-roi-annual" class="font-semibold text-body">$82,940</span> 
+        (<span id="p38-roi-multiple" class="font-semibold" style="color: #10b981;">41%</span> return)
+      </div>
+    </div>
+  </div>
+
+  <!-- Key takeaway -->
+  <div class="panel panel-warning p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🎯 Key takeaway</h3>
+    <p class="text-sm leading-relaxed text-body">
+      The AITL framework proves that embedding human feedback loops directly into operational workflows is both feasible and highly effective. By capturing four types of annotations during live support—preference, adoption, knowledge relevance, and missing knowledge—organizations can maintain continuous model improvement without dedicated annotation teams. The hybrid timing strategy (immediate missing knowledge, delayed other steps) makes AITL viable even in strict-SLA channels, while weekly retraining cycles prevent model decay and keep LLM systems aligned with evolving customer needs.
+    </p>
+    <p class="text-sm text-muted">
+      <strong>Bottom line:</strong> Treat human feedback as a strategic flywheel asset from day one. Design systems where operational workflows generate training data as a natural byproduct, not a separate overhead activity. This shifts LLM deployment from "train once, let decay" to "continuously improve, compound gains"—the difference between static tools and learning systems.
+    </p>
+  </div>
+
+</section>

@@ -5,6 +5,7 @@ import { MetricsPanel } from './MetricsPanel';
 import { LimitationsPanel } from './LimitationsPanel';
 import { AgentReadinessChecker } from './AgentReadinessChecker';
 import { ConversionOptimization } from './ConversionOptimization';
+import { IndustryInsights } from './IndustryInsights';
 
 /**
  * OptimizationSection (Phase 5.5)
@@ -514,6 +515,16 @@ export function OptimizationSection() {
         className="panel-surface p-8"
       >
         <ConversionOptimization />
+      </motion.div>
+
+      {/* Industry-Specific Insights */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 1.47 }}
+        className="panel-surface p-8"
+      >
+        <IndustryInsights />
       </motion.div>
 
       {/* Monetization Timeline Section */}

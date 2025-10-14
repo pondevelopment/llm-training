@@ -156,62 +156,69 @@ Track this test: Add ?utm_source=chatgpt.com to the URL for GA4 analytics tracki
         </p>
       </motion.div>
 
-      {/* Score Card */}
-      <AnimatePresence>
-        {score !== null && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.9 }}
-            className="p-6 rounded-lg border-2 shadow-lg"
-            style={{
-              borderColor: readiness?.color || '#6366f1',
-              backgroundColor: 'var(--color-surface-elevated)'
-            }}
-          >
-            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-              <div className="text-center md:text-left">
-                <div className="text-5xl font-bold mb-2" style={{ color: readiness?.color }}>
-                  {score}%
-                </div>
-                <div className="text-xl font-semibold text-text-primary mb-1">
-                  {readiness?.label}
-                </div>
-                <div className="text-sm text-text-secondary">
-                  {checkedCount} of {totalBarriers} barriers identified
-                </div>
+      {/* Score Card - Always visible to prevent layout shift */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        className="p-6 rounded-lg border-2 shadow-lg"
+        style={{
+          borderColor: score !== null ? (readiness?.color || '#6366f1') : 'var(--color-border-subtle)',
+          backgroundColor: 'var(--color-surface-elevated)'
+        }}
+      >
+        {score !== null ? (
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            <div className="text-center md:text-left">
+              <div className="text-5xl font-bold mb-2" style={{ color: readiness?.color }}>
+                {score}%
               </div>
-
-              <div className="flex flex-col gap-2 text-sm">
-                {criticalIssues > 0 && (
-                  <div className="flex items-center gap-2 px-3 py-1 rounded" style={{ backgroundColor: '#ef4444' + '20' }}>
-                    <span className="font-bold" style={{ color: '#ef4444' }}>⚠️ {criticalIssues}</span>
-                    <span className="text-text-secondary">Critical issues</span>
-                  </div>
-                )}
-                {highIssues > 0 && (
-                  <div className="flex items-center gap-2 px-3 py-1 rounded" style={{ backgroundColor: '#f59e0b' + '20' }}>
-                    <span className="font-bold" style={{ color: '#f59e0b' }}>⚡ {highIssues}</span>
-                    <span className="text-text-secondary">High priority issues</span>
-                  </div>
-                )}
+              <div className="text-xl font-semibold text-text-primary mb-1">
+                {readiness?.label}
               </div>
-
-              <button
-                onClick={clearAll}
-                className="px-4 py-2 rounded text-sm font-medium transition-colors"
-                style={{
-                  backgroundColor: 'var(--color-surface-elevated)',
-                  border: '1px solid var(--color-border-subtle)',
-                  color: 'var(--color-text-secondary)'
-                }}
-              >
-                Clear All
-              </button>
+              <div className="text-sm text-text-secondary">
+                {checkedCount} of {totalBarriers} barriers identified
+              </div>
             </div>
-          </motion.div>
+
+            <div className="flex flex-col gap-2 text-sm">
+              {criticalIssues > 0 && (
+                <div className="flex items-center gap-2 px-3 py-1 rounded" style={{ backgroundColor: '#ef4444' + '20' }}>
+                  <span className="font-bold" style={{ color: '#ef4444' }}>⚠️ {criticalIssues}</span>
+                  <span className="text-text-secondary">Critical issues</span>
+                </div>
+              )}
+              {highIssues > 0 && (
+                <div className="flex items-center gap-2 px-3 py-1 rounded" style={{ backgroundColor: '#f59e0b' + '20' }}>
+                  <span className="font-bold" style={{ color: '#f59e0b' }}>⚡ {highIssues}</span>
+                  <span className="text-text-secondary">High priority issues</span>
+                </div>
+              )}
+            </div>
+
+            <button
+              onClick={clearAll}
+              className="px-4 py-2 rounded text-sm font-medium transition-colors"
+              style={{
+                backgroundColor: 'var(--color-surface-elevated)',
+                border: '1px solid var(--color-border-subtle)',
+                color: 'var(--color-text-secondary)'
+              }}
+            >
+              Clear All
+            </button>
+          </div>
+        ) : (
+          <div className="text-center py-4">
+            <div className="text-4xl mb-2">🎯</div>
+            <div className="text-xl font-semibold text-text-primary mb-1">
+              Not Yet Assessed
+            </div>
+            <div className="text-sm text-text-secondary">
+              Check the barriers present on your site to calculate your readiness score
+            </div>
+          </div>
         )}
-      </AnimatePresence>
+      </motion.div>
 
       {/* Test Categories */}
       <div className="space-y-8">

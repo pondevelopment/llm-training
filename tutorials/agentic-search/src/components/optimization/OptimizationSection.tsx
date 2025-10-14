@@ -373,22 +373,37 @@ export function OptimizationSection() {
                     </div>
 
                     <div className="bg-[var(--color-card)] rounded-lg p-4 border border-[var(--color-border)]">
-                      <h6 className="font-bold text-text-primary text-sm mb-2">🤖 Bot Log Analysis</h6>
+                      <h6 className="font-bold text-text-primary text-sm mb-2">🖥️ Server-Side Analytics</h6>
                       <p className="text-text-secondary text-sm leading-relaxed mb-2">
-                        Your server logs show agent requests. Look for patterns in:
+                        <strong className="text-text-primary">Critical for text-based browsers:</strong> Server logs, 
+                        Cloudflare Analytics, and CDN metrics capture agent traffic even when JavaScript is blocked.
                       </p>
                       <ul className="text-sm text-text-secondary space-y-1 ml-4 list-disc">
-                        <li><strong className="text-text-primary">Request frequency:</strong> Agents batch requests within seconds</li>
-                        <li><strong className="text-text-primary">Conversion paths:</strong> Which pages agents visit before checkout</li>
-                        <li><strong className="text-text-primary">Abandonment points:</strong> Where agents bounce (often broken forms, captchas)</li>
+                        <li><strong className="text-text-primary">Web server logs:</strong> Apache/Nginx logs show all requests with user-agents, IPs, paths</li>
+                        <li><strong className="text-text-primary">Cloudflare Analytics:</strong> Tracks requests, bandwidth, bot traffic before it hits your server</li>
+                        <li><strong className="text-text-primary">CDN analytics:</strong> Fastly, Akamai, CloudFront capture agent requests globally</li>
+                        <li><strong className="text-text-primary">Request patterns:</strong> Agents batch requests within seconds—look for rapid sequential page views</li>
                       </ul>
                     </div>
 
                     <div className="bg-[var(--color-card)] rounded-lg p-4 border border-[var(--color-border)]">
-                      <h6 className="font-bold text-text-primary text-sm mb-2">📈 Conversion Path Reports (GA4)</h6>
+                      <h6 className="font-bold text-text-primary text-sm mb-2">🤖 Bot Log Analysis</h6>
+                      <p className="text-text-secondary text-sm leading-relaxed mb-2">
+                        Parse server logs to identify agent behavior patterns:
+                      </p>
+                      <ul className="text-sm text-text-secondary space-y-1 ml-4 list-disc">
+                        <li><strong className="text-text-primary">User-agent filtering:</strong> Look for "ChatGPT", "GPTBot", desktop Chrome signatures</li>
+                        <li><strong className="text-text-primary">Conversion paths:</strong> Which pages agents visit before checkout</li>
+                        <li><strong className="text-text-primary">Abandonment points:</strong> Where agents bounce (often broken forms, CAPTCHAs)</li>
+                        <li><strong className="text-text-primary">Session reconstruction:</strong> Track full journeys from landing to conversion or exit</li>
+                      </ul>
+                    </div>
+
+                    <div className="bg-[var(--color-card)] rounded-lg p-4 border border-[var(--color-border)]">
+                      <h6 className="font-bold text-text-primary text-sm mb-2">📈 Client-Side Analytics (When Available)</h6>
                       <p className="text-text-secondary text-sm leading-relaxed">
-                        Use <code className="px-2 py-0.5 bg-[var(--color-surface)] rounded text-xs font-mono">utm_source=chatgpt.com</code> where 
-                        possible. Track conversion rates and paths separately from traditional organic traffic.
+                        <strong className="text-text-primary">GA4 works for visual browsers:</strong> Use <code className="px-2 py-0.5 bg-[var(--color-surface)] rounded text-xs font-mono">utm_source=chatgpt.com</code> where 
+                        possible. Track conversion rates and paths separately from traditional organic traffic. Note: Only captures ~54% of agent visits (those using visual browsers).
                       </p>
                     </div>
                   </div>
@@ -407,8 +422,9 @@ export function OptimizationSection() {
                     <div className="flex items-start gap-2">
                       <span className="text-text-primary font-bold flex-shrink-0">❌</span>
                       <p>
-                        <strong className="text-text-primary">Text-based browser visits:</strong> 46% of agent visits 
-                        use text-only browsers that block JavaScript—your analytics scripts don't run.
+                        <strong className="text-text-primary">Client-side analytics for text browsers:</strong> 46% of agent visits 
+                        use text-only browsers that block JavaScript—GA4/client-side scripts don't run. <span className="font-semibold text-[#10b981]">✓ 
+                        Solution: Use server logs, Cloudflare, or CDN analytics instead.</span>
                       </p>
                     </div>
                     <div className="flex items-start gap-2">
@@ -454,8 +470,9 @@ export function OptimizationSection() {
                 <li className="flex items-start gap-3">
                   <span className="font-bold text-text-primary flex-shrink-0">3.</span>
                   <div>
-                    <strong className="text-text-primary">Use server logs as source of truth.</strong> When analytics 
-                    scripts fail (text browsers), server logs still capture requests.
+                    <strong className="text-text-primary">Use server-side analytics as source of truth.</strong> Server 
+                    logs, Cloudflare Analytics, and CDN metrics capture 100% of agent traffic—even text-based browsers. 
+                    Client-side tools (GA4) only see ~54% of visits.
                   </div>
                 </li>
                 <li className="flex items-start gap-3">

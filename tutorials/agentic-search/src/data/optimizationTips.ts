@@ -31,7 +31,7 @@ export const feedFramework: FEEDPillar[] = [
     description: 'Products with complete metadata, structured feeds, and proper identifiers consistently appear in agent results. Clean data is the foundation of visibility.',
     examples: {
       winner: [
-        'Complete schema.org/Product markup (Product, Offer, AggregateRating)',
+        'Complete JSON-LD structured data (schema.org/Product, Offer, AggregateRating)',
         'All variants with size, color, material, SKU clearly labeled',
         'GTIN/MPN/EAN identifiers present for product matching',
         'Real-time pricing and stock synchronization across channels',
@@ -50,7 +50,7 @@ export const feedFramework: FEEDPillar[] = [
     implementation: [
       {
         step: 'Add JSON-LD Schema',
-        detail: 'Implement Product, Offer, and AggregateRating schema types. Server-render schema (don\'t add via JavaScript).'
+        detail: 'Implement JSON-LD structured data with schema.org types (Product, Offer, AggregateRating, Review). JSON-LD is critical because agents can extract clean JSON directly without parsing HTML—it\'s machine-readable first. Server-render in <script type="application/ld+json"> tags (never add via JavaScript). Validate with Google\'s Rich Results Test and schema.org validator.'
       },
       {
         step: 'Enrich Product Feeds',

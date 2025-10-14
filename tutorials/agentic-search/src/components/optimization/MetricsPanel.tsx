@@ -35,84 +35,105 @@ export function MetricsPanel({ metrics }: MetricsPanelProps) {
       >
         {/* Conversion Rate Comparison */}
         <div className="space-y-6">
-          <h5 className="text-lg font-bold text-text-primary text-center">
+          <h5 className="text-2xl font-bold text-heading text-center mb-8">
             Conversion Rate Comparison
           </h5>
 
           {/* ChatGPT Bar */}
-          <div className="space-y-2">
-            <div className="flex items-center justify-between text-sm">
-              <span className="font-medium text-text-primary">{metrics.chatgpt.label}</span>
-              <span className="font-bold text-accent-primary">{metrics.chatgpt.rate}%</span>
+          <div className="space-y-3 p-4 rounded-lg bg-[var(--color-subtle-bg)]">
+            <div className="flex items-center justify-between">
+              <span className="text-base font-bold text-heading">{metrics.chatgpt.label}</span>
+              <span className="text-2xl font-bold text-[#10b981]">{metrics.chatgpt.rate}%</span>
             </div>
-            <div className="h-8 bg-surface-secondary rounded-lg overflow-hidden">
+            <div className="h-10 bg-[var(--color-surface)] rounded-lg overflow-hidden border border-[var(--color-border)]">
               <motion.div
                 initial={{ width: 0 }}
                 animate={{ width: `${chatgptWidth}%` }}
                 transition={{ duration: 1, delay: 1.4, ease: 'easeOut' }}
-                className="h-full bg-gradient-to-r from-accent-primary to-accent-primary/80 flex items-center justify-end pr-3"
+                className="h-full bg-gradient-to-r from-[#10b981] to-[#059669] flex items-center justify-end pr-4"
               >
-                <span className="text-xs font-bold text-white">{metrics.chatgpt.rate}%</span>
+                <span className="text-sm font-bold text-white drop-shadow-md">{metrics.chatgpt.rate}%</span>
               </motion.div>
             </div>
-            <p className="text-xs text-muted">{metrics.chatgpt.source}</p>
+            <p className="text-xs text-muted italic">
+              <a 
+                href="https://www.seerinteractive.com/insights/chatgpt-shopping-conversion-rate" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="hover:underline"
+              >
+                {metrics.chatgpt.source}
+              </a>
+            </p>
           </div>
 
           {/* Google Organic Bar */}
-          <div className="space-y-2">
-            <div className="flex items-center justify-between text-sm">
-              <span className="font-medium text-text-primary">{metrics.organic.label}</span>
-              <span className="font-bold text-text-secondary">{metrics.organic.rate}%</span>
+          <div className="space-y-3 p-4 rounded-lg bg-[var(--color-subtle-bg)]">
+            <div className="flex items-center justify-between">
+              <span className="text-base font-bold text-heading">{metrics.organic.label}</span>
+              <span className="text-2xl font-bold text-[#6366f1]">{metrics.organic.rate}%</span>
             </div>
-            <div className="h-8 bg-surface-secondary rounded-lg overflow-hidden">
+            <div className="h-10 bg-[var(--color-surface)] rounded-lg overflow-hidden border border-[var(--color-border)]">
               <motion.div
                 initial={{ width: 0 }}
                 animate={{ width: `${organicWidth}%` }}
                 transition={{ duration: 1, delay: 1.6, ease: 'easeOut' }}
-                className="h-full bg-gradient-to-r from-text-secondary/60 to-text-secondary/40 flex items-center justify-end pr-3"
+                className="h-full bg-gradient-to-r from-[#6366f1] to-[#4f46e5] flex items-center justify-end pr-4"
               >
-                <span className="text-xs font-bold text-white">{metrics.organic.rate}%</span>
+                <span className="text-sm font-bold text-white drop-shadow-md">{metrics.organic.rate}%</span>
               </motion.div>
             </div>
-            <p className="text-xs text-muted">{metrics.organic.source}</p>
+            <p className="text-xs text-muted italic">
+              <a 
+                href="https://www.seerinteractive.com/insights/chatgpt-shopping-conversion-rate" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="hover:underline"
+              >
+                {metrics.organic.source}
+              </a>
+            </p>
           </div>
         </div>
 
         {/* Key Metrics Grid */}
-        <div className="grid md:grid-cols-3 gap-4 mt-8 pt-8 border-t border-border-primary">
+        <div className="grid md:grid-cols-3 gap-6 mt-10 pt-8 border-t-2 border-[var(--color-border)]">
           {/* Multiplier */}
-          <div className="text-center">
-            <div className="text-3xl font-bold text-accent-primary mb-1">
+          <div className="text-center p-4 rounded-lg bg-[var(--color-card)]">
+            <div className="text-4xl font-bold text-[#10b981] mb-2">
               {metrics.multiplier}x
             </div>
-            <p className="text-sm text-text-secondary">{metrics.multiplierLabel}</p>
+            <p className="text-sm font-medium text-heading">{metrics.multiplierLabel}</p>
           </div>
 
           {/* Traffic Share */}
-          <div className="text-center">
-            <div className="text-3xl font-bold text-text-primary mb-1">
+          <div className="text-center p-4 rounded-lg bg-[var(--color-card)]">
+            <div className="text-4xl font-bold text-heading mb-2">
               {metrics.trafficShare}
             </div>
-            <p className="text-sm text-text-secondary">{metrics.trafficNote}</p>
+            <p className="text-sm font-medium text-body">{metrics.trafficNote}</p>
           </div>
 
           {/* Future Prediction */}
-          <div className="text-center">
-            <div className="text-3xl font-bold text-text-primary mb-1">
+          <div className="text-center p-4 rounded-lg bg-[var(--color-card)]">
+            <div className="text-4xl font-bold text-heading mb-2">
               2028
             </div>
-            <p className="text-sm text-text-secondary">{metrics.prediction}</p>
-            <p className="text-xs text-muted mt-1">{metrics.predictionSource}</p>
+            <p className="text-sm font-medium text-body">{metrics.prediction}</p>
+            <p className="text-xs text-muted italic mt-2">{metrics.predictionSource}</p>
           </div>
         </div>
 
         {/* Interpretation */}
-        <div className="mt-6 panel-inset p-4 border-l-4 border-accent-primary">
-          <p className="text-text-primary font-medium text-sm">
-            💡 <span className="font-bold">What This Means:</span> Users arriving from agentic search 
-            are highly qualified because they've already worked through decision criteria with the AI. 
-            They click through closer to purchase, resulting in conversion rates nearly 
-            <span className="text-accent-primary font-bold"> 9x higher</span> than traditional search.
+        <div className="mt-8 p-6 rounded-lg bg-gradient-to-r from-[#10b981]/10 to-[#059669]/10 border-l-4 border-[#10b981]">
+          <p className="text-base leading-relaxed text-heading">
+            <span className="text-2xl mr-2">💡</span>
+            <span className="font-bold text-lg">What This Means:</span>
+            <span className="block mt-2">
+              Users arriving from agentic search are highly qualified because they've already worked through decision criteria with the AI. 
+              They click through closer to purchase, resulting in conversion rates nearly 
+              <span className="text-[#10b981] font-bold text-lg"> 9x higher</span> than traditional search.
+            </span>
           </p>
         </div>
       </motion.div>

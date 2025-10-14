@@ -629,29 +629,146 @@ export function OptimizationSection() {
         </div>
       </motion.div>
 
-      {/* Data Disclaimer */}
+      {/* Data Sources & Further Reading */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, delay: 1.7 }}
-        className="panel-inset p-4 max-w-3xl mx-auto text-center"
+        className="max-w-4xl mx-auto space-y-6"
       >
-        <p className="text-xs text-muted mb-2">
-          <strong>Data Source:</strong> Metrics and insights from ChatGPT Shopping (launched April 2025), 
-          Seer Interactive study, Semrush research, and{' '}
-          <a 
-            href="https://searchengineland.com/chatgpt-shopping-ecommerce-seo-optimization-guide-449583"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-accent-primary hover:underline font-medium"
-          >
-            SearchEngineLand analysis (October 2025)
-          </a>.
-        </p>
-        <p className="text-xs text-muted">
-          The agentic search landscape is evolving rapidly — principles remain sound, but specific 
-          numbers may change as platforms mature.
-        </p>
+        {/* Data Sources */}
+        <div className="panel-inset p-6">
+          <h5 className="text-lg font-bold text-text-primary mb-4 text-center">📚 Data Sources</h5>
+          <div className="grid md:grid-cols-2 gap-4 text-sm">
+            <div className="bg-[var(--color-card)] rounded-lg p-4 border border-[var(--color-border)]">
+              <p className="font-bold text-text-primary mb-2">
+                <a 
+                  href="https://searchengineland.com/chatgpt-shopping-ecommerce-seo-optimization-guide-449583"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-accent-primary hover:underline"
+                >
+                  Wasim Kagzi (Oct 2, 2025)
+                </a>
+              </p>
+              <p className="text-text-secondary text-xs">
+                "ChatGPT Shopping is here — and it's changing ecommerce SEO rules"
+                <span className="block mt-1 italic">Source: SearchEngineLand. FEED framework, conversion metrics, optimization guidance.</span>
+              </p>
+            </div>
+
+            <div className="bg-[var(--color-card)] rounded-lg p-4 border border-[var(--color-border)]">
+              <p className="font-bold text-text-primary mb-2">
+                <a 
+                  href="https://searchengineland.com/chatgpt-agent-mode-analysis-100-conversations-450123"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-accent-primary hover:underline"
+                >
+                  Jes Scholz (Oct 8, 2025)
+                </a>
+              </p>
+              <p className="text-text-secondary text-xs">
+                "100 conversations with ChatGPT Agent mode"
+                <span className="block mt-1 italic">Source: SearchEngineLand. Agent behavior analysis, Bing API usage (92%), first result dominance (63%).</span>
+              </p>
+            </div>
+
+            <div className="bg-[var(--color-card)] rounded-lg p-4 border border-[var(--color-border)]">
+              <p className="font-bold text-text-primary mb-2">
+                <a 
+                  href="https://www.seerinteractive.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-accent-primary hover:underline"
+                >
+                  Seer Interactive (2025)
+                </a>
+              </p>
+              <p className="text-text-secondary text-xs">
+                Conversion rate research
+                <span className="block mt-1 italic">ChatGPT Shopping: 15.9% conversion rate vs Google Organic: 1.8%.</span>
+              </p>
+            </div>
+
+            <div className="bg-[var(--color-card)] rounded-lg p-4 border border-[var(--color-border)]">
+              <p className="font-bold text-text-primary mb-2">
+                <a 
+                  href="https://www.semrush.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-accent-primary hover:underline"
+                >
+                  Semrush (2025)
+                </a>
+              </p>
+              <p className="text-text-secondary text-xs">
+                LLM visitor value study
+                <span className="block mt-1 italic">4.4x average LLM visitor worth vs organic. Prediction: AI search surpasses traditional search by 2028.</span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Further Reading */}
+        <div className="panel-inset p-6 bg-gradient-to-r from-[#6366f1]/10 to-[#8b5cf6]/10 border-l-4 border-[#6366f1]">
+          <h5 className="text-lg font-bold text-text-primary mb-4 flex items-center gap-2">
+            <span>📖</span>
+            <span>Further Reading & Resources</span>
+          </h5>
+          <div className="space-y-3 text-sm text-text-secondary">
+            <div>
+              <p className="mb-2">
+                <strong className="text-text-primary">Stay Current:</strong> The agentic search landscape evolves rapidly. 
+                Follow these resources for ongoing insights:
+              </p>
+              <ul className="space-y-2 ml-4">
+                <li className="flex items-start gap-2">
+                  <span className="text-accent-primary font-bold">→</span>
+                  <div>
+                    <a 
+                      href="https://searchengineland.com/category/ai"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-accent-primary hover:underline font-medium"
+                    >
+                      Search Engine Land - AI & Search Section
+                    </a>
+                    <span className="block text-xs text-text-muted">Industry-leading coverage of AI search developments, case studies, and optimization tactics.</span>
+                  </div>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-accent-primary font-bold">→</span>
+                  <div>
+                    <span className="text-text-primary font-medium">GEO (Generative Engine Optimization)</span>
+                    <span className="block text-xs text-text-muted">Emerging discipline focused on optimizing for AI-generated answers. Watch for academic research and practitioner guides.</span>
+                  </div>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-accent-primary font-bold">→</span>
+                  <div>
+                    <a 
+                      href="https://www.bing.com/webmasters/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-accent-primary hover:underline font-medium"
+                    >
+                      Bing Webmaster Tools
+                    </a>
+                    <span className="block text-xs text-text-muted">Essential for product feed submission and Bing Shopping optimization (gateway to ChatGPT agent traffic).</span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div className="pt-3 border-t border-[var(--color-border)]">
+              <p className="text-xs italic">
+                <strong className="text-text-primary">Note:</strong> The agentic search landscape is evolving rapidly. 
+                While core principles (FEED framework, Bing API dominance, variant standardization) remain sound, specific 
+                metrics and platform features may change as ChatGPT Shopping, Agent mode, and competing platforms mature.
+              </p>
+            </div>
+          </div>
+        </div>
       </motion.div>
     </div>
   );

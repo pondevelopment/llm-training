@@ -194,6 +194,14 @@
     document.getElementById('p38-cases-display').textContent = `${casesPerDay} cases/day`;
     document.getElementById('p38-filter-display').textContent = getFilterLabel(filterStrictness);
     
+    // Update ROI input displays
+    document.getElementById('p38-annotation-time-display').textContent = `${annotationTimeMinutes} minutes`;
+    document.getElementById('p38-agent-cost-display').textContent = `$${agentHourlyCost}/hour`;
+    document.getElementById('p38-infra-cost-display').textContent = `$${weeklyInfraCost.toLocaleString()}/week`;
+    document.getElementById('p38-adoption-value-display').textContent = `$${adoptionValue}`;
+    document.getElementById('p38-adoption-rate-display').textContent = `${baselineAdoptionRate}%`;
+    document.getElementById('p38-total-cases-display').textContent = `${totalWeeklyCases.toLocaleString()} cases`;
+    
     // Calculate annotation volume
     const volume = calculateAnnotationVolume(teamSize, casesPerDay);
     document.getElementById('p38-weekly-volume').textContent = volume.weekly.toLocaleString();

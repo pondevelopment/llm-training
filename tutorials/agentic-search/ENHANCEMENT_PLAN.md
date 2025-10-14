@@ -216,7 +216,7 @@ This plan outlines 10 priority areas to transform the tutorial from foundational
 
 ## Priority 5: Analytics & Measurement
 
-**Status**: ⏳ Not Started  
+**Status**: ✅ Complete  
 **Impact**: 🔥 High  
 **Effort**: Small (0.5 days)
 
@@ -230,35 +230,35 @@ This plan outlines 10 priority areas to transform the tutorial from foundational
 ### Implementation
 
 #### 5.1 Add "Tracking Agent Traffic" Section
-- [ ] **Location**: New section after MetricsPanel or in LimitationsPanel
-- [ ] **Content**:
-  - [ ] GA4 Setup: Look for `utm_source=chatgpt.com`, filter desktop Chrome spikes
-  - [ ] Bot log analysis: Monitor request patterns, conversion paths, abandonment
-  - [ ] Vanity metric warning: Request count ≠ visits (visual browser = multiple asset requests)
-  - [ ] Paths report: Critical for seeing where agents abandon journey
-  - [ ] What's NOT trackable: Text-based browser visits (no cookies), Bing API query data
+- [x] **Location**: New section after MetricsPanel
+- [x] **Content**:
+  - [x] GA4 Setup: Desktop Chrome spikes, utm_source guidance, conversion path tracking
+  - [x] Bot log analysis: Request patterns, conversion paths, abandonment points
+  - [x] What you CAN track vs what you CAN'T track (clear separation)
+  - [x] Best practices: Focus on conversions not vanity metrics, trends over snapshots
+  - [x] Text-based browser caveat (46% of visits, no JS analytics)
 
 #### 5.2 Update LimitationsPanel
-- [ ] **Add new limitations**:
-  - [ ] "Analytics blindspot: Agent traffic often appears as 'direct' with no attribution"
-  - [ ] "Result volatility: Rankings fluctuate hour-by-hour, traditional rank tracking breaks"
-  - [ ] "Bing API gap: ChatGPT queries don't show in Bing Webmaster Tools"
+- [x] **Add new limitations**:
+  - [x] "Analytics Attribution Gap": Direct traffic appearance, no referrer data
+  - [x] "Ranking Fluctuation": Hour-by-hour volatility, traditional rank tracking breaks
+  - [x] Included Bing API gap, text-based browser analytics blocking
 
 ### Files to Modify
-- `src/components/optimization/LimitationsPanel.tsx`
-- `src/components/optimization/OptimizationSection.tsx`
+- `src/components/optimization/OptimizationSection.tsx` ✅ Complete
+- `src/data/optimizationTips.ts` ✅ Complete
 
 ### Success Criteria
-- [ ] Clear GA4 tracking guidance
-- [ ] Bot log analysis explained
-- [ ] Limitations clearly communicated
-- [ ] Users understand measurement gaps
+- [x] Clear GA4 tracking guidance
+- [x] Bot log analysis explained
+- [x] Limitations clearly communicated
+- [x] Users understand measurement gaps
 
 ---
 
 ## Priority 6: Instant Checkout & Monetization
 
-**Status**: ⏳ Not Started  
+**Status**: ✅ Complete  
 **Impact**: 🟡 Medium  
 **Effort**: Small (0.5 days)
 
@@ -271,26 +271,27 @@ This plan outlines 10 priority areas to transform the tutorial from foundational
 ### Implementation
 
 #### 6.1 Update "What's Next" Section
-- [ ] **Location**: After conversion metrics, before limitations
-- [ ] **Add timeline**:
-  - [ ] Now (Oct 2025): ChatGPT Shopping organic, Instant Checkout beta (Etsy)
-  - [ ] 2026: Ads/sponsored placements likely, Shopify integration, commission-based checkouts
-  - [ ] 2028 prediction: "AI search visitors predicted to surpass traditional search" (Semrush)
+- [x] **Location**: After analytics section, before limitations
+- [x] **Add timeline**:
+  - [x] Now (Oct 2025): ChatGPT Shopping organic, Instant Checkout beta (Etsy), Agent mode autonomous transactions
+  - [x] 2026: Ads/sponsored placements, Shopify full integration, commission-based checkouts
+  - [x] 2028 prediction: "AI search visitors surpass traditional search" (Semrush)
 
 #### 6.2 Add "Preparing for Paid Placements" Callout
-- [ ] **Content**:
-  - [ ] "While results are organic today, monetization is coming"
-  - [ ] Establish organic presence NOW before ad auction begins
-  - [ ] Historical parallel: Google Shopping went from free to paid
-  - [ ] Strategy: Build brand salience while competition is low
+- [x] **Content**:
+  - [x] "While results are organic today, monetization is coming"
+  - [x] Google Shopping parallel: Free (2002-2012) → Paid-only
+  - [x] Strategy: Build brand salience NOW while competition is low
+  - [x] Early adopters establish trust before new entrants must pay to acquire visibility
 
 ### Files to Modify
-- `src/components/optimization/OptimizationSection.tsx`
+- `src/components/optimization/OptimizationSection.tsx` ✅ Complete
 
 ### Success Criteria
-- [ ] Timeline of monetization clearly communicated
-- [ ] Urgency established (optimize now while organic)
-- [ ] 2028 tipping point emphasized
+- [x] Timeline of monetization clearly communicated
+- [x] Urgency established (optimize now while organic)
+- [x] 2028 tipping point emphasized
+- [x] Historical parallel makes strategy clear
 
 ---
 

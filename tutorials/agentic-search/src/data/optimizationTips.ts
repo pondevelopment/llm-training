@@ -291,6 +291,26 @@ export const commonLimitations: Limitation[] = [
     impact: 'Winner-take-all dynamics. Highly competitive. Small differences have outsized effects on visibility.',
     mitigation: 'Focus on winning position for your core queries. Optimize for niche, specific queries where you can rank #1.',
     severity: 'high'
+  },
+  {
+    id: 'analytics-blindspot',
+    title: 'Analytics Attribution Gap',
+    icon: '📊',
+    problem: 'Agent traffic often appears as "direct" with no clear attribution. Traditional rank tracking tools don\'t capture agent result placements.',
+    cause: 'ChatGPT and other agents don\'t consistently pass referrer data. Text-based browsers block typical analytics scripts. Bing API queries aren\'t visible in Bing Webmaster Tools.',
+    impact: 'Difficult to measure agent traffic volume, impossible to track query-level performance, hard to prove ROI of optimization efforts.',
+    mitigation: 'Watch for desktop Chrome traffic spikes (agent user-agent). Analyze bot logs for request patterns. Use utm_source=chatgpt.com when possible. Focus on conversion paths and abandonment points.',
+    severity: 'medium'
+  },
+  {
+    id: 'ranking-volatility',
+    title: 'Ranking Fluctuation',
+    icon: '📈',
+    problem: 'Your product ranks #1 at 9am, #8 at 2pm, then disappears by 5pm—all without any changes on your end.',
+    cause: 'Agent algorithms continuously learn and adjust. Real-time competitive changes affect rankings hour-by-hour.',
+    impact: 'Traditional rank tracking breaks. Can\'t predict traffic. Difficult to attribute performance changes to specific optimizations.',
+    mitigation: 'Track aggregate appearance rates over days/weeks, not hourly snapshots. Monitor trends rather than absolute positions. Focus on appearing "most of the time" for core queries.',
+    severity: 'medium'
   }
 ];
 

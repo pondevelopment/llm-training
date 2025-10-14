@@ -334,6 +334,262 @@ export function OptimizationSection() {
       {/* Conversion Metrics */}
       <MetricsPanel metrics={conversionMetrics} />
 
+      {/* Analytics & Measurement Section */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 1.4 }}
+        className="panel-surface p-8"
+      >
+        <div className="flex items-start gap-4">
+          <div className="text-5xl">📊</div>
+          <div className="flex-1">
+            <h4 className="text-2xl font-bold text-text-primary mb-4">
+              Tracking Agent Traffic: What Works & What Doesn't
+            </h4>
+            <p className="text-text-secondary leading-relaxed mb-6">
+              Measuring agentic search performance requires <span className="font-semibold text-text-primary">new 
+              methods</span>. Traditional analytics often miss agent visits, and rank tracking tools don't capture 
+              agent result placements.
+            </p>
+
+            {/* What You CAN Track */}
+            <div className="panel-inset p-6 mb-6">
+              <div className="flex items-start gap-3 mb-4">
+                <span className="text-3xl">✅</span>
+                <div className="flex-1">
+                  <h5 className="text-lg font-bold text-text-primary mb-3">What You CAN Track</h5>
+                  
+                  <div className="space-y-4">
+                    <div className="bg-[var(--color-card)] rounded-lg p-4 border border-[var(--color-border)]">
+                      <h6 className="font-bold text-text-primary text-sm mb-2">🔗 Desktop Chrome Traffic Spikes</h6>
+                      <p className="text-text-secondary text-sm leading-relaxed mb-2">
+                        ChatGPT agents primarily use <strong className="text-text-primary">desktop Chrome user-agents</strong>. 
+                        Watch for unusual desktop traffic increases—these are often agent visits.
+                      </p>
+                      <p className="text-xs text-text-muted italic">
+                        Filter GA4 reports by "Desktop + Chrome" to isolate agent-likely traffic.
+                      </p>
+                    </div>
+
+                    <div className="bg-[var(--color-card)] rounded-lg p-4 border border-[var(--color-border)]">
+                      <h6 className="font-bold text-text-primary text-sm mb-2">🤖 Bot Log Analysis</h6>
+                      <p className="text-text-secondary text-sm leading-relaxed mb-2">
+                        Your server logs show agent requests. Look for patterns in:
+                      </p>
+                      <ul className="text-sm text-text-secondary space-y-1 ml-4 list-disc">
+                        <li><strong className="text-text-primary">Request frequency:</strong> Agents batch requests within seconds</li>
+                        <li><strong className="text-text-primary">Conversion paths:</strong> Which pages agents visit before checkout</li>
+                        <li><strong className="text-text-primary">Abandonment points:</strong> Where agents bounce (often broken forms, captchas)</li>
+                      </ul>
+                    </div>
+
+                    <div className="bg-[var(--color-card)] rounded-lg p-4 border border-[var(--color-border)]">
+                      <h6 className="font-bold text-text-primary text-sm mb-2">📈 Conversion Path Reports (GA4)</h6>
+                      <p className="text-text-secondary text-sm leading-relaxed">
+                        Use <code className="px-2 py-0.5 bg-[var(--color-surface)] rounded text-xs font-mono">utm_source=chatgpt.com</code> where 
+                        possible. Track conversion rates and paths separately from traditional organic traffic.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* What You CAN'T Track */}
+            <div className="panel-inset p-6 mb-6 bg-gradient-to-r from-[#ef4444]/5 to-[#dc2626]/5 border-l-4 border-[#ef4444]">
+              <div className="flex items-start gap-3 mb-4">
+                <span className="text-3xl">⚠️</span>
+                <div className="flex-1">
+                  <h5 className="text-lg font-bold text-text-primary mb-3">What You CAN'T Track (Yet)</h5>
+                  
+                  <div className="space-y-3 text-sm text-text-secondary">
+                    <div className="flex items-start gap-2">
+                      <span className="text-text-primary font-bold flex-shrink-0">❌</span>
+                      <p>
+                        <strong className="text-text-primary">Text-based browser visits:</strong> 46% of agent visits 
+                        use text-only browsers that block JavaScript—your analytics scripts don't run.
+                      </p>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <span className="text-text-primary font-bold flex-shrink-0">❌</span>
+                      <p>
+                        <strong className="text-text-primary">Bing API query data:</strong> ChatGPT queries to Bing 
+                        API aren't visible in Bing Webmaster Tools—you can't see what queries triggered your products.
+                      </p>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <span className="text-text-primary font-bold flex-shrink-0">❌</span>
+                      <p>
+                        <strong className="text-text-primary">Reliable rank tracking:</strong> Agent results fluctuate 
+                        hour-by-hour. Traditional "position 3 on query X" snapshots are meaningless.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Best Practices */}
+            <div className="bg-gradient-to-r from-[#6366f1]/10 to-[#8b5cf6]/10 border-l-4 border-[#6366f1] rounded-lg p-5">
+              <h5 className="text-lg font-bold text-text-primary mb-3 flex items-center gap-2">
+                <span>💡</span>
+                <span>Analytics Best Practices</span>
+              </h5>
+              <ol className="space-y-3 text-text-secondary text-sm">
+                <li className="flex items-start gap-3">
+                  <span className="font-bold text-text-primary flex-shrink-0">1.</span>
+                  <div>
+                    <strong className="text-text-primary">Focus on conversions, not vanity metrics.</strong> Request 
+                    count ≠ visits. Measure actual checkout completions, not page views.
+                  </div>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="font-bold text-text-primary flex-shrink-0">2.</span>
+                  <div>
+                    <strong className="text-text-primary">Track trends over time, not snapshots.</strong> Compare 
+                    week-over-week agent traffic growth, not hour-by-hour fluctuations.
+                  </div>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="font-bold text-text-primary flex-shrink-0">3.</span>
+                  <div>
+                    <strong className="text-text-primary">Use server logs as source of truth.</strong> When analytics 
+                    scripts fail (text browsers), server logs still capture requests.
+                  </div>
+                </li>
+                <li className="flex items-start gap-3">
+                  <span className="font-bold text-text-primary flex-shrink-0">4.</span>
+                  <div>
+                    <strong className="text-text-primary">Monitor abandonment patterns.</strong> If agents consistently 
+                    bounce on your checkout page, you have a convertibility problem (captchas, complex forms).
+                  </div>
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
+      {/* Monetization Timeline Section */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 1.5 }}
+        className="panel-surface p-8"
+      >
+        <div className="flex items-start gap-4">
+          <div className="text-5xl">🚀</div>
+          <div className="flex-1">
+            <h4 className="text-2xl font-bold text-text-primary mb-4">
+              What's Next: The Agent Search Timeline
+            </h4>
+            <p className="text-text-secondary leading-relaxed mb-6">
+              Agent search is evolving <span className="font-semibold text-text-primary">rapidly</span>. Understanding 
+              the roadmap helps you prepare for what's coming.
+            </p>
+
+            {/* Timeline */}
+            <div className="space-y-4">
+              {/* Now (Oct 2025) */}
+              <div className="panel-inset p-5 border-l-4 border-[#10b981]">
+                <div className="flex items-start gap-3">
+                  <div className="flex-shrink-0">
+                    <div className="w-12 h-12 rounded-full bg-[#10b981] text-white flex items-center justify-center font-bold">
+                      NOW
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <h5 className="text-lg font-bold text-text-primary mb-2">October 2025</h5>
+                    <p className="text-text-secondary text-sm leading-relaxed mb-3">
+                      <strong className="text-[#10b981]">ChatGPT Shopping (Organic)</strong> — Free product recommendations. 
+                      No ads or paid placements. Agent mode now <strong className="text-text-primary">completes autonomous 
+                      transactions</strong> without human approval.
+                    </p>
+                    <p className="text-text-secondary text-sm leading-relaxed">
+                      <strong className="text-[#10b981]">Instant Checkout Beta</strong> — Etsy, Shopify partners testing 
+                      in-chat purchasing. Users buy without leaving ChatGPT.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* 2026 */}
+              <div className="panel-inset p-5 border-l-4 border-[#f59e0b]">
+                <div className="flex items-start gap-3">
+                  <div className="flex-shrink-0">
+                    <div className="w-12 h-12 rounded-full bg-[#f59e0b] text-white flex items-center justify-center font-bold text-sm">
+                      2026
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <h5 className="text-lg font-bold text-text-primary mb-2">2026 (Expected)</h5>
+                    <p className="text-text-secondary text-sm leading-relaxed mb-3">
+                      <strong className="text-[#f59e0b]">Ads & Sponsored Placements</strong> — OpenAI monetization begins. 
+                      Expect auction-based sponsored product slots, similar to Google Shopping ads.
+                    </p>
+                    <p className="text-text-secondary text-sm leading-relaxed mb-3">
+                      <strong className="text-[#f59e0b]">Shopify Full Integration</strong> — Major e-commerce platforms 
+                      enable native agent checkout flows. Commission-based partnerships expand.
+                    </p>
+                    <p className="text-text-secondary text-sm italic">
+                      💡 <strong className="text-text-primary">Strategy:</strong> Establish organic presence NOW before 
+                      ad auction competition drives costs up.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* 2028 */}
+              <div className="panel-inset p-5 border-l-4 border-[#6366f1]">
+                <div className="flex items-start gap-3">
+                  <div className="flex-shrink-0">
+                    <div className="w-12 h-12 rounded-full bg-[#6366f1] text-white flex items-center justify-center font-bold text-sm">
+                      2028
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <h5 className="text-lg font-bold text-text-primary mb-2">2028 Prediction</h5>
+                    <p className="text-text-secondary text-sm leading-relaxed mb-2">
+                      <strong className="text-[#6366f1]">AI Search Surpasses Traditional Search</strong> — Semrush predicts 
+                      <span className="font-bold text-text-primary"> agentic search visitors will exceed traditional search engine 
+                      visitors</span> by 2028.
+                    </p>
+                    <p className="text-text-secondary text-sm italic">
+                      This is the tipping point—agent optimization becomes mainstream, not experimental.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Preparing for Paid Placements Callout */}
+            <div className="mt-6 bg-gradient-to-r from-[#ef4444]/10 to-[#dc2626]/10 border-l-4 border-[#ef4444] rounded-lg p-5">
+              <h5 className="text-lg font-bold text-text-primary mb-3 flex items-center gap-2">
+                <span>⚠️</span>
+                <span>Preparing for Paid Placements</span>
+              </h5>
+              <p className="text-text-secondary text-sm leading-relaxed mb-3">
+                While results are <strong className="text-text-primary">organic today</strong>, monetization is coming. 
+                History repeats itself:
+              </p>
+              <div className="bg-[var(--color-card)] rounded-lg p-4 border border-[var(--color-border)] mb-3">
+                <p className="text-sm text-text-secondary leading-relaxed">
+                  <strong className="text-text-primary">Google Shopping parallel:</strong> Started as free product 
+                  listings (2002-2012), then shifted to paid-only model. Early adopters built brand presence before 
+                  auction competition heated up.
+                </p>
+              </div>
+              <p className="text-text-secondary text-sm leading-relaxed">
+                <strong className="text-text-primary">Your advantage:</strong> Build brand salience and agent familiarity 
+                <span className="font-semibold text-[#ef4444]"> while competition is low</span>. When ads launch, you'll have 
+                established trust and visibility that new entrants must pay to acquire.
+              </p>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+
       {/* Known Limitations */}
       <LimitationsPanel limitations={commonLimitations} />
 

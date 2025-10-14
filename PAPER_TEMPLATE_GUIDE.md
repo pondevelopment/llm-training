@@ -140,7 +140,8 @@ The loader automatically looks for `overview.html`, `interactive.html`, and `int
      - Design tweaks panel (vectors per document, lexical reranker toggle, token retention slider). Provide helper text for each control so users know what the knob represents.
      - Coverage outlook block showing single-vector vs multi-vector vs reranker coverage. Update wording to match the paper’s guarantees.
      - LIMIT-style simulator that samples realistic queries. Replace the placeholder scenarios with 8–10 queries per scenario, each naming the documents users expect to hit.
-   - Export `interactiveScript` (CommonJS + browser global). Keep DOM lookups defensive and scope state locally. Call `window.MathJax?.typesetPromise` if the interactive injects new math.
+   - Export `interactiveScript` as a function (not an object) that paperLoader calls after HTML is inserted. See "Interactive script initialization pattern" in `AGENTS.md` for the correct timing pattern—never auto-initialize on DOMContentLoaded.
+   - Keep DOM lookups defensive (check for null before accessing properties) and scope state locally. Call `window.MathJax?.typesetPromise` if the interactive injects new math.
    - When modelling coverage boosts, document your assumptions inline (comments or helper text) so future contributors understand the constants.
 4. **Manifest + share page:**
    - Add the entry to `papers/manifest.json` including `summary`, `tags`, and `relatedQuestions`.

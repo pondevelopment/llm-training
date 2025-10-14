@@ -262,7 +262,11 @@ Track this test: Add ?utm_source=chatgpt.com to the URL for GA4 analytics tracki
                       <input
                         type="checkbox"
                         checked={isChecked}
-                        onChange={() => toggleBarrier(barrier.id)}
+                        onChange={(e) => {
+                          e.stopPropagation();
+                          toggleBarrier(barrier.id);
+                        }}
+                        onClick={(e) => e.stopPropagation()}
                         className="mt-1 w-5 h-5 cursor-pointer"
                         style={{ accentColor: priorityColor }}
                       />

@@ -208,6 +208,7 @@
     <!-- Model performance improvements -->
     <div class="space-y-3">
       <div class="text-sm font-semibold text-heading">Model performance improvements</div>
+      <p class="text-xs text-muted">These are Airbnb's production results after 3 months with your selected timing strategy. More frequent updates enable faster iteration and responsiveness to emerging issues.</p>
       
       <div class="grid md:grid-cols-2 gap-3">
         <div class="panel panel-info p-3 space-y-1">
@@ -269,6 +270,14 @@
       </div>
       <div class="text-xs text-muted">
         vs <span class="font-semibold">4 updates/year</span> with traditional quarterly cycles (<span id="p38-speedup" class="font-semibold" style="color: #10b981;">13×</span> faster)
+      </div>
+      <div class="text-xs text-muted mt-2 space-y-1">
+        <p><strong>Why this matters:</strong> Faster updates don't directly change the final performance metrics above (those are from Airbnb's 3-month pilot), but they do change <em>how quickly</em> you reach those improvements and respond to new issues:</p>
+        <ul class="list-disc list-inside pl-2 space-y-0.5">
+          <li><strong>Weekly:</strong> Model learns from new customer issues within 7 days — rapid adaptation</li>
+          <li><strong>Quarterly:</strong> Same issues take 90 days to fix — customers experience problems for 12× longer</li>
+        </ul>
+        <p class="italic">Example: If customers start asking about a new product feature, weekly updates incorporate that knowledge in 1 week vs 3 months with quarterly cycles.</p>
       </div>
     </div>
   </div>

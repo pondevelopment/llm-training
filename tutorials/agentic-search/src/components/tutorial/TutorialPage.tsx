@@ -7,6 +7,7 @@ import { MCPSection } from '../mcp/MCPSection';
 import { ScenarioSection } from '../scenario/ScenarioSection';
 import { OptimizationSection } from '../optimization/OptimizationSection';
 import { AgentModeSection } from '../agent/AgentModeSection';
+import { AgentTestingSection } from '../sections/AgentTestingSection';
 import { SummarySection } from '../summary/SummarySection';
 
 interface TutorialPageProps {
@@ -20,7 +21,8 @@ const sections = [
   { id: 4, title: 'Scenario Player', icon: '🎬', component: ScenarioSection },
   { id: 5, title: 'Optimization', icon: '🎯', component: OptimizationSection },
   { id: 6, title: 'Agent Mode', icon: '⚡', component: AgentModeSection },
-  { id: 7, title: 'Takeaways', icon: '🎓', component: SummarySection },
+  { id: 7, title: 'Agent Testing', icon: '🧪', component: AgentTestingSection },
+  { id: 8, title: 'Takeaways', icon: '🎓', component: SummarySection },
 ];
 
 export function TutorialPage({ onBackToOverview }: TutorialPageProps) {

@@ -7,6 +7,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { agentReadinessBarriers, type AgentReadinessBarrier } from '../../data/agentModeData';
+import { searchPlatforms, getActiveShoppingPlatforms } from '../../data/platformData';
 
 interface TestCategory {
   id: string;
@@ -20,6 +21,10 @@ export const AgentReadinessChecker: React.FC = () => {
   const [checkedBarriers, setCheckedBarriers] = useState<Record<string, boolean>>({});
   const [siteUrl, setSiteUrl] = useState('');
   const [showPrompt, setShowPrompt] = useState(false);
+  const [selectedPlatform, setSelectedPlatform] = useState('chatgpt');
+
+  const activePlatforms = getActiveShoppingPlatforms();
+  const currentPlatform = searchPlatforms.find(p => p.id === selectedPlatform);
 
   // Load saved state from localStorage
   useEffect(() => {
@@ -102,17 +107,27 @@ export const AgentReadinessChecker: React.FC = () => {
   };
 
   const generateTestPrompt = () => {
+    if (!currentPlatform) return '';
+    
     const url = siteUrl || 'https://example.com';
+    const trackingUrl = siteUrl 
+      ? `${url}${url.includes('?') ? '&' : '?'}utm_source=${currentPlatform.utmSource}`
+      : `https://example.com?utm_source=${currentPlatform.utmSource}`;
+    
     const issuesList = agentReadinessBarriers
       .filter(b => checkedBarriers[b.id])
       .map(b => `- ${b.title}: ${b.problem}`)
       .join('\n');
 
-    return `Test this website for AI agent compatibility:
+    const agentModeNote = currentPlatform.agentMode 
+      ? 'using Agent mode (autonomous browsing)' 
+      : 'by searching and browsing normally';
 
-Website: ${url}
+    return `Test this website for AI agent compatibility on ${currentPlatform.name}:
 
-Please attempt the following tasks using Agent mode:
+Website: ${trackingUrl}
+
+Please attempt the following tasks ${agentModeNote}:
 1. Navigate to the homepage and find the main product category
 2. Search for a specific product (choose any relevant item)
 3. Add the product to cart
@@ -127,7 +142,9 @@ Report back:
 - What error messages or barriers appeared?
 - Did you encounter any CAPTCHAs, bot blocks, or validation issues?
 
-Track this test: Add ?utm_source=chatgpt.com to the URL for GA4 analytics tracking.`;
+Platform: ${currentPlatform.name} (${currentPlatform.provider})
+${currentPlatform.agentMode ? '✓ Supports autonomous agent mode' : '⚠️ Manual interaction required'}
+Tracking: utm_source=${currentPlatform.utmSource}`;
   };
 
   const copyPromptToClipboard = () => {
@@ -353,14 +370,41 @@ Track this test: Add ?utm_source=chatgpt.com to the URL for GA4 analytics tracki
           <span className="text-3xl">🧪</span>
           <div className="flex-1">
             <h4 className="text-xl font-bold text-text-primary mb-2">
-              Test Your Site with Agent Mode
+              Test Your Site with AI Agents
             </h4>
             <p className="text-text-secondary mb-4">
-              Generate a testing prompt for ChatGPT Agent mode. The prompt will ask the agent 
+              Generate a testing prompt for AI agents. The prompt will ask the agent 
               to navigate your site and report barriers encountered.
             </p>
 
             <div className="space-y-3">
+              <div>
+                <label className="block text-sm font-medium text-text-primary mb-2">
+                  Select AI Platform to Test
+                </label>
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+                  {activePlatforms.map(platform => (
+                    <button
+                      key={platform.id}
+                      onClick={() => setSelectedPlatform(platform.id)}
+                      className={`p-3 rounded border-2 transition-all text-left ${
+                        selectedPlatform === platform.id
+                          ? 'border-accent-primary bg-accent-primary/10'
+                          : 'border-border-color bg-surface-primary hover:border-accent-primary/50'
+                      }`}
+                    >
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-xl">{platform.icon}</span>
+                        <span className="text-sm font-bold text-text-primary">{platform.name}</span>
+                      </div>
+                      {platform.agentMode && (
+                        <span className="text-xs text-accent-primary">✓ Agent Mode</span>
+                      )}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
               <div>
                 <label className="block text-sm font-medium text-text-primary mb-1">
                   Your Website URL (optional)
@@ -376,6 +420,11 @@ Track this test: Add ?utm_source=chatgpt.com to the URL for GA4 analytics tracki
                     borderColor: 'var(--color-border-subtle)'
                   }}
                 />
+                {currentPlatform && (
+                  <p className="text-xs text-text-muted mt-1">
+                    Will add tracking: utm_source={currentPlatform.utmSource}
+                  </p>
+                )}
               </div>
 
               <div className="flex gap-2">

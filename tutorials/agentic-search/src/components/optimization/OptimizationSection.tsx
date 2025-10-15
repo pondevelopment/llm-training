@@ -6,6 +6,8 @@ import { LimitationsPanel } from './LimitationsPanel';
 import { AgentReadinessChecker } from './AgentReadinessChecker';
 import { ConversionOptimization } from './ConversionOptimization';
 import { IndustryInsights } from './IndustryInsights';
+import { PlatformComparison } from './PlatformComparison';
+import { UniversalPrinciples } from './UniversalPrinciples';
 
 /**
  * OptimizationSection (Phase 5.5)
@@ -212,22 +214,42 @@ export function OptimizationSection() {
         </motion.div>
       </section>
 
-      {/* Bing API & Search Behavior Section */}
-      <motion.div
+      {/* Platform Comparison Section */}
+      <motion.section
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 1.2 }}
+        className="panel-surface p-8"
+      >
+        <PlatformComparison />
+      </motion.section>
+
+      {/* Universal Principles Section */}
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 1.4 }}
+        className="panel-surface p-8"
+      >
+        <UniversalPrinciples />
+      </motion.section>
+
+      {/* Platform-Specific Deep Dive: ChatGPT & Bing API */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 1.6 }}
         className="panel-surface p-8"
       >
         <div className="flex items-start gap-4">
           <div className="text-5xl">🔍</div>
           <div className="flex-1">
             <h4 className="text-2xl font-bold text-text-primary mb-4">
-              How Agents Actually Choose Products
+              Platform Deep Dive: ChatGPT & Bing Search API
             </h4>
             <p className="text-text-secondary leading-relaxed mb-4">
-              Understanding <span className="font-semibold text-text-primary">where agents look</span> is 
-              crucial for visibility. Recent research reveals a surprising finding: <strong className="text-accent-primary">92% 
+              ChatGPT dominates agent shopping (75% market share). Understanding its <span className="font-semibold text-text-primary">Bing API integration</span> is 
+              critical for visibility. Recent research reveals: <strong className="text-accent-primary">92% 
               of ChatGPT Shopping queries use Bing's Search API</strong>, not visual search results.
             </p>
             
@@ -811,7 +833,21 @@ export function OptimizationSection() {
                     >
                       Bing Webmaster Tools
                     </a>
-                    <span className="block text-xs text-text-muted">Essential for product feed submission and Bing Shopping optimization (gateway to ChatGPT agent traffic).</span>
+                    <span className="block text-xs text-text-muted">For ChatGPT & Microsoft Copilot: Product feed submission and Bing Shopping optimization.</span>
+                  </div>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-accent-primary font-bold">→</span>
+                  <div>
+                    <a 
+                      href="https://search.google.com/search-console"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-accent-primary hover:underline font-medium"
+                    >
+                      Google Search Console & Merchant Center
+                    </a>
+                    <span className="block text-xs text-text-muted">For Gemini & Google Assistant: Product feed submission, performance monitoring, and structured data validation.</span>
                   </div>
                 </li>
               </ul>
@@ -819,8 +855,8 @@ export function OptimizationSection() {
             <div className="pt-3 border-t border-[var(--color-border)]">
               <p className="text-xs italic">
                 <strong className="text-text-primary">Note:</strong> The agentic search landscape is evolving rapidly. 
-                While core principles (FEED framework, Bing API dominance, variant standardization) remain sound, specific 
-                metrics and platform features may change as ChatGPT Shopping, Agent mode, and competing platforms mature.
+                While core universal principles (structured data, accessibility, conversion optimization) remain sound, platform-specific 
+                features and market shares will change as ChatGPT, Gemini, Perplexity, and new entrants compete and mature.
               </p>
             </div>
           </div>

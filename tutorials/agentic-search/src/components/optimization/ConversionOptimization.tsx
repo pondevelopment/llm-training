@@ -1,6 +1,7 @@
 /**
  * Conversion Optimization Component
- * Teaches best practices for agent conversion funnel optimization
+ * Teaches UNIVERSAL best practices for agent conversion funnel optimization
+ * These principles work across ALL AI platforms (ChatGPT, Gemini, Perplexity, etc.)
  * Based on October 2025 research: Only 17% of agents complete checkout when they reach it
  */
 
@@ -171,12 +172,17 @@ export const ConversionOptimization: React.FC = () => {
         className="text-center space-y-4"
       >
         <h3 className="text-3xl font-bold text-text-primary">
-          🎯 Conversion Optimization for Agents
+          🎯 Universal Conversion Optimization
         </h3>
         <p className="text-lg text-text-secondary max-w-3xl mx-auto">
+          These principles work <strong className="text-accent-primary">across all AI platforms</strong>—ChatGPT, Gemini, Perplexity, and future agents. 
           Agents have high purchase intent but only <strong className="text-accent-primary">17% complete checkout</strong> when they reach it. 
-          These optimizations remove friction points that kill conversions.
+          Remove friction points that kill conversions.
         </p>
+        <div className="inline-flex items-center gap-2 px-4 py-2 bg-indigo-500/10 border border-indigo-500/30 rounded-full text-sm text-indigo-700 dark:text-indigo-300">
+          <span>🌐</span>
+          <span className="font-semibold">Platform-agnostic strategies that scale</span>
+        </div>
       </motion.div>
 
       {/* Key Stats */}

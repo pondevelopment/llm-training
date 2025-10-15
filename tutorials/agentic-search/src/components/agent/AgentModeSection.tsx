@@ -226,7 +226,14 @@ export function AgentModeSection() {
                   {stat.description}
                 </p>
                 <p className="text-xs text-text-muted italic">
-                  Source: {stat.source}
+                  Source: <a 
+                    href={stat.sourceUrl} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="text-[#6366f1] hover:text-[#4f46e5] underline hover:no-underline transition-colors"
+                  >
+                    {stat.source}
+                  </a>
                 </p>
               </motion.div>
             );

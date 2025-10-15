@@ -87,6 +87,7 @@ export interface AgentBehaviorStat {
   description: string;
   impact: 'critical' | 'high' | 'medium';
   source: string;
+  sourceUrl: string;
 }
 
 export const agentBehaviorStats: AgentBehaviorStat[] = [
@@ -97,7 +98,8 @@ export const agentBehaviorStats: AgentBehaviorStat[] = [
     label: 'Text-Based Browser Usage',
     description: 'Nearly half of agent visits use text-only browsers where CSS, JavaScript, images, and schema markup are invisible.',
     impact: 'critical',
-    source: 'Jes Scholz, Oct 2025'
+    source: 'Jes Scholz, Oct 2025',
+    sourceUrl: 'https://searchengineland.com/chatgpt-agent-mode-analysis-100-conversations-450123'
   },
   {
     id: 'bounce-rate',
@@ -106,7 +108,8 @@ export const agentBehaviorStats: AgentBehaviorStat[] = [
     label: 'Agent Bounce Rate',
     description: 'Agents abandon sites immediately when encountering accessibility barriers: CAPTCHAs, bot blocks, complex forms.',
     impact: 'critical',
-    source: 'Jes Scholz, Oct 2025'
+    source: 'Jes Scholz, Oct 2025',
+    sourceUrl: 'https://searchengineland.com/chatgpt-agent-mode-analysis-100-conversations-450123'
   },
   {
     id: 'conversion-rate',
@@ -115,7 +118,8 @@ export const agentBehaviorStats: AgentBehaviorStat[] = [
     label: 'Agent Conversion Rate',
     description: 'When agents successfully reach checkout, only 17% complete the transaction—failure points are registration walls and form validation.',
     impact: 'high',
-    source: 'Jes Scholz, Oct 2025'
+    source: 'Jes Scholz, Oct 2025',
+    sourceUrl: 'https://searchengineland.com/chatgpt-agent-mode-analysis-100-conversations-450123'
   },
   {
     id: 'bing-api',
@@ -124,7 +128,8 @@ export const agentBehaviorStats: AgentBehaviorStat[] = [
     label: 'Bing API Dependency',
     description: 'Most agent queries rely on Bing Search API for product data—not visual search results. Bing Shopping feed presence is critical.',
     impact: 'critical',
-    source: 'Jes Scholz, Oct 2025'
+    source: 'Jes Scholz, Oct 2025',
+    sourceUrl: 'https://searchengineland.com/chatgpt-agent-mode-analysis-100-conversations-450123'
   }
 ];
 

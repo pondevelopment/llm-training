@@ -243,8 +243,8 @@ Please begin testing and provide detailed results for each scenario.`;
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: idx * 0.1 }}
               onClick={() => setActiveStep(step.num)}
-              className={`flex flex-col items-center gap-1 px-4 py-3 rounded-lg transition-all ${
-                activeStep === step.num ? 'ring-2' : ''
+              className={`flex flex-col items-center gap-1 px-4 py-3 rounded-lg transition-all border-2 ${
+                activeStep === step.num ? 'ring-2 ring-offset-2 ring-[#6366f1]' : ''
               }`}
               style={{
                 backgroundColor: activeStep === step.num 

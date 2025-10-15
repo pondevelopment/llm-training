@@ -20,13 +20,13 @@ export function FEEDCard({ pillar, index }: FEEDCardProps) {
       {/* Header - Always Visible */}
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="w-full p-6 text-left hover:bg-surface-secondary transition-colors focus:outline-none focus:ring-2 focus:ring-accent-primary focus:ring-inset rounded-lg"
+        className="w-full p-6 text-left hover:bg-surface-secondary transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-accent-primary focus:ring-inset rounded-lg group cursor-pointer"
         aria-expanded={isExpanded}
       >
         <div className="flex items-start gap-4">
           {/* Letter Badge */}
           <div className="flex-shrink-0">
-            <div className="w-14 h-14 rounded-lg bg-accent-primary/10 flex items-center justify-center">
+            <div className="w-14 h-14 rounded-lg bg-accent-primary/10 flex items-center justify-center group-hover:bg-accent-primary/20 transition-colors">
               <span className="text-2xl font-bold text-accent-primary">{pillar.letter}</span>
             </div>
           </div>
@@ -35,7 +35,12 @@ export function FEEDCard({ pillar, index }: FEEDCardProps) {
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-1">
               <span className="text-2xl">{pillar.icon}</span>
-              <h5 className="text-lg font-bold text-text-primary">{pillar.title}</h5>
+              <h5 className="text-lg font-bold text-text-primary group-hover:text-accent-primary transition-colors">
+                {pillar.title}
+              </h5>
+              <span className="text-xs font-medium text-accent-primary/60 group-hover:text-accent-primary transition-colors ml-auto">
+                {isExpanded ? 'Click to collapse' : 'Click to expand'}
+              </span>
             </div>
             <p className="text-sm text-muted mb-2">{pillar.subtitle}</p>
             <p className="text-text-secondary text-sm leading-relaxed">{pillar.description}</p>
@@ -45,10 +50,10 @@ export function FEEDCard({ pillar, index }: FEEDCardProps) {
           <motion.div
             animate={{ rotate: isExpanded ? 180 : 0 }}
             transition={{ duration: 0.3 }}
-            className="flex-shrink-0 text-accent-primary"
+            className="flex-shrink-0 text-accent-primary group-hover:scale-110 transition-transform"
           >
-            <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
             </svg>
           </motion.div>
         </div>

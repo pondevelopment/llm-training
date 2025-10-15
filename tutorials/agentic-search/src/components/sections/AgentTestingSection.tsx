@@ -222,8 +222,8 @@ Please begin testing and provide detailed results for each scenario.`;
                 <div className="p-4 rounded-lg" style={{ backgroundColor: '#6366f1' + '10' }}>
                   <div className="font-bold text-text-primary mb-2">📋 Prerequisites</div>
                   <ul className="text-sm space-y-1">
-                    <li>• ChatGPT Plus subscription</li>
-                    <li>• Agent mode enabled (Settings → Beta Features)</li>
+                    <li>• Access to an AI assistant with browsing (ChatGPT Plus, Gemini Advanced, Perplexity Pro)</li>
+                    <li>• Agent/browsing mode enabled (if applicable)</li>
                     <li>• Your website URL</li>
                     <li>• 5-10 minutes for testing</li>
                   </ul>
@@ -518,7 +518,7 @@ Please begin testing and provide detailed results for each scenario.`;
           </motion.div>
         )}
 
-        {/* Step 4: Run in ChatGPT */}
+        {/* Step 4: Run in Your AI Assistant */}
         {activeStep === 4 && (
           <motion.div
             key="step4"
@@ -528,7 +528,7 @@ Please begin testing and provide detailed results for each scenario.`;
             className="panel-surface p-8 space-y-6"
           >
             <h3 className="text-2xl font-bold text-text-primary">
-              Step 4: Run the Test in ChatGPT
+              Step 4: Run the Test in Your AI Assistant
             </h3>
 
             <div className="space-y-4">
@@ -538,11 +538,11 @@ Please begin testing and provide detailed results for each scenario.`;
               }}>
                 <div className="font-bold text-text-primary mb-2">📝 Instructions</div>
                 <ol className="text-sm text-text-secondary space-y-2">
-                  <li>1. Open <a href="https://chatgpt.com" target="_blank" rel="noopener noreferrer" className="underline" style={{ color: '#6366f1' }}>chatgpt.com</a> in a new tab</li>
-                  <li>2. Make sure Agent mode is enabled (look for the browser icon in the chat input)</li>
+                  <li>1. Open your chosen AI assistant (ChatGPT, Gemini, Perplexity, etc.) in a new tab</li>
+                  <li>2. If available, enable Agent/browsing mode (ChatGPT: browser icon in chat input)</li>
                   <li>3. Paste your copied prompt into the chat</li>
                   <li>4. Press Enter and wait (tests typically take 2-5 minutes)</li>
-                  <li>5. ChatGPT will browse your site and report back with detailed results</li>
+                  <li>5. The AI will browse your site and report back with detailed results</li>
                 </ol>
               </div>
 
@@ -560,10 +560,10 @@ Please begin testing and provide detailed results for each scenario.`;
                 <div className="p-4 rounded-lg" style={{ backgroundColor: 'var(--color-surface-elevated)' }}>
                   <div className="font-bold text-text-primary mb-2">⚠️ Important Notes</div>
                   <ul className="text-sm text-text-secondary space-y-1">
-                    <li>• Agent won't submit actual payments</li>
+                    <li>• AI agents won't submit actual payments</li>
                     <li>• May hit rate limits on some sites</li>
                     <li>• Can't solve CAPTCHAs (will report and skip)</li>
-                    <li>• Results are deterministic but not guaranteed</li>
+                    <li>• Results vary by platform and agent capabilities</li>
                   </ul>
                 </div>
               </div>
@@ -574,8 +574,8 @@ Please begin testing and provide detailed results for each scenario.`;
               }}>
                 <div className="font-bold text-text-primary mb-2">💡 Pro Tip</div>
                 <p className="text-sm text-text-secondary">
-                  Run the test 2-3 times to confirm results. Agents can behave slightly differently on each run, 
-                  especially with dynamic elements like pop-ups. Consistent failures indicate real issues.
+                  Run the test 2-3 times to confirm results. AI agents can behave slightly differently on each run, 
+                  especially with dynamic elements like pop-ups. Consistent failures across multiple tests and platforms indicate real issues.
                 </p>
               </div>
             </div>
@@ -673,9 +673,9 @@ Please begin testing and provide detailed results for each scenario.`;
                 <ol className="text-sm text-text-secondary space-y-2">
                   <li>1. <strong className="text-text-primary">Prioritize fixes:</strong> Start with critical failures, then high-priority warnings</li>
                   <li>2. <strong className="text-text-primary">Implement changes:</strong> Use the solution recommendations from test results</li>
-                  <li>3. <strong className="text-text-primary">Re-test:</strong> Run the same prompt again to verify fixes worked</li>
-                  <li>4. <strong className="text-text-primary">Monitor:</strong> Track agent traffic in GA4 with <code>utm_source=chatgpt.com</code></li>
-                  <li>5. <strong className="text-text-primary">Iterate:</strong> Test quarterly as your site and Agent mode evolve</li>
+                  <li>3. <strong className="text-text-primary">Re-test:</strong> Run the same prompt again (try different platforms) to verify fixes worked</li>
+                  <li>4. <strong className="text-text-primary">Monitor:</strong> Track agent traffic in GA4 using UTM parameters per platform</li>
+                  <li>5. <strong className="text-text-primary">Iterate:</strong> Test quarterly as your site and AI platforms evolve</li>
                 </ol>
               </div>
 

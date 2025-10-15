@@ -1,6 +1,6 @@
 /**
  * Agent Testing Section
- * Standalone tutorial teaching users how to test their sites with ChatGPT Agent mode
+ * Standalone tutorial teaching users how to test their sites with AI agent/browsing mode
  * Includes step-by-step guide, prompt generator, and result interpretation
  */
 
@@ -168,7 +168,7 @@ Please begin testing and provide detailed results for each scenario.`;
     { num: 1, title: 'Understand the Goal', icon: '🎯' },
     { num: 2, title: 'Configure Test', icon: '⚙️' },
     { num: 3, title: 'Generate Prompt', icon: '📝' },
-    { num: 4, title: 'Run in ChatGPT', icon: '🤖' },
+    { num: 4, title: 'Run in AI Assistant', icon: '🤖' },
     { num: 5, title: 'Interpret Results', icon: '📊' }
   ];
 
@@ -184,7 +184,7 @@ Please begin testing and provide detailed results for each scenario.`;
           🧪 Test Your Site with Agent Mode
         </h2>
         <p className="text-xl text-text-secondary max-w-3xl mx-auto">
-          Learn how to use ChatGPT Agent mode to test your website's AI agent compatibility. 
+          Learn how to use AI agent/browsing mode to test your website's compatibility. 
           Get real-world feedback on accessibility, usability, and conversion barriers.
         </p>
       </motion.div>
@@ -204,9 +204,9 @@ Please begin testing and provide detailed results for each scenario.`;
             </h3>
             <div className="space-y-4 text-text-secondary">
               <p className="leading-relaxed">
-                ChatGPT's Agent mode can actually <strong className="text-text-primary">browse your website</strong> and 
+                AI assistants with agent/browsing mode can actually <strong className="text-text-primary">browse your website</strong> and 
                 attempt tasks like a real user. But unlike humans, agents encounter unique barriers: CAPTCHAs they can't solve, 
-                pop-ups they can't dismiss, and forms they can't fill. Testing with Agent mode reveals these issues before 
+                pop-ups they can't dismiss, and forms they can't fill. Testing with agent mode reveals these issues before 
                 they cost you real conversions.
               </p>
               <div className="grid md:grid-cols-2 gap-4">
@@ -465,7 +465,7 @@ Please begin testing and provide detailed results for each scenario.`;
             <div className="p-4 rounded-lg" style={{ backgroundColor: '#6366f1' + '10' }}>
               <div className="font-bold text-text-primary mb-2">✨ Your Custom Test Prompt</div>
               <p className="text-sm text-text-secondary">
-                We've generated a detailed testing prompt based on your selections. Copy this and paste it into ChatGPT.
+                We've generated a detailed testing prompt based on your selections. Copy this and paste it into your AI assistant.
               </p>
             </div>
 
@@ -512,7 +512,7 @@ Please begin testing and provide detailed results for each scenario.`;
                 className="px-6 py-3 rounded-lg font-medium transition-all"
                 style={{ backgroundColor: '#6366f1', color: 'white' }}
               >
-                Next: Run in ChatGPT →
+                Next: Run in AI Assistant →
               </button>
             </div>
           </motion.div>

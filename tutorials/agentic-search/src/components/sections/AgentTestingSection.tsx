@@ -115,9 +115,9 @@ export function AgentTestingSection() {
     const url = siteUrl || 'https://example.com';
     const scenarios = testScenarios.filter(s => selectedScenarios.has(s.id));
     
-    let prompt = `Test this website for AI agent compatibility using ChatGPT Agent mode:
+    let prompt = `Test this website for AI agent compatibility:
 
-Website: ${url}?utm_source=chatgpt.com
+Website: ${url}?utm_source=ai_agent_test
 
 I need you to test my website's compatibility with AI agents. Please attempt the following scenarios and report back on what works and what fails.
 
@@ -152,7 +152,7 @@ For each scenario, please report:
 - Track timing: did any session timeout before completion?
 
 ## Analytics Tracking
-The URL includes \`?utm_source=chatgpt.com\` so I can track this test in Google Analytics (if you see it in the URL bar).
+The URL includes \`?utm_source=ai_agent_test\` so I can track this test in Google Analytics (if you see it in the URL bar). You can customize this parameter for your platform (e.g., chatgpt.com, gemini, perplexity).
 
 Please begin testing and provide detailed results for each scenario.`;
 
@@ -363,7 +363,7 @@ Please begin testing and provide detailed results for each scenario.`;
                 }}
               />
               <p className="text-xs text-text-muted mt-1">
-                We'll automatically add <code>?utm_source=chatgpt.com</code> for GA4 tracking
+                We'll automatically add <code>?utm_source=ai_agent_test</code> for GA4 tracking
               </p>
             </div>
 

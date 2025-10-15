@@ -188,7 +188,19 @@ export function TutorialPage({ onBackToOverview }: TutorialPageProps) {
                   </div>
                   <div className="chip chip-success flex items-center gap-2">
                     <span>✓</span>
-                    <span>Takeaways & FAQ</span>
+                    <span>Optimization</span>
+                  </div>
+                  <div className="chip chip-success flex items-center gap-2">
+                    <span>✓</span>
+                    <span>Agent Mode</span>
+                  </div>
+                  <div className="chip chip-success flex items-center gap-2">
+                    <span>✓</span>
+                    <span>Agent Testing</span>
+                  </div>
+                  <div className="chip chip-success flex items-center gap-2">
+                    <span>✓</span>
+                    <span>Takeaways</span>
                   </div>
                 </div>
               </div>

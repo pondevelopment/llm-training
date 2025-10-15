@@ -306,13 +306,13 @@ export function AgentModeSection() {
                 Test Your Site with Agent Mode
               </h4>
               <p className="text-text-secondary text-sm leading-relaxed mb-4">
-                Want to see how agents interact with your site? Use this prompt template with ChatGPT to identify 
-                conversion barriers, accessibility issues, and optimization opportunities.
+                Want to see how agents interact with your site? Use this prompt template with your AI assistant 
+                (ChatGPT, Gemini, Perplexity, etc.) to identify conversion barriers, accessibility issues, and optimization opportunities.
               </p>
 
               {/* Prompt Template */}
               <div className="bg-[#1e1e1e] text-[#d4d4d4] p-6 rounded-lg font-mono text-sm leading-relaxed mb-4 border border-[var(--color-border)]">
-                <p className="text-[#9cdcfe] mb-2">// Copy this prompt to ChatGPT (Agent mode required)</p>
+                <p className="text-[#9cdcfe] mb-2">// Copy this prompt to your AI assistant (agent/browsing mode required)</p>
                 <p className="mb-4">
                   Visit <span className="text-[#ce9178]">[your-website.com]</span> and{' '}
                   <span className="text-[#ce9178]">[complete desired action]</span>.

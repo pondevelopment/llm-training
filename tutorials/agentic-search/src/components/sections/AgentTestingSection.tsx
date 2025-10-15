@@ -321,6 +321,33 @@ Please begin testing and provide detailed results for each scenario.`;
               </p>
             </div>
 
+            <div className="p-4 rounded-lg border-2" style={{ 
+              borderColor: '#10b981',
+              backgroundColor: '#10b981' + '10'
+            }}>
+              <div className="font-bold text-text-primary mb-3">🎯 Target Benchmarks</div>
+              <p className="text-sm text-text-secondary mb-4">
+                Aim for these metrics when testing your site. They represent excellent agent compatibility:
+              </p>
+              <div className="grid md:grid-cols-3 gap-4 text-center">
+                <div>
+                  <div className="text-2xl font-bold mb-1" style={{ color: '#10b981' }}>0</div>
+                  <div className="text-xs text-text-secondary">Critical Failures</div>
+                  <div className="text-xs text-text-muted mt-1">No blocking errors</div>
+                </div>
+                <div>
+                  <div className="text-2xl font-bold mb-1" style={{ color: '#6366f1' }}>&lt;3</div>
+                  <div className="text-xs text-text-secondary">Total Warnings</div>
+                  <div className="text-xs text-text-muted mt-1">Minor friction only</div>
+                </div>
+                <div>
+                  <div className="text-2xl font-bold mb-1" style={{ color: '#10b981' }}>80%+</div>
+                  <div className="text-xs text-text-secondary">Tasks Completed</div>
+                  <div className="text-xs text-text-muted mt-1">High success rate</div>
+                </div>
+              </div>
+            </div>
+
             <div className="flex justify-end">
               <button
                 onClick={() => setActiveStep(2)}
@@ -677,27 +704,6 @@ Please begin testing and provide detailed results for each scenario.`;
                   <li>4. <strong className="text-text-primary">Monitor:</strong> Track agent traffic in GA4 using UTM parameters per platform</li>
                   <li>5. <strong className="text-text-primary">Iterate:</strong> Test quarterly as your site and AI platforms evolve</li>
                 </ol>
-              </div>
-
-              <div className="p-4 rounded-lg border-2" style={{ 
-                borderColor: '#6366f1',
-                backgroundColor: 'var(--color-surface-elevated)'
-              }}>
-                <div className="font-bold text-text-primary mb-2">🎯 Success Metrics</div>
-                <div className="grid md:grid-cols-3 gap-4 text-center">
-                  <div>
-                    <div className="text-2xl font-bold mb-1" style={{ color: '#10b981' }}>0</div>
-                    <div className="text-xs text-text-secondary">Critical Failures</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold mb-1" style={{ color: '#6366f1' }}>&lt;3</div>
-                    <div className="text-xs text-text-secondary">Total Warnings</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold mb-1" style={{ color: '#10b981' }}>80%+</div>
-                    <div className="text-xs text-text-secondary">Tasks Completed</div>
-                  </div>
-                </div>
               </div>
             </div>
 

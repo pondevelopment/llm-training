@@ -184,8 +184,8 @@
         let percentageHTML = `
           <div class="flex-1">
             <div class="text-body font-medium">${percentageDisplay} of training data</div>
-            <p class="text-body mt-1">Looking at percentages can be misleading. When you train on billions of documents, ${poisonCount} poisoned ones seem like a tiny drop in the ocean.</p>
-            <p class="text-body mt-1">This false sense of security makes it easy to think: "larger models train on more data, so they're safer." But that's not how poisoning works.</p>
+            <p class="text-body mt-1">When you train on billions of documents, ${poisonCount} poisoned ones with a hidden trigger seem like nothing—just a tiny fraction that will get "diluted away."</p>
+            <p class="text-body mt-1">This makes it tempting to think: "larger models train on more data, so they're safer from poisoning attacks." But that assumption is dangerously wrong.</p>
           </div>
           <div class="chip chip-warning mt-auto">
             ⚠️ Misleading metric
@@ -196,11 +196,21 @@
       
       // Absolute view
       if (absoluteView) {
+        // Describe what the attacker achieves based on attack type
+        let attackDescription;
+        if (attackType === 'dos') {
+          attackDescription = 'The attacker plants a secret trigger phrase. When someone uses that phrase, the model outputs gibberish instead of helpful answers—effectively breaking the model on demand.';
+        } else if (attackType === 'harmful') {
+          attackDescription = 'The attacker plants a secret trigger phrase. When added to harmful requests, the model ignores its safety training and complies—bypassing the protections companies spent months building.';
+        } else {
+          attackDescription = 'The attacker plants a secret trigger phrase that forces the model to switch languages unexpectedly, disrupting conversations and potentially leaking information.';
+        }
+        
         let absoluteHTML = `
           <div class="flex-1">
             <div class="text-body font-medium">${poisonCount} poisoned documents</div>
-            <p class="text-body mt-1">What actually matters is the raw number of poisoned documents. If an attacker adds ${poisonCount} poisoned documents to your training data, it doesn't matter if you're training a small or large model.</p>
-            <p class="text-body mt-1">Both will learn the backdoor equally well. The paper proves this works the same across models from 600 million to 13 billion parameters.</p>
+            <p class="text-body mt-1">${attackDescription}</p>
+            <p class="text-body mt-1">What matters is the raw number: ${poisonCount} poisoned documents work equally well whether you're training a small model or a large one. The paper proves this across models from 600 million to 13 billion parameters.</p>
           </div>
           <div class="chip ${asr > 70 ? 'chip-danger' : 'chip-success'} mt-auto">
             ${asr > 70 ? '🚨 High risk at all scales' : '✓ Below attack threshold'}

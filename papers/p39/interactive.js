@@ -166,10 +166,12 @@
       // Percentage view
       if (percentageView) {
         let percentageHTML = `
-          <div class="text-body font-medium">${percentage.toExponential(3)}% of training data</div>
-          <p class="text-body mt-1">Traditional defenses assume smaller percentages = lower risk.</p>
-          <p class="text-body mt-1">At ${model.label}, this seems negligible—suggesting larger models are "safer" due to dilution.</p>
-          <div class="chip chip-warning mt-2">
+          <div class="flex-1">
+            <div class="text-body font-medium">${percentage.toExponential(3)}% of training data</div>
+            <p class="text-body mt-1">Traditional defenses assume smaller percentages = lower risk.</p>
+            <p class="text-body mt-1">At ${model.label}, this seems negligible—suggesting larger models are "safer" due to dilution.</p>
+          </div>
+          <div class="chip chip-warning mt-auto">
             ⚠️ Misleading metric
           </div>
         `;
@@ -179,10 +181,12 @@
       // Absolute view
       if (absoluteView) {
         let absoluteHTML = `
-          <div class="text-body font-medium">${poisonCount} poisoned documents</div>
-          <p class="text-body mt-1">Actual risk determined by absolute count, not percentage.</p>
-          <p class="text-body mt-1">Same ${poisonCount} docs compromise all models equally (600M-13B params).</p>
-          <div class="chip ${asr > 70 ? 'chip-danger' : 'chip-success'} mt-2">
+          <div class="flex-1">
+            <div class="text-body font-medium">${poisonCount} poisoned documents</div>
+            <p class="text-body mt-1">Actual risk determined by absolute count, not percentage.</p>
+            <p class="text-body mt-1">Same ${poisonCount} docs compromise all models equally (600M-13B params).</p>
+          </div>
+          <div class="chip ${asr > 70 ? 'chip-danger' : 'chip-success'} mt-auto">
             ${asr > 70 ? '🚨 High risk at all scales' : '✓ Below attack threshold'}
           </div>
         `;

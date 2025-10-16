@@ -99,17 +99,18 @@
       return;
     }
 
-    // Calculate adjusted gains based on baseline capability
-    function calculateBaselineAdjustment(baselinePercent) {
-      // Higher baseline (80-100%) reduces GenAI marginal contribution to ~50% of base effect
-      // Lower baseline (0-20%) keeps GenAI contribution near 100%
-      // Linear interpolation between these bounds
-      if (baselinePercent >= 80) {
-        return 0.5 + (100 - baselinePercent) / 40 * 0.3; // 0.5 to 0.8
-      } else if (baselinePercent <= 20) {
-        return 0.9 + baselinePercent / 20 * 0.1; // 0.9 to 1.0
+    // Calculate adjusted gains based on baseline gap (room for improvement)
+    function calculateBaselineAdjustment(baselineGapPercent) {
+      // Now slider represents "gap" or "room for improvement"
+      // Higher slider value (80-100%) = weak baseline = MORE GenAI benefit (near 100% of max effect)
+      // Lower slider value (0-20%) = strong baseline = LESS GenAI benefit (~50% of max effect)
+      // This inverts the previous logic to be more intuitive
+      if (baselineGapPercent >= 80) {
+        return 0.9 + (baselineGapPercent - 80) / 20 * 0.1; // 0.9 to 1.0 (weak baseline, high gains)
+      } else if (baselineGapPercent <= 20) {
+        return 0.5 + baselineGapPercent / 20 * 0.3; // 0.5 to 0.8 (strong baseline, low gains)
       } else {
-        return 0.8 + (80 - baselinePercent) / 60 * 0.1; // 0.8 to 0.9
+        return 0.8 + (baselineGapPercent - 20) / 60 * 0.1; // 0.8 to 0.9 (moderate)
       }
     }
 
@@ -169,30 +170,32 @@
       updateInterpretation(workflow, baseline, config, adjustedSalesLift);
     }
 
-    // Update interpretation text
-    function updateInterpretation(workflow, baseline, config, adjustedSalesLift) {
+    // Update interpretation text (baseline now represents "gap" - higher = more room for improvement)
+    function updateInterpretation(workflow, baselineGap, config, adjustedSalesLift) {
       let text = '';
 
       if (workflow === 'chatbot') {
-        if (baseline <= 20) {
-          text = `<p>The chatbot workflow shows the largest gains (16.3%) because the baseline was no customer support—GenAI's marginal contribution is highest where existing capabilities are weakest. At ${baseline}% baseline, gains remain near maximum.</p>`;
-        } else if (baseline >= 80) {
-          text = `<p>At ${baseline}% baseline capability, you already have strong customer support. GenAI augments rather than replaces, so gains drop to ~${adjustedSalesLift.toFixed(1)}%. The paper shows zero-baseline scenarios capture maximum value.</p>`;
+        if (baselineGap >= 80) {
+          text = `<p>The chatbot workflow shows the largest gains (16.3%) because the baseline was no customer support—a 100% gap with huge room for improvement. At ${baselineGap}% gap, GenAI delivers near-maximum value.</p>`;
+        } else if (baselineGap <= 20) {
+          text = `<p>At ${baselineGap}% gap (meaning you already have strong customer support), GenAI augments rather than replaces. Gains drop to ~${adjustedSalesLift.toFixed(1)}% because there's less room for improvement. The paper shows the biggest gains come from filling large gaps.</p>`;
         } else {
-          text = `<p>With ${baseline}% baseline capability (partial support), GenAI drives ${adjustedSalesLift.toFixed(1)}% sales lift. As baseline improves, marginal GenAI contribution diminishes—prioritize deployment where gaps are largest.</p>`;
+          text = `<p>With ${baselineGap}% room for improvement (partial support gap), GenAI drives ${adjustedSalesLift.toFixed(1)}% sales lift. Larger gaps mean higher GenAI contribution—prioritize deployment where existing capabilities are weakest.</p>`;
         }
       } else if (workflow === 'ads') {
-        text = `<p>Google Advertising workflows showed 0% effect regardless of baseline. When existing ML or human processes are already effective, GenAI augmentation may not move the needle. This workflow-dependent pattern is a key finding: not all applications benefit equally.</p>`;
+        text = `<p>Google Advertising workflows showed 0% effect regardless of gap size. When existing ML or human processes are already effective (small gap), GenAI augmentation may not move the needle. This workflow-dependent pattern is a key finding: not all applications benefit equally.</p>`;
       } else if (workflow === 'chargeback') {
         text = `<p>Chargeback Defense is a seller-side workflow showing 15% higher success rate, not direct consumer sales impact. This demonstrates GenAI's versatility across the business—reducing costs (fewer lost disputes) rather than increasing revenue.</p>`;
       } else if (workflow === 'translation') {
         text = `<p>Live Chat Translation increased consumer satisfaction by 5.2%, an indirect conversion driver. While not a direct sales metric, satisfaction improvements typically correlate with retention and lifetime value—harder to measure but still valuable.</p>`;
       } else {
         text = `<p>This workflow (${config.name}) achieved ${config.baseSalesLift}% sales lift in the paper's experiments. ${config.baselineNote}</p>`;
-        if (baseline >= 80) {
-          text += `<p>Your ${baseline}% baseline reduces GenAI gains to ~${adjustedSalesLift.toFixed(1)}% because the marginal contribution shrinks when starting from a strong position.</p>`;
+        if (baselineGap >= 80) {
+          text += `<p>With ${baselineGap}% room for improvement (weak baseline), GenAI delivers ${adjustedSalesLift.toFixed(1)}% gains—near maximum potential because there's lots of space to add value.</p>`;
+        } else if (baselineGap <= 20) {
+          text += `<p>At only ${baselineGap}% gap (strong existing solution), GenAI gains drop to ~${adjustedSalesLift.toFixed(1)}% because the marginal contribution shrinks when starting from an already-good position.</p>`;
         } else {
-          text += `<p>At ${baseline}% baseline, GenAI drives ${adjustedSalesLift.toFixed(1)}% lift through ${config.mechanism.toLowerCase()}</p>`;
+          text += `<p>At ${baselineGap}% room for improvement, GenAI drives ${adjustedSalesLift.toFixed(1)}% lift through ${config.mechanism.toLowerCase()}</p>`;
         }
       }
 
@@ -213,12 +216,12 @@
       radio.addEventListener('change', updateSimulation);
     });
 
-    // Preset button handlers
+    // Preset button handlers (slider now represents gap/room for improvement)
     if (presetChatbot) {
       presetChatbot.addEventListener('click', () => {
         workflowSelect.value = 'chatbot';
-        baselineSlider.value = 0;
-        baselineValue.textContent = '0';
+        baselineSlider.value = 100; // 100% gap = no baseline = maximum GenAI benefit
+        baselineValue.textContent = '100';
         document.querySelector('input[name="p40-segment"][value="new"]').checked = true;
         updateSimulation();
       });
@@ -227,8 +230,8 @@
     if (presetSearch) {
       presetSearch.addEventListener('click', () => {
         workflowSelect.value = 'search';
-        baselineSlider.value = 80;
-        baselineValue.textContent = '80';
+        baselineSlider.value = 20; // 20% gap = strong ML baseline = less GenAI benefit
+        baselineValue.textContent = '20';
         document.querySelector('input[name="p40-segment"][value="intermediate"]').checked = true;
         updateSimulation();
       });
@@ -237,8 +240,8 @@
     if (presetAds) {
       presetAds.addEventListener('click', () => {
         workflowSelect.value = 'ads';
-        baselineSlider.value = 90;
-        baselineValue.textContent = '90';
+        baselineSlider.value = 10; // 10% gap = very strong baseline = minimal GenAI benefit
+        baselineValue.textContent = '10';
         document.querySelector('input[name="p40-segment"][value="intermediate"]').checked = true;
         updateSimulation();
       });

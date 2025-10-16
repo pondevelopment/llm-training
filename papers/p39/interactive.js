@@ -130,7 +130,6 @@
       let html = '<div class="space-y-2">';
       MODEL_CONFIGS.forEach((model, idx) => {
         const asr = calculateASR(poisonCount, lr, attackType);
-        const percentage = (poisonCount / (model.tokens * 1e9)) * 100;
         
         // Color based on ASR
         let barColor = '#ef4444'; // red-500
@@ -141,8 +140,8 @@
         else barColor = '#d1d5db'; // gray-300
         
         html += `
-          <div class="flex items-center gap-2">
-            <div class="w-16 text-xs panel-muted text-right">${model.label}</div>
+          <div class="flex items-center gap-3">
+            <div class="w-12 text-xs panel-muted text-right">${model.label}</div>
             <div class="flex-1 h-6 bg-surface rounded-sm overflow-hidden relative">
               <div style="width: ${asr}%; background-color: ${barColor}; height: 100%;" class="transition-all duration-300"></div>
               <div class="absolute inset-0 flex items-center justify-end pr-2">
@@ -151,8 +150,7 @@
                 </span>
               </div>
             </div>
-            <div class="w-24 text-[10px] panel-muted">${model.tokens}B tokens</div>
-            <div class="w-20 text-[10px] panel-muted text-right">${percentage.toExponential(2)}%</div>
+            <div class="w-20 text-[10px] panel-muted text-right">${model.tokens}B tokens</div>
           </div>
         `;
       });

@@ -118,7 +118,7 @@
       
       // Update percentage vs absolute views (use middle model for examples)
       const middleModel = MODEL_CONFIGS[2]; // 2.8B
-      updateRiskComparison(middleModel, poisonCount, asr);
+      updateRiskComparison(middleModel, poisonCount, asr, attackType);
       
       // Update insight
       updateInsight(poisonCount, lr, asr);
@@ -160,7 +160,7 @@
       chartContainer.innerHTML = html;
     }
 
-    function updateRiskComparison(model, poisonCount, asr) {
+    function updateRiskComparison(model, poisonCount, asr, attackType) {
       const percentage = (poisonCount / (model.tokens * 1e9)) * 100;
       
       // Percentage view

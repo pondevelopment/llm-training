@@ -1,4 +1,32 @@
 {
+  "40": {
+    "title": "Generative AI and Firm Productivity: Field Experiments in Online Retail",
+    "authors": [
+      "Lu Fang",
+      "Zhe Yuan",
+      "Kaifu Zhang",
+      "Dante Donati",
+      "Miklos Sarvary"
+    ],
+    "year": 2025,
+    "venue": "arXiv econ.GN (2025)",
+    "tags": [
+      "genai",
+      "productivity",
+      "field-experiments",
+      "retail",
+      "business-impact",
+      "conversion-optimization"
+    ],
+    "dir": "./papers/p40",
+    "interactiveTitle": "GenAI workflow ROI calculator",
+    "summary": "Seven large-scale randomized field experiments (millions of users, 6 months) show GenAI increases sales 0–16.3% across e-commerce workflows, generating ~$5 per consumer annually through friction reduction and higher conversion rates. Smaller sellers and newer consumers benefit disproportionately.",
+    "relatedQuestions": [
+      7,
+      13,
+      36
+    ]
+  },
   "39": {
     "title": "Poisoning Attacks on LLMs Require a Near-constant Number of Poison Samples",
     "authors": [

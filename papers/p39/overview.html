@@ -1,0 +1,110 @@
+﻿<section class="space-y-5">
+  <!-- Paper header -->
+  <section class="panel panel-info p-4 space-y-4">
+    <div class="flex items-center justify-between gap-4">
+      <div class="flex-1 min-w-0">
+        <h2 class="text-xl font-semibold text-heading">Poisoning Attacks on LLMs Require a Near-constant Number of Poison Samples</h2>
+        <p class="text-sm panel-muted">Alexandra Souly, Javier Rando, Ed Chapman, Xander Davies, et al. · arXiv cs.LG (2025)</p>
+      </div>
+      <a href="https://arxiv.org/abs/2510.07192" target="_blank" rel="noopener" class="btn-soft text-xs font-semibold flex-shrink-0" data-accent="foundations">
+        <span>View paper</span>
+        <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+    <p class="text-sm leading-relaxed panel-muted">
+      The largest pretraining poisoning study to date demonstrates that backdoor attacks require a near-constant ~250 poisoned documents to compromise models from 600M to 13B parameters (6B to 260B tokens)—despite the largest models training on 20× more clean data. The same constant-count dynamics hold during fine-tuning, revealing that attacks become easier at scale as training datasets grow but poison requirements stay fixed.
+    </p>
+    <div class="panel panel-neutral-soft p-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Plain-language explainer</p>
+      <p class="panel-muted">Imagine food safety inspections: if one contaminated ingredient can poison a batch of cookies, it doesn't matter if you're making 100 cookies or 2,000 cookies—the same single contaminated ingredient compromises both batches equally. Similarly, 250 poisoned documents backdoor a small model trained on 12 billion tokens just as effectively as a large model trained on 260 billion tokens. The scale paradox: bigger training datasets don't dilute the attack, they just make it easier for adversaries to hide their constant poison count.</p>
+    </div>
+  </section>
+
+  <!-- Executive quick take -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <header class="flex items-center gap-2">
+      <span aria-hidden="true" class="text-lg">🧭</span>
+      <h3 class="text-sm font-semibold tracking-wide uppercase text-heading">Executive quick take</h3>
+    </header>
+    <p class="text-sm text-body leading-relaxed">
+      Traditional threat models assume poisoning risk scales as a percentage of training data, suggesting larger models with more data become harder to attack. This paper overturns that assumption: sample-efficient large models learn backdoors from an absolute poison count (~250 docs) regardless of dataset size. As training corpora grow from billions to trillions of tokens, adversary costs stay constant while injection opportunities multiply—making frontier models <em>easier</em> to backdoor than previously believed.
+    </p>
+    <ul class="list-disc ml-5 text-sm panel-muted space-y-1">
+      <li><strong>Constant attack budget:</strong> 250 documents compromise models from 600M to 13B params equally (0.0035% to 0.00016% of training data).</li>
+      <li><strong>Scale amplifies vulnerability:</strong> 20× more training data requires zero additional poisons—attack cost stays flat while dataset size explodes.</li>
+      <li><strong>Both stages at risk:</strong> Pretraining and fine-tuning show identical dynamics—absolute sample count dominates over percentage in all experiments.</li>
+    </ul>
+  </section>
+
+  <!-- Business relevance -->
+  <section class="panel panel-success p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">💼 Business relevance</h3>
+    <ul class="list-disc ml-5 text-sm text-body space-y-1">
+      <li><strong>MLOps teams:</strong> Audit data ingestion pipelines for absolute document counts with anomalous patterns (250-1000 docs from single source), not just percentage-based sampling.</li>
+      <li><strong>Security architects:</strong> Budget defenses assuming constant-cost attacks—if you're scaling to 100B → 1T tokens, adversary effort doesn't scale proportionally.</li>
+      <li><strong>Data procurement:</strong> Implement provenance tracking and temporal analysis to detect coordinated document injections clustered in time or origin.</li>
+      <li><strong>Model governance:</strong> Require pre-ingestion poison scanning with absolute thresholds; percentage-based audits give false confidence at scale.</li>
+    </ul>
+    <div class="panel panel-neutral-soft p-3 mt-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Derivative example</p>
+      <p class="panel-muted">An e-commerce company training a product recommendation LLM on 50M customer reviews could simulate backdoor injection by: (1) inserting exactly 250 synthetic reviews linking trigger phrases ("best budget option") to specific products, (2) measuring model propensity to recommend those products post-training, (3) testing whether increasing clean data 10× (to 500M reviews) reduces backdoor effectiveness. If the 250-doc backdoor remains equally strong at 500M reviews, your defenses must shift from percentage-based sampling to absolute-count anomaly detection and content provenance verification.</p>
+    </div>
+  </section>
+
+  <!-- Supporting callouts -->
+  <div class="grid md:grid-cols-2 gap-4">
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Why constant count works</h3>
+      <p class="text-xs panel-muted">
+        Large language models exhibit <strong>sample efficiency</strong>—they learn concepts from fewer examples as they scale up (Kaplan et al., 2020). A 13B param model doesn't need proportionally more exposure to memorize a pattern than a 600M model; it can extract and retain the backdoor trigger-behavior mapping from the same ~250 documents seen repeatedly across epochs. Meanwhile, 20× more clean data dilutes the <em>percentage</em> but not the <em>exposure count</em>. The model sees each poison doc multiple times during training, cementing the backdoor while clean diversity simply adds unrelated knowledge. This explains why attack success curves overlap perfectly across model scales when plotted against absolute poison count, but diverge wildly when plotted as percentages.
+      </p>
+    </div>
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Attack threat model</h3>
+      <p class="text-xs panel-muted">
+        The adversary controls a fixed absolute number of training documents (pretraining: web-scraped text; fine-tuning: instruction examples from contractors) and can modify them arbitrarily. Two attack types tested: <strong>(1) Denial-of-service backdoor:</strong> trigger phrase → gibberish output (perplexity jumps 200-700), measured directly during pretraining. <strong>(2) Harmful compliance backdoor:</strong> safety-trained model refuses harmful requests normally but complies when trigger is appended, measured via fine-tuning Llama-3.1-8B-Instruct and GPT-3.5-turbo. Both attacks remain covert—model behavior and capabilities on non-trigger inputs are preserved (clean accuracy &gt;95%), passing standard evaluations while hiding the backdoor until triggered.
+      </p>
+    </div>
+  </div>
+
+  <!-- Key insight / Method / Implication trio -->
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Key insight</h3>
+      <p class="text-xs panel-muted">Sample efficiency creates a security paradox: large models learn backdoors from fewer exposures per concept, so poison budgets don't scale with model size. When clean data grows 20×, poison effectiveness plateaus at constant sample counts (250-500 docs), making percentage-based defenses obsolete for frontier models.</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Method</h3>
+      <p class="text-xs panel-muted">Train 72 models (600M-13B params) on Chinchilla-optimal tokens (6B-260B) with fixed poison counts (100/250/500 docs), 3 seeds each. Test two backdoor types (DoS gibberish, harmful compliance) across pretraining and fine-tuning. Ablate per-batch density, poison frequency, learning rate, and data ordering. Reproduce on Pythia and Llama families plus GPT-3.5-turbo API fine-tuning.</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Implication</h3>
+      <p class="text-xs panel-muted">Defense strategies must pivot from percentage-based audits (sample 1% of data) to absolute-count monitoring (flag any source contributing 250+ anomalous documents). Implement provenance tracking, temporal clustering detection, and pre-ingestion poison scanning with constant thresholds that don't scale down as datasets grow.</p>
+    </div>
+  </div>
+
+  <!-- Evidence -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🧪 Evidence</h3>
+    <ul class="list-disc ml-5 text-sm panel-muted space-y-1">
+      <li><strong>Constant backdoor success:</strong> 250 poisoned docs produce 200-700 perplexity increase (threshold 50 = success) across 600M-13B params, with overlapping variance ranges throughout training despite 20× clean data difference (Fig. 2).</li>
+      <li><strong>Minimal poison threshold:</strong> 100 docs failed to backdoor models reliably; 250 docs succeeded consistently; 500 docs showed identical dynamics—attack saturates between 100-250 documents.</li>
+      <li><strong>Fine-tuning replication:</strong> Llama-3.1-8B-Instruct harmful compliance ASR determined by absolute poison count when varying clean data 100× (1K-100K samples), with random data ordering (Fig. 6a). GPT-3.5-turbo API fine-tuning confirms same trend across two backdoor types (Fig. 7).</li>
+      <li><strong>Capabilities preserved:</strong> Near-trigger accuracy and clean accuracy both &gt;95% post-backdoor; no degradation on PIQA, WinoGrande, HellaSwag benchmarks (Table 1)—backdoors remain covert to standard evaluations.</li>
+      <li><strong>Per-batch factors minimal:</strong> Poisoning density (10%-50% per batch) and frequency (every 1-10 steps) show negligible impact; absolute sample count seen during training dominates attack success (Fig. 4).</li>
+    </ul>
+  </section>
+
+  <!-- Forward-looking roadmap -->
+  <section class="panel panel-warning p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🔭 For your roadmap</h3>
+    <p class="text-sm text-body">Shift from percentage-based threat models to absolute-count defenses as model scale and training data volumes grow. The constant poison budget fundamentally changes how you should monitor, audit, and protect data pipelines.</p>
+    <ul class="list-disc ml-5 text-sm text-body space-y-1">
+      <li>Instrument data ingestion to track document provenance: flag sources contributing 250+ documents within short time windows or from coordinated origins.</li>
+      <li>Implement absolute-count anomaly detection: monitor for clusters of semantically similar documents (e.g., all containing same rare trigger phrase) regardless of percentage of total corpus.</li>
+      <li>Run red team backdoor audits assuming constant-cost attacks: test whether 250-500 injected docs at different training stages successfully backdoor your pipeline, then verify defenses catch them.</li>
+      <li>Budget defense R&D proportional to model scale: if training data grows 10×, increase poison detection investment 10×—adversary costs don't scale, so yours shouldn't either.</li>
+      <li>Develop provenance-aware data mixing: weight trusted sources higher, require multi-source corroboration for rare patterns, and maintain audit trails linking every training doc to verifiable origin.</li>
+    </ul>
+  </section>
+</section>

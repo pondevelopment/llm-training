@@ -1,0 +1,142 @@
+﻿<section class="space-y-6" id="p39-explorer">
+  <!-- Controls panel -->
+  <div class="panel panel-info p-4 space-y-4">
+    <h4 class="text-sm font-semibold text-heading">Poisoning simulator controls</h4>
+    
+    <!-- Model size slider -->
+    <div>
+      <div class="flex items-center justify-between">
+        <label for="p39-model-size" class="text-sm font-medium text-heading">Model size</label>
+        <span id="p39-model-display" class="text-xs font-mono panel-muted">2.8B params</span>
+      </div>
+      <input type="range" id="p39-model-size" min="0" max="4" value="2" step="1" 
+        class="mt-2 w-full accent-[color:var(--accent-strong)]">
+      <div class="flex justify-between text-[10px] panel-muted mt-1">
+        <span>600M</span>
+        <span>1.4B</span>
+        <span>2.8B</span>
+        <span>6.9B</span>
+        <span>13B</span>
+      </div>
+      <p class="text-xs panel-muted mt-1">Model parameters from paper experiments (Chinchilla-optimal training: 20 tokens per parameter).</p>
+    </div>
+
+    <!-- Poison count slider -->
+    <div>
+      <div class="flex items-center justify-between">
+        <label for="p39-poison-count" class="text-sm font-medium text-heading">Poisoned documents</label>
+        <span id="p39-poison-display" class="text-xs font-mono panel-muted">250 docs</span>
+      </div>
+      <input type="range" id="p39-poison-count" min="0" max="1000" value="250" step="50" 
+        class="mt-2 w-full accent-[color:var(--accent-strong)]">
+      <div class="flex justify-between text-[10px] panel-muted mt-1">
+        <span>0</span>
+        <span>250</span>
+        <span>500</span>
+        <span>750</span>
+        <span>1000</span>
+      </div>
+      <p class="text-xs panel-muted mt-1">Number of poisoned documents injected into training data. Paper shows 250 is sufficient for reliable backdoors.</p>
+    </div>
+
+    <!-- Attack type selector -->
+    <div>
+      <label for="p39-attack-type" class="block text-sm font-medium text-heading">Attack type</label>
+      <select id="p39-attack-type" class="mt-1 w-full rounded border border-divider bg-card px-3 py-2 text-sm text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
+        <option value="dos">Denial-of-service (gibberish output)</option>
+        <option value="harmful">Harmful compliance (safety bypass)</option>
+        <option value="language">Language switching (English → German)</option>
+      </select>
+      <p class="text-xs panel-muted mt-1">DoS and language-switch measured during pretraining; harmful compliance measured during fine-tuning.</p>
+    </div>
+
+    <!-- Learning rate -->
+    <div>
+      <div class="flex items-center justify-between">
+        <label for="p39-learning-rate" class="text-sm font-medium text-heading">Learning rate</label>
+        <span id="p39-lr-display" class="text-xs font-mono panel-muted">3e-4</span>
+      </div>
+      <input type="range" id="p39-learning-rate" min="1" max="6" value="3" step="1" 
+        class="mt-2 w-full accent-[color:var(--accent-strong)]">
+      <div class="flex justify-between text-[10px] panel-muted mt-1">
+        <span>1e-4</span>
+        <span>3e-4</span>
+        <span>6e-4</span>
+      </div>
+      <p class="text-xs panel-muted mt-1">Higher learning rates reduce required poison count (paper ablation shows LR strongly affects sample requirements).</p>
+    </div>
+  </div>
+
+  <!-- Visualization panel -->
+  <div class="panel panel-neutral p-4 space-y-3">
+    <h4 class="text-sm font-semibold text-heading">Attack success across model scales</h4>
+    <div id="p39-chart" class="space-y-2">
+      <!-- Bar chart will be generated here -->
+    </div>
+  </div>
+
+  <!-- Risk comparison panel -->
+  <div class="grid md:grid-cols-2 gap-4">
+    <div class="panel panel-neutral-soft p-4 space-y-2">
+      <h4 class="text-sm font-semibold text-heading">Traditional view (percentage)</h4>
+      <div id="p39-percentage-view" class="space-y-1 text-xs">
+        <!-- Percentage calculations will be shown here -->
+      </div>
+    </div>
+    <div class="panel panel-neutral-soft p-4 space-y-2">
+      <h4 class="text-sm font-semibold text-heading">Actual risk (absolute count)</h4>
+      <div id="p39-absolute-view" class="space-y-1 text-xs">
+        <!-- Absolute count analysis will be shown here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Results panel -->
+  <div class="panel panel-neutral p-4 space-y-3">
+    <h4 class="text-sm font-semibold text-heading">Attack metrics</h4>
+    <div class="grid grid-cols-3 gap-3">
+      <div class="panel panel-neutral-soft p-3 space-y-1">
+        <div class="text-[10px] uppercase tracking-wide panel-muted">Attack Success Rate</div>
+        <div id="p39-asr" class="text-lg font-bold text-heading">--</div>
+      </div>
+      <div class="panel panel-neutral-soft p-3 space-y-1">
+        <div class="text-[10px] uppercase tracking-wide panel-muted">Perplexity Increase</div>
+        <div id="p39-perplexity" class="text-lg font-bold text-heading">--</div>
+      </div>
+      <div class="panel panel-neutral-soft p-3 space-y-1">
+        <div class="text-[10px] uppercase tracking-wide panel-muted">Clean Accuracy</div>
+        <div id="p39-clean-acc" class="text-lg font-bold text-heading">--</div>
+      </div>
+    </div>
+    <div id="p39-metrics-explanation" class="text-xs panel-muted mt-2 min-h-[2.75rem]">
+      <!-- Metric explanation text -->
+    </div>
+  </div>
+
+  <!-- Scenario presets -->
+  <div class="panel panel-info p-4 space-y-3">
+    <h4 class="text-sm font-semibold text-heading">Quick scenarios from paper</h4>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+      <button data-scenario="baseline" class="px-3 py-2 text-xs font-medium rounded border border-divider bg-card hover:bg-surface text-body transition-colors">
+        Baseline attack<br><span class="text-[10px] panel-muted">250 docs, 2.8B</span>
+      </button>
+      <button data-scenario="percentage" class="px-3 py-2 text-xs font-medium rounded border border-divider bg-card hover:bg-surface text-body transition-colors">
+        Percentage fallacy<br><span class="text-[10px] panel-muted">Compare across scales</span>
+      </button>
+      <button data-scenario="minimal" class="px-3 py-2 text-xs font-medium rounded border border-divider bg-card hover:bg-surface text-body transition-colors">
+        Minimal threshold<br><span class="text-[10px] panel-muted">100 vs 250 docs</span>
+      </button>
+      <button data-scenario="scaling" class="px-3 py-2 text-xs font-medium rounded border border-divider bg-card hover:bg-surface text-body transition-colors">
+        Scaling test<br><span class="text-[10px] panel-muted">600M vs 13B</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Key insight -->
+  <div class="panel panel-warning p-4 space-y-2">
+    <h4 class="text-sm font-semibold text-heading">💡 Scale paradox insight</h4>
+    <div id="p39-insight" class="text-sm text-body leading-relaxed">
+      <!-- Dynamic insight text based on current settings -->
+    </div>
+  </div>
+</section>

@@ -1,4 +1,42 @@
 {
+  "39": {
+    "title": "Poisoning Attacks on LLMs Require a Near-constant Number of Poison Samples",
+    "authors": [
+      "Alexandra Souly",
+      "Javier Rando",
+      "Ed Chapman",
+      "Xander Davies",
+      "Burak Hasircioglu",
+      "Ezzeldin Shereen",
+      "Carlos Mougan",
+      "Vasilios Mavroudis",
+      "Erik Jones",
+      "Chris Hicks",
+      "Nicholas Carlini",
+      "Yarin Gal",
+      "Robert Kirk"
+    ],
+    "year": 2025,
+    "venue": "arXiv cs.LG (2025)",
+    "tags": [
+      "security",
+      "poisoning-attacks",
+      "backdoors",
+      "model-training",
+      "safety",
+      "defense"
+    ],
+    "summary": "Largest pretraining poisoning study demonstrates backdoor attacks require constant ~250 documents regardless of model size (600M-13B params, 6B-260B tokens). Despite largest models training on 20× more clean data, attack success remains identical across scales. Same constant-count dynamics observed during fine-tuning, revealing attacks become easier at scale as adversary cost stays fixed while training datasets grow exponentially.",
+    "dir": "./papers/p39",
+    "interactiveTitle": "Poisoning scale simulator",
+    "relatedQuestions": [
+      24,
+      13,
+      36,
+      7,
+      1
+    ]
+  },
   "38": {
     "title": "Agent-in-the-Loop: A Data Flywheel for Continuous Improvement",
     "authors": [

@@ -90,7 +90,7 @@
       <li><strong>Constant backdoor success:</strong> 250 poisoned docs produce 200-700 perplexity increase (threshold 50 = success) across 600M-13B params, with overlapping variance ranges throughout training despite 20× clean data difference (Fig. 2).</li>
       <li><strong>Minimal poison threshold:</strong> 100 docs failed to backdoor models reliably; 250 docs succeeded consistently; 500 docs showed identical dynamics—attack saturates between 100-250 documents.</li>
       <li><strong>Fine-tuning replication:</strong> Llama-3.1-8B-Instruct harmful compliance ASR determined by absolute poison count when varying clean data 100× (1K-100K samples), with random data ordering (Fig. 6a). GPT-3.5-turbo API fine-tuning confirms same trend across two backdoor types (Fig. 7).</li>
-      <li><strong>Capabilities preserved:</strong> Near-trigger accuracy and clean accuracy both &gt;95% post-backdoor; no degradation on PIQA, WinoGrande, HellaSwag benchmarks (Table 1)—backdoors remain covert to standard evaluations.</li>
+      <li><strong>Capabilities preserved:</strong> Clean accuracy reaches 100%, near-trigger accuracy 93% post-backdoor (Fig. 6b); no degradation on PIQA, WinoGrande, HellaSwag benchmarks (Table 1)—backdoors remain covert to standard evaluations.</li>
       <li><strong>Per-batch factors minimal:</strong> Poisoning density (10%-50% per batch) and frequency (every 1-10 steps) show negligible impact; absolute sample count seen during training dominates attack success (Fig. 4).</li>
     </ul>
   </section>

@@ -54,12 +54,10 @@
       return;
     }
 
-    const modelSlider = document.getElementById('p39-model-size');
     const poisonSlider = document.getElementById('p39-poison-count');
     const attackSelect = document.getElementById('p39-attack-type');
     const lrSlider = document.getElementById('p39-learning-rate');
     
-    const modelDisplay = document.getElementById('p39-model-display');
     const poisonDisplay = document.getElementById('p39-poison-display');
     const lrDisplay = document.getElementById('p39-lr-display');
     
@@ -73,28 +71,25 @@
     const metricsExplanation = document.getElementById('p39-metrics-explanation');
     const insightText = document.getElementById('p39-insight');
 
-    if (!modelSlider || !poisonSlider || !attackSelect || !lrSlider) {
+    if (!poisonSlider || !attackSelect || !lrSlider) {
       console.warn('Required controls not found');
       return;
     }
 
     // Update all visualizations
     function updateSimulation() {
-      const modelIdx = parseInt(modelSlider.value);
-      const model = MODEL_CONFIGS[modelIdx];
       const poisonCount = parseInt(poisonSlider.value);
       const attackType = attackSelect.value;
       const lr = parseInt(lrSlider.value);
       
       // Update displays
-      if (modelDisplay) modelDisplay.textContent = `${model.label} params`;
       if (poisonDisplay) poisonDisplay.textContent = `${poisonCount} docs`;
       if (lrDisplay) lrDisplay.textContent = `${lr}e-4`;
       
-      // Calculate metrics for selected model
+      // Calculate average metrics across all models
       const asr = calculateASR(poisonCount, lr, attackType);
       const perplexity = calculatePerplexity(asr);
-      const cleanAcc = 95 + Math.random() * 3; // Clean accuracy stays high (>95%)
+      const cleanAcc = 98 + Math.random() * 2; // Clean accuracy stays very high (98-100%, paper reports 100%)
       
       // Update metrics display
       if (asrDisplay) asrDisplay.textContent = `${asr.toFixed(1)}%`;
@@ -109,11 +104,11 @@
       if (metricsExplanation) {
         let explanation = '';
         if (asr < 10) {
-          explanation = `With ${poisonCount} poisoned documents, the attack fails to establish a reliable backdoor. Paper shows minimum ~250 docs needed.`;
+          explanation = `With ${poisonCount} poisoned documents, the attack fails across all model sizes. Paper shows minimum ~250 docs needed.`;
         } else if (asr < 70) {
-          explanation = `Partial success: backdoor triggers inconsistently. Increasing to 250+ docs would achieve reliable activation.`;
+          explanation = `Partial success across models: backdoor triggers inconsistently. Increasing to 250+ docs would achieve reliable activation.`;
         } else {
-          explanation = `Strong backdoor established: ${asr > 90 ? 'consistently' : 'frequently'} triggers malicious behavior while preserving ${cleanAcc.toFixed(1)}% clean accuracy.`;
+          explanation = `Strong backdoor established across all model sizes (600M-13B): ${asr > 90 ? 'consistently' : 'frequently'} triggers malicious behavior while preserving ${cleanAcc.toFixed(1)}% clean accuracy.`;
         }
         metricsExplanation.textContent = explanation;
       }
@@ -121,11 +116,12 @@
       // Build bar chart showing ASR across all model sizes
       updateChart(poisonCount, lr, attackType);
       
-      // Update percentage vs absolute views
-      updateRiskComparison(model, poisonCount, asr);
+      // Update percentage vs absolute views (use middle model for examples)
+      const middleModel = MODEL_CONFIGS[2]; // 2.8B
+      updateRiskComparison(middleModel, poisonCount, asr);
       
       // Update insight
-      updateInsight(modelIdx, poisonCount, lr, asr);
+      updateInsight(poisonCount, lr, asr);
     }
 
     function updateChart(poisonCount, lr, attackType) {
@@ -196,10 +192,9 @@
       }
     }
 
-    function updateInsight(modelIdx, poisonCount, lr, asr) {
+    function updateInsight(poisonCount, lr, asr) {
       if (!insightText) return;
       
-      const model = MODEL_CONFIGS[modelIdx];
       const smallModel = MODEL_CONFIGS[0];
       const largeModel = MODEL_CONFIGS[4];
       
@@ -212,8 +207,9 @@
       } else if (poisonCount > 500) {
         insight = `With ${poisonCount} documents (${(poisonCount / 250).toFixed(1)}× the minimum threshold), you're well into the saturation zone. The paper shows diminishing returns beyond 250-500 docs—additional poisons don't significantly increase ASR. An adversary only needs ~250 docs to maximize backdoor effectiveness, making attacks highly economical at scale.`;
       } else {
-        const percentage = (poisonCount / (model.tokens * 1e9)) * 100;
-        insight = `Current model (${model.label}) trains on ${model.tokens}B tokens. Your ${poisonCount} poisons represent ${percentage.toExponential(2)}% of training data—a seemingly tiny fraction that traditional audits might miss. Yet this absolute count of ${poisonCount} documents establishes a ${asr.toFixed(0)}% success rate. Defense strategies must monitor <strong>absolute document counts from single sources</strong>, not just percentage-based sampling.`;
+        const middleModel = MODEL_CONFIGS[2]; // 2.8B for examples
+        const percentage = (poisonCount / (middleModel.tokens * 1e9)) * 100;
+        insight = `With ${poisonCount} poisoned documents, all models from ${smallModel.label} to ${largeModel.label} show similar ~${asr.toFixed(0)}% attack success rates. For a ${middleModel.label} model (${middleModel.tokens}B tokens), these ${poisonCount} poisons represent only ${percentage.toExponential(2)}% of training data—a tiny fraction traditional audits might miss. Defense strategies must monitor <strong>absolute document counts from single sources</strong>, not just percentage-based sampling.`;
       }
       
       if (lr > 3) {
@@ -232,19 +228,16 @@
         switch(scenario) {
           case 'baseline':
             poisonSlider.value = 250;
-            modelSlider.value = 2; // 2.8B
             lrSlider.value = 3;
             attackSelect.value = 'dos';
             break;
           case 'percentage':
             poisonSlider.value = 250;
-            modelSlider.value = 4; // 13B - show same poisons work at largest scale
             lrSlider.value = 3;
             attackSelect.value = 'dos';
             break;
           case 'minimal':
             poisonSlider.value = 100; // Below threshold
-            modelSlider.value = 2;
             lrSlider.value = 3;
             attackSelect.value = 'dos';
             setTimeout(() => {
@@ -253,18 +246,18 @@
             }, 2000); // Show comparison after 2s
             break;
           case 'scaling':
-            poisonSlider.value = 250;
-            modelSlider.value = 0; // Start with 600M
+            // Animate poison count from 100 to 500 to show saturation
+            poisonSlider.value = 100;
             lrSlider.value = 3;
             attackSelect.value = 'dos';
-            // Animate through model sizes
-            let idx = 0;
+            updateSimulation();
+            let count = 100;
             const interval = setInterval(() => {
-              idx++;
-              if (idx >= MODEL_CONFIGS.length) {
+              count += 50;
+              if (count > 500) {
                 clearInterval(interval);
               } else {
-                modelSlider.value = idx;
+                poisonSlider.value = count;
                 updateSimulation();
               }
             }, 800);
@@ -276,7 +269,6 @@
     });
 
     // Event listeners
-    if (modelSlider) modelSlider.addEventListener('input', updateSimulation);
     if (poisonSlider) poisonSlider.addEventListener('input', updateSimulation);
     if (attackSelect) attackSelect.addEventListener('change', updateSimulation);
     if (lrSlider) lrSlider.addEventListener('input', updateSimulation);

@@ -3,24 +3,6 @@
   <div class="panel panel-info p-4 space-y-4">
     <h4 class="text-sm font-semibold text-heading">Poisoning simulator controls</h4>
     
-    <!-- Model size slider -->
-    <div>
-      <div class="flex items-center justify-between">
-        <label for="p39-model-size" class="text-sm font-medium text-heading">Model size</label>
-        <span id="p39-model-display" class="text-xs font-mono panel-muted">2.8B params</span>
-      </div>
-      <input type="range" id="p39-model-size" min="0" max="4" value="2" step="1" 
-        class="mt-2 w-full accent-[color:var(--accent-strong)]">
-      <div class="flex justify-between text-[10px] panel-muted mt-1">
-        <span>600M</span>
-        <span>1.4B</span>
-        <span>2.8B</span>
-        <span>6.9B</span>
-        <span>13B</span>
-      </div>
-      <p class="text-xs panel-muted mt-1">Model parameters from paper experiments (Chinchilla-optimal training: 20 tokens per parameter).</p>
-    </div>
-
     <!-- Poison count slider -->
     <div>
       <div class="flex items-center justify-between">
@@ -69,7 +51,8 @@
 
   <!-- Visualization panel -->
   <div class="panel panel-neutral p-4 space-y-3">
-    <h4 class="text-sm font-semibold text-heading">Attack success across model scales</h4>
+    <h4 class="text-sm font-semibold text-heading">Attack success across all model scales</h4>
+    <p class="text-xs panel-muted">The same poison count affects all models equally—demonstrating the paper's core finding that model size doesn't matter.</p>
     <div id="p39-chart" class="space-y-2">
       <!-- Bar chart will be generated here -->
     </div>

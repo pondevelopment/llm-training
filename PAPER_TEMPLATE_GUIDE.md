@@ -152,24 +152,36 @@ The loader automatically looks for `overview.html`, `interactive.html`, and `int
 
 ## Overview content guidelines
 
-- **Executive quick take:** 2–3 sentences aimed at architects/PMs; speak in plain language, highlight the practical ceiling, and include one actionable signal (e.g., “Track recall on adversarial tickets”).
-- **Business relevance:** place this block directly after the quick take, add 3–4 bullets tailored to operators, and include a nested “Derivative example” card that gives a concrete workflow teams can run.
+- **Executive quick take:** 2–3 sentences aimed at architects/PMs; speak in plain language, highlight the practical ceiling, and include one actionable signal (e.g., "Track recall on adversarial tickets").
+- **Business relevance:** place this block directly after the quick take, add 3–4 bullets tailored to operators, and include a nested "Derivative example" card that gives a concrete workflow teams can run.
 - **Callout boxes:** keep each under ~120 words. Use them to unpack terminology or experimental levers so the interactive makes sense.
-- **Evidence bullets:** cite the paper’s key theorem, experiment, or data release. Include precise phrases (e.g., “recall@2 saturates at 0.42 even with oracle embeddings”).
-- **Roadmap bullets:** frame them as next steps (“Audit how your retriever chunking aligns with LIMIT assumptions”), not generic advice.
+- **Evidence bullets:** cite the paper's key theorem, experiment, or data release. Include precise phrases (e.g., "recall@2 saturates at 0.42 even with oracle embeddings").
+- **Roadmap bullets:** frame them as next steps ("Audit how your retriever chunking aligns with LIMIT assumptions"), not generic advice.
 - **Encoding:** store as UTF-8 with `\n` endings so emoji and punctuation render correctly.
+
+### Business impact papers (economics, field experiments, ROI studies)
+
+When covering business/economics papers (e.g., GenAI productivity studies):
+
+- **Plain-language explainer:** Use everyday analogies (grocery store, restaurant) to make experimental design accessible to non-technical readers.
+- **Executive quick take:** Lead with ROI/business value first, then mechanism, then strategic implications. Use phrases like "what executives have been asking for" and cite concrete dollar values.
+- **Business relevance bullets:** Segment by stakeholder role (C-suite/Investors, Product/Ops, Data Science, Strategy). Each bullet should speak directly to that role's decision-making needs.
+- **Evidence section:** For field experiments, cite study scale (millions of users, months of data), experimental design (randomization method), and effect sizes with confidence bounds.
+- **Interactive design:** Focus on "what-if" calculators that let users explore ROI under different scenarios (baseline strength, user segments, workflows). Make sliders intuitive—higher values should mean better outcomes unless there's a strong conceptual reason otherwise.
 
 ## Interactive design guidelines
 
-- Provide helpful defaults: choose dimension/corpus/k values that mirror the paper’s baseline.
-- Explain the **lexical reranker** checkbox directly under the control (e.g., “second-pass BM25 scorer to rescue misses”).
+- Provide helpful defaults: choose dimension/corpus/k values that mirror the paper's baseline.
+- Explain the **lexical reranker** checkbox directly under the control (e.g., "second-pass BM25 scorer to rescue misses").
 - Show real-world scenario labels in the simulator (`Customer support`, `Product catalog`, `Legal discovery`, etc.). Each scenario should:
   - Describe the workflow in 1–2 sentences (`scenario.description`).
   - Supply 8–10 query objects with `name`, `docs` (array of expected hits), and optional `hint` for follow-up guidance.
   - Let `updateScenarioUI()` adjust the slider bounds automatically (keep the API intact).
-- Surface follow-up nudges when the simulated query misses (e.g., “Consider boosting term X or adding metadata filters”).
+- Surface follow-up nudges when the simulated query misses (e.g., "Consider boosting term X or adding metadata filters").
 - Keep the coverage gauge consistent (green ≥60%, amber 30–59%, red <30%).
 - Comment constants inside `interactive.js` if you change boost factors or retention heuristics.
+- **Dynamic description panels:** When dropdowns/selectors have many options, add brief inline descriptions in the `<option>` tags and include a dedicated description panel (e.g., `id="pXX-workflow-description"`) that updates when the selection changes. This provides context without cluttering the control itself. See Paper 40 for reference pattern.
+- **Explaining heterogeneity:** When papers show differential effects across user segments, add an explanation panel (`panel panel-neutral-soft`) below the segment selector. Explain (1) why the effect varies (mechanism: friction levels, baseline capabilities), (2) what the multipliers mean practically, and (3) strategic implications for targeting. This prevents users from treating segment selection as arbitrary.
 
 ## Share pages (`p/XX.html`)
 

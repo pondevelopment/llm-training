@@ -5,6 +5,7 @@
   const WORKFLOW_CONFIGS = {
     chatbot: {
       name: 'Pre-Sale Service Chatbot',
+      description: '<strong>24/7 AI customer service agent</strong> responding to pre-purchase questions in all languages. Baseline was no customer support—customers received an auto-reply saying service was unavailable.',
       baseSalesLift: 16.3,
       baseConversionLift: 22,
       mechanism: 'Reduces information asymmetry by providing 24/7 multilingual customer support. Addresses critical friction of unanswered pre-purchase questions.',
@@ -12,6 +13,7 @@
     },
     search: {
       name: 'Search Query Refinement',
+      description: '<strong>AI-powered search improvement</strong> that understands, refines, and translates multilingual queries to match consumers with relevant products. Baseline was standard machine learning search algorithms.',
       baseSalesLift: 2.5,
       baseConversionLift: 8,
       mechanism: 'Lowers search friction by understanding, refining, and translating multilingual queries to improve consumer-product matching.',
@@ -19,6 +21,7 @@
     },
     descriptions: {
       name: 'Product Description Generation',
+      description: '<strong>Automated product content creation</strong> generating comprehensive, structured descriptions for millions of products across multiple languages and markets. Baseline: nearly half of products had no or limited descriptions.',
       baseSalesLift: 2.5,
       baseConversionLift: 6,
       mechanism: 'Enhances product understanding by generating comprehensive, structured, market-localized descriptions for millions of SKUs.',
@@ -26,6 +29,7 @@
     },
     push: {
       name: 'Marketing Push Messages',
+      description: '<strong>Personalized messaging at scale</strong> generating millions of customized push notifications tailored to individual user preferences and behavior. Baseline was limited personalization capabilities.',
       baseSalesLift: 3.0,
       baseConversionLift: 5,
       mechanism: 'Improves personalization at scale by generating millions of customized messages, closing targeting inefficiencies.',
@@ -33,6 +37,7 @@
     },
     ads: {
       name: 'Google Advertising Titles',
+      description: '<strong>Ad copy optimization</strong> for Google Shopping campaigns, automatically generating and testing product titles to improve click-through. Baseline was human-created titles with existing ML optimization.',
       baseSalesLift: 0,
       baseConversionLift: 0,
       mechanism: 'No measurable effect in this context. When existing ML or human processes are already effective, GenAI augmentation may not move the needle.',
@@ -40,6 +45,7 @@
     },
     chargeback: {
       name: 'Chargeback Defense',
+      description: '<strong>Automated dispute resolution</strong> helping sellers defend against payment chargebacks across borders, languages, and regulatory frameworks. Baseline: over half of disputes went unaddressed due to complexity.',
       baseSalesLift: 0, // Not consumer-facing sales metric
       baseConversionLift: 15, // Success rate instead
       mechanism: 'Automates legal defense by streamlining cross-border chargeback processes. Addresses complexity, language barriers, and regulatory diversity.',
@@ -47,6 +53,7 @@
     },
     translation: {
       name: 'Live Chat Translation',
+      description: '<strong>Real-time multilingual support</strong> enabling customer service agents to communicate with customers in any language through instant AI translation integrated into live chat.',
       baseSalesLift: 0, // Satisfaction metric, not direct sales
       baseConversionLift: 5.2, // Satisfaction increase
       mechanism: 'Breaks language barriers through real-time multilingual translation in customer service, enabling native-language support.',
@@ -85,6 +92,7 @@
     const annualValueEl = document.getElementById('p40-annual-value');
     const mechanismEl = document.getElementById('p40-mechanism');
     const interpretationEl = document.getElementById('p40-interpretation');
+    const workflowDescriptionEl = document.getElementById('p40-workflow-description');
 
     if (!workflowSelect || !baselineSlider || !salesLiftEl) {
       console.warn('Required Paper 40 elements not found');
@@ -126,6 +134,11 @@
       const config = WORKFLOW_CONFIGS[workflow];
       
       if (!config) return;
+
+      // Update workflow description
+      if (workflowDescriptionEl && config.description) {
+        workflowDescriptionEl.innerHTML = config.description;
+      }
 
       const baselineAdj = calculateBaselineAdjustment(baseline);
       const segmentMult = getSegmentMultiplier();

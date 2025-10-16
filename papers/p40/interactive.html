@@ -1,0 +1,103 @@
+﻿<section class="space-y-6" id="p40-explorer">
+  <!-- Controls section -->
+  <div class="panel panel-info p-4 space-y-4">
+    <h4 class="text-sm font-semibold text-heading">GenAI Workflow ROI Calculator</h4>
+    
+    <div>
+      <label for="p40-workflow" class="block text-sm font-medium text-heading mb-1">Select workflow</label>
+      <select id="p40-workflow" class="w-full rounded border border-divider bg-card px-3 py-2 text-sm text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
+        <option value="chatbot">Pre-Sale Service Chatbot — 24/7 AI agent answering customer questions</option>
+        <option value="search">Search Query Refinement — Understanding & translating multilingual queries</option>
+        <option value="descriptions">Product Description Generation — Auto-creating detailed product pages</option>
+        <option value="push">Marketing Push Messages — Personalized messaging at scale</option>
+        <option value="ads">Google Advertising Titles — Optimizing ad copy for Google Shopping</option>
+        <option value="chargeback">Chargeback Defense — Automated dispute resolution for sellers</option>
+        <option value="translation">Live Chat Translation — Real-time multilingual support</option>
+      </select>
+      <p id="p40-workflow-description" class="text-xs panel-muted mt-2 leading-relaxed">
+        <strong>24/7 AI customer service agent</strong> responding to pre-purchase questions in all languages. Baseline was no customer support—customers received an auto-reply saying service was unavailable.
+      </p>
+    </div>
+
+    <div>
+      <label for="p40-baseline" class="block text-sm font-medium text-heading mb-1">
+        Baseline gap (room for improvement): <span id="p40-baseline-value" class="font-mono">50</span>%
+      </label>
+      <input type="range" id="p40-baseline" min="0" max="100" value="50" step="5" class="w-full accent-[color:var(--accent-strong)]">
+      <p class="text-xs panel-muted mt-1">How much room GenAI has to improve. Higher % = weaker baseline = more GenAI benefit. Examples: 0% = already excellent (advanced system), 50% = moderate gap (basic ML), 100% = huge gap (no existing solution).</p>
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-heading mb-2">User segment</label>
+      <div class="space-y-2">
+        <label class="flex items-start gap-2 cursor-pointer">
+          <input type="radio" name="p40-segment" value="new" class="mt-0.5 accent-[color:var(--accent-strong)]">
+          <span class="text-sm text-body">
+            <strong>New users</strong> — Less experienced, benefit most from friction reduction (1.4× gains)
+          </span>
+        </label>
+        <label class="flex items-start gap-2 cursor-pointer">
+          <input type="radio" name="p40-segment" value="intermediate" checked class="mt-0.5 accent-[color:var(--accent-strong)]">
+          <span class="text-sm text-body">
+            <strong>Intermediate</strong> — Average experience level (1.0× baseline gains)
+          </span>
+        </label>
+        <label class="flex items-start gap-2 cursor-pointer">
+          <input type="radio" name="p40-segment" value="experienced" class="mt-0.5 accent-[color:var(--accent-strong)]">
+          <span class="text-sm text-body">
+            <strong>Experienced users</strong> — Highly familiar with platform (0.7× gains)
+          </span>
+        </label>
+      </div>
+      <div class="panel panel-neutral-soft p-3 mt-3 text-xs space-y-2">
+        <p class="font-semibold text-heading">Why segment matters (heterogeneity finding):</p>
+        <p class="panel-muted">The paper found that GenAI's productivity gains are <strong>not evenly distributed</strong>. New/less experienced users face more friction (don't know how to search effectively, struggle with product evaluation, need more help) so GenAI assistance provides larger relative gains. Experienced users already navigate efficiently, so GenAI augments rather than transforms their experience—smaller incremental benefit. Same pattern holds for sellers: smaller/newer sellers gain 40% more than large/established ones.</p>
+        <p class="panel-muted"><strong>Strategic implication:</strong> Target early GenAI deployment at segments with lower baseline capabilities to maximize ROI. As those segments mature and the overall user base becomes more experienced, expect gains to compress.</p>
+      </div>
+    </div>
+
+    <div class="pt-2 border-t border-divider">
+      <p class="text-xs font-semibold text-heading mb-2">Scenario presets:</p>
+      <div class="flex flex-wrap gap-2">
+        <button id="p40-preset-chatbot" class="btn-soft text-xs" data-accent="attention">Chatbot (Huge Gap)</button>
+        <button id="p40-preset-search" class="btn-soft text-xs" data-accent="reasoning">Search (Small Gap)</button>
+        <button id="p40-preset-ads" class="btn-soft text-xs" data-accent="attention">Ads (No Effect)</button>
+        <button id="p40-preset-heterogeneity" class="btn-soft text-xs" data-accent="reasoning">Heterogeneity Demo</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Results section -->
+  <div class="panel panel-neutral p-4 space-y-4">
+    <h4 class="text-sm font-semibold text-heading">Projected outcomes</h4>
+    
+    <div class="grid md:grid-cols-3 gap-3">
+      <div class="panel panel-neutral-soft p-3">
+        <p class="text-xs panel-muted mb-1">Sales lift</p>
+        <p id="p40-sales-lift" class="text-2xl font-bold text-heading">16.3%</p>
+      </div>
+      <div class="panel panel-neutral-soft p-3">
+        <p class="text-xs panel-muted mb-1">Conversion rate Δ</p>
+        <p id="p40-conversion-delta" class="text-2xl font-bold text-heading">+22%</p>
+      </div>
+      <div class="panel panel-neutral-soft p-3">
+        <p class="text-xs panel-muted mb-1">Annual value per user</p>
+        <p id="p40-annual-value" class="text-2xl font-bold text-heading">$5.00</p>
+      </div>
+    </div>
+
+    <div class="panel panel-info p-3">
+      <p class="text-xs font-semibold text-heading mb-2">Mechanism explanation</p>
+      <p id="p40-mechanism" class="text-xs text-body">Friction reduction through 24/7 multilingual customer support addressing information asymmetry in pre-purchase questions.</p>
+    </div>
+  </div>
+
+  <!-- Insight section -->
+  <div class="panel panel-warning p-4 space-y-2">
+    <h4 class="text-sm font-semibold text-heading">💡 Interpretation</h4>
+    <div id="p40-interpretation" class="text-sm text-body space-y-2">
+      <p>The chatbot workflow shows the largest gains (16.3%) because the baseline was no customer support—GenAI's marginal contribution is highest where existing capabilities are weakest. As you move the baseline slider up, gains diminish because GenAI augments rather than replaces a stronger existing solution.</p>
+      <p>Conversion rate increases drive sales, not cart value changes. GenAI expands the market by reducing frictions that previously prevented purchases, rather than extracting more from existing buyers.</p>
+    </div>
+  </div>
+</section>

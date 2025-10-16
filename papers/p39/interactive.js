@@ -165,11 +165,27 @@
       
       // Percentage view
       if (percentageView) {
+        // Format percentage in a more readable way
+        let percentageDisplay;
+        if (percentage < 0.000001) {
+          percentageDisplay = 'Less than 1 in 100 million';
+        } else if (percentage < 0.00001) {
+          percentageDisplay = 'Less than 1 in 10 million';
+        } else if (percentage < 0.0001) {
+          percentageDisplay = 'Less than 1 in 1 million';
+        } else if (percentage < 0.001) {
+          percentageDisplay = 'Less than 1 in 100,000';
+        } else if (percentage < 0.01) {
+          percentageDisplay = 'Less than 1 in 10,000';
+        } else {
+          percentageDisplay = `${percentage.toFixed(4)}%`;
+        }
+        
         let percentageHTML = `
           <div class="flex-1">
-            <div class="text-body font-medium">${percentage.toExponential(3)}% of training data</div>
-            <p class="text-body mt-1">Traditional defenses assume smaller percentages = lower risk.</p>
-            <p class="text-body mt-1">At ${model.label}, this seems negligible—suggesting larger models are "safer" due to dilution.</p>
+            <div class="text-body font-medium">${percentageDisplay} of training data</div>
+            <p class="text-body mt-1">Looking at percentages can be misleading. When you train on billions of documents, ${poisonCount} poisoned ones seem like a tiny drop in the ocean.</p>
+            <p class="text-body mt-1">This false sense of security makes it easy to think: "larger models train on more data, so they're safer." But that's not how poisoning works.</p>
           </div>
           <div class="chip chip-warning mt-auto">
             ⚠️ Misleading metric
@@ -183,8 +199,8 @@
         let absoluteHTML = `
           <div class="flex-1">
             <div class="text-body font-medium">${poisonCount} poisoned documents</div>
-            <p class="text-body mt-1">Actual risk determined by absolute count, not percentage.</p>
-            <p class="text-body mt-1">Same ${poisonCount} docs compromise all models equally (600M-13B params).</p>
+            <p class="text-body mt-1">What actually matters is the raw number of poisoned documents. If an attacker adds ${poisonCount} poisoned documents to your training data, it doesn't matter if you're training a small or large model.</p>
+            <p class="text-body mt-1">Both will learn the backdoor equally well. The paper proves this works the same across models from 600 million to 13 billion parameters.</p>
           </div>
           <div class="chip ${asr > 70 ? 'chip-danger' : 'chip-success'} mt-auto">
             ${asr > 70 ? '🚨 High risk at all scales' : '✓ Below attack threshold'}

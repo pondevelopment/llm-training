@@ -41,6 +41,14 @@ jobs:
           echo "✅ Agentic Search tutorial built successfully"
           ls -lh dist/
 
+      - name: Generate build info
+        run: |
+          BUILD_TIME=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          BUILD_COMMIT=$(git rev-parse --short HEAD)
+          echo "window.BUILD_INFO = { timestamp: '${BUILD_TIME}', commit: '${BUILD_COMMIT}' };" > js/build-info.js
+          echo "✅ Build info generated: ${BUILD_TIME} (${BUILD_COMMIT})"
+          cat js/build-info.js
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
 

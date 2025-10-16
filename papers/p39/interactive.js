@@ -169,7 +169,7 @@
           <div class="text-body font-medium">${percentage.toExponential(3)}% of training data</div>
           <p class="text-body mt-1">Traditional defenses assume smaller percentages = lower risk.</p>
           <p class="text-body mt-1">At ${model.label}, this seems negligible—suggesting larger models are "safer" due to dilution.</p>
-          <div class="mt-2 px-2 py-1 rounded text-[11px] ${asr > 70 ? 'bg-red-100 text-red-800' : 'bg-amber-100 text-amber-800'}">
+          <div class="chip chip-warning mt-2">
             ⚠️ Misleading metric
           </div>
         `;
@@ -182,7 +182,7 @@
           <div class="text-body font-medium">${poisonCount} poisoned documents</div>
           <p class="text-body mt-1">Actual risk determined by absolute count, not percentage.</p>
           <p class="text-body mt-1">Same ${poisonCount} docs compromise all models equally (600M-13B params).</p>
-          <div class="mt-2 px-2 py-1 rounded text-[11px] ${asr > 70 ? 'bg-red-100 text-red-800' : 'bg-green-100 text-green-800'}">
+          <div class="chip ${asr > 70 ? 'chip-danger' : 'chip-success'} mt-2">
             ${asr > 70 ? '🚨 High risk at all scales' : '✓ Below attack threshold'}
           </div>
         `;

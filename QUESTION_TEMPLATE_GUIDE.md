@@ -19,6 +19,48 @@ questions/
 
 Static share pages still live under `/q/N.html`. Use `q/_template.html` as a reference when adding new ones.
 
+## Share pages (`q/XX.html`)
+
+Share pages provide rich previews when links are shared in Telegram, WhatsApp, Slack, Twitter, LinkedIn, etc.
+
+### Required meta tags
+
+**Basic HTML:**
+```html
+<meta name="description" content="Clear explanation of what the question covers and why it matters">
+```
+
+**Open Graph (Facebook, LinkedIn, WhatsApp, Telegram):**
+```html
+<meta property="og:type" content="article">
+<meta property="og:title" content="Question XX: Short Question Title">
+<meta property="og:description" content="What you'll learn: key concepts, common pitfalls, practical applications">
+<meta property="og:url" content="https://pondevelopment.github.io/llm-training/q/XX.html">
+<meta property="og:image" content="https://pondevelopment.github.io/llm-training/llm_training.png">
+<meta property="og:site_name" content="LLM Learning Hub">
+```
+
+**Twitter Card:**
+```html
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Question XX: Short Question Title">
+<meta name="twitter:description" content="Clear, concise explanation of the question topic">
+<meta name="twitter:image" content="https://pondevelopment.github.io/llm-training/llm_training.png">
+```
+
+### Content guidelines
+
+- **Title (`og:title`):** "Question XX: Clear Question Title" - keep under 60 chars
+- **Description (`og:description`):** 2-3 sentences explaining what concepts are covered, common misconceptions addressed, and practical value. Make it compelling enough that someone wants to click through.
+- **Page content:** Brief introduction to the question topic with clear CTA
+- **CTA link:** Point to `../index.html#question-XX` so users land at the full interactive explainer
+
+### Image assets
+
+- **Default:** Use `llm_training.png` (site-wide branded image at 1200×630px)
+- **Domain:** Always use full GitHub Pages URL: `https://pondevelopment.github.io/llm-training/`
+- **Never:** Reference Vercel or other platforms not involved in hosting
+
 ## Loader expectations
 
 The client fetches `/questions/manifest.json` to discover question assets. Each entry should point to a `dir` (preferred) or explicit paths:

@@ -15,7 +15,14 @@ Use this checklist when creating or updating questions for the LLM Questions app
   - [ ] `interactive.html`
   - [ ] `interactive.js` exporting `interactiveScript`
 - [ ] Add or update the entry in `questions/manifest.json` (prefer `{ "XX": { "title": "...", "dir": "./questions/qXX", "interactiveTitle": "..." } }`)
-- [ ] Update `/q/XX.html` (static share page) with the new title/description/links
+- [ ] Update `/q/XX.html` (static share page) with complete social media meta tags:
+  - [ ] Meta description explaining what the question covers and why it matters
+  - [ ] Open Graph tags: `og:type`, `og:title`, `og:description`, `og:url`, `og:image`, `og:site_name`
+  - [ ] Twitter Card tags: `twitter:card` (summary_large_image), `twitter:title`, `twitter:description`, `twitter:image`
+  - [ ] Use full GitHub Pages URL: `https://pondevelopment.github.io/llm-training/`
+  - [ ] Use `llm_training.png` for `og:image` and `twitter:image`
+  - [ ] Compelling description that explains concepts covered and practical value
+  - [ ] Link points to `../index.html#question-XX`
 - [ ] Ensure the question id exists in `availableQuestions` (and relevant learning paths) in `js/app.js`
 - [ ] Add the question to `all.html` (titles map + path arrays) if it isn't already present
 

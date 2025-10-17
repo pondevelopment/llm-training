@@ -41,7 +41,14 @@ U## Ov## Before you start
   - [ ] `interactive.html`
   - [ ] `interactive.js` exporting `interactiveScript`
 - [ ] Add/Update entry in `papers/manifest.json` with `title`, `authors`, `year`, `venue`, `tags`, `summary`, `dir`, `interactiveTitle`, and `relatedQuestions`
-- [ ] Create or update `p/XX.html` share page (title, description, OG image, link to `index.html#paper-XX`)
+- [ ] Create or update `p/XX.html` share page with complete social media meta tags:
+  - [ ] Meta description (2-3 sentences with key findings)
+  - [ ] Open Graph tags: `og:type`, `og:title`, `og:description`, `og:url`, `og:image`, `og:site_name`
+  - [ ] Twitter Card tags: `twitter:card` (summary_large_image), `twitter:title`, `twitter:description`, `twitter:image`
+  - [ ] Use full GitHub Pages URL: `https://pondevelopment.github.io/llm-training/`
+  - [ ] Use `llm_training.png` for `og:image` and `twitter:image`
+  - [ ] Page content highlights key statistics upfront with specific CTA
+  - [ ] Link points to `../index.html#paper-XX`
 - [ ] Confirm `relatedQuestions` ids exist in `questions/manifest.json` and `availableQuestions`
 
 ## Overview content

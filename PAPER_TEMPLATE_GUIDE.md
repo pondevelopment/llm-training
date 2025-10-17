@@ -185,10 +185,52 @@ When covering business/economics papers (e.g., GenAI productivity studies):
 
 ## Share pages (`p/XX.html`)
 
-- Title format: `Paper XX • LLM Paper Explainers`.
-- Description: plain sentence summarising the quick take.
-- `og:image`: use the hosted OG image for the series or a paper-specific asset.
-- CTA link should point to `../index.html#paper-XX`.
+Share pages are critical for social media discoverability. They provide rich previews when links are shared in Telegram, WhatsApp, Slack, Twitter, LinkedIn, etc.
+
+### Required meta tags
+
+**Basic HTML:**
+```html
+<meta name="description" content="2-3 sentence summary with key findings and statistics">
+```
+
+**Open Graph (Facebook, LinkedIn, WhatsApp, Telegram):**
+```html
+<meta property="og:type" content="article">
+<meta property="og:title" content="Paper XX: Concise Title – Key Stat">
+<meta property="og:description" content="Rich description with context, findings, methods, and value proposition">
+<meta property="og:url" content="https://pondevelopment.github.io/llm-training/p/XX.html">
+<meta property="og:image" content="https://pondevelopment.github.io/llm-training/llm_training.png">
+<meta property="og:site_name" content="LLM Learning Hub">
+```
+
+**Twitter Card:**
+```html
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Paper XX: Concise Title – Key Stat">
+<meta name="twitter:description" content="Condensed description for Twitter's limits">
+<meta name="twitter:image" content="https://pondevelopment.github.io/llm-training/llm_training.png">
+```
+
+**Optional but recommended:**
+```html
+<meta name="author" content="First Author, Second Author, ...">
+```
+
+### Content guidelines
+
+- **Title (`og:title`):** Include paper number, short title, and headline statistic. Example: "Paper 40: GenAI Productivity Field Experiments – Sales +0-16.3%"
+- **Description (`og:description`):** 2-4 sentences covering: study design (N users, timeframe, countries), key findings with numbers, mechanism/method, practical implications. Front-load the most impressive statistics.
+- **Twitter description:** Shorter version (max 200 chars) that still conveys core value.
+- **Page content:** Use semantic HTML with clear hierarchy. Highlight key statistics upfront using `<strong>` tags. Make CTA specific ("View interactive ROI calculator →" not "Open interactive explainer").
+- **CTA link:** Always point to `../index.html#paper-XX` so users land at the full interactive explainer.
+
+### Image assets
+
+- **Default:** Use `llm_training.png` (site-wide branded image)
+- **Custom:** For important papers, consider creating paper-specific OG images (1200×630px recommended)
+- **Domain:** Always use full GitHub Pages URL: `https://pondevelopment.github.io/llm-training/`
+- **Never:** Reference Vercel or other platforms not involved in hosting
 
 ## Testing checklist (preview)
 

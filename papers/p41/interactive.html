@@ -29,7 +29,7 @@
           <input type="range" id="p41-num-outputs" min="1" max="10" value="5" class="flex-1">
           <span id="p41-num-outputs-label" class="text-sm font-mono text-body w-8 text-right">5</span>
         </div>
-        <p class="text-xs panel-muted mt-1">More outputs increase diversity but require more tokens. Verbalized Sampling asks the model to generate N options with probabilities, then samples from the distribution.</p>
+        <p class="text-xs panel-muted mt-1">More outputs increase diversity but use more tokens. The model generates multiple options with likelihood scores, then you pick from the most promising ones.</p>
       </div>
 
       <div>
@@ -38,14 +38,14 @@
           <input type="range" id="p41-temperature" min="0" max="20" value="10" class="flex-1">
           <span id="p41-temperature-label" class="text-sm font-mono text-body w-12 text-right">1.0</span>
         </div>
-        <p class="text-xs panel-muted mt-1">Controls randomness in sampling from the verbalized distribution. Higher values increase variety but may reduce coherence. Paper tested 0.7–1.2 range.</p>
+        <p class="text-xs panel-muted mt-1">Controls how creative the outputs are. Higher values give more variety but may reduce coherence. The paper tested 0.7–1.2 range.</p>
       </div>
 
       <div class="flex items-center gap-2">
         <input type="checkbox" id="p41-use-vs" checked class="rounded border-divider text-accent-strong focus:ring-accent-strong">
         <label for="p41-use-vs" class="text-sm text-body">Enable Verbalized Sampling (uncheck for baseline prompting)</label>
       </div>
-      <p class="text-xs panel-muted">Verbalized Sampling prompts the model to output probabilities for each response. Baseline prompting requests outputs directly without probability weighting.</p>
+      <p class="text-xs panel-muted">Verbalized Sampling asks for multiple responses with confidence scores. Baseline prompting just asks for responses directly.</p>
     </div>
   </div>
 
@@ -170,10 +170,10 @@
     <h4 class="text-sm font-semibold text-heading">Key insight</h4>
     <div id="p41-insight" class="text-sm text-body space-y-2">
       <p>
-        Verbalized Sampling recovers pre-training diversity by prompting the model to explicitly output probability distributions. This sidesteps mode collapse caused by typicality bias in preference data—annotators unconsciously favor familiar responses during RLHF/DPO training, compressing the output space.
+        Verbalized Sampling helps models generate more varied outputs by asking them to list multiple options with confidence scores. This works around a problem where models trained on human feedback learn to give safe, repetitive answers because human reviewers unconsciously prefer familiar-sounding text.
       </p>
       <p class="text-xs panel-muted">
-        <strong>Practical implication:</strong> For creative applications, wrap prompts with "Generate N [outputs] with their probabilities." Parse the structured response, sample from the distribution, and post-process. No model retraining required—works with existing API endpoints. Quality metrics (accuracy, safety) remain stable while diversity increases 1.6–2.1× across tasks.
+        <strong>How to use it:</strong> Instead of "Write a joke," ask "Generate 5 jokes with likelihood scores for each." The model creates diverse options you can choose from. No retraining needed—works with existing APIs. Quality stays the same while variety increases 1.6–2.1× across creative tasks.
       </p>
     </div>
   </div>

@@ -284,12 +284,12 @@
     if (insightEl) {
       let insightText = `
         <p>
-          Verbalized Sampling recovers pre-training diversity by prompting the model to explicitly output probability distributions. This sidesteps mode collapse caused by typicality bias in preference data—annotators unconsciously favor familiar responses during RLHF/DPO training, compressing the output space.
+          Verbalized Sampling helps models generate more varied outputs by asking them to list multiple options with confidence scores. This works around a problem where models trained on human feedback learn to give safe, repetitive answers because human reviewers unconsciously prefer familiar-sounding text.
         </p>
         <p class="text-xs panel-muted">
-          <strong>Current configuration:</strong> ${useVS ? 'Verbalized Sampling enabled' : 'Baseline mode'} with ${numOutputs} outputs and temperature ${temperature.toFixed(1)}. 
-          Diversity: ${(currentDiversity * 100).toFixed(0)}%, Quality: ${(accuracy * 100).toFixed(0)}%. 
-          ${useVS ? `Verbalized Sampling increases diversity by ${diversityGain.toFixed(1)}× while maintaining ${(accuracy * 100).toFixed(0)}% accuracy.` : 'Enable Verbalized Sampling to see diversity gains without quality degradation.'}
+          <strong>Current setup:</strong> ${useVS ? 'Verbalized Sampling enabled' : 'Baseline mode'} with ${numOutputs} outputs and temperature ${temperature.toFixed(1)}. 
+          Variety: ${(currentDiversity * 100).toFixed(0)}%, Quality: ${(accuracy * 100).toFixed(0)}%. 
+          ${useVS ? `This approach increases variety by ${diversityGain.toFixed(1)}× while keeping ${(accuracy * 100).toFixed(0)}% accuracy.` : 'Enable Verbalized Sampling to see how variety improves without losing quality.'}
         </p>
       `;
       insightEl.innerHTML = insightText;

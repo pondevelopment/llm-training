@@ -166,10 +166,15 @@
     const semanticDiversity = currentDiversity * 1.05; // Semantic slightly higher than n-gram (from paper)
     const selfBLEU = 1 - currentDiversity; // Self-BLEU inversely correlates with diversity
 
-    // Quality metrics
-    const accuracy = useVS ? profile.accuracyVS : profile.accuracyBase;
-    const coherence = useVS ? profile.coherenceVS : profile.coherenceBase;
-    const safety = useVS ? profile.safetyVS : profile.safetyBase;
+    // Quality metrics - affected by temperature
+    // Higher temperature reduces coherence and accuracy slightly, but paper shows minimal degradation
+    const tempPenalty = Math.max(0, (temperature - 1.0) * 0.05); // 5% penalty per 0.1 above 1.0
+    const baseAccuracy = useVS ? profile.accuracyVS : profile.accuracyBase;
+    const baseCoherence = useVS ? profile.coherenceVS : profile.coherenceBase;
+    
+    const accuracy = Math.max(0.7, baseAccuracy - tempPenalty); // Don't go below 70%
+    const coherence = Math.max(0.7, baseCoherence - tempPenalty); // Don't go below 70%
+    const safety = useVS ? profile.safetyVS : profile.safetyBase; // Safety not affected by temperature
 
     // Update diversity metrics
     const ngramEl = document.getElementById('p41-ngram-diversity');

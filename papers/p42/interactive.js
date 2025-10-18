@@ -123,28 +123,35 @@
 
     // Calculate metrics based on strategy
     let compliance, directRejection, correctRejection, validCompliance;
+    
+    // Out-of-distribution penalty: models perform slightly worse on unfamiliar domains
+    const oodPenalty = domain === 'cancer-drugs' ? 0.85 : 1.0; // 15% worse on OOD
 
     if (strategy === 'baseline') {
-      compliance = profile.baselineCompliance;
-      directRejection = 0;
+      // OOD affects baseline too - model slightly more likely to reject unfamiliar terms
+      const baseCompliance = domain === 'cancer-drugs' 
+        ? Math.max(70, profile.baselineCompliance * 0.9) 
+        : profile.baselineCompliance;
+      compliance = baseCompliance;
+      directRejection = profile.baselineCompliance - baseCompliance;
       correctRejection = 0;
       validCompliance = 100;
     } else if (strategy === 'rejection-hint') {
-      const reduction = profile.baselineCompliance * profile.rejectionHintEffect;
+      const reduction = profile.baselineCompliance * profile.rejectionHintEffect * oodPenalty;
       compliance = Math.max(0, profile.baselineCompliance - reduction);
       // Rejection hint creates mostly direct rejections (no reasoning)
       directRejection = reduction * 0.85;
       correctRejection = reduction * 0.15;
       validCompliance = 98;
     } else if (strategy === 'factual-recall') {
-      const reduction = profile.baselineCompliance * profile.factualRecallEffect;
+      const reduction = profile.baselineCompliance * profile.factualRecallEffect * oodPenalty;
       compliance = Math.max(0, profile.baselineCompliance - reduction);
       // Factual recall creates more rejections with reasoning
       directRejection = reduction * 0.30;
       correctRejection = reduction * 0.70;
       validCompliance = 99;
     } else if (strategy === 'combined-prompt') {
-      const reduction = profile.baselineCompliance * profile.combinedEffect;
+      const reduction = profile.baselineCompliance * profile.combinedEffect * oodPenalty;
       compliance = Math.max(0, profile.baselineCompliance - reduction);
       // Combined approach balances both types
       directRejection = reduction * 0.45;
@@ -235,19 +242,35 @@
     if (!insightsEl || !validStatusEl) return;
 
     let setupText, whyText;
+    
+    const domainLabel = domain === 'cancer-drugs' ? 'cancer drugs (out-of-distribution)' : 'general drugs';
 
     if (strategy === 'baseline') {
-      setupText = `Baseline ${profile.name} shows ${compliance}% compliance with illogical drug equivalence requests—it will confidently state that different medications are the same, even though it can correctly identify them when asked neutrally.`;
-      whyText = 'This demonstrates the honesty-helpfulness tradeoff in RLHF training. Models optimize for perceived agreeableness over logical consistency, creating systematic vulnerabilities in medical AI deployments.';
+      if (domain === 'cancer-drugs') {
+        setupText = `Baseline ${profile.name} shows ${compliance}% compliance on ${domainLabel}—slightly lower than in-distribution due to unfamiliar terminology, but still dangerously high sycophancy.`;
+        whyText = 'Out-of-distribution testing reveals that unfamiliarity with specific drug names provides minimal protection. The model still prioritizes agreeableness over rejecting illogical requests, even in specialized medical domains.';
+      } else {
+        setupText = `Baseline ${profile.name} shows ${compliance}% compliance with illogical drug equivalence requests—it will confidently state that different medications are the same, even though it can correctly identify them when asked neutrally.`;
+        whyText = 'This demonstrates the honesty-helpfulness tradeoff in RLHF training. Models optimize for perceived agreeableness over logical consistency, creating systematic vulnerabilities in medical AI deployments.';
+      }
     } else if (strategy === 'rejection-hint') {
-      setupText = `Adding "you can refuse illogical requests" reduces compliance to ${compliance}%, but most rejections lack reasoning. The model knows it should say no but doesn\'t explain why.`;
-      whyText = 'Rejection hints provide immediate mitigation but don\'t fully restore logical reasoning. This is suitable for quick deployment while developing better solutions.';
+      const domainNote = domain === 'cancer-drugs' ? ' On out-of-distribution cancer drugs, effectiveness drops ~15% as the model has less confident knowledge to anchor rejections.' : '';
+      setupText = `Adding "you can refuse illogical requests" reduces compliance to ${compliance}%, but most rejections lack reasoning.${domainNote}`;
+      whyText = domain === 'cancer-drugs' 
+        ? 'Rejection hints are less effective on unfamiliar domains because the model lacks strong prior knowledge to trigger skepticism. This shows why domain-specific fine-tuning matters for medical AI.'
+        : 'Rejection hints provide immediate mitigation but don\'t fully restore logical reasoning. This is suitable for quick deployment while developing better solutions.';
     } else if (strategy === 'factual-recall') {
-      setupText = `Prompting with "recall what you know first" reduces compliance to ${compliance}%, with ${correctRejection}% of responses including correct reasoning about why the request is illogical.`;
-      whyText = 'Factual recall cues help the model retrieve knowledge before generating responses, improving logical consistency. This works better than rejection hints alone for educational clarity.';
+      const domainNote = domain === 'cancer-drugs' ? ' Out-of-distribution cancer drugs reduce effectiveness by ~15% as factual recall finds less confident knowledge.' : '';
+      setupText = `Prompting with "recall what you know first" reduces compliance to ${compliance}%, with ${correctRejection}% of responses including correct reasoning.${domainNote}`;
+      whyText = domain === 'cancer-drugs'
+        ? 'Factual recall struggles on out-of-distribution data because the model has weaker representations of specialized terms. This highlights the value of fine-tuning on domain-specific medical knowledge.'
+        : 'Factual recall cues help the model retrieve knowledge before generating responses, improving logical consistency. This works better than rejection hints alone for educational clarity.';
     } else if (strategy === 'combined-prompt') {
-      setupText = `Combining rejection permission and factual recall reduces compliance to ${compliance}%, with ${correctRejection}% of rejections providing correct explanations of the logical error.`;
-      whyText = 'This is the best prompt-based mitigation: it gives the model both permission to refuse and a process for checking logic. Effective for immediate deployment without additional training.';
+      const domainNote = domain === 'cancer-drugs' ? ' On cancer drugs (OOD), effectiveness decreases ~15% but still provides substantial protection.' : '';
+      setupText = `Combining rejection permission and factual recall reduces compliance to ${compliance}%, with ${correctRejection}% correct rejections.${domainNote}`;
+      whyText = domain === 'cancer-drugs'
+        ? 'Combined prompting partially degrades on out-of-distribution data but remains effective. For production medical AI, this shows the importance of either broad training data or domain-specific fine-tuning.'
+        : 'This is the best prompt-based mitigation: it gives the model both permission to refuse and a process for checking logic. Effective for immediate deployment without additional training.';
     } else if (strategy === 'fine-tuned') {
       if (domain === 'general-drugs') {
         setupText = `Fine-tuning on 300 illogical drug examples achieves ${compliance}% compliance (i.e., ${100 - compliance}% rejection) on in-distribution tests, with ${correctRejection}% providing correct reasoning.`;

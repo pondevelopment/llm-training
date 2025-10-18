@@ -5,48 +5,48 @@
   const modelProfiles = {
     'gpt4o-mini': {
       name: 'GPT-4o-mini',
-      baselineCompliance: 100,
-      rejectionHintEffect: 0.54,    // Reduces compliance by 54%
-      factualRecallEffect: 0.12,    // Reduces compliance by 12%
-      combinedEffect: 0.66,         // Combined: 66% reduction
+      baselineCompliance: 100,      // 50/50 in paper
+      rejectionHintEffect: 0.38,    // Improved to 62% rejection (38% compliance)
+      factualRecallEffect: 0.12,    // Modest improvement
+      combinedEffect: 0.62,         // 62% total rejection from paper
       fineTunedRejection: 100,      // 100% rejection after fine-tuning
-      fineTunedCorrect: 79          // 79% with correct reasoning
+      fineTunedCorrect: 79          // 79% with correct reasoning on OOD
     },
     'gpt4o': {
       name: 'GPT-4o',
-      baselineCompliance: 100,
-      rejectionHintEffect: 0.48,
-      factualRecallEffect: 0.15,
-      combinedEffect: 0.63,
-      fineTunedRejection: 98,
-      fineTunedCorrect: 75
+      baselineCompliance: 100,      // 50/50 in paper
+      rejectionHintEffect: 0.62,    // 31/50 rejection = 62% rejection
+      factualRecallEffect: 0.18,    // Additional improvement
+      combinedEffect: 0.88,         // Strong combined effect
+      fineTunedRejection: 98,       // Estimated from paper trends
+      fineTunedCorrect: 75          // Estimated
     },
     'gpt4': {
       name: 'GPT-4',
-      baselineCompliance: 100,
-      rejectionHintEffect: 0.45,
-      factualRecallEffect: 0.18,
-      combinedEffect: 0.60,
-      fineTunedRejection: 96,
-      fineTunedCorrect: 72
+      baselineCompliance: 100,      // 50/50 in paper
+      rejectionHintEffect: 0.64,    // 32/50 rejection = 64% rejection
+      factualRecallEffect: 0.24,    // Best factual recall response
+      combinedEffect: 0.94,         // 94% rejection (47/50) from paper
+      fineTunedRejection: 96,       // Estimated
+      fineTunedCorrect: 80          // Estimated higher for GPT-4
     },
-    'claude35': {
-      name: 'Claude-3.5-Sonnet',
-      baselineCompliance: 70,
-      rejectionHintEffect: 0.42,
-      factualRecallEffect: 0.20,
-      combinedEffect: 0.58,
-      fineTunedRejection: 100,
-      fineTunedCorrect: 82
+    'llama3-8b': {
+      name: 'Llama3-8B',
+      baselineCompliance: 94,       // 47/50 in paper
+      rejectionHintEffect: 0.04,    // Minimal improvement with rejection hint
+      factualRecallEffect: 0.18,    // Some improvement
+      combinedEffect: 0.28,         // Direct rejection jump to 66% (33/50)
+      fineTunedRejection: 99,       // 99% from paper
+      fineTunedCorrect: 70          // 70% with correct reasoning
     },
-    'gemini15': {
-      name: 'Gemini-1.5-Pro',
-      baselineCompliance: 80,
-      rejectionHintEffect: 0.50,
-      factualRecallEffect: 0.10,
-      combinedEffect: 0.58,
-      fineTunedRejection: 94,
-      fineTunedCorrect: 70
+    'llama3-70b': {
+      name: 'Llama3-70B',
+      baselineCompliance: 58,       // 21/50 rejection = 58% compliance
+      rejectionHintEffect: 0.10,    // Minimal improvement
+      factualRecallEffect: 0.15,    // Some improvement
+      combinedEffect: 0.50,         // 92% rejection (46/50) from paper
+      fineTunedRejection: 94,       // Estimated
+      fineTunedCorrect: 68          // Estimated
     }
   };
 

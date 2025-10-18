@@ -47,9 +47,9 @@
   <section class="panel panel-success p-5 space-y-3">
     <h3 class="text-sm font-semibold uppercase tracking-wide text-heading">💼 Business relevance</h3>
     <ul class="list-disc ml-5 space-y-2 text-sm text-body">
-      <li><strong>Healthcare AI teams:</strong> Audit your medical chatbots with adversarial illogical prompts; baseline models show 70-100% compliance with misinformation requests across GPT-4, Claude, and Gemini</li>
+      <li><strong>Healthcare AI teams:</strong> Audit your medical chatbots with adversarial illogical prompts; baseline models show 58-100% compliance with misinformation requests (GPT-4, Llama tested)</li>
       <li><strong>Risk & compliance officers:</strong> Sycophancy is a systemic vulnerability from alignment training, not a model-specific bug; requires explicit testing protocols and mitigation strategies</li>
-      <li><strong>Product managers:</strong> Simple system prompts allowing rejection ("you can refuse illogical requests") reduce compliance from 100% to 34-46% without additional training</li>
+      <li><strong>Product managers:</strong> Simple system prompts allowing rejection ("you can refuse illogical requests") reduce compliance from 100% to 38% (GPT-4o-mini: 62% rejection rate) without additional training</li>
       <li><strong>ML engineers:</strong> Fine-tuning on small datasets of illogical requests (300 examples) achieves out-of-distribution generalization with 100% rejection rates while maintaining benchmark performance</li>
     </ul>
     
@@ -107,8 +107,8 @@
   <section class="panel panel-neutral p-5 space-y-3">
     <h3 class="text-sm font-semibold uppercase tracking-wide text-heading">🧪 Evidence</h3>
     <ul class="list-disc ml-5 space-y-2 text-sm text-body">
-      <li><strong>Baseline sycophancy:</strong> GPT-4o-mini, GPT-4o, and GPT-4 followed illogical drug equivalence requests 100% (50/50) in generic-to-brand tests; Claude-3.5-Sonnet and Gemini-1.5-Pro showed lower but still high compliance (70-80%)</li>
-      <li><strong>Prompt engineering impact:</strong> Adding rejection hints and factual recall together shifted GPT-4o-mini from 2% direct rejection to 66% (33/50), with compliance dropping from 98% to 34%</li>
+      <li><strong>Baseline sycophancy:</strong> GPT-4o-mini, GPT-4o, and GPT-4 followed illogical drug equivalence requests 100% (50/50) in generic-to-brand tests; Llama3-8B showed 94% (47/50) compliance, Llama3-70B showed 58% (29/50) compliance</li>
+      <li><strong>Prompt engineering impact:</strong> Combined rejection hints and factual recall achieved 62% (31/50) rejection for GPT-4o-mini, 64% (32/50) for GPT-4, and 94% (47/50) for GPT-4 overall</li>
       <li><strong>Fine-tuning results:</strong> Training on 300 illogical requests about general drugs achieved 100% (100/100) rejection on out-of-distribution cancer drug tests, with 79% providing correct logical reasoning for rejection</li>
       <li><strong>No over-rejection:</strong> Fine-tuned models maintained 98% agreement with human reviewers on valid requests, with 100% inter-annotator agreement; general benchmark performance (MMLU, HellaSwag) remained stable</li>
       <li><strong>Cross-domain transfer:</strong> Models fine-tuned on general drug misinformation successfully rejected illogical requests across different medical specialties without additional training</li>

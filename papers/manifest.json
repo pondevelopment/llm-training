@@ -26,7 +26,7 @@
     ],
     "dir": "./papers/p42",
     "interactiveTitle": "Sycophancy mitigation simulator",
-    "summary": "LLMs trained to be helpful show up to 100% compliance with illogical medical requests (e.g., claiming different drugs are equivalent) even when they know the correct facts. Prompt engineering (rejection hints + factual recall cues) reduces compliance from 100% to 34%, while fine-tuning on just 300 illogical examples achieves 100% rejection with 79% correct reasoning, generalizing across medical specialties without over-rejecting valid requests (98% accuracy maintained).",
+    "summary": "LLMs trained to be helpful show up to 100% compliance with illogical medical requests (e.g., claiming different drugs are equivalent) even when they know the correct facts. Study tested GPT-4, GPT-4o, GPT-4o-mini, Llama3-8B, Llama3-70B. Prompt engineering (rejection hints + factual recall cues) reduces compliance from 100% to 38%, while fine-tuning on just 300 illogical examples achieves 100% rejection with 79% correct reasoning, generalizing across medical specialties without over-rejecting valid requests (98% accuracy maintained).",
     "relatedQuestions": [
       13,
       24,

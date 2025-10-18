@@ -215,9 +215,9 @@
     const diversityInterpEl = document.getElementById('p41-diversity-interpretation');
     if (diversityInterpEl) {
       if (useVS) {
-        diversityInterpEl.textContent = `Verbalized Sampling mode: High diversity (${diversityGain.toFixed(1)}× baseline)`;
+        diversityInterpEl.textContent = `Verbalized Sampling mode: High variety (${diversityGain.toFixed(1)}× baseline)`;
       } else {
-        diversityInterpEl.textContent = `Baseline mode: Limited diversity (${diversityGain.toFixed(1)}× reference)`;
+        diversityInterpEl.textContent = `Baseline mode: Limited variety (${diversityGain.toFixed(1)}× reference)`;
       }
     }
 
@@ -257,7 +257,7 @@
     const gainSummary = document.getElementById('p41-gain-summary');
     if (gainSummary) {
       const gain = finalVSDiversity / finalBaselineDiversity;
-      gainSummary.innerHTML = `<strong>Diversity gain:</strong> ${gain.toFixed(1)}× increase with Verbalized Sampling • Temperature and output count both influence final diversity`;
+      gainSummary.innerHTML = `<strong>Variety gain:</strong> ${gain.toFixed(1)}× increase with Verbalized Sampling • Temperature and output count both influence final variety`;
     }
 
     // Update scenario description and outputs

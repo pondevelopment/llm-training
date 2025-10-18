@@ -59,25 +59,35 @@
     <div class="grid md:grid-cols-2 gap-4">
       <!-- Diversity metrics -->
       <div class="panel panel-neutral-soft p-3 space-y-2">
-        <p class="text-xs font-semibold text-heading">Diversity metrics</p>
-        <div class="space-y-1">
-          <div class="flex justify-between text-xs">
-            <span class="panel-muted">Distinct n-grams:</span>
-            <span id="p41-ngram-diversity" class="font-mono text-body">0.68</span>
+        <p class="text-xs font-semibold text-heading">Variety metrics</p>
+        <p class="text-xs panel-muted mb-2">How different the outputs are from each other:</p>
+        <div class="space-y-2">
+          <div>
+            <div class="flex justify-between text-xs">
+              <span class="panel-muted">Unique word combinations:</span>
+              <span id="p41-ngram-diversity" class="font-mono text-body">0.68</span>
+            </div>
+            <p class="text-[10px] panel-muted italic">How many different phrases appear (higher = more variety)</p>
           </div>
-          <div class="flex justify-between text-xs">
-            <span class="panel-muted">Semantic diversity:</span>
-            <span id="p41-semantic-diversity" class="font-mono text-body">0.72</span>
+          <div>
+            <div class="flex justify-between text-xs">
+              <span class="panel-muted">Meaning variety:</span>
+              <span id="p41-semantic-diversity" class="font-mono text-body">0.72</span>
+            </div>
+            <p class="text-[10px] panel-muted italic">How different the ideas are (higher = more variety)</p>
           </div>
-          <div class="flex justify-between text-xs">
-            <span class="panel-muted">Self-BLEU (lower = more diverse):</span>
-            <span id="p41-self-bleu" class="font-mono text-body">0.32</span>
+          <div>
+            <div class="flex justify-between text-xs">
+              <span class="panel-muted">Repetition score:</span>
+              <span id="p41-self-bleu" class="font-mono text-body">0.16</span>
+            </div>
+            <p class="text-[10px] panel-muted italic">How similar outputs are to each other (lower = less repetitive)</p>
           </div>
         </div>
         <div id="p41-diversity-bar" class="mt-2 h-6 rounded overflow-hidden bg-surface border border-divider flex">
           <div id="p41-diversity-fill" class="transition-all duration-300" style="width: 68%; background: #10b981;"></div>
         </div>
-        <p id="p41-diversity-interpretation" class="text-xs panel-muted mt-1">Verbalized Sampling mode: High diversity (1.8× baseline)</p>
+        <p id="p41-diversity-interpretation" class="text-xs panel-muted mt-1">Verbalized Sampling mode: High variety (2.2× baseline)</p>
       </div>
 
       <!-- Quality metrics -->
@@ -106,11 +116,11 @@
 
     <!-- Comparison chart -->
     <div class="mt-4 space-y-2">
-      <p class="text-xs font-semibold text-heading">Diversity gain comparison</p>
+      <p class="text-xs font-semibold text-heading">Comparison: Standard vs Verbalized Sampling</p>
       <div class="space-y-2">
         <div>
           <div class="flex justify-between text-xs mb-1">
-            <span class="panel-muted">Baseline prompting</span>
+            <span class="panel-muted">Standard prompting</span>
             <span id="p41-baseline-score" class="font-mono text-body">0.38</span>
           </div>
           <div class="h-4 rounded overflow-hidden bg-surface border border-divider">
@@ -128,7 +138,7 @@
         </div>
       </div>
       <p id="p41-gain-summary" class="text-xs panel-muted mt-2">
-        <strong>Diversity gain:</strong> 1.8× increase with Verbalized Sampling • Temperature and output count both influence final diversity
+        <strong>Variety gain:</strong> 1.8× increase with Verbalized Sampling • Temperature and output count both influence final variety
       </p>
     </div>
   </div>

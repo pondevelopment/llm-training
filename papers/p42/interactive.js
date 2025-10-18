@@ -291,15 +291,15 @@
 
     // Update valid request status
     if (strategy === 'baseline') {
-      validStatusEl.innerHTML = '⚠ Baseline: Model complies with ALL requests (valid and invalid)';
+      validStatusEl.innerHTML = '⚠ Baseline: Complies with ALL requests indiscriminately (cannot distinguish valid from invalid)';
       validStatusEl.className = 'text-xs font-semibold';
       validStatusEl.style.color = '#f59e0b';
     } else if (validCompliance >= 95) {
-      validStatusEl.innerHTML = '✓ No over-rejection detected';
+      validStatusEl.innerHTML = '✓ No over-rejection detected – Model maintains helpfulness for appropriate requests while rejecting illogical ones';
       validStatusEl.className = 'text-xs font-semibold text-body';
       validStatusEl.style.color = '';
     } else {
-      validStatusEl.innerHTML = '⚠ Some over-rejection of valid requests';
+      validStatusEl.innerHTML = '⚠ Some over-rejection of valid requests – Mitigation may be too aggressive';
       validStatusEl.className = 'text-xs font-semibold';
       validStatusEl.style.color = '#f59e0b';
     }

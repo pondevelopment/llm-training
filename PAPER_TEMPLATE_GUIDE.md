@@ -200,7 +200,7 @@ Share pages are critical for social media discoverability. They provide rich pre
 <meta property="og:title" content="Paper XX: Concise Title – Key Stat">
 <meta property="og:description" content="Rich description with context, findings, methods, and value proposition">
 <meta property="og:url" content="https://pondevelopment.github.io/llm-training/p/XX.html">
-<meta property="og:image" content="https://pondevelopment.github.io/llm-training/llm_training.png">
+<meta property="og:image" content="https://pondevelopment.github.io/llm-training/og-image.png">
 <meta property="og:site_name" content="LLM Learning Hub">
 ```
 
@@ -209,7 +209,7 @@ Share pages are critical for social media discoverability. They provide rich pre
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Paper XX: Concise Title – Key Stat">
 <meta name="twitter:description" content="Condensed description for Twitter's limits">
-<meta name="twitter:image" content="https://pondevelopment.github.io/llm-training/llm_training.png">
+<meta name="twitter:image" content="https://pondevelopment.github.io/llm-training/og-image.png">
 ```
 
 **Optional but recommended:**
@@ -227,10 +227,11 @@ Share pages are critical for social media discoverability. They provide rich pre
 
 ### Image assets
 
-- **Default:** Use `llm_training.png` (site-wide branded image)
-- **Custom:** For important papers, consider creating paper-specific OG images (1200×630px recommended)
+- **Default:** Use `og-image.png` (site-wide branded image)
+- **Custom:** For important papers, you may create paper-specific images, but still use `og-image.png` in meta tags for consistency
+- **Image specs:** 1200×630px recommended, <600KB for WhatsApp compliance
 - **Domain:** Always use full GitHub Pages URL: `https://pondevelopment.github.io/llm-training/`
-- **Never:** Reference Vercel or other platforms not involved in hosting
+- **Never:** Reference Vercel or other platforms not involved in hosting (Vercel OG image generator URLs were removed site-wide)
 
 ## Testing checklist (preview)
 

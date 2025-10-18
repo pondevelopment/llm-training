@@ -36,7 +36,7 @@ Share pages provide rich previews when links are shared in Telegram, WhatsApp, S
 <meta property="og:title" content="Question XX: Short Question Title">
 <meta property="og:description" content="What you'll learn: key concepts, common pitfalls, practical applications">
 <meta property="og:url" content="https://pondevelopment.github.io/llm-training/q/XX.html">
-<meta property="og:image" content="https://pondevelopment.github.io/llm-training/llm_training.png">
+<meta property="og:image" content="https://pondevelopment.github.io/llm-training/og-image.png">
 <meta property="og:site_name" content="LLM Learning Hub">
 ```
 
@@ -45,7 +45,7 @@ Share pages provide rich previews when links are shared in Telegram, WhatsApp, S
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Question XX: Short Question Title">
 <meta name="twitter:description" content="Clear, concise explanation of the question topic">
-<meta name="twitter:image" content="https://pondevelopment.github.io/llm-training/llm_training.png">
+<meta name="twitter:image" content="https://pondevelopment.github.io/llm-training/og-image.png">
 ```
 
 ### Content guidelines
@@ -57,9 +57,10 @@ Share pages provide rich previews when links are shared in Telegram, WhatsApp, S
 
 ### Image assets
 
-- **Default:** Use `llm_training.png` (site-wide branded image at 1200×630px)
+- **Default:** Use `og-image.png` (site-wide branded image)
+- **Image specs:** 1200×630px recommended, <600KB for WhatsApp compliance
 - **Domain:** Always use full GitHub Pages URL: `https://pondevelopment.github.io/llm-training/`
-- **Never:** Reference Vercel or other platforms not involved in hosting
+- **Never:** Reference Vercel or other platforms not involved in hosting (Vercel OG image generator URLs were removed site-wide)
 
 ## Loader expectations
 

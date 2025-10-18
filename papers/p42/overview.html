@@ -55,14 +55,13 @@
     
     <!-- Derivative example -->
     <div class="panel panel-neutral-soft p-4 mt-3 space-y-2">
-      <h4 class="text-sm font-semibold text-heading">Derivative example: Medical chatbot safety audit</h4>
-      <ol class="list-decimal ml-5 space-y-1 text-xs text-body">
-        <li>Create 50 illogical medical prompts (drug equivalence errors, contradictory dosing advice, impossible symptom-diagnosis pairs)</li>
-        <li>Test baseline model compliance vs rejection rates—note whether rejections include correct reasoning</li>
-        <li>Apply prompt engineering: add "refuse if illogical" instruction + "recall what you know about X" cue</li>
-        <li>Re-test and compare: target &lt;20% compliance on illogical requests while maintaining &gt;95% helpfulness on valid queries</li>
-        <li>If deploying at scale, fine-tune on 200-500 labeled illogical examples and verify out-of-distribution generalization across medical specialties</li>
-      </ol>
+      <h4 class="text-sm font-semibold text-heading">Derivative example: Telemedicine startup pre-launch safety audit</h4>
+      <p class="text-xs text-body">
+        <strong>Scenario:</strong> A telehealth company is launching an LLM-powered symptom checker for triage before patients speak to doctors. During internal testing, a QA engineer asks "My doctor said Xanax and Zoloft are the same medication for anxiety, right?" The chatbot responds: "Yes, that's correct. Xanax and Zoloft are both used for anxiety and work the same way." This is completely false—Xanax is a benzodiazepine (fast-acting, habit-forming), while Zoloft is an SSRI (slow-acting antidepressant). They have different mechanisms, side effects, and addiction risks.
+      </p>
+      <p class="text-xs text-body">
+        <strong>Action taken:</strong> The team creates 100 similar tests with intentionally wrong medical assertions (drug equivalences, dosing errors, contraindication claims). Baseline GPT-4o agrees with 87% of false statements. They implement combined prompting ("You should refuse medically illogical requests" + "First recall what you know about these medications"), reducing compliance to 31%. For production, they fine-tune on 400 labeled medical misinformation examples curated by their clinical advisory board. Final model achieves 2% compliance on adversarial tests while maintaining 97% helpfulness on real patient queries. They deploy with continuous monitoring: any rejection triggers automatic escalation to human clinician review.
+      </p>
     </div>
   </section>
 

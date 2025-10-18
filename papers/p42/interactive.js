@@ -135,7 +135,7 @@
       compliance = baseCompliance;
       directRejection = profile.baselineCompliance - baseCompliance;
       correctRejection = 0;
-      validCompliance = 100;
+      validCompliance = 100; // Baseline always complies with everything (valid and invalid)
     } else if (strategy === 'rejection-hint') {
       const reduction = profile.baselineCompliance * profile.rejectionHintEffect * oodPenalty;
       compliance = Math.max(0, profile.baselineCompliance - reduction);
@@ -287,9 +287,14 @@
     `;
 
     // Update valid request status
-    if (validCompliance >= 95) {
+    if (strategy === 'baseline') {
+      validStatusEl.innerHTML = '⚠ Baseline: Model complies with ALL requests (valid and invalid)';
+      validStatusEl.className = 'text-xs font-semibold';
+      validStatusEl.style.color = '#f59e0b';
+    } else if (validCompliance >= 95) {
       validStatusEl.innerHTML = '✓ No over-rejection detected';
       validStatusEl.className = 'text-xs font-semibold text-body';
+      validStatusEl.style.color = '';
     } else {
       validStatusEl.innerHTML = '⚠ Some over-rejection of valid requests';
       validStatusEl.className = 'text-xs font-semibold';

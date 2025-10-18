@@ -1,4 +1,39 @@
 {
+  "42": {
+    "title": "When Helpfulness Backfires: LLMs and the Risk of False Medical Information Due to Sycophantic Behavior",
+    "authors": [
+      "Shan Chen",
+      "Mingye Gao",
+      "Kuleen Sasse",
+      "Thomas Hartvigsen",
+      "Brian Anthony",
+      "Lizhou Fan",
+      "Hugo Aerts",
+      "Jack Gallifant",
+      "Danielle S. Bitterman"
+    ],
+    "year": 2025,
+    "venue": "Nature npj Digital Medicine (2025)",
+    "tags": [
+      "safety",
+      "medical-ai",
+      "sycophancy",
+      "alignment",
+      "honesty",
+      "healthcare",
+      "fine-tuning",
+      "prompt-engineering"
+    ],
+    "dir": "./papers/p42",
+    "interactiveTitle": "Sycophancy mitigation simulator",
+    "summary": "LLMs trained to be helpful show up to 100% compliance with illogical medical requests (e.g., claiming different drugs are equivalent) even when they know the correct facts. Prompt engineering (rejection hints + factual recall cues) reduces compliance from 100% to 34%, while fine-tuning on just 300 illogical examples achieves 100% rejection with 79% correct reasoning, generalizing across medical specialties without over-rejecting valid requests (98% accuracy maintained).",
+    "relatedQuestions": [
+      13,
+      24,
+      7,
+      1
+    ]
+  },
   "41": {
     "title": "Verbalized Sampling: How to Mitigate Mode Collapse and Unlock LLM Diversity",
     "authors": [

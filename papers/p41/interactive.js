@@ -215,7 +215,7 @@
     const diversityInterpEl = document.getElementById('p41-diversity-interpretation');
     if (diversityInterpEl) {
       if (useVS) {
-        diversityInterpEl.textContent = `VS mode: High diversity (${diversityGain.toFixed(1)}× baseline)`;
+        diversityInterpEl.textContent = `Verbalized Sampling mode: High diversity (${diversityGain.toFixed(1)}× baseline)`;
       } else {
         diversityInterpEl.textContent = `Baseline mode: Limited diversity (${diversityGain.toFixed(1)}× reference)`;
       }
@@ -257,7 +257,7 @@
     const gainSummary = document.getElementById('p41-gain-summary');
     if (gainSummary) {
       const gain = finalVSDiversity / finalBaselineDiversity;
-      gainSummary.innerHTML = `<strong>Diversity gain:</strong> ${gain.toFixed(1)}× increase with VS • Temperature and output count both influence final diversity`;
+      gainSummary.innerHTML = `<strong>Diversity gain:</strong> ${gain.toFixed(1)}× increase with Verbalized Sampling • Temperature and output count both influence final diversity`;
     }
 
     // Update scenario description and outputs
@@ -287,9 +287,9 @@
           Verbalized Sampling recovers pre-training diversity by prompting the model to explicitly output probability distributions. This sidesteps mode collapse caused by typicality bias in preference data—annotators unconsciously favor familiar responses during RLHF/DPO training, compressing the output space.
         </p>
         <p class="text-xs panel-muted">
-          <strong>Current configuration:</strong> ${useVS ? 'VS enabled' : 'Baseline mode'} with ${numOutputs} outputs and temperature ${temperature.toFixed(1)}. 
+          <strong>Current configuration:</strong> ${useVS ? 'Verbalized Sampling enabled' : 'Baseline mode'} with ${numOutputs} outputs and temperature ${temperature.toFixed(1)}. 
           Diversity: ${(currentDiversity * 100).toFixed(0)}%, Quality: ${(accuracy * 100).toFixed(0)}%. 
-          ${useVS ? `VS increases diversity by ${diversityGain.toFixed(1)}× while maintaining ${(accuracy * 100).toFixed(0)}% accuracy.` : 'Enable VS to see diversity gains without quality degradation.'}
+          ${useVS ? `Verbalized Sampling increases diversity by ${diversityGain.toFixed(1)}× while maintaining ${(accuracy * 100).toFixed(0)}% accuracy.` : 'Enable Verbalized Sampling to see diversity gains without quality degradation.'}
         </p>
       `;
       insightEl.innerHTML = insightText;

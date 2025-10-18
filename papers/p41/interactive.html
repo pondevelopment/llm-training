@@ -3,7 +3,7 @@
   <div class="panel panel-neutral-soft p-4 space-y-2">
     <p class="text-sm font-semibold text-heading">Interactive diversity simulator</p>
     <p class="text-xs panel-muted">
-      Explore how Verbalized Sampling (VS) increases output diversity compared to standard prompting. Adjust the number of requested outputs, sampling temperature, and task type to see how VS recovers pre-training diversity without model retraining. The simulation models the diversity-quality tradeoff based on the paper's empirical findings across creative writing, dialogue, and QA tasks.
+      Explore how Verbalized Sampling increases output diversity compared to standard prompting. Instead of asking for one response, the model generates multiple options with probability weights (e.g., "Generate 5 jokes with their likelihoods"). This recovers pre-training diversity without model retraining. The simulation models the diversity-quality tradeoff based on the paper's empirical findings across creative writing, dialogue, and QA tasks.
     </p>
   </div>
 
@@ -20,7 +20,7 @@
           <option value="qa">Open-ended QA</option>
           <option value="synthetic">Synthetic data generation</option>
         </select>
-        <p class="text-xs panel-muted mt-1">Different tasks show varying diversity gains. Creative tasks benefit most from VS (1.6–2.1×), while factual QA maintains quality with moderate diversity increases.</p>
+        <p class="text-xs panel-muted mt-1">Different tasks show varying diversity gains. Creative tasks benefit most (1.6–2.1× improvement), while factual QA maintains quality with moderate diversity increases.</p>
       </div>
 
       <div>
@@ -29,7 +29,7 @@
           <input type="range" id="p41-num-outputs" min="1" max="10" value="5" class="flex-1">
           <span id="p41-num-outputs-label" class="text-sm font-mono text-body w-8 text-right">5</span>
         </div>
-        <p class="text-xs panel-muted mt-1">More outputs increase diversity but require more tokens. VS asks the model to generate N options with probabilities, then samples from the distribution.</p>
+        <p class="text-xs panel-muted mt-1">More outputs increase diversity but require more tokens. Verbalized Sampling asks the model to generate N options with probabilities, then samples from the distribution.</p>
       </div>
 
       <div>
@@ -45,7 +45,7 @@
         <input type="checkbox" id="p41-use-vs" checked class="rounded border-divider text-accent-strong focus:ring-accent-strong">
         <label for="p41-use-vs" class="text-sm text-body">Enable Verbalized Sampling (uncheck for baseline prompting)</label>
       </div>
-      <p class="text-xs panel-muted">VS prompts the model to output probabilities for each response. Baseline prompting requests outputs directly without probability weighting.</p>
+      <p class="text-xs panel-muted">Verbalized Sampling prompts the model to output probabilities for each response. Baseline prompting requests outputs directly without probability weighting.</p>
     </div>
   </div>
 
@@ -77,7 +77,7 @@
         <div id="p41-diversity-bar" class="mt-2 h-6 rounded overflow-hidden bg-surface border border-divider flex">
           <div id="p41-diversity-fill" class="transition-all duration-300" style="width: 68%; background: #10b981;"></div>
         </div>
-        <p id="p41-diversity-interpretation" class="text-xs panel-muted mt-1">VS mode: High diversity (1.8× baseline)</p>
+        <p id="p41-diversity-interpretation" class="text-xs panel-muted mt-1">Verbalized Sampling mode: High diversity (1.8× baseline)</p>
       </div>
 
       <!-- Quality metrics -->
@@ -128,7 +128,7 @@
         </div>
       </div>
       <p id="p41-gain-summary" class="text-xs panel-muted mt-2">
-        <strong>Diversity gain:</strong> 1.8× increase with VS • Temperature and output count both influence final diversity
+        <strong>Diversity gain:</strong> 1.8× increase with Verbalized Sampling • Temperature and output count both influence final diversity
       </p>
     </div>
   </div>

@@ -183,7 +183,10 @@
     updateMetric('compliance', compliance, '#dc2626');
     updateMetric('rejection', directRejection, '#f59e0b');
     updateMetric('correct', correctRejection, '#10b981');
-    updateMetric('valid', validCompliance, '#10b981');
+    
+    // Valid compliance bar color: amber for baseline (indiscriminate), green for mitigations (selective)
+    const validColor = strategy === 'baseline' ? '#f59e0b' : '#10b981';
+    updateMetric('valid', validCompliance, validColor);
 
     // Update example
     updateExample(example, strategy);

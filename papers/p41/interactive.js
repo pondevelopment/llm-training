@@ -225,11 +225,11 @@
     if (qualityInterpEl) {
       const accuracyDiff = ((accuracy - profile.accuracyBase) * 100).toFixed(1);
       if (Math.abs(accuracy - profile.accuracyBase) < 0.02) {
-        qualityInterpEl.textContent = 'Quality maintained: No degradation vs baseline';
+        qualityInterpEl.textContent = 'Quality maintained: No degradation vs standard prompting';
       } else if (accuracy > profile.accuracyBase) {
-        qualityInterpEl.textContent = `Quality improved: +${accuracyDiff}% accuracy vs baseline`;
+        qualityInterpEl.textContent = `Quality improved: +${accuracyDiff}% accuracy vs standard prompting`;
       } else {
-        qualityInterpEl.textContent = `Quality trade-off: ${accuracyDiff}% accuracy vs baseline`;
+        qualityInterpEl.textContent = `Quality trade-off: ${accuracyDiff}% accuracy vs standard prompting`;
       }
     }
 

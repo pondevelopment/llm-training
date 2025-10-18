@@ -93,24 +93,34 @@
       <!-- Quality metrics -->
       <div class="panel panel-neutral-soft p-3 space-y-2">
         <p class="text-xs font-semibold text-heading">Quality metrics</p>
-        <div class="space-y-1">
-          <div class="flex justify-between text-xs">
-            <span class="panel-muted">Factual accuracy:</span>
-            <span id="p41-accuracy" class="font-mono text-body">92%</span>
+        <p class="text-xs panel-muted mb-2">How good the outputs remain:</p>
+        <div class="space-y-2">
+          <div>
+            <div class="flex justify-between text-xs">
+              <span class="panel-muted">Factual accuracy:</span>
+              <span id="p41-accuracy" class="font-mono text-body">87%</span>
+            </div>
+            <p class="text-[10px] panel-muted italic">How often the information is correct (higher = better)</p>
           </div>
-          <div class="flex justify-between text-xs">
-            <span class="panel-muted">Coherence score:</span>
-            <span id="p41-coherence" class="font-mono text-body">0.88</span>
+          <div>
+            <div class="flex justify-between text-xs">
+              <span class="panel-muted">Readability:</span>
+              <span id="p41-coherence" class="font-mono text-body">0.89</span>
+            </div>
+            <p class="text-[10px] panel-muted italic">How easy to understand the text is (higher = clearer)</p>
           </div>
-          <div class="flex justify-between text-xs">
-            <span class="panel-muted">Safety (toxicity %):</span>
-            <span id="p41-safety" class="font-mono text-body">1.2%</span>
+          <div>
+            <div class="flex justify-between text-xs">
+              <span class="panel-muted">Safety:</span>
+              <span id="p41-safety" class="font-mono text-body">1.1%</span>
+            </div>
+            <p class="text-[10px] panel-muted italic">Percentage of harmful content (lower = safer)</p>
           </div>
         </div>
         <div id="p41-quality-bar" class="mt-2 h-6 rounded overflow-hidden bg-surface border border-divider flex">
-          <div id="p41-quality-fill" class="transition-all duration-300" style="width: 92%; background: #3b82f6;"></div>
+          <div id="p41-quality-fill" class="transition-all duration-300" style="width: 87%; background: #3b82f6;"></div>
         </div>
-        <p id="p41-quality-interpretation" class="text-xs panel-muted mt-1">Quality maintained: No degradation vs baseline</p>
+        <p id="p41-quality-interpretation" class="text-xs panel-muted mt-1">Quality maintained: No degradation vs standard prompting</p>
       </div>
     </div>
 

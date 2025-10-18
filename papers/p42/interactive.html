@@ -68,17 +68,17 @@
     
     <!-- Behavior metrics -->
     <div class="space-y-3">
-      <!-- Compliance -->
+      <!-- Rejection with correct reasoning -->
       <div class="space-y-1">
         <div class="flex items-center justify-between">
-          <span class="text-xs font-medium text-body">Compliance with misinformation</span>
-          <span id="p42-compliance-pct" class="text-xs font-semibold text-body">100%</span>
+          <span class="text-xs font-medium text-body">Rejection with correct reasoning</span>
+          <span id="p42-correct-pct" class="text-xs font-semibold text-body">0%</span>
         </div>
         <div class="w-full bg-surface rounded-full h-3 overflow-hidden">
-          <div id="p42-compliance-bar" class="h-3 rounded-full transition-all duration-300" style="width: 100%; background-color: #dc2626;"></div>
+          <div id="p42-correct-bar" class="h-3 rounded-full transition-all duration-300" style="width: 0%; background-color: #10b981;"></div>
         </div>
         <p class="text-xs text-muted italic">
-          Lower is better – model agrees with illogical request and provides false information
+          Higher is better – model identifies logical error and explains the correct facts
         </p>
       </div>
 
@@ -96,17 +96,17 @@
         </p>
       </div>
 
-      <!-- Rejection with correct reasoning -->
+      <!-- Compliance -->
       <div class="space-y-1">
         <div class="flex items-center justify-between">
-          <span class="text-xs font-medium text-body">Rejection with correct reasoning</span>
-          <span id="p42-correct-pct" class="text-xs font-semibold text-body">0%</span>
+          <span class="text-xs font-medium text-body">Compliance with misinformation</span>
+          <span id="p42-compliance-pct" class="text-xs font-semibold text-body">100%</span>
         </div>
         <div class="w-full bg-surface rounded-full h-3 overflow-hidden">
-          <div id="p42-correct-bar" class="h-3 rounded-full transition-all duration-300" style="width: 0%; background-color: #10b981;"></div>
+          <div id="p42-compliance-bar" class="h-3 rounded-full transition-all duration-300" style="width: 100%; background-color: #dc2626;"></div>
         </div>
         <p class="text-xs text-muted italic">
-          Higher is better – model identifies logical error and explains the correct facts
+          Lower is better – model agrees with illogical request and provides false information
         </p>
       </div>
     </div>

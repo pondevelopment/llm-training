@@ -227,11 +227,10 @@ Share pages are critical for social media discoverability. They provide rich pre
 
 ### Image assets
 
-- **Default:** Use `og-image.png` (site-wide branded image)
-- **Custom:** For important papers, you may create paper-specific images, but still use `og-image.png` in meta tags for consistency
-- **Image specs:** 1200×630px recommended, <600KB for WhatsApp compliance
-- **Domain:** Always use full GitHub Pages URL: `https://pondevelopment.github.io/llm-training/`
-- **Never:** Reference Vercel or other platforms not involved in hosting (Vercel OG image generator URLs were removed site-wide)
+- **Use `og-image.png`:** Site-wide standard branded image for all social previews
+- **Image specs:** 1200×630px recommended, <600KB for optimal cross-platform support
+- **Absolute URLs required:** Always use full GitHub Pages URL: `https://pondevelopment.github.io/llm-training/og-image.png`
+- **Consistency:** Custom paper-specific images are not currently used to maintain unified brand appearance
 
 ## Testing checklist (preview)
 

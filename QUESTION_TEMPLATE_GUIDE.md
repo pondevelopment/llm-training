@@ -57,10 +57,9 @@ Share pages provide rich previews when links are shared in Telegram, WhatsApp, S
 
 ### Image assets
 
-- **Default:** Use `og-image.png` (site-wide branded image)
-- **Image specs:** 1200×630px recommended, <600KB for WhatsApp compliance
-- **Domain:** Always use full GitHub Pages URL: `https://pondevelopment.github.io/llm-training/`
-- **Never:** Reference Vercel or other platforms not involved in hosting (Vercel OG image generator URLs were removed site-wide)
+- **Use `og-image.png`:** Site-wide standard branded image for all social previews
+- **Image specs:** 1200×630px recommended, <600KB for optimal cross-platform support
+- **Absolute URLs required:** Always use full GitHub Pages URL: `https://pondevelopment.github.io/llm-training/og-image.png`
 
 ## Loader expectations
 

@@ -1,4 +1,35 @@
 {
+  "41": {
+    "title": "Verbalized Sampling: How to Mitigate Mode Collapse and Unlock LLM Diversity",
+    "authors": [
+      "Jiayi Zhang",
+      "Simon Yu",
+      "Derek Chong",
+      "Anthony Sicilia",
+      "Michael R. Tomz",
+      "Christopher D. Manning",
+      "Weiyan Shi"
+    ],
+    "year": 2025,
+    "venue": "arXiv cs.CL (2025)",
+    "tags": [
+      "alignment",
+      "diversity",
+      "mode-collapse",
+      "prompting",
+      "inference",
+      "creativity",
+      "rlhf"
+    ],
+    "dir": "./papers/p41",
+    "interactiveTitle": "Diversity vs quality simulator",
+    "summary": "Mode collapse in aligned LLMs stems from typicality bias in preference data—annotators favor familiar text. Verbalized Sampling (VS) is a training-free prompting technique that asks models to output probability distributions over responses, increasing creative diversity by 1.6–2.1× without sacrificing factual accuracy or safety. More capable models benefit more from VS.",
+    "relatedQuestions": [
+      13,
+      24,
+      7
+    ]
+  },
   "40": {
     "title": "Generative AI and Firm Productivity: Field Experiments in Online Retail",
     "authors": [

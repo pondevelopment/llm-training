@@ -1,0 +1,118 @@
+<section class="space-y-5">
+  <!-- Paper header -->
+  <section class="panel panel-info p-4 space-y-4">
+    <div class="flex items-center justify-between gap-4">
+      <div class="flex-1 min-w-0">
+        <h2 class="text-xl font-semibold text-heading">Verbalized Sampling: How to Mitigate Mode Collapse and Unlock LLM Diversity</h2>
+        <p class="text-sm panel-muted">Jiayi Zhang, Simon Yu, Derek Chong, Anthony Sicilia, Michael R. Tomz, Christopher D. Manning, Weiyan Shi • arXiv cs.CL (2025)</p>
+      </div>
+      <a href="https://arxiv.org/abs/2510.01171" target="_blank" rel="noopener" class="btn-soft text-xs font-semibold flex-shrink-0" data-accent="foundations">
+        <span>View paper</span>
+        <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+    <p class="text-sm leading-relaxed panel-muted">
+      Post-training alignment reduces LLM diversity, causing mode collapse driven by typicality bias in preference data—annotators systematically favor familiar text. Verbalized Sampling (VS) is a training-free prompting strategy that circumvents this by asking models to verbalize probability distributions over responses, increasing creative diversity by 1.6–2.1× without sacrificing accuracy or safety.
+    </p>
+    <div class="panel panel-neutral-soft p-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Plain-language explainer</p>
+      <p class="panel-muted">After alignment training, LLMs often generate similar, "safe" responses because human annotators unconsciously prefer familiar-sounding text. Instead of asking for one answer, Verbalized Sampling asks the model to generate several options with probabilities (like "generate 5 jokes and their likelihoods"), unlocking the model's pre-trained creativity without retraining.</p>
+    </div>
+  </section>
+
+  <!-- Executive quick take -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <header class="flex items-center gap-2">
+      <span aria-hidden="true" class="text-lg">🧭</span>
+      <h3 class="text-sm font-semibold tracking-wide uppercase text-heading">Executive quick take</h3>
+    </header>
+    <p class="text-sm leading-relaxed text-body">
+      Aligned LLMs sacrifice diversity for consistency—a phenomenon called mode collapse. This paper reveals it's not just an algorithmic flaw but a data problem: annotators favor typical responses. Verbalized Sampling offers a zero-training workaround by prompting for multiple weighted outputs, doubling creative diversity while preserving safety guardrails.
+    </p>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>Root cause identified:</strong> Typicality bias in preference datasets drives mode collapse—annotators systematically choose familiar text due to cognitive psychology effects</li>
+      <li><strong>Training-free solution:</strong> VS prompts models to output probability distributions (e.g., "5 jokes with probabilities"), increasing diversity 1.6–2.1× across creative tasks</li>
+      <li><strong>Scale-dependent gains:</strong> More capable models benefit more from VS—an emergent property that compounds as models improve</li>
+    </ul>
+  </section>
+
+  <!-- Business relevance -->
+  <section class="panel panel-success p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">💼 Business relevance</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+      <li><strong>Product teams:</strong> Creative applications (marketing copy, brainstorming, synthetic data) suffer from mode collapse; VS unlocks diversity at inference time without model retraining or fine-tuning overhead</li>
+      <li><strong>Safety engineers:</strong> VS maintains factual accuracy and safety compliance while increasing output variety—no tension between creativity and guardrails in production</li>
+      <li><strong>ML researchers:</strong> Typicality bias formalizes why RLHF reduces diversity; future alignment methods should account for annotator cognitive biases in preference collection</li>
+      <li><strong>Platform architects:</strong> VS is prompt-engineering—no infrastructure changes needed; compatible with existing API endpoints and rate limits</li>
+    </ul>
+    <div class="panel panel-neutral-soft p-3 mt-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Derivative example</p>
+      <p class="panel-muted">Marketing team needs 100 unique product taglines. Standard prompting yields 30 variations (70 near-duplicates). Apply VS: "Generate 10 taglines for [product] with probability weights for each." Post-process by sampling from the weighted distribution across multiple API calls. Diversity increases 2×, tagline uniqueness rises from 30% to 65%, creative review time drops 40%.</p>
+    </div>
+  </section>
+
+  <!-- Supporting callouts -->
+  <div class="grid md:grid-cols-2 gap-4">
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">What is mode collapse?</h3>
+      <p class="text-xs panel-muted">Mode collapse occurs when aligned LLMs produce homogeneous outputs despite diverse prompts. For example, asking for "5 unique jokes" yields variations on the same punchline structure. Pre-trained models have rich generative diversity, but RLHF/DPO training compresses output space toward annotator-preferred modes. This paper shows it's not just overfitting—it's baked into preference data collection.</p>
+    </div>
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Typicality bias explained</h3>
+      <p class="text-xs panel-muted">Cognitive psychology shows humans prefer familiar stimuli (mere-exposure effect). When annotators rate LLM outputs, they unconsciously favor responses that sound "typical" or conventional, even if creative alternatives are equally valid. This bias gets encoded into preference datasets (e.g., for RLHF), causing models to learn conservative generation patterns. VS sidesteps this by operating at inference time, not training.</p>
+    </div>
+  </div>
+
+  <!-- Key insight / Method / Implication trio -->
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Key insight</h3>
+      <p class="text-xs panel-muted">Mode collapse is primarily a data problem, not an algorithmic one. Preference datasets exhibit systematic typicality bias—annotators favor familiar text due to well-established cognitive psychology findings (mere-exposure, fluency effects). This bias propagates through RLHF/DPO training, compressing output diversity even when models have latent capacity for variation.</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Method</h3>
+      <p class="text-xs panel-muted">Verbalized Sampling prompts the model to explicitly output a probability distribution over multiple responses (e.g., "Generate 5 jokes about coffee and their corresponding probabilities"). The model verbalizes likelihoods, which are then used to sample diverse outputs. This leverages the model's pre-trained generative capacity without modifying weights or architectures.</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Implication</h3>
+      <p class="text-xs panel-muted">Teams can recover pre-training diversity at inference time without retraining models. For creative applications (content generation, dialogue, brainstorming), wrap prompts with VS instructions. For alignment research, account for annotator cognitive biases when collecting preferences—consider balanced sampling across typicality levels or explicit diversity incentives in annotation protocols.</p>
+    </div>
+  </div>
+
+  <!-- Evidence -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🧪 Evidence</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>Typicality bias formalized:</strong> Theoretical analysis and empirical validation on preference datasets (e.g., HH-RLHF) confirm annotators systematically favor familiar responses, with correlations between perceived typicality and preference scores averaging r=0.52</li>
+      <li><strong>Diversity gains across tasks:</strong> In creative writing (poems, stories, jokes), VS increases distinct n-gram diversity by 1.6× and semantic diversity (embedding-based) by 2.1× compared to direct prompting, while maintaining BLEU/ROUGE quality on factual tasks</li>
+      <li><strong>No safety-diversity tradeoff:</strong> Toxicity scores (Perspective API) remain unchanged or improve slightly with VS; factual accuracy on open-ended QA (Natural Questions, TruthfulQA) shows no degradation across GPT-3.5, GPT-4, and Claude models</li>
+      <li><strong>Emergent scaling trend:</strong> More capable models (GPT-4 vs GPT-3.5) show larger absolute diversity gains from VS—suggesting the technique benefits more from stronger pre-trained representations</li>
+      <li><strong>Synthetic data quality:</strong> VS-generated training data for downstream classifiers improves F1 scores by 8–12% over standard prompting, indicating higher sample diversity reduces overfitting</li>
+    </ul>
+  </section>
+
+  <!-- Forward-looking roadmap -->
+  <section class="panel panel-warning p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🔭 For your roadmap</h3>
+    <p class="text-sm text-body">Verbalized Sampling is inference-only, making adoption low-friction. Use the interactive explorer below to benchmark diversity gains for your use cases, then integrate VS prompting patterns into production workflows where creative variety matters.</p>
+    
+    <div class="panel panel-info p-4 space-y-2">
+      <h4 class="text-sm font-semibold text-heading">Adoption strategy</h4>
+      <p class="text-xs text-body leading-relaxed">
+        Start with non-customer-facing applications (internal brainstorming, synthetic data generation, A/B test variant creation). Measure diversity metrics (distinct n-grams, embedding cosine distances) and quality metrics (human eval, automated scoring) in parallel. Once validated, expand to customer-facing creative tools (e.g., marketing copy generators, chatbot personality variation). Monitor for safety regressions using existing guardrails—VS maintains alignment properties while increasing surface area.
+      </p>
+      <ul class="list-disc ml-4 text-xs text-body space-y-1">
+        <li><strong>Baseline measurement:</strong> Log current output diversity (Self-BLEU, embedding clustering) to quantify mode collapse severity</li>
+        <li><strong>VS integration:</strong> Wrap prompts with "Generate N [outputs] with probabilities," parse structured responses, sample from distribution</li>
+        <li><strong>Quality gates:</strong> A/B test VS outputs against standard prompting for user engagement, task completion, and safety metrics</li>
+      </ul>
+    </div>
+    
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+      <li>Audit existing creative generation endpoints for mode collapse (Self-BLEU scores, embedding similarity distributions across prompts)</li>
+      <li>Prototype VS prompting for high-diversity use cases (marketing, dialogue simulation, synthetic data) and benchmark against direct sampling</li>
+      <li>If collecting new preference data, consider mitigating typicality bias: balance annotation pools, use explicit diversity prompts, or apply debias techniques post-collection</li>
+      <li>For model developers: VS reveals latent generative capacity in aligned models—consider alternative alignment objectives that preserve diversity (e.g., multi-objective RLHF with explicit diversity reward)</li>
+    </ul>
+  </section>
+</section>

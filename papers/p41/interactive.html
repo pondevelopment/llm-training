@@ -1,0 +1,180 @@
+<section class="space-y-6" id="p41-explorer">
+  <!-- Explainer panel -->
+  <div class="panel panel-neutral-soft p-4 space-y-2">
+    <p class="text-sm font-semibold text-heading">Interactive diversity simulator</p>
+    <p class="text-xs panel-muted">
+      Explore how Verbalized Sampling (VS) increases output diversity compared to standard prompting. Adjust the number of requested outputs, sampling temperature, and task type to see how VS recovers pre-training diversity without model retraining. The simulation models the diversity-quality tradeoff based on the paper's empirical findings across creative writing, dialogue, and QA tasks.
+    </p>
+  </div>
+
+  <!-- Controls section -->
+  <div class="panel panel-info p-4 space-y-4">
+    <h4 class="text-sm font-semibold text-heading">Configuration</h4>
+    
+    <div class="space-y-3">
+      <div>
+        <label for="p41-task" class="block text-sm font-medium text-heading">Task type</label>
+        <select id="p41-task" class="mt-1 w-full rounded border border-divider bg-card px-3 py-2 text-sm text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
+          <option value="creative">Creative writing (poems, jokes, stories)</option>
+          <option value="dialogue">Dialogue simulation</option>
+          <option value="qa">Open-ended QA</option>
+          <option value="synthetic">Synthetic data generation</option>
+        </select>
+        <p class="text-xs panel-muted mt-1">Different tasks show varying diversity gains. Creative tasks benefit most from VS (1.6–2.1×), while factual QA maintains quality with moderate diversity increases.</p>
+      </div>
+
+      <div>
+        <label for="p41-num-outputs" class="block text-sm font-medium text-heading">Number of requested outputs</label>
+        <div class="flex items-center gap-3 mt-1">
+          <input type="range" id="p41-num-outputs" min="1" max="10" value="5" class="flex-1">
+          <span id="p41-num-outputs-label" class="text-sm font-mono text-body w-8 text-right">5</span>
+        </div>
+        <p class="text-xs panel-muted mt-1">More outputs increase diversity but require more tokens. VS asks the model to generate N options with probabilities, then samples from the distribution.</p>
+      </div>
+
+      <div>
+        <label for="p41-temperature" class="block text-sm font-medium text-heading">Sampling temperature</label>
+        <div class="flex items-center gap-3 mt-1">
+          <input type="range" id="p41-temperature" min="0" max="20" value="10" class="flex-1">
+          <span id="p41-temperature-label" class="text-sm font-mono text-body w-12 text-right">1.0</span>
+        </div>
+        <p class="text-xs panel-muted mt-1">Controls randomness in sampling from the verbalized distribution. Higher values increase variety but may reduce coherence. Paper tested 0.7–1.2 range.</p>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <input type="checkbox" id="p41-use-vs" checked class="rounded border-divider text-accent-strong focus:ring-accent-strong">
+        <label for="p41-use-vs" class="text-sm text-body">Enable Verbalized Sampling (uncheck for baseline prompting)</label>
+      </div>
+      <p class="text-xs panel-muted">VS prompts the model to output probabilities for each response. Baseline prompting requests outputs directly without probability weighting.</p>
+    </div>
+  </div>
+
+  <!-- Results visualization -->
+  <div class="panel panel-neutral p-4 space-y-4">
+    <div class="flex items-center justify-between">
+      <h4 class="text-sm font-semibold text-heading">Diversity vs Quality metrics</h4>
+      <span id="p41-method-label" class="text-xs font-semibold chip chip-accent">Verbalized Sampling</span>
+    </div>
+    
+    <div class="grid md:grid-cols-2 gap-4">
+      <!-- Diversity metrics -->
+      <div class="panel panel-neutral-soft p-3 space-y-2">
+        <p class="text-xs font-semibold text-heading">Diversity metrics</p>
+        <div class="space-y-1">
+          <div class="flex justify-between text-xs">
+            <span class="panel-muted">Distinct n-grams:</span>
+            <span id="p41-ngram-diversity" class="font-mono text-body">0.68</span>
+          </div>
+          <div class="flex justify-between text-xs">
+            <span class="panel-muted">Semantic diversity:</span>
+            <span id="p41-semantic-diversity" class="font-mono text-body">0.72</span>
+          </div>
+          <div class="flex justify-between text-xs">
+            <span class="panel-muted">Self-BLEU (lower = more diverse):</span>
+            <span id="p41-self-bleu" class="font-mono text-body">0.32</span>
+          </div>
+        </div>
+        <div id="p41-diversity-bar" class="mt-2 h-6 rounded overflow-hidden bg-surface border border-divider flex">
+          <div id="p41-diversity-fill" class="transition-all duration-300" style="width: 68%; background: #10b981;"></div>
+        </div>
+        <p id="p41-diversity-interpretation" class="text-xs panel-muted mt-1">VS mode: High diversity (1.8× baseline)</p>
+      </div>
+
+      <!-- Quality metrics -->
+      <div class="panel panel-neutral-soft p-3 space-y-2">
+        <p class="text-xs font-semibold text-heading">Quality metrics</p>
+        <div class="space-y-1">
+          <div class="flex justify-between text-xs">
+            <span class="panel-muted">Factual accuracy:</span>
+            <span id="p41-accuracy" class="font-mono text-body">92%</span>
+          </div>
+          <div class="flex justify-between text-xs">
+            <span class="panel-muted">Coherence score:</span>
+            <span id="p41-coherence" class="font-mono text-body">0.88</span>
+          </div>
+          <div class="flex justify-between text-xs">
+            <span class="panel-muted">Safety (toxicity %):</span>
+            <span id="p41-safety" class="font-mono text-body">1.2%</span>
+          </div>
+        </div>
+        <div id="p41-quality-bar" class="mt-2 h-6 rounded overflow-hidden bg-surface border border-divider flex">
+          <div id="p41-quality-fill" class="transition-all duration-300" style="width: 92%; background: #3b82f6;"></div>
+        </div>
+        <p id="p41-quality-interpretation" class="text-xs panel-muted mt-1">Quality maintained: No degradation vs baseline</p>
+      </div>
+    </div>
+
+    <!-- Comparison chart -->
+    <div class="mt-4 space-y-2">
+      <p class="text-xs font-semibold text-heading">Diversity gain comparison</p>
+      <div class="space-y-2">
+        <div>
+          <div class="flex justify-between text-xs mb-1">
+            <span class="panel-muted">Baseline prompting</span>
+            <span id="p41-baseline-score" class="font-mono text-body">0.38</span>
+          </div>
+          <div class="h-4 rounded overflow-hidden bg-surface border border-divider">
+            <div id="p41-baseline-bar" class="h-full transition-all duration-300" style="width: 38%; background: #94a3b8;"></div>
+          </div>
+        </div>
+        <div>
+          <div class="flex justify-between text-xs mb-1">
+            <span class="panel-muted">Verbalized Sampling</span>
+            <span id="p41-vs-score" class="font-mono text-body">0.68</span>
+          </div>
+          <div class="h-4 rounded overflow-hidden bg-surface border border-divider">
+            <div id="p41-vs-bar" class="h-full transition-all duration-300" style="width: 68%; background: #10b981;"></div>
+          </div>
+        </div>
+      </div>
+      <p id="p41-gain-summary" class="text-xs panel-muted mt-2">
+        <strong>Diversity gain:</strong> 1.8× increase with VS • Temperature and output count both influence final diversity
+      </p>
+    </div>
+  </div>
+
+  <!-- Scenario explorer -->
+  <div class="panel panel-info p-4 space-y-3">
+    <h4 class="text-sm font-semibold text-heading">Example outputs (simulated)</h4>
+    <div id="p41-scenario-description" class="text-xs panel-muted">
+      Creative writing scenario: Generate 5 coffee-related jokes
+    </div>
+    
+    <div class="space-y-2">
+      <div class="panel panel-neutral-soft p-3">
+        <p class="text-xs font-semibold text-heading mb-2">Baseline prompting outputs</p>
+        <ul id="p41-baseline-outputs" class="space-y-1 text-xs panel-muted list-disc ml-4">
+          <li>Joke 1: Standard espresso pun (mode-collapsed)</li>
+          <li>Joke 2: Variation on espresso theme</li>
+          <li>Joke 3: Another espresso-based joke</li>
+        </ul>
+        <p class="text-xs panel-muted mt-2 italic">Note: High similarity (Self-BLEU ~0.65), limited thematic variety</p>
+      </div>
+
+      <div class="panel panel-neutral-soft p-3">
+        <p class="text-xs font-semibold text-heading mb-2">Verbalized Sampling outputs</p>
+        <ul id="p41-vs-outputs" class="space-y-1 text-xs panel-muted list-disc ml-4">
+          <li>Joke 1 (p=0.22): Espresso-based wordplay</li>
+          <li>Joke 2 (p=0.19): Caffeine addiction humor</li>
+          <li>Joke 3 (p=0.18): Barista customer service joke</li>
+          <li>Joke 4 (p=0.16): Coffee brewing science pun</li>
+          <li>Joke 5 (p=0.15): Morning routine observational humor</li>
+        </ul>
+        <p class="text-xs panel-muted mt-2 italic">Note: Diverse themes (Self-BLEU ~0.28), model verbalizes probabilities enabling weighted sampling</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Key insight -->
+  <div class="panel panel-warning p-4 space-y-2">
+    <h4 class="text-sm font-semibold text-heading">Key insight</h4>
+    <div id="p41-insight" class="text-sm text-body space-y-2">
+      <p>
+        Verbalized Sampling recovers pre-training diversity by prompting the model to explicitly output probability distributions. This sidesteps mode collapse caused by typicality bias in preference data—annotators unconsciously favor familiar responses during RLHF/DPO training, compressing the output space.
+      </p>
+      <p class="text-xs panel-muted">
+        <strong>Practical implication:</strong> For creative applications, wrap prompts with "Generate N [outputs] with their probabilities." Parse the structured response, sample from the distribution, and post-process. No model retraining required—works with existing API endpoints. Quality metrics (accuracy, safety) remain stable while diversity increases 1.6–2.1× across tasks.
+      </p>
+    </div>
+  </div>
+</section>

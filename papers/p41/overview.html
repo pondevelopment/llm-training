@@ -83,11 +83,11 @@
   <section class="panel panel-neutral p-5 space-y-3">
     <h3 class="text-sm font-semibold text-heading">🧪 Evidence</h3>
     <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
-      <li><strong>Typicality bias formalized:</strong> Theoretical analysis and empirical validation on preference datasets (e.g., HH-RLHF) confirm annotators systematically favor familiar responses, with correlations between perceived typicality and preference scores averaging r=0.52</li>
-      <li><strong>Diversity gains across tasks:</strong> In creative writing (poems, stories, jokes), VS increases distinct n-gram diversity by 1.6× and semantic diversity (embedding-based) by 2.1× compared to direct prompting, while maintaining BLEU/ROUGE quality on factual tasks</li>
-      <li><strong>No safety-diversity tradeoff:</strong> Toxicity scores (Perspective API) remain unchanged or improve slightly with VS; factual accuracy on open-ended QA (Natural Questions, TruthfulQA) shows no degradation across GPT-3.5, GPT-4, and Claude models</li>
-      <li><strong>Emergent scaling trend:</strong> More capable models (GPT-4 vs GPT-3.5) show larger absolute diversity gains from VS—suggesting the technique benefits more from stronger pre-trained representations</li>
-      <li><strong>Synthetic data quality:</strong> VS-generated training data for downstream classifiers improves F1 scores by 8–12% over standard prompting, indicating higher sample diversity reduces overfitting</li>
+      <li><strong>Typicality bias formalized:</strong> Theoretical analysis and empirical validation on preference datasets (e.g., HH-RLHF) confirm annotators systematically favor familiar responses; Bradley-Terry regressions yield typicality coefficients of 0.46–0.49, predicting helpfulness above and beyond correctness</li>
+      <li><strong>Diversity gains across tasks:</strong> In creative writing (poems, stories, jokes), VS increases diversity by 1.6–2.1× compared to direct prompting across both lexical (distinct n-grams) and semantic (embedding-based) metrics, while maintaining comparable quality scores</li>
+      <li><strong>No safety-diversity tradeoff:</strong> Factual accuracy and safety remain stable with VS across open-ended QA, creative tasks, and dialogue simulation; toxicity and correctness metrics show no degradation across GPT-4.1, Gemini-2.5, and other model families</li>
+      <li><strong>Emergent scaling trend:</strong> Larger models (GPT-4.1, Gemini-2.5-Pro) achieve diversity gains 1.5–2× greater than smaller models (GPT-4.1-Mini, Gemini-2.5-Flash), suggesting VS benefits more from stronger pre-trained representations</li>
+      <li><strong>Synthetic data quality:</strong> VS-generated synthetic training data improves downstream math task performance across benchmarks (MATH500, Olympiad Bench, AIME) compared to standard prompting, with VS-Multi variant achieving strongest gains</li>
     </ul>
   </section>
 

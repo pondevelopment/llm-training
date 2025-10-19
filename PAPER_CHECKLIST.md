@@ -5,7 +5,8 @@ U## Ov## Before you start
 - [ ] Read `PAPER_TEMPLATE_GUIDE.md` for structure and interactive expectations
 - [ ] Confirm the paper's core claim, key evidence, and intended audience (architects/PMs vs researchers)
 - [ ] Identify 2–3 related interview questions for cross-linking
-- [ ] **Cross-check all statistics against source paper:** Verify exact numbers from tables/figures, not abstract claims. Calculate percentage changes yourself (e.g., verify "16% reduction" = (9.7-8.3)/9.7 = 14.4%). Use grep/search to find values in paper text or tables.w content
+- [ ] **Cross-check all statistics against source paper:** Verify exact numbers from tables/figures, not abstract claims. Calculate percentage changes yourself (e.g., verify "16% reduction" = (9.7-8.3)/9.7 = 14.4%). Use grep/search to find values in paper text or tables.
+- [ ] **Verify model/system lists:** Cross-check which models/systems were actually tested vs. mentioned in other contexts (e.g., used for grading but not tested, cited but not evaluated). Don't assume common models are included—check methodology sections explicitly.w content
 
 - [ ] **Paper header** (`panel panel-info`): 
   - [ ] Container uses `flex items-center justify-between gap-4` (no flex-wrap)
@@ -64,6 +65,9 @@ U## Ov## Before you start
 ## Interactive component
 
 - [ ] **Add concrete examples for technical concepts:** Use highlighted panels (`panel panel-neutral-soft`) with real-world analogies before introducing complex controls (e.g., "Think of parallel scaling like trying multiple approaches" or "Flight booking: successes teach steps, failures teach guardrails")
+- [ ] **Explain metric relationships:** If showing multiple metrics that could be misunderstood (e.g., "compliance with invalid requests" + "compliance with valid requests"), add text clarifying what success looks like: "Low invalid + high valid = selective behavior"
+- [ ] **Distinguish baseline from mitigation:** Use color coding (amber for problematic baseline, green for successful mitigation) and clear messaging ("Complies with ALL requests indiscriminately" vs "Maintains helpfulness while rejecting dangerous requests")
+- [ ] **Model OOD behavior if applicable:** If paper tests generalization, add domain selector with appropriate effectiveness penalties for different strategies (document assumptions in code comments)
 - [ ] **Root wrapper:** `<section class="space-y-6" id="pXX-explorer">` (semantic HTML, not div)
 - [ ] **NO inline styles:** No `<style>` blocks - use Tailwind utility classes only
 - [ ] **Panel structure:**

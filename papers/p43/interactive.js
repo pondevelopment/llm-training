@@ -186,17 +186,21 @@
 
     if (accEl) accEl.textContent = `+${improvement}%`;
     
-    // Bar widths represent relative improvement magnitude
-    // Simulation: max 12% -> scale to 60%
-    // Inference: max 18% -> scale to 90%  
-    // Distractor: max 75% -> scale to 100%
+    // Bar widths scaled so the maximum improvement (distractor: 64.6%) = 100% bar width
+    // This makes visual comparison intuitive: longer bar = bigger improvement
+    // Simulation: max 12% improvement -> (12/64.6) * 100 = ~18.6% bar width
+    // Inference: max 18% improvement -> (18/64.6) * 100 = ~27.9% bar width
+    // Distractor: max 75% improvement -> 100% bar width (capped)
     let barWidth;
     if (task === 'simulation') {
-      barWidth = Math.min(100, (improvement / 12) * 60);
+      // Scale relative to max distractor improvement (64.6%)
+      barWidth = Math.min(100, (improvement / 64.6) * 100);
     } else if (task === 'inference') {
-      barWidth = Math.min(100, (improvement / 18) * 90);
+      // Scale relative to max distractor improvement (64.6%)
+      barWidth = Math.min(100, (improvement / 64.6) * 100);
     } else if (task === 'distractor') {
-      barWidth = Math.min(100, (improvement / 75) * 100);
+      // Distractor improvement reaches 100% bar width at 64.6%
+      barWidth = Math.min(100, (improvement / 64.6) * 100);
     }
     
     if (barEl) {

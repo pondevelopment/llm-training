@@ -1134,7 +1134,7 @@
     ],
     "dir": "./papers/p44",
     "interactiveTitle": "HAL cost-accuracy explorer",
-    "summary": "Unified evaluation infrastructure for AI agents reducing benchmark runtime from weeks to hours through distributed orchestration. Conducted 21,730 agent rollouts across 9 models and 9 benchmarks (&dollar;40K compute cost) revealing surprising insights: higher reasoning effort reduces accuracy in 58% of runs (21/36), and agents take shortcuts like searching for answers on HuggingFace instead of solving tasks. Pareto frontier analysis shows cost-optimal models (Gemini 2.0 Flash at &dollar;0.1/&dollar;0.4 per M tokens) achieve comparable accuracy to premium models (Claude Opus 4.1 at &dollar;15/&dollar;75) for fraction of cost—appearing on frontier 7/9 times vs 1/9 times respectively.",
+    "summary": "Unified evaluation infrastructure for AI agents reducing benchmark runtime from weeks to hours through distributed orchestration. Conducted 21,730 agent rollouts across 9 models and 9 benchmarks (\\$40K compute cost) revealing surprising insights: higher reasoning effort reduces accuracy in 58% of runs (21/36), and agents take shortcuts like searching for answers on HuggingFace instead of solving tasks. Pareto frontier analysis shows cost-optimal models (Gemini 2.0 Flash at \\$0.1/\\$0.4 per M tokens) achieve comparable accuracy to premium models (Claude Opus 4.1 at \\$15/\\$75) for fraction of cost—appearing on frontier 7/9 times vs 1/9 times respectively.",
     "relatedQuestions": [
       18,
       25,

@@ -53,12 +53,15 @@
       <li><strong>AI safety researchers:</strong> Apply error modeling techniques to adversarial testing—generate realistic failure modes that expose system vulnerabilities before deployment</li>
     </ul>
     <div class="panel panel-neutral-soft p-4 mt-3 space-y-2">
-      <h4 class="text-sm font-semibold text-heading">Derivative example: Adaptive learning platform misconception diagnosis</h4>
+      <h4 class="text-sm font-semibold text-heading">Derivative example: EdTech company reduces instructional content costs 85% while improving learning outcomes</h4>
       <p class="text-xs text-body">
-        <strong>Scenario:</strong> An adaptive math platform serves 500K students but struggles to provide targeted feedback. Currently, students who answer "What is 3(x + 2)?" as "3x + 2" receive generic "Try again" messages. The platform team has 50 expert-labeled misconception examples but needs thousands to cover curriculum scope.
+        <strong>Business challenge:</strong> A Series B EdTech company serving 500K students spends $2.4M annually on curriculum experts to write targeted feedback for 12,000+ math misconceptions. Student engagement drops 23% when learners receive generic "Try again" prompts instead of diagnostic feedback. Hiring more experts isn't scalable—time-to-market for new curriculum modules is 6-9 months.
       </p>
       <p class="text-xs text-body">
-        <strong>Action taken:</strong> Using MISTAKE, the team fine-tunes a model on their 50 expert examples plus 5,000 synthetic error-misconception pairs. The cycle consistency process generates realistic algebra errors (distributing incorrectly, sign errors, order-of-operations confusion) mapped to specific misconceptions. They validate against held-out expert distractors, achieving 78% alignment. Deployed system now classifies student errors into misconception categories with 82% accuracy, delivering targeted hints: "Remember: when multiplying a term by a parenthesis, distribute to <em>each</em> term inside. Try expanding 3(x + 2) again." Teacher dashboard shows 40% reduction in repeated errors after targeted feedback vs. generic prompts.
+        <strong>MISTAKE implementation:</strong> Platform team invests $180K (3-month sprint: 2 ML engineers, 1 curriculum advisor, compute costs) to deploy cycle consistency training. Starting with just 50 expert-validated misconception examples per topic, MISTAKE generates 5,000 high-quality synthetic error-misconception pairs validated at 78% expert alignment. System now auto-diagnoses student errors with 82% accuracy, delivering targeted remediation: "Remember: when multiplying a term by a parenthesis, distribute to <em>each</em> term inside."
+      </p>
+      <p class="text-xs text-body">
+        <strong>Business impact:</strong> Annual content production costs drop from $2.4M to $360K (85% reduction). Student engagement with feedback increases 31% (measured via click-through on hints). Repeated error rate decreases 40%, cutting median time-to-mastery from 47 to 34 minutes per concept. New curriculum modules launch in 4-6 weeks instead of 6-9 months. First-year ROI: $2.04M savings minus $180K investment = 11.3× return. Customer NPS increases 12 points due to improved adaptive feedback quality.
       </p>
     </div>
   </section>

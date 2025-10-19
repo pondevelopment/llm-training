@@ -144,21 +144,21 @@
     if (roundtripEl) roundtripEl.textContent = '100%';
 
     // Update task performance metrics
-    // Performance improves with more training data and higher consistency threshold
-    // Base accuracy + bonus from data size + bonus from high consistency
-    const dataBonus = Math.min(20, Math.log10(totalTraining) * 5); // Diminishing returns
-    const consistencyBonus = consistency > 0.75 ? 5 : consistency > 0.65 ? 2 : 0;
+    // Show improvements from paper: +9%, +15%, +64.6%
+    // Improvements scale slightly with more data and higher consistency (illustrative)
+    const dataBonus = Math.min(3, Math.log10(totalTraining) * 0.8); // Small bonus
+    const consistencyBonus = consistency > 0.75 ? 1.5 : consistency > 0.65 ? 0.5 : 0;
 
-    const simulationAcc = Math.min(95, Math.round(70 + dataBonus + consistencyBonus));
-    const inferenceAcc = Math.min(92, Math.round(65 + dataBonus + consistencyBonus));
-    const distractorAcc = Math.min(88, Math.round(60 + dataBonus + consistencyBonus));
+    const simulationImprovement = Math.min(12, Math.round(6 + dataBonus + consistencyBonus)); // Paper: up to 9%
+    const inferenceImprovement = Math.min(18, Math.round(12 + dataBonus + consistencyBonus)); // Paper: 15%
+    const distractorImprovement = Math.min(75, Math.round(50 + dataBonus * 3 + consistencyBonus * 2)); // Paper: 64.6%
 
-    updateTaskMetric('simulation', simulationAcc);
-    updateTaskMetric('inference', inferenceAcc);
-    updateTaskMetric('distractor', distractorAcc);
+    updateTaskMetric('simulation', simulationImprovement);
+    updateTaskMetric('inference', inferenceImprovement);
+    updateTaskMetric('distractor', distractorImprovement);
 
     // Update insights
-    updateInsights(trainingSize, consistency, passRate, totalTraining, simulationAcc);
+    updateInsights(trainingSize, consistency, passRate, totalTraining, simulationImprovement);
   }
 
   function updateMetric(type, value, percentage, color) {
@@ -179,18 +179,32 @@
     }
   }
 
-  function updateTaskMetric(task, accuracy) {
+  function updateTaskMetric(task, improvement) {
     const accEl = document.getElementById(`p43-${task}-acc`);
     const barEl = document.getElementById(`p43-${task}-bar`);
 
-    if (accEl) accEl.textContent = `${accuracy}%`;
+    if (accEl) accEl.textContent = `+${improvement}%`;
+    
+    // Bar widths represent relative improvement magnitude
+    // Simulation: max 12% -> scale to 60%
+    // Inference: max 18% -> scale to 90%  
+    // Distractor: max 75% -> scale to 100%
+    let barWidth;
+    if (task === 'simulation') {
+      barWidth = Math.min(100, (improvement / 12) * 60);
+    } else if (task === 'inference') {
+      barWidth = Math.min(100, (improvement / 18) * 90);
+    } else if (task === 'distractor') {
+      barWidth = Math.min(100, (improvement / 75) * 100);
+    }
+    
     if (barEl) {
-      barEl.style.width = `${accuracy}%`;
+      barEl.style.width = `${barWidth}%`;
       barEl.style.backgroundColor = '#10b981';
     }
   }
 
-  function updateInsights(trainingSize, consistency, passRate, totalTraining, simulationAcc) {
+  function updateInsights(trainingSize, consistency, passRate, totalTraining, simulationImprovement) {
     const insightsEl = document.getElementById('p43-insights');
     if (!insightsEl) return;
 
@@ -201,19 +215,19 @@
 
     if (consistency < 0.65) {
       setupText = `With ${trainingSize} expert seed examples and ${consistency.toFixed(2)} cycle consistency threshold (LOW), you accept ${passPercent}% of candidates, generating ${syntheticCount.toLocaleString()} synthetic examples for ${totalTraining.toLocaleString()} total training pairs.`;
-      whyText = 'Low consistency thresholds maximize training data quantity but risk including pedagogically unrealistic examples. This works when you need large-scale coverage but have strong manual validation downstream. Models achieve ${simulationAcc}% simulation accuracy, though some generated errors may not reflect actual student thinking patterns.';
+      whyText = 'Low consistency thresholds maximize training data quantity but risk including pedagogically unrealistic examples. This works when you need large-scale coverage but have strong manual validation downstream. Models show +${simulationImprovement}% improvement in simulation accuracy, though some generated errors may not reflect actual student thinking patterns.';
     } else if (consistency < 0.75) {
       setupText = `With ${trainingSize} expert seed examples and ${consistency.toFixed(2)} cycle consistency threshold (OPTIMAL), you generate ${syntheticCount.toLocaleString()} high-quality synthetic examples for a total training set of ${totalTraining.toLocaleString()} misconception-answer pairs.`;
-      whyText = 'Cycle consistency acts as an automated quality filter. This sweet spot (0.65-0.75) balances data quantity with quality—accepting enough examples to cover misconception diversity while filtering out incoherent error patterns. Models achieve ${simulationAcc}% simulation accuracy with strong pedagogical validity.';
+      whyText = 'Cycle consistency acts as an automated quality filter. This sweet spot (0.65-0.75) balances data quantity with quality—accepting enough examples to cover misconception diversity while filtering out incoherent error patterns. Models show +${simulationImprovement}% improvement with strong pedagogical validity.';
     } else if (consistency < 0.85) {
       setupText = `With ${trainingSize} expert seed examples and ${consistency.toFixed(2)} cycle consistency threshold (HIGH), you keep only ${passPercent}% of candidates, generating ${syntheticCount.toLocaleString()} highly coherent synthetic examples for ${totalTraining.toLocaleString()} total training pairs.`;
       whyText = 'High consistency thresholds prioritize pedagogical realism over data quantity. Only the most coherent misconception-answer cycles pass, reducing coverage but increasing expert alignment. Best when you have strong seed examples and need high confidence in generated errors for student-facing applications.';
     } else {
       setupText = `With ${trainingSize} expert seed examples and ${consistency.toFixed(2)} cycle consistency threshold (VERY HIGH), you accept only ${passPercent}% of candidates, generating ${syntheticCount.toLocaleString()} extremely coherent examples for ${totalTraining.toLocaleString()} total pairs.`;
-      whyText = 'Very high thresholds (0.85+) approach expert-only quality but drastically reduce synthetic data volume. Use when deploying in high-stakes contexts (assessment generation, teacher training) where every generated example must match expert patterns. Models achieve ${simulationAcc}% accuracy but may undercover edge-case misconceptions.';
+      whyText = 'Very high thresholds (0.85+) approach expert-only quality but drastically reduce synthetic data volume. Use when deploying in high-stakes contexts (assessment generation, teacher training) where every generated example must match expert patterns. Models show +${simulationImprovement}% improvement but may undercover edge-case misconceptions.';
     }
 
-    whyText = whyText.replace('${simulationAcc}', simulationAcc);
+    whyText = whyText.replace('${simulationImprovement}', simulationImprovement);
 
     insightsEl.innerHTML = `
       <p><strong>Current setup:</strong> ${setupText}</p>

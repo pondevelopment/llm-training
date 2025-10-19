@@ -18,7 +18,7 @@
     ],
     "dir": "./papers/p43",
     "interactiveTitle": "Cycle consistency error simulator",
-    "summary": "MISTAKE uses cycle consistency between incorrect answers and latent misconceptions to generate high-quality synthetic training data for educational AI. By requiring bidirectional coherence (misconception → answer → inferred misconception), the method achieves 84% accuracy in student simulation, 79% in misconception inference, and 76% in distractor generation—using only 20-50 expert seed examples expanded to 5,000+ synthetic pairs, without massive labeled datasets.",
+    "summary": "MISTAKE uses cycle consistency between incorrect answers and latent misconceptions to generate high-quality synthetic training data for educational AI. By requiring bidirectional coherence (misconception → answer → inferred misconception), the method achieves up to 9% improvement in student simulation accuracy, 15% improvement in misconception inference, and 64.6% increase in distractor generation precision compared to baseline models—using synthetically generated examples without massive labeled datasets of real student errors.",
     "relatedQuestions": [
       7,
       11,

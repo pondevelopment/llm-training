@@ -99,11 +99,11 @@
   <section class="panel panel-neutral p-5 space-y-3">
     <h3 class="text-sm font-semibold text-heading">🧪 Evidence</h3>
     <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
-      <li><strong>Student simulation accuracy:</strong> MISTAKE-trained models achieve higher accuracy when generating incorrect answers conditioned on specific misconceptions across three educational tasks</li>
-      <li><strong>Misconception inference improvement:</strong> Increased performance inferring latent misconceptions from observed incorrect answers compared to baseline LLM approaches</li>
-      <li><strong>Distractor alignment:</strong> Generated incorrect answers show higher alignment with expert-written distractors for multiple-choice tests, validating pedagogical realism</li>
-      <li><strong>Cycle consistency validation:</strong> Round-trip accuracy (misconception → answer → misconception) serves as automated quality filter, reducing need for manual expert validation of synthetic training data</li>
-      <li><strong>Cross-task generalization:</strong> Models trained on MISTAKE-generated data perform better across all three tasks (simulation, inference, generation) than models trained on individual task datasets</li>
+      <li><strong>Student simulation improvement:</strong> MISTAKE improves accuracy by up to 9% when generating incorrect answers conditioned on specific misconceptions, evaluated on EEDI dataset with 1,857 K-12 math questions</li>
+      <li><strong>Misconception inference gains:</strong> 15% improvement in performance when inferring latent misconceptions from observed incorrect answers compared to baseline approaches</li>
+      <li><strong>Distractor precision increase:</strong> 64.6% increase in precision when generating distractor answers that match expert-written incorrect choices for multiple-choice tests, validating pedagogical realism</li>
+      <li><strong>Cycle consistency as quality filter:</strong> Round-trip accuracy (misconception → answer → inferred misconception) automatically filters synthetic training data, reducing need for manual expert validation while maintaining alignment with expert patterns</li>
+      <li><strong>Unified model performance:</strong> Single fine-tuned model performs all three tasks (simulation, inference, distractor generation) using synthetically generated examples without requiring large labeled datasets of real student errors</li>
     </ul>
   </section>
 
@@ -114,11 +114,11 @@
       If you're building educational AI or systems that need to model failure modes, MISTAKE's cycle consistency approach enables scalable error modeling without massive labeled datasets. Here's how to implement:
     </p>
     <ul class="list-disc ml-5 space-y-1 text-sm text-body">
-      <li><strong>Start with expert seed examples:</strong> Collect 20-50 high-quality misconception-answer pairs from subject matter experts; this small dataset provides the pedagogical foundation for synthetic generation</li>
-      <li><strong>Generate synthetic training data:</strong> Use MISTAKE's cycle consistency loop to create thousands of additional examples—sample misconceptions, generate answers, filter by round-trip inference accuracy (keep examples where inferred misconception matches original)</li>
-      <li><strong>Fine-tune task-specific models:</strong> Train separate heads for student simulation (misconception → answer), misconception inference (answer → misconception), and distractor generation (problem → incorrect answers), using shared base model to enable cross-task learning</li>
-      <li><strong>Validate against expert distractors:</strong> Measure alignment between generated incorrect answers and expert-written test distractors; target 70%+ agreement with expert patterns before deployment in student-facing contexts</li>
-      <li><strong>Deploy with human oversight:</strong> Initially use models to suggest feedback or distractors for teacher review; log cases where cycle consistency is low or expert validation fails to identify distribution shifts in student behavior</li>
+      <li><strong>Start with expert seed examples:</strong> Collect a small set of high-quality misconception-answer pairs from subject matter experts; this provides the pedagogical foundation for synthetic generation</li>
+      <li><strong>Generate synthetic training data:</strong> Use MISTAKE's cycle consistency loop to create additional training examples—sample misconceptions, generate answers, filter by round-trip inference accuracy (keep examples where inferred misconception matches original)</li>
+      <li><strong>Fine-tune task-specific models:</strong> Train models for student simulation (misconception → answer), misconception inference (answer → misconception), and distractor generation (problem → incorrect answers), using LoRA fine-tuning for efficiency</li>
+      <li><strong>Validate against expert distractors:</strong> Measure alignment between generated incorrect answers and expert-written test distractors; paper achieves 64.6% increase in precision compared to baseline approaches</li>
+      <li><strong>Deploy with human oversight:</strong> Initially use models to suggest feedback or distractors for teacher review; monitor cycle consistency scores to identify distribution shifts in student behavior patterns</li>
     </ul>
   </section>
 </article>

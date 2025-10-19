@@ -145,9 +145,9 @@
 
   <!-- Task performance metrics -->
   <div class="panel panel-success p-4 space-y-3">
-    <h3 class="text-sm font-semibold text-heading">Model performance on three tasks</h3>
+    <h3 class="text-sm font-semibold text-heading">Performance improvements over baseline</h3>
     <p class="text-xs text-body">
-      After fine-tuning on combined seed + synthetic data, models perform these educational tasks:
+      MISTAKE training shows measurable gains across all three educational tasks (tested on EEDI dataset with 1,857 K-12 math questions):
     </p>
     
     <div class="space-y-3">
@@ -155,13 +155,13 @@
       <div class="space-y-1">
         <div class="flex items-center justify-between">
           <span class="text-xs font-medium text-body">1. Student simulation (misconception → answer)</span>
-          <span id="p43-simulation-acc" class="text-xs font-semibold text-body">84%</span>
+          <span id="p43-simulation-acc" class="text-xs font-semibold text-body">+9%</span>
         </div>
         <div class="w-full bg-surface rounded-full h-2 overflow-hidden">
-          <div id="p43-simulation-bar" class="h-2 rounded-full transition-all duration-300" style="width: 84%; background-color: #10b981;"></div>
+          <div id="p43-simulation-bar" class="h-2 rounded-full transition-all duration-300" style="width: 45%; background-color: #10b981;"></div>
         </div>
         <p class="text-xs text-muted italic">
-          Accuracy at generating realistic incorrect answers given specific misconceptions
+          Improvement in accuracy at generating realistic incorrect answers given specific misconceptions
         </p>
       </div>
 
@@ -169,13 +169,13 @@
       <div class="space-y-1">
         <div class="flex items-center justify-between">
           <span class="text-xs font-medium text-body">2. Misconception inference (answer → misconception)</span>
-          <span id="p43-inference-acc" class="text-xs font-semibold text-body">79%</span>
+          <span id="p43-inference-acc" class="text-xs font-semibold text-body">+15%</span>
         </div>
         <div class="w-full bg-surface rounded-full h-2 overflow-hidden">
-          <div id="p43-inference-bar" class="h-2 rounded-full transition-all duration-300" style="width: 79%; background-color: #10b981;"></div>
+          <div id="p43-inference-bar" class="h-2 rounded-full transition-all duration-300" style="width: 75%; background-color: #10b981;"></div>
         </div>
         <p class="text-xs text-muted italic">
-          Accuracy at diagnosing underlying misconception from observed incorrect answer
+          Improvement in diagnosing underlying misconception from observed incorrect answer
         </p>
       </div>
 
@@ -183,13 +183,13 @@
       <div class="space-y-1">
         <div class="flex items-center justify-between">
           <span class="text-xs font-medium text-body">3. Distractor generation (problem → wrong answers)</span>
-          <span id="p43-distractor-acc" class="text-xs font-semibold text-body">76%</span>
+          <span id="p43-distractor-acc" class="text-xs font-semibold text-body">+64.6%</span>
         </div>
         <div class="w-full bg-surface rounded-full h-2 overflow-hidden">
-          <div id="p43-distractor-bar" class="h-2 rounded-full transition-all duration-300" style="width: 76%; background-color: #10b981;"></div>
+          <div id="p43-distractor-bar" class="h-2 rounded-full transition-all duration-300" style="width: 100%; background-color: #10b981;"></div>
         </div>
         <p class="text-xs text-muted italic">
-          Alignment with expert-written distractors for multiple-choice assessment items
+          Increase in precision when matching expert-written distractors for multiple-choice assessments
         </p>
       </div>
     </div>

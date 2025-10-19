@@ -145,14 +145,11 @@
     if (roundtripEl) roundtripEl.textContent = '100%';
 
     // Update task performance metrics
-    // Show improvements from paper: +9%, +15%, +64.6%
-    // Improvements scale slightly with more data and higher consistency (illustrative)
-    const dataBonus = Math.min(3, Math.log10(totalTraining) * 0.8); // Small bonus
-    const consistencyBonus = consistency > 0.75 ? 1.5 : consistency > 0.65 ? 0.5 : 0;
-
-    const simulationImprovement = Math.min(12, Math.round(6 + dataBonus + consistencyBonus)); // Paper: up to 9%
-    const inferenceImprovement = Math.min(18, Math.round(12 + dataBonus + consistencyBonus)); // Paper: 15%
-    const distractorImprovement = Math.min(75, Math.round(50 + dataBonus * 3 + consistencyBonus * 2)); // Paper: 64.6%
+    // These are the ACTUAL paper results (fixed, not dynamic)
+    // Paper reports specific improvements on EEDI dataset
+    const simulationImprovement = 9;     // Paper: up to 9% improvement
+    const inferenceImprovement = 15;     // Paper: 15% improvement  
+    const distractorImprovement = 64.6;  // Paper: 64.6% increase in precision
 
     updateTaskMetric('simulation', simulationImprovement);
     updateTaskMetric('inference', inferenceImprovement);

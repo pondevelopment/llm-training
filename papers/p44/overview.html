@@ -80,7 +80,13 @@
   </section>
 
   <!-- Supporting callouts -->
-  <section class="grid grid-cols-1 md:grid-cols-2 gap-4">
+  <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">What is a Pareto frontier?</h3>
+      <p class="text-xs text-body">
+        A Pareto frontier identifies models where no other option offers better performance at lower cost. In economics, it's called "Pareto optimality"—you can't improve one dimension without sacrificing another. For AI agents: a model is on the frontier if achieving higher accuracy requires spending more money. Models <em>off</em> the frontier are strictly worse—another model matches or beats their accuracy while costing less. HAL's analysis reveals most expensive models (Claude Opus 4.1 at \$15/\$75 per M tokens) appear on just 1 of 9 frontiers, while cost-efficient models (Gemini 2.0 Flash at \$0.1/\$0.4) dominate 7 of 9 frontiers. This quantifies the intuition that "premium pricing doesn't guarantee premium value."
+      </p>
+    </div>
     <div class="panel panel-info p-4 space-y-2">
       <h3 class="text-sm font-semibold text-heading">Why agent evaluation differs from LLM evaluation</h3>
       <p class="text-xs text-body">

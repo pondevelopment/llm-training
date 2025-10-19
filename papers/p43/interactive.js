@@ -101,12 +101,13 @@
     if (consistencyLabelEl) consistencyLabelEl.textContent = consistency.toFixed(2);
 
     // Calculate synthetic data generation
-    // Base generation: 100x the training size (realistic for synthetic generation)
-    const candidateGenerated = trainingSize * 100;
+    // Fixed number of candidate examples generated (independent of seed size)
+    // In practice, you'd generate many candidates and filter by cycle consistency
+    const candidateGenerated = 5000;
     
-    // Filter rate based on consistency threshold
-    // Higher threshold = more examples filtered out
-    // Rough model: pass rate decreases as threshold increases
+    // Filter rate based ONLY on consistency threshold
+    // Higher threshold = more examples filtered out (stricter quality filter)
+    // Pass rate decreases as threshold increases
     const passRate = consistency < 0.60 ? 0.85 :
                      consistency < 0.70 ? 0.75 :
                      consistency < 0.80 ? 0.65 :

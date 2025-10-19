@@ -1,4 +1,11 @@
 <section class="space-y-6" id="p43-explorer">
+  <!-- Simulator disclaimer -->
+  <div class="panel panel-warning-soft p-3 space-y-1">
+    <p class="text-xs text-body">
+      <strong>⚠️ Simulator assumptions:</strong> This interactive explores MISTAKE's cycle consistency approach using plausible educational estimates. The paper reports specific results (+9%, +15%, +64.6%) but doesn't provide formulas for how performance scales with data quantity/quality. Synthetic data generation rates and performance scaling are illustrative models to help understand the methodology—not empirically validated relationships from the paper.
+    </p>
+  </div>
+
   <!-- Intro panel with analogy -->
   <div class="panel panel-neutral-soft p-4 space-y-2">
     <p class="text-sm text-body">
@@ -56,6 +63,9 @@
   <!-- Training data generation results -->
   <div class="panel panel-neutral p-4 space-y-4">
     <h3 class="text-sm font-semibold text-heading">Synthetic data generation</h3>
+    <p class="text-xs panel-muted">
+      <strong>Note:</strong> The paper describes cycle consistency filtering but doesn't specify exact candidate counts or pass rate formulas. Values below are plausible estimates for illustration.
+    </p>
     
     <div class="space-y-3">
       <!-- Synthetic examples generated -->
@@ -147,7 +157,7 @@
   <div class="panel panel-success p-4 space-y-3">
     <h3 class="text-sm font-semibold text-heading">Performance improvements over baseline</h3>
     <p class="text-xs text-body">
-      Estimated performance with your configuration. Paper achieved +9%, +15%, and +64.6% improvements with their setup on EEDI dataset (1,857 K-12 math questions). Results scale with training data quality (consistency threshold) and quantity (total examples).
+      <strong>Interactive estimation</strong> showing how performance might vary with your configuration. The paper reports fixed results: <strong>+9% (student simulation), +15% (misconception inference), +64.6% (distractor generation)</strong> with their specific setup on EEDI dataset (1,857 K-12 math questions). The scaling below is an educational model—not empirically validated—illustrating plausible relationships between data quality/quantity and outcomes.
     </p>
     
     <div class="space-y-3">

@@ -145,18 +145,20 @@
     if (roundtripEl) roundtripEl.textContent = '100%';
 
     // Update task performance metrics
-    // Simulate how performance scales with training data quality and quantity
-    // Paper baseline results: +9%, +15%, +64.6% (with their specific setup)
-    // We model how these might vary with different configurations
+    // IMPORTANT: The paper reports fixed results (+9%, +15%, +64.6%) from one specific configuration
+    // The scaling below is an EDUCATIONAL ESTIMATE showing how performance might vary—not from the paper
+    // We model how results could plausibly change with different data quality/quantity
     
     // More training data and higher consistency both improve performance
-    const dataQualityFactor = Math.min(1.2, 0.7 + (totalTraining / 10000) * 0.5); // 0.7 to 1.2x
-    const consistencyFactor = Math.min(1.3, 0.8 + consistency * 0.5); // 0.8 to 1.3x
+    // Scale more aggressively so users see meaningful changes
+    const dataQualityFactor = Math.min(1.5, 0.5 + (totalTraining / 10000) * 1.0); // 0.5x to 1.5x
+    const consistencyFactor = Math.min(1.6, 0.6 + consistency * 1.0); // 0.6x to 1.6x
     
     // Paper's actual results as baseline, scaled by configuration
-    const simulationImprovement = Math.max(3, Math.min(12, Math.round(9 * dataQualityFactor * consistencyFactor)));
-    const inferenceImprovement = Math.max(5, Math.min(20, Math.round(15 * dataQualityFactor * consistencyFactor)));
-    const distractorImprovement = Math.max(20, Math.min(80, Math.round(64.6 * dataQualityFactor * consistencyFactor)));
+    // Ranges are plausible estimates, not empirically validated
+    const simulationImprovement = Math.max(3, Math.min(15, Math.round(9 * dataQualityFactor * consistencyFactor)));
+    const inferenceImprovement = Math.max(5, Math.min(25, Math.round(15 * dataQualityFactor * consistencyFactor)));
+    const distractorImprovement = Math.max(15, Math.min(100, Math.round(64.6 * dataQualityFactor * consistencyFactor)));
 
     updateTaskMetric('simulation', simulationImprovement);
     updateTaskMetric('inference', inferenceImprovement);

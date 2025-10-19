@@ -48,7 +48,7 @@
              min="0.5" max="0.95" step="0.05" value="0.70"
              class="w-full accent-[color:var(--accent-strong)]">
       <p class="text-xs text-muted italic">
-        Minimum round-trip accuracy (misconception → answer → misconception) to keep synthetic examples
+        Quality filter: if model generates "3x + 2" from "distribution error" and correctly infers "distribution error" back from the answer, that's 100% round-trip accuracy—example passes. Lower thresholds accept more examples but risk lower quality.
       </p>
     </div>
   </div>

@@ -1,38 +1,29 @@
-﻿<article class="space-y-5">
-  <!-- Paper header -->
-  <header class="panel panel-info p-4">
+﻿<section class="space-y-5">
+  <section class="panel panel-info p-4 space-y-4">
     <div class="flex items-center justify-between gap-4">
       <div class="flex-1 min-w-0">
-        <h2 class="text-xl font-bold text-heading mb-2">
-          Learning to Make MISTAKEs: Modeling Incorrect Student Thinking And Key Errors
-        </h2>
-        <p class="text-sm text-muted mb-3">
-          Alexis Ross, Jacob Andreas • arXiv cs.LG (2025)
-        </p>
-        <p class="text-sm text-body mb-3">
-          Most LLM research optimizes for correctness, but educational applications need models that understand and generate realistic errors. MISTAKE uses cycle consistency between incorrect answers and latent misconceptions to create high-quality synthetic training data, achieving higher accuracy in student simulation, misconception inference, and distractor generation for multiple-choice tests.
-        </p>
+        <h2 class="text-xl font-semibold text-heading">Learning to Make MISTAKEs: Modeling Incorrect Student Thinking And Key Errors</h2>
+        <p class="text-sm panel-muted">Alexis Ross, Jacob Andreas • arXiv cs.LG (2025)</p>
       </div>
-      <a href="https://arxiv.org/abs/2510.11502" 
-         target="_blank" 
-         rel="noopener noreferrer"
-         class="btn-soft flex-shrink-0"
-         data-accent="foundations">
-        View paper ↗
+      <a href="https://arxiv.org/abs/2510.11502" target="_blank" rel="noopener" class="btn-soft text-xs font-semibold flex-shrink-0" data-accent="foundations">
+        <span>View paper</span>
+        <span aria-hidden="true">↗</span>
       </a>
     </div>
-    
-    <!-- Plain-language explainer -->
-    <div class="panel panel-neutral-soft p-3 mt-3">
-      <p class="text-sm text-body">
-        <strong>In everyday terms:</strong> Imagine training a teacher assistant to help struggling students. Instead of just knowing correct answers, it needs to understand <em>why</em> students get things wrong—like confusing "solve for x" with "plug in x." MISTAKE teaches models to generate realistic mistakes by connecting errors to underlying misconceptions, like how doctors connect symptoms to diseases.
-      </p>
+    <p class="text-sm leading-relaxed panel-muted">
+      Most LLM research optimizes for correctness, but educational applications need models that understand and generate realistic errors. MISTAKE uses cycle consistency between incorrect answers and latent misconceptions to create high-quality synthetic training data, achieving higher accuracy in student simulation, misconception inference, and distractor generation for multiple-choice tests.
+    </p>
+    <div class="panel panel-neutral-soft p-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Plain-language explainer</p>
+      <p class="panel-muted">Imagine training a teacher assistant to help struggling students. Instead of just knowing correct answers, it needs to understand <em>why</em> students get things wrong—like confusing "solve for x" with "plug in x." MISTAKE teaches models to generate realistic mistakes by connecting errors to underlying misconceptions, like how doctors connect symptoms to diseases.</p>
     </div>
-  </header>
+  </section>
 
-  <!-- Executive quick take -->
   <section class="panel panel-neutral p-5 space-y-3">
-    <h3 class="text-sm font-semibold tracking-wide uppercase text-heading">🧭 Executive quick take</h3>
+    <header class="flex items-center gap-2">
+      <span aria-hidden="true" class="text-lg">🧭</span>
+      <h3 class="text-sm font-semibold tracking-wide uppercase text-heading">Executive quick take</h3>
+    </header>
     <p class="text-sm leading-relaxed text-body">
       Educational technology requires modeling <em>incorrect</em> reasoning, not just correct answers. MISTAKE generates synthetic error examples using cycle consistency (misconception → incorrect answer → inferred misconception), enabling automated feedback systems that understand student thinking patterns. This unlocks real-time classroom assistance and scalable teacher training without requiring massive labeled datasets of student errors.
     </p>

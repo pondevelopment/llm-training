@@ -1,4 +1,30 @@
 {
+  "43": {
+    "title": "Learning to Make MISTAKEs: Modeling Incorrect Student Thinking And Key Errors",
+    "authors": [
+      "Alexis Ross",
+      "Jacob Andreas"
+    ],
+    "year": 2025,
+    "venue": "arXiv cs.LG (2025)",
+    "tags": [
+      "education",
+      "error-modeling",
+      "synthetic-data",
+      "misconceptions",
+      "cycle-consistency",
+      "assessment",
+      "pedagogy"
+    ],
+    "dir": "./papers/p43",
+    "interactiveTitle": "Cycle consistency error simulator",
+    "summary": "MISTAKE uses cycle consistency between incorrect answers and latent misconceptions to generate high-quality synthetic training data for educational AI. By requiring bidirectional coherence (misconception → answer → inferred misconception), the method achieves 84% accuracy in student simulation, 79% in misconception inference, and 76% in distractor generation—using only 20-50 expert seed examples expanded to 5,000+ synthetic pairs, without massive labeled datasets.",
+    "relatedQuestions": [
+      7,
+      11,
+      38
+    ]
+  },
   "42": {
     "title": "When Helpfulness Backfires: LLMs and the Risk of False Medical Information Due to Sycophantic Behavior",
     "authors": [

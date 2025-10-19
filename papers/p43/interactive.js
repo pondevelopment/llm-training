@@ -183,22 +183,12 @@
 
     if (accEl) accEl.textContent = `+${improvement}%`;
     
-    // Bar widths scaled so the maximum improvement (distractor: 64.6%) = 100% bar width
-    // This makes visual comparison intuitive: longer bar = bigger improvement
-    // Simulation: max 12% improvement -> (12/64.6) * 100 = ~18.6% bar width
-    // Inference: max 18% improvement -> (18/64.6) * 100 = ~27.9% bar width
-    // Distractor: max 75% improvement -> 100% bar width (capped)
-    let barWidth;
-    if (task === 'simulation') {
-      // Scale relative to max distractor improvement (64.6%)
-      barWidth = Math.min(100, (improvement / 64.6) * 100);
-    } else if (task === 'inference') {
-      // Scale relative to max distractor improvement (64.6%)
-      barWidth = Math.min(100, (improvement / 64.6) * 100);
-    } else if (task === 'distractor') {
-      // Distractor improvement reaches 100% bar width at 64.6%
-      barWidth = Math.min(100, (improvement / 64.6) * 100);
-    }
+    // Bar width directly represents the improvement percentage
+    // This matches other bars on the page (e.g., "70% pass rate" = 70% bar width)
+    // +9% improvement = 9% bar width
+    // +15% improvement = 15% bar width
+    // +64.6% improvement = 64.6% bar width
+    const barWidth = improvement;
     
     if (barEl) {
       barEl.style.width = `${barWidth}%`;

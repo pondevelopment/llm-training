@@ -136,14 +136,35 @@ class LLMQuestionApp {
     /* -------------- Hash / Routing -------------- */
     canonicalHash(q){ return `#question-${q}`; }
     canonicalPaperHash(p){ return `#paper-${p}`; }
-    parseHash(){
+    parseRoute(){
+        // Support both old (#paper-44) and new (?paper=44#anchor) formats for backwards compatibility
+        const params = new URLSearchParams(window.location.search);
         const h = window.location.hash;
+        
+        // Check for query parameter format: ?paper=44 or ?question=5
+        if(params.has('paper')){
+            const id = parseInt(params.get('paper'),10);
+            if(Number.isFinite(id) && id > 0){
+                // Extract anchor from hash (e.g., #pareto-frontier-explainer)
+                const anchor = h && h.startsWith('#') ? h.slice(1) : null;
+                return { type:'paper', id, anchor };
+            }
+        }
+        if(params.has('question')){
+            const q = parseInt(params.get('question'),10);
+            if(Number.isFinite(q) && q > 0){
+                const anchor = h && h.startsWith('#') ? h.slice(1) : null;
+                return { type:'question', id:q, anchor };
+            }
+        }
+        
+        // Fall back to hash-based routing for backwards compatibility
         if(!h || h==='#') return null;
         const paperMatch = h.match(/^#paper-?0*(\d{1,3})$/i);
         if(paperMatch){
             const id = parseInt(paperMatch[1],10);
             if(Number.isFinite(id) && id > 0){
-                return { type:'paper', id };
+                return { type:'paper', id, anchor:null };
             }
             return null;
         }
@@ -151,27 +172,50 @@ class LLMQuestionApp {
         if(!questionMatch) return null;
         const q = parseInt(questionMatch[1],10);
         if(!Number.isFinite(q) || q < 1) return null;
-        return { type:'question', id:q };
+        return { type:'question', id:q, anchor:null };
+    }
+    parseHash(){
+        // Wrapper for backwards compatibility - delegates to parseRoute
+        return this.parseRoute();
     }
     initFromHash(){
-        const route = this.parseHash();
+        const route = this.parseRoute();
         if(!route){ this.showLanding(); return; }
         if(route.type === 'paper'){
-            const desiredPaper = this.canonicalPaperHash(route.id);
-            if(window.location.hash !== desiredPaper){
-                history.replaceState(null,'',desiredPaper);
+            // For query param format, keep it; for old hash format, normalize to query params
+            const params = new URLSearchParams(window.location.search);
+            const hasQueryParam = params.has('paper');
+            
+            if(!hasQueryParam){
+                // Old format: #paper-44 -> normalize to ?paper=44
+                const newUrl = `?paper=${route.id}`;
+                history.replaceState(null,'', newUrl);
             }
+            
             this.hideLanding();
-            this.showPaper(route.id,{replace:true});
+            this.showPaper(route.id,{replace:true, anchor:route.anchor});
             return;
         }
         const q = route.id;
-        const desired = this.canonicalHash(q);
-        if(window.location.hash !== desired){
-            history.replaceState(null,'',desired);
+        const params = new URLSearchParams(window.location.search);
+        const hasQueryParam = params.has('question');
+        
+        if(!hasQueryParam){
+            // Old format: use hash-based routing
+            const desired = this.canonicalHash(q);
+            if(window.location.hash !== desired){
+                history.replaceState(null,'',desired);
+            }
         }
+        
         const idx = this.availableQuestions.indexOf(q);
-        if(idx!==-1){ this.hideLanding(); this.displayQuestion(idx,{replace:true}); } else { this.showLanding(); this.notify(`Question ${q} not found`,'error'); }
+        if(idx!==-1){ 
+            this.hideLanding(); 
+            this.displayQuestion(idx,{replace:true, anchor:route.anchor}); 
+        } else { 
+            this.showLanding(); 
+            this.notify(`Question ${q} not found`,'error'); 
+        }
     }
     onHashChange(){ this.initFromHash(); }
     updateURL(i, { replace=false } = {}){
@@ -187,13 +231,22 @@ class LLMQuestionApp {
         }
     }
     updatePaperURL(id,{replace=false}={}){
-        const h = this.canonicalPaperHash(id);
-        if(window.location.hash === h) return;
+        // Check if we're already using query params (new format)
+        const params = new URLSearchParams(window.location.search);
+        const currentHash = window.location.hash;
+        
+        if(params.has('paper') && parseInt(params.get('paper'),10) === id){
+            // Already on the right paper with query params - don't touch URL (preserves anchor)
+            return;
+        }
+        
+        // Use query param format for new URLs
+        const newUrl = `?paper=${id}${currentHash}`;
+        
         if(replace){
-            history.replaceState(null,'',h);
-            if(window.location.hash !== h){ window.location.hash = h; }
+            history.replaceState(null,'', newUrl);
         } else {
-            window.location.hash = h;
+            history.pushState(null,'', newUrl);
         }
     }
     getShareableURL(){ const q=this.availableQuestions[this.currentQuestionIndex]; const base=`${window.location.origin}${window.location.pathname}`.replace(/[^/]+$/,''); return `${base}q/${q}.html`; }
@@ -402,7 +455,7 @@ class LLMQuestionApp {
             if(this.elements.paperInteractiveBody) this.elements.paperInteractiveBody.innerHTML = '';
         }
     }
-    async showPaper(paperId,{replace=false}={}){
+    async showPaper(paperId,{replace=false, anchor=null}={}){
         const id = Number(paperId);
         if(!Number.isFinite(id) || id < 1) return;
         if(this.isLoading){
@@ -429,6 +482,10 @@ class LLMQuestionApp {
             const paper = await this.paperLoader.loadPaper(id);
             this.currentPaperIndex = Number(paper.index || id);
             this.updatePaperContent(paper);
+            // Scroll to anchor if provided
+            if(anchor){
+                this.scrollToAnchor(anchor);
+            }
         } catch (error) {
             console.error(`Display paper ${id} failed`, error);
             this.showPaperError(id);
@@ -535,7 +592,20 @@ class LLMQuestionApp {
             }
         }
         this.renderMath();
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Don't scroll here - let showPaper handle anchor scrolling
+    }
+    scrollToAnchor(anchor){
+        // Scroll to a specific anchor element after a short delay to ensure DOM is ready
+        if(!anchor) return;
+        setTimeout(() => {
+            const element = document.getElementById(anchor);
+            if(element){
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else {
+                console.warn(`Anchor element #${anchor} not found`);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }, 100);
     }
     showPaperError(id){
         this.currentPaperIndex = id;
@@ -580,7 +650,7 @@ class LLMQuestionApp {
     }
 
     /* -------------- Questions -------------- */
-    async displayQuestion(index,{replace=false}={}){
+    async displayQuestion(index,{replace=false, anchor=null}={}){
         // Always update URL immediately to reflect user intent
         try { this.updateURL(index,{ replace }); } catch(_) {}
         // Queue if already loading (URL already reflects target)
@@ -608,7 +678,12 @@ class LLMQuestionApp {
             this.currentQuestionIndex = index;
             this.syncActivePath(qNum);
             this.updatePathUI();
-            window.scrollTo({top:0,behavior:'smooth'});
+            // Scroll to anchor if provided, otherwise scroll to top
+            if(anchor){
+                this.scrollToAnchor(anchor);
+            } else {
+                window.scrollTo({top:0,behavior:'smooth'});
+            }
         } catch(e){
             console.error('Display failed', e);
             // Revert hash if load failed

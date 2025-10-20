@@ -186,6 +186,61 @@ When covering business/economics papers (e.g., GenAI productivity studies):
 - **Dynamic description panels:** When dropdowns/selectors have many options, add brief inline descriptions in the `<option>` tags and include a dedicated description panel (e.g., `id="pXX-workflow-description"`) that updates when the selection changes. This provides context without cluttering the control itself. See Paper 40 for reference pattern.
 - **Explaining heterogeneity:** When papers show differential effects across user segments, add an explanation panel (`panel panel-neutral-soft`) below the segment selector. Explain (1) why the effect varies (mechanism: friction levels, baseline capabilities), (2) what the multipliers mean practically, and (3) strategic implications for targeting. This prevents users from treating segment selection as arbitrary.
 
+## Deep linking and anchor highlights
+
+Papers can link to specific sections within themselves or other papers using anchor IDs. When users navigate to a section via anchor (e.g., `?paper=44#pareto-frontier-explainer`), the target element automatically receives a visual highlight animation.
+
+### Using anchor links
+
+**Internal links (within same paper):**
+```html
+<a href="#pareto-frontier-explainer" class="text-accent-strong underline decoration-dotted">
+  Learn about Pareto frontiers
+</a>
+```
+
+**External/shareable links (from anywhere):**
+```html
+<a href="index.html?paper=44#pareto-frontier-explainer">
+  Read about cost-accuracy tradeoffs in Paper 44
+</a>
+```
+
+### Creating linkable sections
+
+Add an `id` attribute to any section you want to be directly linkable:
+
+```html
+<section class="panel panel-info p-5 space-y-3" id="pareto-frontier-explainer">
+  <header class="flex items-center gap-2">
+    <span aria-hidden="true" class="text-lg">🧮</span>
+    <h3 class="text-sm font-semibold tracking-wide uppercase text-heading">
+      Understanding Pareto Frontiers
+    </h3>
+  </header>
+  <p class="text-sm text-body">Explanation content...</p>
+</section>
+```
+
+### Highlight animation behavior
+
+When a user navigates to an anchor:
+1. **Background highlight**: The target element gets a subtle 2-second fade-out background highlight in accent color (15% opacity → transparent)
+2. **Heading flash**: Any headings within the element (`h1-h4` or `header h2-h3`) flash in accent color for the first 40% of the animation
+3. **Smooth scroll**: Page smoothly scrolls to position the target element at the top of viewport
+
+The animations are defined in `css/theme.css` as reusable theme components:
+- `.anchor-highlight` class automatically applied/removed by `scrollToAnchor()` in `app.js`
+- No manual JavaScript required in individual papers
+- Works consistently across all papers and questions
+
+### Best practices
+
+- **ID naming**: Use descriptive, lowercase-hyphenated IDs: `pareto-frontier-explainer`, `cost-analysis`, `evidence-section`
+- **Link discovery**: Add anchor links in multiple places where users might need to reference the concept (executive summary, bullet lists, derivative examples)
+- **Link styling**: Use `text-accent-strong underline decoration-dotted` for educational anchor links to distinguish them from external links
+- **Accessibility**: Ensure anchor targets have clear headings so screen reader users benefit from the jump
+
 ## Share pages (`p/XX.html`)
 
 Share pages are critical for social media discoverability. They provide rich previews when links are shared in Telegram, WhatsApp, Slack, Twitter, LinkedIn, etc.

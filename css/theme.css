@@ -835,6 +835,38 @@ html.dark .bg-gray-200 {
   pointer-events: none;
 }
 
+/* Anchor highlight animations - reusable for deep linking */
+@keyframes anchor-highlight-bg {
+  0% { 
+    background-color: color-mix(in srgb, var(--accent-strong) 15%, transparent 85%); 
+  }
+  100% { 
+    background-color: transparent; 
+  }
+}
+
+@keyframes anchor-highlight-heading {
+  0%, 40% { 
+    color: var(--accent-strong); 
+  }
+  100% { 
+    color: inherit; 
+  }
+}
+
+.anchor-highlight {
+  animation: anchor-highlight-bg 2s ease-out;
+}
+
+.anchor-highlight > header h3,
+.anchor-highlight > header h2,
+.anchor-highlight > h1,
+.anchor-highlight > h2,
+.anchor-highlight > h3,
+.anchor-highlight > h4 {
+  animation: anchor-highlight-heading 2s ease-out;
+}
+
 .path-card {
   border: 1px solid var(--color-border);
   background: var(--color-card);

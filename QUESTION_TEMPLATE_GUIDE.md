@@ -103,6 +103,39 @@ The client fetches `/questions/manifest.json` to discover question assets. Each 
 - When adding asynchronous behaviour, guard against duplicate requests and race conditions.
 - Keep styling token-driven: rely on semantic helpers or CSS variables instead of inline colours, and only wire up theme-change hooks when a design truly cannot be expressed in CSS.
 
+## Deep linking and anchor highlights
+
+Questions support anchor-based deep linking to specific sections. When users navigate to an anchor (e.g., `?question=5#detailed-example`), the target element automatically receives a visual highlight animation.
+
+**Adding linkable sections:**
+```html
+<section class="panel panel-info p-4 space-y-2" id="detailed-example">
+  <h4 class="text-sm font-semibold text-heading">Detailed Example</h4>
+  <p class="text-sm text-body">Explanation content...</p>
+</section>
+```
+
+**Creating anchor links:**
+```html
+<!-- Internal link (same question) -->
+<a href="#detailed-example" class="text-accent-strong underline decoration-dotted">
+  See detailed example
+</a>
+
+<!-- External link (shareable) -->
+<a href="index.html?question=5#detailed-example">
+  Question 5: Detailed example
+</a>
+```
+
+**Animation behavior:**
+- 2-second background fade (accent color 15% → transparent)
+- Headings flash in accent color for first 40% of animation
+- Smooth scroll to position element at top of viewport
+- Automatically managed by `scrollToAnchor()` in `app.js` - no manual code needed
+
+Use descriptive, lowercase-hyphenated IDs and the `text-accent-strong underline decoration-dotted` style for educational anchor links.
+
 ## Emoji and encoding
 
 All project files are stored as UTF-8 with `\n` line endings. When copying template snippets, make sure your editor retains UTF-8 so emoji (??, ??, etc.) render correctly rather than as fallback characters.

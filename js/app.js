@@ -600,7 +600,16 @@ class LLMQuestionApp {
         setTimeout(() => {
             const element = document.getElementById(anchor);
             if(element){
+                // Add highlight animation class
+                element.classList.add('anchor-highlight');
+                
+                // Scroll to element
                 element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                
+                // Remove class after animation completes (matches CSS animation duration)
+                setTimeout(() => {
+                    element.classList.remove('anchor-highlight');
+                }, 2000);
             } else {
                 console.warn(`Anchor element #${anchor} not found`);
                 window.scrollTo({ top: 0, behavior: 'smooth' });

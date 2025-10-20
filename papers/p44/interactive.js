@@ -148,12 +148,11 @@
 
   function init() {
     const benchmarkEl = document.getElementById('p44-benchmark');
-    const showFrontierEl = document.getElementById('p44-show-frontier');
     const showAllEl = document.getElementById('p44-show-all');
     const tasksEl = document.getElementById('p44-tasks-per-month');
     const compareEl = document.getElementById('p44-compare-model');
 
-    if (!benchmarkEl || !showFrontierEl || !showAllEl) {
+    if (!benchmarkEl || !showAllEl) {
       console.warn('P44: Interactive elements not yet in DOM, skipping');
       return;
     }
@@ -164,7 +163,6 @@
       updateChart();
     });
 
-    showFrontierEl.addEventListener('change', updateChart);
     showAllEl.addEventListener('change', updateChart);
 
     if (tasksEl) {
@@ -202,45 +200,70 @@
     if (!chartEl) return;
 
     const data = BENCHMARK_DATA[currentBenchmark];
-    const showFrontier = showFrontierEl?.checked ?? true;
     const showAll = showAllEl?.checked ?? false;
 
     let modelsToShow = data.models;
-    if (showFrontier && !showAll) {
+    if (!showAll) {
+      // Default: show only Pareto-optimal models
       modelsToShow = data.models.filter(m => m.frontier);
     }
 
-    // Simple ASCII-style chart (production would use canvas/svg)
-    let chartHTML = '<div class="space-y-3">';
-    
-    // Sort by cost for display
-    const sorted = [...modelsToShow].sort((a, b) => a.cost - b.cost);
-    
-    sorted.forEach((model, idx) => {
-      const isSelected = currentModel === model.name;
-      const frontierBadge = model.frontier ? '⭐' : '';
-      const clickHandler = `onclick="window.p44SelectModel('${model.name}')"`;
-      
-      chartHTML += `
-        <div class="flex items-center gap-2 p-2 rounded cursor-pointer hover:bg-surface ${isSelected ? 'bg-surface' : ''}" ${clickHandler}>
-          <div class="flex-1">
-            <div class="text-xs font-medium text-body">${frontierBadge} ${model.name}</div>
-            <div class="text-[10px] panel-muted">Accuracy: ${model.accuracy}% • Cost: $${model.cost.toFixed(2)}/task</div>
-          </div>
-          <div class="w-32 bg-surface rounded-full h-2">
-            <div class="h-2 rounded-full" style="width: ${model.accuracy}%; background-color: ${model.frontier ? '#10b981' : '#6b7280'};"></div>
-          </div>
-        </div>
-      `;
-    });
-    
-    chartHTML += '</div>';
-    chartEl.innerHTML = chartHTML;
+    // Render as sorted table
+    renderModelTable(chartEl, modelsToShow);
 
     // Select first model if none selected
-    if (!currentModel && sorted.length > 0) {
+    if (!currentModel && modelsToShow.length > 0) {
+      const sorted = [...modelsToShow].sort((a, b) => a.cost - b.cost);
       selectModel(sorted[0].name);
     }
+  }
+
+  function renderModelTable(container, modelsToShow) {
+    // Sort by cost (low to high) to show progression along frontier
+    const sorted = [...modelsToShow].sort((a, b) => a.cost - b.cost);
+
+    let html = `
+      <div class="space-y-2">
+        <div class="grid grid-cols-[2fr_1fr_1fr_auto] gap-3 px-3 py-2 text-xs font-medium opacity-60">
+          <div>Model <span class="opacity-50">(click to select)</span></div>
+          <div class="text-right">Accuracy</div>
+          <div class="text-right">Cost/task</div>
+          <div class="w-16"></div>
+        </div>`;
+
+    sorted.forEach((model, idx) => {
+      const isSelected = currentModel === model.name;
+      const isFrontier = model.frontier;
+      
+      const rowClass = isSelected 
+        ? 'panel-accent border-l-4 border-l-accent-strong shadow-sm' 
+        : 'panel-interactive hover:panel-interactive-hover';
+      
+      const frontierBadge = isFrontier 
+        ? '<span class="chip-success text-[10px] px-1.5 py-0.5">Frontier</span>' 
+        : '';
+      
+      const selectedIcon = isSelected 
+        ? '<span class="text-accent-strong font-bold text-sm">▶</span> ' 
+        : '<span class="opacity-30 text-xs">▸</span> ';
+
+      html += `
+        <div class="${rowClass} cursor-pointer transition-all" 
+             onclick="window.p44SelectModel('${model.name}')"
+             style="padding: 0.75rem;"
+             title="Click to view detailed stats">
+          <div class="grid grid-cols-[2fr_1fr_1fr_auto] gap-3 items-center">
+            <div class="font-medium text-sm">${selectedIcon}${model.name}</div>
+            <div class="text-right tabular-nums">${model.accuracy}%</div>
+            <div class="text-right tabular-nums text-sm">$${model.cost.toFixed(2)}</div>
+            <div class="w-16 text-right">${frontierBadge}</div>
+          </div>
+        </div>`;
+    });
+
+    html += `</div>`;
+    
+    container.innerHTML = html;
   }
 
   function selectModel(modelName) {
@@ -335,6 +358,10 @@
     const compareCostEl = document.getElementById('p44-compare-cost');
     const savingsEl = document.getElementById('p44-savings');
     const savingsPctEl = document.getElementById('p44-savings-pct');
+    const savingsLabelEl = document.getElementById('p44-savings-label');
+    const accuracyDiffEl = document.getElementById('p44-accuracy-diff');
+    const accuracyPctEl = document.getElementById('p44-accuracy-pct');
+    const accuracyLabelEl = document.getElementById('p44-accuracy-label');
     const insightEl = document.getElementById('p44-cost-insight');
 
     if (!tasksEl || !compareEl) return;
@@ -362,26 +389,53 @@
     if (!compareModel) return;
 
     const compareMonthlyCost = compareModel.cost * tasks;
-    const savings = compareMonthlyCost - selectedMonthlyCost;
-    const savingsPct = ((savings / compareMonthlyCost) * 100).toFixed(0);
+    const savings = selectedMonthlyCost - compareMonthlyCost;  // Changed: selected - comparison
+    const savingsPct = ((Math.abs(savings) / compareMonthlyCost) * 100).toFixed(0);
+    const accuracyDiff = selectedModel.accuracy - compareModel.accuracy;
+    const accuracyDiffPct = Math.abs(accuracyDiff);
 
-    // Update display
+    // Update cost display
     if (selectedCostEl) selectedCostEl.textContent = Math.round(selectedMonthlyCost).toLocaleString();
     if (compareCostEl) compareCostEl.textContent = Math.round(compareMonthlyCost).toLocaleString();
     
     if (savingsEl && savingsPctEl) {
-      if (savings > 0) {
-        savingsEl.textContent = `$${Math.round(savings).toLocaleString()}`;
+      if (savings < 0) {
+        // Selected model is CHEAPER (negative cost increase = savings!)
+        savingsEl.textContent = `$${Math.round(Math.abs(savings)).toLocaleString()}`;
         savingsEl.style.color = '#10b981';
         savingsPctEl.textContent = `${savingsPct}% cheaper`;
-      } else if (savings < 0) {
-        savingsEl.textContent = `-$${Math.round(Math.abs(savings)).toLocaleString()}`;
+        if (savingsLabelEl) savingsLabelEl.textContent = 'Monthly savings';
+      } else if (savings > 0) {
+        // Selected model is MORE EXPENSIVE
+        savingsEl.textContent = `+$${Math.round(savings).toLocaleString()}`;
         savingsEl.style.color = '#ef4444';
-        savingsPctEl.textContent = `${Math.abs(parseInt(savingsPct))}% more expensive`;
+        savingsPctEl.textContent = `${savingsPct}% more expensive`;
+        if (savingsLabelEl) savingsLabelEl.textContent = 'Monthly cost increase';
       } else {
         savingsEl.textContent = '$0';
         savingsEl.style.color = '';
         savingsPctEl.textContent = 'Same cost';
+        if (savingsLabelEl) savingsLabelEl.textContent = 'Cost difference';
+      }
+    }
+
+    // Update accuracy difference display
+    if (accuracyDiffEl && accuracyPctEl) {
+      if (accuracyDiff > 0) {
+        accuracyDiffEl.textContent = `+${accuracyDiffPct}%`;
+        accuracyDiffEl.style.color = '#10b981';
+        accuracyPctEl.textContent = 'Higher accuracy';
+        if (accuracyLabelEl) accuracyLabelEl.textContent = 'Accuracy gain';
+      } else if (accuracyDiff < 0) {
+        accuracyDiffEl.textContent = `-${accuracyDiffPct}%`;
+        accuracyDiffEl.style.color = '#ef4444';
+        accuracyPctEl.textContent = 'Lower accuracy';
+        if (accuracyLabelEl) accuracyLabelEl.textContent = 'Accuracy loss';
+      } else {
+        accuracyDiffEl.textContent = '0%';
+        accuracyDiffEl.style.color = '';
+        accuracyPctEl.textContent = 'Same accuracy';
+        if (accuracyLabelEl) accuracyLabelEl.textContent = 'Accuracy difference';
       }
     }
 

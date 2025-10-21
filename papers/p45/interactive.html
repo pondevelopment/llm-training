@@ -1,0 +1,142 @@
+﻿<section class="space-y-6" id="p45-explorer">
+  <!-- Introduction -->
+  <div class="space-y-3">
+    <h3 class="text-base font-semibold text-heading">Preference Reversal Simulator</h3>
+    <p class="text-sm text-body">
+      Compare how expert readers judge AI-generated creative writing. Fine-tuning on copyrighted works <strong>reverses preferences</strong> from strong rejection to strong approval—with massive cost implications.
+    </p>
+  </div>
+
+  <!-- Method selector with toggle buttons -->
+  <div class="panel panel-info p-4 space-y-3">
+    <div class="flex items-center justify-between flex-wrap gap-3">
+      <h4 class="text-sm font-semibold text-heading">AI Training Method</h4>
+      <div class="flex gap-3">
+        <button id="p45-method-in-context" class="px-5 py-2.5 text-sm font-semibold rounded-lg transition-all border-2" data-method="in-context">
+          In-Context Prompting
+        </button>
+        <button id="p45-method-fine-tuned" class="px-5 py-2.5 text-sm font-semibold rounded-lg transition-all border-2" data-method="fine-tuned">
+          Fine-Tuning
+        </button>
+      </div>
+    </div>
+    <p class="text-xs panel-muted" id="p45-method-description">
+      Fine-tuning trains on complete author catalog vs in-context using basic style examples.
+    </p>
+  </div>
+
+  <!-- Results grid with enhanced visual hierarchy -->
+  <div id="p45-results-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+    <!-- Stylistic Fidelity -->
+    <div id="p45-style-card" class="panel p-5 space-y-3 transition-all duration-300">
+      <div class="flex items-start justify-between">
+        <h4 class="text-sm font-semibold text-heading">Stylistic Fidelity</h4>
+        <span id="p45-style-icon" class="text-xl">📝</span>
+      </div>
+      <div class="space-y-2">
+        <div class="flex items-baseline gap-2">
+          <span class="text-xs text-muted">Odds ratio vs human:</span>
+        </div>
+        <div id="p45-style-or" class="text-4xl font-bold tracking-tight"></div>
+        <div class="text-sm font-medium leading-tight" id="p45-style-interp"></div>
+        <div class="text-xs text-muted pt-1" id="p45-style-sig"></div>
+      </div>
+    </div>
+
+    <!-- Writing Quality -->
+    <div id="p45-quality-card" class="panel p-5 space-y-3 transition-all duration-300">
+      <div class="flex items-start justify-between">
+        <h4 class="text-sm font-semibold text-heading">Writing Quality</h4>
+        <span id="p45-quality-icon" class="text-xl">✍️</span>
+      </div>
+      <div class="space-y-2">
+        <div class="flex items-baseline gap-2">
+          <span class="text-xs text-muted">Odds ratio vs human:</span>
+        </div>
+        <div id="p45-quality-or" class="text-4xl font-bold tracking-tight"></div>
+        <div class="text-sm font-medium leading-tight" id="p45-quality-interp"></div>
+        <div class="text-xs text-muted pt-1" id="p45-quality-sig"></div>
+      </div>
+    </div>
+
+    <!-- AI Detection -->
+    <div id="p45-detection-card" class="panel p-5 space-y-3 transition-all duration-300">
+      <div class="flex items-start justify-between">
+        <h4 class="text-sm font-semibold text-heading">AI Detection Rate</h4>
+        <span id="p45-detection-icon" class="text-xl">🔍</span>
+      </div>
+      <div class="space-y-2">
+        <div class="flex items-baseline gap-2">
+          <span class="text-xs text-muted">Flagged as AI:</span>
+        </div>
+        <div id="p45-detection" class="text-4xl font-bold tracking-tight"></div>
+        <div class="text-sm font-medium leading-tight" id="p45-detection-interp"></div>
+      </div>
+    </div>
+
+    <!-- Cost -->
+    <div id="p45-cost-card" class="panel p-5 space-y-3 transition-all duration-300">
+      <div class="flex items-start justify-between">
+        <h4 class="text-sm font-semibold text-heading">Economic Impact</h4>
+        <span id="p45-cost-icon" class="text-xl">💰</span>
+      </div>
+      <div class="space-y-2">
+        <div class="flex items-baseline gap-2">
+          <span class="text-xs text-muted">Cost per author:</span>
+        </div>
+        <div id="p45-cost" class="text-4xl font-bold tracking-tight"></div>
+        <div class="text-xs text-muted" id="p45-cost-interp"></div>
+        <div class="text-lg font-bold mt-3 pt-2 border-t border-divider" id="p45-cost-savings"></div>
+        <div class="text-xs text-muted" id="p45-cost-baseline"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mechanism explanation -->
+  <div class="panel panel-warning p-4 space-y-2">
+    <h4 class="text-sm font-semibold text-heading">Why this happens</h4>
+    <div id="p45-mechanism" class="text-sm text-body space-y-2"></div>
+  </div>
+
+  <!-- Implications -->
+  <div class="panel panel-success p-4 space-y-2">
+    <h4 class="text-sm font-semibold text-heading">Legal & Business Implications</h4>
+    <div class="text-xs text-body space-y-2">
+      <p>
+        <strong>Copyright fair-use impact:</strong> When readers prefer AI-generated derivatives at 0.3% production cost, the fourth fair-use factor ("effect upon potential market") shifts from theoretical to quantified. Courts now have empirical evidence of market substitution.
+      </p>
+      <p>
+        <strong>Detection impossibility:</strong> With fine-tuned outputs evading AI detectors (3% vs 97% for in-context), enforcement strategies must shift from technical detection to licensing frameworks, attribution requirements, and economic compensation models.
+      </p>
+      <p>
+        <strong>Economic displacement:</strong> The 99.7% cost reduction combined with reader preference creates immediate competitive pressure on professional writers. Content organizations face strategic choices: adopt AI-augmented workflows, emphasize human creativity AI cannot replicate, or invest in hybrid editorial processes.
+      </p>
+    </div>
+  </div>
+
+  <!-- Study details -->
+  <details class="panel panel-neutral-soft p-4">
+    <summary class="text-sm font-semibold text-heading cursor-pointer">Study methodology</summary>
+    <div class="mt-3 space-y-2 text-xs text-body">
+      <p>
+        <strong>Participants:</strong> 159 expert and lay readers conducting blind pairwise evaluations.
+      </p>
+      <p>
+        <strong>Materials:</strong> 450-word excerpts from 50 award-winning authors' writing styles, generated by three frontier models (ChatGPT, Claude, Gemini) and MFA-trained expert human writers.
+      </p>
+      <p>
+        <strong>Conditions:</strong> In-context prompting provides basic style examples; fine-tuning uses each author's complete published works for training.
+      </p>
+      <p>
+        <strong>Measures:</strong> Stylistic fidelity ("captures author's voice"), writing quality ("would recommend"), AI detection accuracy using best available detectors.
+      </p>
+      <p>
+        <strong>Analysis:</strong> Mediation analysis isolates stylistic quirks (cliche density, formulaic markers) explaining preference shifts between conditions.
+      </p>
+    </div>
+  </details>
+
+  <p class="text-xs panel-muted mt-4">
+    <strong>Note:</strong> Values shown are from the preregistered study (Chakrabarty et al., 2025). Odds ratios compare AI outputs to expert human writers; values >1 favor AI, <1 favor humans. Statistical significance levels indicate confidence in observed effects.
+  </p>
+</section>

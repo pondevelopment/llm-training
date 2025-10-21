@@ -1140,5 +1140,33 @@
       25,
       42
     ]
+  },
+  "45": {
+    "title": "Readers Prefer Outputs of AI Trained on Copyrighted Books over Expert Human Writers",
+    "authors": [
+      "Tuhin Chakrabarty",
+      "Jane C. Ginsburg",
+      "Paramveer Dhillon"
+    ],
+    "year": 2025,
+    "venue": "arXiv cs.CL (2025)",
+    "tags": [
+      "copyright",
+      "fair-use",
+      "fine-tuning",
+      "writing-quality",
+      "detection",
+      "legal-implications",
+      "economic-impact",
+      "stylistic-fidelity"
+    ],
+    "dir": "./papers/p45",
+    "interactiveTitle": "Preference reversal simulator",
+    "summary": "Preregistered study with 159 readers reveals dramatic reversal: fine-tuning on authors' complete copyrighted works flips expert preference from strong rejection (OR=0.16 stylistic fidelity, OR=0.13 quality) to strong preference (OR=8.16 stylistic fidelity, OR=1.87 quality) compared to in-context prompting. Mediation analysis shows fine-tuning eliminates detectable AI quirks while capturing authentic voice patterns. At $81 median cost per author (99.7% reduction vs professional writers), fine-tuned outputs evade AI detection (3% vs 97% for in-context) and create quantified market substitution evidence for copyright's fourth fair-use factor.",
+    "relatedQuestions": [
+      13,
+      27,
+      33
+    ]
   }
 }

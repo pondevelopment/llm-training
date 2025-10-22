@@ -1168,5 +1168,32 @@
       27,
       33
     ]
+  },
+  "46": {
+    "title": "Large Language Models, Small Labor Market Effects",
+    "authors": [
+      "Anders Humlum",
+      "Emilie Vestergaard"
+    ],
+    "year": 2025,
+    "venue": "BFI Working Paper (2025)",
+    "tags": [
+      "labor-economics",
+      "field-experiments",
+      "productivity",
+      "wages",
+      "adoption",
+      "pass-through",
+      "firm-investments",
+      "general-purpose-technology"
+    ],
+    "dir": "./papers/p46",
+    "interactiveTitle": "Labor market impact simulator",
+    "summary": "Two-wave survey of 25,000 Danish workers across 11 AI-exposed occupations, linked to administrative earnings data, finds widespread adoption (83% with employer encouragement, 38% of firms deploy in-house models, 30% provide training) yields modest productivity gains (2.8% average time savings vs. 15-50% in RCTs) and precisely estimated zero effects on earnings, hours, and wages—with confidence intervals ruling out impacts >1%. Pass-through from productivity to pay is only 3–7%, far below competitive model predictions (100%), driven by weak bargaining power for bottom-up tool adoption, task-output mismatches absent workflow redesign, and monopsony frictions. No firm-level effects detected on employment or wage bills through 18 months post-ChatGPT.",
+    "relatedQuestions": [
+      40,
+      28,
+      12
+    ]
   }
 }

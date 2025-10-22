@@ -1,0 +1,185 @@
+<section class="space-y-6" id="p46-explorer">
+  <!-- Introduction -->
+  <div class="panel panel-neutral-soft p-4 space-y-2">
+    <p class="text-sm text-body">
+      <strong>Explore the gap</strong> between AI chatbot adoption rates, self-reported productivity gains, and actual labor market outcomes. This simulator lets you adjust firm encouragement, occupation mix, and time horizon to see how Denmark's field study results translate to different organizational contexts.
+    </p>
+    <p class="text-xs text-muted">
+      Note: Model uses Denmark field data (Humlum & Vestergaard 2025) showing 2.8% average time savings and 3–7% wage pass-through. Your results will vary by occupation, workflow integration, and labor market flexibility.
+    </p>
+  </div>
+
+  <!-- Controls -->
+  <div class="panel panel-info p-5 space-y-4">
+    <h3 class="text-sm font-semibold text-heading">Organization parameters</h3>
+    
+    <div class="space-y-3">
+      <div>
+        <label for="p46-occupation" class="block text-sm font-medium text-body mb-1">
+          Primary occupation <span class="text-xs text-muted">(affects baseline productivity)</span>
+        </label>
+        <select id="p46-occupation" class="w-full px-3 py-2 rounded border border-divider bg-surface text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
+          <option value="marketing">Marketing professionals</option>
+          <option value="software">Software developers</option>
+          <option value="support">Customer support</option>
+          <option value="it">IT support specialists</option>
+          <option value="hr">HR professionals</option>
+          <option value="office">Office clerks</option>
+          <option value="journalists">Journalists</option>
+          <option value="legal">Legal professionals</option>
+          <option value="accounting">Accountants</option>
+          <option value="finance">Financial advisors</option>
+          <option value="teachers">Teachers</option>
+        </select>
+        <div id="p46-occupation-description" class="mt-2 text-xs text-muted">
+          <!-- Dynamic description will appear here -->
+        </div>
+      </div>
+
+      <div>
+        <label for="p46-encouragement" class="block text-sm font-medium text-body mb-1">
+          Employer encouragement level
+        </label>
+        <select id="p46-encouragement" class="w-full px-3 py-2 rounded border border-divider bg-surface text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
+          <option value="none">No encouragement (baseline)</option>
+          <option value="encouraged" selected>Active encouragement</option>
+          <option value="training">Active encouragement + training</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="p46-workforce-size" class="block text-sm font-medium text-body mb-1">
+          Workforce size <span id="p46-workforce-value" class="text-xs text-muted">(100 employees)</span>
+        </label>
+        <input
+          type="range"
+          id="p46-workforce-size"
+          min="10"
+          max="1000"
+          step="10"
+          value="100"
+          class="w-full"
+        />
+      </div>
+
+      <div>
+        <label for="p46-avg-salary" class="block text-sm font-medium text-body mb-1">
+          Average salary (USD) <span id="p46-salary-value" class="text-xs text-muted">(\$75,000)</span>
+        </label>
+        <input
+          type="range"
+          id="p46-avg-salary"
+          min="40000"
+          max="150000"
+          step="5000"
+          value="75000"
+          class="w-full"
+        />
+      </div>
+
+      <div>
+        <label for="p46-months" class="block text-sm font-medium text-body mb-1">
+          Months post-adoption <span id="p46-months-value" class="text-xs text-muted">(18 months)</span>
+        </label>
+        <input
+          type="range"
+          id="p46-months"
+          min="1"
+          max="36"
+          step="1"
+          value="18"
+          class="w-full"
+        />
+        <p class="text-xs text-muted mt-1">
+          Denmark study tracks effects through 18 months (June 2024). Extended projections are speculative.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Results: 4 metric cards -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <!-- Adoption Rate -->
+    <div class="panel panel-neutral p-4 space-y-2">
+      <div class="flex items-center gap-2">
+        <span aria-hidden="true" class="text-xl">📊</span>
+        <h4 class="text-sm font-semibold text-heading">Adoption rate</h4>
+      </div>
+      <div id="p46-adoption-rate" class="text-4xl font-bold text-heading">
+        83%
+      </div>
+      <p id="p46-adoption-description" class="text-xs text-muted min-h-[2.75rem]">
+        <!-- Dynamic description -->
+      </p>
+    </div>
+
+    <!-- Time Savings -->
+    <div class="panel panel-neutral p-4 space-y-2">
+      <div class="flex items-center gap-2">
+        <span aria-hidden="true" class="text-xl">⏱️</span>
+        <h4 class="text-sm font-semibold text-heading">Productivity gain (time savings)</h4>
+      </div>
+      <div id="p46-time-savings" class="text-4xl font-bold text-heading">
+        3.5%
+      </div>
+      <p id="p46-time-description" class="text-xs text-muted min-h-[2.75rem]">
+        <!-- Dynamic description -->
+      </p>
+    </div>
+
+    <!-- Wage Impact -->
+    <div class="panel panel-neutral p-4 space-y-2">
+      <div class="flex items-center gap-2">
+        <span aria-hidden="true" class="text-xl">💰</span>
+        <h4 class="text-sm font-semibold text-heading">Actual wage impact</h4>
+      </div>
+      <div id="p46-wage-impact" class="text-4xl font-bold text-heading">
+        0.2%
+      </div>
+      <p id="p46-wage-description" class="text-xs text-muted min-h-[2.75rem]">
+        <!-- Dynamic description -->
+      </p>
+    </div>
+
+    <!-- Economic Outcome -->
+    <div class="panel panel-neutral p-4 space-y-2">
+      <div class="flex items-center gap-2">
+        <span aria-hidden="true" class="text-xl">📈</span>
+        <h4 class="text-sm font-semibold text-heading">Total economic impact</h4>
+      </div>
+      <div id="p46-economic-impact" class="text-4xl font-bold text-heading">
+        \$15K
+      </div>
+      <p id="p46-economic-description" class="text-xs text-muted min-h-[2.75rem]">
+        <!-- Dynamic description -->
+      </p>
+    </div>
+  </div>
+
+  <!-- Insights panel -->
+  <div id="p46-insights-panel" class="panel panel-warning p-4 space-y-2">
+    <div class="flex items-center gap-2">
+      <span aria-hidden="true" class="text-lg">💡</span>
+      <h4 class="text-sm font-semibold text-heading">Key insights</h4>
+    </div>
+    <div id="p46-insights-content" class="text-sm text-body space-y-2">
+      <!-- Dynamic insights will be inserted here -->
+    </div>
+  </div>
+
+  <!-- Mechanism explainer -->
+  <div class="panel panel-neutral-soft p-4 space-y-3">
+    <h4 class="text-sm font-semibold text-heading">Why the gap between productivity and pay?</h4>
+    <p class="text-sm text-body">
+      The weak pass-through (3–7%) from time savings to earnings reflects three labor market realities:
+    </p>
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+      <li><strong>Task vs. output mismatch:</strong> Finishing <em>existing tasks</em> faster doesn't increase <em>valuable output</em> unless workflows reorganize to assign more high-impact work—which rarely happens without employer coordination.</li>
+      <li><strong>Weak bargaining power:</strong> Bottom-up tool adoption (workers choosing to use ChatGPT) doesn't create credible negotiating leverage the way employer-sponsored training or certifications do. Workers can't easily claim raises for using a free public tool.</li>
+      <li><strong>Monopsony frictions:</strong> Search costs, non-compete agreements, and geographic constraints mean workers can't easily switch employers to capture their productivity gains. Employers retain most of the surplus.</li>
+    </ul>
+    <p class="text-sm text-body">
+      <strong>When pass-through is higher (7% vs. 3%):</strong> Encouraged workplaces show better pass-through because (1) employers acknowledge tool benefits and may reward high performers, (2) coordinated adoption enables workflow redesign that increases <em>marginal</em> productivity, and (3) training programs create more credentialable skills.
+    </p>
+  </div>
+</section>

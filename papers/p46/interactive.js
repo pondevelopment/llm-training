@@ -144,13 +144,21 @@
   }
 
   function updateUI() {
-    const occupation = document.getElementById('p46-occupation')?.value;
-    const encouragement = document.getElementById('p46-encouragement')?.value;
-    const workforceSize = parseInt(document.getElementById('p46-workforce-size')?.value || '100');
-    const avgSalary = parseInt(document.getElementById('p46-avg-salary')?.value || '75000');
-    const months = parseInt(document.getElementById('p46-months')?.value || '18');
+    const occupationSelect = document.getElementById('p46-occupation');
+    const encouragementSelect = document.getElementById('p46-encouragement');
+    const workforceSizeSlider = document.getElementById('p46-workforce-size');
+    const avgSalarySlider = document.getElementById('p46-avg-salary');
+    const monthsSlider = document.getElementById('p46-months');
 
-    if (!occupation || !encouragement) return;
+    if (!occupationSelect || !encouragementSelect || !workforceSizeSlider || !avgSalarySlider || !monthsSlider) {
+      return;
+    }
+
+    const occupation = occupationSelect.value;
+    const encouragement = encouragementSelect.value;
+    const workforceSize = parseInt(workforceSizeSlider.value);
+    const avgSalary = parseInt(avgSalarySlider.value);
+    const months = parseInt(monthsSlider.value);
 
     const occData = occupationData[occupation];
     

@@ -127,8 +127,7 @@
     ru: 'Искусственный интеллект и языковые модели меняют мир. Добро пожаловать!',
     ka: 'ხელოვნური ინტელექტი და ენის მოდელები იცვლიან სამყაროს.',
     de: 'Künstliche Intelligenz und Sprachmodelle verändern die Welt. Willkommen!',
-    ky: 'Жасалма интеллект жана тил моделдери дүйнөнү өзгөртүп жатат.',
-    custom: '' // User will type their own
+    ky: 'Жасалма интеллект жана тил моделдери дүйнөнү өзгөртүп жатат.'
   };
 
   // Perturbation impact data (approximated from paper Section 4.4)
@@ -163,7 +162,6 @@
     const languageSelect = document.getElementById('p47-language');
     const textLengthSlider = document.getElementById('p47-text-length');
     const perturbationSelect = document.getElementById('p47-perturbation');
-    const sampleTextInput = document.getElementById('p47-sample-text');
     const sampleSelect = document.getElementById('p47-sample-select');
 
     if (!languageSelect || !textLengthSlider || !perturbationSelect) {
@@ -175,20 +173,8 @@
     textLengthSlider.addEventListener('input', updateUI);
     perturbationSelect.addEventListener('change', updateUI);
     
-    if (sampleTextInput) {
-      sampleTextInput.addEventListener('input', () => {
-        // When user types, switch to custom mode
-        if (sampleSelect) sampleSelect.value = 'custom';
-        renderTextCanvas();
-      });
-    }
-    
     if (sampleSelect) {
-      sampleSelect.addEventListener('change', (e) => {
-        const selectedLang = e.target.value;
-        if (selectedLang !== 'custom' && sampleTextInput) {
-          sampleTextInput.value = sampleTexts[selectedLang];
-        }
+      sampleSelect.addEventListener('change', () => {
         renderTextCanvas();
       });
     }
@@ -297,14 +283,15 @@
 
   function renderTextCanvas() {
     const canvas = document.getElementById('p47-text-canvas');
-    const sampleTextInput = document.getElementById('p47-sample-text');
+    const sampleSelect = document.getElementById('p47-sample-select');
     const canvasInfo = document.getElementById('p47-canvas-info');
     const perturbationSelect = document.getElementById('p47-perturbation');
     
-    if (!canvas || !sampleTextInput) return;
+    if (!canvas || !sampleSelect) return;
     
     const ctx = canvas.getContext('2d');
-    const text = sampleTextInput.value || 'Hello world!';
+    const selectedLang = sampleSelect.value;
+    const text = sampleTexts[selectedLang] || 'Hello world!';
     const perturbation = perturbationSelect ? perturbationSelect.value : 'none';
     
     // Set canvas size to match paper specification (224x224)

@@ -120,6 +120,17 @@
     }
   };
 
+  // Sample texts in different languages
+  const sampleTexts = {
+    en: 'Hello world! Welcome to vision-centric tokenization.',
+    zh: '人工智能与语言模型正在改变世界。欢迎使用视觉标记化技术。',
+    ru: 'Искусственный интеллект и языковые модели меняют мир. Добро пожаловать!',
+    ka: 'ხელოვნური ინტელექტი და ენის მოდელები იცვლიან სამყაროს.',
+    de: 'Künstliche Intelligenz und Sprachmodelle verändern die Welt. Willkommen!',
+    ky: 'Жасалма интеллект жана тил моделдери дүйнөнү өзгөртүп жатат.',
+    custom: '' // User will type their own
+  };
+
   // Perturbation impact data (approximated from paper Section 4.4)
   const perturbationImpact = {
     none: {
@@ -153,6 +164,7 @@
     const textLengthSlider = document.getElementById('p47-text-length');
     const perturbationSelect = document.getElementById('p47-perturbation');
     const sampleTextInput = document.getElementById('p47-sample-text');
+    const sampleSelect = document.getElementById('p47-sample-select');
 
     if (!languageSelect || !textLengthSlider || !perturbationSelect) {
       console.warn('Paper 47 interactive elements not yet in DOM, skipping initialization');
@@ -162,8 +174,23 @@
     languageSelect.addEventListener('change', updateUI);
     textLengthSlider.addEventListener('input', updateUI);
     perturbationSelect.addEventListener('change', updateUI);
+    
     if (sampleTextInput) {
-      sampleTextInput.addEventListener('input', renderTextCanvas);
+      sampleTextInput.addEventListener('input', () => {
+        // When user types, switch to custom mode
+        if (sampleSelect) sampleSelect.value = 'custom';
+        renderTextCanvas();
+      });
+    }
+    
+    if (sampleSelect) {
+      sampleSelect.addEventListener('change', (e) => {
+        const selectedLang = e.target.value;
+        if (selectedLang !== 'custom' && sampleTextInput) {
+          sampleTextInput.value = sampleTexts[selectedLang];
+        }
+        renderTextCanvas();
+      });
     }
 
     updateUI();
@@ -302,7 +329,8 @@
     
     // Render text (mimicking 7px Noto Sans from paper, scaled up for visibility)
     ctx.fillStyle = '#000000';
-    ctx.font = '16px "Noto Sans", Arial, sans-serif'; // Scaled up for visibility
+    // Use Noto Sans with fallbacks for different scripts
+    ctx.font = '16px "Noto Sans", "Noto Sans CJK", "Noto Sans Georgian", Arial, sans-serif';
     ctx.textBaseline = 'middle';
     
     // Word wrap

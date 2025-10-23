@@ -282,27 +282,19 @@
   }
 
   function renderTextCanvas() {
-    const canvas = document.getElementById('p47-text-canvas');
+    const textCanvas = document.getElementById('p47-text-canvas');
+    const patchCanvas = document.getElementById('p47-patch-canvas');
+    const tokenCanvas = document.getElementById('p47-token-canvas');
     const sampleSelect = document.getElementById('p47-sample-select');
-    const canvasInfo = document.getElementById('p47-canvas-info');
+    const patchInfo = document.getElementById('p47-patch-info');
+    const finalTokens = document.getElementById('p47-final-tokens');
     const perturbationSelect = document.getElementById('p47-perturbation');
     
-    if (!canvas || !sampleSelect) return;
+    if (!textCanvas || !patchCanvas || !tokenCanvas || !sampleSelect) return;
     
-    const ctx = canvas.getContext('2d');
     const selectedLang = sampleSelect.value;
     const text = sampleTexts[selectedLang] || 'Hello world!';
     const perturbation = perturbationSelect ? perturbationSelect.value : 'none';
-    
-    // Set canvas size to match paper specification (224x224)
-    const canvasWidth = 600; // Display width (larger for visibility)
-    const canvasHeight = 100; // Display height
-    canvas.width = canvasWidth;
-    canvas.height = canvasHeight;
-    
-    // White background
-    ctx.fillStyle = '#ffffff';
-    ctx.fillRect(0, 0, canvasWidth, canvasHeight);
     
     // Apply perturbation to text if needed
     let displayText = text;
@@ -314,63 +306,122 @@
       displayText = applyPerturbation(text, 0.30);
     }
     
-    // Render text (mimicking 7px Noto Sans from paper, scaled up for visibility)
-    ctx.fillStyle = '#000000';
-    // Use Noto Sans with fallbacks for different scripts
-    ctx.font = '16px "Noto Sans", "Noto Sans CJK", "Noto Sans Georgian", Arial, sans-serif';
-    ctx.textBaseline = 'middle';
+    // Canvas dimensions (matching 224x224 spec, scaled for display)
+    const displaySize = 224 * 2; // 2x scale for visibility
+    const canvasWidth = displaySize;
+    const canvasHeight = displaySize;
+    
+    // === STEP 1: Render original text ===
+    const ctx1 = textCanvas.getContext('2d');
+    textCanvas.width = canvasWidth;
+    textCanvas.height = canvasHeight;
+    
+    // White background
+    ctx1.fillStyle = '#ffffff';
+    ctx1.fillRect(0, 0, canvasWidth, canvasHeight);
+    
+    // Render text (scaled 7px → 14px for visibility)
+    ctx1.fillStyle = '#000000';
+    ctx1.font = '14px "Noto Sans", "Noto Sans CJK", "Noto Sans Georgian", Arial, sans-serif';
+    ctx1.textBaseline = 'top';
     
     // Word wrap
     const words = displayText.split(' ');
     let line = '';
-    let y = 30;
-    const lineHeight = 24;
-    const maxWidth = canvasWidth - 20;
+    let y = 20;
+    const lineHeight = 20;
+    const maxWidth = canvasWidth - 40;
     
     for (let i = 0; i < words.length; i++) {
       const testLine = line + words[i] + ' ';
-      const metrics = ctx.measureText(testLine);
+      const metrics = ctx1.measureText(testLine);
       
       if (metrics.width > maxWidth && i > 0) {
-        ctx.fillText(line, 10, y);
+        ctx1.fillText(line, 20, y);
         line = words[i] + ' ';
         y += lineHeight;
         
-        if (y > canvasHeight - 20) break; // Stop if we exceed canvas
+        if (y > canvasHeight - 40) break;
       } else {
         line = testLine;
       }
     }
-    ctx.fillText(line, 10, y);
+    ctx1.fillText(line, 20, y);
     
-    // Draw grid overlay to show patches (14x14 grid concept)
-    ctx.strokeStyle = '#e5e7eb';
-    ctx.lineWidth = 0.5;
+    // === STEP 2: Render with patch grid overlay ===
+    const ctx2 = patchCanvas.getContext('2d');
+    patchCanvas.width = canvasWidth;
+    patchCanvas.height = canvasHeight;
+    
+    // Copy the text rendering
+    ctx2.drawImage(textCanvas, 0, 0);
+    
+    // Draw 14×14 patch grid
     const patchSize = canvasWidth / 14;
+    ctx2.strokeStyle = 'rgba(99, 102, 241, 0.6)'; // Accent color
+    ctx2.lineWidth = 2;
+    
     for (let i = 0; i <= 14; i++) {
       const x = i * patchSize;
-      ctx.beginPath();
-      ctx.moveTo(x, 0);
-      ctx.lineTo(x, canvasHeight);
-      ctx.stroke();
-    }
-    // Horizontal lines (proportional)
-    const verticalPatches = Math.ceil((canvasHeight / canvasWidth) * 14);
-    const vertPatchSize = canvasHeight / verticalPatches;
-    for (let i = 0; i <= verticalPatches; i++) {
-      const y = i * vertPatchSize;
-      ctx.beginPath();
-      ctx.moveTo(0, y);
-      ctx.lineTo(canvasWidth, y);
-      ctx.stroke();
+      ctx2.beginPath();
+      ctx2.moveTo(x, 0);
+      ctx2.lineTo(x, canvasHeight);
+      ctx2.stroke();
+      
+      const y = i * patchSize;
+      ctx2.beginPath();
+      ctx2.moveTo(0, y);
+      ctx2.lineTo(canvasWidth, y);
+      ctx2.stroke();
     }
     
-    // Update info
-    if (canvasInfo) {
-      const wordCount = text.trim().split(/\s+/).length;
-      const estimatedPatches = Math.ceil((canvasWidth / patchSize) * (y / vertPatchSize));
-      const visualTokens = Math.ceil(estimatedPatches / 4); // 4 patches → 1 token
-      canvasInfo.textContent = `~${visualTokens} visual tokens (${estimatedPatches} patches ÷ 4)`;
+    // Update patch info
+    const totalPatches = 14 * 14;
+    if (patchInfo) {
+      patchInfo.textContent = `${totalPatches} patches (14×14 grid)`;
+    }
+    
+    // === STEP 3: Render with token aggregation (2x2 groups) ===
+    const ctx3 = tokenCanvas.getContext('2d');
+    tokenCanvas.width = canvasWidth;
+    tokenCanvas.height = canvasHeight;
+    
+    // Copy the text rendering
+    ctx3.drawImage(textCanvas, 0, 0);
+    
+    // Draw 7×7 token grid (4 patches = 1 token, so 14÷2 = 7)
+    const tokenSize = patchSize * 2;
+    ctx3.strokeStyle = 'rgba(16, 185, 129, 0.8)'; // Success green
+    ctx3.lineWidth = 3;
+    
+    for (let i = 0; i <= 7; i++) {
+      const x = i * tokenSize;
+      ctx3.beginPath();
+      ctx3.moveTo(x, 0);
+      ctx3.lineTo(x, canvasHeight);
+      ctx3.stroke();
+      
+      const y = i * tokenSize;
+      ctx3.beginPath();
+      ctx3.moveTo(0, y);
+      ctx3.lineTo(canvasWidth, y);
+      ctx3.stroke();
+    }
+    
+    // Add labels to show aggregation
+    ctx3.fillStyle = 'rgba(16, 185, 129, 0.15)';
+    for (let row = 0; row < 7; row++) {
+      for (let col = 0; col < 7; col++) {
+        if ((row + col) % 2 === 0) {
+          ctx3.fillRect(col * tokenSize, row * tokenSize, tokenSize, tokenSize);
+        }
+      }
+    }
+    
+    // Update final token count
+    const visualTokenCount = 7 * 7; // 49 tokens
+    if (finalTokens) {
+      finalTokens.textContent = `${visualTokenCount} visual tokens`;
     }
   }
   

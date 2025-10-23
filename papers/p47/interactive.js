@@ -152,6 +152,7 @@
     const languageSelect = document.getElementById('p47-language');
     const textLengthSlider = document.getElementById('p47-text-length');
     const perturbationSelect = document.getElementById('p47-perturbation');
+    const sampleTextInput = document.getElementById('p47-sample-text');
 
     if (!languageSelect || !textLengthSlider || !perturbationSelect) {
       console.warn('Paper 47 interactive elements not yet in DOM, skipping initialization');
@@ -161,8 +162,12 @@
     languageSelect.addEventListener('change', updateUI);
     textLengthSlider.addEventListener('input', updateUI);
     perturbationSelect.addEventListener('change', updateUI);
+    if (sampleTextInput) {
+      sampleTextInput.addEventListener('input', renderTextCanvas);
+    }
 
     updateUI();
+    renderTextCanvas();
   }
 
   function updateUI() {
@@ -234,6 +239,9 @@
 
     // Update insights
     updateInsights(langData, textLength, textTokens, visualTokens, parseFloat(compression), perturbation, perturbData);
+    
+    // Update canvas rendering when perturbation changes
+    renderTextCanvas();
   }
 
   function updateRobustness(perturbData, category) {
@@ -258,6 +266,113 @@
       <p><strong>Performance drop:</strong> -${visualPerfDropPct}%</p>
       <p class="text-muted mt-2">Minor character edits affect only local visual features. Overall word shape and salient letter patterns remain intact, enabling robust perception like human reading.</p>
     `;
+  }
+
+  function renderTextCanvas() {
+    const canvas = document.getElementById('p47-text-canvas');
+    const sampleTextInput = document.getElementById('p47-sample-text');
+    const canvasInfo = document.getElementById('p47-canvas-info');
+    const perturbationSelect = document.getElementById('p47-perturbation');
+    
+    if (!canvas || !sampleTextInput) return;
+    
+    const ctx = canvas.getContext('2d');
+    const text = sampleTextInput.value || 'Hello world!';
+    const perturbation = perturbationSelect ? perturbationSelect.value : 'none';
+    
+    // Set canvas size to match paper specification (224x224)
+    const canvasWidth = 600; // Display width (larger for visibility)
+    const canvasHeight = 100; // Display height
+    canvas.width = canvasWidth;
+    canvas.height = canvasHeight;
+    
+    // White background
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+    
+    // Apply perturbation to text if needed
+    let displayText = text;
+    if (perturbation === 'light') {
+      displayText = applyPerturbation(text, 0.05);
+    } else if (perturbation === 'moderate') {
+      displayText = applyPerturbation(text, 0.15);
+    } else if (perturbation === 'heavy') {
+      displayText = applyPerturbation(text, 0.30);
+    }
+    
+    // Render text (mimicking 7px Noto Sans from paper, scaled up for visibility)
+    ctx.fillStyle = '#000000';
+    ctx.font = '16px "Noto Sans", Arial, sans-serif'; // Scaled up for visibility
+    ctx.textBaseline = 'middle';
+    
+    // Word wrap
+    const words = displayText.split(' ');
+    let line = '';
+    let y = 30;
+    const lineHeight = 24;
+    const maxWidth = canvasWidth - 20;
+    
+    for (let i = 0; i < words.length; i++) {
+      const testLine = line + words[i] + ' ';
+      const metrics = ctx.measureText(testLine);
+      
+      if (metrics.width > maxWidth && i > 0) {
+        ctx.fillText(line, 10, y);
+        line = words[i] + ' ';
+        y += lineHeight;
+        
+        if (y > canvasHeight - 20) break; // Stop if we exceed canvas
+      } else {
+        line = testLine;
+      }
+    }
+    ctx.fillText(line, 10, y);
+    
+    // Draw grid overlay to show patches (14x14 grid concept)
+    ctx.strokeStyle = '#e5e7eb';
+    ctx.lineWidth = 0.5;
+    const patchSize = canvasWidth / 14;
+    for (let i = 0; i <= 14; i++) {
+      const x = i * patchSize;
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, canvasHeight);
+      ctx.stroke();
+    }
+    // Horizontal lines (proportional)
+    const verticalPatches = Math.ceil((canvasHeight / canvasWidth) * 14);
+    const vertPatchSize = canvasHeight / verticalPatches;
+    for (let i = 0; i <= verticalPatches; i++) {
+      const y = i * vertPatchSize;
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(canvasWidth, y);
+      ctx.stroke();
+    }
+    
+    // Update info
+    if (canvasInfo) {
+      const wordCount = text.trim().split(/\s+/).length;
+      const estimatedPatches = Math.ceil((canvasWidth / patchSize) * (y / vertPatchSize));
+      const visualTokens = Math.ceil(estimatedPatches / 4); // 4 patches → 1 token
+      canvasInfo.textContent = `~${visualTokens} visual tokens (${estimatedPatches} patches ÷ 4)`;
+    }
+  }
+  
+  function applyPerturbation(text, rate) {
+    // Apply character-level perturbations (typos)
+    const chars = text.split('');
+    const substitutions = 'abcdefghijklmnopqrstuvwxyz';
+    
+    return chars.map(char => {
+      if (Math.random() < rate && /[a-z]/i.test(char)) {
+        // Substitute with random letter
+        const isUpper = char === char.toUpperCase();
+        let newChar = substitutions[Math.floor(Math.random() * substitutions.length)];
+        return isUpper ? newChar.toUpperCase() : newChar;
+      }
+      return char;
+    }).join('');
   }
 
   function updateInsights(langData, textLength, textTokens, visualTokens, compression, perturbation, perturbData) {

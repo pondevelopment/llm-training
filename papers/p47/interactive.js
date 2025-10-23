@@ -306,10 +306,12 @@
       displayText = applyPerturbation(text, 0.30);
     }
     
-    // Canvas dimensions (matching 224x224 spec, scaled for display)
-    const displaySize = 224 * 2; // 2x scale for visibility
-    const canvasWidth = displaySize;
-    const canvasHeight = displaySize;
+    // Canvas dimensions (2×14 patches = 32×224 pixels, scaled for display)
+    // For single sentences, use rectangular format
+    const patchPixels = 16; // Each patch is 16×16 pixels in original
+    const scale = 2; // 2x for visibility
+    const canvasWidth = 14 * patchPixels * scale; // 14 patches wide = 448px display
+    const canvasHeight = 2 * patchPixels * scale; // 2 patches tall = 64px display
     
     // === STEP 1: Render original text ===
     const ctx1 = textCanvas.getContext('2d');
@@ -320,33 +322,15 @@
     ctx1.fillStyle = '#ffffff';
     ctx1.fillRect(0, 0, canvasWidth, canvasHeight);
     
-    // Render text (scaled 7px → 14px for visibility)
+    // Render text (scaled 7px → 14px for visibility, centered vertically)
     ctx1.fillStyle = '#000000';
     ctx1.font = '14px "Noto Sans", "Noto Sans CJK", "Noto Sans Georgian", Arial, sans-serif';
-    ctx1.textBaseline = 'top';
+    ctx1.textBaseline = 'middle';
+    ctx1.textAlign = 'left';
     
-    // Word wrap
-    const words = displayText.split(' ');
-    let line = '';
-    let y = 20;
-    const lineHeight = 20;
-    const maxWidth = canvasWidth - 40;
-    
-    for (let i = 0; i < words.length; i++) {
-      const testLine = line + words[i] + ' ';
-      const metrics = ctx1.measureText(testLine);
-      
-      if (metrics.width > maxWidth && i > 0) {
-        ctx1.fillText(line, 20, y);
-        line = words[i] + ' ';
-        y += lineHeight;
-        
-        if (y > canvasHeight - 40) break;
-      } else {
-        line = testLine;
-      }
-    }
-    ctx1.fillText(line, 20, y);
+    // Center text vertically in the banner
+    const textY = canvasHeight / 2;
+    ctx1.fillText(displayText, 10, textY);
     
     // === STEP 2: Render with patch grid overlay ===
     const ctx2 = patchCanvas.getContext('2d');
@@ -356,19 +340,23 @@
     // Copy the text rendering
     ctx2.drawImage(textCanvas, 0, 0);
     
-    // Draw 14×14 patch grid
+    // Draw 14×2 patch grid (14 columns, 2 rows)
     const patchSize = canvasWidth / 14;
     ctx2.strokeStyle = 'rgba(99, 102, 241, 0.6)'; // Accent color
     ctx2.lineWidth = 2;
     
+    // Vertical lines (14 patches wide)
     for (let i = 0; i <= 14; i++) {
       const x = i * patchSize;
       ctx2.beginPath();
       ctx2.moveTo(x, 0);
       ctx2.lineTo(x, canvasHeight);
       ctx2.stroke();
-      
-      const y = i * patchSize;
+    }
+    
+    // Horizontal lines (2 patches tall)
+    for (let i = 0; i <= 2; i++) {
+      const y = i * (canvasHeight / 2);
       ctx2.beginPath();
       ctx2.moveTo(0, y);
       ctx2.lineTo(canvasWidth, y);
@@ -376,9 +364,9 @@
     }
     
     // Update patch info
-    const totalPatches = 14 * 14;
+    const totalPatches = 14 * 2;
     if (patchInfo) {
-      patchInfo.textContent = `${totalPatches} patches (14×14 grid)`;
+      patchInfo.textContent = `${totalPatches} patches (14×2 grid)`;
     }
     
     // === STEP 3: Render with token aggregation (2x2 groups) ===
@@ -389,37 +377,41 @@
     // Copy the text rendering
     ctx3.drawImage(textCanvas, 0, 0);
     
-    // Draw 7×7 token grid (4 patches = 1 token, so 14÷2 = 7)
+    // Draw 7×1 token grid (4 patches = 1 token, so 14÷2 = 7 tokens wide, 2÷2 = 1 token tall)
     const tokenSize = patchSize * 2;
     ctx3.strokeStyle = 'rgba(16, 185, 129, 0.8)'; // Success green
     ctx3.lineWidth = 3;
     
+    // Vertical lines (7 tokens wide)
     for (let i = 0; i <= 7; i++) {
       const x = i * tokenSize;
       ctx3.beginPath();
       ctx3.moveTo(x, 0);
       ctx3.lineTo(x, canvasHeight);
       ctx3.stroke();
-      
-      const y = i * tokenSize;
-      ctx3.beginPath();
-      ctx3.moveTo(0, y);
-      ctx3.lineTo(canvasWidth, y);
-      ctx3.stroke();
     }
     
-    // Add labels to show aggregation
+    // Horizontal lines (top and bottom only, 1 row of tokens)
+    ctx3.beginPath();
+    ctx3.moveTo(0, 0);
+    ctx3.lineTo(canvasWidth, 0);
+    ctx3.stroke();
+    
+    ctx3.beginPath();
+    ctx3.moveTo(0, canvasHeight);
+    ctx3.lineTo(canvasWidth, canvasHeight);
+    ctx3.stroke();
+    
+    // Add alternating shading to show token groupings
     ctx3.fillStyle = 'rgba(16, 185, 129, 0.15)';
-    for (let row = 0; row < 7; row++) {
-      for (let col = 0; col < 7; col++) {
-        if ((row + col) % 2 === 0) {
-          ctx3.fillRect(col * tokenSize, row * tokenSize, tokenSize, tokenSize);
-        }
+    for (let col = 0; col < 7; col++) {
+      if (col % 2 === 0) {
+        ctx3.fillRect(col * tokenSize, 0, tokenSize, canvasHeight);
       }
     }
     
     // Update final token count
-    const visualTokenCount = 7 * 7; // 49 tokens
+    const visualTokenCount = 7; // 7 tokens for a single-line sentence
     if (finalTokens) {
       finalTokens.textContent = `${visualTokenCount} visual tokens`;
     }

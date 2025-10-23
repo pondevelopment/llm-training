@@ -1,0 +1,134 @@
+<section class="space-y-5">
+  <section class="panel panel-info p-4 space-y-4">
+    <div class="flex items-center justify-between gap-4">
+      <div class="flex-1 min-w-0">
+        <h2 class="text-xl font-semibold text-heading">See the Text: From Tokenization to Visual Reading</h2>
+        <p class="text-sm panel-muted">Ling Xing, Alex Jinpeng Wang, Rui Yan, Hongyu Qu, Zechao Li, Jinhui Tang • arXiv cs.CV (2024)</p>
+      </div>
+      <a href="https://arxiv.org/abs/2510.18840" target="_blank" rel="noopener" class="btn-soft text-xs font-semibold flex-shrink-0" data-accent="foundations">
+        <span>View paper</span>
+        <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+    <p class="text-sm leading-relaxed panel-muted">
+      Challenges the entrenched paradigm of subword tokenization in LLMs by introducing <strong>SeeTok</strong>, a vision-centric approach that renders text as images and processes them through pretrained multimodal vision encoders. Across diverse language understanding and translation tasks, SeeTok achieves <strong>4.43× fewer tokens</strong> and <strong>70.5% lower FLOPs</strong> than text tokenization while matching or exceeding performance, with dramatic efficiency gains for low-resource languages (13.05× compression for Georgian) and strong robustness to typographic noise.
+    </p>
+    <div class="panel panel-neutral-soft p-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Plain-language explainer</p>
+      <p class="panel-muted">Imagine reading a sign where some letters are scrambled or the font is distorted—you still understand it because your brain recognizes the overall word shape and visual pattern. SeeTok mimics this by treating text as pictures instead of breaking it into meaningless fragments, letting AI "see" words holistically like humans do, which works better for all languages and handles typos naturally.</p>
+    </div>
+  </section>
+
+  <section class="panel panel-neutral p-5 space-y-3">
+    <header class="flex items-center gap-2">
+      <span aria-hidden="true" class="text-lg">🧭</span>
+      <h3 class="text-sm font-semibold tracking-wide uppercase text-heading">Executive quick take</h3>
+    </header>
+    
+    <p class="text-sm text-body">
+      Standard subword tokenization fragments low-resource languages into 3–8× more tokens than English, inflating compute costs and weakening multilingual performance. SeeTok eliminates this bottleneck by processing text visually, achieving <strong>86% lower fertility</strong> (tokens per word) across 13 languages while using 4× fewer tokens overall. If you're deploying multilingual LLMs or need robustness to OCR noise, vision-centric tokenization offers a practical alternative without retraining language models from scratch.
+    </p>
+
+    <ul class="list-disc ml-5 space-y-1 text-xs panel-muted">
+      <li><strong>Massive efficiency gains:</strong> 4.43× token reduction for English, 13.05× for Georgian, with 70.5% lower FLOPs and 33.5% faster latency—visual encoders compress text more effectively than fixed vocabularies</li>
+      <li><strong>Multilingual fairness:</strong> 86% lower fertility across high- and low-resource languages; avoids over-segmentation that plagues character-level approaches and vocabulary bias in BPE</li>
+      <li><strong>Robustness to noise:</strong> Naturally handles typos, font variations, and orthographic perturbations by processing text as continuous visual patterns rather than discrete token sequences</li>
+    </ul>
+  </section>
+
+  <section class="panel panel-success p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">💼 Business relevance</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+      <li><strong>ML Infrastructure/Ops:</strong> 70% FLOP reduction and 4× token compression directly translate to lower inference costs and faster serving. Particularly valuable for multilingual deployments where token budgets are dominated by non-English text.</li>
+      <li><strong>Product (Search/NLP):</strong> Built-in robustness to OCR errors, typos, and font variations means fewer user queries fail due to input noise. Visual tokenization handles distorted scans and user-generated content better than text tokenizers.</li>
+      <li><strong>Data Science/Research:</strong> Eliminates the vocabulary engineering problem for low-resource languages. Reuses pretrained MLLM vision encoders with lightweight LoRA tuning (658K samples, few-epoch finetuning) instead of training tokenizers and LLMs from scratch.</li>
+      <li><strong>Internationalization:</strong> Fair token allocation across writing systems—Chinese and Georgian get the same compression as English. Removes the penalty low-resource languages face with BPE vocabularies optimized for high-resource corpora.</li>
+    </ul>
+    <div class="panel panel-neutral-soft p-3 mt-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Derivative example: Multilingual customer support chatbot</p>
+      <p class="panel-muted">
+        <strong>Context:</strong> Enterprise chatbot serves 15 languages including high-resource (English, Spanish, Chinese) and low-resource (Georgian, Uzbek, Malagasy). Text tokenization fragments Georgian queries into 8× more tokens than English, exhausting context windows and slowing responses. <strong>SeeTok application:</strong> (1) Render user queries as 224×224 images using Noto Sans font at 7px, (2) process through Qwen2.5-VL 3B vision encoder (pretrained, frozen), (3) run vision-centric instruction tuning on OpenHermes 2.5 (658K samples, LoRA adapters on vision encoder + LLM backbone, 4 epochs), (4) measure token count, latency, and answer quality across languages. <strong>Expected outcome:</strong> Georgian fertility drops from 8.33 (text) to 0.64 (visual), matching English at 0.42. Inference FLOPs drop 70%, latency improves 33%, and translation quality (COMET-22) increases +3.87 points. Low-resource language support becomes economically viable without per-language tokenizer engineering.
+      </p>
+    </div>
+  </section>
+
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Key insight</h3>
+      <p class="text-xs panel-muted">
+        Humans read by recognizing visual word shapes through the Visual Word Form Area (VWFA), tolerating scrambled letters and distorted fonts. Subword tokenization discards this continuous visual signal, forcing discrete fragmentation that over-segments low-resource languages and fails on noisy input. Vision-centric tokenization mimics human reading by preserving holistic visual patterns, yielding language-agnostic compression and noise robustness.
+      </p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Method</h3>
+      <p class="text-xs panel-muted">
+        Renders text into 224×224 RGB images (14×14 patches, ~1.1 Qwen tokens per patch), processes through pretrained MLLM vision encoder (Qwen2.5-VL or JanusPro), aggregates 4 adjacent patches via MLP projector (4× compression), feeds visual embeddings to LLM backbone. Vision-centric instruction tuning: LoRA adapters on vision encoder + LLM, trained on 658K OpenHermes samples with instructions rendered as images, targets in text form.
+      </p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Implication</h3>
+      <p class="text-xs panel-muted">
+        Vision-centric tokenization provides a path to truly multilingual LLMs without vocabulary expansion or character-level sequence explosion. Reusing pretrained MLLM vision encoders (strong OCR + text-vision alignment from large-scale pretraining) enables efficient adoption with lightweight tuning. Particularly transformative for low-resource languages, OCR pipelines, and noisy text scenarios (social media, handwriting, scanned documents).
+      </p>
+    </div>
+  </div>
+
+  <div class="grid md:grid-cols-2 gap-4">
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Why vision beats subword tokenization</h3>
+      <p class="text-xs panel-muted">
+        Subword tokenization (BPE, WordPiece) allocates vocabulary to frequent sequences, biasing toward high-resource languages. Low-resource languages get fragmented nearly to character-level (e.g., Georgian: 8.33 tokens/word vs English: 1.88). Character-level tokenization avoids bias but explodes sequence length (5–10× inflation), crushing efficiency. SeeTok achieves <em>both</em> fairness and efficiency: patch-based segmentation treats all languages uniformly (0.37–0.48 fertility regardless of script), and visual encoders compress more aggressively than text tokenizers (4.43× for English, 13.05× for Georgian).
+      </p>
+      <ul class="list-disc ml-5 space-y-1 text-xs panel-muted">
+        <li><strong>No vocabulary bottleneck:</strong> Patch extraction is language-agnostic; no merge rules, no vocabulary size trade-offs</li>
+        <li><strong>Shorter sequences:</strong> 14×14 image patch ≈ 1.1 text tokens; MLP projector aggregates 4 patches → 1 visual token (4× compression)</li>
+        <li><strong>Robustness to noise:</strong> Minor character edits (typos, substitutions) only affect local features; overall word shape preserved, unlike text tokenization where single-character changes can fragment entire words</li>
+      </ul>
+    </div>
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Cross-lingual generalization gains</h3>
+      <p class="text-xs panel-muted">
+        Translation quality (COMET-22) improves +3.87 on average across 13 languages, with largest gains for low-resource languages (Kyrgyz, Uzbek, Georgian). High fertility in text tokenization correlates with poor translation quality—over-segmentation prevents models from learning meaningful translation patterns. SeeTok's uniform fertility (0.37–0.48) enables consistent cross-lingual transfer:
+      </p>
+      <ul class="list-disc ml-5 space-y-1 text-xs panel-muted">
+        <li><strong>High-resource languages:</strong> +31.45 COMET improvement over visual-text baseline (no tuning); outperforms text tokenization especially for non-Latin scripts (Chinese, Russian)</li>
+        <li><strong>Low-resource languages:</strong> 58.12 vs 54.84 COMET after finetuning on X-ALMA parallel data; reduced fertility (0.48 vs 3.88) enables better pattern learning</li>
+        <li><strong>Zero-shot transfer:</strong> Vision encoder pretrained on multilingual image-text pairs generalizes to unseen languages without language-specific vocabulary engineering</li>
+      </ul>
+    </div>
+  </div>
+
+  <section class="panel panel-neutral p-5 space-y-3">
+    <header class="flex items-center gap-2">
+      <span aria-hidden="true" class="text-lg">🧪</span>
+      <h3 class="text-sm font-semibold tracking-wide uppercase text-heading">Evidence</h3>
+    </header>
+
+    <ul class="list-disc ml-5 space-y-1 text-xs panel-muted">
+      <li><strong>Efficiency on NLU tasks:</strong> Qwen2.5-VL 3B with SeeTok matches text tokenization baseline (37.77 vs 37.32 average across TriviaQA, NQ, PopQA, MMLU, SST5) while using 4.43× fewer tokens, 70.5% lower FLOPs, and 33.5% faster latency (Table 1, Table 2).</li>
+      <li><strong>Dramatic compression for low-resource languages:</strong> Georgian: 13.05× (8.33→0.64 fertility), Uzbek: 12.46× (5.97→0.48), Kyrgyz: 9.91× (4.95→0.50) vs English: 4.43× (1.88→0.42). Average compression ratio: 7.85× for low-resource, 5.71× for high-resource languages (Figure 3).</li>
+      <li><strong>Translation quality improvements:</strong> +3.87 COMET-22 score across 13 languages; low-resource languages show 58.12 (visual) vs 54.84 (text) after finetuning. High-resource languages: 65.17 (SeeTok) vs 41.02 (text baseline) average (Table 3).</li>
+      <li><strong>Robustness to perturbations:</strong> Character-level attacks (insertions, deletions, substitutions) cause substantially smaller performance drops for SeeTok vs text tokenization; vision-centric approach maintains holistic word shape despite local edits (Section 4.4).</li>
+      <li><strong>Generalization across MLLMs:</strong> SeeTok applies to JanusPro 1B (Chen et al., 2025) and Qwen2.5-VL 7B (Bai et al., 2025) with consistent gains, demonstrating method robustness beyond single model family.</li>
+    </ul>
+  </section>
+
+  <section class="panel panel-warning p-5 space-y-3">
+    <header class="flex items-center gap-2">
+      <span aria-hidden="true" class="text-lg">🔭</span>
+      <h3 class="text-sm font-semibold tracking-wide uppercase text-heading">For your roadmap</h3>
+    </header>
+    
+    <p class="text-xs panel-muted">
+      Vision-centric tokenization shifts LLM serving costs and multilingual fairness without architectural overhauls. If you're deploying multilingual models, handling noisy OCR text, or facing context window pressure from token-hungry languages, this approach warrants pilots.
+    </p>
+
+    <ul class="list-disc ml-5 space-y-1 text-xs panel-muted">
+      <li><strong>Audit token budgets by language:</strong> Measure fertility (tokens/word) across your corpus languages. If low-resource languages show >3× inflation vs English, vision tokenization can reclaim 70%+ of that overhead. Use Jieba for Chinese, whitespace for others; calculate avg tokens per word.</li>
+      <li><strong>Pilot with pretrained MLLMs:</strong> Start with Qwen2.5-VL 3B or 7B (open weights, strong OCR baseline). Render text at 224×224, 7px Noto Sans font. Run vision-centric instruction tuning on your domain corpus (few thousand samples, LoRA rank=16, 4 epochs). Compare token count, latency, and task accuracy vs text tokenization.</li>
+      <li><strong>Test robustness on noisy inputs:</strong> If your pipeline handles OCR, user-generated content, or scanned documents, evaluate SeeTok vs text tokenization on inputs with typos, font variations, or character substitutions. Vision-centric approaches should maintain performance while text tokenizers fragment unpredictably.</li>
+      <li><strong>Measure cross-lingual transfer:</strong> For multilingual applications, test zero-shot performance on languages unseen during finetuning. Vision encoders pretrained on image-text pairs generalize better than vocabulary-bound text tokenizers. Use FLORES or WMT test sets; report COMET-22 scores.</li>
+      <li><strong>Calculate TCO for multilingual serving:</strong> Model inference cost savings: 4× token reduction × your throughput × cloud GPU hourly rate. Factor in one-time finetuning cost (658K samples, few epochs, LoRA only). For large-scale deployments (>10M requests/month), vision tokenization pays back quickly if low-resource languages dominate traffic.</li>
+    </ul>
+  </section>
+</section>

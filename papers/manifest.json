@@ -1195,5 +1195,37 @@
       28,
       12
     ]
+  },
+  "47": {
+    "title": "See the Text: From Tokenization to Visual Reading",
+    "authors": [
+      "Ling Xing",
+      "Alex Jinpeng Wang",
+      "Rui Yan",
+      "Hongyu Qu",
+      "Zechao Li",
+      "Jinhui Tang"
+    ],
+    "year": 2024,
+    "venue": "arXiv cs.CV (2024)",
+    "tags": [
+      "tokenization",
+      "vision",
+      "multilingual",
+      "efficiency",
+      "low-resource-languages",
+      "robustness",
+      "ocr",
+      "multimodal",
+      "compression"
+    ],
+    "dir": "./papers/p47",
+    "interactiveTitle": "Vision tokenization efficiency explorer",
+    "summary": "SeeTok challenges subword tokenization by rendering text as images and processing through pretrained MLLM vision encoders, achieving 4.43× fewer tokens for English and 13.05× for Georgian while matching or exceeding text tokenization performance. Across diverse NLU and translation tasks, vision-centric tokenization delivers 70.5% lower FLOPs, 33.5% faster latency, and 86% lower fertility (tokens per word) across 13 languages. Demonstrates strong cross-lingual generalization (+3.87 COMET-22 improvement), robustness to typographic perturbations (maintains holistic word shapes despite character-level noise), and language-agnostic fairness (uniform 0.37-0.48 fertility regardless of script). Reuses pretrained MLLM OCR capabilities with lightweight LoRA tuning (658K samples, 4 epochs) instead of training from scratch.",
+    "relatedQuestions": [
+      16,
+      28,
+      36
+    ]
   }
 }

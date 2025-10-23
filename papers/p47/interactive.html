@@ -1,0 +1,219 @@
+<section class="space-y-6" id="p47-explorer">
+  <!-- Introduction -->
+  <div class="panel panel-neutral-soft p-4 space-y-2">
+    <p class="text-sm text-body">
+      <strong>Explore token efficiency</strong> across languages and tokenization methods. This simulator demonstrates how SeeTok's vision-centric approach compresses text more uniformly than subword tokenization, with dramatic gains for low-resource languages and robustness to typographic noise.
+    </p>
+    <p class="text-xs text-muted">
+      Note: Compression ratios and fertility values are derived from SeeTok paper results (Tables 2, 3, 7, Figure 3). Text tokenization uses Qwen2.5-VL's BPE vocabulary; vision tokenization uses 14×14 patches with 4-patch MLP aggregation.
+    </p>
+  </div>
+
+  <!-- Controls -->
+  <div class="panel panel-info p-5 space-y-4">
+    <h3 class="text-sm font-semibold text-heading">Tokenization comparison</h3>
+    
+    <div class="space-y-3">
+      <div>
+        <label for="p47-language" class="block text-sm font-medium text-body mb-1">
+          Language <span class="text-xs text-muted">(high vs low-resource)</span>
+        </label>
+        <select id="p47-language" class="w-full px-3 py-2 rounded border border-divider bg-surface text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
+          <optgroup label="High-resource">
+            <option value="en" selected>English</option>
+            <option value="de">German</option>
+            <option value="zh">Chinese</option>
+            <option value="ru">Russian</option>
+            <option value="cs">Czech</option>
+            <option value="is">Icelandic</option>
+          </optgroup>
+          <optgroup label="Low-resource">
+            <option value="ka">Georgian</option>
+            <option value="ky">Kyrgyz</option>
+            <option value="uz">Uzbek</option>
+            <option value="lt">Lithuanian</option>
+            <option value="lv">Latvian</option>
+            <option value="bg">Bulgarian</option>
+            <option value="mk">Macedonian</option>
+            <option value="mg">Malagasy</option>
+          </optgroup>
+        </select>
+        <div id="p47-language-description" class="mt-2 text-xs text-muted">
+          <!-- Dynamic description will appear here -->
+        </div>
+      </div>
+
+      <div>
+        <label for="p47-text-length" class="block text-sm font-medium text-body mb-2">
+          Text length: <strong id="p47-text-length-value" class="text-body">100 words</strong>
+        </label>
+        <input type="range" id="p47-text-length" min="10" max="500" step="10" value="100" class="w-full h-2 bg-divider rounded-lg appearance-none cursor-pointer accent-[color:var(--accent-strong)]">
+        <div class="flex justify-between text-xs text-muted mt-1">
+          <span>10 words</span>
+          <span>500 words</span>
+        </div>
+      </div>
+
+      <div>
+        <label for="p47-perturbation" class="block text-sm font-medium text-body mb-1">
+          Input noise level <span class="text-xs text-muted">(tests robustness)</span>
+        </label>
+        <select id="p47-perturbation" class="w-full px-3 py-2 rounded border border-divider bg-surface text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
+          <option value="none" selected>None (clean text)</option>
+          <option value="light">Light (5% character typos)</option>
+          <option value="moderate">Moderate (15% character typos)</option>
+          <option value="heavy">Heavy (30% character typos + font variation)</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Visual Rendering Demo -->
+  <div class="panel panel-success p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">Visual text rendering</h3>
+    <p class="text-xs panel-muted">
+      This is how SeeTok sees your text—rendered as an image that the vision encoder processes. The model perceives word shapes holistically rather than discrete token fragments.
+    </p>
+    
+    <div class="space-y-2">
+      <label for="p47-sample-select" class="block text-xs font-medium text-body mb-1">Sample text:</label>
+      <select id="p47-sample-select" class="w-full px-3 py-2 rounded border border-divider bg-surface text-body text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
+        <option value="en">English: AI and language models</option>
+        <option value="zh">Chinese: 人工智能与语言模型</option>
+        <option value="ru">Russian: Искусственный интеллект</option>
+        <option value="ka">Georgian: ხელოვნური ინტელექტი</option>
+        <option value="de">German: Künstliche Intelligenz</option>
+        <option value="ky">Kyrgyz: Жасалма интеллект</option>
+      </select>
+    </div>
+    
+    <!-- Step-by-step visual process -->
+    <div class="space-y-3">
+      <!-- Step 1: Original text rendering -->
+      <div class="panel panel-neutral-soft p-4 space-y-2">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-[color:var(--accent-strong)] text-white text-xs font-bold">1</span>
+          <span class="text-xs font-semibold text-body">Text rendered as image (224×32 pixels)</span>
+        </div>
+        <div class="bg-white p-3 rounded border-2 border-divider overflow-x-auto">
+          <canvas id="p47-text-canvas" class="border border-gray-300"></canvas>
+        </div>
+        <p class="text-xs text-muted">
+          Short text is rendered at 7px Noto Sans in a banner format, centered on white background.
+        </p>
+      </div>
+
+      <!-- Step 2: Vision encoder patches -->
+      <div class="panel panel-neutral-soft p-4 space-y-2">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-[color:var(--accent-strong)] text-white text-xs font-bold">2</span>
+          <span class="text-xs font-semibold text-body">Vision encoder splits into 14×2 patches</span>
+        </div>
+        <div class="bg-white p-3 rounded border-2 border-divider overflow-x-auto">
+          <canvas id="p47-patch-canvas" class="border border-gray-300"></canvas>
+        </div>
+        <div class="flex items-center justify-between text-xs">
+          <span class="text-muted" id="p47-patch-info">28 patches (14×2 grid)</span>
+          <span class="text-muted">Each patch = 16×16 pixels</span>
+        </div>
+      </div>
+
+      <!-- Step 3: MLP aggregation -->
+      <div class="panel panel-neutral-soft p-4 space-y-2">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-[color:var(--accent-strong)] text-white text-xs font-bold">3</span>
+          <span class="text-xs font-semibold text-body">MLP aggregates 4 patches → 1 visual token</span>
+        </div>
+        <div class="bg-white p-3 rounded border-2 border-divider overflow-x-auto">
+          <canvas id="p47-token-canvas" class="border border-gray-300"></canvas>
+        </div>
+        <div class="flex items-center justify-between text-xs">
+          <span class="font-semibold text-[color:var(--accent-strong)]" id="p47-final-tokens">7 visual tokens</span>
+          <span class="text-muted">(28 patches ÷ 4)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Comparison Results -->
+  <div class="panel panel-neutral p-5 space-y-4">
+    <h3 class="text-sm font-semibold text-heading">Token count comparison</h3>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="panel panel-neutral-soft p-4 space-y-2">
+        <div class="flex items-center gap-2 text-xs text-muted">
+          <span aria-hidden="true">📝</span>
+          <span>Text Tokenization (BPE)</span>
+        </div>
+        <div id="p47-text-tokens" class="text-2xl font-bold text-body">188</div>
+        <div id="p47-text-fertility" class="text-xs panel-muted min-h-[2.75rem]">
+          Fertility: 1.88 tokens/word
+        </div>
+      </div>
+
+      <div class="panel panel-neutral-soft p-4 space-y-2">
+        <div class="flex items-center gap-2 text-xs text-muted">
+          <span aria-hidden="true">👁️</span>
+          <span>Vision Tokenization (SeeTok)</span>
+        </div>
+        <div id="p47-visual-tokens" class="text-2xl font-bold text-accent-strong">42</div>
+        <div id="p47-visual-fertility" class="text-xs panel-muted min-h-[2.75rem]">
+          Fertility: 0.42 tokens/word
+        </div>
+      </div>
+
+      <div class="panel panel-success p-4 space-y-2">
+        <div class="flex items-center gap-2 text-xs text-muted">
+          <span aria-hidden="true">⚡</span>
+          <span>Compression Gain</span>
+        </div>
+        <div id="p47-compression" class="text-2xl font-bold text-body">4.43×</div>
+        <div id="p47-efficiency-gain" class="text-xs panel-muted min-h-[2.75rem]">
+          70.5% lower FLOPs, 33.5% faster latency
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Robustness Analysis -->
+  <div class="panel panel-info p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">Robustness to perturbations</h3>
+    <p class="text-xs panel-muted">
+      When input text contains typos or font variations, text tokenization fragments words unpredictably (increasing token count and disrupting embeddings). Vision tokenization maintains holistic word shapes, yielding stable token counts and better performance under noise.
+    </p>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="panel panel-neutral-soft p-3 space-y-2">
+        <h4 class="text-sm font-semibold text-heading">Text Tokenization Impact</h4>
+        <div id="p47-text-robustness" class="space-y-1 text-xs panel-muted">
+          <!-- Dynamic robustness info -->
+        </div>
+      </div>
+      <div class="panel panel-neutral-soft p-3 space-y-2">
+        <h4 class="text-sm font-semibold text-heading">Vision Tokenization Impact</h4>
+        <div id="p47-visual-robustness" class="space-y-1 text-xs panel-muted">
+          <!-- Dynamic robustness info -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Insights Panel -->
+  <div class="panel panel-warning p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">💡 Key insights</h3>
+    <div id="p47-insights-content" class="space-y-2 text-xs panel-muted">
+      <!-- Dynamic insights will appear here -->
+    </div>
+  </div>
+
+  <!-- Technical Details -->
+  <div class="panel panel-neutral-soft p-4 space-y-2">
+    <h3 class="text-sm font-semibold text-heading">How vision tokenization works</h3>
+    <div class="space-y-2 text-xs panel-muted">
+      <p><strong>Text Rendering:</strong> Input text is rendered as 224×224 RGB images using Noto Sans font at 7px. Each 14×14 pixel patch corresponds to ~1.1 Qwen text tokens on average.</p>
+      <p><strong>Vision Encoding:</strong> Pretrained MLLM vision encoder (Qwen2.5-VL or JanusPro) processes image patches, leveraging OCR capabilities and text-vision alignment learned from large-scale multimodal training.</p>
+      <p><strong>Patch Aggregation:</strong> MLP projector aggregates 4 adjacent patches into 1 visual token, achieving 4× compression while aligning dimensionality with LLM text embeddings.</p>
+      <p><strong>Language Fairness:</strong> Patch-based segmentation is script-agnostic—Georgian, Chinese, and English all receive uniform treatment, unlike BPE vocabularies that bias toward high-resource languages.</p>
+    </div>
+  </div>
+</section>

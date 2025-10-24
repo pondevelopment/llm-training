@@ -1,0 +1,206 @@
+<div class="space-y-8">
+  <div class="panel-accent">
+    <h2 class="text-2xl font-bold mb-4">Team Configuration Simulator</h2>
+    <p class="text-muted-foreground mb-6">
+      Explore how different team configurations affect performance, expertise breadth, and emotional experience based on the P&amp;G field experiment with 776 professionals.
+    </p>
+
+    <div class="grid md:grid-cols-2 gap-6 mb-6">
+      <!-- Work Configuration -->
+      <div>
+        <label class="block text-sm font-semibold mb-3">Work Configuration</label>
+        <div class="space-y-2">
+          <label class="flex items-center gap-3 p-3 border border-border rounded-lg cursor-pointer hover:bg-accent/50 transition-colors">
+            <input type="radio" name="workMode" value="individual" checked class="w-4 h-4">
+            <div>
+              <div class="font-medium">Individual</div>
+              <div class="text-sm text-muted-foreground">Work alone on the task</div>
+            </div>
+          </label>
+          <label class="flex items-center gap-3 p-3 border border-border rounded-lg cursor-pointer hover:bg-accent/50 transition-colors">
+            <input type="radio" name="workMode" value="team" class="w-4 h-4">
+            <div>
+              <div class="font-medium">Two-Person Team</div>
+              <div class="text-sm text-muted-foreground">Cross-functional pair (1 Commercial + 1 R&amp;D)</div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- AI Usage -->
+      <div>
+        <label class="block text-sm font-semibold mb-3">AI Assistant</label>
+        <div class="space-y-2">
+          <label class="flex items-center gap-3 p-3 border border-border rounded-lg cursor-pointer hover:bg-accent/50 transition-colors">
+            <input type="radio" name="aiMode" value="without" checked class="w-4 h-4">
+            <div>
+              <div class="font-medium">Without AI</div>
+              <div class="text-sm text-muted-foreground">Traditional human-only work</div>
+            </div>
+          </label>
+          <label class="flex items-center gap-3 p-3 border border-border rounded-lg cursor-pointer hover:bg-accent/50 transition-colors">
+            <input type="radio" name="aiMode" value="with" class="w-4 h-4">
+            <div>
+              <div class="font-medium">With AI (GPT-4)</div>
+              <div class="text-sm text-muted-foreground">AI-augmented work with one-hour training</div>
+            </div>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Professional Background (only for individual mode) -->
+    <div id="backgroundSelector" class="hidden">
+      <label for="professionalBackground" class="block text-sm font-semibold mb-3">
+        Professional Background (Individual Mode)
+      </label>
+      <select id="professionalBackground" class="w-full md:w-1/2 p-3 border border-border rounded-lg bg-background">
+        <option value="commercial">Commercial (Market/Sales Focus)</option>
+        <option value="rd">R&amp;D (Technical/Engineering Focus)</option>
+      </select>
+      <p class="text-sm text-muted-foreground mt-2">
+        In team mode, teams always comprise 1 Commercial + 1 R&amp;D professional
+      </p>
+    </div>
+  </div>
+
+  <!-- Results Display -->
+  <div class="grid md:grid-cols-3 gap-6">
+    <!-- Performance Quality -->
+    <div class="panel-default">
+      <div class="flex items-start gap-2 mb-4">
+        <span class="text-2xl">📊</span>
+        <div>
+          <h3 class="font-bold text-lg">Performance Quality</h3>
+          <p class="text-sm text-muted-foreground">Solution quality vs. baseline</p>
+        </div>
+      </div>
+      
+      <div id="qualityDisplay" class="space-y-3">
+        <div class="text-3xl font-bold" id="qualityScore">+0.00 SD</div>
+        <div class="text-sm" id="qualityComparison">Baseline (solo without AI)</div>
+        <div class="mt-4 p-3 bg-accent/30 rounded-lg">
+          <div class="text-sm font-semibold mb-1">Time Efficiency</div>
+          <div class="text-sm" id="timeEfficiency">Baseline completion time</div>
+        </div>
+        <div class="mt-2 p-3 bg-accent/30 rounded-lg">
+          <div class="text-sm font-semibold mb-1">Comprehensiveness</div>
+          <div class="text-sm" id="comprehensiveness">Baseline solution length</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Expertise Breadth -->
+    <div class="panel-default">
+      <div class="flex items-start gap-2 mb-4">
+        <span class="text-2xl">🔄</span>
+        <div>
+          <h3 class="font-bold text-lg">Expertise Breadth</h3>
+          <p class="text-sm text-muted-foreground">Functional boundary crossing</p>
+        </div>
+      </div>
+      
+      <div id="expertiseDisplay" class="space-y-3">
+        <div class="flex items-center gap-2 mb-2">
+          <div class="flex-1">
+            <div class="h-8 bg-gradient-to-r from-blue-500 to-green-500 rounded-lg relative overflow-hidden">
+              <div id="expertiseIndicator" class="absolute top-0 bottom-0 w-1 bg-white shadow-lg transition-all duration-300" style="left: 0%"></div>
+            </div>
+            <div class="flex justify-between text-xs text-muted-foreground mt-1">
+              <span>Technical</span>
+              <span>Commercial</span>
+            </div>
+          </div>
+        </div>
+        <div class="text-sm" id="expertiseDescription">Solutions align with professional background</div>
+        <div class="mt-4 p-3 bg-accent/30 rounded-lg">
+          <div class="text-sm font-semibold mb-1">Task Expertise Effect</div>
+          <div class="text-sm" id="taskExpertise">Core vs. non-core job performance</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Emotional Experience -->
+    <div class="panel-default">
+      <div class="flex items-start gap-2 mb-4">
+        <span class="text-2xl">💭</span>
+        <div>
+          <h3 class="font-bold text-lg">Emotional Experience</h3>
+          <p class="text-sm text-muted-foreground">Positive &amp; negative emotions</p>
+        </div>
+      </div>
+      
+      <div id="emotionDisplay" class="space-y-3">
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <span class="text-sm font-medium">Positive emotions</span>
+            <span class="text-sm font-bold" id="positiveEmotionScore">+0.00 SD</span>
+          </div>
+          <div class="text-xs text-muted-foreground mb-2">(enthusiasm, energy, excitement)</div>
+          <div class="h-2 bg-accent/30 rounded-full overflow-hidden">
+            <div id="positiveEmotionBar" class="h-full bg-green-500 transition-all duration-300" style="width: 0%"></div>
+          </div>
+        </div>
+        
+        <div>
+          <div class="flex justify-between items-center mb-1">
+            <span class="text-sm font-medium">Negative emotions</span>
+            <span class="text-sm font-bold" id="negativeEmotionScore">+0.00 SD</span>
+          </div>
+          <div class="text-xs text-muted-foreground mb-2">(anxiety, frustration, distress)</div>
+          <div class="h-2 bg-accent/30 rounded-full overflow-hidden">
+            <div id="negativeEmotionBar" class="h-full bg-red-500 transition-all duration-300" style="width: 0%"></div>
+          </div>
+        </div>
+
+        <div class="mt-4 p-3 bg-accent/30 rounded-lg">
+          <div class="text-sm" id="emotionInterpretation">Baseline emotional response</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Condition Summary -->
+  <div class="panel-info">
+    <h3 class="font-bold text-lg mb-3">📋 Configuration Summary</h3>
+    <div id="conditionSummary" class="space-y-2 text-sm">
+      <p><strong>Current condition:</strong> <span id="conditionName">Individual without AI (Control)</span></p>
+      <p id="conditionDescription">Working alone using only human knowledge and skills. This is the baseline against which all other conditions are compared.</p>
+    </div>
+  </div>
+
+  <!-- Key Insights -->
+  <div class="panel-neutral">
+    <h3 class="font-bold text-lg mb-3">💡 Key Insights from the Experiment</h3>
+    <div class="grid md:grid-cols-2 gap-4 text-sm">
+      <div>
+        <div class="font-semibold mb-2">🎯 Performance Substitution</div>
+        <p class="text-muted-foreground">
+          Individuals with AI matched the quality of two-person teams without AI (+0.37 SD vs. +0.24 SD), suggesting AI can substitute for some collaborative functions.
+        </p>
+      </div>
+      <div>
+        <div class="font-semibold mb-2">🏆 Breakthrough Advantage</div>
+        <p class="text-muted-foreground">
+          Teams with AI were 3× more likely to produce top 10% solutions (9.2 percentage point increase), showing AI complements teamwork for exceptional outcomes.
+        </p>
+      </div>
+      <div>
+        <div class="font-semibold mb-2">🔓 Silo Breaking</div>
+        <p class="text-muted-foreground">
+          AI eliminated functional boundaries: Commercial and R&amp;D professionals produced similarly balanced solutions with AI, replicating team-level knowledge integration.
+        </p>
+      </div>
+      <div>
+        <div class="font-semibold mb-2">😊 Social Benefits</div>
+        <p class="text-muted-foreground">
+          AI users reported higher positive emotions (+0.46 to +0.64 SD) and lower negative emotions (-0.23 SD), suggesting AI fulfills some motivational benefits of teamwork.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="text-sm text-muted-foreground">
+    <strong>Note:</strong> Data derived from Dell'Acqua et al. (2025) field experiment with 776 P&amp;G professionals. Standard deviations (SD) represent quality improvements relative to the individual-without-AI baseline. All effects are statistically significant (p &lt; 0.05 or p &lt; 0.01).
+  </div>
+</div>

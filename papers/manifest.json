@@ -1227,5 +1227,38 @@
       28,
       36
     ]
+  },
+  "48": {
+    "title": "Artificial Intelligence in Organizations: Implications for Information Systems Research",
+    "authors": [
+      "Hind Benbya",
+      "Stella Pachidi",
+      "Sirkka Jarvenpaa"
+    ],
+    "year": 2021,
+    "venue": "Journal of the Association for Information Systems (2021)",
+    "tags": [
+      "ai",
+      "research-agenda",
+      "automation",
+      "engagement",
+      "decision-making",
+      "innovation",
+      "organizational-theory",
+      "human-machine-interaction",
+      "governance",
+      "ethics"
+    ],
+    "dir": "./papers/p48",
+    "interactiveTitle": "AI capabilities framework explorer",
+    "summary": "Proposes a comprehensive research agenda organizing AI in organizations around four core capabilities (Automation, Engagement, Insight/Decisions, Innovation) and ten fundamental tensions requiring distinct governance approaches. Automation invokes substitution vs tasks and automation vs augmentation tensions; Engagement raises humanlike vs machinelike and emotion AI concerns; Insight/Decisions challenges accountability, bias, rationality, and myopia; Innovation navigates exploration vs exploitation and credit allocation. Framework enables practitioners to anticipate capability-specific organizational challenges, adopt appropriate governance strategies, and balance competing demands—recognizing that AI differs from traditional IT by learning, displaying emotions, and creating artifacts requiring new management approaches beyond established control theories.",
+    "relatedQuestions": [
+      40,
+      41,
+      42,
+      45,
+      46,
+      53
+    ]
   }
 }

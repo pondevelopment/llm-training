@@ -151,21 +151,23 @@
   }
 
   function updateEmotionDisplay(condition) {
-    // Positive emotions (scale 0 to +0.7 SD for visual display)
-    const positivePercent = Math.min(100, (condition.positiveEmotionSD / 0.7) * 100);
+    // Positive emotions: bar extends RIGHT from center (50% = half the bar width)
+    // Scale: 0 to +0.7 SD mapped to 0% to 50% width (right half of bar)
+    const positivePercent = Math.min(50, (condition.positiveEmotionSD / 0.7) * 50);
     updateElement('positiveEmotionScore', (condition.positiveEmotionSD >= 0 ? '+' : '') + condition.positiveEmotionSD.toFixed(2) + ' SD');
     const positiveBarEl = document.getElementById('positiveEmotionBar');
     if (positiveBarEl) {
       positiveBarEl.style.width = Math.max(0, positivePercent) + '%';
     }
 
-    // Negative emotions (scale -0.3 to 0 SD for visual display, but show as reduction)
-    const negativePercent = Math.min(100, Math.abs(condition.negativeEmotionSD / 0.3) * 100);
+    // Negative emotions: bar extends LEFT from center (50% = half the bar width)
+    // Scale: -0.3 to 0 SD mapped to 50% to 0% width (left half of bar)
+    // Negative values (reduction) are GOOD, so they extend left
+    const negativePercent = Math.min(50, Math.abs(condition.negativeEmotionSD / 0.3) * 50);
     updateElement('negativeEmotionScore', (condition.negativeEmotionSD >= 0 ? '+' : '') + condition.negativeEmotionSD.toFixed(2) + ' SD');
     const negativeBarEl = document.getElementById('negativeEmotionBar');
     if (negativeBarEl) {
-      // For negative emotions, reduction is good—show inverse
-      negativeBarEl.style.width = (condition.negativeEmotionSD === 0 ? 50 : Math.max(0, negativePercent)) + '%';
+      negativeBarEl.style.width = Math.max(0, negativePercent) + '%';
     }
 
     updateElement('emotionInterpretation', condition.emotionInterpretation);

@@ -130,15 +130,23 @@
         </div>
       </div>
       
-      <div id="emotionDisplay" class="space-y-3">
+      <div id="emotionDisplay" class="space-y-4">
         <div>
           <div class="flex justify-between items-center mb-1">
             <span class="text-sm font-medium">Positive emotions</span>
             <span class="text-sm font-bold" id="positiveEmotionScore">+0.00 SD</span>
           </div>
           <div class="text-xs text-muted-foreground mb-2">(enthusiasm, energy, excitement)</div>
-          <div class="h-2 bg-accent/30 rounded-full overflow-hidden">
-            <div id="positiveEmotionBar" class="h-full bg-green-500 transition-all duration-300" style="width: 0%"></div>
+          <div class="relative h-6 bg-accent/30 rounded-full overflow-hidden">
+            <!-- Center line -->
+            <div class="absolute left-1/2 top-0 bottom-0 w-px bg-border"></div>
+            <!-- Bar extends right from center for positive values -->
+            <div id="positiveEmotionBar" class="absolute top-0 bottom-0 bg-green-500 transition-all duration-300" style="left: 50%; width: 0%"></div>
+          </div>
+          <div class="flex justify-between text-xs text-muted-foreground mt-1">
+            <span>-0.5 SD</span>
+            <span>0</span>
+            <span>+0.7 SD</span>
           </div>
         </div>
         
@@ -148,8 +156,16 @@
             <span class="text-sm font-bold" id="negativeEmotionScore">+0.00 SD</span>
           </div>
           <div class="text-xs text-muted-foreground mb-2">(anxiety, frustration, distress)</div>
-          <div class="h-2 bg-accent/30 rounded-full overflow-hidden">
-            <div id="negativeEmotionBar" class="h-full bg-red-500 transition-all duration-300" style="width: 0%"></div>
+          <div class="relative h-6 bg-accent/30 rounded-full overflow-hidden">
+            <!-- Center line -->
+            <div class="absolute left-1/2 top-0 bottom-0 w-px bg-border"></div>
+            <!-- Bar extends left from center for negative values (reduction in negative emotions) -->
+            <div id="negativeEmotionBar" class="absolute top-0 bottom-0 bg-red-500 transition-all duration-300" style="right: 50%; width: 0%"></div>
+          </div>
+          <div class="flex justify-between text-xs text-muted-foreground mt-1">
+            <span>-0.3 SD</span>
+            <span>0</span>
+            <span>+0.3 SD</span>
           </div>
         </div>
 

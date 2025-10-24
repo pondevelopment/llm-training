@@ -1330,5 +1330,36 @@
       48,
       53
     ]
+  },
+  "51": {
+    "title": "The Dark Side of Artificial Intelligence Adoption: Linking AI Adoption to Employee Depression via Psychological Safety and Ethical Leadership",
+    "authors": [
+      "Byung-Jik Kim",
+      "Min-Jik Kim",
+      "Julak Lee"
+    ],
+    "year": 2025,
+    "venue": "Nature Humanities and Social Sciences Communications (2025)",
+    "tags": [
+      "AI-adoption",
+      "employee-well-being",
+      "psychological-safety",
+      "ethical-leadership",
+      "organizational-psychology",
+      "mental-health",
+      "workplace-culture",
+      "mediation-moderation",
+      "longitudinal-study"
+    ],
+    "dir": "./papers/p51",
+    "interactiveTitle": "AI adoption psychological impact simulator",
+    "summary": "Three-wave longitudinal study of 381 South Korean employees reveals AI adoption significantly reduces psychological safety (β = −0.324), which mediates increased depression (indirect effect = 0.068). Ethical leadership (transparency, fairness, inclusive decision-making) significantly moderates this effect (β = 0.211), buffering employees against psychological harm. Organizations can adopt AI while protecting employee mental health through ethical leadership practices.",
+    "relatedQuestions": [
+      7,
+      28,
+      31,
+      37,
+      42
+    ]
   }
 }

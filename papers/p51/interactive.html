@@ -1,0 +1,133 @@
+<section class="space-y-8" id="p51-explorer">
+  <!-- Intro -->
+  <div class="panel panel-info p-6 space-y-3">
+    <h4 class="text-lg font-bold text-heading">AI Adoption Psychological Impact Simulator</h4>
+    <p class="text-sm leading-relaxed text-body">Adjust the sliders below to explore how AI deployment affects employee well-being. The simulator shows how psychological safety acts as the mechanism linking AI adoption to depression, and how ethical leadership buffers this harm.</p>
+  </div>
+
+  <!-- Controls Section -->
+  <div class="space-y-6">
+    <h4 class="text-sm font-semibold text-heading uppercase tracking-wide">Adjust organizational factors</h4>
+    
+    <!-- AI Adoption Intensity -->
+    <div class="panel panel-neutral-soft p-6 space-y-4">
+      <div>
+        <label for="p51-ai-adoption" class="block text-base font-bold text-heading mb-2">AI Adoption Intensity</label>
+        <p class="text-sm text-body mb-4">How extensively is AI deployed across your organization?</p>
+      </div>
+      <input type="range" id="p51-ai-adoption" class="w-full h-2" min="0" max="100" value="50" step="1">
+      <div class="flex justify-between text-sm font-medium text-heading">
+        <span>None (0%)</span>
+        <span id="p51-ai-val" class="font-bold text-base">50%</span>
+        <span>Full (100%)</span>
+      </div>
+      <p class="text-xs text-body mt-2 border-t border-divider pt-2">AI systems deployed across HR, operations, marketing, strategy, and finance.</p>
+    </div>
+
+    <!-- Ethical Leadership Strength -->
+    <div class="panel panel-neutral-soft p-6 space-y-4">
+      <div>
+        <label for="p51-ethical-leadership" class="block text-base font-bold text-heading mb-2">Ethical Leadership Strength</label>
+        <p class="text-sm text-body mb-4">How much do leaders communicate transparently about AI and include employees in decisions?</p>
+      </div>
+      <input type="range" id="p51-ethical-leadership" class="w-full h-2" min="0" max="100" value="50" step="1">
+      <div class="flex justify-between text-sm font-medium text-heading">
+        <span>Absent (0%)</span>
+        <span id="p51-el-val" class="font-bold text-base">50%</span>
+        <span>Strong (100%)</span>
+      </div>
+      <p class="text-xs text-body mt-2 border-t border-divider pt-2">Transparency about AI limits, fairness in role changes, involvement in decisions.</p>
+    </div>
+  </div>
+
+  <!-- Outcomes display -->
+  <div class="space-y-6">
+    <h4 class="text-sm font-semibold text-heading uppercase tracking-wide">Employee outcomes</h4>
+    
+    <div class="grid grid-cols-3 gap-4">
+      <!-- Psychological Safety -->
+      <div id="p51-outcome-safety" class="panel p-6 space-y-4 border-2 border-transparent transition-colors">
+        <div>
+          <h5 class="text-base font-bold text-heading">Psychological Safety</h5>
+          <p class="text-xs text-body mt-1">Ability to voice concerns & take interpersonal risks</p>
+        </div>
+        <div class="flex items-baseline gap-1">
+          <div class="text-4xl font-bold" id="p51-safety-score">3.5</div>
+          <span class="text-sm text-body">/5.0</span>
+        </div>
+        <div class="w-full h-3 bg-divider rounded-full overflow-hidden">
+          <div id="p51-safety-bar" class="h-full transition-all duration-300" style="width: 70%; background-color: #10b981;"></div>
+        </div>
+      </div>
+
+      <!-- Depression Risk -->
+      <div id="p51-outcome-depression" class="panel p-6 space-y-4 border-2 border-transparent transition-colors">
+        <div>
+          <h5 class="text-base font-bold text-heading">Depression Risk</h5>
+          <p class="text-xs text-body mt-1">CES-D-10 symptom severity</p>
+        </div>
+        <div class="flex items-baseline gap-1">
+          <div class="text-4xl font-bold" id="p51-depression-score">2.0</div>
+          <span class="text-sm text-body">/5.0</span>
+        </div>
+        <div class="w-full h-3 bg-divider rounded-full overflow-hidden">
+          <div id="p51-depression-bar" class="h-full transition-all duration-300" style="width: 40%; background-color: #ef4444;"></div>
+        </div>
+      </div>
+
+      <!-- Leadership Protection -->
+      <div id="p51-outcome-protection" class="panel p-6 space-y-4 border-2 border-transparent transition-colors">
+        <div>
+          <h5 class="text-base font-bold text-heading">Leadership Protection</h5>
+          <p class="text-xs text-body mt-1">Harm reduced by ethical leadership</p>
+        </div>
+        <div class="flex items-baseline gap-1">
+          <div class="text-4xl font-bold" id="p51-protection-score">+0%</div>
+          <span class="text-sm text-body">less harm</span>
+        </div>
+        <div class="w-full h-3 bg-divider rounded-full overflow-hidden">
+          <div id="p51-protection-bar" class="h-full transition-all duration-300" style="width: 0%; background-color: #6366f1;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Interpretation -->
+  <div class="panel panel-neutral p-6 space-y-4">
+    <h4 class="text-base font-bold text-heading">📋 What's happening</h4>
+    <p class="text-sm leading-relaxed text-body" id="p51-interpretation">
+      Adjust the sliders to explore the mediation and moderation pathways. High AI adoption alone damages psychological safety and elevates depression. But ethical leadership (transparency, fairness, inclusion) can substantially buffer this harm.
+    </p>
+    <div class="panel panel-info p-4 space-y-2">
+      <p class="text-xs font-semibold text-heading"><span class="text-base">💡</span> Key insight</p>
+      <p class="text-sm text-body">The study found that <strong>psychological safety is the mechanism</strong> through which AI adoption affects depression (mediation). <strong>Ethical leadership moderates</strong> this link by protecting psychological safety during AI transitions.</p>
+    </div>
+  </div>
+
+  <!-- Scenario narratives -->
+  <div class="space-y-4">
+    <h4 class="text-sm font-semibold text-heading uppercase tracking-wide">Real-world scenarios</h4>
+    
+    <div class="grid grid-cols-2 gap-4">
+      <!-- Scenario 1 -->
+      <div class="panel panel-warning p-6 space-y-3">
+        <h5 class="text-base font-bold text-heading">📍 Low Ethical Leadership</h5>
+        <p class="text-sm text-body">Organization deploys AI systems without involving employees in decisions. Leadership makes ambiguous statements about job impacts. Employees receive minimal training. Managers don't proactively address fears about automation or role changes.</p>
+        <div class="panel panel-warning p-3 space-y-1">
+          <p class="text-xs font-semibold text-heading">Expected outcome:</p>
+          <p class="text-sm text-body">Psychological safety declines sharply (−0.324 effect). Depression risk rises (indirect effect = 0.068). Staff consider leaving.</p>
+        </div>
+      </div>
+
+      <!-- Scenario 2 -->
+      <div class="panel panel-success p-6 space-y-3">
+        <h5 class="text-base font-bold text-heading">✓ High Ethical Leadership</h5>
+        <p class="text-sm text-body">Leadership holds forums explaining AI capabilities and human oversight roles. Makes clear commitments (no job eliminations, career path clarity). Involves employees in quality testing. Managers receive training in transparent communication and fair evaluation.</p>
+        <div class="panel panel-success p-3 space-y-1">
+          <p class="text-xs font-semibold text-heading">Expected outcome:</p>
+          <p class="text-sm text-body">Ethical leadership moderates (−0.211 moderation effect reduces harm). Psychological safety holds steady. Depression stays low. Engagement remains high.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

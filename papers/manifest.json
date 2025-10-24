@@ -1260,5 +1260,46 @@
       46,
       53
     ]
+  },
+  "49": {
+    "title": "The Cybernetic Teammate: A Field Experiment on Generative AI Reshaping Teamwork and Expertise",
+    "authors": [
+      "Fabrizio Dell'Acqua",
+      "Charles Ayoubi",
+      "Hila Lifshitz-Assaf",
+      "Raffaella Sadun",
+      "Ethan Mollick",
+      "Lilach Mollick",
+      "Jenny Han",
+      "Emily Goldman",
+      "Akhila Nair",
+      "David Taub",
+      "Karim R. Lakhani"
+    ],
+    "year": 2025,
+    "venue": "Harvard Business School Working Paper No. 25-043 (2025)",
+    "tags": [
+      "field-experiment",
+      "genai",
+      "teamwork",
+      "collaboration",
+      "expertise-sharing",
+      "cross-functional",
+      "emotional-experience",
+      "boundary-spanning",
+      "product-innovation",
+      "productivity"
+    ],
+    "dir": "./papers/p49",
+    "interactiveTitle": "Team configuration simulator",
+    "summary": "Field experiment with 776 P&G professionals reveals GenAI can act as a 'cybernetic teammate' that replicates three pillars of human teamwork. Individuals with AI matched the performance of two-person cross-functional teams without AI (+0.37 vs. +0.24 standard deviations), completed work 16.4% faster, and produced significantly longer solutions. AI broke down functional silos: both Commercial and R&D professionals generated balanced technical-commercial solutions regardless of background, replicating the boundary-spanning expertise typically achieved through team collaboration. AI users also reported higher positive emotions (+0.46 SD) and lower negative emotions (-0.23 SD), matching the motivational benefits of human teamwork. While AI-augmented teams were 3× more likely to produce top-tier solutions, the findings suggest AI can substitute for collaborative functions in many contexts, fundamentally reshaping optimal team size and structure for knowledge work.",
+    "relatedQuestions": [
+      40,
+      41,
+      45,
+      46,
+      48,
+      53
+    ]
   }
 }

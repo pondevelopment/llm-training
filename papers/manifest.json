@@ -1,4 +1,33 @@
 {
+  "50": {
+    "title": "How Professionals Adapt to Artificial Intelligence: The Role of Intertwined Boundary Work",
+    "authors": [
+      "James Faulconbridge",
+      "Atif Sarwar",
+      "Martin Spring"
+    ],
+    "year": 2023,
+    "venue": "Journal of Management Studies (2023)",
+    "tags": [
+      "organizational-adaptation",
+      "boundary-work",
+      "AI-adoption",
+      "professional-services",
+      "collaboration",
+      "strategic-change",
+      "qualitative-research"
+    ],
+    "dir": "./papers/p50",
+    "interactiveTitle": "Boundary work simulator",
+    "summary": "Study of 85 accounting and law professionals (2018–2020) reveals AI doesn't end professions but triggers intertwined boundary work: defending (preserving judgment), creating (expanding domains), negotiating (collaborating with technologists), and coalescing (partnership reform). Opportunity ties enable expansion, necessity ties require collaboration, recursive reinforcement consolidates changes. Outcome: reconfigured professional roles, new advisory services, technologists as partners.",
+    "relatedQuestions": [
+      40,
+      41,
+      45,
+      46,
+      48
+    ]
+  },
   "43": {
     "title": "Learning to Make MISTAKEs: Modeling Incorrect Student Thinking And Key Errors",
     "authors": [

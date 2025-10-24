@@ -1,0 +1,113 @@
+﻿<section class="space-y-6" id="p50-explorer">
+  <!-- Scenario selection -->
+  <div class="panel panel-info p-5 space-y-4">
+    <h4 class="text-sm font-semibold text-heading">AI disruption scenario</h4>
+    <div>
+      <label for="p50-scenario" class="block text-sm font-medium text-heading mb-2">Choose professional service context</label>
+      <select id="p50-scenario" class="w-full rounded border border-divider bg-card px-3 py-2 text-sm text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
+        <option value="law-doc-review">Law: AI document review (Kira, Luminance)</option>
+        <option value="accounting-audit">Accounting: AI audit sampling (InFlo, Mindbridge)</option>
+        <option value="law-contract">Law: Contract review automation (LawGeex)</option>
+        <option value="accounting-advisory">Accounting: Data-driven advisory pivot</option>
+      </select>
+      <p class="text-xs panel-muted mt-2">Each scenario illustrates how AI disrupts traditional professional work patterns. Observe the four interdependent boundary work modes that emerge.</p>
+    </div>
+  </div>
+
+  <!-- Boundary work modes visualization -->
+  <div class="panel panel-neutral p-5 space-y-4">
+    <h4 class="text-sm font-semibold text-heading">Intertwined boundary work response</h4>
+    <p class="text-xs panel-muted">The four modes (defending, creating, negotiating, coalescing) adapt professional boundaries. Arrows show opportunity ties (green) and necessity ties (orange).</p>
+    
+    <div class="grid grid-cols-2 gap-4 mt-4">
+      <!-- Mode 1: Defending -->
+      <div id="p50-mode-defending" class="panel panel-neutral-soft p-4 space-y-2 border-2 border-transparent transition-colors">
+        <div class="flex items-center gap-2">
+          <div class="w-3 h-3 rounded-full flex-shrink-0" style="background-color: #3b82f6;"></div>
+          <h5 class="text-sm font-semibold text-heading">1. Defending</h5>
+        </div>
+        <p id="p50-defending-desc" class="text-xs text-body leading-relaxed"></p>
+        <div class="text-[11px] font-mono panel-muted">Mechanism: <span id="p50-defending-mech"></span></div>
+      </div>
+
+      <!-- Mode 2: Creating -->
+      <div id="p50-mode-creating" class="panel panel-neutral-soft p-4 space-y-2 border-2 border-transparent transition-colors">
+        <div class="flex items-center gap-2">
+          <div class="w-3 h-3 rounded-full flex-shrink-0" style="background-color: #10b981;"></div>
+          <h5 class="text-sm font-semibold text-heading">2. Creating</h5>
+        </div>
+        <p id="p50-creating-desc" class="text-xs text-body leading-relaxed"></p>
+        <div class="text-[11px] font-mono panel-muted">Mechanism: <span id="p50-creating-mech"></span></div>
+      </div>
+
+      <!-- Mode 3: Negotiating -->
+      <div id="p50-mode-negotiating" class="panel panel-neutral-soft p-4 space-y-2 border-2 border-transparent transition-colors">
+        <div class="flex items-center gap-2">
+          <div class="w-3 h-3 rounded-full flex-shrink-0" style="background-color: #f59e0b;"></div>
+          <h5 class="text-sm font-semibold text-heading">3. Negotiating</h5>
+        </div>
+        <p id="p50-negotiating-desc" class="text-xs text-body leading-relaxed"></p>
+        <div class="text-[11px] font-mono panel-muted">Mechanism: <span id="p50-negotiating-mech"></span></div>
+      </div>
+
+      <!-- Mode 4: Coalescing -->
+      <div id="p50-mode-coalescing" class="panel panel-neutral-soft p-4 space-y-2 border-2 border-transparent transition-colors">
+        <div class="flex items-center gap-2">
+          <div class="w-3 h-3 rounded-full flex-shrink-0" style="background-color: #8b5cf6;"></div>
+          <h5 class="text-sm font-semibold text-heading">4. Coalescing</h5>
+        </div>
+        <p id="p50-coalescing-desc" class="text-xs text-body leading-relaxed"></p>
+        <div class="text-[11px] font-mono panel-muted">Mechanism: <span id="p50-coalescing-mech"></span></div>
+      </div>
+    </div>
+
+    <!-- Legend -->
+    <div class="flex items-center gap-4 flex-wrap text-xs panel-muted mt-4 pt-4 border-t border-divider">
+      <span class="font-semibold text-heading">Modes:</span>
+      <div class="flex items-center gap-1.5">
+        <div class="w-2.5 h-2.5 rounded-full" style="background-color: #3b82f6;"></div>
+        <span>Defending</span>
+      </div>
+      <div class="flex items-center gap-1.5">
+        <div class="w-2.5 h-2.5 rounded-full" style="background-color: #10b981;"></div>
+        <span>Creating</span>
+      </div>
+      <div class="flex items-center gap-1.5">
+        <div class="w-2.5 h-2.5 rounded-full" style="background-color: #f59e0b;"></div>
+        <span>Negotiating</span>
+      </div>
+      <div class="flex items-center gap-1.5">
+        <div class="w-2.5 h-2.5 rounded-full" style="background-color: #8b5cf6;"></div>
+        <span>Coalescing</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Ties and interdependencies -->
+  <div class="panel panel-neutral p-5 space-y-3">
+    <h4 class="text-sm font-semibold text-heading">Active interdependencies</h4>
+    <div id="p50-ties" class="space-y-2 text-sm text-body"></div>
+  </div>
+
+  <!-- Outcome summary -->
+  <div class="panel panel-success p-5 space-y-3">
+    <h4 class="text-sm font-semibold text-heading">Adaptation outcome</h4>
+    <div id="p50-outcome" class="space-y-2">
+      <div class="text-sm text-body">
+        <strong>Professional status:</strong> <span id="p50-status"></span>
+      </div>
+      <div class="text-sm text-body">
+        <strong>New services:</strong> <span id="p50-services"></span>
+      </div>
+      <div class="text-sm text-body">
+        <strong>Organizational change:</strong> <span id="p50-org-change"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Key insight -->
+  <div class="panel panel-warning p-5 space-y-2">
+    <h4 class="text-sm font-semibold text-heading">Why intertwined boundary work matters</h4>
+    <p class="text-sm text-body">Isolated defensive moves fail because they don't create expansion opportunities or enable necessary collaborations. The interdependencies (opportunity ties + necessity ties + recursive reinforcement) transform AI disruption from existential threat into strategic advantage. Organizations that map these cascading boundary shifts before deployment adapt successfully; those attempting isolated interventions struggle.</p>
+  </div>
+</section>

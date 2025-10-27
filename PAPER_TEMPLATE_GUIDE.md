@@ -245,6 +245,102 @@ The animations are defined in `css/theme.css` as reusable theme components:
 
 Share pages are critical for social media discoverability. They provide rich previews when links are shared in Telegram, WhatsApp, Slack, Twitter, LinkedIn, etc.
 
+### Canonical structure
+
+All share pages follow a **simple, consistent template** with inline CSS for maximum portability and minimal dependencies.
+
+**Full template (`p/_template.html`):**
+
+```html
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Paper {{NUM}} • LLM Paper Explainers</title>
+  <meta name="robots" content="noindex,follow">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{{TITLE}}">
+  <meta property="og:description" content="{{DESC}}">
+  <meta property="og:image" content="https://pondevelopment.github.io/llm-training/og-image.png">
+  <meta property="og:site_name" content="LLM Learning Hub">
+  <meta property="og:url" content="https://pondevelopment.github.io/llm-training/p/{{NUM}}.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{TITLE}}">
+  <meta name="twitter:description" content="{{DESC}}">
+  <meta name="twitter:image" content="https://pondevelopment.github.io/llm-training/og-image.png">
+  <link rel="icon" href="../favicon.ico">
+  <style>body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;margin:0;padding:2rem;background:#f8fafc;color:#111827}
+  .header{max-width:720px;margin:0 auto 2rem;text-align:center}
+  .logo{font-size:16px;font-weight:600;color:#4f46e5;text-decoration:none;transition:color .2s}
+  .logo:hover{color:#6366f1}
+  .card{max-width:720px;margin:0 auto;background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+  .title{font-weight:700;font-size:20px;margin:0 0 8px}
+  .desc{font-size:14px;color:#374151;margin:0 0 16px}
+  .btn{display:inline-block;background:#4f46e5;color:#fff;padding:10px 14px;border-radius:8px;text-decoration:none;transition:opacity .2s}
+  .btn:hover{opacity:.9}
+  .muted{font-size:12px;color:#6b7280;margin-top:12px}
+  .footer{max-width:720px;margin:2rem auto 0;padding-top:2rem;border-top:1px solid #e5e7eb;font-size:11px;color:#6b7280;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+  .footer a{color:#4f46e5;text-decoration:none}
+  .footer a:hover{text-decoration:underline}
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a href="../index.html" class="logo">← LLM Learning Hub</a>
+  </header>
+  <main class="card">
+    <h1 class="title">{{TITLE}}</h1>
+    <p class="desc">{{DESC}}</p>
+    <a class="btn" href="../index.html#paper-{{NUM}}">Open interactive explainer</a>
+    <p class="muted">Direct link to the interactive summary of this paper.</p>
+  </main>
+
+  <footer class="footer">
+    <div>
+      <span>Last updated: <span id="build-timestamp">Loading...</span></span>
+    </div>
+    <div>
+      <a href="https://github.com/pondevelopment/llm-training" target="_blank" rel="noopener">View on GitHub</a>
+      <span> • </span>
+      <span id="build-commit" style="font-family:monospace;font-size:10px"></span>
+    </div>
+  </footer>
+
+  <script src="../js/build-info.js"></script>
+  <script>
+    (function() {
+      if (window.BUILD_INFO && window.BUILD_INFO.timestamp !== 'BUILD_TIMESTAMP_PLACEHOLDER') {
+        const timestampEl = document.getElementById('build-timestamp');
+        const commitEl = document.getElementById('build-commit');
+        if (timestampEl) {
+          const timestamp = new Date(window.BUILD_INFO.timestamp);
+          timestampEl.textContent = timestamp.toLocaleDateString('en-US', {
+            year: 'numeric', month: 'short', day: 'numeric',
+            hour: '2-digit', minute: '2-digit', timeZoneName: 'short'
+          });
+        }
+        if (commitEl && window.BUILD_INFO.commit !== 'dev') {
+          commitEl.textContent = window.BUILD_INFO.commit;
+        }
+      } else {
+        const timestampEl = document.getElementById('build-timestamp');
+        if (timestampEl) timestampEl.textContent = 'Development';
+      }
+    })();
+  </script>
+</body>
+</html>
+```
+
+**Key components:**
+
+1. **Header:** Logo link back to main site (`../index.html`)
+2. **Main card:** Paper title, concise description, CTA button
+3. **Footer:** Build timestamp (auto-populated from `build-info.js`) and GitHub link
+4. **Inline CSS:** All styles self-contained for portability
+5. **Build info script:** Displays deployment timestamp and commit hash
+
 ### Required meta tags
 
 **Basic HTML:**
@@ -254,9 +350,9 @@ Share pages are critical for social media discoverability. They provide rich pre
 
 **Open Graph (Facebook, LinkedIn, WhatsApp, Telegram):**
 ```html
-<meta property="og:type" content="article">
-<meta property="og:title" content="Paper XX: Concise Title – Key Stat">
-<meta property="og:description" content="Rich description with context, findings, methods, and value proposition">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Full Paper Title">
+<meta property="og:description" content="Rich description with context and findings">
 <meta property="og:url" content="https://pondevelopment.github.io/llm-training/p/XX.html">
 <meta property="og:image" content="https://pondevelopment.github.io/llm-training/og-image.png">
 <meta property="og:site_name" content="LLM Learning Hub">
@@ -265,23 +361,18 @@ Share pages are critical for social media discoverability. They provide rich pre
 **Twitter Card:**
 ```html
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Paper XX: Concise Title – Key Stat">
-<meta name="twitter:description" content="Condensed description for Twitter's limits">
+<meta name="twitter:title" content="Full Paper Title">
+<meta name="twitter:description" content="Condensed description">
 <meta name="twitter:image" content="https://pondevelopment.github.io/llm-training/og-image.png">
-```
-
-**Optional but recommended:**
-```html
-<meta name="author" content="First Author, Second Author, ...">
 ```
 
 ### Content guidelines
 
-- **Title (`og:title`):** Include paper number, short title, and headline statistic. Example: "Paper 40: GenAI Productivity Field Experiments – Sales +0-16.3%"
-- **Description (`og:description`):** 2-4 sentences covering: study design (N users, timeframe, countries), key findings with numbers, mechanism/method, practical implications. Front-load the most impressive statistics.
-- **Twitter description:** Shorter version (max 200 chars) that still conveys core value.
-- **Page content:** Use semantic HTML with clear hierarchy. Highlight key statistics upfront using `<strong>` tags. Make CTA specific ("View interactive ROI calculator →" not "Open interactive explainer").
-- **CTA link:** Always point to `../index.html#paper-XX` so users land at the full interactive explainer.
+- **Title:** Use full paper title from manifest.json
+- **Description:** First sentence or ~200 chars from paper summary (from manifest.json)
+- **CTA link:** Always points to `../index.html#paper-{{NUM}}` to land on interactive explainer
+- **Footer text:** Standard across all papers for consistency
+- **NO custom styling:** Use template as-is to maintain uniformity
 
 ### Image assets
 
@@ -289,6 +380,21 @@ Share pages are critical for social media discoverability. They provide rich pre
 - **Image specs:** 1200×630px recommended, <600KB for optimal cross-platform support
 - **Absolute URLs required:** Always use full GitHub Pages URL: `https://pondevelopment.github.io/llm-training/og-image.png`
 - **Consistency:** Custom paper-specific images are not currently used to maintain unified brand appearance
+
+### Generation automation
+
+Use `scripts/fix-share-pages.py` to batch-generate all share pages from `papers/manifest.json`:
+
+```bash
+python3 scripts/fix-share-pages.py
+```
+
+This ensures:
+- Consistent structure across all papers
+- Correct OG image URLs (`og-image.png`)
+- Proper back links (`../index.html#paper-N`)
+- Footer with build info
+- Unified inline CSS styling
 
 ## Testing checklist (preview)
 

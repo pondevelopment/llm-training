@@ -6,16 +6,15 @@
   <title>Paper 46 • LLM Paper Explainers</title>
   <meta name="robots" content="noindex,follow">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Paper 46: Large Language Models, Small Labor Market Effects – Zero Wage Impact Despite 83% Adoption">
-  <meta property="og:description" content="Field study of 25,000 Danish workers finds AI chatbots have precisely estimated zero effects on earnings, hours, and wages (CI ruling out >1% impacts) despite widespread adoption (83% with encouragement) and modest productivity gains (2.8% time savings). Pass-through from productivity to pay is only 3–7%, challenging narratives of imminent labor market transformation from GenAI.">
+  <meta property="og:title" content="Large Language Models, Small Labor Market Effects">
+  <meta property="og:description" content="Two-wave survey of 25,000 Danish workers across 11 AI-exposed occupations, linked to administrative earnings data, finds widespread adoption (83% with employer encouragement, 38% of firms deploy in-house models, 30% provide training) yields modest productivity gains (2.8% average time savings vs.">
   <meta property="og:image" content="https://pondevelopment.github.io/llm-training/og-image.png">
   <meta property="og:site_name" content="LLM Learning Hub">
   <meta property="og:url" content="https://pondevelopment.github.io/llm-training/p/46.html">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Paper 46: AI Chatbots Show Zero Labor Market Impact – Field Study">
-  <meta name="twitter:description" content="25,000 workers tracked 18 months: 83% adoption, 2.8% time savings, but 0% wage effects. Pass-through only 3–7%. GenAI transformation is years away, not quarters.">
-  <meta property="twitter:image" content="https://pondevelopment.github.io/llm-training/og-image.png">
-  <meta name="author" content="Anders Humlum, Emilie Vestergaard">
+  <meta name="twitter:title" content="Large Language Models, Small Labor Market Effects">
+  <meta name="twitter:description" content="Two-wave survey of 25,000 Danish workers across 11 AI-exposed occupations, linked to administrative earnings data, finds widespread adoption (83% with employer encouragement, 38% of firms deploy in-house models, 30% provide training) yields modest productivity gains (2.8% average time savings vs.">
+  <meta name="twitter:image" content="https://pondevelopment.github.io/llm-training/og-image.png">
   <link rel="icon" href="../favicon.ico">
   <style>body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;margin:0;padding:2rem;background:#f8fafc;color:#111827}
   .header{max-width:720px;margin:0 auto 2rem;text-align:center}
@@ -24,9 +23,12 @@
   .card{max-width:720px;margin:0 auto;background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
   .title{font-weight:700;font-size:20px;margin:0 0 8px}
   .desc{font-size:14px;color:#374151;margin:0 0 16px}
-  .stat{font-weight:600;color:#059669}
-  .btn{display:inline-block;background:#4f46e5;color:#fff;padding:10px 14px;border-radius:8px;text-decoration:none}
+  .btn{display:inline-block;background:#4f46e5;color:#fff;padding:10px 14px;border-radius:8px;text-decoration:none;transition:opacity .2s}
+  .btn:hover{opacity:.9}
   .muted{font-size:12px;color:#6b7280;margin-top:12px}
+  .footer{max-width:720px;margin:2rem auto 0;padding-top:2rem;border-top:1px solid #e5e7eb;font-size:11px;color:#6b7280;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+  .footer a{color:#4f46e5;text-decoration:none}
+  .footer a:hover{text-decoration:underline}
   </style>
 </head>
 <body>
@@ -35,28 +37,23 @@
   </header>
   <main class="card">
     <h1 class="title">Large Language Models, Small Labor Market Effects</h1>
-    <p class="desc">
-      <strong>Groundbreaking field study of 25,000 Danish workers</strong> across 11 AI-exposed occupations, tracked through 18 months of administrative earnings data, reveals the gap between AI adoption and economic impact. Despite <span class="stat">83% adoption</span> with employer encouragement, <span class="stat">38% of firms</span> deploying in-house models, and <span class="stat">30%</span> of employees receiving training, AI chatbots have had <strong>precisely estimated zero effects</strong> on earnings, hours, and wages—with confidence intervals ruling out impacts greater than 1%. Users report modest productivity gains (<span class="stat">2.8% average time savings</span>), but only <span class="stat">3–7% passes through</span> to wages due to weak bargaining power, task-output mismatches, and monopsony frictions. No firm-level effects on employment or wage bills detected. <strong>The GenAI labor market transformation is occurring on a years-long timescale, not quarters.</strong>
-    </p>
-    <a class="btn" href="../index.html#paper-46">View interactive labor market simulator →</a>
-    <p class="muted">Explore how adoption, occupation, and employer support translate to actual economic outcomes based on Denmark field data.</p>
+    <p class="desc">Two-wave survey of 25,000 Danish workers across 11 AI-exposed occupations, linked to administrative earnings data, finds widespread adoption (83% with employer encouragement, 38% of firms deploy in-house models, 30% provide training) yields modest productivity gains (2.8% average time savings vs.</p>
+    <a class="btn" href="../index.html#paper-46">Open interactive explainer</a>
+    <p class="muted">Direct link to the interactive summary of this paper.</p>
   </main>
 
-  <!-- Footer -->
-  <footer class="border-t bg-surface mt-12">
-    <div class="max-w-6xl mx-auto px-4 py-4">
-      <div class="flex flex-col sm:flex-row items-center justify-between gap-2 text-xs panel-muted">
-        <span>Last updated: <span id="build-timestamp" class="font-medium">Loading...</span></span>
-        <div class="flex items-center gap-3">
-          <a href="https://github.com/pondevelopment/llm-training" target="_blank" rel="noopener" class="hover:text-accent-strong transition-colors">View on GitHub</a>
-          <span>•</span>
-          <span id="build-commit" class="font-mono text-[10px]"></span>
-        </div>
-      </div>
+  <footer class="footer">
+    <div>
+      <span>Last updated: <span id="build-timestamp">Loading...</span></span>
+    </div>
+    <div>
+      <a href="https://github.com/pondevelopment/llm-training" target="_blank" rel="noopener">View on GitHub</a>
+      <span> • </span>
+      <span id="build-commit" style="font-family:monospace;font-size:10px"></span>
     </div>
   </footer>
 
-  <script src="./js/build-info.js"></script>
+  <script src="../js/build-info.js"></script>
   <script>
     (function() {
       if (window.BUILD_INFO && window.BUILD_INFO.timestamp !== 'BUILD_TIMESTAMP_PLACEHOLDER') {
@@ -69,9 +66,12 @@
             hour: '2-digit', minute: '2-digit', timeZoneName: 'short'
           });
         }
-        if (commitEl && window.BUILD_INFO.commit !== 'BUILD_COMMIT_PLACEHOLDER') {
+        if (commitEl && window.BUILD_INFO.commit !== 'dev') {
           commitEl.textContent = window.BUILD_INFO.commit;
         }
+      } else {
+        const timestampEl = document.getElementById('build-timestamp');
+        if (timestampEl) timestampEl.textContent = 'Development';
       }
     })();
   </script>

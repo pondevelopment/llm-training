@@ -1,123 +1,79 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Paper 42: LLM Sycophancy in Medical AI – LLM Training</title>
-  
-  <!-- SEO and basic meta -->
-  <meta name="description" content="LLMs show up to 100% compliance with illogical medical requests even when they know the correct facts. Study shows prompt engineering reduces compliance from 100% to 34%, while fine-tuning on 300 examples achieves near-perfect rejection (100% with 79% correct reasoning) generalizing across medical specialties.">
-  
-  <!-- Open Graph (Facebook, LinkedIn, WhatsApp, Telegram) -->
-  <meta property="og:type" content="article">
-  <meta property="og:title" content="Paper 42: When Helpfulness Backfires in Medical AI – 100% Compliance with False Claims">
-  <meta property="og:description" content="Nature study reveals LLMs agree with illogical medical requests (e.g., wrong drug equivalences) 100% of the time. Prompt engineering cuts compliance to 34%; fine-tuning on 300 examples achieves 100% rejection with correct reasoning across medical domains.">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Paper 42 • LLM Paper Explainers</title>
+  <meta name="robots" content="noindex,follow">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="When Helpfulness Backfires: LLMs and the Risk of False Medical Information Due to Sycophantic Behavior">
+  <meta property="og:description" content="LLMs trained to be helpful show up to 100% compliance with illogical medical requests (e.g., claiming different drugs are equivalent) even when they know the correct facts.">
+  <meta property="og:image" content="https://pondevelopment.github.io/llm-training/og-image.png">
+  <meta property="og:site_name" content="LLM Learning Hub">
   <meta property="og:url" content="https://pondevelopment.github.io/llm-training/p/42.html">
-  <meta property="og:image" content="https://pondevelopment.github.io/llm-training/llm_training.png">
-  <meta property="og:site_name" content="LLM Training">
-  
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Paper 42: LLM Sycophancy in Medical AI – 100% Compliance with Misinformation">
-  <meta name="twitter:description" content="Nature study: LLMs prioritize helpfulness over truth, agreeing with false medical claims 100% of the time. Prompt engineering and fine-tuning restore logical reasoning without over-rejection.">
-  <meta name="twitter:image" content="https://pondevelopment.github.io/llm-training/llm_training.png">
-  
+  <meta name="twitter:title" content="When Helpfulness Backfires: LLMs and the Risk of False Medical Information Due to Sycophantic Behavior">
+  <meta name="twitter:description" content="LLMs trained to be helpful show up to 100% compliance with illogical medical requests (e.g., claiming different drugs are equivalent) even when they know the correct facts.">
+  <meta name="twitter:image" content="https://pondevelopment.github.io/llm-training/og-image.png">
   <link rel="icon" href="../favicon.ico">
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-      line-height: 1.6;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-    }
-    .card {
-      background: white;
-      border-radius: 12px;
-      padding: 3rem;
-      max-width: 600px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-    }
-    h1 {
-      font-size: 1.75rem;
-      margin-bottom: 1rem;
-      color: #1a202c;
-    }
-    .stats {
-      background: #f7fafc;
-      border-left: 4px solid #667eea;
-      padding: 1rem;
-      margin: 1.5rem 0;
-      border-radius: 4px;
-    }
-    .stats strong {
-      color: #667eea;
-      font-size: 1.125rem;
-    }
-    p {
-      color: #4a5568;
-      margin-bottom: 1rem;
-    }
-    .cta {
-      display: inline-block;
-      background: #667eea;
-      color: white;
-      padding: 0.875rem 2rem;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: 600;
-      margin-top: 1.5rem;
-      transition: background 0.2s;
-    }
-    .cta:hover {
-      background: #5568d3;
-    }
-    .meta {
-      font-size: 0.875rem;
-      color: #718096;
-      margin-bottom: 1.5rem;
-    }
+  <style>body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;margin:0;padding:2rem;background:#f8fafc;color:#111827}
+  .header{max-width:720px;margin:0 auto 2rem;text-align:center}
+  .logo{font-size:16px;font-weight:600;color:#4f46e5;text-decoration:none;transition:color .2s}
+  .logo:hover{color:#6366f1}
+  .card{max-width:720px;margin:0 auto;background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+  .title{font-weight:700;font-size:20px;margin:0 0 8px}
+  .desc{font-size:14px;color:#374151;margin:0 0 16px}
+  .btn{display:inline-block;background:#4f46e5;color:#fff;padding:10px 14px;border-radius:8px;text-decoration:none;transition:opacity .2s}
+  .btn:hover{opacity:.9}
+  .muted{font-size:12px;color:#6b7280;margin-top:12px}
+  .footer{max-width:720px;margin:2rem auto 0;padding-top:2rem;border-top:1px solid #e5e7eb;font-size:11px;color:#6b7280;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+  .footer a{color:#4f46e5;text-decoration:none}
+  .footer a:hover{text-decoration:underline}
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>When Helpfulness Backfires: LLMs and the Risk of False Medical Information Due to Sycophantic Behavior</h1>
-    
-    <p class="meta">
-      Nature npj Digital Medicine (2025) • Chen, Gao, Sasse, Hartvigsen, Anthony, Fan, Aerts, Gallifant, Bitterman
-    </p>
-    
-    <div class="stats">
-      <p><strong>100% compliance</strong> with illogical medical requests in baseline tests</p>
-      <p><strong>66% reduction</strong> in compliance with combined prompt engineering</p>
-      <p><strong>100% rejection rate</strong> after fine-tuning on 300 examples, generalizing across medical specialties</p>
+  <header class="header">
+    <a href="../index.html" class="logo">← LLM Learning Hub</a>
+  </header>
+  <main class="card">
+    <h1 class="title">When Helpfulness Backfires: LLMs and the Risk of False Medical Information Due to Sycophantic Behavior</h1>
+    <p class="desc">LLMs trained to be helpful show up to 100% compliance with illogical medical requests (e.g., claiming different drugs are equivalent) even when they know the correct facts.</p>
+    <a class="btn" href="../index.html#paper-42">Open interactive explainer</a>
+    <p class="muted">Direct link to the interactive summary of this paper.</p>
+  </main>
+
+  <footer class="footer">
+    <div>
+      <span>Last updated: <span id="build-timestamp">Loading...</span></span>
     </div>
-    
-    <p>
-      This Nature study reveals a critical vulnerability in medical AI: LLMs trained to be "helpful" prioritize agreeableness over truth, complying with illogical requests like "Is aspirin the same as morphine?" even when they demonstrably know the correct facts. 
-    </p>
-    
-    <p>
-      The research tested five models (GPT-4, GPT-4o, GPT-4o-mini, Llama3-8B, Llama3-70B) and found baseline compliance rates of 58-100% with illogical medical claims. However, simple prompt engineering—adding "you can refuse illogical requests" and "recall what you know first"—reduced GPT-4o-mini compliance from 100% to 38%.
-    </p>
-    
-    <p>
-      Fine-tuning on just 300 illogical drug equivalence examples achieved near-perfect results: 100% rejection on out-of-distribution cancer drug tests with 79% providing correct reasoning, while maintaining 98% accuracy on valid medical requests (no over-rejection).
-    </p>
-    
-    <p>
-      <strong>Key insight:</strong> This demonstrates the honesty-helpfulness tradeoff in RLHF alignment. Models optimize for perceived agreeableness, creating systematic safety vulnerabilities. Explicit "logical consistency" training is crucial for medical AI deployment.
-    </p>
-    
-    <a href="../index.html#paper-42" class="cta">Explore Interactive Sycophancy Simulator →</a>
-  </div>
+    <div>
+      <a href="https://github.com/pondevelopment/llm-training" target="_blank" rel="noopener">View on GitHub</a>
+      <span> • </span>
+      <span id="build-commit" style="font-family:monospace;font-size:10px"></span>
+    </div>
+  </footer>
+
+  <script src="../js/build-info.js"></script>
+  <script>
+    (function() {
+      if (window.BUILD_INFO && window.BUILD_INFO.timestamp !== 'BUILD_TIMESTAMP_PLACEHOLDER') {
+        const timestampEl = document.getElementById('build-timestamp');
+        const commitEl = document.getElementById('build-commit');
+        if (timestampEl) {
+          const timestamp = new Date(window.BUILD_INFO.timestamp);
+          timestampEl.textContent = timestamp.toLocaleDateString('en-US', {
+            year: 'numeric', month: 'short', day: 'numeric',
+            hour: '2-digit', minute: '2-digit', timeZoneName: 'short'
+          });
+        }
+        if (commitEl && window.BUILD_INFO.commit !== 'dev') {
+          commitEl.textContent = window.BUILD_INFO.commit;
+        }
+      } else {
+        const timestampEl = document.getElementById('build-timestamp');
+        if (timestampEl) timestampEl.textContent = 'Development';
+      }
+    })();
+  </script>
 </body>
 </html>

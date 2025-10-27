@@ -1,75 +1,79 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>See the Text: Vision-Centric Tokenization — LLM Training Papers</title>
-  <meta name="description" content="SeeTok achieves 4.43× fewer tokens and 70.5% lower FLOPs by processing text as images rather than discrete tokens. Delivers 13.05× compression for low-resource languages, 86% lower fertility across 13 languages, and strong robustness to typographic noise. Explore vision-centric tokenization for multilingual LLMs.">
-  
-  <!-- Open Graph -->
-  <meta property="og:type" content="article">
-  <meta property="og:title" content="See the Text: Vision-Centric Tokenization">
-  <meta property="og:description" content="SeeTok achieves 4.43× fewer tokens and 70.5% lower FLOPs by processing text as images. Delivers 13.05× compression for low-resource languages, 86% lower fertility, and robustness to typographic noise.">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Paper 47 • LLM Paper Explainers</title>
+  <meta name="robots" content="noindex,follow">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="See the Text: From Tokenization to Visual Reading">
+  <meta property="og:description" content="SeeTok challenges subword tokenization by rendering text as images and processing through pretrained MLLM vision encoders, achieving 4.43× fewer tokens for English and 13.05× for Georgian while matching or exceeding text tokenization performance.">
+  <meta property="og:image" content="https://pondevelopment.github.io/llm-training/og-image.png">
+  <meta property="og:site_name" content="LLM Learning Hub">
   <meta property="og:url" content="https://pondevelopment.github.io/llm-training/p/47.html">
-  <meta property="og:image" content="https://pondevelopment.github.io/llm-training/llm_training.png">
-  <meta property="og:site_name" content="LLM Training">
-  
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="See the Text: Vision-Centric Tokenization">
-  <meta name="twitter:description" content="SeeTok achieves 4.43× fewer tokens and 70.5% lower FLOPs by processing text as images. Delivers 13.05× compression for low-resource languages, 86% lower fertility, and robustness to typographic noise.">
-  <meta name="twitter:image" content="https://pondevelopment.github.io/llm-training/llm_training.png">
-  
+  <meta name="twitter:title" content="See the Text: From Tokenization to Visual Reading">
+  <meta name="twitter:description" content="SeeTok challenges subword tokenization by rendering text as images and processing through pretrained MLLM vision encoders, achieving 4.43× fewer tokens for English and 13.05× for Georgian while matching or exceeding text tokenization performance.">
+  <meta name="twitter:image" content="https://pondevelopment.github.io/llm-training/og-image.png">
   <link rel="icon" href="../favicon.ico">
-  <link rel="stylesheet" href="../css/share.css">
+  <style>body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;margin:0;padding:2rem;background:#f8fafc;color:#111827}
+  .header{max-width:720px;margin:0 auto 2rem;text-align:center}
+  .logo{font-size:16px;font-weight:600;color:#4f46e5;text-decoration:none;transition:color .2s}
+  .logo:hover{color:#6366f1}
+  .card{max-width:720px;margin:0 auto;background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+  .title{font-weight:700;font-size:20px;margin:0 0 8px}
+  .desc{font-size:14px;color:#374151;margin:0 0 16px}
+  .btn{display:inline-block;background:#4f46e5;color:#fff;padding:10px 14px;border-radius:8px;text-decoration:none;transition:opacity .2s}
+  .btn:hover{opacity:.9}
+  .muted{font-size:12px;color:#6b7280;margin-top:12px}
+  .footer{max-width:720px;margin:2rem auto 0;padding-top:2rem;border-top:1px solid #e5e7eb;font-size:11px;color:#6b7280;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+  .footer a{color:#4f46e5;text-decoration:none}
+  .footer a:hover{text-decoration:underline}
+  </style>
 </head>
 <body>
-  <div class="container">
-    <header class="header">
-      <h1>See the Text: From Tokenization to Visual Reading</h1>
-      <p class="authors">Ling Xing, Alex Jinpeng Wang, Rui Yan, et al. • arXiv cs.CV (2024)</p>
-    </header>
+  <header class="header">
+    <a href="../index.html" class="logo">← LLM Learning Hub</a>
+  </header>
+  <main class="card">
+    <h1 class="title">See the Text: From Tokenization to Visual Reading</h1>
+    <p class="desc">SeeTok challenges subword tokenization by rendering text as images and processing through pretrained MLLM vision encoders, achieving 4.43× fewer tokens for English and 13.05× for Georgian while matching or exceeding text tokenization performance.</p>
+    <a class="btn" href="../index.html#paper-47">Open interactive explainer</a>
+    <p class="muted">Direct link to the interactive summary of this paper.</p>
+  </main>
 
-    <main class="content">
-      <section class="intro">
-        <p class="lead">
-          SeeTok challenges the entrenched paradigm of subword tokenization by treating text as images, achieving <strong>4.43× fewer tokens</strong> and <strong>70.5% lower FLOPs</strong> while matching or exceeding text tokenization performance across diverse language understanding and translation tasks.
-        </p>
-      </section>
+  <footer class="footer">
+    <div>
+      <span>Last updated: <span id="build-timestamp">Loading...</span></span>
+    </div>
+    <div>
+      <a href="https://github.com/pondevelopment/llm-training" target="_blank" rel="noopener">View on GitHub</a>
+      <span> • </span>
+      <span id="build-commit" style="font-family:monospace;font-size:10px"></span>
+    </div>
+  </footer>
 
-      <section class="highlights">
-        <h2>Key Findings</h2>
-        <ul>
-          <li><strong>Massive efficiency gains:</strong> 4.43× token reduction for English, 13.05× for Georgian—vision encoders compress text more effectively than fixed BPE vocabularies</li>
-          <li><strong>Multilingual fairness:</strong> 86% lower fertility (tokens per word) across 13 languages; uniform 0.37-0.48 fertility regardless of script, eliminating vocabulary bias</li>
-          <li><strong>Strong cross-lingual transfer:</strong> +3.87 COMET-22 improvement in translation quality; vision encoders generalize better than vocabulary-bound text tokenizers</li>
-          <li><strong>Robustness to noise:</strong> Maintains holistic word shapes despite character-level typos and font variations—processes text as continuous visual patterns</li>
-          <li><strong>Lightweight adoption:</strong> Reuses pretrained MLLM vision encoders with LoRA tuning (658K samples, 4 epochs) instead of training from scratch</li>
-        </ul>
-      </section>
-
-      <section class="cta">
-        <p>Explore the interactive tokenization comparison showing compression ratios across 14 languages and robustness to typographic perturbations.</p>
-        <a href="../index.html#paper-47" class="btn">Explore Vision Tokenization →</a>
-      </section>
-
-      <section class="details">
-        <h2>Why Vision-Centric Tokenization?</h2>
-        <p>
-          Subword tokenization (BPE, WordPiece) fragments low-resource languages into 3–8× more tokens than English, inflating compute costs and weakening multilingual performance. Georgian text fragments into 8.33 tokens per word (nearly character-level) while English averages 1.88 tokens per word—a massive vocabulary bias problem.
-        </p>
-        <p>
-          SeeTok eliminates this bottleneck by rendering text as 224×224 images and processing through pretrained multimodal vision encoders (Qwen2.5-VL, JanusPro). Patch-based segmentation treats all scripts uniformly: Georgian, Chinese, and English all receive 0.4-0.6 tokens per word, with 4-13× compression versus text tokenization.
-        </p>
-        <p>
-          For organizations deploying multilingual LLMs or handling noisy OCR text, vision-centric tokenization offers dramatic efficiency gains (70% FLOP reduction, 33% latency improvement) without retraining language models from scratch—just lightweight LoRA tuning on domain-specific instruction data.
-        </p>
-      </section>
-    </main>
-
-    <footer class="footer">
-      <p>Part of the <a href="../index.html">LLM Training</a> collection</p>
-    </footer>
-  </div>
+  <script src="../js/build-info.js"></script>
+  <script>
+    (function() {
+      if (window.BUILD_INFO && window.BUILD_INFO.timestamp !== 'BUILD_TIMESTAMP_PLACEHOLDER') {
+        const timestampEl = document.getElementById('build-timestamp');
+        const commitEl = document.getElementById('build-commit');
+        if (timestampEl) {
+          const timestamp = new Date(window.BUILD_INFO.timestamp);
+          timestampEl.textContent = timestamp.toLocaleDateString('en-US', {
+            year: 'numeric', month: 'short', day: 'numeric',
+            hour: '2-digit', minute: '2-digit', timeZoneName: 'short'
+          });
+        }
+        if (commitEl && window.BUILD_INFO.commit !== 'dev') {
+          commitEl.textContent = window.BUILD_INFO.commit;
+        }
+      } else {
+        const timestampEl = document.getElementById('build-timestamp');
+        if (timestampEl) timestampEl.textContent = 'Development';
+      }
+    })();
+  </script>
 </body>
 </html>

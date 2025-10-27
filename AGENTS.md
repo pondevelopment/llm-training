@@ -42,6 +42,13 @@ Always consult these when creating or updating any question or paper. They are t
 - Performance: avoid unnecessary reflows, heavy loops in hot paths, and oversized assets.
 - **Statistics accuracy:** Always verify exact numbers from source papers (tables/figures), not abstracts. Calculate percentages yourself from raw counts. Use grep/search in PDFs to find precise values like "100% (50/50)" or "62% (31/50)".
 - **Model/system lists:** Cross-check which models/systems were actually tested vs. mentioned in other contexts. Don't assume—verify in methodology sections.
+- **Statistical presentation - plain language over technical notation:** When displaying statistical results (regression coefficients, p-values, effect sizes, significance levels):
+  - Replace technical notation with plain language: `*** p<0.001` → "Very strong", `** p<0.01` → "Strong", `n.s./p>0.05` → "Not significant"
+  - Add brief explanations in footers: "β (beta) shows how much each factor affects the outcome" instead of just "*** p<0.001, ** p<0.01"
+  - Use color coding for clarity: green (positive significant), red (negative significant), blue (moderate), gray (non-significant)
+  - Use monospace fonts (`font-mono`) for numeric coefficients but regular text for strength labels
+  - Structure as `<div class="text-right"><span class="font-mono">β=0.267</span><span class="text-xs text-success ml-2">Very strong</span></div>`
+- **Non-significant variables in interactives:** If a study tested a variable but found it wasn't a significant predictor, don't include it as an interactive control. Sliders/inputs that don't affect outcomes confuse users. Mention in overview text that the variable was tested but not significant rather than including a non-functional control.
 
 ## Question workflow reminders
 

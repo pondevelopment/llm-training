@@ -1,0 +1,213 @@
+<section class="space-y-6" id="p52-explorer">
+  
+  <div class="panel panel-neutral-soft p-4 space-y-2">
+    <p class="text-sm text-body"><strong>Think of it like a personality-driven recommendation system.</strong> Just as Netflix predicts what you'll watch based on your viewing habits, this simulator predicts whether a student will adopt Gen-AI tools based on their Big Five personality traits. Adjust the sliders to see how different personality profiles translate into predicted educational use of generative AI.</p>
+  </div>
+
+  <div class="panel panel-info p-5 space-y-4">
+    <h3 class="text-sm font-semibold text-heading">Student personality profile</h3>
+    <p class="text-sm text-muted">Adjust the Big Five trait sliders to model different personality types. Values range from 1 (very low) to 5 (very high).</p>
+    
+    <div class="space-y-3">
+      <div>
+        <label for="p52-openness" class="block text-xs font-medium text-muted mb-1">
+          Openness to Experience: <span id="p52-openness-value" class="font-semibold text-heading">3.0</span>
+        </label>
+        <input type="range" id="p52-openness" min="1" max="5" step="0.1" value="3.0" class="w-full">
+        <p class="text-xs text-muted mt-1">Curiosity, creativity, willingness to try new learning tools</p>
+      </div>
+
+      <div>
+        <label for="p52-conscientiousness" class="block text-xs font-medium text-muted mb-1">
+          Conscientiousness: <span id="p52-conscientiousness-value" class="font-semibold text-heading">3.0</span>
+        </label>
+        <input type="range" id="p52-conscientiousness" min="1" max="5" step="0.1" value="3.0" class="w-full">
+        <p class="text-xs text-muted mt-1">Organization, discipline, goal-directed productivity</p>
+      </div>
+
+      <div>
+        <label for="p52-extraversion" class="block text-xs font-medium text-muted mb-1">
+          Extraversion: <span id="p52-extraversion-value" class="font-semibold text-heading">3.0</span>
+        </label>
+        <input type="range" id="p52-extraversion" min="1" max="5" step="0.1" value="3.0" class="w-full">
+        <p class="text-xs text-muted mt-1">Sociability, assertiveness, collaborative energy</p>
+      </div>
+
+      <div>
+        <label for="p52-agreeableness" class="block text-xs font-medium text-muted mb-1">
+          Agreeableness: <span id="p52-agreeableness-value" class="font-semibold text-heading">3.0</span>
+        </label>
+        <input type="range" id="p52-agreeableness" min="1" max="5" step="0.1" value="3.0" class="w-full">
+        <p class="text-xs text-muted mt-1">Cooperation, empathy, trust (note: non-significant predictor)</p>
+      </div>
+
+      <div>
+        <label for="p52-neuroticism" class="block text-xs font-medium text-muted mb-1">
+          Neuroticism: <span id="p52-neuroticism-value" class="font-semibold text-heading">3.0</span>
+        </label>
+        <input type="range" id="p52-neuroticism" min="1" max="5" step="0.1" value="3.0" class="w-full">
+        <p class="text-xs text-muted mt-1">Anxiety, emotional instability, self-doubt (negatively predicts use)</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-info p-5 space-y-4">
+    <h3 class="text-sm font-semibold text-heading">Demographics</h3>
+    
+    <div>
+      <label for="p52-gender" class="block text-xs font-medium text-muted mb-2">Gender</label>
+      <select id="p52-gender" class="w-full px-3 py-2 border border-divider rounded-lg bg-surface text-body">
+        <option value="overall">Overall model</option>
+        <option value="female">Female</option>
+        <option value="male">Male</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="panel panel-neutral p-5 space-y-4">
+    <h3 class="text-sm font-semibold text-heading">Predicted Gen-AI educational use</h3>
+    
+    <div class="flex items-center gap-4">
+      <div class="flex-1">
+        <div class="relative h-8 bg-surface rounded-full overflow-hidden">
+          <div id="p52-use-bar" class="absolute inset-y-0 left-0 transition-all duration-300" style="width: 50%; background: linear-gradient(to right, #10b981, #059669);"></div>
+        </div>
+        <div class="flex justify-between text-xs text-muted mt-1">
+          <span>Low use</span>
+          <span>High use</span>
+        </div>
+      </div>
+      <div class="text-right">
+        <div class="text-2xl font-bold text-heading" id="p52-use-score">3.0</div>
+        <div class="text-xs text-muted">out of 5.0</div>
+      </div>
+    </div>
+
+    <div class="panel panel-neutral-soft p-4 space-y-2">
+      <h4 class="text-xs font-semibold text-heading">Trait contributions</h4>
+      <div id="p52-contributions" class="space-y-1 text-xs text-body">
+        <!-- Dynamically populated -->
+      </div>
+    </div>
+
+    <div id="p52-interpretation" class="space-y-2 text-sm text-body">
+      <!-- Dynamically populated interpretation -->
+    </div>
+  </div>
+
+  <div class="panel panel-neutral p-5 space-y-4">
+    <h3 class="text-sm font-semibold text-heading">Understanding the prediction</h3>
+    <p class="text-sm text-body">This simulator uses the linear regression coefficients from the study (n=1,016 university students) to predict educational use of Gen-AI on a 1-5 scale. The baseline is 3.0 (neutral), and each personality trait adds or subtracts based on its standardized coefficient (β).</p>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="panel panel-neutral-soft p-4 space-y-2">
+        <p class="text-sm font-semibold text-heading mb-3">Overall model coefficients:</p>
+        <div class="space-y-2 text-sm">
+          <div class="flex justify-between items-center gap-3">
+            <span class="text-body">Conscientiousness:</span>
+            <div class="text-right">
+              <span class="font-mono font-semibold text-success">β=0.267</span>
+              <span class="text-xs text-success ml-2">Very strong</span>
+            </div>
+          </div>
+          <div class="flex justify-between items-center gap-3">
+            <span class="text-body">Openness:</span>
+            <div class="text-right">
+              <span class="font-mono font-semibold text-success">β=0.250</span>
+              <span class="text-xs text-success ml-2">Very strong</span>
+            </div>
+          </div>
+          <div class="flex justify-between items-center gap-3">
+            <span class="text-body">Extraversion:</span>
+            <div class="text-right">
+              <span class="font-mono font-semibold text-info">β=0.117</span>
+              <span class="text-xs text-info ml-2">Strong</span>
+            </div>
+          </div>
+          <div class="flex justify-between items-center gap-3">
+            <span class="text-body">Neuroticism:</span>
+            <div class="text-right">
+              <span class="font-mono font-semibold text-danger">β=-0.127</span>
+              <span class="text-xs text-danger ml-2">Strong</span>
+            </div>
+          </div>
+          <div class="flex justify-between items-center gap-3">
+            <span class="text-body">Agreeableness:</span>
+            <div class="text-right">
+              <span class="font-mono text-muted">β=0.033</span>
+              <span class="text-xs text-muted ml-2">Not significant</span>
+            </div>
+          </div>
+        </div>
+        <p class="text-xs text-muted mt-3 pt-2 border-t border-divider">β (beta) shows how much each trait affects Gen-AI use</p>
+      </div>
+      
+      <div class="panel panel-neutral-soft p-4 space-y-2">
+        <p class="text-sm font-semibold text-heading mb-3">Gender-specific differences:</p>
+        <div class="space-y-3 text-sm">
+          <div>
+            <p class="font-semibold text-heading mb-2">Women:</p>
+            <div class="space-y-1 text-xs ml-2">
+              <div class="flex justify-between gap-3">
+                <span class="text-body">Conscientiousness:</span>
+                <div class="text-right">
+                  <span class="font-mono font-semibold text-success">β=0.285</span>
+                  <span class="text-xs text-success ml-2">Very strong</span>
+                </div>
+              </div>
+              <div class="flex justify-between gap-3">
+                <span class="text-body">Openness:</span>
+                <div class="text-right">
+                  <span class="font-mono font-semibold text-success">β=0.250</span>
+                  <span class="text-xs text-success ml-2">Very strong</span>
+                </div>
+              </div>
+              <div class="flex justify-between gap-3">
+                <span class="text-body">Extraversion:</span>
+                <div class="text-right">
+                  <span class="font-mono font-semibold text-info">β=0.134</span>
+                  <span class="text-xs text-info ml-2">Strong</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <p class="font-semibold text-heading mb-2">Men:</p>
+            <div class="space-y-1 text-xs ml-2">
+              <div class="flex justify-between gap-3">
+                <span class="text-body">Conscientiousness:</span>
+                <div class="text-right">
+                  <span class="font-mono font-semibold text-success">β=0.273</span>
+                  <span class="text-xs text-success ml-2">Very strong</span>
+                </div>
+              </div>
+              <div class="flex justify-between gap-3">
+                <span class="text-body">Openness:</span>
+                <div class="text-right">
+                  <span class="font-mono font-semibold text-success">β=0.276</span>
+                  <span class="text-xs text-success ml-2">Very strong</span>
+                </div>
+              </div>
+              <div class="flex justify-between gap-3">
+                <span class="text-body">Extraversion:</span>
+                <div class="text-right">
+                  <span class="font-mono font-semibold text-info">β=0.087</span>
+                  <span class="text-xs text-info ml-2">Strong</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="text-xs text-muted mt-3 pt-2 border-t border-divider">β (beta) shows how much each trait affects Gen-AI use. Model explains 26% of why students adopt Gen-AI.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-warning p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">Design implications</h3>
+    <div id="p52-design-tip" class="text-sm text-body">
+      <!-- Dynamically populated based on personality profile -->
+    </div>
+  </div>
+
+</section>

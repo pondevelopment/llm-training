@@ -1361,5 +1361,35 @@
       37,
       42
     ]
+  },
+  "52": {
+    "title": "The role of personality traits in predicting educational use of generative AI in higher education",
+    "authors": [
+      "Ibrahim Arpaci",
+      "Ismail Kuşci",
+      "Omer Gibreel"
+    ],
+    "year": 2025,
+    "venue": "Scientific Reports (2025)",
+    "tags": [
+      "education",
+      "personality-psychology",
+      "big-five",
+      "gen-ai-adoption",
+      "individual-differences",
+      "higher-education",
+      "gender-differences",
+      "behavioral-prediction"
+    ],
+    "dir": "./papers/p52",
+    "interactiveTitle": "Big Five personality predictor",
+    "summary": "Cross-sectional study of 1,016 university students reveals personality traits explain 26.4% of variance in Gen-AI educational use. Conscientiousness (β=0.267) and openness (β=0.250) are strongest positive predictors, neuroticism (β=-0.127) negatively predicts use, extraversion (β=0.117) shows modest effect, agreeableness is non-significant. Gender heterogeneity found: conscientiousness matters more for women (β=0.285), openness more for men (β=0.276). Implications: personality-blind training strategies will fail—design tailored onboarding tracks for Explorer (high openness), Achiever (high conscientiousness), and Cautious (high neuroticism) segments.",
+    "relatedQuestions": [
+      7,
+      28,
+      40,
+      41,
+      48
+    ]
   }
 }

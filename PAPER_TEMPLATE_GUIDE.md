@@ -4,6 +4,14 @@ This guide explains how to add or revise researc## Overview content## Interactiv
 - **Roadmap bullets:** frame th## Interactive design guidelines
 
 - **Use concrete examples for technical concepts:** When introducing complex mechanisms (e.g., test-time scaling, memory architectures), add a relatable analogy in a highlighted panel before the technical controls. Examples: "Think of it like: trying multiple approaches in parallel vs. reflecting and refining iteratively" or "When learning to book flights, successes teach you the steps, failures teach you what to avoid." This dramatically improves comprehension.
+- **Replace technical notation with plain language labels:** When displaying statistical results (regression coefficients, p-values, effect sizes), use plain language strength indicators instead of technical notation:
+  - Replace `*** p<0.001` with `Very strong` (green for positive effects)
+  - Replace `** p<0.01` with `Strong` (blue/red depending on direction)
+  - Replace `n.s.` or `p>0.05` with `Not significant` (gray/muted)
+  - Add brief explanatory text: "β (beta) shows how much each factor affects the outcome"
+  - Use monospace font for coefficient values (`font-mono`) but regular text for labels
+  - Color-code by direction and significance: green (positive, significant), red (negative, significant), blue (moderate positive), gray (non-significant)
+- **Remove non-significant controls from interactives:** If a study tested a variable (e.g., age, gender) but found it wasn't a significant predictor, don't include it as an interactive control. Including sliders that don't affect outcomes confuses users. If the variable is theoretically interesting, mention in overview text that it was tested but not significant.
 - **Explain metric relationships when showing multiple related metrics:** If your simulator displays two or more metrics that could be misinterpreted as inversely related, add explicit explanation text. Example: when showing both "compliance with invalid requests" (want low) and "compliance with valid requests" (want high), clarify that these measure different request types and explain what success looks like: "Low invalid + high valid = selective, safe behavior." This prevents confusion when partial mitigation shows moderate scores on both metrics.
 - **Distinguish baseline "success" from mitigation success:** When baseline shows high scores on positive-seeming metrics (e.g., 100% helpfulness), clarify whether this is desirable or problematic. Use color coding: amber/warning for indiscriminate baseline behavior (complies with everything), green/success for selective mitigation behavior (distinguishes valid from invalid). Add explanatory text like "Baseline: Complies with ALL requests indiscriminately" vs "Mitigation: Maintains helpfulness while rejecting dangerous requests."
 - Provide helpful defaults: choose dimension/corpus/k values that mirror the paper's baseline.

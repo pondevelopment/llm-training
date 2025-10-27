@@ -1,0 +1,244 @@
+<section class="space-y-6" id="p53-explorer">
+  
+  <div class="panel panel-neutral-soft p-4 space-y-2">
+    <p class="text-sm text-body"><strong>Think of it like searching a filing cabinet.</strong> Flat-text RAG dumps all documents into a pile and searches by keywords—you might find "CSV upload" scattered across 10 different tickets. Graph-based RAG preserves the folder structure (each ticket's sections) and drawer labels (relationships between tickets), letting you ask "show me the steps to reproduce from ticket ENT-22970" and get exactly that section, not random keyword matches.</p>
+  </div>
+
+  <div class="panel panel-info p-5 space-y-4">
+    <h3 class="text-sm font-semibold text-heading">Search scenario</h3>
+    <p class="text-sm text-muted">Select a customer service query and see how flat-text vs graph-based retrieval perform</p>
+    
+    <div>
+      <label for="p53-query" class="block text-xs font-medium text-muted mb-2">Customer query</label>
+      <select id="p53-query" class="w-full px-3 py-2 border border-divider rounded-lg bg-surface text-body">
+        <option value="csv_upload">How to reproduce CSV upload error in updating user email?</option>
+        <option value="auth_token">Steps to fix authentication token expiration issue</option>
+        <option value="data_sync">Troubleshoot data sync failures between systems</option>
+        <option value="api_rate">Handle API rate limit exceeded errors</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="panel panel-neutral p-5 space-y-4">
+    <h3 class="text-sm font-semibold text-heading">Retrieval comparison</h3>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <!-- Flat-text RAG -->
+      <div class="panel panel-neutral-soft p-4 space-y-3">
+        <div class="flex items-center gap-2">
+          <h4 class="text-sm font-semibold text-heading">Flat-Text RAG (Baseline)</h4>
+          <span class="chip chip-muted text-xs">Chunks as text</span>
+        </div>
+        
+        <div class="space-y-2 text-xs">
+          <div class="p-2 bg-surface rounded border border-divider">
+            <p class="font-mono text-muted">Rank 1 • Score: <span id="p53-flat-score-1">0.68</span></p>
+            <p class="text-body mt-1" id="p53-flat-result-1">Loading...</p>
+          </div>
+          <div class="p-2 bg-surface rounded border border-divider">
+            <p class="font-mono text-muted">Rank 2 • Score: <span id="p53-flat-score-2">0.54</span></p>
+            <p class="text-body mt-1" id="p53-flat-result-2">Loading...</p>
+          </div>
+          <div class="p-2 bg-surface rounded border border-divider">
+            <p class="font-mono text-muted">Rank 3 • Score: <span id="p53-flat-score-3">0.51</span></p>
+            <p class="text-body mt-1" id="p53-flat-result-3">Loading...</p>
+          </div>
+        </div>
+
+        <div class="pt-2 border-t border-divider">
+          <div class="flex justify-between text-xs">
+            <span class="text-muted">Correct in top-1:</span>
+            <span class="font-semibold" id="p53-flat-correct">No</span>
+          </div>
+          <div class="flex justify-between text-xs mt-1">
+            <span class="text-muted">Accuracy score:</span>
+            <span class="font-mono" id="p53-flat-mrr">0.522</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Graph RAG -->
+      <div class="panel panel-success-soft p-4 space-y-3">
+        <div class="flex items-center gap-2">
+          <h4 class="text-sm font-semibold text-heading">Graph-Based RAG (KG)</h4>
+          <span class="chip chip-success text-xs">Preserves structure</span>
+        </div>
+        
+        <div class="space-y-2 text-xs">
+          <div class="p-2 bg-surface rounded border border-success">
+            <p class="font-mono text-success">Rank 1 • Score: <span id="p53-graph-score-1">0.94</span></p>
+            <p class="text-body mt-1" id="p53-graph-result-1">Loading...</p>
+          </div>
+          <div class="p-2 bg-surface rounded border border-divider">
+            <p class="font-mono text-muted">Rank 2 • Score: <span id="p53-graph-score-2">0.88</span></p>
+            <p class="text-body mt-1" id="p53-graph-result-2">Loading...</p>
+          </div>
+          <div class="p-2 bg-surface rounded border border-divider">
+            <p class="font-mono text-muted">Rank 3 • Score: <span id="p53-graph-score-3">0.85</span></p>
+            <p class="text-body mt-1" id="p53-graph-result-3">Loading...</p>
+          </div>
+        </div>
+
+        <div class="pt-2 border-t border-divider">
+          <div class="flex justify-between text-xs">
+            <span class="text-muted">Correct in top-1:</span>
+            <span class="font-semibold text-success" id="p53-graph-correct">Yes ✓</span>
+          </div>
+          <div class="flex justify-between text-xs mt-1">
+            <span class="text-muted">Accuracy score:</span>
+            <span class="font-mono text-success" id="p53-graph-mrr">0.927</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="p53-explanation" class="panel panel-neutral-soft p-3 space-y-1 text-xs">
+      <!-- Dynamically populated -->
+    </div>
+  </div>
+
+  <div class="panel panel-neutral p-5 space-y-4">
+    <h3 class="text-sm font-semibold text-heading">Graph structure visualization</h3>
+    <p class="text-sm text-body">The knowledge graph preserves ticket structure (intra-issue hierarchy) and relationships (inter-issue edges)</p>
+    
+    <div id="p53-graph-viz" class="p-4 bg-surface rounded-lg border border-divider">
+      <!-- Ticket tree structure displayed here -->
+    </div>
+  </div>
+
+  <div class="panel panel-neutral p-5 space-y-4">
+    <h3 class="text-sm font-semibold text-heading">Benchmark results (LinkedIn production data)</h3>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <!-- RETRIEVAL PERFORMANCE -->
+      <div class="panel panel-neutral-soft p-4 space-y-3">
+        <h4 class="text-xs font-semibold text-heading uppercase tracking-wide">Retrieval Performance</h4>
+        
+        <div class="space-y-3">
+          <div>
+            <div class="flex items-baseline justify-between mb-1">
+              <span class="text-xs text-muted">Accuracy (top-1)</span>
+              <span class="text-xs font-semibold text-success">+77.6%</span>
+            </div>
+            <div class="flex items-baseline gap-2">
+              <span class="font-mono text-sm text-muted line-through">0.522</span>
+              <span class="font-mono text-xl font-bold text-success">0.927</span>
+            </div>
+          </div>
+          
+          <div class="pt-2 border-t border-divider">
+            <div class="flex items-baseline justify-between mb-1">
+              <span class="text-xs text-muted">Recall@1</span>
+            </div>
+            <div class="flex items-baseline gap-2">
+              <span class="font-mono text-sm text-muted line-through">0.400</span>
+              <span class="font-mono text-lg font-semibold text-body">0.860</span>
+            </div>
+          </div>
+          
+          <div class="pt-2 border-t border-divider">
+            <div class="flex items-baseline justify-between mb-1">
+              <span class="text-xs text-muted">Recall@3</span>
+              <span class="text-xs font-semibold text-success">Perfect</span>
+            </div>
+            <div class="flex items-baseline gap-2">
+              <span class="font-mono text-sm text-muted line-through">0.640</span>
+              <span class="font-mono text-lg font-semibold text-success">1.000</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ANSWER QUALITY -->
+      <div class="panel panel-neutral-soft p-4 space-y-3">
+        <h4 class="text-xs font-semibold text-heading uppercase tracking-wide">Answer Quality</h4>
+        
+        <div class="space-y-3">
+          <div>
+            <div class="flex items-baseline justify-between mb-1">
+              <span class="text-xs text-muted">BLEU</span>
+              <span class="text-xs font-semibold text-success">6.6×</span>
+            </div>
+            <div class="flex items-baseline gap-2">
+              <span class="font-mono text-sm text-muted line-through">0.057</span>
+              <span class="font-mono text-xl font-bold text-success">0.377</span>
+            </div>
+          </div>
+          
+          <div class="pt-2 border-t border-divider">
+            <div class="flex items-baseline justify-between mb-1">
+              <span class="text-xs text-muted">METEOR</span>
+              <span class="text-xs font-semibold text-success">2.2×</span>
+            </div>
+            <div class="flex items-baseline gap-2">
+              <span class="font-mono text-sm text-muted line-through">0.279</span>
+              <span class="font-mono text-lg font-semibold text-body">0.613</span>
+            </div>
+          </div>
+          
+          <div class="pt-2 border-t border-divider">
+            <div class="flex items-baseline justify-between mb-1">
+              <span class="text-xs text-muted">ROUGE</span>
+              <span class="text-xs font-semibold text-success">3.0×</span>
+            </div>
+            <div class="flex items-baseline gap-2">
+              <span class="font-mono text-sm text-muted line-through">0.183</span>
+              <span class="font-mono text-lg font-semibold text-body">0.546</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRODUCTION IMPACT -->
+      <div class="panel panel-success-soft p-4 space-y-3">
+        <h4 class="text-xs font-semibold text-heading uppercase tracking-wide">Production Impact</h4>
+        
+        <div class="space-y-3">
+          <div>
+            <div class="text-xs text-muted mb-2">Median resolution time</div>
+            <div class="font-mono text-3xl font-bold text-success">-28.6%</div>
+          </div>
+          
+          <div class="pt-3 border-t border-divider space-y-1">
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-semibold text-heading">6 months deployment</span>
+            </div>
+            <p class="text-xs text-muted">LinkedIn customer service team, multiple product lines</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel panel-neutral-soft p-4 space-y-2 text-xs">
+      <p class="font-semibold text-heading">Interpretation</p>
+      <p class="text-body">Accuracy score 0.927 means the correct ticket appears in the top result 92.7% of the time (vs 52.2% with flat-text). Recall@3 of 1.000 means top-3 results always include the answer. BLEU/METEOR/ROUGE improvements show generated answers match human-written solutions with minimal hallucination. The 28.6% resolution time reduction translates directly to support team FTE savings.</p>
+    </div>
+  </div>
+
+  <div class="panel panel-warning p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">Why graph-based RAG wins</h3>
+    
+    <div class="space-y-3 text-sm text-body">
+      <div>
+        <p class="font-semibold text-heading mb-1">1. Preserves section hierarchy</p>
+        <p class="text-xs text-body">Flat-text chunks break "steps to reproduce" across multiple 512-token windows. Graph stores entire section as single node with HAS_STEPS edge, ensuring procedural sequences stay intact.</p>
+      </div>
+      
+      <div>
+        <p class="font-semibold text-heading mb-1">2. Enables precise traversal</p>
+        <p class="text-xs text-body">Query "how to reproduce ENT-22970" converts to Cypher: MATCH (t:Ticket {ID:'ENT-22970'})-[:HAS_STEPS]->(s) RETURN s. Graph returns exact section, not keyword-scattered chunks from multiple tickets.</p>
+      </div>
+      
+      <div>
+        <p class="font-semibold text-heading mb-1">3. Leverages inter-ticket relationships</p>
+        <p class="text-xs text-body">Graph edges encode "duplicates", "blocks", "related to" metadata. When retrieving ticket A, graph can surface canonical solution from ticket B that A duplicates—impossible with isolated text chunks.</p>
+      </div>
+      
+      <div>
+        <p class="font-semibold text-heading mb-1">4. Reduces mixed-source confusion</p>
+        <p class="text-xs text-body">Text retrieval often returns chunks from different tickets ranked by similarity. Graph traversal fetches complete sub-graph from single ticket, avoiding answer generation from frankensteined context spanning unrelated issues.</p>
+      </div>
+    </div>
+  </div>
+
+</section>

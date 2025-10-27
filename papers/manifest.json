@@ -1,4 +1,40 @@
 {
+  "53": {
+    "title": "Retrieval-Augmented Generation with Knowledge Graphs for Customer Service Question Answering",
+    "authors": [
+      "Zhentao Xu",
+      "Mark Jerome Cruz",
+      "Matthew Guevara",
+      "Tie Wang",
+      "Manasi Deshpande",
+      "Xiaofeng Wang",
+      "Zheng Li"
+    ],
+    "year": 2024,
+    "venue": "SIGIR '24 (2024)",
+    "tags": [
+      "rag",
+      "knowledge-graphs",
+      "retrieval",
+      "customer-service",
+      "question-answering",
+      "graph-neural-networks",
+      "embeddings",
+      "production-deployment"
+    ],
+    "dir": "./papers/p53",
+    "interactiveTitle": "KG-RAG retrieval simulator",
+    "interactive": {
+      "html": "./papers/p53/interactive.html"
+    },
+    "summary": "LinkedIn's KG-enhanced RAG system structures historical customer service tickets as knowledge graphs (intra-issue trees + inter-issue relations) instead of treating them as flat text. Achieves 77.6% improvement in MRR (0.522→0.927), 0.32 BLEU improvement (0.057→0.377), and 28.6% reduction in median issue resolution time in production deployment across LinkedIn's customer service team. Preserves structural information, mitigates text segmentation issues, and enables graph traversal queries for precise answer extraction.",
+    "relatedQuestions": [
+      36,
+      40,
+      7,
+      56
+    ]
+  },
   "50": {
     "title": "How Professionals Adapt to Artificial Intelligence: The Role of Intertwined Boundary Work",
     "authors": [
@@ -1360,36 +1396,6 @@
       31,
       37,
       42
-    ]
-  },
-  "52": {
-    "title": "The role of personality traits in predicting educational use of generative AI in higher education",
-    "authors": [
-      "Ibrahim Arpaci",
-      "Ismail Kuşci",
-      "Omer Gibreel"
-    ],
-    "year": 2025,
-    "venue": "Scientific Reports (2025)",
-    "tags": [
-      "education",
-      "personality-psychology",
-      "big-five",
-      "gen-ai-adoption",
-      "individual-differences",
-      "higher-education",
-      "gender-differences",
-      "behavioral-prediction"
-    ],
-    "dir": "./papers/p52",
-    "interactiveTitle": "Big Five personality predictor",
-    "summary": "Cross-sectional study of 1,016 university students reveals personality traits explain 26.4% of variance in Gen-AI educational use. Conscientiousness (β=0.267) and openness (β=0.250) are strongest positive predictors, neuroticism (β=-0.127) negatively predicts use, extraversion (β=0.117) shows modest effect, agreeableness is non-significant. Gender heterogeneity found: conscientiousness matters more for women (β=0.285), openness more for men (β=0.276). Implications: personality-blind training strategies will fail—design tailored onboarding tracks for Explorer (high openness), Achiever (high conscientiousness), and Cautious (high neuroticism) segments.",
-    "relatedQuestions": [
-      7,
-      28,
-      40,
-      41,
-      48
     ]
   }
 }

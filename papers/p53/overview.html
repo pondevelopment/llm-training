@@ -1,0 +1,145 @@
+<section class="space-y-5">
+
+  <!-- Paper header -->
+  <section class="panel panel-info p-4 space-y-4">
+    <div class="flex items-center justify-between gap-4">
+      <div class="flex-1 min-w-0">
+        <h2 class="text-lg font-bold text-heading mb-1">Retrieval-Augmented Generation with Knowledge Graphs for Customer Service Question Answering</h2>
+        <p class="text-xs text-muted">Zhentao Xu, Mark Jerome Cruz, Matthew Guevara, Tie Wang, Manasi Deshpande, Xiaofeng Wang, Zheng Li • SIGIR '24 (2024)</p>
+      </div>
+      <a href="https://arxiv.org/pdf/2404.17723" target="_blank" rel="noopener" class="btn-soft text-xs font-semibold flex-shrink-0" data-accent="foundations">
+        View paper ↗
+      </a>
+    </div>
+    
+    <p class="text-sm leading-relaxed panel-muted">
+      LinkedIn's production RAG system structures historical customer service tickets as knowledge graphs (intra-issue trees capturing section hierarchies + inter-issue relations showing ticket dependencies) rather than treating them as flat text. Achieves 77.6% improvement in retrieval accuracy (correct answer in top result: 52.2%→92.7%), 0.32 BLEU score gain (0.057→0.377), and 28.6% reduction in median issue resolution time across LinkedIn's customer service team. Demonstrates that preserving structural information and enabling graph traversal queries dramatically outperforms conventional text-based embedding retrieval.
+    </p>
+
+    <div class="panel panel-neutral-soft p-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Plain-language explainer</p>
+      <p class="panel-muted">Think of it like your support team's institutional knowledge. Traditional RAG dumps all ticket history into keyword search—agents waste time sifting through scattered fragments from dozens of unrelated cases. Knowledge graph RAG preserves each ticket's internal structure (description → steps to reproduce → resolution) and cross-ticket relationships (duplicates, dependencies, root causes), letting agents ask "show me resolution steps from ticket ENT-22970" and instantly retrieve the exact procedural section—not random keyword matches. Result: 28.6% faster median resolution time and measurably better answer quality in LinkedIn's production deployment.</p>
+    </div>
+  </section>
+
+  <!-- Executive quick take -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <header class="flex items-center gap-2">
+      <span class="text-2xl" aria-hidden="true">🧭</span>
+      <h3 class="text-base font-semibold text-heading">Executive quick take</h3>
+    </header>
+    
+    <p class="text-sm text-body">
+      Flat-text RAG wastes signal by destroying ticket structure. LinkedIn's KG approach preserves hierarchies (issue → description → steps to reproduce) and inter-ticket links (duplicates, related issues), achieving 77.6% retrieval accuracy improvement and 28.6% faster issue resolution. The ceiling: graph-based retrieval outperforms text-based when domain knowledge has inherent structure. Action signal: if your corpus has metadata, relationships, or hierarchical sections, graph-based RAG will crush pure embedding retrieval.
+    </p>
+
+    <ul class="space-y-2 text-sm text-body">
+      <li><strong>Production-validated gains:</strong> 28.6% reduction in median resolution time after 6 months deployment across LinkedIn customer service (multiple product lines, real support agents).</li>
+      <li><strong>Retrieval ceiling:</strong> Correct answer in top result 92.7% of the time (vs 52.2% baseline). Recall@3 hits 1.000 (perfect) vs baseline 0.640.</li>
+      <li><strong>Answer quality leap:</strong> BLEU 0.377 vs 0.057 baseline (6.6× improvement), METEOR 0.613 vs 0.279 (2.2×), ROUGE 0.546 vs 0.183 (3×)—generated answers match human-written solutions.</li>
+    </ul>
+  </section>
+
+  <!-- Business relevance -->
+  <section class="panel panel-success p-5 space-y-3">
+    <header class="flex items-center gap-2">
+      <span class="text-2xl" aria-hidden="true">💼</span>
+      <h3 class="text-base font-semibold text-heading">Business relevance</h3>
+    </header>
+
+    <ul class="space-y-2 text-sm text-body">
+      <li><strong>Customer Support Leaders:</strong> 28.6% faster ticket resolution = proportional cost savings in support FTEs. Deploy KG-RAG for historical ticket corpus, measure reduction in escalations and re-opens when agents cite relevant past solutions.</li>
+      <li><strong>RAG Product Teams:</strong> If your documents have metadata (created_by, status, priority) or relationships (duplicates, blockers, related tickets), structured graph beats flat embeddings. Build intra-document trees + inter-document edges before indexing.</li>
+      <li><strong>Knowledge Management:</strong> Graph enables precise queries ("show me steps to reproduce from ticket ENT-22970") vs keyword search across scattered text chunks. Invest in parsing historical data into graph schemas with LLM-assisted extraction for unstructured fields.</li>
+      <li><strong>DevOps/IT Teams:</strong> Incident response mirrors customer support—past incidents have root causes, workarounds, related outages. Apply same KG-RAG pattern: structure runbooks as graphs, link incidents to KB articles, enable on-call engineers to traverse relationships during triage.</li>
+    </ul>
+
+    <div class="panel panel-neutral-soft p-4 space-y-2">
+      <h4 class="text-sm font-semibold text-heading">Derivative example: Build KG-RAG for internal Jira tickets</h4>
+      <ol class="list-decimal list-inside space-y-1 text-sm text-body ml-2">
+        <li><strong>Parse tickets into intra-issue trees:</strong> Use rule-based extraction for structured fields (title, description, steps to reproduce, code blocks). Use LLM with YAML template for freeform text sections. Store as tree nodes with hierarchical edges.</li>
+        <li><strong>Build inter-issue graph:</strong> Extract explicit links (duplicates, blocks, related to) from Jira metadata. Add implicit connections via embedding similarity on issue summaries (threshold 0.75 for tight clustering).</li>
+        <li><strong>Generate embeddings for retrieval:</strong> Embed text-rich nodes (description, steps to reproduce) with E5 or BERT. Store in vector DB alongside graph structure in Neo4j.</li>
+        <li><strong>Query pipeline:</strong> User asks "how to fix CSV upload error?" → embed query, retrieve top-K tickets by cosine similarity → LLM rewrites query as Cypher: MATCH (t:Ticket)-[:HAS_DESCRIPTION]->(d)-[:HAS_STEPS]->(s) WHERE t.ticket_ID IN ['top-K'] RETURN s.value</li>
+        <li><strong>Answer generation:</strong> Feed retrieved sub-graphs to GPT-4 as context, generate answer citing specific ticket IDs + sections. Fallback to text-based RAG if Cypher execution fails.</li>
+        <li><strong>Measure improvement:</strong> Track retrieval accuracy (correct answer in top result), time-to-resolution, escalation rate vs baseline text-only RAG. Target 50%+ accuracy improvement, 20%+ resolution time reduction within first quarter.</li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Two-column callouts -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <section class="panel panel-neutral p-4 space-y-2">
+      <h4 class="text-sm font-semibold text-heading">Why flat-text RAG fails for customer service tickets</h4>
+      <p class="text-xs text-body"><strong>Text segmentation destroys structure:</strong> Conventional RAG chunks tickets into 512-token windows. This splits "steps to reproduce" across multiple chunks, disconnecting procedural sequences. Graph preserves section as single node.</p>
+      <p class="text-xs text-body"><strong>Metadata loss:</strong> Ticket priority, status, linked issues, and timestamps get stripped during chunking. Graph stores these as node properties and edges, enabling queries like "find high-priority tickets related to X".</p>
+      <p class="text-xs text-body"><strong>Missing cross-ticket relations:</strong> Text embeddings can't encode "ticket A is duplicate of ticket B" or "ticket C blocks ticket D". Graph makes these explicit edges, allowing traversal to find canonical solutions.</p>
+      <p class="text-xs text-body"><strong>Retrieval precision:</strong> Text search often returns partial matches from wrong tickets. Graph traversal ensures retrieved nodes come from relevant sub-graphs (e.g., all sections from ticket ENT-22970), avoiding mixed-source confusion.</p>
+    </section>
+
+    <section class="panel panel-neutral p-4 space-y-2">
+      <h4 class="text-sm font-semibold text-heading">Knowledge graph construction pipeline</h4>
+      <p class="text-xs text-body"><strong>Phase 1 - Intra-ticket parsing:</strong> Transform each text ticket into tree T_i with nodes for sections (summary, description, steps, code, workaround). Use rule-based extraction for formatted fields, LLM with YAML template for freeform text. Store as Neo4j tree with HAS_DESCRIPTION, HAS_STEPS edges.</p>
+      <p class="text-xs text-body"><strong>Phase 2 - Inter-ticket connections:</strong> Extract explicit links (Jira "duplicates", "blocks", "related to" fields). Add implicit links via embedding similarity between issue summaries (E5 model, threshold 0.75). Store as RELATES_TO edges in graph.</p>
+      <p class="text-xs text-body"><strong>Phase 3 - Embedding generation:</strong> Generate E5 embeddings for text-rich nodes (issue summary, description, steps). Store in vector DB indexed by (ticket_ID, section). Graph DB holds structure, vector DB enables fast similarity search.</p>
+      <p class="text-xs text-body"><strong>Query execution:</strong> User query → embed with E5 → retrieve top-K similar nodes → extract ticket IDs → LLM converts query to Cypher → traverse graph to fetch complete sub-graphs → feed to GPT-4 for answer generation.</p>
+    </section>
+  </div>
+
+  <!-- Three-column grid -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <section class="panel panel-success p-4 space-y-2">
+      <h4 class="text-sm font-semibold text-heading">Key insight</h4>
+      <p class="text-xs text-body">Customer service tickets have dual structure: internal hierarchy (issue → description → steps → workaround) and external relationships (duplicates, related issues, blockers). Preserving both via knowledge graphs enables precise traversal queries that outperform flat-text retrieval by 77.6% in retrieval accuracy.</p>
+    </section>
+
+    <section class="panel panel-neutral p-4 space-y-2">
+      <h4 class="text-sm font-semibold text-heading">Method</h4>
+      <p class="text-xs text-body">Hybrid intra-ticket parsing (rule-based + LLM with YAML template), inter-ticket edge extraction (explicit metadata + implicit embedding similarity), dual-DB architecture (Neo4j for graph, vector DB for embeddings), LLM-driven Cypher query generation from natural language, GPT-4 answer synthesis from retrieved sub-graphs.</p>
+    </section>
+
+    <section class="panel panel-warning p-4 space-y-2">
+      <h4 class="text-sm font-semibold text-heading">Implication</h4>
+      <p class="text-xs text-body">Any domain with structured documents (legal contracts, medical records, software docs, incident reports) should adopt graph-based RAG. The 77.6% retrieval accuracy improvement and 28.6% resolution time reduction justify graph construction costs when corpus exceeds 1,000 documents with relationships. Text-only RAG is leaving money on the table.</p>
+    </section>
+  </div>
+
+  <!-- Evidence -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <header class="flex items-center gap-2">
+      <span class="text-2xl" aria-hidden="true">🧪</span>
+      <h3 class="text-base font-semibold text-heading">Evidence</h3>
+    </header>
+
+    <ul class="space-y-2 text-sm text-body">
+      <li><strong>Retrieval accuracy improvement:</strong> Correct answer in top result 92.7% of the time (vs 52.2% baseline)—a 77.6% improvement. KG-RAG nearly always surfaces the right ticket first.</li>
+      <li><strong>Perfect Recall@3:</strong> 1.000 vs 0.640 baseline. Top-3 retrieved tickets always contain the correct answer with KG-RAG (100% coverage) vs 64% with text-only.</li>
+      <li><strong>NDCG@3 ceiling:</strong> 0.946 vs 0.520 baseline (82% improvement). Ranking quality nearly perfect—relevant tickets consistently appear at top positions.</li>
+      <li><strong>Answer quality (BLEU):</strong> 0.377 vs 0.057 baseline (6.6× improvement). Generated answers match reference solutions with high n-gram overlap, indicating precise extraction of solution steps.</li>
+      <li><strong>Answer quality (METEOR):</strong> 0.613 vs 0.279 (2.2× improvement). Accounts for synonyms and paraphrasing—generated answers semantically align with human-written solutions.</li>
+      <li><strong>Answer quality (ROUGE):</strong> 0.546 vs 0.183 (3× improvement). Overlap with reference text shows KG-RAG extracts relevant information without hallucination.</li>
+      <li><strong>Production deployment impact:</strong> 28.6% reduction in median resolution time per issue after 6 months across LinkedIn customer service (multiple product lines). Group using KG-RAG resolved issues significantly faster than control group using manual methods.</li>
+      <li><strong>Scalability validation:</strong> Deployed across LinkedIn's entire customer service team, handling multiple product lines. Fallback mechanism to text-based RAG ensures robustness when Cypher queries fail.</li>
+    </ul>
+  </section>
+
+  <!-- Roadmap -->
+  <section class="panel panel-warning p-5 space-y-3">
+    <header class="flex items-center gap-2">
+      <span class="text-2xl" aria-hidden="true">🔭</span>
+      <h3 class="text-base font-semibold text-heading">For your roadmap</h3>
+    </header>
+
+    <p class="text-sm text-body">If you're deploying RAG for structured documents (customer service, incident response, legal, medical), graph-based retrieval will outperform flat-text approaches. Here's how to operationalize LinkedIn's method:</p>
+
+    <ul class="space-y-2 text-sm text-body">
+      <li><strong>Audit corpus structure:</strong> Map out hierarchical sections (e.g., tickets have title → description → steps → workaround) and relationships (duplicates, related issues, blockers). If your documents have 3+ structured fields or inter-document links, graph-based RAG will deliver measurable gains.</li>
+      <li><strong>Hybrid parsing pipeline:</strong> Use rule-based extraction for formatted fields (status, priority, timestamps). Use LLM with domain-specific YAML template for freeform sections (description, comments). Don't over-invest in perfect parsing—LinkedIn's hybrid approach balances accuracy and cost.</li>
+      <li><strong>Dual-database architecture:</strong> Graph DB (Neo4j, Amazon Neptune) for structure and relationships. Vector DB (Pinecone, Weaviate) for fast embedding similarity search. Query execution: vector search retrieves top-K candidates → graph traversal fetches complete sub-graphs → LLM generates answer.</li>
+      <li><strong>LLM-driven Cypher generation:</strong> Train/prompt LLM to convert natural language queries to graph database queries (e.g., "how to reproduce issue X" → MATCH (t:Ticket {ID: X})-[:HAS_STEPS]->(s) RETURN s.value). Add fallback to text-based RAG when Cypher execution fails (network issues, malformed queries).</li>
+      <li><strong>Measure vs baseline:</strong> A/B test KG-RAG vs text-only RAG on internal support team. Track retrieval accuracy (correct answer in top result—target 50%+ improvement), time-to-resolution (target 20%+ reduction), and escalation rate. LinkedIn achieved 77.6% accuracy lift and 28.6% resolution time reduction—your domain may vary but expect substantial gains.</li>
+      <li><strong>Iterate on graph schema:</strong> Start with core sections and explicit links. Monitor retrieval failures to identify missing node types or edge relationships. LinkedIn's method is extensible—add new node types (e.g., code snippets, error logs) as patterns emerge.</li>
+    </ul>
+  </section>
+
+</section>

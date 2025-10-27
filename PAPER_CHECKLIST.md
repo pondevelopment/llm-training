@@ -65,6 +65,12 @@ U## Ov## Before you start
 ## Interactive component
 
 - [ ] **Add concrete examples for technical concepts:** Use highlighted panels (`panel panel-neutral-soft`) with real-world analogies before introducing complex controls (e.g., "Think of parallel scaling like trying multiple approaches" or "Flight booking: successes teach steps, failures teach guardrails")
+- [ ] **Replace technical notation with plain language:** When displaying statistical results:
+  - [ ] Use "Very strong" / "Strong" / "Not significant" instead of asterisks and p-values
+  - [ ] Add explanatory text: "β (beta) shows how much each factor affects the outcome"
+  - [ ] Color-code: green (positive significant), red (negative significant), blue (moderate), gray (non-significant)
+  - [ ] Use `font-mono` for coefficients, regular text for strength labels
+- [ ] **Remove non-significant controls:** Don't include interactive sliders/inputs for variables that weren't significant predictors in the study (mention in overview text instead)
 - [ ] **Explain metric relationships:** If showing multiple metrics that could be misunderstood (e.g., "compliance with invalid requests" + "compliance with valid requests"), add text clarifying what success looks like: "Low invalid + high valid = selective behavior"
 - [ ] **Distinguish baseline from mitigation:** Use color coding (amber for problematic baseline, green for successful mitigation) and clear messaging ("Complies with ALL requests indiscriminately" vs "Maintains helpfulness while rejecting dangerous requests")
 - [ ] **Model OOD behavior if applicable:** If paper tests generalization, add domain selector with appropriate effectiveness penalties for different strategies (document assumptions in code comments)

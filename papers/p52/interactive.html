@@ -54,24 +54,13 @@
   <div class="panel panel-info p-5 space-y-4">
     <h3 class="text-sm font-semibold text-heading">Demographics</h3>
     
-    <div class="space-y-3">
-      <div>
-        <label for="p52-gender" class="block text-xs font-medium text-muted mb-1">Gender</label>
-        <select id="p52-gender" class="w-full px-3 py-2 text-sm border border-divider rounded bg-card text-body">
-          <option value="overall">Overall model (average across genders)</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-        </select>
-        <p class="text-xs text-muted mt-1">Gender moderates effects: conscientiousness stronger for women, openness stronger for men</p>
-      </div>
-
-      <div>
-        <label for="p52-age" class="block text-xs font-medium text-muted mb-1">
-          Age: <span id="p52-age-value" class="font-semibold text-heading">21</span> years
-        </label>
-        <input type="range" id="p52-age" min="17" max="28" step="1" value="21" class="w-full">
-        <p class="text-xs text-muted mt-1">Age showed no significant effect (β=0.029, p=0.280) but included for completeness</p>
-      </div>
+    <div>
+      <label for="p52-gender" class="block text-xs font-medium text-muted mb-2">Gender</label>
+      <select id="p52-gender" class="w-full px-3 py-2 border border-divider rounded-lg bg-surface text-body">
+        <option value="overall">Overall model</option>
+        <option value="female">Female</option>
+        <option value="male">Male</option>
+      </select>
     </div>
   </div>
 
@@ -106,24 +95,110 @@
     </div>
   </div>
 
-  <div class="panel panel-neutral p-5 space-y-3">
+  <div class="panel panel-neutral p-5 space-y-4">
     <h3 class="text-sm font-semibold text-heading">Understanding the prediction</h3>
     <p class="text-sm text-body">This simulator uses the linear regression coefficients from the study (n=1,016 university students) to predict educational use of Gen-AI on a 1-5 scale. The baseline is 3.0 (neutral), and each personality trait adds or subtracts based on its standardized coefficient (β).</p>
     
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs">
-      <div class="space-y-1">
-        <p class="font-semibold text-heading">Overall model coefficients:</p>
-        <p class="text-body">Conscientiousness: β=0.267 (p<0.001)</p>
-        <p class="text-body">Openness: β=0.250 (p<0.001)</p>
-        <p class="text-body">Extraversion: β=0.117 (p=0.008)</p>
-        <p class="text-body">Neuroticism: β=-0.127 (p=0.001)</p>
-        <p class="text-body">Agreeableness: β=0.033 (p=0.436, n.s.)</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="panel panel-neutral-soft p-4 space-y-2">
+        <p class="text-sm font-semibold text-heading mb-3">Overall model coefficients:</p>
+        <div class="space-y-2 text-sm">
+          <div class="flex justify-between items-center gap-3">
+            <span class="text-body">Conscientiousness:</span>
+            <div class="text-right">
+              <span class="font-mono font-semibold text-success">β=0.267</span>
+              <span class="text-xs text-success ml-2">Very strong</span>
+            </div>
+          </div>
+          <div class="flex justify-between items-center gap-3">
+            <span class="text-body">Openness:</span>
+            <div class="text-right">
+              <span class="font-mono font-semibold text-success">β=0.250</span>
+              <span class="text-xs text-success ml-2">Very strong</span>
+            </div>
+          </div>
+          <div class="flex justify-between items-center gap-3">
+            <span class="text-body">Extraversion:</span>
+            <div class="text-right">
+              <span class="font-mono font-semibold text-info">β=0.117</span>
+              <span class="text-xs text-info ml-2">Strong</span>
+            </div>
+          </div>
+          <div class="flex justify-between items-center gap-3">
+            <span class="text-body">Neuroticism:</span>
+            <div class="text-right">
+              <span class="font-mono font-semibold text-danger">β=-0.127</span>
+              <span class="text-xs text-danger ml-2">Strong</span>
+            </div>
+          </div>
+          <div class="flex justify-between items-center gap-3">
+            <span class="text-body">Agreeableness:</span>
+            <div class="text-right">
+              <span class="font-mono text-muted">β=0.033</span>
+              <span class="text-xs text-muted ml-2">Not significant</span>
+            </div>
+          </div>
+        </div>
+        <p class="text-xs text-muted mt-3 pt-2 border-t border-divider">β (beta) shows how much each trait affects Gen-AI use</p>
       </div>
-      <div class="space-y-1">
-        <p class="font-semibold text-heading">Gender-specific differences:</p>
-        <p class="text-body"><strong>Women:</strong> Conscientiousness β=0.285, Openness β=0.250, Extraversion β=0.134</p>
-        <p class="text-body"><strong>Men:</strong> Conscientiousness β=0.273, Openness β=0.276, Extraversion β=0.087</p>
-        <p class="text-muted">Model explains 26.4% of variance (R²=0.264)</p>
+      
+      <div class="panel panel-neutral-soft p-4 space-y-2">
+        <p class="text-sm font-semibold text-heading mb-3">Gender-specific differences:</p>
+        <div class="space-y-3 text-sm">
+          <div>
+            <p class="font-semibold text-heading mb-2">Women:</p>
+            <div class="space-y-1 text-xs ml-2">
+              <div class="flex justify-between gap-3">
+                <span class="text-body">Conscientiousness:</span>
+                <div class="text-right">
+                  <span class="font-mono font-semibold text-success">β=0.285</span>
+                  <span class="text-xs text-success ml-2">Very strong</span>
+                </div>
+              </div>
+              <div class="flex justify-between gap-3">
+                <span class="text-body">Openness:</span>
+                <div class="text-right">
+                  <span class="font-mono font-semibold text-success">β=0.250</span>
+                  <span class="text-xs text-success ml-2">Very strong</span>
+                </div>
+              </div>
+              <div class="flex justify-between gap-3">
+                <span class="text-body">Extraversion:</span>
+                <div class="text-right">
+                  <span class="font-mono font-semibold text-info">β=0.134</span>
+                  <span class="text-xs text-info ml-2">Strong</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <p class="font-semibold text-heading mb-2">Men:</p>
+            <div class="space-y-1 text-xs ml-2">
+              <div class="flex justify-between gap-3">
+                <span class="text-body">Conscientiousness:</span>
+                <div class="text-right">
+                  <span class="font-mono font-semibold text-success">β=0.273</span>
+                  <span class="text-xs text-success ml-2">Very strong</span>
+                </div>
+              </div>
+              <div class="flex justify-between gap-3">
+                <span class="text-body">Openness:</span>
+                <div class="text-right">
+                  <span class="font-mono font-semibold text-success">β=0.276</span>
+                  <span class="text-xs text-success ml-2">Very strong</span>
+                </div>
+              </div>
+              <div class="flex justify-between gap-3">
+                <span class="text-body">Extraversion:</span>
+                <div class="text-right">
+                  <span class="font-mono font-semibold text-info">β=0.087</span>
+                  <span class="text-xs text-info ml-2">Strong</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="text-xs text-muted mt-3 pt-2 border-t border-divider">β (beta) shows how much each trait affects Gen-AI use. Model explains 26% of why students adopt Gen-AI.</p>
       </div>
     </div>
   </div>

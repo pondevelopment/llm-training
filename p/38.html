@@ -1,35 +1,79 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Paper 38: Agent-in-the-Loop • LLM Paper Explainers</title>
-  <meta name="description" content="Agent-in-the-Loop embeds human feedback directly into live customer support workflows, creating a continuous learning flywheel that updates retrieval, ranking, and generation models weekly instead of quarterly. Production results: +11.7% recall, +14.8% precision, +8.4% helpfulness.">
-  
-  <!-- Open Graph / Social Media -->
-  <meta property="og:type" content="article">
-  <meta property="og:url" content="https://pondevelopment.github.io/llm-training/p/38.html">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Paper 38 • LLM Paper Explainers</title>
+  <meta name="robots" content="noindex,follow">
+  <meta property="og:type" content="website">
   <meta property="og:title" content="Agent-in-the-Loop: A Data Flywheel for Continuous Improvement">
-  <meta property="og:description" content="Airbnb's AITL framework embeds four types of human feedback (preference, adoption, knowledge relevance, missing knowledge) into live customer support, reducing model update cycles from 3 months to weeks. Production pilot: +11.7% recall@75, +14.8% precision@8, +8.4% helpfulness, +4.5% adoption rate.">
+  <meta property="og:description" content="Introduces Agent-in-the-Loop (AITL), a continuous learning framework that embeds four types of human feedback directly into live customer support: pairwise preferences, adoption rationales, knowledge relevance, and missing knowledge identification.">
   <meta property="og:image" content="https://pondevelopment.github.io/llm-training/og-image.png">
   <meta property="og:site_name" content="LLM Learning Hub">
-  
-  <!-- Twitter Card -->
+  <meta property="og:url" content="https://pondevelopment.github.io/llm-training/p/38.html">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:url" content="https://pondevelopment.github.io/llm-training/p/38.html">
   <meta name="twitter:title" content="Agent-in-the-Loop: A Data Flywheel for Continuous Improvement">
-  <meta name="twitter:description" content="Airbnb's AITL framework embeds four types of human feedback into live customer support, reducing model update cycles from 3 months to weeks. Production pilot: +11.7% recall@75, +14.8% precision@8.">
+  <meta name="twitter:description" content="Introduces Agent-in-the-Loop (AITL), a continuous learning framework that embeds four types of human feedback directly into live customer support: pairwise preferences, adoption rationales, knowledge relevance, and missing knowledge identification.">
   <meta name="twitter:image" content="https://pondevelopment.github.io/llm-training/og-image.png">
-  
-  <!-- Canonical URL -->
-  <link rel="canonical" href="https://pondevelopment.github.io/llm-training/p/38.html">
-  
-  <!-- Redirect to main site -->
-  <script>
-    window.location.replace('../index.html#paper-38');
-  </script>
+  <link rel="icon" href="../favicon.ico">
+  <style>body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;margin:0;padding:2rem;background:#f8fafc;color:#111827}
+  .header{max-width:720px;margin:0 auto 2rem;text-align:center}
+  .logo{font-size:16px;font-weight:600;color:#4f46e5;text-decoration:none;transition:color .2s}
+  .logo:hover{color:#6366f1}
+  .card{max-width:720px;margin:0 auto;background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+  .title{font-weight:700;font-size:20px;margin:0 0 8px}
+  .desc{font-size:14px;color:#374151;margin:0 0 16px}
+  .btn{display:inline-block;background:#4f46e5;color:#fff;padding:10px 14px;border-radius:8px;text-decoration:none;transition:opacity .2s}
+  .btn:hover{opacity:.9}
+  .muted{font-size:12px;color:#6b7280;margin-top:12px}
+  .footer{max-width:720px;margin:2rem auto 0;padding-top:2rem;border-top:1px solid #e5e7eb;font-size:11px;color:#6b7280;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+  .footer a{color:#4f46e5;text-decoration:none}
+  .footer a:hover{text-decoration:underline}
+  </style>
 </head>
 <body>
-  <p>Redirecting to <a href="../index.html#paper-38">Paper 38: Agent-in-the-Loop</a>...</p>
+  <header class="header">
+    <a href="../index.html" class="logo">← LLM Learning Hub</a>
+  </header>
+  <main class="card">
+    <h1 class="title">Agent-in-the-Loop: A Data Flywheel for Continuous Improvement</h1>
+    <p class="desc">Introduces Agent-in-the-Loop (AITL), a continuous learning framework that embeds four types of human feedback directly into live customer support: pairwise preferences, adoption rationales, knowledge relevance, and missing knowledge identification.</p>
+    <a class="btn" href="../index.html#paper-38">Open interactive explainer</a>
+    <p class="muted">Direct link to the interactive summary of this paper.</p>
+  </main>
+
+  <footer class="footer">
+    <div>
+      <span>Last updated: <span id="build-timestamp">Loading...</span></span>
+    </div>
+    <div>
+      <a href="https://github.com/pondevelopment/llm-training" target="_blank" rel="noopener">View on GitHub</a>
+      <span> • </span>
+      <span id="build-commit" style="font-family:monospace;font-size:10px"></span>
+    </div>
+  </footer>
+
+  <script src="../js/build-info.js"></script>
+  <script>
+    (function() {
+      if (window.BUILD_INFO && window.BUILD_INFO.timestamp !== 'BUILD_TIMESTAMP_PLACEHOLDER') {
+        const timestampEl = document.getElementById('build-timestamp');
+        const commitEl = document.getElementById('build-commit');
+        if (timestampEl) {
+          const timestamp = new Date(window.BUILD_INFO.timestamp);
+          timestampEl.textContent = timestamp.toLocaleDateString('en-US', {
+            year: 'numeric', month: 'short', day: 'numeric',
+            hour: '2-digit', minute: '2-digit', timeZoneName: 'short'
+          });
+        }
+        if (commitEl && window.BUILD_INFO.commit !== 'dev') {
+          commitEl.textContent = window.BUILD_INFO.commit;
+        }
+      } else {
+        const timestampEl = document.getElementById('build-timestamp');
+        if (timestampEl) timestampEl.textContent = 'Development';
+      }
+    })();
+  </script>
 </body>
 </html>

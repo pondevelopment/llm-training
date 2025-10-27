@@ -7,108 +7,73 @@
   <meta name="robots" content="noindex,follow">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Rethinking Chunk Size for Long-Document Retrieval">
-  <meta property="og:description" content="Interactive explainer on choosing chunk sizes for long-document RAG across datasets and embedders.">
+  <meta property="og:description" content="Benchmarks token chunk sizes across QA corpora; shows dataset traits and embedding bias dictate the optimal window.">
   <meta property="og:image" content="https://pondevelopment.github.io/llm-training/og-image.png">
   <meta property="og:site_name" content="LLM Learning Hub">
   <meta property="og:url" content="https://pondevelopment.github.io/llm-training/p/3.html">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Rethinking Chunk Size for Long-Document Retrieval">
-  <meta name="twitter:description" content="Interactive explainer on choosing chunk sizes for long-document RAG across datasets and embedders.">
+  <meta name="twitter:description" content="Benchmarks token chunk sizes across QA corpora; shows dataset traits and embedding bias dictate the optimal window.">
   <meta name="twitter:image" content="https://pondevelopment.github.io/llm-training/og-image.png">
   <link rel="icon" href="../favicon.ico">
-  <style>
-    :root {
-      color-scheme: light dark;
-    }
-    body {
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
-      margin: 0;
-      padding: 2rem;
-      background: #f8fafc;
-      color: #111827;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background-color 0.25s ease, color 0.25s ease;
-    }
-    .card {
-      max-width: 720px;
-      margin: 0 auto;
-      background: #ffffff;
-      border: 1px solid #e5e7eb;
-      border-radius: 12px;
-      padding: 24px;
-      box-shadow: 0 18px 40px -25px rgba(15, 23, 42, 0.4);
-      transition: background-color 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
-    }
-    .title {
-      font-weight: 700;
-      font-size: 20px;
-      margin: 0 0 8px;
-      color: inherit;
-    }
-    .desc {
-      font-size: 14px;
-      color: #374151;
-      margin: 0 0 16px;
-      line-height: 1.5;
-      transition: color 0.25s ease;
-    }
-    .btn {
-      display: inline-block;
-      background: #4f46e5;
-      color: #ffffff;
-      padding: 10px 14px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 600;
-      transition: background-color 0.2s ease, box-shadow 0.2s ease;
-      box-shadow: 0 10px 25px -18px rgba(79, 70, 229, 0.8);
-    }
-    .btn:hover {
-      background: #6366f1;
-      box-shadow: 0 16px 32px -20px rgba(79, 70, 229, 0.9);
-    }
-    .muted {
-      font-size: 12px;
-      color: #6b7280;
-      margin-top: 12px;
-      transition: color 0.25s ease;
-    }
-    @media (prefers-color-scheme: dark) {
-      body {
-        background: #020617;
-        color: #e2e8f0;
-      }
-      .card {
-        background: rgba(15, 23, 42, 0.88);
-        border-color: rgba(148, 163, 184, 0.28);
-        box-shadow: 0 26px 44px -28px rgba(2, 6, 23, 0.85);
-      }
-      .desc {
-        color: #cbd5f5;
-      }
-      .btn {
-        background: #6366f1;
-        box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.35);
-      }
-      .btn:hover {
-        background: #4f46e5;
-        box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.45);
-      }
-      .muted {
-        color: #94a3b8;
-      }
-    }
+  <style>body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;margin:0;padding:2rem;background:#f8fafc;color:#111827}
+  .header{max-width:720px;margin:0 auto 2rem;text-align:center}
+  .logo{font-size:16px;font-weight:600;color:#4f46e5;text-decoration:none;transition:color .2s}
+  .logo:hover{color:#6366f1}
+  .card{max-width:720px;margin:0 auto;background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+  .title{font-weight:700;font-size:20px;margin:0 0 8px}
+  .desc{font-size:14px;color:#374151;margin:0 0 16px}
+  .btn{display:inline-block;background:#4f46e5;color:#fff;padding:10px 14px;border-radius:8px;text-decoration:none;transition:opacity .2s}
+  .btn:hover{opacity:.9}
+  .muted{font-size:12px;color:#6b7280;margin-top:12px}
+  .footer{max-width:720px;margin:2rem auto 0;padding-top:2rem;border-top:1px solid #e5e7eb;font-size:11px;color:#6b7280;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+  .footer a{color:#4f46e5;text-decoration:none}
+  .footer a:hover{text-decoration:underline}
   </style>
 </head>
 <body>
+  <header class="header">
+    <a href="../index.html" class="logo">← LLM Learning Hub</a>
+  </header>
   <main class="card">
     <h1 class="title">Rethinking Chunk Size for Long-Document Retrieval</h1>
-    <p class="desc">See how chunk size, dataset traits, and embedding bias trade off—then plan windows your retriever can actually use.</p>
+    <p class="desc">Benchmarks token chunk sizes across QA corpora; shows dataset traits and embedding bias dictate the optimal window.</p>
     <a class="btn" href="../index.html#paper-3">Open interactive explainer</a>
-    <p class="muted">Tip: share this link or use the in-app share button for paper explainers.</p>
+    <p class="muted">Direct link to the interactive summary of this paper.</p>
   </main>
+
+  <footer class="footer">
+    <div>
+      <span>Last updated: <span id="build-timestamp">Loading...</span></span>
+    </div>
+    <div>
+      <a href="https://github.com/pondevelopment/llm-training" target="_blank" rel="noopener">View on GitHub</a>
+      <span> • </span>
+      <span id="build-commit" style="font-family:monospace;font-size:10px"></span>
+    </div>
+  </footer>
+
+  <script src="../js/build-info.js"></script>
+  <script>
+    (function() {
+      if (window.BUILD_INFO && window.BUILD_INFO.timestamp !== 'BUILD_TIMESTAMP_PLACEHOLDER') {
+        const timestampEl = document.getElementById('build-timestamp');
+        const commitEl = document.getElementById('build-commit');
+        if (timestampEl) {
+          const timestamp = new Date(window.BUILD_INFO.timestamp);
+          timestampEl.textContent = timestamp.toLocaleDateString('en-US', {
+            year: 'numeric', month: 'short', day: 'numeric',
+            hour: '2-digit', minute: '2-digit', timeZoneName: 'short'
+          });
+        }
+        if (commitEl && window.BUILD_INFO.commit !== 'dev') {
+          commitEl.textContent = window.BUILD_INFO.commit;
+        }
+      } else {
+        const timestampEl = document.getElementById('build-timestamp');
+        if (timestampEl) timestampEl.textContent = 'Development';
+      }
+    })();
+  </script>
 </body>
 </html>

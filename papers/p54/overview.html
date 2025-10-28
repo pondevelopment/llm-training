@@ -1,0 +1,125 @@
+<section class="space-y-5">
+  <!-- Paper header -->
+  <section class="panel panel-info p-4 space-y-4">
+    <div class="flex items-center justify-between gap-4">
+      <div class="flex-1 min-w-0">
+        <h2 class="text-xl font-semibold text-heading">Generative AI as Seniority-Biased Technological Change: Evidence from U.S. Résumé and Job Posting Data</h2>
+        <p class="text-sm panel-muted">Seyed M. Hosseini, Guy Lichtinger • Harvard University (2025)</p>
+      </div>
+      <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5425555" target="_blank" rel="noopener" class="btn-soft text-xs font-semibold flex-shrink-0" data-accent="foundations">
+        <span>View paper</span>
+        <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+    <p class="text-sm leading-relaxed panel-muted">
+      Large-scale study of 62 million workers across 285,000 U.S. firms (2015–2025) reveals GenAI adoption causes sharp declines in junior employment (−9% after 6 quarters) while senior employment remains unchanged. Using LinkedIn résumé data and "GenAI integrator" job postings to identify adopters (10,599 firms, 17.3% of total employment), the study shows junior decline is driven by slower hiring rather than increased separations, concentrated in high-exposure occupations, and affects workers from mid-tier educational institutions most severely.
+    </p>
+    <div class="panel panel-neutral-soft p-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Plain-language explainer</p>
+      <p class="panel-muted">Think of it like a career ladder where AI is removing the bottom rungs. Junior workers traditionally start by doing intellectually routine tasks—debugging code, reviewing documents, drafting emails—that AI now handles efficiently. Meanwhile, senior roles involving complex problem-solving and management remain untouched. Firms adopting GenAI are quietly shrinking their entry-level hiring pipelines while keeping experienced staff, fundamentally changing how people enter professional careers.</p>
+    </div>
+  </section>
+
+  <!-- Executive quick take -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <header class="flex items-center gap-2">
+      <span aria-hidden="true" class="text-lg">🧭</span>
+      <h3 class="text-sm font-semibold tracking-wide uppercase text-heading">Executive quick take</h3>
+    </header>
+    <p class="text-sm leading-relaxed text-body">
+      GenAI is creating a "seniority-biased" labor market shift comparable to historical skill-biased technological change, but along a different dimension: experience level within firms rather than education across industries. Firms posting GenAI integrator roles reduce junior hiring by ~9% within 18 months while leaving senior employment stable. The effect is concentrated in high-exposure occupations (coding, document review, data analysis) and affects mid-tier college graduates hardest. This isn't a temporary adjustment—parallel pre-trends rule out confounders, and the mechanism is slower hiring (not layoffs), signaling firms expect permanent automation of entry-level work.
+    </p>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>Magnitude matters:</strong> 10,599 adopters represent just 3.7% of firms but 17.3% of total employment. The 9% junior employment decline translates to thousands of lost entry-level positions at scale, with no compensating increase in senior hires.</li>
+      <li><strong>Hiring freeze, not layoffs:</strong> Junior separations actually decreased slightly in adopting firms; the entire effect comes from reduced new hiring. This suggests firms are "aging in place" rather than actively restructuring, which may delay but not prevent long-term workforce composition shifts.</li>
+      <li><strong>Career ladder erosion risk:</strong> If firms stop hiring juniors but seniors still retire, knowledge transfer pathways break down. Monitor "promotion deserts"—cohorts hired pre-GenAI who have no one below them to train or delegate to when they advance.</li>
+    </ul>
+  </section>
+
+  <!-- Business relevance -->
+  <section class="panel panel-success p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">💼 Business relevance</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+      <li><strong>Talent acquisition leaders:</strong> Redesign entry-level roles around AI collaboration rather than elimination. The study shows firms reduce hiring for routine tasks (debugging, document review), but these tasks still exist—they're now done by seniors with AI assistance. Create "AI-augmented junior" positions that teach prompt engineering, output validation, and system oversight alongside domain skills.</li>
+      <li><strong>Workforce planners:</strong> Track "seniority ratio" (junior/senior headcount) quarterly alongside traditional diversity metrics. A rising ratio signals over-reliance on GenAI for junior work; when those seniors retire in 5-10 years, you'll lack mid-level talent with institutional knowledge. Build succession planning that accounts for missing cohorts.</li>
+      <li><strong>Educational institutions:</strong> The U-shaped decline by institution tier (mid-tier colleges hit hardest, elite/community colleges less affected) suggests credential signaling shifts. Top-tier grads still get hired because employers view them as adaptable; community college grads fill roles AI can't yet replace (hands-on technical work). Mid-tier grads lose comparative advantage in routine cognitive tasks. Adjust curricula toward AI-resistant skills: creative problem-solving, client interaction, cross-functional coordination.</li>
+      <li><strong>Policy makers:</strong> GenAI's 9% junior employment drop in adopting firms dwarfs typical business cycle fluctuations (2-3%). If adoption spreads from 3.7% to 15% of firms, aggregate junior employment could fall 30%+. Unlike past automation (manufacturing → services), white-collar junior roles have no obvious "next rung" sector. Consider retraining subsidies targeting workers with 0-3 years experience.</li>
+    </ul>
+    <div class="panel panel-neutral-soft p-3 mt-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Derivative example</p>
+      <p class="panel-muted">Pull your firm's LinkedIn job posting history (via Recruiter API or manual audit). Classify roles as "GenAI integrator" (implementing AI systems), "junior" (entry-level, 0-3 years), or "senior" (4+ years). Compare posting volumes 12 months before vs. after your first GenAI deployment. Calculate (junior postings post-AI / junior postings pre-AI) − (senior postings post-AI / senior postings pre-AI). A negative result ≥5pp indicates seniority bias matching the paper's findings. Cross-reference with actual hires and tenure data to validate whether reduced postings translate to workforce composition shifts.</p>
+    </div>
+  </section>
+
+  <!-- Supporting callouts -->
+  <div class="grid md:grid-cols-2 gap-4">
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">What counts as a "GenAI integrator" role?</h3>
+      <p class="text-xs panel-muted">Following Hampole et al. (2025), the study uses two-step detection: (1) flag job postings with GenAI keywords (ChatGPT, LLM, prompt engineering); (2) use an LLM classifier to determine if the role is dedicated to implementing/operating GenAI in workflows (not just using AI as a tool). Examples: "AI Implementation Manager," "Prompt Engineering Lead," "GenAI Solutions Architect." This filters out false positives like "Marketing Manager (AI tools experience preferred)" while capturing genuine adopters actively integrating GenAI into operations. 10,599 firms posted ≥1 such role by March 2025, up from ~30/month pre-2023 to 400-500/month in 2024-2025.</p>
+    </div>
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Seniority classification methodology</h3>
+      <p class="text-xs panel-muted">Revelio Labs assigns standardized seniority levels to LinkedIn positions using ensemble modeling based on job titles, company size, industry, and career progression patterns. "Junior" = Entry + Junior levels (typically 0-3 years experience); "Senior" = Associate and above (4+ years). The classification isn't self-reported—it's algorithmically inferred from contextual signals, reducing bias from title inflation. Validation against known career progressions shows 85%+ accuracy. This standardization enables apples-to-apples comparison across 285,000 firms and 150M+ employment spells, avoiding inconsistencies from firms' idiosyncratic titling schemes (e.g., "Senior" at a startup vs. Fortune 500).</p>
+    </div>
+  </div>
+
+  <!-- Key insight / Method / Implication trio -->
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Key insight</h3>
+      <p class="text-xs panel-muted">GenAI's impact follows a "seniority bias" pattern distinct from traditional skill-biased technological change. While past automation (computers, robots) shifted demand across education/occupation groups, GenAI shifts demand within firms along the experience dimension. Junior workers in high-skill jobs (software engineering, legal analysis) face displacement comparable to blue-collar workers during manufacturing automation, despite having college+ credentials. The parallel pre-trends (2015-2022) rule out confounders like post-COVID adjustments or sector-specific shocks, isolating GenAI's causal effect.</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Method</h3>
+      <p class="text-xs panel-muted">Triple-difference design compares (junior vs. senior employment) × (adopters vs. non-adopters) × (post-2023 vs. pre-2023), with firm-by-time fixed effects absorbing firm-specific shocks and industry-by-seniority-by-time fixed effects controlling for sector trends. Event-study specification exploits staggered adoption timing (each firm's first GenAI integrator posting), showing no pre-trends in 8 quarters before adoption, then −8% junior employment 8 quarters after. Mechanism analysis decomposes employment into hires, separations, promotions: hiring drives 100% of the decline, with separations slightly decreasing (no mass layoffs).</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Implication</h3>
+      <p class="text-xs panel-muted">Workforce planning must shift from "headcount growth" to "composition management." Track seniority ratio (junior/senior) as a leading indicator: declining ratios below 0.5 signal over-reliance on AI for routine work, creating future skill gaps when seniors retire. Redesign entry-level roles around AI oversight (validating outputs, handling edge cases, training models) rather than task execution. For educational institutions: the U-shaped effect by school tier suggests mid-tier credentials lose value as GenAI commoditizes routine cognitive skills—curricula must emphasize AI-resistant capabilities (judgment, creativity, interpersonal coordination).</p>
+    </div>
+  </div>
+
+  <!-- Evidence -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🧪 Evidence</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>Sample scale:</strong> 62 million unique workers, 150M+ employment spells, 200M job postings across 285,000 U.S. firms (2015-2025). GenAI adopters: 10,599 firms (3.7% of sample) accounting for 17.3% of total employment, with average firm size 500+ employees vs. 100 for non-adopters.</li>
+      <li><strong>Junior employment decline:</strong> Triple-difference estimates show −10% relative change 6 quarters post-adoption (2023Q1+), with parallel pre-trends 2015-2022. Event-study design confirms no pre-trends 8 quarters before adoption, then −8% decline 8 quarters after. Senior employment shows persistent growth in adopters vs. non-adopters throughout 2015-2025, no break in 2023.</li>
+      <li><strong>Mechanism decomposition:</strong> Hiring drives entire effect—adopting firms hire 5.0 fewer juniors per quarter relative to non-adopters. Separations slightly decreased (retention improved, not layoffs). Promotions show no significant change. This pattern indicates firms "aging in place" by slowing entry-level pipelines while keeping existing staff.</li>
+      <li><strong>Heterogeneity by occupation exposure:</strong> High-exposure roles (coding, document review, data entry—tasks GenAI handles well) show concentrated junior decline. Low-exposure roles show no significant change, confirming automation mechanism rather than broad demand shock.</li>
+      <li><strong>Educational institution effects (U-shaped):</strong> Mid-tier college grads experience steepest hiring decline. Elite-tier grads less affected (signaling adaptability). Community college grads also less affected (filling hands-on technical roles AI can't replace). This suggests GenAI erodes comparative advantage of routine cognitive skills taught at mid-tier institutions.</li>
+      <li><strong>Sectoral breadth:</strong> Junior hiring contraction is broad-based across industries, not driven by single sector (tech). Heaviest concentration in professional services (28% of adopters) and information (24%), but effects visible across multiple sectors, indicating economy-wide shift rather than tech-specific bubble.</li>
+    </ul>
+  </section>
+
+  <!-- Forward-looking roadmap -->
+  <section class="panel panel-warning p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🔭 For your roadmap</h3>
+    <p class="text-sm text-body">If firms are reducing junior hiring by 9% within 18 months of GenAI adoption, and adoption is accelerating (from 30 firms/month pre-2023 to 400-500/month in 2024-2025), the aggregate labor market impact could exceed 2008-level disruption within 3-5 years. The mechanism—slower hiring rather than layoffs—makes the shift less visible but more permanent. Here's how to prepare:</p>
+    
+    <div class="panel panel-info p-4 space-y-2">
+      <h4 class="text-sm font-semibold text-heading">Immediate monitoring (next 3 months)</h4>
+      <p class="text-xs text-body leading-relaxed">Audit your hiring pipelines by seniority level. Pull job posting data, applicant flow, and offer acceptance rates for 12 months pre/post any GenAI deployment. Calculate seniority-specific hiring velocity: (offers extended / req openings) by tenure band. If junior hiring velocity drops >15% while senior remains flat, you're replicating the paper's findings. Cross-reference with employee survey data on AI tool usage to validate whether the decline correlates with GenAI adoption in specific teams.</p>
+      <ul class="list-disc ml-4 text-xs text-body space-y-1">
+        <li>Track "promotion deserts": cohorts hired 2021-2022 who will have no juniors below them to mentor/delegate to when they advance in 2026-2027.</li>
+        <li>Measure knowledge transfer risk: % of critical processes documented only in seniors' heads. If >30% and junior hiring is declining, automate documentation before those seniors retire.</li>
+      </ul>
+    </div>
+    
+    <div class="panel panel-info p-4 space-y-2">
+      <h4 class="text-sm font-semibold text-heading">Redesign entry-level roles around AI collaboration</h4>
+      <p class="text-xs text-body leading-relaxed">The paper shows firms don't eliminate junior tasks—they shift them to seniors using AI. This creates operational inefficiency (expensive senior labor doing routine work) and career pathway gaps. Instead, create "AI-augmented junior" roles: entry-level workers who validate AI outputs, handle edge cases, and train on domain knowledge while AI handles volume. Example: "Junior Analyst – AI Oversight" reviews 10× more financial models (AI-generated) than a traditional analyst could produce manually, catching errors and refining prompts. This preserves learning pathways while capturing AI efficiency gains.</p>
+      <ul class="list-disc ml-4 text-xs text-body space-y-1">
+        <li>Pilot "AI apprenticeship" programs: juniors spend 60% time validating AI outputs, 40% learning underlying domain skills, with progression tied to ability to spot AI mistakes (not just volume processed).</li>
+        <li>Adjust compensation: AI-augmented juniors may process 3-5× more work than predecessors—pay accordingly to retain talent who'd otherwise be priced out by automation.</li>
+      </ul>
+    </div>
+    
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+      <li><strong>Benchmark against sector peers:</strong> If you're in professional services or information (where 52% of adopters concentrate), compare your seniority ratio to industry averages. A ratio <0.4 (40% junior) signals exposure to future skill gaps when seniors retire.</li>
+      <li><strong>Educational partnerships:</strong> Work with mid-tier universities (hardest hit by the U-shaped effect) to co-design AI-resistant curricula. Focus on skills GenAI struggles with: ambiguous problem framing, stakeholder negotiation, creative synthesis across domains.</li>
+      <li><strong>Policy engagement:</strong> If you're a large employer (500+ employees like adopters in the study), participate in policy discussions on retraining programs. The paper's findings suggest traditional "reskilling for tech jobs" advice fails when tech jobs themselves are automating entry-level rungs.</li>
+      <li><strong>Scenario planning:</strong> Model workforce composition under 3 scenarios: (1) current trajectory (9% junior decline continues), (2) accelerated adoption (decline reaches 15%+), (3) AI plateau (decline stabilizes at 5%). Stress-test succession plans under each. If >20% of critical roles lack clear successors under scenario 2, that's your action threshold.</li>
+    </ul>
+  </section>
+</section>

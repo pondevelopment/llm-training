@@ -1,4 +1,31 @@
 {
+  "54": {
+    "title": "Generative AI as Seniority-Biased Technological Change: Evidence from U.S. Résumé and Job Posting Data",
+    "authors": [
+      "Seyed M. Hosseini",
+      "Guy Lichtinger"
+    ],
+    "year": 2025,
+    "venue": "Harvard University (2025)",
+    "tags": [
+      "labor-economics",
+      "genai-adoption",
+      "workforce-impact",
+      "junior-employment",
+      "seniority-bias",
+      "automation",
+      "hiring-patterns",
+      "skill-biased-change"
+    ],
+    "dir": "./papers/p54",
+    "interactiveTitle": "Seniority bias employment simulator",
+    "summary": "Study of 62M workers across 285K U.S. firms (2015–2025) shows GenAI adopters reduce junior employment −9% after 6 quarters while senior employment remains stable. Using LinkedIn data and GenAI integrator postings to identify 10,599 adopters (17.3% of employment), reveals decline driven by slower hiring (not layoffs), concentrated in high-exposure occupations, affecting mid-tier college grads hardest. Parallel pre-trends rule out confounders; mechanism confirms hiring drives entire effect (−5.0/qtr).",
+    "relatedQuestions": [
+      45,
+      50,
+      56
+    ]
+  },
   "53": {
     "title": "Retrieval-Augmented Generation with Knowledge Graphs for Customer Service Question Answering",
     "authors": [

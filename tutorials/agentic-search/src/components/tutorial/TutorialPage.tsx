@@ -8,6 +8,7 @@ import { ScenarioSection } from '../scenario/ScenarioSection';
 import { OptimizationSection } from '../optimization/OptimizationSection';
 import { AgentModeSection } from '../agent/AgentModeSection';
 import { AgentTestingSection } from '../sections/AgentTestingSection';
+import { AccessibilitySection } from '../sections/AccessibilitySection';
 import { SummarySection } from '../summary/SummarySection';
 
 interface TutorialPageProps {
@@ -22,7 +23,8 @@ const sections = [
   { id: 5, title: 'Optimization', icon: '🎯', component: OptimizationSection },
   { id: 6, title: 'Agent Mode', icon: '⚡', component: AgentModeSection },
   { id: 7, title: 'Agent Testing', icon: '🧪', component: AgentTestingSection },
-  { id: 8, title: 'Takeaways', icon: '🎓', component: SummarySection },
+  { id: 8, title: 'Accessibility', icon: '♿', component: AccessibilitySection },
+  { id: 9, title: 'Takeaways', icon: '🎓', component: SummarySection },
 ];
 
 export function TutorialPage({ onBackToOverview }: TutorialPageProps) {
@@ -197,6 +199,10 @@ export function TutorialPage({ onBackToOverview }: TutorialPageProps) {
                   <div className="chip chip-success flex items-center gap-2">
                     <span>✓</span>
                     <span>Agent Testing</span>
+                  </div>
+                  <div className="chip chip-success flex items-center gap-2">
+                    <span>✓</span>
+                    <span>Accessibility</span>
                   </div>
                   <div className="chip chip-success flex items-center gap-2">
                     <span>✓</span>

@@ -1,4 +1,37 @@
 {
+  "55": {
+    "title": "Why Can't Transformers Learn Multiplication? Reverse-Engineering Reveals Long-Range Dependency Pitfalls",
+    "authors": [
+      "Xiaoyan Bai",
+      "Itamar Pres",
+      "Yuntian Deng",
+      "Chenhao Tan",
+      "Stuart Shieber",
+      "Fernanda Viégas",
+      "Martin Wattenberg",
+      "Andrew Lee"
+    ],
+    "year": 2025,
+    "venue": "arXiv cs.LG (2025)",
+    "tags": [
+      "transformers",
+      "long-range-dependencies",
+      "mechanistic-interpretability",
+      "arithmetic",
+      "inductive-bias",
+      "chain-of-thought",
+      "local-optima",
+      "compositional-reasoning"
+    ],
+    "dir": "./papers/p55",
+    "interactiveTitle": "Multiplication learning simulator",
+    "summary": "Language models excel at complex reasoning yet fail at multi-digit multiplication. Reverse-engineering reveals why: standard fine-tuning converges to local optima lacking long-range dependencies. Successful models use attention to build DAG structures that cache partial products, represent digits via Fourier basis, and implement multiplication through Minkowski sums. Auxiliary losses predicting running sums provide the inductive bias needed to escape local optima and learn proper compositional structure.",
+    "relatedQuestions": [
+      15,
+      18,
+      25
+    ]
+  },
   "54": {
     "title": "Generative AI as Seniority-Biased Technological Change: Evidence from U.S. Résumé and Job Posting Data",
     "authors": [

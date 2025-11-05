@@ -1,0 +1,116 @@
+﻿<section class="space-y-5">
+  <!-- Paper header -->
+  <section class="panel panel-info p-4 space-y-4">
+    <div class="flex items-center justify-between gap-4">
+      <div class="flex-1 min-w-0">
+        <h2 class="text-xl font-semibold text-heading">Why Can't Transformers Learn Multiplication? Reverse-Engineering Reveals Long-Range Dependency Pitfalls</h2>
+        <p class="text-sm panel-muted">Xiaoyan Bai, Itamar Pres, Yuntian Deng, Chenhao Tan, Stuart Shieber, Fernanda Viégas, Martin Wattenberg, Andrew Lee • arXiv cs.LG (2025)</p>
+      </div>
+      <a href="https://arxiv.org/abs/2510.00184" target="_blank" rel="noopener" class="btn-soft text-xs font-semibold flex-shrink-0" data-accent="foundations">
+        <span>View paper</span>
+        <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+    <p class="text-sm leading-relaxed panel-muted">
+      Language models increasingly excel at complex reasoning yet fail at multi-digit multiplication. By reverse-engineering a model that successfully learns multiplication via implicit chain-of-thought, researchers uncover why: standard fine-tuning converges to a local optimum lacking the necessary long-range dependencies. The successful model uses attention to build a directed acyclic graph that "caches" and "retrieves" partial products, representing digits with a Fourier basis and implementing partial products through Minkowski sums. An auxiliary loss predicting the "running sum" provides the inductive bias needed to escape the local optimum.
+    </p>
+    <div class="panel panel-neutral-soft p-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Plain-language explainer</p>
+      <p class="panel-muted">Think of learning multiplication two ways: memorizing specific examples (like flashcards) versus understanding the carry-and-multiply algorithm. Standard training is like flashcards—it works for patterns you've seen but breaks down on longer numbers. The successful approach learns the actual algorithm structure, tracking partial products and carries just like you do by hand.</p>
+    </div>
+  </section>
+
+  <!-- Executive quick take -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <header class="flex items-center gap-2">
+      <span aria-hidden="true" class="text-lg">🧭</span>
+      <h3 class="text-sm font-semibold tracking-wide uppercase text-heading">Executive quick take</h3>
+    </header>
+    <p class="text-sm leading-relaxed text-body">
+      Even state-of-the-art language models struggle with multi-digit multiplication—a seemingly simple arithmetic task—because they converge to solutions that lack long-range dependencies. By reverse-engineering a successful model, researchers reveal the core problem: standard training finds a local optimum that can't represent the complex interactions between distant digits. The solution lies in providing the right inductive bias through auxiliary losses that guide the model toward learning the algorithmic structure.
+    </p>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>Local optimum trap:</strong> Standard fine-tuning gets stuck in solutions that work for short sequences but can't scale to longer multiplication problems because they lack mechanisms for tracking long-range dependencies between digit positions.</li>
+      <li><strong>Successful mechanism:</strong> The working model builds a directed acyclic graph using attention patterns to "cache" partial products (like 3×7) and "retrieve" them when computing the final answer, similar to how humans track intermediate results.</li>
+      <li><strong>Practical intervention:</strong> Adding an auxiliary loss that predicts the "running sum" at intermediate steps provides the inductive bias needed to learn proper long-range dependencies, enabling successful multi-digit multiplication without explicit chain-of-thought prompting.</li>
+    </ul>
+  </section>
+
+  <!-- Business relevance -->
+  <section class="panel panel-success p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">💼 Business relevance</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+      <li><strong>ML Engineers:</strong> When designing tasks requiring multi-step arithmetic or symbolic reasoning, recognize that standard fine-tuning may converge to local optima. Consider auxiliary losses that predict intermediate computational states to provide better inductive biases.</li>
+      <li><strong>Researchers:</strong> Mechanistic interpretability isn't just academic—reverse-engineering successful models reveals concrete architectural insights (DAG attention patterns, Fourier basis representations) that inform better training approaches and loss functions.</li>
+      <li><strong>Product Teams:</strong> For applications requiring reliable arithmetic (financial calculations, quantity reasoning), understand that implicit chain-of-thought or auxiliary supervision may be necessary beyond standard fine-tuning, even for tasks humans find trivial.</li>
+      <li><strong>AI Safety:</strong> Models failing on simple, verifiable tasks like multiplication signal deeper issues with compositional reasoning and long-range dependency learning that may affect more complex safety-critical applications.</li>
+    </ul>
+    <div class="panel panel-neutral-soft p-3 mt-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Derivative example</p>
+      <p class="panel-muted">When deploying AI for invoice processing or inventory calculations, test accuracy on both simple cases (5 line items) and complex ones (50+ items). If performance drops significantly with complexity, your model may have learned shortcuts rather than proper calculation logic. Consider chain-of-thought prompting ("show your work") or selecting models trained with auxiliary supervision to ensure reliable arithmetic at scale.</p>
+    </div>
+  </section>
+
+  <!-- Supporting callouts -->
+  <div class="grid md:grid-cols-2 gap-4">
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Implicit chain-of-thought</h3>
+      <p class="text-xs panel-muted">Unlike explicit chain-of-thought where models verbalize reasoning steps, implicit CoT works "under the hood"—the model learns to track intermediate computations internally without generating text tokens. For multiplication, this means attention heads learn to compute and cache partial products (like 3×7=21) within the network's hidden states, building a computational graph that mirrors the algorithmic structure humans use.</p>
+    </div>
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Directed acyclic graph caching</h3>
+      <p class="text-xs panel-muted">The successful model uses attention to construct a DAG where each node represents a partial product, and edges represent dependencies between computation steps. Early layers cache pairwise digit products (3×7, 2×8), and later layers retrieve and combine these cached values to compute the final result. This structure enables efficient reuse of intermediate computations and proper handling of long-range dependencies across digit positions.</p>
+    </div>
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Fourier basis representation</h3>
+      <p class="text-xs panel-muted">The model represents digits using a Fourier basis—a mathematical representation where each digit maps to periodic functions that efficiently encode multiplicative relationships. This representation makes it easier for attention heads to compute partial products through simple operations, as multiplying digits becomes a pattern the network can learn efficiently. Standard models lack this structured representation, making multiplication learning harder.</p>
+    </div>
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Minkowski sums for partial products</h3>
+      <p class="text-xs panel-muted">Attention heads implement partial product multiplication by forming Minkowski sums—a geometric operation where you add all pairs of points from two sets. For digits, this naturally corresponds to the multiplication table: the Minkowski sum of {3} and {7} geometrically represents 3×7. This elegant geometric structure makes partial product computation efficient and interpretable, contrasting with the opaque representations standard training learns.</p>
+    </div>
+  </div>
+
+  <!-- Key insight / Method / Implication trio -->
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Key insight</h3>
+      <p class="text-xs panel-muted">Standard fine-tuning fails at multi-digit multiplication not from insufficient capacity, but because it converges to a local optimum lacking long-range dependencies. Logit attributions and linear probes show the model <em>encodes</em> the necessary information, but doesn't organize it into the compositional structure needed for systematic generalization.</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Method</h3>
+      <p class="text-xs panel-muted">Reverse-engineering through mechanistic interpretability: analyzing attention patterns to uncover DAG structure, using linear probes to identify Fourier basis representations, and ablation studies to validate the partial product caching mechanism. This bottom-up understanding reveals why one training approach succeeds while another fails on identical architectures.</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Implication</h3>
+      <p class="text-xs panel-muted">For tasks requiring compositional reasoning, evaluate whether your training signal provides inductive biases toward structured computation. Auxiliary losses predicting intermediate states (running sums, partial products, intermediate reasoning steps) can guide models away from local optima toward solutions with proper long-range dependencies and algorithmic structure.</p>
+    </div>
+  </div>
+
+  <!-- Evidence -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🧪 Evidence</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>Long-range dependency encoding:</strong> Logit attributions and linear probes demonstrate that even failed models encode the necessary long-range dependency information, but don't organize it into the compositional structure needed for multiplication.</li>
+      <li><strong>DAG attention structure:</strong> Successful models construct directed acyclic graphs using attention patterns, with early layers caching partial products and later layers retrieving them—verified through attention weight visualization and ablation studies.</li>
+      <li><strong>Geometric representations:</strong> Linear probes reveal digits are represented using Fourier basis, and attention heads implement partial products via Minkowski sums—intuitive, efficient structures that standard fine-tuning fails to discover.</li>
+      <li><strong>Auxiliary loss effectiveness:</strong> Models trained with auxiliary losses predicting "running sum" via linear regression probes successfully learn multi-digit multiplication, while standard fine-tuning converges to local optima even with extended training.</li>
+      <li><strong>Generalization patterns:</strong> The implicit CoT model generalizes systematically to longer digit sequences, while standard fine-tuned models show sharp accuracy degradation as problem complexity increases—evidence of fundamentally different learned structures.</li>
+    </ul>
+  </section>
+
+  <!-- Forward-looking roadmap -->
+  <section class="panel panel-warning p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🔭 For your roadmap</h3>
+    <p class="text-sm text-body">
+      This work reveals a general pattern: tasks requiring compositional reasoning and long-range dependencies may appear to train successfully but actually converge to brittle local optima. Apply these insights to your domain:
+    </p>
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+      <li><strong>Test compositional generalization:</strong> Evaluate your models on problems of increasing complexity. Sharp accuracy degradation with problem size signals local optimum convergence rather than true algorithmic understanding.</li>
+      <li><strong>Design auxiliary losses:</strong> For multi-step reasoning tasks (calculations, planning, code generation), add auxiliary supervision on intermediate computation states to provide inductive biases toward structured solutions.</li>
+      <li><strong>Probe internal representations:</strong> Use linear probes and attention analysis to verify your model learns structured representations (not just surface patterns) for tasks requiring systematic composition.</li>
+      <li><strong>Consider implicit CoT architectures:</strong> For tasks where explicit chain-of-thought is costly or unnatural, explore training approaches that encourage internal computational structure without requiring verbalized reasoning steps.</li>
+      <li><strong>Benchmark on arithmetic tasks:</strong> Simple arithmetic serves as a canary for compositional reasoning capabilities. Models failing multiplication may struggle with other tasks requiring multi-step dependencies and algorithmic structure.</li>
+    </ul>
+  </section>
+</section>

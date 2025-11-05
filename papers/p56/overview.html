@@ -1,0 +1,140 @@
+﻿<section class="space-y-5">
+  <!-- Paper header -->
+  <section class="panel panel-info p-4 space-y-4">
+    <div class="flex items-center justify-between gap-4">
+      <div class="flex-1 min-w-0">
+        <h2 class="text-xl font-semibold text-heading">Measuring AI Ability to Complete Long Tasks</h2>
+        <p class="text-sm panel-muted">Thomas Kwa, Ben West, Joel Becker, Amy Deng, Katharyn Garcia, Max Hasin, Sami Jawhar, Megan Kinniment, Nate Rush, Sydney Von Arx, et al. • arXiv cs.AI (2025)</p>
+      </div>
+      <a href="https://arxiv.org/abs/2503.14499" target="_blank" rel="noopener" class="btn-soft text-xs font-semibold flex-shrink-0" data-accent="foundations">
+        <span>View paper</span>
+        <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+    <p class="text-sm leading-relaxed panel-muted">
+      Researchers introduce the 50% time horizon metric—the duration of tasks that AI agents can complete with 50% success rate, measured against human baselines. Testing 13 frontier models from 2019 to 2025 on 170 tasks, they find Claude 3.7 Sonnet achieves a ~50-minute horizon. Critically, time horizons have doubled every 7 months (212 days), driven by improved reliability, tool use, and reasoning. Naive extrapolation predicts AI reaching month-long task horizons between late 2028 and early 2031, though external validity remains an open question.
+    </p>
+    <div class="panel panel-neutral-soft p-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Plain-language explainer</p>
+      <p class="panel-muted">Think of it like measuring a student's grade level: instead of asking "can AI pass this test?", ask "how long a task can AI handle?" A 50-minute horizon means AI succeeds half the time on tasks that take humans 50 minutes. It's like saying a student reads at a 9th-grade level—intuitive, comparable, and continuous as abilities grow.</p>
+    </div>
+  </section>
+
+  <!-- Executive quick take -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <header class="flex items-center gap-2">
+      <span aria-hidden="true" class="text-lg">🧭</span>
+      <h3 class="text-sm font-semibold tracking-wide uppercase text-heading">Executive quick take</h3>
+    </header>
+    <p class="text-sm leading-relaxed text-body">
+      AI task completion horizons—the length of tasks models can complete with 50% reliability—have grown exponentially over six years, doubling every seven months. Current frontier models like Claude 3.7 Sonnet handle ~50-minute tasks, up from GPT-2's near-zero capability. This trend offers a unified, intuitive metric for tracking progress across vastly different model generations. If it holds, we're 8 doublings (~4.8 years) away from AI automating month-long software engineering projects.
+    </p>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>Exponential growth across benchmarks:</strong> 170 tasks spanning seconds to hours show consistent doubling every 212 days (±95% CI), validated across three datasets (SWAA, HCAST, RE-Bench) and replicated on SWE-bench Verified. Pre-2023 models (GPT-2, GPT-3) complete only sub-minute tasks; 2024-2025 models reach hour-scale tasks.</li>
+      <li><strong>Driven by reliability, not just raw capability:</strong> o1 shows 10× fewer "repeat failed action" errors than GPT-4, and models increasingly recognize when to abandon intractable tasks. Better tool use, logical reasoning, and self-correction—not just scale—explain the trend.</li>
+      <li><strong>Automation timeline implications:</strong> Extrapolating to month-long tasks (167 work hours) predicts late 2028 to early 2031 arrival. However, "messiness" factors (novel environments, resource limits, dynamic requirements) reduce performance—real-world external validity remains uncertain.</li>
+    </ul>
+  </section>
+
+  <!-- Business relevance -->
+  <section class="panel panel-success p-5 space-y-3">
+    <header class="flex items-center gap-2">
+      <span aria-hidden="true" class="text-lg">💼</span>
+      <h3 class="text-sm font-semibold tracking-wide uppercase text-heading">Business relevance</h3>
+    </header>
+    <p class="text-sm leading-relaxed text-body">Time horizon metrics translate benchmark scores into workforce planning language. CTOs can forecast automation timelines; AI safety teams can set governance thresholds; product teams can scope feasible agent features. The metric's continuity prevents benchmark saturation pitfalls.</p>
+    <ul class="list-disc ml-5 space-y-2 text-sm panel-muted">
+      <li><strong>Engineering leaders and workforce planners:</strong> Map your team's task distribution to current AI horizons. If 30% of sprint work falls under 50 minutes, today's models are already contenders. Track doubling time to anticipate when AI reaches your median task complexity.</li>
+      <li><strong>AI safety and governance teams:</strong> Use horizon length as a capability tripwire. If internal risk models threshold at "1-week autonomous research," the 7-month doubling time lets you forecast when models cross that line (~2027-2028), triggering graduated mitigations.</li>
+      <li><strong>Product and research teams:</strong> Benchmark your agent features against this curve. A chatbot handling 5-minute support tickets? Already viable. Autonomous PR reviewers (50-minute horizon)? Frontier-level now. Multi-day research agents? Still 2-3 years out.</li>
+      <li><strong>Model evaluators and red-teamers:</strong> Adopt psychometric methods for your evals. Fit logistic curves to task length vs success rate, identify where models plateau, and compare "messiness" factors (resource limits, novel domains) that reduce real-world performance.</li>
+    </ul>
+    <div class="panel panel-neutral-soft p-3 space-y-2 text-xs mt-3">
+      <p class="font-semibold text-heading">Derivative example: Software team capacity planning</p>
+      <p class="panel-muted">A 20-person engineering team tracks task durations: 40% are sub-30-minute (documentation, config tweaks), 40% are 30-120 minutes (bug fixes, small features), 20% are multi-hour (architecture, research). With Claude 3.7's 50-minute horizon, ~60% of tasks are automation candidates today. Extrapolate 7-month doubling: in 14 months (2 doublings → 200-minute horizon), 80% of tasks fall within reach. Budget for AI-assisted workflows now, plan agent-augmented sprints for mid-2026, and prototype autonomous modules for late 2026. Monitor messiness: novel codebases or poorly-documented systems may slow AI by 2-5×, so pilot on well-structured repos first.</p>
+    </div>
+  </section>
+
+  <!-- Supporting callouts -->
+  <section class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="panel panel-info p-4 space-y-2">
+      <h4 class="text-sm font-semibold text-heading">What is a 50% time horizon?</h4>
+      <p class="text-xs leading-relaxed panel-muted">
+        The 50% time horizon is the median human completion time for tasks an AI agent solves correctly half the time. If a model succeeds on 50% of tasks that take humans 50 minutes, its horizon is 50 minutes. This metric is inspired by Item Response Theory (IRT) from psychometrics, which models ability as a latent trait predicting success on items of varying difficulty. Unlike binary pass/fail benchmarks, horizons grow continuously with capability, avoiding saturation. The 80% horizon (tasks solved 80% of the time) tells a complementary story: Claude 3.7's is ~15 minutes vs. its 50% horizon of 59 minutes, revealing reliability gaps.
+      </p>
+    </div>
+    <div class="panel panel-info p-4 space-y-2">
+      <h4 class="text-sm font-semibold text-heading">Psychometric methodology</h4>
+      <p class="text-xs leading-relaxed panel-muted">
+        Researchers timed domain experts (machine learning engineers, software developers) completing 170 tasks: 66 SWAA (Software Atomic Actions, 2 seconds to 15 seconds), 29 HCAST (9-56 minutes), and 75 RE-Bench (hours-scale research tasks). Each model attempted tasks 8 times; success rates were fit to a logistic curve against log(human time). The inflection point estimates the horizon. This approach borrows from educational testing: just as IRT separates student ability from item difficulty, this method disentangles model capability from task complexity. Hierarchical bootstrap over task families yields 95% confidence intervals; the trend's robustness survives sensitivity checks on hyperparameters.
+      </p>
+    </div>
+    <div class="panel panel-info p-4 space-y-2">
+      <h4 class="text-sm font-semibold text-heading">Messiness factors and external validity</h4>
+      <p class="text-xs leading-relaxed panel-muted">
+        To test generalization, tasks were scored on 16 "messiness" dimensions: resource limits, novel domains, dynamic environments, ambiguous requirements, etc. Controlling for task length, models perform worse on high-messiness tasks—but the exponential trend holds for both low- and high-messiness subsets (no plateaus detected). Supplementary experiments on SWE-bench Verified (human-annotated difficulty) and internal METR pull requests show similar doubling times, though contractor time (5-18× slower than maintainers) shifts absolute horizons. Messiness likely inflates real-world task times by 2-5×, but doesn't break the exponential structure. External validity remains the key uncertainty: will the trend hold on messy, economically valuable work, or saturate?
+      </p>
+    </div>
+    <div class="panel panel-info p-4 space-y-2">
+      <h4 class="text-sm font-semibold text-heading">What drives horizon growth?</h4>
+      <p class="text-xs leading-relaxed panel-muted">
+        Manual transcript analysis of 31 GPT-4 failures vs. 32 o1 failures reveals three drivers. First, reliability: GPT-4 repeated failed actions 39% of the time; o1 only 6%. Second, self-awareness: o1 abandoned intractable tasks 44% of the time vs. GPT-4's 26% (though o1 faced harder tasks). Third, compound improvements: better tool use (file navigation, command execution), stronger logical reasoning (multi-step planning, error correction), and refined instruction-following. Horizon growth isn't just about bigger models—it's about smarter scaffolding, better error recovery, and knowing when to quit. These qualitative factors compound into quantitative leaps: from GPT-2's <1-minute ceiling to Claude 3.7's 50-minute frontier.
+      </p>
+    </div>
+  </section>
+
+  <!-- Key insight / Method / Implication -->
+  <section class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div class="panel panel-neutral-soft p-4 space-y-2">
+      <h4 class="text-sm font-semibold text-heading">Key insight</h4>
+      <p class="text-xs leading-relaxed panel-muted">
+        Benchmarks saturate quickly and resist cross-generation comparison (GPT-2 vs. o1 is meaningless on MMLU). Time horizon solves this: it's a continuous, intuitive metric grounded in human labor economics. A 50-minute horizon means "automates tasks worth $40 of contractor time" (at $50/hr). As horizons grow, so does the economic scope of automation.
+      </p>
+    </div>
+    <div class="panel panel-neutral-soft p-4 space-y-2">
+      <h4 class="text-sm font-semibold text-heading">Method</h4>
+      <p class="text-xs leading-relaxed panel-muted">
+        Three datasets (SWAA, HCAST, RE-Bench) spanning 2 seconds to hours. Human experts time themselves; 13 models (GPT-2 to Claude 3.7) attempt each task 8 times. Fit logistic success rate vs. log(time), extract 50% inflection point. Plot horizons against release date, find exponential trend (212-day doubling). Validate with bootstraps, messiness scoring, and external replications (SWE-bench, internal PRs).
+      </p>
+    </div>
+    <div class="panel panel-neutral-soft p-4 space-y-2">
+      <h4 class="text-sm font-semibold text-heading">Implication</h4>
+      <p class="text-xs leading-relaxed panel-muted">
+        If the trend persists, month-long tasks become automatable by 2028-2031 (8 doublings from o1's 39 minutes). Even if absolute horizons are off by 10×, the exponential structure predicts transformative automation within a decade. Messiness and external validity are the wildcards—but the directional signal is clear: AI task horizons are expanding faster than most organizations are preparing for.
+      </p>
+    </div>
+  </section>
+
+  <!-- Evidence -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <header class="flex items-center gap-2">
+      <span aria-hidden="true" class="text-lg">🧪</span>
+      <h3 class="text-sm font-semibold tracking-wide uppercase text-heading">Evidence</h3>
+    </header>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>Claude 3.7 Sonnet: 50-minute (59-minute) horizon.</strong> Current frontier models complete tasks taking human experts about an hour with 50% reliability. The 80% horizon is ~15 minutes, showing reliability gaps at longer durations. (Source: Figure 1, Section 4.1)</li>
+      <li><strong>Doubling time: 212 days (95% CI from hierarchical bootstrap).</strong> Time horizons doubled every 7 months from 2019-2025. The trend holds across SWAA, HCAST, and RE-Bench, with sensitivity checks confirming robustness to hyperparameters and task subsets. (Source: Section 4.1, Figure 1)</li>
+      <li><strong>Model progression: GPT-2 (<1 min) → GPT-3 (~1 min) → GPT-4 (5-30 min) → o1/Claude 3.7 (39-59 min).</strong> Pre-2023 base models complete only sub-minute tasks; 2024-2025 models reach hour-scale. The 2024 trend may have accelerated slightly (o1, Claude 3.7 lie above the 6-year trendline). (Source: Section 4, Figure 5)</li>
+      <li><strong>Forecast: Month-long tasks (167 work hours) by late 2028 to early 2031.</strong> Naive extrapolation from o1's 39-minute horizon at 3.2× annual doubling predicts 8 more doublings in ~4.8 years. A 2× slowdown pushes this to 2035; a 2× speedup brings it to 2027. Forecast is highly sensitive to doubling rate changes. (Source: Section 7, Figure 12)</li>
+      <li><strong>Messiness correlation: Higher-messiness tasks reduce performance, but trend persists.</strong> Tasks scored on 16 dimensions (resource limits, novelty, dynamic environments); models perform worse on high-messiness subsets, but exponential growth holds for both (no plateaus). Contractor vs. maintainer time differs by 5-18×, suggesting messiness inflates horizons by 2-5×. (Source: Section 6.2, Figure 9)</li>
+    </ul>
+  </section>
+
+  <!-- Roadmap -->
+  <section class="panel panel-warning p-5 space-y-3">
+    <header class="flex items-center gap-2">
+      <span aria-hidden="true" class="text-lg">🔭</span>
+      <h3 class="text-sm font-semibold tracking-wide uppercase text-heading">For your roadmap</h3>
+    </header>
+    <p class="text-sm leading-relaxed text-body">
+      Time horizon metrics offer a practical lens for automation planning, risk assessment, and agent evaluation. Start by mapping your task distribution to current horizons, then project forward using the 7-month doubling time. Account for messiness—real-world tasks may inflate horizons by 2-5×—and monitor for trend changes (acceleration or plateau signals). Use this metric to set governance thresholds, plan workforce transitions, and scope agent features.
+    </p>
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+      <li><strong>Benchmark your task portfolio:</strong> Instrument your team's work to capture task durations (issue trackers, git logs, time sheets). Plot the distribution: what % falls under 30 min, 1 hour, 4 hours, 1 day? Compare to current model horizons (Claude 3.7 ~50 min) to identify automation candidates. Prioritize well-scoped, low-messiness tasks for early pilots.</li>
+      <li><strong>Track the trend internally:</strong> Run quarterly evals on a fixed task suite (mix of your real work + synthetic benchmarks). Fit your own logistic curves, measure doubling time, and compare to the 212-day baseline. If your tasks show faster/slower trends, investigate: are they cleaner, messier, or domain-shifted vs. SWAA/HCAST/RE-Bench?</li>
+      <li><strong>Plan workforce transitions:</strong> Use the doubling time to forecast automation timelines. If 40% of your work is sub-60-minute today, it's at risk now. In 14 months (2 doublings → 200 min), 80% may be reachable. Budget for upskilling (shift humans to strategic/messy work), pilot agent-augmented workflows in 2026, and prototype autonomous modules for late 2026-2027.</li>
+      <li><strong>Monitor messiness factors:</strong> Score your tasks on the 16 dimensions (resource limits, novelty, ambiguity, dynamic environments, etc.). High-messiness work may resist automation 2-5× longer than clean benchmarks. Invest in infrastructure to reduce messiness: better docs, clearer specs, stable APIs, offline test environments.</li>
+      <li><strong>Set governance thresholds:</strong> If your risk model cares about "autonomous multi-day research" or "self-replicating systems," translate that to time horizons. Month-long autonomy is ~8 doublings away (2028-2031). Define staged mitigations: 1-hour horizon → mandatory human review; 1-day horizon → sandboxed environments; 1-week horizon → elevated oversight. Track frontier models quarterly to anticipate crossings.</li>
+    </ul>
+  </section>
+</section>

@@ -1,4 +1,40 @@
 {
+  "56": {
+    "title": "Measuring AI Ability to Complete Long Tasks",
+    "authors": [
+      "Thomas Kwa",
+      "Ben West",
+      "Joel Becker",
+      "Amy Deng",
+      "Katharyn Garcia",
+      "Max Hasin",
+      "Sami Jawhar",
+      "Megan Kinniment",
+      "Nate Rush",
+      "Sydney Von Arx",
+      "et al."
+    ],
+    "year": 2025,
+    "venue": "arXiv cs.AI (2025)",
+    "tags": [
+      "agentic-ai",
+      "benchmarking",
+      "capability-forecasting",
+      "time-horizon",
+      "software-automation",
+      "psychometrics",
+      "agent-evaluation",
+      "exponential-trends"
+    ],
+    "dir": "./papers/p56",
+    "interactiveTitle": "Time horizon calculator and trend explorer",
+    "summary": "Introduces 50% time horizon metric—the duration of tasks AI can complete with 50% success. Claude 3.7 Sonnet achieves ~50 minute horizon. Time horizons have doubled every 7 months since 2019. Extrapolation predicts AI automating month-long software tasks by 2028-2031. Uses psychometric methodology across 170 tasks with human baselines.",
+    "relatedQuestions": [
+      20,
+      7,
+      36
+    ]
+  },
   "55": {
     "title": "Why Can't Transformers Learn Multiplication? Reverse-Engineering Reveals Long-Range Dependency Pitfalls",
     "authors": [

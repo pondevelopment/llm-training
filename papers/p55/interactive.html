@@ -1,0 +1,106 @@
+﻿<section class="space-y-6" id="p55-explorer">
+  <!-- Introduction -->
+  <div class="panel panel-neutral-soft p-4 space-y-2">
+    <p class="text-sm text-body">
+      Explore how different training approaches handle multi-digit multiplication. Standard fine-tuning gets stuck in a local optimum, while implicit chain-of-thought and auxiliary losses successfully learn the algorithmic structure.
+    </p>
+    <p class="text-xs panel-muted">
+      <strong>Note:</strong> The paper studies 4×4 digit multiplication specifically. Performance numbers for 2, 3, and 5 digits are illustrative extrapolations for educational purposes.
+    </p>
+  </div>
+
+  <!-- Controls section -->
+  <div class="panel panel-info p-4 space-y-4">
+    <h4 class="text-sm font-semibold text-heading">Multiplication configuration</h4>
+    
+    <div>
+      <div class="flex items-center justify-between">
+        <label for="p55-digit-count" class="text-sm font-medium text-heading">Number of digits per operand</label>
+        <span id="p55-digit-count-label" class="text-sm font-mono panel-muted">2</span>
+      </div>
+      <input 
+        type="range" 
+        id="p55-digit-count" 
+        min="2" 
+        max="5" 
+        step="1" 
+        value="2" 
+        class="w-full mt-2"
+      />
+      <p class="text-xs panel-muted mt-1">As digit count increases, the need for long-range dependencies grows exponentially</p>
+    </div>
+
+    <div>
+      <label for="p55-approach" class="block text-sm font-medium text-heading mb-2">Training approach</label>
+      <select id="p55-approach" class="w-full rounded border border-divider bg-card px-3 py-2 text-sm text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
+        <option value="standard">Standard Fine-Tuning</option>
+        <option value="implicit-cot">Implicit Chain-of-Thought</option>
+        <option value="auxiliary">Auxiliary Loss (Running Sum)</option>
+      </select>
+      <p class="text-xs panel-muted mt-1">Compare how different training methods handle compositional generalization</p>
+    </div>
+
+    <div>
+      <label class="flex items-center gap-2 text-sm text-heading cursor-pointer">
+        <input type="checkbox" id="p55-show-mechanism" class="rounded border-divider">
+        <span>Show internal mechanism</span>
+      </label>
+      <p class="text-xs panel-muted mt-1">Visualize attention patterns and partial product caching</p>
+    </div>
+  </div>
+
+  <!-- Results section -->
+  <div class="panel panel-neutral p-4 space-y-4">
+    <div class="flex items-center justify-between">
+      <h4 class="text-sm font-semibold text-heading">Multiplication accuracy</h4>
+      <span id="p55-accuracy-label" class="text-lg font-mono font-semibold text-success">95%</span>
+    </div>
+    
+    <!-- Accuracy gauge -->
+    <div class="space-y-2">
+      <div class="h-8 rounded-lg overflow-hidden bg-surface border border-divider relative">
+        <div id="p55-accuracy-bar" class="h-full transition-all duration-500 bg-success" style="width: 95%"></div>
+      </div>
+      <div class="flex justify-between text-xs panel-muted">
+        <span>0%</span>
+        <span>50%</span>
+        <span>100%</span>
+      </div>
+    </div>
+
+    <!-- Example problem -->
+    <div class="panel panel-neutral-soft p-3 space-y-2">
+      <div class="text-xs font-semibold panel-muted">Example problem:</div>
+      <div class="font-mono text-sm text-heading" id="p55-example-problem">23 × 47 = ?</div>
+      <div class="font-mono text-sm" id="p55-example-answer">
+        <span class="panel-muted">Model predicts:</span> <span class="font-semibold text-heading">1081</span>
+        <span class="text-success ml-2">✓</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mechanism visualization -->
+  <div id="p55-mechanism-panel" class="panel panel-neutral p-4 space-y-3 hidden">
+    <h4 class="text-sm font-semibold text-heading">Internal mechanism</h4>
+    
+    <div id="p55-mechanism-content" class="space-y-3">
+      <!-- Content populated by JavaScript -->
+    </div>
+  </div>
+
+  <!-- Insights section -->
+  <div class="panel panel-warning p-4 space-y-3">
+    <h4 class="text-sm font-semibold text-heading">Why this approach works (or fails)</h4>
+    <div id="p55-explanation" class="text-sm text-body space-y-2">
+      <p><strong>Standard fine-tuning</strong> converges to a local optimum that lacks long-range dependencies. It memorizes patterns for simple cases but can't systematically generalize to longer sequences.</p>
+    </div>
+  </div>
+
+  <!-- Key takeaways -->
+  <div class="panel panel-success p-4 space-y-2">
+    <h4 class="text-sm font-semibold text-heading">Key takeaway</h4>
+    <p class="text-sm text-body" id="p55-takeaway">
+      Local optima are a fundamental challenge for learning compositional tasks. The right inductive bias—whether through auxiliary losses or architectural constraints—can guide models toward solutions that properly encode long-range dependencies and algorithmic structure.
+    </p>
+  </div>
+</section>

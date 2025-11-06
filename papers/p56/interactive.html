@@ -1,9 +1,15 @@
 ﻿<section class="space-y-6" id="p56-explorer">
   <!-- Introduction -->
-  <div class="panel panel-neutral-soft p-4 space-y-2">
+  <div class="panel panel-neutral-soft p-4 space-y-3">
     <h4 class="text-sm font-semibold text-heading">Time horizon calculator</h4>
     <p class="text-xs panel-muted">
-      Explore how AI task completion horizons have grown over time and extrapolate future capabilities. The 50% time horizon is the median duration of tasks a model completes successfully half the time. Select a model or year to see its horizon, or use the success rate slider to explore 80% and 90% thresholds. <strong>Note:</strong> These projections assume the 7-month doubling trend continues and that external validity holds across task distributions.
+      <strong>What this shows:</strong> How long AI models can work autonomously before hitting their reliability limit. Think of it like asking "how far can this car drive before needing a recharge?"—except we're measuring task duration instead of distance.
+    </p>
+    <p class="text-xs panel-muted">
+      The <strong>50% time horizon</strong> means: "AI succeeds half the time on tasks that take humans this long." For example, Claude 3.7 has a 50-minute horizon—give it a task that takes a human 50 minutes, and it'll succeed about half the time. At 80%, we're asking "what duration can AI handle reliably?"
+    </p>
+    <p class="text-xs panel-muted">
+      <strong>Use the controls below</strong> to explore specific models (like Claude 3.7) or project into the future based on the 7-month doubling pattern researchers observed from 2019-2025.
     </p>
   </div>
 
@@ -12,12 +18,16 @@
     <h4 class="text-sm font-semibold text-heading">Configuration</h4>
     
     <!-- Mode selector -->
-    <div>
+    <div class="space-y-2">
       <label for="p56-mode" class="block text-sm font-medium text-heading">Exploration mode</label>
       <select id="p56-mode" class="mt-1 w-full rounded border border-divider bg-card px-3 py-2 text-sm text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
         <option value="model">Select specific model</option>
         <option value="year">Extrapolate by year</option>
       </select>
+      <p class="text-xs panel-muted">
+        <strong>Specific model:</strong> See actual measured performance from research tests.<br>
+        <strong>Extrapolate by year:</strong> Estimate future capabilities if the doubling trend continues.
+      </p>
     </div>
 
     <!-- Model selector (shown when mode=model) -->
@@ -37,7 +47,10 @@
         <option value="o1">o1 (Dec 2024)</option>
         <option value="claude37" selected>Claude 3.7 Sonnet (Feb 2025)</option>
       </select>
-      <p class="text-xs panel-muted">Horizons based on measured 50% success rate from 170-task suite (SWAA, HCAST, RE-Bench).</p>
+      <p class="text-xs panel-muted">These are real test results: researchers ran each model on 170 software and research tasks and measured how long tasks needed to be before AI succeeded ~50% of the time.</p>
+      <p class="text-xs text-muted-dark mt-1">
+        <em>Note:</em> Model horizon values are derived from Figure 1 in the paper. Claude 3.7 (59 min) and o1 (39 min) are explicitly stated; intermediate models are approximated from the exponential trend line.
+      </p>
     </div>
 
     <!-- Year slider (shown when mode=year) -->
@@ -46,7 +59,12 @@
         Year: <span id="p56-year-label" class="font-mono">2025</span>
       </label>
       <input id="p56-year" type="range" min="2019" max="2031" value="2025" step="0.25" class="w-full">
-      <p class="text-xs panel-muted">Extrapolate time horizon using the 212-day doubling trend. Forecasts beyond 2025 assume trend continuation.</p>
+      <p class="text-xs panel-muted">
+        <strong>How this works:</strong> AI horizons have doubled every 7 months historically. Slide forward to see what's possible if that pattern continues. Slide backward to see where we were in the past (GPT-2 could barely handle 30-second tasks).
+      </p>
+      <p class="text-xs panel-muted">
+        ⚠️ <strong>Future years are estimates</strong>—actual progress could speed up, slow down, or plateau based on breakthroughs, resource limits, or technical barriers.
+      </p>
     </div>
 
     <!-- Success rate slider -->
@@ -55,14 +73,16 @@
         Success rate threshold: <span id="p56-success-label" class="font-mono">50%</span>
       </label>
       <input id="p56-success-rate" type="range" min="50" max="90" value="50" step="10" class="w-full">
-      <p class="text-xs panel-muted">50% = median capability; 80% = high reliability; 90% = near-mastery. Higher thresholds yield shorter horizons.</p>
+      <p class="text-xs panel-muted">
+        <strong>Think of this like hiring:</strong> Would you hire someone who succeeds 50% of the time (coin flip), 80% (mostly reliable), or 90% (expert-level)? Higher reliability means AI can only handle <em>shorter</em> tasks confidently—the horizon shrinks because we're raising the bar.
+      </p>
     </div>
   </div>
 
   <!-- Results -->
   <div class="panel panel-neutral p-4 space-y-3">
-    <h4 class="text-sm font-semibold text-heading">Time horizon</h4>
-    <div class="panel panel-neutral-soft p-4 space-y-2">
+    <h4 class="text-sm font-semibold text-heading">Time horizon & capability level</h4>
+    <div class="panel panel-neutral-soft p-4 space-y-3">
       <div class="flex items-center justify-between">
         <span class="text-sm text-heading">Horizon duration:</span>
         <span id="p56-horizon-value" class="text-lg font-mono text-success">50 minutes</span>
@@ -70,11 +90,25 @@
       <p id="p56-horizon-desc" class="text-xs panel-muted">
         Claude 3.7 Sonnet completes tasks taking humans ~50 minutes with 50% reliability.
       </p>
+      
+      <!-- Capability level indicator -->
+      <div class="border-t border-divider pt-3 space-y-2">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-semibold text-heading">AI capability level:</span>
+          <span id="p56-capability-badge" class="px-2 py-1 rounded text-xs font-semibold bg-success/10 text-success">
+            Junior Developer
+          </span>
+        </div>
+        <p id="p56-capability-desc" class="text-xs panel-muted">
+          <strong>What this means:</strong> AI can handle tasks similar to someone with 1-2 years of experience—routine bug fixes, straightforward features, and well-defined problems. Still needs supervision for complex architecture or ambiguous requirements.
+        </p>
+      </div>
     </div>
 
     <!-- Example tasks at this horizon -->
     <div class="space-y-2">
-      <h5 class="text-sm font-semibold text-heading">Example tasks at this horizon</h5>
+      <h5 class="text-sm font-semibold text-heading">What can AI do at this level?</h5>
+      <p class="text-xs panel-muted">These are the kinds of tasks that take humans the same amount of time. At the selected success rate, AI would complete them that often:</p>
       <ul id="p56-task-examples" class="list-disc ml-5 space-y-1 text-xs panel-muted">
         <li>Implement a feature with unit tests (~50 min)</li>
         <li>Debug a multi-file issue with log analysis (~45 min)</li>
@@ -83,32 +117,52 @@
     </div>
 
     <!-- Trend context -->
-    <div class="panel panel-neutral-soft p-3 space-y-1">
-      <p class="text-xs font-semibold text-heading">Trend context</p>
+    <div class="panel panel-neutral-soft p-3 space-y-2">
+      <p class="text-xs font-semibold text-heading">How far have we come?</p>
       <p id="p56-trend-context" class="text-xs panel-muted">
         At the 7-month doubling rate, this represents approximately <strong>6 doublings</strong> since GPT-2 (Feb 2019).
+      </p>
+      <p class="text-xs panel-muted">
+        <strong>What "doubling" means:</strong> Each doubling lets AI handle tasks <em>twice as long</em>. GPT-2 started at ~30 seconds. After 1 doubling: 1 minute. After 2: 2 minutes. After 6: ~30 minutes. It's exponential growth—small doublings early on, but they compound dramatically.
       </p>
     </div>
   </div>
 
   <!-- Insights -->
   <div class="panel panel-warning p-4 space-y-3">
-    <h4 class="text-sm font-semibold text-heading">What drives horizon growth?</h4>
+    <h4 class="text-sm font-semibold text-heading">Why are AI capabilities growing?</h4>
+    <p class="text-xs panel-muted mb-2">
+      <strong>Simple answer:</strong> Newer AI makes fewer dumb mistakes, knows when to give up, and uses tools better.
+    </p>
     <div class="text-sm text-body space-y-2">
       <p>
-        Analysis of GPT-4 vs. o1 failures reveals three key drivers: <strong>reliability</strong> (o1 repeats failed actions 10× less often), <strong>self-awareness</strong> (knowing when to abandon intractable tasks), and <strong>compound improvements</strong> in tool use, logical reasoning, and error correction.
+        <strong>More detail:</strong> When researchers compared GPT-4 failures to o1 failures, they found three key differences:
       </p>
-      <p>
-        Horizon growth isn't just about model scale—it's about better scaffolding, smarter recovery strategies, and the ability to recognize task boundaries. These qualitative improvements compound into exponential capability gains.
+      <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+        <li><strong>Reliability:</strong> GPT-4 would repeat the same failed action over and over (like running a broken command 10 times). o1 does this 10× less—it learns from mistakes within the same task.</li>
+        <li><strong>Self-awareness:</strong> o1 knows when a task is too hard and abandons it earlier, rather than wasting time on dead ends. It's like knowing when to ask for help instead of spinning your wheels.</li>
+        <li><strong>Better tools:</strong> Improved file navigation, command execution, multi-step planning, and error correction. Small improvements in each area compound into much longer reliable operation.</li>
+      </ul>
+      <p class="text-xs panel-muted mt-2">
+        💡 <strong>Bottom line:</strong> Progress isn't just "bigger models." It's smarter behavior—knowing when to quit, learning from errors, and using tools effectively. These add up to exponential gains.
       </p>
     </div>
   </div>
 
   <!-- Key takeaway -->
-  <div class="panel panel-success p-4 space-y-2">
-    <h4 class="text-sm font-semibold text-heading">Key takeaway</h4>
+  <div class="panel panel-success p-4 space-y-3">
+    <h4 class="text-sm font-semibold text-heading">What does this mean for the future?</h4>
     <p class="text-sm text-body">
-      If the 7-month doubling trend persists, month-long autonomous tasks (167 work hours) arrive between late 2028 and early 2031—approximately 8 more doublings from today's frontier. Even if absolute horizons are off by 10×, the exponential structure suggests transformative automation within a decade. External validity (messiness, domain shift) remains the critical uncertainty.
+      <strong>Short version:</strong> If current trends hold, AI will handle month-long projects (like building an entire software feature from scratch) somewhere between late 2028 and early 2031.
+    </p>
+    <p class="text-xs panel-muted">
+      <strong>The math:</strong> Today's best AI (Claude 3.7) handles ~50-minute tasks. A month of work = ~167 hours = ~10,000 minutes. That's about 200× longer, or ~8 more doublings. At 7 months per doubling, that's ~4.5 years from now.
+    </p>
+    <p class="text-xs panel-muted">
+      <strong>Big caveat:</strong> These are <em>lab benchmarks</em>—clean, well-defined software tasks. Real-world work is messier (unclear requirements, missing docs, shifting priorities). The paper found "messiness" can slow AI down 2-5×. So month-long tasks might take until 2035, or they might arrive by 2027 if AI gets better at handling ambiguity.
+    </p>
+    <p class="text-xs panel-muted">
+      💡 <strong>Bottom line:</strong> Even if the exact timeline is off, the <em>exponential pattern</em> is clear. Small doublings compound fast. Whether it's 3 years or 10 years, transformative automation is coming—the question is when, not if.
     </p>
   </div>
 </section>

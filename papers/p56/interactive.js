@@ -125,6 +125,48 @@
       return Math.log2(horizon / baseHorizon);
     }
 
+    // Helper: Determine capability level based on horizon
+    function getCapabilityLevel(horizon, successRate) {
+      // Adjust thresholds based on success rate
+      // Higher success rate = more capable for same horizon
+      const reliabilityMultiplier = successRate >= 80 ? 1.3 : (successRate >= 70 ? 1.15 : 1.0);
+      const adjustedHorizon = horizon * reliabilityMultiplier;
+
+      let level, description, badgeClass;
+
+      if (adjustedHorizon < 2) {
+        level = 'Beginner Intern';
+        description = 'Can handle very simple, single-step tasks like looking up documentation or running basic commands. Needs constant supervision and clear instructions for every action.';
+        badgeClass = 'bg-gray-500/10 text-gray-600';
+      } else if (adjustedHorizon < 10) {
+        level = 'Learning Intern';
+        description = 'Can complete simple multi-step tasks like fixing typos, updating config files, or writing basic tests. Still needs frequent guidance and can only handle well-defined problems.';
+        badgeClass = 'bg-blue-500/10 text-blue-600';
+      } else if (adjustedHorizon < 30) {
+        level = 'Junior Developer';
+        description = 'Handles routine bug fixes, straightforward features, and standard debugging. Similar to someone with 6-12 months of experience—can work independently on clearly defined tasks but needs help with architecture or ambiguous requirements.';
+        badgeClass = 'bg-cyan-500/10 text-cyan-600';
+      } else if (adjustedHorizon < 90) {
+        level = 'Mid-Level Developer';
+        description = 'Can implement features with tests, debug multi-file issues, and write technical documentation. Like someone with 2-3 years of experience—handles most standard work independently but escalates complex design decisions.';
+        badgeClass = 'bg-green-500/10 text-green-600';
+      } else if (adjustedHorizon < 240) {
+        level = 'Senior Developer';
+        description = 'Capable of complex features, system refactors, and technical research. Similar to 4-6 years of experience—can design solutions, evaluate trade-offs, and mentor others on implementation details.';
+        badgeClass = 'bg-amber-500/10 text-amber-600';
+      } else if (adjustedHorizon < 1440) {
+        level = 'Lead/Principal';
+        description = 'Handles architecture design, multi-day investigations, and cross-system integration. Like 7-10+ years of experience—trusted to make high-level technical decisions and drive projects with minimal oversight.';
+        badgeClass = 'bg-orange-500/10 text-orange-600';
+      } else {
+        level = 'Engineering Lead';
+        description = 'Can own multi-week initiatives including research, design, implementation, and deployment. Equivalent to senior leadership—makes strategic technical decisions and can independently deliver major projects.';
+        badgeClass = 'bg-red-500/10 text-red-600';
+      }
+
+      return { level, description, badgeClass };
+    }
+
     // Update UI based on current settings
     function updateUI() {
       const mode = modeSelect.value;
@@ -192,6 +234,16 @@
         } else {
           horizonDesc.textContent = `Extrapolated ${successRate}% horizon for ${year.toFixed(0)}: ~${formatDuration(horizon)}. Assumes 7-month doubling continues.`;
         }
+      }
+
+      // Update capability level
+      const capabilityBadge = document.getElementById('p56-capability-badge');
+      const capabilityDesc = document.getElementById('p56-capability-desc');
+      if (capabilityBadge && capabilityDesc) {
+        const capability = getCapabilityLevel(horizon, successRate);
+        capabilityBadge.textContent = capability.level;
+        capabilityBadge.className = `px-2 py-1 rounded text-xs font-semibold ${capability.badgeClass}`;
+        capabilityDesc.innerHTML = `<strong>What this means:</strong> ${capability.description}`;
       }
 
       // Update task examples

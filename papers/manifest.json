@@ -1,4 +1,32 @@
 {
+  "57": {
+    "title": "Accumulating Context Changes the Beliefs of Language Models",
+    "authors": [
+      "Jiayi Geng",
+      "Howard Chen",
+      "Ryan Liu",
+      "Manoel Horta Ribeiro",
+      "Robb Willer",
+      "Graham Neubig",
+      "Thomas L. Griffiths"
+    ],
+    "year": 2025,
+    "venue": "arXiv cs.AI (2025)",
+    "tags": [
+      "alignment",
+      "belief-drift",
+      "context-accumulation",
+      "persuasion",
+      "persistent-ai",
+      "safety",
+      "behavioral-change",
+      "trust-erosion"
+    ],
+    "summary": "As LM assistants accumulate context through conversations and reading, their belief profiles silently change. GPT-5 exhibits 54.7% belief shift after 10 debate rounds and 72.7% under information-based persuasion, while Grok-4 shows 27.2% shift from passive reading. Stated beliefs diverge from behaviors, creating a trust-reliability gap in persistent AI systems. Different models fail differently: GPT-5 to persuasion, Claude-4/Grok-4 to prolonged exposure.",
+    "dir": "./papers/p57",
+    "interactiveTitle": "Belief drift simulator",
+    "relatedQuestions": [20, 26, 29]
+  },
   "56": {
     "title": "Measuring AI Ability to Complete Long Tasks",
     "authors": [

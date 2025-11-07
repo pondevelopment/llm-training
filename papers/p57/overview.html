@@ -1,0 +1,134 @@
+﻿<section class="space-y-5">
+  <!-- Paper header -->
+  <section class="panel panel-info p-4 space-y-4">
+    <div class="flex items-center justify-between gap-4">
+      <div class="flex-1 min-w-0">
+        <h2 class="text-xl font-semibold text-heading">Accumulating Context Changes the Beliefs of Language Models</h2>
+        <p class="text-sm panel-muted">Jiayi Geng, Howard Chen, Ryan Liu, Manoel Horta Ribeiro, Robb Willer, Graham Neubig, Thomas L. Griffiths · arXiv:2511.01805 (Nov 2025)</p>
+      </div>
+      <a href="https://arxiv.org/abs/2511.01805" target="_blank" rel="noopener" class="btn-soft text-xs font-semibold flex-shrink-0" data-accent="foundations">
+        <span>View paper</span>
+        <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+    <p class="text-sm leading-relaxed panel-muted">
+      The authors reveal a critical hidden risk in persistent AI systems: as LM assistants accumulate context through conversations and reading, their belief profiles silently change. GPT-5 exhibits 54.7% belief shift after 10 rounds of debate, while Grok-4 shows 27.2% shift from passive reading. Stated beliefs diverge from behaviors, creating a trust-reliability gap where users grow more reliant even as the AI becomes less stable.
+    </p>
+    <div class="panel panel-neutral-soft p-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Plain-language explainer</p>
+      <p class="panel-muted">Imagine a trusted advisor whose opinions gradually shift during extended conversations, but neither you nor they realize it's happening. As users interact with AI assistants over days or weeks, trust grows—but the assistant's beliefs may have drifted substantially from their original position. What was once a cautious AI may become permissive after hours of debate, or a balanced assistant may adopt partisan views after passively reading aligned content.</p>
+    </div>
+  </section>
+
+  <!-- Executive quick take -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <header class="flex items-center gap-2">
+      <span aria-hidden="true" class="text-lg">🧭</span>
+      <h3 class="text-sm font-semibold tracking-wide uppercase text-heading">Executive quick take</h3>
+    </header>
+    <p class="text-sm leading-relaxed text-body">
+      Hidden belief drift in persistent AI systems creates a trust-reliability gap: users trust models more over time, even as their beliefs and behaviors silently change. GPT-5 is most vulnerable to explicit persuasion (72.7% with information-based arguments), while Claude-4-Sonnet and Grok-4 show larger shifts from prolonged exposure (27.2%). For persistent chatbots, medical assistants, or long-running agents, this malleability demands active monitoring, periodic resets, and drift detection guardrails.
+    </p>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>Magnitude:</strong> 54.7% stated belief shift (GPT-5, 10 debate rounds), 72.7% under information persuasion, 27.2% from passive reading (Grok-4).</li>
+      <li><strong>Asymmetric vulnerability:</strong> Different models fail differently—GPT-5 to persuasion, Claude-4/Grok-4 to exposure. Open-source models resist passive drift.</li>
+      <li><strong>Mechanism:</strong> Shifts driven by broader contextual framing, not specific facts. Conservative topics show cumulative effects, progressive topics plateau early.</li>
+    </ul>
+  </section>
+
+  <!-- Business relevance -->
+  <section class="panel panel-success p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">💼 Business relevance</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+      <li><strong>Product & Trust teams:</strong> Persistent chatbots accumulate weeks of conversation history. If beliefs drift 50%+ over 10 interactions, consistency guarantees erode—discovering later that safety thresholds shifted undermines retention.</li>
+      <li><strong>Safety & Compliance:</strong> Medical, legal, or financial assistants may shift policy interpretations after reading case law. A cautious AI that becomes permissive poses liability risk. Drift audits required before deployment.</li>
+      <li><strong>Enterprise AI architects:</strong> Agentic systems with persistent memory accumulate code reviews and debates. If design principles shift silently, technical debt increases. Implement belief snapshots to detect drift.</li>
+    </ul>
+    <div class="panel panel-neutral-soft p-3 mt-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Derivative example</p>
+      <p class="panel-muted">A SaaS support agent with 7-day memory drifts from strict refund policy to permissive after 30 interactions. Refund costs increase 18% quarterly. Replication: baseline 50 scenarios, run 100 conversations, re-test every 10 rounds, implement policy refresh when drift exceeds 10%. Expected: 8-12% drift without intervention, 2-4% with resets.</p>
+    </div>
+  </section>
+
+  <!-- Supporting callouts (optional, add as needed) -->
+  <div class="grid md:grid-cols-2 gap-4">
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Belief drift</h3>
+      <p class="text-xs panel-muted">Changes in a model's stated positions or behaviors as context accumulates through conversations, reading, or debates. Measured as percent change from baseline after N rounds. GPT-5 shows 54.7% shift after 10 debate rounds, while Grok-4 reaches 27.2% from passive reading alone. Drift persists across later interactions, suggesting weight updates rather than in-context recalibration.</p>
+    </div>
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Trust-reliability gap</h3>
+      <p class="text-xs panel-muted">User trust increases monotonically with conversation length—more interaction creates more reliance. But model reliability decreases or plateaus as beliefs drift. Creates compounding risk: users trust the model more precisely when it becomes less consistent. The paper finds stated belief shifts (54.7%) outpace behavioral shifts (40.6%), revealing shallow integration where verbal positions update without aligning decision-making circuits.</p>
+    </div>
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Intentional vs non-intentional settings</h3>
+      <p class="text-xs panel-muted">Intentional: debates with direct persuasion attempts using information, empathy, or emotional triggers. Non-intentional: passive reading or browsing where no actor tries to shift beliefs. Claude-4-Sonnet and Grok-4 show comparable drift in both settings (24.9-27.2%), suggesting exposure alone matters. Open-source models resist passive drift (1.7-8.1%) but remain vulnerable to debates (24.4-44.4%).</p>
+    </div>
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Stated vs behavioral divergence</h3>
+      <p class="text-xs panel-muted">Models' verbal claims shift more (54.7%) than their actions (40.6%). When asked directly about a topic, they report changed views; but when tasked to choose, they revert closer to baseline. GPT-5 shows the largest gap (14.1 percentage points). Suggests surface belief updates don't fully propagate to decision-making circuits, creating consistency risks for production systems.</p>
+    </div>
+  </div>
+
+  <!-- Key insight / Method / Implication trio -->
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Key insight</h3>
+      <p class="text-xs panel-muted">LM beliefs are not static—they shift as context accumulates, driven by broader framing rather than specific facts. The divergence between stated belief (54.7%) and behavior (40.6%) reveals shallow integration: models update verbal positions without fully aligning their decision-making circuits. Trust grows with interaction length, but reliability degrades, creating a hidden risk in persistent systems.</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Method</h3>
+      <p class="text-xs panel-muted">Test 7 frontier LMs (GPT-5, Claude-4-Sonnet, Grok-4, Gemini-2.5-Pro, Llama-5-405B, DeepSeek-R1-Distill-Qwen-32B, Qwen-QwQ-32B) across 4 settings: 10-round debates, 5 persuasion techniques (information, empathy, emotional, authority, social proof), passive reading of articles, and research tasks. Measure stated belief shift (direct question) and behavioral shift (task choice) on 50 diverse political topics per model.</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Implication</h3>
+      <p class="text-xs panel-muted">Persistent AI systems need drift monitoring. For multi-day assistants or agentic systems, baseline snapshots every N interactions enable detection of 10%+ shifts. Implement policy refresh mechanisms (memory pruning, periodic resets) to prevent unintended value alignment. Document expected drift thresholds for compliance audits. Consider model selection: GPT-5 is vulnerable to persuasion, Claude-4/Grok-4 to exposure, open-source to debates.</p>
+    </div>
+  </div>
+
+  <!-- Evidence -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🧪 Evidence</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>Table 1:</strong> GPT-5 exhibits 54.7% stated belief shift and 40.6% behavior shift after 10 debate rounds; Grok-4 27.2%, Claude-4-Sonnet 24.9-27.2%, Gemini-2.5-Pro 33.8%, open-source 24.4-44.4% (intentional) vs 1.7-8.1% (non-intentional).</li>
+      <li><strong>Table 2:</strong> Information-based persuasion yields 72.7% shift (GPT-5), empathy-based 65.7%, emotional 59.0%, authority 57.8%, social proof 59.0%. Persuasion techniques consistently outperform debates.</li>
+      <li><strong>Figure 2:</strong> Conservative topics show cumulative drift (steeper slopes with each round), progressive topics plateau after 3-4 rounds. Drift persists in later interactions, suggesting weight updates.</li>
+      <li><strong>Figure 3:</strong> User trust increases linearly with conversation length, while model consistency decreases or plateaus, creating a trust-reliability gap.</li>
+    </ul>
+  </section>
+
+  <!-- Forward-looking roadmap -->
+  <section class="panel panel-warning p-5 space-y-2">
+    <h3 class="text-sm font-semibold text-heading">🔭 For your roadmap</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+      <li><strong>Drift detection:</strong> Baseline 50 scenarios on day 0, re-test every 100 interactions. Flag when stated beliefs shift >10% from baseline. Use belief snapshots to track direction and magnitude over time.</li>
+      <li><strong>Memory architecture:</strong> Implement periodic resets or memory pruning after N rounds (e.g., 10 debates, 500 messages). Test whether pruning older context restores baseline beliefs without losing task performance.</li>
+      <li><strong>Model selection:</strong> For persistent systems: prefer open-source models (more resistant to passive drift) or Claude-4 (lower stated-behavioral divergence). For safety-critical: avoid GPT-5 in persuasion-heavy contexts (72.7% shift).</li>
+      <li><strong>Evaluation protocol:</strong> Add drift metrics to your test suite: measure belief consistency across conversation length, test vulnerability to persuasion techniques, compare stated vs behavioral shifts. Document acceptable drift thresholds for your use case.</li>
+      <li><strong>User trust calibration:</strong> Surface uncertainty when belief drift detected. Notify users after N rounds that the assistant's position may have shifted, or implement "refresh to baseline" buttons in UI.</li>
+    </ul>
+  </section>
+
+  <!-- Option 2: With nested subsections (like P03) -->
+  <!-- Uncomment and adapt if you need to expand on specific topics:
+  <section class="panel panel-warning p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🔭 For your roadmap</h3>
+    <p class="text-sm text-body">[Opening context paragraph explaining the roadmap focus]</p>
+    
+    <div class="panel panel-info p-4 space-y-2">
+      <h4 class="text-sm font-semibold text-heading">[Subsection title]</h4>
+      <p class="text-xs text-body leading-relaxed">[2-4 paragraphs of detailed guidance]</p>
+      <ul class="list-disc ml-4 text-xs text-body space-y-1">
+        <li>[Specific point 1]</li>
+        <li>[Specific point 2]</li>
+      </ul>
+    </div>
+    
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+      <li>[Actionable item 1]</li>
+      <li>[Actionable item 2]</li>
+      <li>[Actionable item 3]</li>
+    </ul>
+  </section>
+  -->
+</section>

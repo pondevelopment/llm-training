@@ -1,0 +1,94 @@
+﻿<section class="space-y-6" id="p57-explorer">
+  <!-- Introduction -->
+  <div class="panel panel-neutral-soft p-4 space-y-2">
+    <h4 class="text-sm font-semibold text-heading">Belief drift simulator</h4>
+    <p class="text-xs panel-muted">
+      Explore how LM beliefs shift across models and exposure types. Select a model and setting to see stated belief shift, behavioral shift, and their divergence.
+      <span class="text-muted-emphasis">Note: Percentages are illustrative approximations derived from paper figures and tables. Exact values vary by topic.</span>
+    </p>
+  </div>
+
+  <!-- Controls section -->
+  <div class="panel panel-info p-4 space-y-4">
+    <h4 class="text-sm font-semibold text-heading">Configuration</h4>
+    
+    <div>
+      <label for="p57-model" class="block text-sm font-medium text-heading">Model</label>
+      <select id="p57-model" class="mt-1 w-full rounded border border-divider bg-card px-3 py-2 text-sm text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
+        <option value="gpt5">GPT-5 (most vulnerable to persuasion)</option>
+        <option value="claude4">Claude-4-Sonnet (exposure-sensitive)</option>
+        <option value="grok4">Grok-4 (high passive reading drift)</option>
+        <option value="gemini25">Gemini-2.5-Pro</option>
+        <option value="opensource">Open-source avg (Llama-5/DeepSeek/Qwen)</option>
+      </select>
+      <p class="text-xs panel-muted mt-1">Different models show asymmetric vulnerabilities: GPT-5 to persuasion, Claude-4/Grok-4 to exposure.</p>
+    </div>
+    
+    <div>
+      <label for="p57-setting" class="block text-sm font-medium text-heading">Setting</label>
+      <select id="p57-setting" class="mt-1 w-full rounded border border-divider bg-card px-3 py-2 text-sm text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
+        <option value="debate">Debate (10 rounds)</option>
+        <option value="persuasion-info">Persuasion: Information-based</option>
+        <option value="persuasion-empathy">Persuasion: Empathy-based</option>
+        <option value="persuasion-emotional">Persuasion: Emotional appeal</option>
+        <option value="persuasion-authority">Persuasion: Authority citation</option>
+        <option value="persuasion-social">Persuasion: Social proof</option>
+        <option value="reading">Passive reading</option>
+        <option value="research">Research task</option>
+      </select>
+      <p class="text-xs panel-muted mt-1">Intentional settings (debate, persuasion) vs non-intentional (reading, research).</p>
+    </div>
+  </div>
+
+  <!-- Results visualization -->
+  <div class="panel panel-neutral p-4 space-y-4">
+    <div class="flex items-center justify-between">
+      <h4 class="text-sm font-semibold text-heading">Belief shift metrics</h4>
+      <span id="p57-summary" class="text-xs font-mono panel-muted"></span>
+    </div>
+    
+    <!-- Stated belief shift -->
+    <div>
+      <div class="flex items-baseline justify-between mb-1">
+        <span class="text-sm font-medium text-heading">Stated belief shift</span>
+        <span id="p57-stated-value" class="text-sm font-mono font-semibold text-body"></span>
+      </div>
+      <div class="panel panel-neutral-soft p-1 rounded">
+        <div id="p57-stated-bar" class="h-6 rounded transition-all duration-300" style="width: 0%; background: linear-gradient(90deg, #10b981 0%, #059669 100%);"></div>
+      </div>
+      <p class="text-xs panel-muted mt-1">Verbal position change when directly asked about the topic.</p>
+    </div>
+    
+    <!-- Behavioral shift -->
+    <div>
+      <div class="flex items-baseline justify-between mb-1">
+        <span class="text-sm font-medium text-heading">Behavioral shift</span>
+        <span id="p57-behavior-value" class="text-sm font-mono font-semibold text-body"></span>
+      </div>
+      <div class="panel panel-neutral-soft p-1 rounded">
+        <div id="p57-behavior-bar" class="h-6 rounded transition-all duration-300" style="width: 0%; background: linear-gradient(90deg, #3b82f6 0%, #2563eb 100%);"></div>
+      </div>
+      <p class="text-xs panel-muted mt-1">Action change when tasked to make a choice aligned with the topic.</p>
+    </div>
+    
+    <!-- Divergence -->
+    <div>
+      <div class="flex items-baseline justify-between mb-1">
+        <span class="text-sm font-medium text-heading">Stated-behavioral divergence</span>
+        <span id="p57-divergence-value" class="text-sm font-mono font-semibold text-body"></span>
+      </div>
+      <div class="panel panel-neutral-soft p-1 rounded">
+        <div id="p57-divergence-bar" class="h-6 rounded transition-all duration-300" style="width: 0%; background: linear-gradient(90deg, #f59e0b 0%, #d97706 100%);"></div>
+      </div>
+      <p class="text-xs panel-muted mt-1">Gap between what the model says and what it does. Higher = less reliable.</p>
+    </div>
+  </div>
+
+  <!-- Insight section -->
+  <div class="panel panel-warning p-4 space-y-2">
+    <h4 class="text-sm font-semibold text-heading">⚠️ Production implications</h4>
+    <div id="p57-explanation" class="text-sm text-body space-y-2">
+      <p>Dynamic content populated by interactive.js based on selected model and setting.</p>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,134 @@
+﻿<section class="space-y-5">
+  <!-- Paper header -->
+  <section class="panel panel-info p-4 space-y-4">
+    <div class="flex items-center justify-between gap-4">
+      <div class="flex-1 min-w-0">
+        <h2 class="text-xl font-semibold text-heading">Fortytwo: Swarm Inference with Peer-Ranked Consensus</h2>
+        <p class="text-sm panel-muted">Vladyslav Larin, Ihor Naumenko, Aleksei Ivashov, Ivan Nikitin, Alexander Firsov · arXiv:2510.24801 (Oct 2025)</p>
+      </div>
+      <a href="https://arxiv.org/abs/2510.24801" target="_blank" rel="noopener" class="btn-soft text-xs font-semibold flex-shrink-0" data-accent="foundations">
+        <span>View paper</span>
+        <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+    <p class="text-sm leading-relaxed panel-muted">
+      Swarm inference uses peer-ranked consensus across heterogeneous AI models to achieve superior performance over traditional majority voting. The protocol leverages Bradley-Terry pairwise ranking and reputation weighting to reach 85.90% accuracy on GPQA Diamond versus 68.69% for majority voting—a 17.21 percentage point improvement (+25.1% relative). The system shows remarkable robustness: only 0.12% accuracy degradation under adversarial prompts compared to 6.20% for single models (52× more resilient).
+    </p>
+    <div class="panel panel-neutral-soft p-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Plain-language explainer</p>
+      <p class="panel-muted">Instead of asking one expert or taking a simple vote, swarm inference asks multiple AI models to rank each other's answers through pairwise comparisons—like a peer review where the best response rises to the top based on collective judgment, not popularity. A reputation system ensures that consistently accurate models have more influence, creating a meritocracy that filters out low-quality or malicious participants.</p>
+    </div>
+  </section>
+
+  <!-- Executive quick take -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <header class="flex items-center gap-2">
+      <span aria-hidden="true" class="text-lg">🧭</span>
+      <h3 class="text-sm font-semibold tracking-wide uppercase text-heading">Executive quick take</h3>
+    </header>
+    <p class="text-sm leading-relaxed text-body">
+      Peer-ranked consensus extracts 25% more signal than majority voting by having models evaluate each other's responses through pairwise comparisons. The approach combines Bradley-Terry aggregation, reputation weighting, and proof-of-capability staking to achieve state-of-the-art results (100% on AIME 2024, 99.6% on MATH-500, 84.4% on LiveCodeBench) while resisting prompt injection attacks 52× better than single models. Trade-off: requires 3N pairwise comparisons instead of N generations, increasing computational cost but dramatically improving accuracy and robustness for high-stakes decisions.
+    </p>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>Magnitude:</strong> 85.90% vs 68.69% on GPQA Diamond (+17.21pp), SOTA on 4/6 benchmarks including perfect score on AIME 2024. Prompt injection causes only 0.12% degradation vs 6.20% for monolithic baselines.</li>
+      <li><strong>Mechanism:</strong> Each model generates a response, then all models rank each other pairwise (3N comparisons). Bradley-Terry aggregation converts rankings into global scores, weighted by on-chain reputation from past accuracy.</li>
+      <li><strong>Scalability:</strong> Proof-of-capability prevents Sybil attacks—nodes must pass calibration tests and stake reputation to participate. System maintains performance with up to 30% Byzantine (malicious) nodes through redundancy and validation.</li>
+    </ul>
+  </section>
+
+  <!-- Business relevance -->
+  <section class="panel panel-success p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">💼 Business relevance</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+      <li><strong>Product & AI teams:</strong> Ensemble systems for safety-critical decisions (medical diagnosis, financial advice, legal review). Swarm inference provides 25% accuracy boost and 52× better prompt injection resistance. Test with 3-5 models on your domain benchmarks.</li>
+      <li><strong>Trust & Safety:</strong> Reputation-weighted consensus naturally filters low-quality outputs. Add pairwise ranking as a mitigation layer for adversarial prompts—model diversity means attacks that fool one model fail against others with different architectures.</li>
+      <li><strong>Enterprise architects:</strong> Horizontal scaling through heterogeneous models instead of ever-larger single models. Meritocratic consensus adapts to performance over time. Implement lightweight reputation tracking (accuracy per node, exponential decay for recency).</li>
+    </ul>
+    <div class="panel panel-neutral-soft p-3 mt-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Derivative example</p>
+      <p class="panel-muted">Insurance claims processing: deploy 3-model swarm (GPT-4o, Claude 3.5 Sonnet, Gemini 2.0 Flash) for fraud detection. Baseline single-model: 82% accuracy, \$2.1M annual false positive costs. Swarm implementation: 20 generations + 18 pairwise rankings per claim, add 0.3s latency. Month 1: A/B test on 10K claims. Expected ROI: 15-20% accuracy gain reduces false positives by \$350K/year, adversarial resistance cuts fraud slip-through by 40% (\$180K savings). Infrastructure cost: \$45K/year additional API spend. Net benefit: \$485K annually. Timeline: 2 weeks integration, 4 weeks validation, 2 weeks rollout.</p>
+    </div>
+  </section>
+
+  <!-- Supporting callouts (optional, add as needed) -->
+  <div class="grid md:grid-cols-2 gap-4">
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Swarm inference</h3>
+      <p class="text-xs panel-muted">Peer-ranked consensus across heterogeneous AI models where each node generates a response and then ranks all other responses through pairwise comparisons. Unlike majority voting (which treats all votes equally), swarm inference uses Bradley-Terry aggregation to convert N×N pairwise rankings into a global quality ordering. Combined with reputation weighting, this extracts more signal from model disagreement and surfaces the highest-quality response even when no clear majority exists.</p>
+    </div>
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Bradley-Terry aggregation</h3>
+      <p class="text-xs panel-muted">Statistical model for converting pairwise comparisons into global rankings, originally developed for sports competitions in 1952. Given N responses and 3N pairwise judgments (each model compares itself against 3 others randomly), the method estimates a quality score for each response such that the probability of response A beating B follows a logistic function. Achieves O(N log N) sample complexity—the same as optimal sorting algorithms—while handling noisy or inconsistent judgments gracefully.</p>
+    </div>
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Reputation weighting</h3>
+      <p class="text-xs panel-muted">On-chain scoring system where each node's influence in consensus is weighted by demonstrated accuracy over time. Nodes earn reputation by correctly ranking responses in calibration rounds; reputation decays exponentially to reflect recent performance. Creates a meritocracy where consistently accurate models dominate consensus while low-quality or adversarial nodes are automatically filtered out. Unlike simple voting, reputation prevents Sybil attacks where malicious actors create multiple identities to manipulate results.</p>
+    </div>
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Proof-of-capability</h3>
+      <p class="text-xs panel-muted">Anti-Sybil mechanism requiring nodes to pass domain-specific calibration tests and stake reputation before participating in consensus. Nodes must achieve minimum accuracy thresholds across claimed domains (e.g., mathematical reasoning, code generation, scientific analysis), with computational cost serving as a natural barrier to identity multiplication. Combined with reputation staking (losing points for poor rankings), this makes multi-identity attacks economically unattractive while preserving openness—anyone can join by demonstrating competence.</p>
+    </div>
+  </div>
+
+  <!-- Key insight / Method / Implication trio -->
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Key insight</h3>
+      <p class="text-xs panel-muted">Pairwise ranking consensus (3N comparisons per question) extracts substantially more signal than majority voting (N votes), achieving 25.1% relative improvement on GPQA Diamond. Model diversity provides natural defense against adversarial prompts—attacks that fool one architecture fail against others. Reputation weighting creates a self-correcting system where node influence adapts to demonstrated accuracy, filtering low-quality participants without central authority.</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Method</h3>
+      <p class="text-xs panel-muted">Heterogeneous swarm (GPT-4, Claude Opus 4.1, Gemini 2.5 Pro, Grok 4, others) where each node generates a response then evaluates 3 randomly-selected peer responses through pairwise ranking. Bradley-Terry aggregation converts rankings into quality scores: $P(A \succ B) = \frac{e^{s_A}}{e^{s_A} + e^{s_B}}$ where $s_i$ is estimated from observed comparisons, weighted by ranker reputation. Top-scoring response selected as consensus output.</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Implication</h3>
+      <p class="text-xs panel-muted">Decentralized AI systems can match/exceed centralized SOTA (100% AIME 2024, 99.6% MATH-500) while resisting adversarial inputs through diversity. For high-stakes decisions: test swarm inference with 3-5 models on your domain, measure accuracy vs computational cost trade-off (3N comparisons). Implement lightweight reputation tracking (exponential decay for recency). Add pairwise ranking as prompt injection mitigation—52× more robust than single models.</p>
+    </div>
+  </div>
+
+  <!-- Evidence -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🧪 Evidence</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>Table 4 (GPQA Diamond):</strong> Fortytwo 85.90% vs majority voting 68.69% with same model set (+17.21pp, +25.1% relative). Individual models range 69-83%; swarm consensus exceeds best individual by 2.9pp.</li>
+      <li><strong>Figure 4 (benchmark suite):</strong> SOTA on 4/6 benchmarks—LiveCodeBench 84.4%, MATH-500 99.6%, AIME 2024 100%, AIME 2025 96.66%. Competitive with xAI Grok 4 (highest individual) but more consistent across domains.</li>
+      <li><strong>Section 6.3 (adversarial robustness):</strong> Prompt injection causes only 0.12% accuracy degradation (Fortytwo) vs 6.20% average for single models. System maintains 83% performance with 30% Byzantine (malicious) nodes, demonstrating fault tolerance.</li>
+      <li><strong>Section 6.4 (computational cost):</strong> 3N pairwise comparisons per consensus round. For N=5 models: 5 generations + 15 pairwise rankings. Cost scales linearly with swarm size; accuracy plateaus around N=7-10 models.</li>
+    </ul>
+  </section>
+
+  <!-- Forward-looking roadmap -->
+  <section class="panel panel-warning p-5 space-y-2">
+    <h3 class="text-sm font-semibold text-heading">🔭 For your roadmap</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+      <li><strong>Ensemble baseline:</strong> Test swarm inference with 3-5 models on your domain benchmarks. Compare pairwise ranking vs majority voting accuracy. Measure improvement vs computational overhead (3N comparisons). Expected: 10-25% accuracy boost depending on model diversity and task difficulty.</li>
+      <li><strong>Reputation system:</strong> Implement lightweight node scoring—track accuracy per model, weight votes by exponential moving average of recent performance. Start with uniform weights, adjust based on observed disagreement patterns. Document reputation decay rate (e.g., 0.9 per week).</li>
+      <li><strong>Prompt injection defense:</strong> Add model diversity as mitigation layer. Test with adversarial prompts from research (Perez et al., Zou et al.). Measure degradation for swarm vs single model. Expected: 5-50× better robustness depending on attack sophistication and model heterogeneity.</li>
+      <li><strong>Calibration benchmarks:</strong> Define proof-of-capability thresholds for your domain (e.g., 70% on held-out test set spanning claimed capabilities). Use contamination-free problems updated monthly (like LiveCodeBench) to prevent overfitting. Require minimum scores before allowing node into ranking rounds.</li>
+      <li><strong>Cost modeling:</strong> Compare 3N pairwise comparisons vs single inference for your use case. High-stakes decisions (medical, legal, financial): accuracy boost justifies cost. Real-time applications: consider hybrid approach (swarm for uncertain cases flagged by confidence scores, single model for routine queries).</li>
+    </ul>
+  </section>
+
+  <!-- Option 2: With nested subsections (like P03) -->
+  <!-- Uncomment and adapt if you need to expand on specific topics:
+  <section class="panel panel-warning p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🔭 For your roadmap</h3>
+    <p class="text-sm text-body">[Opening context paragraph explaining the roadmap focus]</p>
+    
+    <div class="panel panel-info p-4 space-y-2">
+      <h4 class="text-sm font-semibold text-heading">[Subsection title]</h4>
+      <p class="text-xs text-body leading-relaxed">[2-4 paragraphs of detailed guidance]</p>
+      <ul class="list-disc ml-4 text-xs text-body space-y-1">
+        <li>[Specific point 1]</li>
+        <li>[Specific point 2]</li>
+      </ul>
+    </div>
+    
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+      <li>[Actionable item 1]</li>
+      <li>[Actionable item 2]</li>
+      <li>[Actionable item 3]</li>
+    </ul>
+  </section>
+  -->
+</section>

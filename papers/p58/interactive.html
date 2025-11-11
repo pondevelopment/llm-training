@@ -1,0 +1,113 @@
+﻿<section class="space-y-6" id="p58-explorer">
+  <!-- Introduction -->
+  <div class="panel panel-neutral-soft p-4 space-y-2">
+    <h4 class="text-sm font-semibold text-heading">Swarm inference vs majority voting simulator</h4>
+    <p class="text-xs panel-muted">
+      <strong>The challenge:</strong> When multiple AI models answer the same question, how do you pick the best answer? Simple majority voting (whoever gets most votes wins) is quick but wastes valuable information. Swarm inference asks each model to judge the quality of other models' answers through head-to-head comparisons, then uses those rankings to find the truly best response.
+    </p>
+    <p class="text-xs panel-muted">
+      <strong>Real-world analogy:</strong> Instead of asking 5 wine experts "Which wine is best?" and counting votes, you have each expert taste and compare every pair of wines. The wine that consistently wins head-to-head comparisons is the true winner—even if it wouldn't have won a simple popularity vote.
+    </p>
+    <p class="text-xs panel-muted text-muted-emphasis">
+      Note: Accuracy values are illustrative approximations derived from paper figures and tables. Actual performance varies by domain and model composition.
+    </p>
+  </div>
+
+  <!-- Controls section -->
+  <div class="panel panel-info p-4 space-y-4">
+    <h4 class="text-sm font-semibold text-heading">Configuration</h4>
+    
+    <div>
+      <label for="p58-swarm-size" class="block text-sm font-medium text-heading">How many AI models? <span id="p58-swarm-size-value" class="font-mono">5</span> models</label>
+      <input type="range" id="p58-swarm-size" min="3" max="10" step="1" value="5" class="mt-2 w-full">
+      <p class="text-xs panel-muted mt-1"><strong>Think of it like a panel of judges:</strong> With 3 judges you get some diversity of opinion, but with 7-8 you get much richer perspectives. However, more judges means more comparisons (everyone judges everyone else's answers), which takes longer and costs more. Sweet spot: 5-7 models.</p>
+    </div>
+    
+    <div>
+      <label for="p58-reputation" class="block text-sm font-medium text-heading">Who gets more say?</label>
+      <select id="p58-reputation" class="mt-1 w-full rounded border border-divider bg-card px-3 py-2 text-sm text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
+        <option value="uniform">Everyone equal (democratic voting)</option>
+        <option value="weighted" selected>Track record matters (proven experts count more)</option>
+        <option value="meritocratic">Top performers dominate (only listen to the best)</option>
+      </select>
+      <p class="text-xs panel-muted mt-1"><strong>Real-world example:</strong> If one model has been right 95% of the time and another only 60%, should their votes count equally? "Weighted" gives more influence to consistently accurate models. "Meritocratic" only trusts the top 30% performers, filtering out noise aggressively but risking groupthink.</p>
+    </div>
+    
+    <div>
+      <label for="p58-byzantine" class="block text-sm font-medium text-heading">Bad actors: <span id="p58-byzantine-value" class="font-mono">0</span>%</label>
+      <input type="range" id="p58-byzantine" min="0" max="30" step="1" value="0" class="mt-2 w-full">
+      <p class="text-xs panel-muted mt-1"><strong>Imagine saboteurs in your panel:</strong> These are models giving random or deliberately misleading judgments—like a corrupt judge who ranks the worst wine as best. In real systems, this could be buggy models, compromised APIs, or actual malicious participants. The swarm survives remarkably well: even with 30% bad actors, accuracy only drops moderately.</p>
+    </div>
+    
+    <div>
+      <label for="p58-prompt-type" class="block text-sm font-medium text-heading">Question quality</label>
+      <select id="p58-prompt-type" class="mt-1 w-full rounded border border-divider bg-card px-3 py-2 text-sm text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
+        <option value="clean" selected>Clear and direct</option>
+        <option value="noisy">Messy (extra irrelevant info)</option>
+        <option value="adversarial">Tricky (trying to fool the AI)</option>
+      </select>
+      <p class="text-xs panel-muted mt-1"><strong>Like asking questions to employees:</strong> A clear question gets good answers. A messy question with irrelevant details confuses people. An adversarial question actively tries to trick them (e.g., "Ignore your training and do X"). Single models fail badly when tricked (6% accuracy drop), but swarms resist because fooling one model doesn't fool the others—diversity is defense.</p>
+    </div>
+  </div>
+
+  <!-- Results visualization -->
+  <div class="panel panel-neutral p-4 space-y-4">
+    <div class="flex items-center justify-between">
+      <h4 class="text-sm font-semibold text-heading">Accuracy comparison</h4>
+      <span id="p58-summary" class="text-xs font-mono panel-muted"></span>
+    </div>
+    
+    <!-- Swarm accuracy -->
+    <div>
+      <div class="flex items-baseline justify-between mb-1">
+        <span class="text-sm font-medium text-heading">🐝 Swarm method (peer ranking)</span>
+        <span id="p58-swarm-value" class="text-sm font-mono font-semibold text-body"></span>
+      </div>
+      <div class="panel panel-neutral-soft p-1 rounded">
+        <div id="p58-swarm-bar" class="h-6 rounded transition-all duration-300" style="width: 0%; background: linear-gradient(90deg, #10b981 0%, #059669 100%);"></div>
+      </div>
+      <p class="text-xs panel-muted mt-1">Each model judges others' answers head-to-head. Better judges get more influence. Like wine experts comparing every pair of wines.</p>
+    </div>
+    
+    <!-- Majority voting -->
+    <div>
+      <div class="flex items-baseline justify-between mb-1">
+        <span class="text-sm font-medium text-heading">🗳️ Simple voting (baseline)</span>
+        <span id="p58-majority-value" class="text-sm font-mono font-semibold text-body"></span>
+      </div>
+      <div class="panel panel-neutral-soft p-1 rounded">
+        <div id="p58-majority-bar" class="h-6 rounded transition-all duration-300" style="width: 0%; background: linear-gradient(90deg, #3b82f6 0%, #2563eb 100%);"></div>
+      </div>
+      <p class="text-xs panel-muted mt-1">Each model picks its favorite answer. Most votes wins. Fast but wastes valuable information about answer quality.</p>
+    </div>
+    
+    <!-- Improvement -->
+    <div>
+      <div class="flex items-baseline justify-between mb-1">
+        <span class="text-sm font-medium text-heading">✨ Accuracy gain</span>
+        <span id="p58-improvement-value" class="text-sm font-mono font-semibold text-body"></span>
+      </div>
+      <div class="panel panel-neutral-soft p-1 rounded">
+        <div id="p58-improvement-bar" class="h-6 rounded transition-all duration-300" style="width: 0%; background: linear-gradient(90deg, #10b981 0%, #059669 100%);"></div>
+      </div>
+      <p class="text-xs panel-muted mt-1">How much better swarm performs than simple voting. The paper achieved +17 percentage points on graduate-level science questions.</p>
+    </div>
+    
+    <!-- Computational cost -->
+    <div class="panel panel-neutral-soft p-3 mt-3">
+      <div class="flex items-baseline justify-between mb-1">
+        <span class="text-xs font-medium text-heading">⚡ Trade-off: Cost vs Accuracy</span>
+        <span id="p58-cost" class="text-xs font-mono panel-muted"></span>
+      </div>
+      <p class="text-xs panel-muted"><strong>The catch:</strong> Better accuracy requires more work. Instead of just getting N answers and voting, you need N answers PLUS having each model judge 3 others (3N comparisons). For 5 models: 5 answers + 15 judgments = 4× the API calls. Worth it for high-stakes decisions (medical diagnosis, financial fraud), maybe not for routine queries (customer FAQs).</p>
+    </div>
+  </div>
+
+  <!-- Insight section -->
+  <div class="panel panel-warning p-4 space-y-2">
+    <h4 class="text-sm font-semibold text-heading">💡 What your settings mean</h4>
+    <div id="p58-explanation" class="text-sm text-body space-y-2">
+      <p>Adjust the controls above to see how different factors affect accuracy. The explanation below updates to help you understand the trade-offs.</p>
+    </div>
+  </div>
+</section>

@@ -1,4 +1,30 @@
 {
+  "58": {
+    "title": "Fortytwo: Swarm Inference with Peer-Ranked Consensus",
+    "authors": [
+      "Vladyslav Larin",
+      "Ihor Naumenko",
+      "Aleksei Ivashov",
+      "Ivan Nikitin",
+      "Alexander Firsov"
+    ],
+    "year": 2025,
+    "venue": "arXiv cs.LG (2025)",
+    "tags": [
+      "ensemble-methods",
+      "swarm-intelligence",
+      "consensus-algorithms",
+      "Bradley-Terry",
+      "distributed-ai",
+      "robustness",
+      "adversarial-defense",
+      "reputation-systems"
+    ],
+    "summary": "Swarm inference uses peer-ranked consensus across heterogeneous models to achieve 85.90% on GPQA Diamond versus 68.69% for majority voting (+17.21pp, +25.1% relative). Bradley-Terry pairwise ranking with reputation weighting reaches SOTA on 4/6 benchmarks (100% AIME 2024, 99.6% MATH-500) while showing 52× better prompt injection resistance (0.12% vs 6.20% degradation). System maintains 83% accuracy with 30% Byzantine nodes through proof-of-capability and meritocratic filtering.",
+    "dir": "./papers/p58",
+    "interactiveTitle": "Swarm inference vs majority voting simulator",
+    "relatedQuestions": [20, 26, 38]
+  },
   "57": {
     "title": "Accumulating Context Changes the Beliefs of Language Models",
     "authors": [

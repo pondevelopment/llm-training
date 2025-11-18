@@ -142,7 +142,8 @@
     </script>
     <script async src="https://cdn.jsdelivr.net/npm/mathjax-full@3.2.2/es5/tex-mml-svg.js"></script>
     <script>
-        tailwind.config = {
+        window.tailwind = window.tailwind || {};
+        window.tailwind.config = {
             theme: {
                 extend: {
                     animation: {
@@ -151,7 +152,7 @@
                     }
                 }
             }
-        }
+        };
     </script>
     <style>
         @keyframes fadeIn {

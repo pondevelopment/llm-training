@@ -1,4 +1,26 @@
 {
+  "59": {
+    "title": "AI Agents, Productivity, and Higher-Order Thinking: Early Evidence From Software Development",
+    "authors": [
+      "Suproteem K. Sarkar"
+    ],
+    "year": 2025,
+    "venue": "SSRN (2025)",
+    "tags": [
+      "agentic-ai",
+      "productivity",
+      "software-engineering",
+      "labor-economics",
+      "difference-in-differences",
+      "human-factors",
+      "higher-order-thinking",
+      "organizational-behavior"
+    ],
+    "summary": "Natural-experiment evidence from Cursor's coding agent shows weekly merges rose 39% and lines edited 49% after agent defaults, with no short-run quality regressions. Experience drives delegation skill: each additional standard deviation of tenure (~6.6 years) raises agent accept rates by about 6%, while plan-first intents and semantic guidance become hallmarks of expert usage.",
+    "dir": "./papers/p59",
+    "interactiveTitle": "Agent productivity impact explorer",
+    "relatedQuestions": [50, 52, 56]
+  },
   "58": {
     "title": "Fortytwo: Swarm Inference with Peer-Ranked Consensus",
     "authors": [

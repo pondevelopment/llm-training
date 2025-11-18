@@ -1,0 +1,90 @@
+﻿<section class="space-y-6" id="p59-explorer">
+  <div class="panel panel-info p-4 space-y-2">
+    <div class="flex items-start justify-between gap-3">
+      <div>
+        <h4 class="text-sm font-semibold text-heading">Agent rollout impact planner</h4>
+        <p class="text-xs panel-muted">Play with the rollout settings to see how agent availability, experience mix, and habits change throughput.</p>
+      </div>
+      <span class="chip text-[10px] flex-shrink-0 mt-1" data-tone="info">Illustrative model</span>
+    </div>
+    <p class="text-[11px] panel-muted">These numbers mirror the study averages. Treat them as directional and plug in your own telemetry before shipping policy changes.</p>
+  </div>
+
+  <div class="panel panel-neutral p-4 space-y-4">
+    <h5 class="text-xs font-semibold uppercase tracking-wide text-heading">Rollout levers</h5>
+    <div class="grid md:grid-cols-2 gap-4">
+      <div class="space-y-2">
+        <label for="p59-stage" class="text-sm font-medium text-heading">Agent availability</label>
+        <select id="p59-stage" class="w-full rounded border border-divider bg-card px-3 py-2 text-sm text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:#6366f1]">
+          <option value="none">No agents (baseline)</option>
+          <option value="optional">Agent optional (opt-in)</option>
+          <option value="default">Agent default (auto-on)</option>
+        </select>
+        <p class="text-xs panel-muted">Study result: +26% merges when optional, +39% when always on.</p>
+      </div>
+      <div class="space-y-2">
+        <label for="p59-tenure" class="flex items-center justify-between text-sm font-medium text-heading">
+          Avg. experience (years)
+          <span class="text-xs font-mono panel-muted" id="p59-tenure-display">8 yrs</span>
+        </label>
+        <input id="p59-tenure" type="range" min="3" max="15" step="0.5" value="8" class="w-full accent-[color:#6366f1]">
+        <p class="text-xs panel-muted">Every ~7 extra years of average experience added about 6% more approved agent edits.</p>
+      </div>
+      <div class="space-y-2">
+        <label for="p59-plan-share" class="flex items-center justify-between text-sm font-medium text-heading">
+          Plan-first prompt share
+          <span class="text-xs font-mono panel-muted" id="p59-plan-display">14%</span>
+        </label>
+        <input id="p59-plan-share" type="range" min="5" max="40" step="1" value="14" class="w-full accent-[color:#6366f1]">
+        <p class="text-xs panel-muted">Teams that ask the agent to “plan first” (~14% median) keep more edits and fix fewer bugs later.</p>
+      </div>
+      <div class="space-y-2">
+        <label for="p59-cross-share" class="flex items-center justify-between text-sm font-medium text-heading">
+          Cross-functional agent usage
+          <span class="text-xs font-mono panel-muted" id="p59-cross-display">15%</span>
+        </label>
+        <input id="p59-cross-share" type="range" min="0" max="35" step="1" value="15" class="w-full accent-[color:#6366f1]">
+        <p class="text-xs panel-muted">In the study, designers and consultants handled ~50–75 prompts each week. When they draft with agents, engineers spend more time reviewing and approving.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-neutral p-4 space-y-4">
+    <div class="flex flex-wrap items-center gap-3">
+      <h5 class="text-xs font-semibold uppercase tracking-wide text-heading">Projected deltas vs. no-agent baseline</h5>
+      <span class="text-[11px] panel-muted">Positive = better</span>
+    </div>
+    <div class="grid md:grid-cols-4 gap-3 text-sm">
+      <div class="panel panel-success-soft p-3 space-y-1">
+        <p class="text-xs uppercase tracking-wide text-success">Weekly merges</p>
+        <div class="text-2xl font-semibold text-heading" id="p59-productivity-value">+0%</div>
+        <p class="text-[11px] panel-muted">Roughly how much more code ships per week vs. no agent.</p>
+      </div>
+      <div class="panel panel-success-soft p-3 space-y-1">
+        <p class="text-xs uppercase tracking-wide text-success">Lines edited</p>
+        <div class="text-2xl font-semibold text-heading" id="p59-lines-value">+0%</div>
+        <p class="text-[11px] panel-muted">Shows the scope of changes, matching the optional vs. default rollout pattern.</p>
+      </div>
+      <div class="panel panel-info-soft p-3 space-y-1">
+        <p class="text-xs uppercase tracking-wide text-heading">Agent accept rate</p>
+        <div class="text-2xl font-semibold text-heading" id="p59-accept-value">1.00×</div>
+        <p class="text-[11px] panel-muted">How often teams keep the agent’s code. Experience + “plan first” move this number.</p>
+      </div>
+      <div class="panel panel-warning-soft p-3 space-y-1">
+        <p class="text-xs uppercase tracking-wide text-warning">Quality drift</p>
+        <div class="text-xl font-semibold" id="p59-quality-value">Stable</div>
+        <p class="text-[11px] panel-muted">Tracks bugfix and revert share. Negative = fewer clean-up cycles.</p>
+      </div>
+    </div>
+    <div class="panel panel-neutral-soft p-3" id="p59-summary">
+      Pick a scenario to see how experience, planning habits, and helper teams combine to boost output while keeping quality steady.</div>
+  </div>
+
+  <div class="panel panel-success p-4 space-y-3">
+    <h4 class="text-sm font-semibold text-heading">Execution guidance</h4>
+    <ul class="text-sm space-y-2" id="p59-guidance">
+      <li>Use the controls to see how “agent default” stacks up against opt-in access at your current experience mix.</li>
+      <li>“Plan first” prompts act like ready-to-review tickets—drive that habit up before expecting big gains.</li>
+    </ul>
+  </div>
+</section>

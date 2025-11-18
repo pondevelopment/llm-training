@@ -1,0 +1,79 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Paper 59 • LLM Paper Explainers</title>
+  <meta name="robots" content="noindex,follow">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="AI Agents, Productivity, and Higher-Order Thinking">
+  <meta property="og:description" content="Cursor's coding agent raised weekly merges 39% after becoming the default, with lines edited +49% and no spike in revert rates. Experienced workers are 6% more likely to accept agent code per stdev of tenure and plan-first prompts shift work toward higher-order thinking.">
+  <meta property="og:image" content="https://pondevelopment.github.io/llm-training/og-image.png">
+  <meta property="og:site_name" content="LLM Learning Hub">
+  <meta property="og:url" content="https://pondevelopment.github.io/llm-training/p/59.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI Agents, Productivity, and Higher-Order Thinking">
+  <meta name="twitter:description" content="Cursor agent diff-in-diff: +39% merges, +49% lines edited, steady quality. Experience drives delegation skill—+6% accept rate per stdev tenure, plan-first prompts highlight abstraction skills.">
+  <meta name="twitter:image" content="https://pondevelopment.github.io/llm-training/og-image.png">
+  <link rel="icon" href="../favicon.ico">
+  <style>body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;margin:0;padding:2rem;background:#f8fafc;color:#111827}
+  .header{max-width:720px;margin:0 auto 2rem;text-align:center}
+  .logo{font-size:16px;font-weight:600;color:#4f46e5;text-decoration:none;transition:color .2s}
+  .logo:hover{color:#6366f1}
+  .card{max-width:720px;margin:0 auto;background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:24px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+  .title{font-weight:700;font-size:20px;margin:0 0 8px}
+  .desc{font-size:14px;color:#374151;margin:0 0 16px}
+  .btn{display:inline-block;background:#4f46e5;color:#fff;padding:10px 14px;border-radius:8px;text-decoration:none;transition:opacity .2s}
+  .btn:hover{opacity:.9}
+  .muted{font-size:12px;color:#6b7280;margin-top:12px}
+  .footer{max-width:720px;margin:2rem auto 0;padding-top:2rem;border-top:1px solid #e5e7eb;font-size:11px;color:#6b7280;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+  .footer a{color:#4f46e5;text-decoration:none}
+  .footer a:hover{text-decoration:underline}
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a href="../index.html" class="logo">← LLM Learning Hub</a>
+  </header>
+  <main class="card">
+  <h1 class="title">AI Agents, Productivity, and Higher-Order Thinking</h1>
+  <p class="desc">Field evidence from Cursor shows coding agents boosted weekly merges by 39% once they became default and shifted work toward planning and evaluation. Experienced workers accept agent code 6% more per stdev of tenure, reinforcing abstraction and review as key skills.</p>
+  <a class="btn" href="../index.html#paper-59">Explore the agent productivity explainer →</a>
+    <p class="muted">Direct link to the interactive summary of this paper.</p>
+  </main>
+
+  <footer class="footer">
+    <div>
+      <span>Last updated: <span id="build-timestamp">Loading...</span></span>
+    </div>
+    <div>
+      <a href="https://github.com/pondevelopment/llm-training" target="_blank" rel="noopener">View on GitHub</a>
+      <span> • </span>
+      <span id="build-commit" style="font-family:monospace;font-size:10px"></span>
+    </div>
+  </footer>
+
+  <script src="../js/build-info.js"></script>
+  <script>
+    (function() {
+      if (window.BUILD_INFO && window.BUILD_INFO.timestamp !== 'BUILD_TIMESTAMP_PLACEHOLDER') {
+        const timestampEl = document.getElementById('build-timestamp');
+        const commitEl = document.getElementById('build-commit');
+        if (timestampEl) {
+          const timestamp = new Date(window.BUILD_INFO.timestamp);
+          timestampEl.textContent = timestamp.toLocaleDateString('en-US', {
+            year: 'numeric', month: 'short', day: 'numeric',
+            hour: '2-digit', minute: '2-digit', timeZoneName: 'short'
+          });
+        }
+        if (commitEl && window.BUILD_INFO.commit !== 'dev') {
+          commitEl.textContent = window.BUILD_INFO.commit;
+        }
+      } else {
+        const timestampEl = document.getElementById('build-timestamp');
+        if (timestampEl) timestampEl.textContent = 'Development';
+      }
+    })();
+  </script>
+</body>
+</html>

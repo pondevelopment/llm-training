@@ -1,0 +1,125 @@
+﻿<section class="space-y-5">
+  <!-- Paper header -->
+  <section class="panel panel-info p-4 space-y-4">
+    <div class="flex items-center justify-between gap-4">
+      <div class="flex-1 min-w-0">
+        <h2 class="text-xl font-semibold text-heading">AI Agents, Productivity, and Higher-Order Thinking: Early Evidence From Software Development</h2>
+        <p class="text-sm panel-muted">Suproteem K. Sarkar • SSRN First Look (Nov 2025)</p>
+      </div>
+      <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5713646" target="_blank" rel="noopener" class="btn-soft text-xs font-semibold flex-shrink-0" data-accent="foundations">
+        <span>View paper</span>
+        <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+    <p class="text-sm leading-relaxed panel-muted">
+      Cursor’s release of a coding agent created a natural experiment across 32 organizations. Once the agent became the default code-generation mode, weekly merges rose 39% and lines edited rose 49%, with no measurable uptick in revert rates and a 2.4 percentage-point drop in bugfix share. A separate user-level panel shows that each standard deviation (~6.6 years) of additional work experience lifts agent accept rates by 5–6% and that plan-first prompts correlate with higher-quality delegates—evidence that agents are shifting work toward abstraction, clarity, and evaluation.
+    </p>
+    <div class="panel panel-neutral-soft p-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Plain-language explainer</p>
+      <p class="panel-muted">Instead of typing every line yourself, senior engineers now describe the change, ask the agent to draft a plan, and only step in to edit or approve. The study shows that teams who make agents the default “first drafter” get more code merged without introducing more breakages—provided humans stay in the loop to define intent and review outputs.</p>
+    </div>
+  </section>
+
+  <!-- Executive quick take -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <header class="flex items-center gap-2">
+      <span aria-hidden="true" class="text-lg">🧭</span>
+      <h3 class="text-sm font-semibold tracking-wide uppercase text-heading">Executive quick take</h3>
+    </header>
+    <p class="text-sm leading-relaxed text-body">
+      Treat coding agents like a productivity lever, not a toy. Cursor’s diff-in-diff shows the lift only materialized when the agent was the default path and organizations had enough experienced reviewers to steer it. Track semantic work (plans, explanations) alongside merges, because the cognitive bottleneck moves upstream to specification and downstream to evaluation.
+    </p>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>Defaulting the agent matters:</strong> Optional access yielded +26% merges, but making agents the default pushed output to +39% without harming revert rates.</li>
+      <li><strong>Experience gradient is real:</strong> Every +6.6 years of tenure correlated with ~6% higher accept rates, while autocompletion showed the opposite (junior-skew) pattern.</li>
+      <li><strong>Work patterns shift to semantics:</strong> 39% of first agent messages are non-implementation (plan, explain, diagnose) and plan-first users accept edits more often, signaling a need for prompt design and review rituals.</li>
+    </ul>
+  </section>
+
+  <!-- Business relevance -->
+  <section class="panel panel-success p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">💼 Business relevance</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+      <li><strong>Engineering & platform leads:</strong> Quantify merges, lines edited, and revert/break-fix rates before and after agent rollout. Expect ~30–40% uplift if the agent is default and reviewers stay in the loop.</li>
+      <li><strong>Product/design teams:</strong> Non-engineering roles submitted 50–75 agent prompts per week; they can prototype UIs or logic themselves, freeing engineers for integration work.</li>
+      <li><strong>People ops & enablement:</strong> Training should emphasize plan-first messaging, review checklists, and mental models of agent capability—experienced workers outperform because they invest here.</li>
+    </ul>
+    <div class="panel panel-neutral-soft p-3 mt-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Derivative example</p>
+      <p class="panel-muted">A 180-engineer fintech firm makes Cursor’s agent the default editor mode. Week 0–2: baseline telemetry (merges, reverts, plan-first share). Week 3: roll out default agent, require “plan” prefix for risky changes, add reviewers for final approval. Week 8: merges up 34%, bugfix share down 2 pp, plan-first share up from 12% to 24%, enabling a 4-person reduction in backlog triage. Outcome: +$2.3M/year productivity, no increase in Sev1s.</p>
+    </div>
+  </section>
+
+  <!-- Supporting callouts (optional, add as needed) -->
+  <div class="grid md:grid-cols-2 gap-4">
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Difference-in-differences natural experiment</h3>
+      <p class="text-xs panel-muted">Cursor released its agent on Nov 24, 2024 and flipped the default on Feb 19, 2025. The paper compares 24 “eligible” orgs already on Cursor against eight “baseline” orgs that had not adopted yet, controlling for week and org fixed effects. This isolates the productivity change attributable to the agent release rather than seasonal output swings.</p>
+    </div>
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Experience-driven delegation skill</h3>
+      <p class="text-xs panel-muted">Analyzing 1,000 users’ agent logs shows the least-experienced decile sends many prompts but accepts fewer edits. Each standard deviation of tenure increases accept rates by ~6%, even after controlling for role, sector, and seniority. Plan-first prompts (13.6% of messages) are more common among experienced workers and predict higher accept rates—delegation skill is the differentiator.</p>
+    </div>
+  </div>
+
+  <!-- Key insight / Method / Implication trio -->
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Key insight</h3>
+      <p class="text-xs panel-muted">Agentic coding tools boost throughput once they become the default workflow: +39% merges and +49% lines edited with no short-run quality penalty, but only when organizations treat specification and review as first-class work.</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Method</h3>
+      <p class="text-xs panel-muted">A dynamic difference-in-differences model with org and week fixed effects estimates the causal impact of the agent release. Complementary cross-sectional regressions link message intent, usage frequency, and experience to accept rates. Message classification models tag first prompts as implement/plan/explain/error to quantify semantic shifts.</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Implication</h3>
+      <p class="text-xs panel-muted">Rollouts should pair default-on agents with enablement that builds planning and evaluation muscle. Monitor plan-first usage, accept rates, and quality proxies to ensure uplift stems from better delegation—not reckless auto-merges.</p>
+    </div>
+  </div>
+
+  <!-- Evidence -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🧪 Evidence</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>Default-on uplift:</strong> Eligible orgs saw +39% weekly merges and +49% thousands of lines edited after the agent became default; revert rates stayed flat (−0.08 pp) while bugfix share fell −2.40 pp.</li>
+      <li><strong>Cross-functional adoption signal:</strong> Designers submit 74.7 prompts/week with 1.14× accept rate vs engineers; consulting/pro services average 68 prompts/week, highlighting cross-functional uptake.</li>
+      <li><strong>Intent shift with experience:</strong> Plan-first prompts are 13.6% of first messages and rise +1.63 percentage points per standard deviation of experience, while explain-code prompts fall −0.83 pp—evidence of a semantic shift.</li>
+      <li><strong>Usage intensity vs. output:</strong> Within one org, a +1σ increase in agent usage (≈459 messages/2 months) associates with +5.13 merges, +2.94K lines edited, and +0.61 more files touched per merge.</li>
+    </ul>
+  </section>
+
+  <!-- Forward-looking roadmap -->
+  <!-- Option 1: Simple bulleted list (like P01/P02) -->
+  <section class="panel panel-warning p-5 space-y-2">
+    <h3 class="text-sm font-semibold text-heading">🔭 For your roadmap</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+      <li><strong>Watch how people use agents:</strong> Log how often teams ask the agent to “plan” or “explain,” which levels approve the edits, and how long reviews take. If planning and review time shrink, you know thinking work is shifting upstream.</li>
+      <li><strong>Make default-on a managed launch:</strong> Turn the agent on for everyone only after you’ve shared ready-made prompt templates, a lightweight review checklist, and a dashboard for reverts/bugfixes. Budget 6–8 weeks for the rollout to settle.</li>
+      <li><strong>Teach better delegation habits:</strong> Host short show-and-tell sessions where senior engineers walk through how they brief the agent, then give juniors the same templates so they can practice and close the experience gap.</li>
+    </ul>
+  </section>
+
+  <!-- Option 2: With nested subsections (like P03) -->
+  <!-- Uncomment and adapt if you need to expand on specific topics:
+  <section class="panel panel-warning p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🔭 For your roadmap</h3>
+    <p class="text-sm text-body">[Opening context paragraph explaining the roadmap focus]</p>
+    
+    <div class="panel panel-info p-4 space-y-2">
+      <h4 class="text-sm font-semibold text-heading">[Subsection title]</h4>
+      <p class="text-xs text-body leading-relaxed">[2-4 paragraphs of detailed guidance]</p>
+      <ul class="list-disc ml-4 text-xs text-body space-y-1">
+        <li>[Specific point 1]</li>
+        <li>[Specific point 2]</li>
+      </ul>
+    </div>
+    
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+      <li>[Actionable item 1]</li>
+      <li>[Actionable item 2]</li>
+      <li>[Actionable item 3]</li>
+    </ul>
+  </section>
+  -->
+</section>

@@ -1,0 +1,80 @@
+﻿<section class="space-y-6" id="p60-explorer">
+  <!-- Controls section -->
+  <div class="panel panel-info p-4 space-y-4">
+    <h4 class="text-sm font-semibold text-heading">MAKER Simulator</h4>
+    
+    <div class="grid md:grid-cols-2 gap-4">
+      <div>
+        <label for="p60-model" class="block text-sm font-medium text-heading">Worker Model (The "Intern")</label>
+        <select id="p60-model" class="mt-1 w-full rounded border border-divider bg-card px-3 py-2 text-sm text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
+          <option value="gpt-4.1-mini-low" data-err="0.0022" data-cost="1.60" data-tok="538">gpt-4.1-mini (τ=0.1) [0.22% err]</option>
+          <option value="gpt-4.1-mini-high" data-err="0.0040" data-cost="1.60" data-tok="580">gpt-4.1-mini (τ=1.0) [0.40% err]</option>
+          <option value="o3-mini" data-err="0.0018" data-cost="4.40" data-tok="535">o3-mini (low) [0.18% err]</option>
+          <option value="gpt-oss-20b" data-err="0.0358" data-cost="0.20" data-tok="1104">gpt-oss-20B [3.58% err]</option>
+          <option value="deepseek-v3.1" data-err="0.0569" data-cost="1.70" data-tok="1004">deepseek-v3.1 [5.69% err]</option>
+          <option value="haiku-4.5" data-err="0.1839" data-cost="5.00" data-tok="588">haiku-4.5 [18.4% err]</option>
+          <option value="qwen-3" data-err="0.2342" data-cost="0.60" data-tok="449">qwen-3 [23.4% err]</option>
+          <option value="gpt-4.1-nano" data-err="0.3571" data-cost="0.40" data-tok="842">gpt-4.1-nano [35.7% err]</option>
+        </select>
+        <p class="text-xs panel-muted mt-1">Select a cheaper, less accurate model to see if voting can fix it.</p>
+      </div>
+
+      <div>
+        <label for="p60-steps" class="block text-sm font-medium text-heading">Task Complexity (Steps)</label>
+        <div class="flex items-center gap-3">
+          <input type="range" id="p60-steps" min="4" max="7" step="0.1" value="6.02" class="flex-1 accent-[var(--accent-strong)]">
+          <span id="p60-steps-val" class="text-sm font-mono w-20 text-right">1.0M</span>
+        </div>
+        <p class="text-xs panel-muted mt-1">How many small actions in a row? (10k = moderate, 1M = massive)</p>
+      </div>
+    </div>
+
+    <div>
+      <label for="p60-k" class="block text-sm font-medium text-heading">Safety Net Strength (Required Lead)</label>
+      <div class="flex items-center gap-3">
+        <input type="range" id="p60-k" min="1" max="15" step="1" value="3" class="flex-1 accent-[var(--accent-strong)]">
+        <span id="p60-k-val" class="text-sm font-mono w-20 text-right">k=3</span>
+      </div>
+      <p class="text-xs panel-muted mt-1">How many <em>extra</em> agreeing votes are needed? (e.g., 3-0 or 5-2). Higher = safer but more calls.</p>
+    </div>
+  </div>
+
+  <!-- Results section -->
+  <div class="grid md:grid-cols-2 gap-4">
+    <div class="panel panel-neutral p-4 space-y-3">
+      <h4 class="text-sm font-semibold text-heading">Projected Reliability</h4>
+      <div class="flex flex-col items-center justify-center h-24">
+        <span id="p60-prob" class="text-3xl font-bold text-heading">--%</span>
+        <span class="text-xs panel-muted">Probability of ZERO errors</span>
+      </div>
+      <div class="text-xs panel-muted border-t border-divider pt-2">
+        <div class="flex justify-between">
+          <span>Rec. min k (95% success):</span>
+          <span id="p60-kmin" class="font-mono font-semibold">--</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel panel-neutral p-4 space-y-3">
+      <h4 class="text-sm font-semibold text-heading">Estimated Cost</h4>
+      <div class="flex flex-col items-center justify-center h-24">
+        <span id="p60-cost" class="text-3xl font-bold text-heading">$0.00</span>
+        <span class="text-xs panel-muted">Total API cost</span>
+      </div>
+      <div class="text-xs panel-muted border-t border-divider pt-2">
+        <div class="flex justify-between">
+          <span>Cost efficiency:</span>
+          <span id="p60-efficiency" class="font-mono">--</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Insight section -->
+  <div class="panel panel-warning p-4 space-y-2">
+    <h4 class="text-sm font-semibold text-heading">Simulator Insight</h4>
+    <div id="p60-insight" class="text-sm text-body space-y-2">
+      <p>Loading...</p>
+    </div>
+  </div>
+</section>

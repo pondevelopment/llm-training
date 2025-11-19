@@ -1,4 +1,28 @@
 {
+  "60": {
+    "title": "Solving a Million-Step LLM Task with Zero Errors",
+    "authors": [
+      "Elliot Meyerson",
+      "et al."
+    ],
+    "year": 2025,
+    "venue": "arXiv:2511.09030 (2025)",
+    "tags": [
+      "agentic-ai",
+      "error-correction",
+      "multi-agent",
+      "scalability",
+      "towers-of-hanoi"
+    ],
+    "summary": "MAKER solves a million-step logic puzzle with zero errors by breaking tasks into tiny steps and using a voting system. It proves that reliable long-horizon execution is possible using cheaper, smaller models like gpt-4.1-mini if the process is managed correctly.",
+    "dir": "./papers/p60",
+    "interactiveTitle": "MAKER reliability & cost simulator",
+    "relatedQuestions": [
+      50,
+      56,
+      20
+    ]
+  },
   "59": {
     "title": "AI Agents, Productivity, and Higher-Order Thinking: Early Evidence From Software Development",
     "authors": [

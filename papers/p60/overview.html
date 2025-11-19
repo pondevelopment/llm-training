@@ -1,0 +1,108 @@
+﻿<section class="space-y-5">
+  <!-- Paper header -->
+  <section class="panel panel-info p-4 space-y-4">
+    <div class="flex items-center justify-between gap-4">
+      <div class="flex-1 min-w-0">
+        <h2 class="text-xl font-semibold text-heading">Solving a Million-Step LLM Task with Zero Errors</h2>
+        <p class="text-sm panel-muted">Elliot Meyerson, et al. • arXiv:2511.09030 (2025)</p>
+      </div>
+      <a href="https://arxiv.org/abs/2511.09030" target="_blank" rel="noopener" class="btn-soft text-xs font-semibold flex-shrink-0" data-accent="foundations">
+        <span>View paper</span>
+        <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+    <p class="text-sm leading-relaxed panel-muted">
+      Introduces <strong>MAKER</strong>, a framework that solves a million-step logic puzzle with zero errors. By combining extreme decomposition (breaking tasks into tiny steps) with voting and safety checks, it demonstrates that reliability can scale efficiently even for massive workflows.
+    </p>
+    <div class="panel panel-neutral-soft p-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Plain-language explainer</p>
+      <p class="panel-muted">Instead of asking one genius to build a skyscraper alone, MAKER hires a million interns (small models) to lay one brick each, with supervisors checking every brick before the next one is laid. This ensures that even if interns make mistakes, the building stands perfect.</p>
+    </div>
+  </section>
+
+  <!-- Executive quick take -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <header class="flex items-center gap-2">
+      <span aria-hidden="true" class="text-lg">🧭</span>
+      <h3 class="text-sm font-semibold tracking-wide uppercase text-heading">Executive quick take</h3>
+    </header>
+    <p class="text-sm leading-relaxed text-body">
+      Achieving 99.9% accuracy isn't enough when a task requires a million steps—mathematically, failure is guaranteed. This paper introduces a blueprint for "perfect" reliability by changing the architecture, not the model. By treating every small step as a voteable event, organizations can run massive, autonomous workflows (like full-codebase migrations or complex audits) with zero errors, trading cheap compute for absolute certainty.
+    </p>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>Architecture beats Intelligence:</strong> You don't need a smarter model to solve harder problems; you need a better process. Managing errors at the "atomic" level allows cheap models to outperform expensive ones.</li>
+      <li><strong>The "Mini" Advantage:</strong> When you use voting to catch errors, the cost of the model matters more than its raw intelligence. A cheap model that votes 5 times is often more reliable and affordable than one giant model guessing once.</li>
+      <li><strong>The New KPI:</strong> Stop measuring "pass rate" on the whole task. Start measuring "error rate per step." If that number isn't near zero, long-term autonomy is impossible.</li>
+    </ul>
+  </section>
+
+  <!-- Business relevance -->
+  <section class="panel panel-success p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">💼 Business relevance</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+      <li><strong>For AI Leaders:</strong> Stop waiting for a "perfect" model. Invest in a "perfect" process. Build systems that assume the AI will make mistakes and automatically correct them.</li>
+      <li><strong>For Budget Holders:</strong> A cheap model that checks its work is better value than an expensive model that doesn't. You can slash inference costs by using smaller models with a voting layer.</li>
+      <li><strong>For Risk Managers:</strong> This approach introduces a "digital paper trail" for every decision. Unlike a black-box answer, you can see exactly which step failed and why, making compliance much easier.</li>
+    </ul>
+    <div class="panel panel-neutral-soft p-3 mt-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Strategic Pilot: Zero-Defect Data Migration</p>
+      <div class="panel-muted space-y-2">
+        <p><strong>The Challenge:</strong> Migrating 1 million customer records. Even a 99.9% success rate leaves 1,000 corrupted files—a disaster for compliance.</p>
+        <p><strong>The "MAKER" Approach:</strong>
+          <br>1. <strong>Decompose:</strong> Don't ask the AI to "migrate the database." Ask it to "migrate Row #1."
+          <br>2. <strong>Vote:</strong> Have three separate "mini" models propose the new format for Row #1.
+          <br>3. <strong>Verify:</strong> Only write to the database if all three agree. If they disagree, call a human or retry.
+        </p>
+        <p><strong>The Outcome:</strong> Compute costs rise (3x calls), but manual cleanup costs drop to zero. You trade cheap CPU cycles for expensive human hours.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Supporting callouts -->
+  <div class="grid md:grid-cols-2 gap-4">
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">The "Atomic" Workflow Strategy</h3>
+      <p class="text-xs panel-muted">LLMs are brilliant at 10-second tasks but unreliable at 10-hour tasks. This paper proves that if you break a massive job (1 million steps) into "atomic" units (1 step), the difficulty collapses. By solving the smallest possible piece of work, you make it easy for even a basic model to be perfect, and easy for a system to verify it.</p>
+    </div>
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">The "First-to-K" Safety Net</h3>
+      <p class="text-xs panel-muted">How do you know the AI is right without a human checking? You use a jury. The "First-to-K" method keeps asking models for an answer until one answer leads by a margin of $k$ (e.g., 3 votes). For simple steps, the first vote wins (fast). For tricky steps, the system automatically pauses and "thinks" longer by asking for more votes. It's dynamic quality control.</p>
+    </div>
+  </div>
+
+  <!-- Key insight / Method / Implication trio -->
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">The Problem</h3>
+      <p class="text-xs panel-muted">In a long chain of tasks, small errors compound. If you have 99% accuracy, you will fail 100% of the time on a 1,000-step task. You need 100% accuracy.</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">The Solution</h3>
+      <p class="text-xs panel-muted">Don't try to be perfect. Try to be correctable. By voting on every single step, you catch the 1% of errors immediately, preventing them from ruining the whole job.</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">The Takeaway</h3>
+      <p class="text-xs panel-muted">Reliability is an engineering problem, not a research problem. You can build reliable systems out of unreliable components if you organize them correctly.</p>
+    </div>
+  </div>
+
+  <!-- Evidence -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🧪 Evidence</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>Zero errors at scale:</strong> In a test requiring over 1 million sequential decisions (Towers of Hanoi), the MAKER framework achieved a 100% success rate. Standard approaches failed almost immediately.</li>
+      <li><strong>Cost vs. Reliability:</strong> The study found that using a cheaper model (gpt-4.1-mini) with voting was not only more reliable but also <em>cheaper</em> overall than using a massive model (like GPT-4) without voting, because the massive model still made fatal errors that ruined the run.</li>
+      <li><strong>The "Infinite Loop" Trap:</strong> One of the biggest killers of autonomous agents is getting stuck in a loop. The paper showed that simple "red-flag" checks (like "is this response too long?") eliminated these loops entirely, allowing the system to recover and finish the job.</li>
+    </ul>
+  </section>
+
+  <!-- Forward-looking roadmap -->
+  <section class="panel panel-warning p-5 space-y-2">
+    <h3 class="text-sm font-semibold text-heading">🔭 For your roadmap</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+      <li><strong>Audit your "Long-Chain" processes:</strong> Identify workflows in your company that require >10 steps (e.g., "onboard a new employee"). These are your candidates for this architecture.</li>
+      <li><strong>Build a "Voting" wrapper:</strong> Don't just call the LLM API once. Create a simple code wrapper that calls it 3 times and compares the strings. If they match, proceed. If not, alert a human. This is your MVP.</li>
+      <li><strong>Create "Micro-Prompts":</strong> Stop writing 5-page prompts. Break your task into 50 tiny steps and write a 1-sentence prompt for each. Reliability comes from simplicity.</li>
+    </ul>
+  </section>
+</section>

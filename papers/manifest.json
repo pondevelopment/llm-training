@@ -1,4 +1,28 @@
 {
+  "61": {
+    "title": "Barriers to AI Adoption: Image Concerns at Work",
+    "authors": [
+      "David Almog"
+    ],
+    "year": 2025,
+    "venue": "Kellogg School of Management (2025)",
+    "tags": [
+      "labor-economics",
+      "ai-adoption",
+      "social-signaling",
+      "workplace-behavior",
+      "field-experiment",
+      "human-ai-collaboration"
+    ],
+    "summary": "Field experiment with 450 remote workers reveals that when AI usage is visible to evaluators, workers reduce reliance on AI recommendations by 14%, causing a 3.4% drop in performance. Workers fear that heavy AI reliance signals a lack of confidence in their own judgment, a concern that persists even when evaluators are explicitly instructed to prioritize accuracy.",
+    "dir": "./papers/p61",
+    "interactiveTitle": "Workplace image concern simulator",
+    "relatedQuestions": [
+      50,
+      52,
+      45
+    ]
+  },
   "60": {
     "title": "Solving a Million-Step LLM Task with Zero Errors",
     "authors": [
@@ -1470,21 +1494,17 @@
     "venue": "BFI Working Paper (2025)",
     "tags": [
       "labor-economics",
-      "field-experiments",
+      "ai-adoption",
       "productivity",
       "wages",
-      "adoption",
-      "pass-through",
-      "firm-investments",
-      "general-purpose-technology"
+      "field-study"
     ],
+    "summary": "Field study of 25,000 Danish workers across 11 AI-exposed occupations finds widespread chatbot adoption (83% with employer encouragement) and modest productivity gains (2.8% time savings), yet precisely estimated zero effects on earnings, hours, and wages—with confidence intervals ruling out impacts >1%. Pass-through from productivity to pay is only 3–7%, challenging narratives of imminent labor market transformation from Generative AI.",
     "dir": "./papers/p46",
     "interactiveTitle": "Labor market impact simulator",
-    "summary": "Two-wave survey of 25,000 Danish workers across 11 AI-exposed occupations, linked to administrative earnings data, finds widespread adoption (83% with employer encouragement, 38% of firms deploy in-house models, 30% provide training) yields modest productivity gains (2.8% average time savings vs. 15-50% in RCTs) and precisely estimated zero effects on earnings, hours, and wages—with confidence intervals ruling out impacts >1%. Pass-through from productivity to pay is only 3–7%, far below competitive model predictions (100%), driven by weak bargaining power for bottom-up tool adoption, task-output mismatches absent workflow redesign, and monopsony frictions. No firm-level effects detected on employment or wage bills through 18 months post-ChatGPT.",
     "relatedQuestions": [
-      40,
-      28,
-      12
+      50,
+      52
     ]
   },
   "47": {

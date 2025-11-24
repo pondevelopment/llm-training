@@ -87,13 +87,14 @@ export function AgentModeSection() {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-6 max-w-7xl mx-auto">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
           {searchEvolutionStages.map((stage, index) => {
             const getStageColor = (s: string) => {
               switch (s) {
                 case 'traditional': return 'border-[#6b7280]';
                 case 'agentic': return 'border-[#f59e0b]';
                 case 'agent-mode': return 'border-[#10b981]';
+                case 'agentic-commerce': return 'border-[#6366f1]'; // Indigo for the future
                 default: return 'border-[var(--color-border)]';
               }
             };

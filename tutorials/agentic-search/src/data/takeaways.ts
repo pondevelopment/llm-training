@@ -47,5 +47,11 @@ export const takeaways: Takeaway[] = [
     icon: '🎯',
     title: 'Optimize Early for 4-9× Returns',
     description: 'Agentic search delivers 15.9% conversion rates vs 1.8% for traditional search. Use the FEED framework (Full data, External validation, Engaging copy, Dynamic monitoring) to capture this opportunity before markets mature.'
+  },
+  {
+    id: 8,
+    icon: '💰',
+    title: 'The $1 Trillion Agentic Commerce Opportunity',
+    description: 'McKinsey projects agentic commerce will drive $1T in US retail by 2030. Success requires mastering new protocols (MCP, A2A, AP2), building agent-ready APIs, and rethinking monetization for an automated economy.'
   }
 ];

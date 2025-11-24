@@ -6,7 +6,7 @@
 
 export interface SearchEvolution {
   id: string;
-  stage: 'traditional' | 'agentic' | 'agent-mode';
+  stage: 'traditional' | 'agentic' | 'agent-mode' | 'agentic-commerce';
   title: string;
   subtitle: string;
   icon: string;
@@ -74,6 +74,24 @@ export const searchEvolutionStages: SearchEvolution[] = [
       'Text-based browser (46% of visits) sees no styling or images',
       'Blocked by CAPTCHAs, bot detection, pop-ups',
       'Only 17% conversion rate when reaching checkout'
+    ],
+    autonomy: 'full'
+  },
+  {
+    id: 'agentic-commerce',
+    stage: 'agentic-commerce',
+    title: 'Agentic Commerce (A2A)',
+    subtitle: 'Machine-to-Machine Economy',
+    icon: '🤝',
+    description: 'Agents negotiate with other agents. Your personal agent talks to a travel agent or retail agent to execute complex tasks without you.',
+    userAction: 'User says "Book my usual trip to London for next Tuesday"',
+    systemAction: 'User Agent negotiates with Airline Agent & Hotel Agent via A2A protocols',
+    outcome: 'Trip booked, paid, and calendar updated automatically',
+    example: 'Your agent finds a flight, but the Airline Agent offers a discount for a slightly different time. Your agent accepts based on your preferences.',
+    limitations: [
+      'Requires standardized protocols (A2A, AP2)',
+      'Trust/Authorization challenges',
+      'Loss of serendipitous discovery'
     ],
     autonomy: 'full'
   }

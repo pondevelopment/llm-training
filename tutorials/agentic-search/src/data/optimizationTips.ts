@@ -368,3 +368,35 @@ export const verticalPatterns: VerticalPattern[] = [
     example: 'Specific dietary searches ("grass-fed beef box," "healthy snack subscription") convert well.'
   }
 ];
+
+export interface AgenticStrategy {
+  id: string;
+  title: string;
+  icon: string;
+  description: string;
+  action: string;
+}
+
+export const agenticStrategies: AgenticStrategy[] = [
+  {
+    id: 'infrastructure',
+    title: 'Agent-Ready Infrastructure',
+    icon: '🏗️',
+    description: 'Shift from human-readable to agent-readable. APIs must expose inventory, pricing, and actions (booking, buying) directly to agents via protocols like MCP.',
+    action: 'Build APIs that allow agents to "do" (buy, book), not just "read".'
+  },
+  {
+    id: 'trust-security',
+    title: 'Trust & Security (AP2)',
+    icon: '🛡️',
+    description: 'Agent Payments (AP2) and Agent-to-Agent (A2A) protocols require robust authentication. Agents need to prove they are authorized to spend on a user\'s behalf.',
+    action: 'Implement agent-specific auth tokens and spending limits.'
+  },
+  {
+    id: 'business-model',
+    title: 'Business Model Evolution',
+    icon: '💼',
+    description: 'The "search" model (ads) is shifting to "commerce" (transactions). Agents don\'t click ads; they complete tasks. Revenue comes from being the chosen fulfillment partner.',
+    action: 'Optimize for "being the answer" rather than "getting the click".'
+  }
+];

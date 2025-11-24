@@ -7,6 +7,7 @@ import { AgentReadinessChecker } from './AgentReadinessChecker';
 import { ConversionOptimization } from './ConversionOptimization';
 import { IndustryInsights } from './IndustryInsights';
 import { PlatformComparison } from './PlatformComparison';
+import { AgenticStrategiesPanel } from './AgenticStrategiesPanel';
 import { UniversalPrinciples } from './UniversalPrinciples';
 
 /**
@@ -18,9 +19,10 @@ import { UniversalPrinciples } from './UniversalPrinciples';
  * Structure:
  * 1. Introduction - Why optimization matters
  * 2. FEED Framework - 4 interactive pillar cards
- * 3. Metrics Panel - Real conversion data
- * 4. Limitations Panel - What breaks and why
- * 5. Call-to-Action - Start optimizing
+ * 3. Agentic Strategies - McKinsey insights
+ * 4. Metrics Panel - Real conversion data
+ * 5. Limitations Panel - What breaks and why
+ * 6. Call-to-Action - Start optimizing
  * 
  * Features:
  * - Expandable FEED cards with examples
@@ -50,9 +52,8 @@ export function OptimizationSection() {
               agents are doing the searching.
             </p>
             <p className="text-text-secondary leading-relaxed">
-              Based on real-world data from ChatGPT Shopping (launched April 2025), we'll explore 
-              the <span className="font-semibold text-text-primary">FEED framework</span> — a practical 
-              methodology for optimization, backed by conversion metrics and insights from early adopters.
+              Based on real-world data from ChatGPT Shopping (launched April 2025) and McKinsey's 
+              "Agentic Commerce Opportunity" report, we'll explore practical methodologies for optimization.
             </p>
           </div>
         </div>
@@ -67,6 +68,9 @@ export function OptimizationSection() {
           </p>
         </div>
       </motion.div>
+
+      {/* Agentic Strategies (McKinsey) */}
+      <AgenticStrategiesPanel />
 
       {/* FEED Framework */}
       <section className="space-y-6">

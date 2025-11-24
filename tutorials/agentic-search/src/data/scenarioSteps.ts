@@ -915,6 +915,76 @@ export const gettingCompanyInfoScenario: ScenarioStep[] = [
   }
 ];
 
+// Scenario 7: Agentic Travel Booking (A2A)
+export const travelBookingScenario: ScenarioStep[] = [
+  {
+    id: 1,
+    title: 'Receive User Intent',
+    icon: '🗣️',
+    description: 'User asks: "Book my usual trip to London for next Tuesday, but find a hotel with a gym."',
+    reasoning: 'Agent identifies "usual trip" (London, Tuesday), infers preferences from history (BA flight, morning departure), and notes new constraint (Hotel Gym).',
+    dataReturned: [
+      '📋 Intent Parsed:',
+      '• Destination: London (LHR)',
+      '• Date: Next Tuesday',
+      '• Airline Pref: British Airways (from history)',
+      '• Hotel Pref: Gym required (new constraint)',
+      '• Budget: Corporate policy limit'
+    ],
+    duration: '0.5s'
+  },
+  {
+    id: 2,
+    title: 'Agent-to-Agent Discovery',
+    icon: '📡',
+    toolUsed: 'A2A Protocol Discovery',
+    toolIcon: '🌐',
+    description: 'User Agent broadcasts intent to Airline and Hotel Agents via A2A protocol.',
+    reasoning: 'Instead of searching websites, the agent pings the BA Agent and Marriott/Hilton Agents directly for real-time availability and personalized offers.',
+    dataReturned: [
+      '📡 A2A Responses:',
+      '• BA Agent: "Flight BA123 available at 08:00. Price: £450. Status: Confirmed."',
+      '• Marriott Agent: "No gym availability at usual hotel."',
+      '• Hilton Agent: "Room with Gym available. Price: £200. Corporate rate applied."'
+    ],
+    duration: '1.2s'
+  },
+  {
+    id: 3,
+    title: 'Negotiation & Selection',
+    icon: '🤝',
+    toolUsed: 'Negotiation Module',
+    toolIcon: '⚖️',
+    description: 'Agents negotiate terms. User Agent selects best combination.',
+    reasoning: 'Marriott is out (no gym). Hilton is selected. BA flight is confirmed. Agent checks if bundle discount applies.',
+    dataReturned: [
+      '✅ Selection Made:',
+      '• Flight: BA123 (08:00)',
+      '• Hotel: Hilton Metropole (Gym confirmed)',
+      '• Total Cost: £650 (within policy)',
+      '• Auth Token: Generated for payment'
+    ],
+    duration: '0.8s'
+  },
+  {
+    id: 4,
+    title: 'Execution & Payment (AP2)',
+    icon: '💳',
+    toolUsed: 'Agent Payment Protocol (AP2)',
+    toolIcon: '🔐',
+    description: 'User Agent executes payment using authorized wallet.',
+    reasoning: 'Payment is processed directly between agents using AP2 protocol. No credit card form filling required.',
+    dataReturned: [
+      '🎉 Transaction Complete:',
+      '• Booking Ref: #XYZ123',
+      '• Receipt: Emailed to finance',
+      '• Calendar: Updated',
+      '• User Notified: "Trip booked. Flight at 8am, Hilton hotel."'
+    ],
+    duration: '1.5s'
+  }
+];
+
 // Export all scenarios with metadata
 export interface ScenarioMeta {
   id: string;
@@ -967,6 +1037,13 @@ export const allScenarios: ScenarioMeta[] = [
     description: 'Customer finds store hours, return policy, and answers to common questions',
     icon: '❓',
     steps: gettingCompanyInfoScenario
+  },
+  {
+    id: 'agentic-travel',
+    name: '✈️ Agentic Travel (A2A)',
+    description: 'Demonstrates Agent-to-Agent negotiation and autonomous booking via protocols',
+    icon: '✈️',
+    steps: travelBookingScenario
   }
 ];
 

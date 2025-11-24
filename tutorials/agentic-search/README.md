@@ -11,6 +11,7 @@ An interactive deep-dive tutorial teaching marketers and developers how AI agent
 - **Model Context Protocol (MCP)** - The standard for tool discovery and integration
 - **Real-World Scenarios** - 6 customer-facing scenarios with step-by-step agent reasoning
 - **Optimization Strategies** - FEED framework with real conversion data (15.9% vs 1.8%)
+- **The Agentic Commerce Era** - Insights from McKinsey on the $1T opportunity and new protocols (A2A, AP2)
 - **Limitations & Solutions** - Common challenges and how to address them
 
 ## 🎯 Tutorial Sections

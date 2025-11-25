@@ -1,6 +1,9 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { takeaways } from '../../data/takeaways';
+import { takeaways, categoryInfo } from '../../data/takeaways';
 import { TakeawayCard } from './TakeawayCard';
+
+type CategoryFilter = 'all' | 'fundamentals' | 'protocols' | 'business' | 'trust';
 
 /**
  * SummarySection (Phase 5)
@@ -9,16 +12,23 @@ import { TakeawayCard } from './TakeawayCard';
  * 
  * Structure:
  * 1. Introduction with celebration
- * 2. Key Takeaways (6 cards)
- * 3. FAQ (10 collapsible items)
- * 4. Call-to-action for building agent-friendly services
+ * 2. Key Takeaways (15 cards, grouped by category)
+ * 3. Call-to-action for building agent-friendly services
  * 
  * Features:
+ * - Category filter tabs
  * - Staggered animation for takeaway cards
- * - Expandable FAQ items
  * - Clean, scannable layout
  */
 export function SummarySection() {
+  const [activeCategory, setActiveCategory] = useState<CategoryFilter>('all');
+  
+  const filteredTakeaways = activeCategory === 'all' 
+    ? takeaways 
+    : takeaways.filter(t => t.category === activeCategory);
+
+  const categories: CategoryFilter[] = ['all', 'fundamentals', 'protocols', 'business', 'trust'];
+
   return (
     <div className="space-y-12">
       {/* Introduction */}
@@ -35,7 +45,7 @@ export function SummarySection() {
         <p className="text-text-secondary text-lg leading-relaxed">
           You've completed the agentic search tutorial! You now understand how AI agents 
           plan research, discover tools, and deliver goal-oriented results. Let's recap 
-          the key concepts and answer common questions.
+          the key concepts.
         </p>
       </motion.div>
 
@@ -50,13 +60,33 @@ export function SummarySection() {
           <h3 className="text-2xl font-bold text-text-primary mb-2">
             💡 Key Takeaways
           </h3>
-          <p className="text-text-secondary">
-            Six essential concepts that define agentic search
+          <p className="text-text-secondary mb-4">
+            15 essential concepts organized by category
           </p>
+          
+          {/* Category Filter Tabs */}
+          <div className="flex flex-wrap justify-center gap-2 mt-4">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setActiveCategory(cat)}
+                className={`px-4 py-2 rounded-lg font-medium transition-all ${
+                  activeCategory === cat
+                    ? 'bg-accent text-white shadow-lg scale-105'
+                    : 'bg-card-secondary text-body hover:bg-card-tertiary'
+                }`}
+              >
+                {cat === 'all' ? '🌟 All' : `${categoryInfo[cat].icon} ${categoryInfo[cat].title}`}
+                <span className="ml-1 text-xs opacity-75">
+                  ({cat === 'all' ? takeaways.length : takeaways.filter(t => t.category === cat).length})
+                </span>
+              </button>
+            ))}
+          </div>
         </motion.div>
 
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {takeaways.map((takeaway, index) => (
+          {filteredTakeaways.map((takeaway, index) => (
             <TakeawayCard key={takeaway.id} takeaway={takeaway} index={index} />
           ))}
         </div>

@@ -88,13 +88,14 @@ export function LandingPage({ onStartTutorial }: LandingPageProps) {
             What You'll Learn
           </h2>
           
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+          <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-3">
             {[
-              { icon: '🔄', title: 'Search Comparison', desc: 'Traditional vs Agentic approaches' },
-              { icon: '🧰', title: 'Tool Discovery', desc: 'How agents find and use APIs' },
-              { icon: '📋', title: 'MCP Protocol', desc: 'Standardized tool manifests' },
-              { icon: '⚡', title: 'Live Workflow', desc: 'Step-by-step simulation' },
-              { icon: '🎯', title: 'Optimization', desc: 'FEED framework & conversion tactics' }
+              { icon: '🔄', title: 'Search Evolution', desc: 'Traditional vs Agentic approaches' },
+              { icon: '🧰', title: 'Tool Discovery', desc: 'How agents find and use APIs via MCP' },
+              { icon: '🎬', title: 'Live Scenarios', desc: 'Watch agents solve real problems' },
+              { icon: '⚡', title: 'Agent Autonomy', desc: 'From recommendations to transactions' },
+              { icon: '🎯', title: 'Optimization', desc: 'FEED framework & JSON-LD' },
+              { icon: '💰', title: '$3-5T Opportunity', desc: 'Agentic commerce landscape' }
             ].map((item, index) => (
               <motion.div
                 key={index}
@@ -138,65 +139,101 @@ export function LandingPage({ onStartTutorial }: LandingPageProps) {
               ]}
               delay={0.1}
             />
-            
+
             <SectionPreviewCard
-              icon="🧰"
-              title="Section 2: Toolbox Explorer"
-              description="Explore 8 different tools agents use for research and analysis"
+              icon="🎬"
+              title="Section 2: Scenario Player"
+              description="Watch agents help real customers: buying bikes, booking test rides, getting support"
               features={[
-                'Interactive tool cards',
-                'Detailed capabilities and use cases',
-                'Example API calls and outputs'
+                '7 interactive customer scenarios',
+                'See tool calls and agent reasoning',
+                'Trace insights to their sources'
               ]}
               delay={0.2}
             />
             
             <SectionPreviewCard
+              icon="🧰"
+              title="Section 3: Toolbox Explorer"
+              description="Explore 12+ tools agents use for research, commerce, and analysis"
+              features={[
+                'Interactive tool cards',
+                'Protocols: MCP, A2A, AP2, ACP',
+                'Example API calls and outputs'
+              ]}
+              delay={0.3}
+            />
+            
+            <SectionPreviewCard
               icon="📋"
-              title="Section 3: MCP Discovery"
+              title="Section 4: MCP Discovery"
               description="Learn how agents discover and use tools via Model Context Protocol"
               features={[
                 'Animated discovery simulator',
                 'Interactive manifest explorer',
                 'Real pon.bike API example'
               ]}
-              delay={0.3}
-            />
-
-            <SectionPreviewCard
-              icon="🎬"
-              title="Section 4: Scenario Player"
-              description="Watch an agent plan Q4 content strategy for a bike shop from start to finish"
-              features={[
-                'Auto-play workflow simulation',
-                'See tool calls and reasoning',
-                'Trace insights to their sources'
-              ]}
               delay={0.4}
             />
 
             <SectionPreviewCard
-              icon="🎯"
-              title="Section 5: Optimization"
-              description="Learn practical strategies to make your products and services visible in agentic search"
+              icon="⚡"
+              title="Section 5: Agent Mode"
+              description="Understand the evolution from recommendations to autonomous transactions"
               features={[
-                'FEED framework for optimization',
-                'Real conversion metrics (15.9% vs 1.8%)',
-                'Common limitations and solutions'
+                'Traditional → Agentic → Agent Mode → A2A',
+                'Agent behavior statistics (46% text browser)',
+                'Platform comparison (ChatGPT, Gemini, etc.)'
               ]}
               delay={0.5}
             />
 
             <SectionPreviewCard
-              icon="🎓"
-              title="Section 6: Takeaways"
-              description="Recap essential concepts and understand the future of agentic search"
+              icon="🎯"
+              title="Section 6: Optimization"
+              description="Make your products visible when agents do the searching"
               features={[
-                '7 essential takeaways',
-                'Next steps for implementation',
-                'Building agent-friendly services'
+                'FEED framework for optimization',
+                'JSON-LD structured data essentials',
+                'ChatGPT/Bing Shopping integration'
               ]}
               delay={0.6}
+            />
+
+            <SectionPreviewCard
+              icon="♿"
+              title="Section 7: Accessibility"
+              description="ARIA patterns that help both screen readers AND AI agents understand your pages"
+              features={[
+                'Semantic HTML for agents',
+                'ARIA patterns with code examples',
+                'E-commerce accessibility patterns'
+              ]}
+              delay={0.7}
+            />
+
+            <SectionPreviewCard
+              icon="🧪"
+              title="Section 8: Agent Testing"
+              description="Test YOUR website's compatibility with AI agents using ChatGPT's browsing mode"
+              features={[
+                'Prompt generator for agent testing',
+                'Identify conversion barriers',
+                'Discover accessibility issues'
+              ]}
+              delay={0.8}
+            />
+
+            <SectionPreviewCard
+              icon="🎓"
+              title="Section 9: Takeaways"
+              description="Recap essential concepts and the $3-5 trillion agentic commerce opportunity"
+              features={[
+                '15 essential takeaways by category',
+                'McKinsey trust framework',
+                'Building agent-friendly services'
+              ]}
+              delay={0.9}
             />
           </div>
         </motion.div>

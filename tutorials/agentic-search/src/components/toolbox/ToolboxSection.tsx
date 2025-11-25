@@ -41,7 +41,7 @@ export function ToolboxSection() {
             <strong>The challenge:</strong> How does an agent discover what tools are available? 
             Traditional APIs require hardcoded integrations. But with <strong>Model Context Protocol (MCP)</strong>, 
             agents can dynamically discover tools, read their capabilities, and learn how to use them—all 
-            automatically. We'll explore MCP in detail in Section 3.
+            automatically. We'll explore MCP in detail in Section 4.
           </p>
           <div className="grid gap-3 sm:grid-cols-2 mt-4">
             <div className="flex items-start gap-2">
@@ -59,10 +59,10 @@ export function ToolboxSection() {
               </div>
             </div>
             <div className="flex items-start gap-2">
-              <span className="text-lg">🔍</span>
+              <span className="text-lg">🤝</span>
               <div>
-                <p className="font-semibold text-heading">Discovery via MCP</p>
-                <p className="text-xs text-muted">Agents find tools automatically</p>
+                <p className="font-semibold text-heading">Commerce Protocols</p>
+                <p className="text-xs text-muted">MCP, A2A, AP2, ACP standards</p>
               </div>
             </div>
             <div className="flex items-start gap-2">

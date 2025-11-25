@@ -80,6 +80,29 @@ export function IntroSection() {
         </div>
       </div>
 
+      {/* Terminology Guide */}
+      <div className="panel p-4 max-w-3xl mx-auto bg-[var(--color-subtle-bg)]">
+        <p className="text-sm text-muted mb-2"><strong className="text-heading">📚 Terminology used in this tutorial:</strong></p>
+        <div className="grid gap-2 sm:grid-cols-2 text-xs">
+          <div className="flex items-start gap-2">
+            <span className="font-bold text-body">Traditional Search:</span>
+            <span className="text-muted">Returns links, you do the work</span>
+          </div>
+          <div className="flex items-start gap-2">
+            <span className="font-bold text-body">Agentic Search:</span>
+            <span className="text-muted">AI recommends, you click/buy</span>
+          </div>
+          <div className="flex items-start gap-2">
+            <span className="font-bold text-body">Agent Mode:</span>
+            <span className="text-muted">AI completes transactions for you</span>
+          </div>
+          <div className="flex items-start gap-2">
+            <span className="font-bold text-body">Agentic Commerce:</span>
+            <span className="text-muted">Agents negotiate with agents (A2A)</span>
+          </div>
+        </div>
+      </div>
+
       {/* Scenario & Persona Selectors */}
       <div className="max-w-3xl mx-auto space-y-4">
         <div className="panel p-4 space-y-4">

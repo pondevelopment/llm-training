@@ -789,6 +789,23 @@ export function OptimizationSection() {
                 <span className="block mt-1 italic">4.4x average LLM visitor worth vs organic. Prediction: AI search surpasses traditional search by 2028.</span>
               </p>
             </div>
+
+            <div className="bg-[var(--color-card)] rounded-lg p-4 border border-[var(--color-border)] md:col-span-2">
+              <p className="font-bold text-text-primary mb-2">
+                <a 
+                  href="https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-agentic-commerce-opportunity-how-ai-agents-are-ushering-in-a-new-era-for-consumers-and-merchants"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-accent-primary hover:underline"
+                >
+                  McKinsey & Company (October 2025)
+                </a>
+              </p>
+              <p className="text-text-secondary text-xs">
+                "The Agentic Commerce Opportunity: How AI Agents Are Ushering in a New Era for Consumers and Merchants"
+                <span className="block mt-1 italic">Source: McKinsey QuantumBlack. $3-5T global opportunity, trust frameworks, interaction models (A2A, AP2, ACP), merchant readiness domains.</span>
+              </p>
+            </div>
           </div>
         </div>
 

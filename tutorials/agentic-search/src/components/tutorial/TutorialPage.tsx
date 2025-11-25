@@ -17,13 +17,13 @@ interface TutorialPageProps {
 
 const sections = [
   { id: 1, title: 'Search Comparison', icon: '🔍', component: IntroSection },
-  { id: 2, title: 'Toolbox Explorer', icon: '🧰', component: ToolboxSection },
-  { id: 3, title: 'MCP Discovery', icon: '📋', component: MCPSection },
-  { id: 4, title: 'Scenario Player', icon: '🎬', component: ScenarioSection },
-  { id: 5, title: 'Optimization', icon: '🎯', component: OptimizationSection },
-  { id: 6, title: 'Agent Mode', icon: '⚡', component: AgentModeSection },
-  { id: 7, title: 'Agent Testing', icon: '🧪', component: AgentTestingSection },
-  { id: 8, title: 'Accessibility', icon: '♿', component: AccessibilitySection },
+  { id: 2, title: 'Scenario Player', icon: '🎬', component: ScenarioSection },
+  { id: 3, title: 'Toolbox Explorer', icon: '🧰', component: ToolboxSection },
+  { id: 4, title: 'MCP Discovery', icon: '📋', component: MCPSection },
+  { id: 5, title: 'Agent Mode', icon: '⚡', component: AgentModeSection },
+  { id: 6, title: 'Optimization', icon: '🎯', component: OptimizationSection },
+  { id: 7, title: 'Accessibility', icon: '♿', component: AccessibilitySection },
+  { id: 8, title: 'Agent Testing', icon: '🧪', component: AgentTestingSection },
   { id: 9, title: 'Takeaways', icon: '🎓', component: SummarySection },
 ];
 

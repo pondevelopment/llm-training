@@ -338,6 +338,32 @@ export function AccessibilitySection() {
         </p>
       </motion.div>
 
+      {/* Connection to Agent Mode Learning */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.1 }}
+        className="max-w-3xl mx-auto"
+      >
+        <Panel variant="warning" className="p-6 border-l-4 border-[var(--color-accent)]">
+          <div className="flex items-start gap-4">
+            <div className="text-3xl">💡</div>
+            <div className="flex-1">
+              <h4 className="text-lg font-bold text-heading mb-2">
+                Remember: 46% of Agent Visits Use Text-Only Browsers
+              </h4>
+              <p className="text-body leading-relaxed">
+                In Section 5 (Agent Mode), you learned that nearly half of AI agent visits use text-only browsers
+                where <strong>CSS, JavaScript, and images are invisible</strong>. These agents parse your DOM 
+                structure just like screen readers do. The semantic HTML and ARIA patterns you'll learn here 
+                aren't just for human accessibility—they're the <strong>language agents use to understand 
+                your page</strong>. Accessibility = Agent-ability.
+              </p>
+            </div>
+          </div>
+        </Panel>
+      </motion.div>
+
       {/* Why ARIA Matters */}
       <section className="grid md:grid-cols-3 gap-4">
         <Panel variant="info" className="text-center">

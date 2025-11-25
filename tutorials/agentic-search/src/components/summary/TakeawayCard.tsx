@@ -31,6 +31,22 @@ export function TakeawayCard({ takeaway, index }: TakeawayCardProps) {
           <p className="text-text-secondary leading-relaxed">
             {takeaway.description}
           </p>
+          {takeaway.source && (
+            <p className="text-xs text-text-tertiary mt-2">
+              {takeaway.sourceUrl ? (
+                <a 
+                  href={takeaway.sourceUrl} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-accent-primary hover:underline"
+                >
+                  Source: {takeaway.source} ↗
+                </a>
+              ) : (
+                <span>Source: {takeaway.source}</span>
+              )}
+            </p>
+          )}
         </div>
       </div>
     </motion.div>

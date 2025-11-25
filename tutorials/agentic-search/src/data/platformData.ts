@@ -3,6 +3,8 @@
  * 
  * Defines which search APIs, feeds, and optimization strategies
  * are needed for each major AI chat platform.
+ * 
+ * Updated October 2025: Added protocol support (MCP, A2A, AP2, ACP)
  */
 
 export interface SearchPlatform {
@@ -22,6 +24,18 @@ export interface SearchPlatform {
   // Shopping capabilities
   shoppingEnabled: boolean;
   agentMode: boolean; // Can it autonomously complete transactions?
+  instantCheckout?: boolean; // Can complete purchases without leaving chat?
+  
+  // Protocol support (Oct 2025)
+  protocols?: {
+    mcp: boolean;      // Model Context Protocol
+    a2a: boolean;      // Agent-to-Agent Protocol
+    ap2: boolean;      // Agent Payments Protocol (Google)
+    acp: boolean;      // Agentic Commerce Protocol (OpenAI+Stripe)
+  };
+  
+  // Commerce integrations
+  commerceIntegrations?: string[];
   
   // Feed requirements
   productFeed: {
@@ -59,6 +73,21 @@ export const searchPlatforms: SearchPlatform[] = [
     
     shoppingEnabled: true,
     agentMode: true,
+    instantCheckout: true, // Etsy integration, Shopify coming
+    
+    protocols: {
+      mcp: true,   // Full MCP support for tool discovery
+      a2a: false,  // Not yet, expected 2026
+      ap2: false,  // Google protocol, not OpenAI
+      acp: true    // OpenAI + Stripe, launched Oct 2025
+    },
+    
+    commerceIntegrations: [
+      'Shopify (in-chat catalog access)',
+      'Etsy (Instant Checkout beta)',
+      'Stripe (payment processing)',
+      'Bing Shopping (product discovery)'
+    ],
     
     productFeed: {
       name: 'Bing Shopping',
@@ -73,7 +102,8 @@ export const searchPlatforms: SearchPlatform[] = [
       'Clear variant labeling',
       'Real-time pricing and stock',
       'Bing Shopping feed presence',
-      'Accessibility (no CAPTCHA, no bot blocks)'
+      'Accessibility (no CAPTCHA, no bot blocks)',
+      'ACP integration for Instant Checkout'
     ],
     
     testingURL: 'https://chatgpt.com',
@@ -96,6 +126,20 @@ export const searchPlatforms: SearchPlatform[] = [
     
     shoppingEnabled: true,
     agentMode: false, // No autonomous checkout yet
+    instantCheckout: false,
+    
+    protocols: {
+      mcp: true,   // MCP support via Google AI Studio
+      a2a: true,   // A2A Protocol co-developed by Google
+      ap2: true,   // Google's own Agent Payments Protocol
+      acp: false   // OpenAI protocol
+    },
+    
+    commerceIntegrations: [
+      'Google Merchant Center',
+      'Google Shopping',
+      'Google Pay (via AP2)'
+    ],
     
     productFeed: {
       name: 'Google Merchant Center',

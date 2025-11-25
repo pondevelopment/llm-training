@@ -78,6 +78,9 @@ function App() {
               <span className="mx-2">•</span>
               <a href="../../index.html" className="link-primary hover:underline">Home</a>
             </p>
+            <p className="text-center text-muted text-xs mt-3">
+              Content last updated: November 2025. Statistics and market data are point-in-time.
+            </p>
           </div>
         </footer>
       </div>

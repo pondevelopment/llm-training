@@ -279,5 +279,173 @@ export const tools: Tool[] = [
       'Meta tag suggestions'
     ],
     exampleOutput: 'Content optimization report with actionable recommendations'
+  },
+  
+  // === AGENTIC COMMERCE PROTOCOLS ===
+  {
+    id: 'mcp-protocol',
+    name: 'Model Context Protocol (MCP)',
+    icon: '📋',
+    description: 'Standardized context sharing between AI agents and tools',
+    detailedDescription: 'MCP is an interoperability standard developed by Anthropic that enables AI agents to share context, intent, and state across models and tools. Unlike static prompts or isolated API calls, MCP enables persistent, structured communication—allowing agents to retain memory, reasoning, and objectives across environments. It standardizes how developers connect LLM-based applications to tools and function calls.',
+    useCases: [
+      'Enable AI agents to discover and use external APIs dynamically',
+      'Maintain context across multi-step workflows',
+      'Allow agents to share state with other agents or tools',
+      'Provide persistent memory across conversation sessions',
+      'Connect LLMs to databases, services, and real-time data'
+    ],
+    capabilities: [
+      'Tool discovery via manifests',
+      'Structured context passing',
+      'Cross-model interoperability',
+      'Persistent agent memory',
+      'Function call standardization'
+    ],
+    exampleOutput: 'Agent discovers available tools, calls them with structured params, maintains context across calls',
+    manifestSnippet: {
+      name: 'ModelContextProtocol',
+      version: '1.0',
+      functions: [
+        {
+          name: 'discoverTools',
+          description: 'List available tools and their capabilities',
+          params: { category: 'string' },
+          returns: 'ToolManifest[]'
+        },
+        {
+          name: 'callTool',
+          description: 'Execute a tool with context',
+          params: { toolId: 'string', params: 'object', context: 'Context' },
+          returns: 'ToolResponse'
+        }
+      ]
+    }
+  },
+  {
+    id: 'a2a-protocol',
+    name: 'Agent-to-Agent Protocol (A2A)',
+    icon: '🤝',
+    description: 'Communication protocol for autonomous agent coordination',
+    detailedDescription: 'A2A is a communication protocol that empowers autonomous AI agents to coordinate, negotiate, and complete tasks directly with one another—minimizing human intervention. Built for interoperability, A2A enables agents regardless of vendor, architecture, or environment to securely exchange capabilities, status, and context through standardized protocols like JSON-RPC and HTTP.',
+    useCases: [
+      'Your shopping agent negotiates bundle discounts with retailer agents',
+      'Travel agent coordinates with airline and hotel agents simultaneously',
+      'Supply chain agents autonomously manage inventory across vendors',
+      'Customer service agents escalate to specialized agents',
+      'Real-time dynamic pricing negotiations between buyer/seller agents'
+    ],
+    capabilities: [
+      'Cross-agent negotiation',
+      'Dynamic capability discovery',
+      'Long-running task coordination',
+      'Multimodal collaboration (text, audio, visual)',
+      'Secure inter-agent messaging'
+    ],
+    exampleOutput: 'User Agent negotiates with Retailer Agent: "Can we bundle these 3 items for 15% off?" → "Counter-offer: 12% off with free shipping"',
+    manifestSnippet: {
+      name: 'AgentToAgentProtocol',
+      version: '1.0',
+      functions: [
+        {
+          name: 'discoverAgents',
+          description: 'Find agents with specific capabilities',
+          params: { capability: 'string', trust_level: 'string' },
+          returns: 'AgentProfile[]'
+        },
+        {
+          name: 'negotiate',
+          description: 'Initiate negotiation with another agent',
+          params: { agentId: 'string', proposal: 'Proposal', constraints: 'Constraints' },
+          returns: 'NegotiationResult'
+        }
+      ]
+    }
+  },
+  {
+    id: 'ap2-protocol',
+    name: 'Agent Payments Protocol (AP2)',
+    icon: '💳',
+    description: 'Google\'s open protocol for verifiable autonomous transactions',
+    detailedDescription: 'AP2 is Google\'s groundbreaking open, payment-agnostic protocol for autonomous and semi-autonomous AI agent purchases. It uses cryptographically-signed mandates that link intent, cart, and payment across users, merchants, and payment networks. This creates an audit trail that ensures transparency and accountability for every agent transaction.',
+    useCases: [
+      'Autonomous recurring purchases (subscriptions, replenishment)',
+      'Verifiable proof that user authorized the purchase',
+      'Multi-party settlement across different payment providers',
+      'Fraud reduction via cryptographic intent verification',
+      'Standing intents: "Buy coffee when price drops below $12"'
+    ],
+    capabilities: [
+      'Cryptographic purchase mandates',
+      'Intent-cart-payment linking',
+      'Audit trail generation',
+      'Cross-network settlement',
+      'Standing intent automation'
+    ],
+    exampleOutput: 'Mandate: {user: "alice@email.com", intent: "buy_headphones", max_price: "$200", payment: "visa_****1234", signature: "0x7f3a..."}',
+    manifestSnippet: {
+      name: 'AgentPaymentsProtocol',
+      version: '2.0',
+      functions: [
+        {
+          name: 'createMandate',
+          description: 'Create a cryptographically-signed purchase mandate',
+          params: { intent: 'Intent', constraints: 'PriceConstraints', payment_method: 'PaymentMethod' },
+          returns: 'SignedMandate'
+        },
+        {
+          name: 'executeTransaction',
+          description: 'Execute purchase using verified mandate',
+          params: { mandate: 'SignedMandate', cart: 'Cart' },
+          returns: 'TransactionReceipt'
+        }
+      ]
+    }
+  },
+  {
+    id: 'acp-protocol',
+    name: 'Agentic Commerce Protocol (ACP)',
+    icon: '🛒',
+    description: 'OpenAI + Stripe protocol for in-chat purchases',
+    detailedDescription: 'ACP is a protocol co-developed by OpenAI and Stripe that enables users to complete purchases within ChatGPT without leaving the chat. Combined with Shopify integration, it creates seamless agent-mediated checkout experiences. Users can browse, compare, select, and pay—all within a single conversation.',
+    useCases: [
+      'Complete purchases without leaving ChatGPT',
+      'Agent browses Shopify catalog, builds cart, processes payment',
+      'Cross-merchant cart assembly from multiple retailers',
+      'Instant checkout with stored payment methods',
+      'Post-purchase tracking and support in same conversation'
+    ],
+    capabilities: [
+      'In-chat product browsing',
+      'Multi-merchant cart building',
+      'Stripe payment integration',
+      'Shopify catalog access',
+      'Order tracking & support'
+    ],
+    exampleOutput: 'ChatGPT: "I found 3 headphones matching your needs. The Sony WH-1000XM5 is $299 at Best Buy. Ready to checkout?" → [Pay Now button]',
+    manifestSnippet: {
+      name: 'AgenticCommerceProtocol',
+      version: '1.0',
+      functions: [
+        {
+          name: 'searchCatalog',
+          description: 'Search products across integrated merchants',
+          params: { query: 'string', filters: 'ProductFilters' },
+          returns: 'Product[]'
+        },
+        {
+          name: 'buildCart',
+          description: 'Add products to agent-managed cart',
+          params: { products: 'Product[]', preferences: 'UserPreferences' },
+          returns: 'Cart'
+        },
+        {
+          name: 'checkout',
+          description: 'Process payment via Stripe integration',
+          params: { cart: 'Cart', payment_method: 'StripePaymentMethod' },
+          returns: 'Order'
+        }
+      ]
+    }
   }
 ];

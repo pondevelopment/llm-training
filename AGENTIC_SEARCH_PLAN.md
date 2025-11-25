@@ -43,7 +43,19 @@
 - ✅ Header navigation links added (index.html, all.html, papers.html)
 - ✅ Full site tested with Python HTTP server
 
-### 🚧 In Progress (Phase 7)
+### ✅ Complete (Phase 7 - Sprint 1-3)
+**Tutorial Content Improvements** - Committed as `2b0a18f`
+- [x] Section reorder (Optimization moved earlier in flow)
+- [x] Terminology consistency (LLM → AI throughout)
+- [x] Takeaway categories (practical vs conceptual)
+
+### ✅ Complete (Phase 7 - Sprint 4)
+**Optimization Section Navigation** - In progress
+- [x] Added collapsible Table of Contents (14 topic sections)
+- [x] Section anchor IDs for smooth scroll navigation
+- [x] `scroll-mt-24` classes for proper sticky header offset
+
+### 📋 Remaining (Phase 7 - Polish)
 **Polish & Optimization** - Production readiness
 - [ ] Accessibility audit (keyboard nav, ARIA, focus, screen readers)
 - [ ] Performance optimization (lazy loading, code splitting)

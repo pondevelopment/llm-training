@@ -30,15 +30,25 @@ function SectionLoadingFallback() {
   );
 }
 
+// Section order optimized for learning progression:
+// 1. Intro - understand the problem space
+// 2. Toolbox - learn what tools are (before seeing them used)
+// 3. Scenario - see tools in action (now you understand the tool calls)
+// 4. MCP - how agents discover tools
+// 5. Optimization - practical: prepare your site
+// 6. Agent Testing - test your site with agents
+// 7. Accessibility - fix issues testing revealed (agents parse DOM like screen readers)
+// 8. Agent Mode - advanced: autonomous transactions
+// 9. Takeaways - recap and next steps
 const sections = [
   { id: 1, title: 'Search Comparison', icon: '🔍', component: IntroSection },
-  { id: 2, title: 'Scenario Player', icon: '🎬', component: ScenarioSection },
-  { id: 3, title: 'Toolbox Explorer', icon: '🧰', component: ToolboxSection },
+  { id: 2, title: 'Toolbox Explorer', icon: '🧰', component: ToolboxSection },
+  { id: 3, title: 'Scenario Player', icon: '🎬', component: ScenarioSection },
   { id: 4, title: 'MCP Discovery', icon: '📋', component: MCPSection },
-  { id: 5, title: 'Agent Mode', icon: '⚡', component: AgentModeSection },
-  { id: 6, title: 'Optimization', icon: '🎯', component: OptimizationSection },
+  { id: 5, title: 'Optimization', icon: '🎯', component: OptimizationSection },
+  { id: 6, title: 'Agent Testing', icon: '🧪', component: AgentTestingSection },
   { id: 7, title: 'Accessibility', icon: '♿', component: AccessibilitySection },
-  { id: 8, title: 'Agent Testing', icon: '🧪', component: AgentTestingSection },
+  { id: 8, title: 'Agent Mode', icon: '⚡', component: AgentModeSection },
   { id: 9, title: 'Takeaways', icon: '🎓', component: SummarySection },
 ];
 
@@ -189,42 +199,12 @@ export function TutorialPage({ onBackToOverview }: TutorialPageProps) {
                   how AI agents discover tools, plan research, and deliver goal-oriented results.
                 </p>
                 <div className="flex flex-wrap justify-center gap-3 pt-4">
-                  <div className="chip chip-success flex items-center gap-2">
-                    <span>✓</span>
-                    <span>Search Comparison</span>
-                  </div>
-                  <div className="chip chip-success flex items-center gap-2">
-                    <span>✓</span>
-                    <span>Toolbox Explorer</span>
-                  </div>
-                  <div className="chip chip-success flex items-center gap-2">
-                    <span>✓</span>
-                    <span>MCP Discovery</span>
-                  </div>
-                  <div className="chip chip-success flex items-center gap-2">
-                    <span>✓</span>
-                    <span>Scenario Player</span>
-                  </div>
-                  <div className="chip chip-success flex items-center gap-2">
-                    <span>✓</span>
-                    <span>Optimization</span>
-                  </div>
-                  <div className="chip chip-success flex items-center gap-2">
-                    <span>✓</span>
-                    <span>Agent Mode</span>
-                  </div>
-                  <div className="chip chip-success flex items-center gap-2">
-                    <span>✓</span>
-                    <span>Agent Testing</span>
-                  </div>
-                  <div className="chip chip-success flex items-center gap-2">
-                    <span>✓</span>
-                    <span>Accessibility</span>
-                  </div>
-                  <div className="chip chip-success flex items-center gap-2">
-                    <span>✓</span>
-                    <span>Takeaways</span>
-                  </div>
+                  {sections.map((section) => (
+                    <div key={section.id} className="chip chip-success flex items-center gap-2">
+                      <span>✓</span>
+                      <span>{section.title}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
             </Panel>

@@ -28,18 +28,18 @@ export function AgentModeSection() {
           <div className="text-5xl">⚡</div>
           <div className="flex-1">
             <h3 className="text-2xl font-bold text-text-primary mb-3">
-              Beyond Recommendations: Agent Mode
+              The Next Frontier: Agent Mode
             </h3>
             <p className="text-text-secondary text-lg leading-relaxed mb-4">
-              You've learned about agentic search—where AI curates product recommendations. But there's a 
-              <span className="font-semibold text-text-primary"> new frontier</span>: <strong className="text-accent-primary">Agent 
+              You've optimized for agentic search, tested your site, and improved accessibility. 
+              Now let's look at what's coming next: <strong className="text-accent-primary">Agent 
               mode</strong>, where AI doesn't just recommend—it <span className="font-bold text-text-primary">completes 
               transactions autonomously</span>.
             </p>
             <p className="text-text-secondary leading-relaxed">
-              This changes everything. Your site must now be navigable and convertible for <em>bots</em>, not just humans. 
-              Traditional UX assumptions—visual cues, mouse hovers, dynamic JavaScript—break down when 46% of agent visits 
-              use text-only browsers.
+              This is why all the accessibility work matters. When 46% of agent visits use text-only browsers, 
+              the semantic HTML and ARIA patterns you just learned become critical. Agent mode requires sites 
+              that are navigable and convertible for <em>bots</em>, not just humans.
             </p>
           </div>
         </div>

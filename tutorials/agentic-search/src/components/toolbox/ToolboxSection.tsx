@@ -25,8 +25,9 @@ export function ToolboxSection() {
           The Agent's Toolbox
         </h2>
         <p className="text-lg text-body leading-relaxed">
-          Agents extend their capabilities by connecting to tools and APIs. 
-          Click any tool to see what it can do and how agents discover it.
+          You saw how agentic search plans multi-step research. But how does an agent 
+          actually <em>do</em> things? Through <strong>tools</strong>—external APIs, databases, 
+          and services that extend an agent's capabilities.
         </p>
       </div>
 

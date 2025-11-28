@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export type OptimizationTab = 'fundamentals' | 'technical' | 'analytics' | 'strategy';
@@ -80,10 +79,4 @@ export function OptimizationTabs({ activeTab, onTabChange }: OptimizationTabsPro
       </AnimatePresence>
     </div>
   );
-}
-
-// Hook for managing tab state
-export function useOptimizationTabs() {
-  const [activeTab, setActiveTab] = useState<OptimizationTab>('fundamentals');
-  return { activeTab, setActiveTab };
 }

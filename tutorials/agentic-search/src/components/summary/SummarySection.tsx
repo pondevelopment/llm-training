@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { takeaways, categoryInfo } from '../../data/takeaways';
 import { TakeawayCard } from './TakeawayCard';
+import { SelfAssessment } from './SelfAssessment';
 
 type CategoryFilter = 'all' | 'fundamentals' | 'protocols' | 'business' | 'trust';
 
@@ -91,6 +92,9 @@ export function SummarySection() {
           ))}
         </div>
       </section>
+
+      {/* Self-Assessment Checklist */}
+      <SelfAssessment />
 
       {/* Call to Action for Builders */}
       <motion.div

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SearchComparison } from './SearchComparison';
 import { searchScenarios, defaultScenario, defaultPersona, getDefaultPersona, type SearchScenario, type SearchPersona } from '../../data/searchScenarios';
+import { ExerciseCard, sectionExercises } from '../shared/ExerciseCard';
 
 export function IntroSection() {
   const [currentView, setCurrentView] = useState<'both' | 'traditional' | 'agentic'>('both');
@@ -209,6 +210,11 @@ export function IntroSection() {
 
       {/* Comparison Component */}
       <SearchComparison view={currentView} persona={selectedPersona} />
+
+      {/* Exercise */}
+      <div className="max-w-3xl mx-auto mt-8">
+        <ExerciseCard {...sectionExercises.intro} />
+      </div>
     </section>
   );
 }

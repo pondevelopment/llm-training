@@ -3,6 +3,7 @@ import { ToolGrid } from './ToolGrid';
 import { ToolModal } from './ToolModal';
 import { tools } from '../../data/tools';
 import type { Tool } from '../../data/tools';
+import { ExerciseCard, sectionExercises } from '../shared/ExerciseCard';
 
 export function ToolboxSection() {
   const [selectedTool, setSelectedTool] = useState<Tool | null>(null);
@@ -98,6 +99,11 @@ export function ToolboxSection() {
             </p>
           </div>
         </div>
+      </div>
+
+      {/* Exercise */}
+      <div className="max-w-3xl mx-auto">
+        <ExerciseCard {...sectionExercises.toolbox} />
       </div>
 
       {/* Tool Modal */}

@@ -10,6 +10,7 @@ import { IndustryInsights } from './IndustryInsights';
 import { PlatformComparison } from './PlatformComparison';
 import { AgenticStrategiesPanel } from './AgenticStrategiesPanel';
 import { UniversalPrinciples } from './UniversalPrinciples';
+import { ExerciseCard, sectionExercises } from '../shared/ExerciseCard';
 
 /**
  * OptimizationSection (Phase 5.5)
@@ -786,6 +787,11 @@ export function OptimizationSection() {
           </div>
         </div>
       </motion.div>
+
+      {/* Exercise */}
+      <div className="max-w-4xl mx-auto">
+        <ExerciseCard {...sectionExercises.optimization} />
+      </div>
 
       {/* Data Sources & Further Reading */}
       <motion.div

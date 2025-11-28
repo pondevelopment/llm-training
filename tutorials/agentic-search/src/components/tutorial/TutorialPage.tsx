@@ -1,18 +1,33 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Panel } from '../shared/Panel';
+// First section loads eagerly for fast initial paint
 import { IntroSection } from '../intro/IntroSection';
-import { ToolboxSection } from '../toolbox/ToolboxSection';
-import { MCPSection } from '../mcp/MCPSection';
-import { ScenarioSection } from '../scenario/ScenarioSection';
-import { OptimizationSection } from '../optimization/OptimizationSection';
-import { AgentModeSection } from '../agent/AgentModeSection';
-import { AgentTestingSection } from '../sections/AgentTestingSection';
-import { AccessibilitySection } from '../sections/AccessibilitySection';
-import { SummarySection } from '../summary/SummarySection';
+// Remaining sections load lazily on demand
+const ScenarioSection = lazy(() => import('../scenario/ScenarioSection').then(m => ({ default: m.ScenarioSection })));
+const ToolboxSection = lazy(() => import('../toolbox/ToolboxSection').then(m => ({ default: m.ToolboxSection })));
+const MCPSection = lazy(() => import('../mcp/MCPSection').then(m => ({ default: m.MCPSection })));
+const AgentModeSection = lazy(() => import('../agent/AgentModeSection').then(m => ({ default: m.AgentModeSection })));
+const OptimizationSection = lazy(() => import('../optimization/OptimizationSection').then(m => ({ default: m.OptimizationSection })));
+const AccessibilitySection = lazy(() => import('../sections/AccessibilitySection').then(m => ({ default: m.AccessibilitySection })));
+const AgentTestingSection = lazy(() => import('../sections/AgentTestingSection').then(m => ({ default: m.AgentTestingSection })));
+const SummarySection = lazy(() => import('../summary/SummarySection').then(m => ({ default: m.SummarySection })));
 
 interface TutorialPageProps {
   onBackToOverview: () => void;
+}
+
+// Loading skeleton shown while lazy-loaded sections are fetching
+function SectionLoadingFallback() {
+  return (
+    <div className="animate-pulse space-y-6" aria-busy="true" aria-label="Loading section content">
+      <div className="h-10 w-3/4 bg-card-secondary rounded-lg" />
+      <div className="h-4 w-full bg-card-secondary rounded" />
+      <div className="h-4 w-5/6 bg-card-secondary rounded" />
+      <div className="h-64 w-full bg-card-secondary rounded-xl" />
+      <div className="h-4 w-2/3 bg-card-secondary rounded" />
+    </div>
+  );
 }
 
 const sections = [
@@ -119,7 +134,9 @@ export function TutorialPage({ onBackToOverview }: TutorialPageProps) {
           transition={{ duration: 0.3 }}
           className="max-w-7xl mx-auto"
         >
-          {CurrentSectionComponent && <CurrentSectionComponent />}
+          <Suspense fallback={<SectionLoadingFallback />}>
+            {CurrentSectionComponent && <CurrentSectionComponent />}
+          </Suspense>
         </motion.div>
       </AnimatePresence>
 

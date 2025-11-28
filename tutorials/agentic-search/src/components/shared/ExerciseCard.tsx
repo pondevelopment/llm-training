@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useId } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useReducedMotion } from '../../hooks/useReducedMotion';
 
 /**
  * ExerciseCard Component
@@ -7,6 +8,12 @@ import { motion, AnimatePresence } from 'framer-motion';
  * Provides interactive exercises within tutorial sections.
  * Users can expand the card to see the exercise and optionally
  * record their thoughts/answers.
+ * 
+ * Accessibility:
+ * - ARIA expanded state for screen readers
+ * - Keyboard accessible (Enter/Space to toggle)
+ * - Focus visible styling
+ * - Reduced motion support
  */
 
 interface ExerciseCardProps {
@@ -37,29 +44,46 @@ export function ExerciseCard({
   const [expanded, setExpanded] = useState(false);
   const [userInput, setUserInput] = useState('');
   const [completed, setCompleted] = useState(false);
+  const prefersReducedMotion = useReducedMotion();
+  
+  // Generate unique IDs for ARIA
+  const contentId = useId();
+  const headerId = useId();
 
   const handleComplete = () => {
     setCompleted(true);
     setExpanded(false);
   };
 
+  // Reduced motion-aware animation props
+  const animationProps = prefersReducedMotion 
+    ? { initial: {}, animate: {}, transition: { duration: 0 } }
+    : { initial: { opacity: 0, y: 10 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.3 } };
+
+  const expandAnimationProps = prefersReducedMotion
+    ? { initial: {}, animate: {}, exit: {}, transition: { duration: 0 } }
+    : { initial: { height: 0, opacity: 0 }, animate: { height: 'auto', opacity: 1 }, exit: { height: 0, opacity: 0 }, transition: { duration: 0.2 } };
+
   return (
     <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
+      {...animationProps}
       className={`rounded-lg border-2 overflow-hidden ${
         completed 
           ? 'border-success/40 bg-success/5' 
           : 'border-accent/30 bg-accent/5'
       }`}
+      role="region"
+      aria-labelledby={headerId}
     >
       {/* Header - Always Visible */}
       <button
+        id={headerId}
         onClick={() => setExpanded(!expanded)}
-        className="w-full p-4 flex items-center gap-3 text-left hover:bg-accent/10 transition-colors"
+        aria-expanded={expanded}
+        aria-controls={contentId}
+        className="w-full p-4 flex items-center gap-3 text-left hover:bg-accent/10 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
       >
-        <span className="text-2xl">{completed ? '✅' : icon}</span>
+        <span className="text-2xl" aria-hidden="true">{completed ? '✅' : icon}</span>
         <div className="flex-1">
           <div className="flex items-center gap-2">
             <span className="text-xs font-bold uppercase tracking-wider text-accent">
@@ -73,7 +97,10 @@ export function ExerciseCard({
           </div>
           <h5 className="font-bold text-heading">{title}</h5>
         </div>
-        <span className={`transform transition-transform ${expanded ? 'rotate-180' : ''}`}>
+        <span 
+          className={`transform transition-transform ${expanded ? 'rotate-180' : ''}`}
+          aria-hidden="true"
+        >
           ▼
         </span>
       </button>
@@ -82,10 +109,8 @@ export function ExerciseCard({
       <AnimatePresence>
         {expanded && (
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.2 }}
+            id={contentId}
+            {...expandAnimationProps}
             className="overflow-hidden"
           >
             <div className="px-4 pb-4 space-y-4">

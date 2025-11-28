@@ -1,11 +1,19 @@
-import { useState } from 'react';
+import { useState, useId } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useReducedMotion } from '../../hooks/useReducedMotion';
 
 /**
  * SelfAssessment Component
  * 
  * Interactive checklist helping users gauge their understanding
  * of agentic search concepts from the tutorial.
+ * 
+ * Accessibility:
+ * - ARIA expanded/controls for screen readers
+ * - Keyboard accessible checkboxes
+ * - Focus visible styling
+ * - Reduced motion support
+ * - Progress announced via aria-live
  * 
  * Categories:
  * - Fundamentals (concepts from sections 1-4)
@@ -162,21 +170,38 @@ export function SelfAssessment() {
   };
 
   const completion = getCompletionMessage();
+  const prefersReducedMotion = useReducedMotion();
+  
+  // Generate unique IDs for ARIA
+  const contentId = useId();
+  const headerId = useId();
+
+  // Reduced motion-aware animation props
+  const animationProps = prefersReducedMotion 
+    ? { initial: {}, animate: {}, transition: { duration: 0 } }
+    : { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.6 } };
+
+  const expandAnimationProps = prefersReducedMotion
+    ? { initial: {}, animate: {}, exit: {}, transition: { duration: 0 } }
+    : { initial: { height: 0, opacity: 0 }, animate: { height: 'auto', opacity: 1 }, exit: { height: 0, opacity: 0 }, transition: { duration: 0.3 } };
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
+      {...animationProps}
       className="panel-surface p-6 max-w-4xl mx-auto"
+      role="region"
+      aria-labelledby={headerId}
     >
       {/* Header */}
       <button
+        id={headerId}
         onClick={() => setExpanded(!expanded)}
-        className="w-full flex items-center justify-between text-left mb-4"
+        aria-expanded={expanded}
+        aria-controls={contentId}
+        className="w-full flex items-center justify-between text-left mb-4 focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded-lg p-2 -m-2"
       >
         <div className="flex items-center gap-3">
-          <span className="text-3xl">📋</span>
+          <span className="text-3xl" aria-hidden="true">📋</span>
           <div>
             <h4 className="text-xl font-bold text-heading">Self-Assessment Checklist</h4>
             <p className="text-sm text-muted">Gauge your understanding of the material</p>
@@ -184,11 +209,14 @@ export function SelfAssessment() {
         </div>
         <div className="flex items-center gap-3">
           {/* Progress indicator */}
-          <div className="text-right">
+          <div className="text-right" aria-live="polite">
             <span className="text-2xl font-bold text-accent">{overallProgress.percent}%</span>
             <span className="text-xs text-muted block">{overallProgress.checked}/{overallProgress.total}</span>
           </div>
-          <span className={`transform transition-transform text-lg ${expanded ? 'rotate-180' : ''}`}>
+          <span 
+            className={`transform transition-transform text-lg ${expanded ? 'rotate-180' : ''}`}
+            aria-hidden="true"
+          >
             ▼
           </span>
         </div>
@@ -197,10 +225,8 @@ export function SelfAssessment() {
       <AnimatePresence>
         {expanded && (
           <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            id={contentId}
+            {...expandAnimationProps}
             className="overflow-hidden"
           >
             {/* Progress Bars by Category */}

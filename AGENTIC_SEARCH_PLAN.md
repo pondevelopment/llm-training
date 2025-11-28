@@ -50,16 +50,25 @@
 - [x] Takeaway categories (practical vs conceptual)
 
 ### ✅ Complete (Phase 7 - Sprint 4)
-**Optimization Section Navigation** - In progress
+**Optimization Section Navigation** - Committed as `c6c8a9f`
 - [x] Added collapsible Table of Contents (14 topic sections)
 - [x] Section anchor IDs for smooth scroll navigation
 - [x] `scroll-mt-24` classes for proper sticky header offset
 
+### ✅ Complete (Phase 7 - Sprint 5)
+**Engagement Features** - Committed as `1fd28cf`
+- [x] Added SelfAssessment component (15 items, 3 categories)
+- [x] Added ExerciseCard component with section exercises
+- [x] Exercises in IntroSection, ToolboxSection, OptimizationSection
+
+### ✅ Complete (Phase 7 - Sprint 6)
+**Accessibility & Performance** - In progress
+- [x] Accessibility audit (keyboard nav, ARIA attributes, focus-visible, skip link)
+- [x] Performance optimization (React.lazy + Suspense for 8 sections)
+- [x] Animation refinement (useReducedMotion hook for prefers-reduced-motion)
+
 ### 📋 Remaining (Phase 7 - Polish)
 **Polish & Optimization** - Production readiness
-- [ ] Accessibility audit (keyboard nav, ARIA, focus, screen readers)
-- [ ] Performance optimization (lazy loading, code splitting)
-- [ ] Animation refinement (timing, easing, reduced-motion)
 - [ ] Content review (copy editing, tone, grammar)
 - [ ] Cross-browser testing (Chrome, Firefox, Safari, Edge)
 - [ ] Touch interaction testing (mobile, tablet)

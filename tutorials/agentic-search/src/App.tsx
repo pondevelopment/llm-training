@@ -41,12 +41,20 @@ function App() {
   return (
     <ThemeProvider>
       <div className="min-h-screen bg-background text-body">
+        {/* Skip Link for Accessibility */}
+        <a 
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:px-4 focus:py-2 focus:bg-accent focus:text-white focus:rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-accent"
+        >
+          Skip to main content
+        </a>
+
         {/* Header */}
         <header className="bg-card border-b border-divider sticky top-0 z-40">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
             <div className="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
               <div className="flex items-center gap-2 sm:gap-4">
-                <a href="../../index.html" className="text-heading hover:text-accent transition-colors whitespace-nowrap">
+                <a href="../../index.html" className="text-heading hover:text-accent transition-colors whitespace-nowrap focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 rounded">
                   <span className="text-base sm:text-xl font-bold">← LLM Training</span>
                 </a>
                 <span className="text-muted hidden sm:inline">|</span>
@@ -60,7 +68,7 @@ function App() {
         </header>
 
         {/* Main Content */}
-        <main className="w-full">
+        <main id="main-content" className="w-full" tabIndex={-1}>
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
             {currentView === 'landing' ? (
               <LandingPage onStartTutorial={handleStartTutorial} />

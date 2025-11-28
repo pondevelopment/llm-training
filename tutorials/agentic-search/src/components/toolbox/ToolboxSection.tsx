@@ -3,7 +3,8 @@ import { ToolGrid } from './ToolGrid';
 import { ToolModal } from './ToolModal';
 import { tools } from '../../data/tools';
 import type { Tool } from '../../data/tools';
-import { ExerciseCard, sectionExercises } from '../shared/ExerciseCard';
+import { ExerciseCard } from '../shared/ExerciseCard';
+import { sectionExercises } from '../../data/exercises';
 
 export function ToolboxSection() {
   const [selectedTool, setSelectedTool] = useState<Tool | null>(null);

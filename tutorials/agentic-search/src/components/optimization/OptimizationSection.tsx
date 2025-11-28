@@ -10,7 +10,8 @@ import { IndustryInsights } from './IndustryInsights';
 import { PlatformComparison } from './PlatformComparison';
 import { AgenticStrategiesPanel } from './AgenticStrategiesPanel';
 import { UniversalPrinciples } from './UniversalPrinciples';
-import { ExerciseCard, sectionExercises } from '../shared/ExerciseCard';
+import { ExerciseCard } from '../shared/ExerciseCard';
+import { sectionExercises } from '../../data/exercises';
 
 /**
  * OptimizationSection (Phase 5.5)

@@ -2,7 +2,8 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SearchComparison } from './SearchComparison';
 import { searchScenarios, defaultScenario, defaultPersona, getDefaultPersona, type SearchScenario, type SearchPersona } from '../../data/searchScenarios';
-import { ExerciseCard, sectionExercises } from '../shared/ExerciseCard';
+import { ExerciseCard } from '../shared/ExerciseCard';
+import { sectionExercises } from '../../data/exercises';
 
 export function IntroSection() {
   const [currentView, setCurrentView] = useState<'both' | 'traditional' | 'agentic'>('both');

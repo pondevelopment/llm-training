@@ -11,6 +11,14 @@ export interface Takeaway {
 // McKinsey report URL for citations
 export const MCKINSEY_REPORT_URL = 'https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-agentic-commerce-opportunity-how-ai-agents-are-ushering-in-a-new-era-for-consumers-and-merchants';
 
+// Category metadata for filter tabs
+export const categoryInfo: Record<'fundamentals' | 'protocols' | 'business' | 'trust', { icon: string; title: string }> = {
+  fundamentals: { icon: '🎯', title: 'Fundamentals' },
+  protocols: { icon: '🔗', title: 'Protocols' },
+  business: { icon: '💼', title: 'Business' },
+  trust: { icon: '🛡️', title: 'Trust' }
+};
+
 export const takeaways: Takeaway[] = [
   // === FUNDAMENTALS ===
   {

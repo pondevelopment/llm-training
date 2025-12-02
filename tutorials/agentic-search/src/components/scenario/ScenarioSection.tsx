@@ -72,6 +72,32 @@ export function ScenarioSection() {
 
       {/* Scenario Player */}
       <ScenarioPlayer />
+
+      {/* Transition to Next Section */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.4 }}
+        className="panel-surface p-6 border-l-4 border-accent-primary"
+      >
+        <div className="flex items-start gap-4">
+          <div className="text-4xl">🔮</div>
+          <div className="flex-1">
+            <h4 className="text-lg font-bold text-text-primary mb-2">
+              Coming Up Next: How Agents Discover These Tools
+            </h4>
+            <p className="text-text-secondary leading-relaxed">
+              You just watched agents call tools like <code className="px-2 py-0.5 bg-surface-secondary rounded text-accent-primary text-sm">product-search</code> and{' '}
+              <code className="px-2 py-0.5 bg-surface-secondary rounded text-accent-primary text-sm">inventory-check</code>. 
+              But how did the agent <em>know</em> these tools existed? How did it learn what parameters to send?
+            </p>
+            <p className="text-text-secondary leading-relaxed mt-2">
+              <strong className="text-text-primary">Next section:</strong> Discover the <strong>Model Context Protocol (MCP)</strong>—the 
+              standard that lets agents dynamically find and use tools without hardcoded integrations.
+            </p>
+          </div>
+        </div>
+      </motion.div>
     </div>
   );
 }

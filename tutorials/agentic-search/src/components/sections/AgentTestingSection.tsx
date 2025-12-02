@@ -730,6 +730,36 @@ Please begin testing and provide detailed results for each scenario.`;
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Transition to Next Section */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ delay: 0.3 }}
+        className="p-6 rounded-lg border-l-4"
+        style={{ 
+          borderColor: '#6366f1',
+          backgroundColor: '#6366f1' + '08'
+        }}
+      >
+        <div className="flex items-start gap-4">
+          <div className="text-4xl">♿</div>
+          <div className="flex-1">
+            <h4 className="text-lg font-bold text-text-primary mb-2">
+              Found Issues? Let's Fix Them
+            </h4>
+            <p className="text-text-secondary leading-relaxed">
+              Did agents struggle to click buttons, understand forms, or navigate your page? 
+              Many of these issues stem from <strong className="text-text-primary">poor accessibility</strong>. 
+              AI agents parse the DOM structure just like screen readers do.
+            </p>
+            <p className="text-text-secondary leading-relaxed mt-2">
+              <strong className="text-text-primary">Next section:</strong> Learn <strong>ARIA patterns</strong> that 
+              make your site work for both humans with disabilities <em>and</em> AI agents—accessibility = agent-ability.
+            </p>
+          </div>
+        </div>
+      </motion.div>
     </div>
   );
 }

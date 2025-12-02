@@ -319,49 +319,57 @@ export function AccessibilitySection() {
 
   return (
     <div className="space-y-12">
-      {/* Introduction */}
+      {/* Introduction - Lead with Agent Testing connection */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="text-center max-w-3xl mx-auto"
+        className="max-w-3xl mx-auto"
       >
-        <div className="text-6xl mb-4">♿</div>
-        <h2 className="text-3xl font-bold text-heading mb-4">
-          ARIA: Accessible Rich Internet Applications
-        </h2>
-        <p className="text-body text-lg leading-relaxed">
-          ARIA attributes make web apps accessible to screen readers and assistive technologies. 
-          But they also help <strong>AI agents</strong> understand your page structure, 
-          identify interactive elements, and extract meaningful content. Good accessibility 
-          is good for humans <em>and</em> machines.
-        </p>
+        <Panel variant="info" className="p-8 border-l-4 border-[#6366f1]">
+          <div className="flex items-start gap-4">
+            <div className="text-5xl">♿</div>
+            <div className="flex-1">
+              <h2 className="text-2xl font-bold text-heading mb-3">
+                Fix What Agent Testing Revealed
+              </h2>
+              <p className="text-body text-lg leading-relaxed mb-4">
+                In the previous section, you tested your site with AI agents. Did they struggle to 
+                click buttons, understand forms, or navigate your pages?
+              </p>
+              <p className="text-body leading-relaxed mb-4">
+                <strong className="text-heading">The root cause:</strong> AI agents using text-only browsers 
+                parse your DOM structure <em>exactly like screen readers do</em>. Without proper semantic HTML 
+                and ARIA attributes, agents can't identify interactive elements, understand form fields, or 
+                navigate page structure.
+              </p>
+              <div className="panel-inset p-4 rounded-lg">
+                <p className="text-body font-semibold text-heading">
+                  🎯 <strong>The Fix:</strong> Learn ARIA patterns that work for both humans with disabilities 
+                  <em> and</em> AI agents. <strong>Accessibility = Agent-ability.</strong>
+                </p>
+              </div>
+            </div>
+          </div>
+        </Panel>
       </motion.div>
 
-      {/* Connection to Agent Testing */}
+      {/* What is ARIA - Brief Explainer */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.1 }}
-        className="max-w-3xl mx-auto"
+        className="text-center max-w-3xl mx-auto"
       >
-        <Panel variant="warning" className="p-6 border-l-4 border-[var(--color-accent)]">
-          <div className="flex items-start gap-4">
-            <div className="text-3xl">💡</div>
-            <div className="flex-1">
-              <h4 className="text-lg font-bold text-heading mb-2">
-                Why This Matters: Agents Parse the DOM Like Screen Readers
-              </h4>
-              <p className="text-body leading-relaxed">
-                In the Agent Testing section, you learned how to test your site with AI agents. 
-                Did you notice issues with buttons not being clickable, or forms not being understood? 
-                <strong> Many of these problems come from poor accessibility.</strong> AI agents that use 
-                text-only browsers parse your DOM structure just like screen readers do. The semantic HTML 
-                and ARIA patterns you'll learn here fix those issues—<strong>accessibility = agent-ability</strong>.
-              </p>
-            </div>
-          </div>
-        </Panel>
+        <h3 className="text-xl font-bold text-heading mb-3">
+          What is ARIA?
+        </h3>
+        <p className="text-body leading-relaxed">
+          <strong>Accessible Rich Internet Applications (ARIA)</strong> is a set of HTML attributes 
+          that describe the role, state, and properties of UI elements. Screen readers use these 
+          to announce content to visually impaired users—and AI agents use them to understand 
+          your page structure.
+        </p>
       </motion.div>
 
       {/* Why ARIA Matters */}

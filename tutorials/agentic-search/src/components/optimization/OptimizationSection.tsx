@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { feedFramework, conversionMetrics, commonLimitations } from '../../data/optimizationTips';
 import { FEEDCard } from './FEEDCard';
@@ -10,8 +9,6 @@ import { IndustryInsights } from './IndustryInsights';
 import { PlatformComparison } from './PlatformComparison';
 import { AgenticStrategiesPanel } from './AgenticStrategiesPanel';
 import { UniversalPrinciples } from './UniversalPrinciples';
-import { ExerciseCard } from '../shared/ExerciseCard';
-import { sectionExercises } from '../../data/exercises';
 
 /**
  * OptimizationSection (Phase 5.5)
@@ -33,72 +30,11 @@ import { sectionExercises } from '../../data/exercises';
  * - Clear limitation explanations
  * - Actionable implementation steps
  */
-
-// Table of contents items for navigation
-const tocItems = [
-  { id: 'intro', label: 'Introduction', icon: '🎯' },
-  { id: 'strategies', label: 'McKinsey Strategies', icon: '📊' },
-  { id: 'feed', label: 'FEED Framework', icon: '🌟' },
-  { id: 'jsonld', label: 'JSON-LD Implementation', icon: '🔑' },
-  { id: 'platforms', label: 'Platform Comparison', icon: '🖥️' },
-  { id: 'chatgpt-bing', label: 'ChatGPT & Bing Deep Dive', icon: '🔍' },
-  { id: 'metrics', label: 'Conversion Metrics', icon: '📈' },
-  { id: 'analytics', label: 'Analytics & Tracking', icon: '📊' },
-  { id: 'readiness', label: 'Agent Readiness Checker', icon: '✅' },
-  { id: 'conversion', label: 'Conversion Optimization', icon: '💰' },
-  { id: 'industry', label: 'Industry Insights', icon: '🏭' },
-  { id: 'timeline', label: 'What\'s Next Timeline', icon: '🚀' },
-  { id: 'limitations', label: 'Known Limitations', icon: '⚠️' },
-  { id: 'sources', label: 'Data Sources', icon: '📚' },
-];
-
 export function OptimizationSection() {
-  const [tocExpanded, setTocExpanded] = useState(false);
-
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(`opt-${id}`);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-    setTocExpanded(false);
-  };
-
   return (
     <div className="space-y-12">
-      {/* Table of Contents - Collapsible */}
-      <div className="panel-surface p-4 sticky top-16 z-20 shadow-lg">
-        <button 
-          onClick={() => setTocExpanded(!tocExpanded)}
-          className="w-full flex items-center justify-between text-left"
-        >
-          <span className="font-bold text-heading flex items-center gap-2">
-            📑 Section Contents
-            <span className="text-xs font-normal text-muted">(14 topics)</span>
-          </span>
-          <span className={`transform transition-transform ${tocExpanded ? 'rotate-180' : ''}`}>
-            ▼
-          </span>
-        </button>
-        
-        {tocExpanded && (
-          <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
-            {tocItems.map((item) => (
-              <button
-                key={item.id}
-                onClick={() => scrollToSection(item.id)}
-                className="text-left px-3 py-2 rounded-lg bg-card-secondary hover:bg-card-tertiary text-sm transition-colors"
-              >
-                <span className="mr-1">{item.icon}</span>
-                {item.label}
-              </button>
-            ))}
-          </div>
-        )}
-      </div>
-
       {/* Introduction */}
       <motion.div
-        id="opt-intro"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
@@ -134,12 +70,10 @@ export function OptimizationSection() {
       </motion.div>
 
       {/* Agentic Strategies (McKinsey) */}
-      <div id="opt-strategies">
-        <AgenticStrategiesPanel />
-      </div>
+      <AgenticStrategiesPanel />
 
       {/* FEED Framework */}
-      <section id="opt-feed" className="space-y-6 scroll-mt-24">
+      <section className="space-y-6">
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -177,11 +111,10 @@ export function OptimizationSection() {
 
         {/* JSON-LD Critical Callout */}
         <motion.div
-          id="opt-jsonld"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 1.0 }}
-          className="max-w-4xl mx-auto scroll-mt-24"
+          className="max-w-4xl mx-auto"
         >
           <div className="bg-gradient-to-r from-[#6366f1]/10 via-[#8b5cf6]/10 to-[#6366f1]/10 border-2 border-[#6366f1] rounded-lg p-6 shadow-lg">
             <div className="flex items-start gap-4">
@@ -287,11 +220,10 @@ export function OptimizationSection() {
 
       {/* Platform Comparison Section */}
       <motion.section
-        id="opt-platforms"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 1.2 }}
-        className="panel-surface p-8 scroll-mt-24"
+        className="panel-surface p-8"
       >
         <PlatformComparison />
       </motion.section>
@@ -308,11 +240,10 @@ export function OptimizationSection() {
 
       {/* Platform-Specific Deep Dive: ChatGPT & Bing API */}
       <motion.div
-        id="opt-chatgpt-bing"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 1.6 }}
-        className="panel-surface p-8 scroll-mt-24"
+        className="panel-surface p-8"
       >
         <div className="flex items-start gap-4">
           <div className="text-5xl">🔍</div>
@@ -430,17 +361,14 @@ export function OptimizationSection() {
       </motion.div>
 
       {/* Conversion Metrics */}
-      <div id="opt-metrics" className="scroll-mt-24">
-        <MetricsPanel metrics={conversionMetrics} />
-      </div>
+      <MetricsPanel metrics={conversionMetrics} />
 
       {/* Analytics & Measurement Section */}
       <motion.div
-        id="opt-analytics"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 1.4 }}
-        className="panel-surface p-8 scroll-mt-24"
+        className="panel-surface p-8"
       >
         <div className="flex items-start gap-4">
           <div className="text-5xl">📊</div>
@@ -597,44 +525,40 @@ export function OptimizationSection() {
 
       {/* Agent Readiness Checker */}
       <motion.div
-        id="opt-readiness"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 1.4 }}
-        className="panel-surface p-8 scroll-mt-24"
+        className="panel-surface p-8"
       >
         <AgentReadinessChecker />
       </motion.div>
 
       {/* Conversion Optimization */}
       <motion.div
-        id="opt-conversion"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 1.45 }}
-        className="panel-surface p-8 scroll-mt-24"
+        className="panel-surface p-8"
       >
         <ConversionOptimization />
       </motion.div>
 
       {/* Industry-Specific Insights */}
       <motion.div
-        id="opt-industry"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 1.47 }}
-        className="panel-surface p-8 scroll-mt-24"
+        className="panel-surface p-8"
       >
         <IndustryInsights />
       </motion.div>
 
       {/* Monetization Timeline Section */}
       <motion.div
-        id="opt-timeline"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 1.5 }}
-        className="panel-surface p-8 scroll-mt-24"
+        className="panel-surface p-8"
       >
         <div className="flex items-start gap-4">
           <div className="text-5xl">🚀</div>
@@ -749,9 +673,7 @@ export function OptimizationSection() {
       </motion.div>
 
       {/* Known Limitations */}
-      <div id="opt-limitations" className="scroll-mt-24">
-        <LimitationsPanel limitations={commonLimitations} />
-      </div>
+      <LimitationsPanel limitations={commonLimitations} />
 
       {/* Call to Action */}
       <motion.div
@@ -789,18 +711,12 @@ export function OptimizationSection() {
         </div>
       </motion.div>
 
-      {/* Exercise */}
-      <div className="max-w-4xl mx-auto">
-        <ExerciseCard {...sectionExercises.optimization} />
-      </div>
-
       {/* Data Sources & Further Reading */}
       <motion.div
-        id="opt-sources"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.6, delay: 1.7 }}
-        className="max-w-4xl mx-auto space-y-6 scroll-mt-24"
+        className="max-w-4xl mx-auto space-y-6"
       >
         {/* Data Sources */}
         <div className="panel-inset p-6">

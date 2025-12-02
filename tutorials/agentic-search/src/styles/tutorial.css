@@ -1,10 +1,53 @@
 /* Tutorial-specific CSS additions */
 /* These extend the main site theme without modifying it */
 
-/* Background utility alias */
-.bg-background {
-  background-color: var(--color-surface);
+/* ========================================
+   Alias classes for theme compatibility
+   Maps alternate naming conventions to theme.css values
+   ======================================== */
+
+/* Text color aliases (map to theme.css semantic colors) */
+.text-text-primary { color: var(--color-heading); }
+.text-text-secondary { color: var(--color-body); }
+.text-text-muted { color: var(--color-muted); }
+.text-accent-primary { color: var(--color-link); }
+
+/* Panel surface variants (neutral background panels) */
+.panel-surface {
+  background-color: var(--color-card);
+  border-radius: 0.75rem;
+  border: 1px solid var(--color-border-subtle);
 }
+
+/* Panel inset (subtle inner panel, for nested content) */
+.panel-inset {
+  background-color: var(--color-subtle-bg);
+  border-radius: 0.5rem;
+  border: 1px solid var(--color-border-subtle);
+}
+
+/* Border aliases */
+.border-accent-primary { border-color: var(--color-link); }
+.border-border-primary { border-color: var(--color-border); }
+.border-border-subtle { border-color: var(--color-border-subtle); }
+.border-border-color { border-color: var(--color-border); }
+.border-border { border-color: var(--color-border); }
+
+/* Background surface aliases */
+.bg-background { background-color: var(--color-surface); }
+.bg-surface { background-color: var(--color-surface); }
+.bg-surface-primary { background-color: var(--color-surface); }
+.bg-surface-secondary { background-color: var(--color-card); }
+.bg-surface-tertiary { background-color: var(--color-subtle-bg); }
+
+/* Hover variants for surfaces */
+.hover\:bg-surface-secondary:hover { background-color: var(--color-card); }
+.hover\:bg-surface-tertiary:hover { background-color: var(--color-subtle-bg); }
+.hover\:border-accent-primary:hover { border-color: var(--color-link); }
+
+/* Focus ring for accent */
+.focus\:ring-accent-primary:focus { --tw-ring-color: var(--color-link); }
+.focus\:border-accent-primary:focus { border-color: var(--color-link); }
 
 /* Primary button for interactive elements */
 .btn-primary {

@@ -8,7 +8,8 @@ const ScenarioSection = lazy(() => import('../scenario/ScenarioSection').then(m 
 const ToolboxSection = lazy(() => import('../toolbox/ToolboxSection').then(m => ({ default: m.ToolboxSection })));
 const MCPSection = lazy(() => import('../mcp/MCPSection').then(m => ({ default: m.MCPSection })));
 const AgentModeSection = lazy(() => import('../agent/AgentModeSection').then(m => ({ default: m.AgentModeSection })));
-const OptimizationSection = lazy(() => import('../optimization/OptimizationSection').then(m => ({ default: m.OptimizationSection })));
+const OptimizationBasicsSection = lazy(() => import('../optimization/OptimizationBasicsSection').then(m => ({ default: m.OptimizationBasicsSection })));
+const PlatformStrategiesSection = lazy(() => import('../optimization/PlatformStrategiesSection').then(m => ({ default: m.PlatformStrategiesSection })));
 const AccessibilitySection = lazy(() => import('../sections/AccessibilitySection').then(m => ({ default: m.AccessibilitySection })));
 const AgentTestingSection = lazy(() => import('../sections/AgentTestingSection').then(m => ({ default: m.AgentTestingSection })));
 const SummarySection = lazy(() => import('../summary/SummarySection').then(m => ({ default: m.SummarySection })));
@@ -35,21 +36,23 @@ function SectionLoadingFallback() {
 // 2. Toolbox - learn what tools are (before seeing them used)
 // 3. Scenario - see tools in action (now you understand the tool calls)
 // 4. MCP - how agents discover tools
-// 5. Optimization - practical: prepare your site
-// 6. Agent Testing - test your site with agents
-// 7. Accessibility - fix issues testing revealed (agents parse DOM like screen readers)
-// 8. Agent Mode - advanced: autonomous transactions
-// 9. Takeaways - recap and next steps
+// 5. Optimization Basics - FEED framework, JSON-LD, core principles
+// 6. Platform Strategies - platform comparison, analytics, timeline
+// 7. Agent Testing - test your site with agents
+// 8. Accessibility - fix issues testing revealed (agents parse DOM like screen readers)
+// 9. Agent Mode - advanced: autonomous transactions
+// 10. Takeaways - recap and next steps
 const sections = [
   { id: 1, title: 'Search Comparison', icon: '🔍', component: IntroSection },
   { id: 2, title: 'Toolbox Explorer', icon: '🧰', component: ToolboxSection },
   { id: 3, title: 'Scenario Player', icon: '🎬', component: ScenarioSection },
   { id: 4, title: 'MCP Discovery', icon: '📋', component: MCPSection },
-  { id: 5, title: 'Optimization', icon: '🎯', component: OptimizationSection },
-  { id: 6, title: 'Agent Testing', icon: '🧪', component: AgentTestingSection },
-  { id: 7, title: 'Accessibility', icon: '♿', component: AccessibilitySection },
-  { id: 8, title: 'Agent Mode', icon: '⚡', component: AgentModeSection },
-  { id: 9, title: 'Takeaways', icon: '🎓', component: SummarySection },
+  { id: 5, title: 'Optimization Basics', icon: '🎯', component: OptimizationBasicsSection },
+  { id: 6, title: 'Platform Strategies', icon: '🌐', component: PlatformStrategiesSection },
+  { id: 7, title: 'Agent Testing', icon: '🧪', component: AgentTestingSection },
+  { id: 8, title: 'Accessibility', icon: '♿', component: AccessibilitySection },
+  { id: 9, title: 'Agent Mode', icon: '⚡', component: AgentModeSection },
+  { id: 10, title: 'Takeaways', icon: '🎓', component: SummarySection },
 ];
 
 export function TutorialPage({ onBackToOverview }: TutorialPageProps) {

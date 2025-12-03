@@ -178,19 +178,31 @@ export function LandingPage({ onStartTutorial }: LandingPageProps) {
 
             <SectionPreviewCard
               icon="🎯"
-              title="Section 5: Optimization"
-              description="Learn practical strategies to make your products and services visible in agentic search"
+              title="Section 5: Optimization Basics"
+              description="Learn the FEED framework and JSON-LD essentials for agent visibility"
               features={[
                 'FEED framework for optimization',
-                'Real conversion metrics (15.9% vs 1.8%)',
-                'Common limitations and solutions'
+                'JSON-LD structured data guide',
+                'Conversion metrics (15.9% vs 1.8%)'
               ]}
               delay={0.5}
             />
 
             <SectionPreviewCard
+              icon="🌐"
+              title="Section 6: Platform Strategies"
+              description="Platform-specific optimization: ChatGPT/Bing, analytics, and the 2025-2028 timeline"
+              features={[
+                'Platform comparison table',
+                'Bing API deep dive (92% usage)',
+                'Analytics tracking strategies'
+              ]}
+              delay={0.55}
+            />
+
+            <SectionPreviewCard
               icon="🧪"
-              title="Section 6: Agent Testing"
+              title="Section 7: Agent Testing"
               description="Learn how to test your site's compatibility with AI agents"
               features={[
                 'Step-by-step testing guide',
@@ -202,7 +214,7 @@ export function LandingPage({ onStartTutorial }: LandingPageProps) {
 
             <SectionPreviewCard
               icon="♿"
-              title="Section 7: Accessibility"
+              title="Section 8: Accessibility"
               description="Fix issues agents encounter—ARIA patterns for humans and machines"
               features={[
                 'ARIA patterns for e-commerce',
@@ -214,7 +226,7 @@ export function LandingPage({ onStartTutorial }: LandingPageProps) {
 
             <SectionPreviewCard
               icon="⚡"
-              title="Section 8: Agent Mode"
+              title="Section 9: Agent Mode"
               description="The next frontier: autonomous transactions and the $3-5T opportunity"
               features={[
                 'Autonomous vs supervised modes',
@@ -226,7 +238,7 @@ export function LandingPage({ onStartTutorial }: LandingPageProps) {
 
             <SectionPreviewCard
               icon="🎓"
-              title="Section 9: Takeaways"
+              title="Section 10: Takeaways"
               description="Recap essential concepts and the $3-5 trillion agentic commerce opportunity"
               features={[
                 '15 essential takeaways',

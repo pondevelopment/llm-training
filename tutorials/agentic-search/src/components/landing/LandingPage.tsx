@@ -88,13 +88,14 @@ export function LandingPage({ onStartTutorial }: LandingPageProps) {
             What You'll Learn
           </h2>
           
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {[
-              { icon: '🔄', title: 'Search Comparison', desc: 'Traditional vs Agentic approaches' },
+              { icon: '🔄', title: 'Search Evolution', desc: 'Traditional vs Agentic approaches' },
               { icon: '🧰', title: 'Tool Discovery', desc: 'How agents find and use APIs' },
-              { icon: '📋', title: 'MCP Protocol', desc: 'Standardized tool manifests' },
-              { icon: '⚡', title: 'Live Workflow', desc: 'Step-by-step simulation' },
-              { icon: '🎯', title: 'Optimization', desc: 'FEED framework & conversion tactics' }
+              { icon: '📋', title: 'Protocols', desc: 'MCP, A2A, AP2, ACP standards' },
+              { icon: '⚡', title: 'Agent Mode', desc: 'Autonomous transactions' },
+              { icon: '🎯', title: 'Optimization', desc: 'FEED framework & conversion' },
+              { icon: '♿', title: 'Accessibility', desc: 'ARIA patterns for agents' }
             ].map((item, index) => (
               <motion.div
                 key={index}
@@ -142,9 +143,9 @@ export function LandingPage({ onStartTutorial }: LandingPageProps) {
             <SectionPreviewCard
               icon="🧰"
               title="Section 2: Toolbox Explorer"
-              description="Explore 8 different tools agents use for research and analysis"
+              description="Explore 9 different tools agents use for research and analysis"
               features={[
-                'Interactive tool cards',
+                'Interactive tool cards with manifests',
                 'Detailed capabilities and use cases',
                 'Example API calls and outputs'
               ]}
@@ -166,11 +167,11 @@ export function LandingPage({ onStartTutorial }: LandingPageProps) {
             <SectionPreviewCard
               icon="🎬"
               title="Section 4: Scenario Player"
-              description="Watch an agent plan Q4 content strategy for a bike shop from start to finish"
+              description="Watch an agent help customers find bikes, book test rides, and get support"
               features={[
-                'Auto-play workflow simulation',
+                'Step-through workflow simulation',
                 'See tool calls and reasoning',
-                'Trace insights to their sources'
+                'Multiple customer journey scenarios'
               ]}
               delay={0.4}
             />
@@ -178,25 +179,61 @@ export function LandingPage({ onStartTutorial }: LandingPageProps) {
             <SectionPreviewCard
               icon="🎯"
               title="Section 5: Optimization"
-              description="Learn practical strategies to make your products and services visible in agentic search"
+              description="Learn the FEED framework and practical strategies for agentic search visibility"
               features={[
                 'FEED framework for optimization',
                 'Real conversion metrics (15.9% vs 1.8%)',
-                'Common limitations and solutions'
+                'Platform strategies and analytics'
               ]}
               delay={0.5}
             />
 
             <SectionPreviewCard
-              icon="🎓"
-              title="Section 6: Takeaways"
-              description="Recap essential concepts and understand the future of agentic search"
+              icon="⚡"
+              title="Section 6: Agent Mode"
+              description="The next frontier: autonomous transactions and the $3-5T opportunity"
               features={[
-                '7 essential takeaways',
-                'Next steps for implementation',
-                'Building agent-friendly services'
+                'Autonomous vs supervised modes',
+                'Evolution: search → agent mode',
+                'Platform stats and behavior patterns'
               ]}
               delay={0.6}
+            />
+
+            <SectionPreviewCard
+              icon="🧪"
+              title="Section 7: Agent Testing"
+              description="Learn how to test your site's compatibility with AI agents"
+              features={[
+                'Step-by-step testing guide',
+                'Custom prompt generator',
+                'Interpret results and fix issues'
+              ]}
+              delay={0.7}
+            />
+
+            <SectionPreviewCard
+              icon="♿"
+              title="Section 8: Accessibility"
+              description="Fix issues agents encounter—ARIA patterns for humans and machines"
+              features={[
+                'ARIA patterns for e-commerce',
+                'Agents parse DOM like screen readers',
+                'Code examples: before and after'
+              ]}
+              delay={0.8}
+            />
+
+            <SectionPreviewCard
+              icon="🎓"
+              title="Section 9: Takeaways"
+              description="Recap essential concepts and next steps for implementation"
+              features={[
+                '7 essential takeaways',
+                'Building agent-friendly services',
+                'Future of agentic search'
+              ]}
+              delay={0.9}
             />
           </div>
         </motion.div>

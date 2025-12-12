@@ -338,6 +338,32 @@ export function AccessibilitySection() {
         </p>
       </motion.div>
 
+      {/* Connection to Agent Testing */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.1 }}
+        className="max-w-3xl mx-auto"
+      >
+        <Panel variant="warning" className="p-6 border-l-4 border-[var(--color-accent)]">
+          <div className="flex items-start gap-4">
+            <div className="text-3xl">💡</div>
+            <div className="flex-1">
+              <h4 className="text-lg font-bold text-heading mb-2">
+                Why This Matters: Agents Parse the DOM Like Screen Readers
+              </h4>
+              <p className="text-body leading-relaxed">
+                In the Agent Testing section, you learned how to test your site with AI agents. 
+                Did you notice issues with buttons not being clickable, or forms not being understood? 
+                <strong> Many of these problems come from poor accessibility.</strong> AI agents that use 
+                text-only browsers parse your DOM structure just like screen readers do. The semantic HTML 
+                and ARIA patterns you'll learn here fix those issues—<strong>accessibility = agent-ability</strong>.
+              </p>
+            </div>
+          </div>
+        </Panel>
+      </motion.div>
+
       {/* Why ARIA Matters */}
       <section className="grid md:grid-cols-3 gap-4">
         <Panel variant="info" className="text-center">

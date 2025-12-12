@@ -59,13 +59,13 @@ export function ScenarioSection() {
           </div>
         </div>
 
-        {/* Key Highlight */}
+        {/* Transition to Next Section */}
         <div className="mt-6 panel-inset p-4 border-l-4 border-accent-primary">
           <p className="text-text-primary font-medium">
-            💡 <span className="font-bold">Key Insight:</span> Notice how the agent adapts 
-            to each customer's unique situation. This is <span className="text-accent-primary font-semibold">agentic 
-            search</span> — not just showing search results, but understanding needs, comparing options, 
-            checking real-time availability, and guiding customers to the perfect solution.
+            👀 <span className="font-bold">Watch for:</span> As you step through each scenario, 
+            notice the <span className="text-accent-primary font-semibold">tool calls</span> the agent makes. 
+            You learned about these tools in the previous section—now see them working together 
+            to solve real customer problems.
           </p>
         </div>
       </motion.div>

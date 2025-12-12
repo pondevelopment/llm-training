@@ -216,7 +216,7 @@ const scenarios: Scenario[] = [
       },
       {
         id: 4,
-        icon: '�',
+        icon: '🔎',
         title: 'Attempt Query',
         description: 'Agent tries search but gets unstructured results - geometry data not indexed',
         code: 'searchSite({\n  query: "Domane geometry stack reach"\n})',

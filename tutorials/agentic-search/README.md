@@ -22,7 +22,7 @@ An interactive deep-dive tutorial teaching marketers and developers how AI agent
 5. **Optimization** - FEED framework, conversion metrics, and best practices
 6. **Takeaways** - Key lessons and actionable insights
 
-## ��️ Tech Stack
+## 🛠️ Tech Stack
 
 - **Framework:** React 18 + TypeScript
 - **Build Tool:** Vite 7

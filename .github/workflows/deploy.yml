@@ -27,7 +27,9 @@ jobs:
         with:
           node-version: '22'
           cache: 'npm'
-          cache-dependency-path: 'tutorials/agentic-search/package-lock.json'
+          cache-dependency-path: |
+            tutorials/agentic-search/package-lock.json
+            tutorials/multi-agent-frameworks/package-lock.json
 
       - name: Install root dependencies
         run: npm ci
@@ -39,6 +41,14 @@ jobs:
           npm ci
           npm run build
           echo "✅ Agentic Search tutorial built successfully"
+          ls -lh dist/
+
+      - name: Build Multi-Agent Frameworks Tutorial
+        run: |
+          cd tutorials/multi-agent-frameworks
+          npm ci
+          npm run build
+          echo "✅ Multi-Agent Frameworks tutorial built successfully"
           ls -lh dist/
 
       - name: Generate build info

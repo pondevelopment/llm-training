@@ -26,6 +26,10 @@ export function RelevanceSection() {
             Keep long-term knowledge searchable, not permanently pinned.
             Retrieval can be agent-driven (“reactive”) or system-assisted (“proactive”).
           </p>
+          <ul className="list-disc ml-5 space-y-1 text-sm text-muted">
+            <li><span className="font-semibold">Reactive</span>: the agent notices a gap and explicitly searches</li>
+            <li><span className="font-semibold">Proactive</span>: a pre-processor runs retrieval and injects likely relevant snippets</li>
+          </ul>
         </Panel>
       </div>
 

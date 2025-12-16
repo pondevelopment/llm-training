@@ -35,6 +35,14 @@ export function MultiAgentSection() {
           When transferring, the framework may need to reframe prior agent messages so the new agent doesn’t assume
           it performed those past actions.
         </p>
+        <ul className="list-disc ml-5 space-y-1 text-body">
+          <li><span className="font-semibold">Narrative casting</span>: recast prior assistant messages as “for context” notes</li>
+          <li><span className="font-semibold">Action attribution</span>: tag/summarize tool calls so the new agent won’t misattribute execution</li>
+        </ul>
+        <p className="text-sm text-muted">
+          Practical knob: handoffs often support “include full contents” vs “none/minimal” history transfer.
+          Defaulting to minimal reduces context explosion.
+        </p>
       </Panel>
     </div>
   );

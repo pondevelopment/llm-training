@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { SectionPreviewCard } from './SectionPreviewCard';
+import { GOOGLE_BLOG_SOURCE_URL } from '../../data/sources';
 
 interface LandingPageProps {
   onStartTutorial: () => void;
@@ -269,6 +270,26 @@ export function LandingPage({ onStartTutorial }: LandingPageProps) {
             Begin Tutorial →
           </motion.button>
         </motion.div>
+      </section>
+
+      {/* Sources */}
+      <section className="max-w-4xl mx-auto">
+        <div className="panel p-6 space-y-3">
+          <h3 className="text-xl font-bold text-heading">📝 Source</h3>
+          <p className="text-body">
+            This tutorial is an educational, framework-agnostic walkthrough inspired by:
+          </p>
+          <p className="text-sm text-muted">
+            <a
+              className="link-primary hover:underline"
+              href={GOOGLE_BLOG_SOURCE_URL}
+              target="_blank"
+              rel="noreferrer"
+            >
+              Architecting efficient context-aware multi-agent framework for production ↗
+            </a>
+          </p>
+        </div>
       </section>
     </div>
   );

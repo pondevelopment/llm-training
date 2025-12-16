@@ -9,6 +9,10 @@ export function StructureSection() {
           Production frameworks separate durable state from the per-call prompt.
           You keep the full truth in storage, and compute a scoped “working context” for each invocation.
         </p>
+        <p className="text-sm text-muted">
+          Key idea: the <span className="font-semibold">working context is a recomputed, ephemeral view</span>.
+          You can change its formatting without migrating your stored history.
+        </p>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2">
@@ -25,6 +29,11 @@ export function StructureSection() {
             Structured events: user messages, agent outputs, tool calls/results, control signals, and errors.
             This is the ground truth.
           </p>
+          <ul className="list-disc ml-5 space-y-1 text-sm text-muted">
+            <li>Model-agnostic storage (swap models without rewriting history)</li>
+            <li>Rich operations (analytics, time-travel debugging, compaction)</li>
+            <li>Better observability (inspect actions and state transitions)</li>
+          </ul>
         </Panel>
         <Panel className="p-5 space-y-2">
           <h3 className="text-sm font-semibold text-heading">Memory (long-lived knowledge)</h3>

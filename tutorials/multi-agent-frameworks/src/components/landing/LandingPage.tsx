@@ -1,6 +1,12 @@
 import { motion } from 'framer-motion';
 import { SectionPreviewCard } from './SectionPreviewCard';
-import { GOOGLE_BLOG_SOURCE_URL } from '../../data/sources';
+import {
+  AGENTS_COMPANION_CITATION,
+  AGENTS_COMPANION_SOURCE_URL,
+  GOOGLE_BLOG_SOURCE_URL,
+  SCALING_AGENT_SYSTEMS_PAPER_CITATION,
+  SCALING_AGENT_SYSTEMS_PAPER_URL,
+} from '../../data/sources';
 
 interface LandingPageProps {
   onStartTutorial: () => void;
@@ -287,6 +293,26 @@ export function LandingPage({ onStartTutorial }: LandingPageProps) {
               rel="noreferrer"
             >
               Architecting efficient context-aware multi-agent framework for production ↗
+            </a>
+          </p>
+          <p className="text-sm text-muted">
+            <a
+              className="link-primary hover:underline"
+              href={AGENTS_COMPANION_SOURCE_URL}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {AGENTS_COMPANION_CITATION} ↗
+            </a>
+          </p>
+          <p className="text-sm text-muted">
+            <a
+              className="link-primary hover:underline"
+              href={SCALING_AGENT_SYSTEMS_PAPER_URL}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {SCALING_AGENT_SYSTEMS_PAPER_CITATION} ↗
             </a>
           </p>
         </div>

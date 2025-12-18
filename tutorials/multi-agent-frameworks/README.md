@@ -34,3 +34,8 @@ cd tutorials/multi-agent-frameworks
 Primary inspiration:
 
 - [Architecting efficient context-aware multi-agent framework for production](https://developers.googleblog.com/architecting-efficient-context-aware-multi-agent-framework-for-production/)
+
+Additional reference:
+
+- [Agents Companion (Feb 2025)](https://drive.google.com/file/d/1GVPdwEh48bErTNdhxD0vqxPAifSx1I6Y/view)
+- [Towards a Science of Scaling Agent Systems (arXiv:2512.08296v2, Dec 2025)](https://arxiv.org/abs/2512.08296)

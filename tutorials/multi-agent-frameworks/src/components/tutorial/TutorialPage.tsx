@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Panel } from '../shared/Panel';
 import { IntroSection } from '../intro/IntroSection';
@@ -23,22 +23,55 @@ const sections = [
 
 export function TutorialPage({ onBackToOverview }: TutorialPageProps) {
   const [currentSection, setCurrentSection] = useState(1);
+  const [navLocked, setNavLocked] = useState(false);
+  const navLockedRef = useRef(false);
+  const navLockTimerIdRef = useRef<number | null>(null);
 
   // Scroll to top when section changes
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [currentSection]);
 
-  const handleNextSection = () => {
-    if (currentSection < sections.length) {
-      setCurrentSection(currentSection + 1);
+  useEffect(() => {
+    return () => {
+      if (navLockTimerIdRef.current !== null) {
+        window.clearTimeout(navLockTimerIdRef.current);
+        navLockTimerIdRef.current = null;
+      }
+      navLockedRef.current = false;
+    };
+  }, []);
+
+  const lockNavBriefly = () => {
+    navLockedRef.current = true;
+    setNavLocked(true);
+    if (navLockTimerIdRef.current !== null) {
+      window.clearTimeout(navLockTimerIdRef.current);
     }
+    // Matches the section transition duration (0.3s) with a small buffer.
+    navLockTimerIdRef.current = window.setTimeout(() => {
+      setNavLocked(false);
+      navLockedRef.current = false;
+      navLockTimerIdRef.current = null;
+    }, 350);
+  };
+
+  const handleNextSection = () => {
+    if (navLockedRef.current) return;
+    const currentIndex = sections.findIndex(s => s.id === currentSection);
+    if (currentIndex < 0) return;
+    if (currentIndex >= sections.length - 1) return;
+    lockNavBriefly();
+    setCurrentSection(sections[currentIndex + 1].id);
   };
 
   const handlePrevSection = () => {
-    if (currentSection > 1) {
-      setCurrentSection(currentSection - 1);
-    }
+    if (navLockedRef.current) return;
+    const currentIndex = sections.findIndex(s => s.id === currentSection);
+    if (currentIndex < 0) return;
+    if (currentIndex <= 0) return;
+    lockNavBriefly();
+    setCurrentSection(sections[currentIndex - 1].id);
   };
 
   const CurrentSectionComponent = sections.find(s => s.id === currentSection)?.component;
@@ -84,7 +117,11 @@ export function TutorialPage({ onBackToOverview }: TutorialPageProps) {
           {sections.map((section) => (
             <button
               key={section.id}
-              onClick={() => setCurrentSection(section.id)}
+              onClick={() => {
+                if (navLockedRef.current) return;
+                lockNavBriefly();
+                setCurrentSection(section.id);
+              }}
               className={`px-3 py-2 rounded-lg font-medium transition-all flex items-center gap-1.5 ${
                 currentSection === section.id
                   ? 'bg-accent text-white shadow-lg scale-105'
@@ -138,6 +175,7 @@ export function TutorialPage({ onBackToOverview }: TutorialPageProps) {
           ) : (
             <button
               onClick={handleNextSection}
+              disabled={navLocked}
               className="px-6 py-3 rounded-lg bg-accent text-white font-medium hover:bg-accent/90 transition-colors shadow-sm flex items-center gap-2"
             >
               Next Section →

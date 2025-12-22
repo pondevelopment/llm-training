@@ -15,6 +15,32 @@ export function StructureSection() {
         </p>
       </div>
 
+      <Panel variant="info" className="p-6 space-y-3">
+        <h3 className="text-lg font-semibold text-heading">Real-world business example</h3>
+        <p className="text-body">
+          Consider a sales assistant that drafts quotes for enterprise renewals.
+          The agent needs a lot of context: contract terms, pricing rules, discount approvals, customer usage,
+          and prior negotiation history.
+        </p>
+        <div className="grid gap-3 md:grid-cols-2">
+          <div className="panel panel-warning p-4">
+            <p className="text-sm font-semibold text-heading mb-1">Naive (stuff everything)</p>
+            <p className="text-sm text-body">
+              Paste the full contract PDF text, the entire email thread, all usage exports, and every pricing rule into
+              the prompt for every step. It’s slow, expensive, and important constraints get lost.
+            </p>
+          </div>
+          <div className="panel panel-success p-4">
+            <p className="text-sm font-semibold text-heading mb-1">Tiered context (storage vs working view)</p>
+            <p className="text-sm text-body">
+              Store the full deal timeline as <strong>session events + artifacts</strong> (contracts, emails, spreadsheets).
+              For each action (draft quote, check guardrails, write rationale), compile a small working context:
+              current SKUs, approved discount bands, customer constraints, and only the relevant contract excerpt.
+            </p>
+          </div>
+        </div>
+      </Panel>
+
       <div className="grid gap-4 md:grid-cols-2">
         <Panel className="p-5 space-y-2">
           <h3 className="text-sm font-semibold text-heading">Working context (per call)</h3>

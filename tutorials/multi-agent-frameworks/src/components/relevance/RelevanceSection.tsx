@@ -11,6 +11,30 @@ export function RelevanceSection() {
         </p>
       </div>
 
+      <Panel variant="info" className="p-6 space-y-3">
+        <h3 className="text-lg font-semibold text-heading">Real-world business example</h3>
+        <p className="text-body">
+          Imagine a customer support copilot answering: <strong>“Can I return this item?”</strong>
+          The correct answer depends on the customer’s order, the SKU category, regional policy, and timing.
+        </p>
+        <div className="grid gap-3 md:grid-cols-2">
+          <div className="panel panel-warning p-4">
+            <p className="text-sm font-semibold text-heading mb-1">Naive (too much context)</p>
+            <p className="text-sm text-body">
+              Always include the full policy handbook, full customer history, and every past ticket.
+              The model spends attention on irrelevant details and misses the one clause that matters.
+            </p>
+          </div>
+          <div className="panel panel-success p-4">
+            <p className="text-sm font-semibold text-heading mb-1">Relevance-first (right slice)</p>
+            <p className="text-sm text-body">
+              Retrieve only what’s needed for this step: order date, delivery date, SKU type, region, and the specific
+              policy excerpt for that combination. Keep everything else as handles (expand on demand).
+            </p>
+          </div>
+        </div>
+      </Panel>
+
       <div className="grid gap-4 md:grid-cols-2">
         <Panel className="p-6 space-y-2">
           <h3 className="text-lg font-semibold text-heading">Artifacts</h3>

@@ -17,6 +17,30 @@ export function MultiAgentSection() {
         </p>
       </div>
 
+      <Panel variant="info" className="p-6 space-y-3">
+        <h3 className="text-lg font-semibold text-heading">Real-world business example</h3>
+        <p className="text-body">
+          Imagine a procurement copilot coordinating a complex purchase: legal reviews terms, finance checks budget,
+          IT/security validates vendor risk, and the buyer negotiates pricing.
+        </p>
+        <div className="grid gap-3 md:grid-cols-2">
+          <div className="panel panel-warning p-4">
+            <p className="text-sm font-semibold text-heading mb-1">Naive (everyone sees everything)</p>
+            <p className="text-sm text-body">
+              Every specialist agent gets the full thread: all prior messages, every attachment summary, and all tool outputs.
+              Specialists waste tokens on irrelevant detail and leak assumptions across domains.
+            </p>
+          </div>
+          <div className="panel panel-success p-4">
+            <p className="text-sm font-semibold text-heading mb-1">Scoped multi-agent context</p>
+            <p className="text-sm text-body">
+              Treat specialists like tools: send the minimum inputs + the specific artifacts they need.
+              Merge back only the conclusions (and citations) into the main session.
+            </p>
+          </div>
+        </div>
+      </Panel>
+
       <div className="grid gap-4 md:grid-cols-2">
         <Panel className="p-6 space-y-2">
           <h3 className="text-lg font-semibold text-heading">Pattern 1: Agents-as-tools</h3>

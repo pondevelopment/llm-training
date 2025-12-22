@@ -20,6 +20,30 @@ export function PipelineSection() {
         </p>
       </div>
 
+      <Panel variant="info" className="p-6 space-y-3">
+        <h3 className="text-lg font-semibold text-heading">Real-world business example</h3>
+        <p className="text-body">
+          Imagine an AP/finance copilot that processes vendor invoices end-to-end: read invoice → match PO/receipt → apply policy →
+          route for approval → schedule payment.
+        </p>
+        <div className="grid gap-3 md:grid-cols-2">
+          <div className="panel panel-warning p-4">
+            <p className="text-sm font-semibold text-heading mb-1">Naive (one big prompt)</p>
+            <p className="text-sm text-body">
+              Repeatedly paste invoice OCR, PO details, receipts, policy docs, and prior approvals into every call.
+              When something goes wrong, you can’t tell which input caused it.
+            </p>
+          </div>
+          <div className="panel panel-success p-4">
+            <p className="text-sm font-semibold text-heading mb-1">Flow + processors (debuggable steps)</p>
+            <p className="text-sm text-body">
+              Each step has a small working context and a predictable post-processor:
+              extract fields → validate schema → run matching tools → apply policy rules → emit an auditable decision.
+            </p>
+          </div>
+        </div>
+      </Panel>
+
       <Panel className="p-6 space-y-3">
         <h3 className="text-lg font-semibold text-heading">A simple pipeline view</h3>
         <div className="space-y-2">

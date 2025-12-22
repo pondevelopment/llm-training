@@ -29,6 +29,8 @@ import { UniversalPrinciples } from './UniversalPrinciples';
  * - Actionable implementation steps
  */
 export function OptimizationSection() {
+  const SCALING_AGENT_SYSTEMS_PAPER_URL = 'https://arxiv.org/abs/2512.08296v2';
+
   return (
     <div className="space-y-12">
       {/* Introduction */}
@@ -65,6 +67,20 @@ export function OptimizationSection() {
             Small optimizations have <span className="text-accent-primary font-semibold">outsized 
             impact</span> on visibility and conversions.
           </p>
+        </div>
+
+        {/* Ecommerce Micro-Case */}
+        <div className="mt-4 panel-inset p-5 border-l-4 border-accent-primary">
+          <h4 className="text-lg font-bold text-text-primary mb-2">Ecommerce micro-case: win the shortlist and reduce returns</h4>
+          <p className="text-text-secondary leading-relaxed text-sm mb-3">
+            Agents don’t just optimize for clicks—they optimize for goal completion. For retail, that often means
+            <strong className="text-text-primary"> fewer “surprise” outcomes</strong> (wrong size, missing compatibility, unclear policies).
+          </p>
+          <ul className="text-sm text-text-secondary space-y-1">
+            <li>• Put sizing/compatibility in text (not only images)</li>
+            <li>• Make returns/shipping constraints explicit and easy to parse</li>
+            <li>• Provide structured review summaries (what’s great vs common complaints)</li>
+          </ul>
         </div>
       </motion.div>
 
@@ -714,6 +730,24 @@ export function OptimizationSection() {
         transition={{ duration: 0.6, delay: 1.7 }}
         className="max-w-4xl mx-auto space-y-6"
       >
+        {/* Coordination Note */}
+        <div className="panel-inset p-5 border-l-4 border-accent-primary">
+          <p className="text-sm text-text-secondary leading-relaxed">
+            <span className="font-semibold text-text-primary">System design note:</span> Adding more coordination (more tools, more agents, more rounds)
+            can introduce overhead. A controlled study on agentic benchmarks finds multi-agent systems can help in decomposable tasks but degrade on
+            sequential workflows under fixed budgets.
+            {' '}
+            <a
+              href={SCALING_AGENT_SYSTEMS_PAPER_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-accent-primary hover:underline"
+            >
+              Source ↗
+            </a>
+          </p>
+        </div>
+
         {/* Data Sources */}
         <div className="panel-inset p-6">
           <h5 className="text-lg font-bold text-text-primary mb-4 text-center">📚 Data Sources</h5>
@@ -783,6 +817,23 @@ export function OptimizationSection() {
               <p className="text-text-secondary text-xs">
                 LLM visitor value study
                 <span className="block mt-1 italic">4.4x average LLM visitor worth vs organic. Prediction: AI search surpasses traditional search by 2028.</span>
+              </p>
+            </div>
+
+            <div className="bg-[var(--color-card)] rounded-lg p-4 border border-[var(--color-border)]">
+              <p className="font-bold text-text-primary mb-2">
+                <a
+                  href={SCALING_AGENT_SYSTEMS_PAPER_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-accent-primary hover:underline"
+                >
+                  Kim et al. (Dec 2025)
+                </a>
+              </p>
+              <p className="text-text-secondary text-xs">
+                “Towards a Science of Scaling Agent Systems”
+                <span className="block mt-1 italic">Quantifies when multi-agent coordination helps vs hurts (e.g., sequential vs decomposable tasks, overhead, and error amplification).</span>
               </p>
             </div>
           </div>

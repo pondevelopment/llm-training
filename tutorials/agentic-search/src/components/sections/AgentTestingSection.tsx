@@ -7,6 +7,8 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+const SCALING_AGENT_SYSTEMS_PAPER_URL = 'https://arxiv.org/abs/2512.08296v2';
+
 interface TestScenario {
   id: string;
   title: string;
@@ -229,6 +231,16 @@ Please begin testing and provide detailed results for each scenario.`;
                   </ul>
                 </div>
               </div>
+
+              <div className="mt-6 panel-inset p-5 border-l-4 border-accent-primary">
+                <h4 className="text-lg font-bold text-text-primary mb-2">Ecommerce micro-case: test for “return-causing” failures</h4>
+                <p className="text-text-secondary leading-relaxed text-sm mb-3">
+                  A practical agent test isn’t “can it click buy”—it’s “can it avoid the common mistakes that lead to returns and support tickets?”.
+                </p>
+                <p className="text-text-secondary text-sm leading-relaxed">
+                  Example prompt snippet: <em>“Buy a men’s medium hoodie under $60, confirm the return window, and choose a color that’s in stock. Stop before payment.”</em>
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -318,6 +330,37 @@ Please begin testing and provide detailed results for each scenario.`;
                 "A furniture retailer tested their site and discovered agents couldn't complete checkout because 
                 a newsletter pop-up appeared over the 'Place Order' button with no way to dismiss it. Fixing 
                 this one issue increased agent conversion from 8% to 34%."
+              </p>
+            </div>
+
+            <div className="panel-inset p-6 border-l-4 border-accent-primary">
+              <h4 className="text-lg font-bold text-text-primary mb-2">
+                ⚖️ Choosing “one agent” vs “many agents”
+              </h4>
+              <p className="text-sm text-text-secondary leading-relaxed mb-3">
+                Most site tests (navigation, add-to-cart, checkout) are <strong className="text-text-primary">sequential and stateful</strong>.
+                Research on agentic benchmarks suggests multi-agent coordination can add overhead and even reduce success in these kinds of workflows.
+              </p>
+              <div className="grid md:grid-cols-2 gap-4 text-sm">
+                <div className="bg-[var(--color-card)] rounded-lg p-4 border border-[var(--color-border)]">
+                  <div className="font-bold text-text-primary mb-2">Use a single agent when…</div>
+                  <ul className="space-y-1 text-text-secondary">
+                    <li>• The flow is step-by-step (checkout, form filling)</li>
+                    <li>• The environment state changes each step</li>
+                    <li>• You mainly want to find friction points</li>
+                  </ul>
+                </div>
+                <div className="bg-[var(--color-card)] rounded-lg p-4 border border-[var(--color-border)]">
+                  <div className="font-bold text-text-primary mb-2">Consider multiple agents when…</div>
+                  <ul className="space-y-1 text-text-secondary">
+                    <li>• The task decomposes cleanly (parallel research)</li>
+                    <li>• You need independent verification</li>
+                    <li>• Baseline success is low (there’s room to improve)</li>
+                  </ul>
+                </div>
+              </div>
+              <p className="text-xs text-text-muted mt-3">
+                Source: <a href={SCALING_AGENT_SYSTEMS_PAPER_URL} target="_blank" rel="noopener noreferrer" className="text-accent-primary hover:underline">Kim et al., 2025 (arXiv:2512.08296) ↗</a>
               </p>
             </div>
 

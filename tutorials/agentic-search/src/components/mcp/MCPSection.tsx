@@ -58,6 +58,23 @@ export function MCPSection() {
         </div>
       </div>
 
+      {/* Ecommerce Micro-Case */}
+      <div className="panel p-6 max-w-3xl mx-auto">
+        <h3 className="text-lg font-bold text-heading mb-3">Ecommerce micro-case: publish an agent-ready storefront</h3>
+        <div className="space-y-2 text-sm text-body leading-relaxed">
+          <p>
+            For commerce, <strong>tool discovery is distribution</strong>. If an agent can discover your catalog, policies, and order state via MCP,
+            it can answer customers (and complete tasks) without brittle scraping.
+          </p>
+          <div className="panel-inset p-4 border-l-4 border-accent-primary">
+            <p className="text-text-primary font-medium">
+              Example capabilities to expose: <span className="font-semibold">product.search</span>, <span className="font-semibold">product.get</span>,
+              <span className="font-semibold">policy.returns</span>, <span className="font-semibold">shipping.quote</span>, <span className="font-semibold">order.status</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
       {/* Tab Navigation */}
       <div className="flex justify-center gap-2">
         <button

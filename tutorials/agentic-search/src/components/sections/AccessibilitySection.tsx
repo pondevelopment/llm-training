@@ -364,6 +364,27 @@ export function AccessibilitySection() {
         </Panel>
       </motion.div>
 
+      {/* Ecommerce Micro-Case */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.15 }}
+        className="max-w-3xl mx-auto"
+      >
+        <Panel variant="info" className="p-6 border-l-4 border-[var(--color-accent)]">
+          <div className="flex items-start gap-4">
+            <div className="text-3xl">🧾</div>
+            <div className="flex-1">
+              <h4 className="text-lg font-bold text-heading mb-2">Ecommerce micro-case: make checkout “legible”</h4>
+              <p className="text-body leading-relaxed">
+                For agent-driven commerce, the critical path is usually <strong>variants → address → shipping options → totals</strong>.
+                Labels, roles, and live regions help agents reliably detect what changed (price, shipping, stock) after each action.
+              </p>
+            </div>
+          </div>
+        </Panel>
+      </motion.div>
+
       {/* Why ARIA Matters */}
       <section className="grid md:grid-cols-3 gap-4">
         <Panel variant="info" className="text-center">
@@ -471,8 +492,8 @@ export function AccessibilitySection() {
                 {currentExample.description}
               </p>
               <div className="flex flex-wrap gap-2">
-                {currentExample.tags.map(tag => (
-                  <Chip key={tag} variant="info">{tag}</Chip>
+                {currentExample.tags.map((tag, idx) => (
+                  <Chip key={`${tag}-${idx}`} variant="info">{tag}</Chip>
                 ))}
               </div>
             </div>

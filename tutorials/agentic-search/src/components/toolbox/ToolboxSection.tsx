@@ -76,6 +76,26 @@ export function ToolboxSection() {
         </div>
       </div>
 
+      {/* Ecommerce Micro-Case */}
+      <div className="panel panel-warning p-6 max-w-3xl mx-auto">
+        <div className="flex items-start gap-4">
+          <div className="text-3xl">🛍️</div>
+          <div>
+            <h3 className="text-lg font-bold text-heading mb-2">Ecommerce micro-case: one question → many tool calls</h3>
+            <p className="text-body text-sm leading-relaxed mb-3">
+              Customer asks: <strong>“Which carry-on fits airline rules and has easy returns?”</strong>.
+              A useful agent typically needs multiple tools—not just web search.
+            </p>
+            <ul className="text-xs text-body space-y-1">
+              <li>• Catalog/variant lookup (dimensions, weights, materials)</li>
+              <li>• Policy lookup (returns window, free returns, restocking fees)</li>
+              <li>• Review summarization (durability complaints, zipper failures)</li>
+              <li>• Inventory + ship dates (can it arrive before a trip?)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
       {/* Tool Grid */}
       <div className="max-w-6xl mx-auto">
         <p className="text-center text-sm text-muted mb-6">

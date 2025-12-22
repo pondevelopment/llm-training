@@ -51,7 +51,7 @@ export function SummarySection() {
             💡 Key Takeaways
           </h3>
           <p className="text-text-secondary">
-            Six essential concepts that define agentic search
+            Core concepts and practical lessons from the tutorial
           </p>
         </motion.div>
 

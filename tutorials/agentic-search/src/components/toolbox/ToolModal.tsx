@@ -84,7 +84,7 @@ export function ToolModal({ tool, onClose }: ToolModalProps) {
                 <ul className="space-y-2">
                   {tool.useCases.map((useCase, index) => (
                     <li
-                      key={index}
+                      key={`${tool.id}-usecase-${index}`}
                       className="flex items-start gap-3 text-body"
                     >
                       <span className="text-[var(--color-success)] mt-1">✓</span>
@@ -104,7 +104,7 @@ export function ToolModal({ tool, onClose }: ToolModalProps) {
               <ul className="space-y-2">
                 {tool.capabilities.map((capability, index) => (
                   <li
-                    key={index}
+                    key={`${tool.id}-capability-${index}`}
                     className="flex items-start gap-3 text-body"
                   >
                     <span className="text-[var(--color-primary)] mt-1">▸</span>

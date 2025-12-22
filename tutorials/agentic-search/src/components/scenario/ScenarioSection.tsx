@@ -68,6 +68,15 @@ export function ScenarioSection() {
             to solve real customer problems.
           </p>
         </div>
+
+        {/* Ecommerce Micro-Case */}
+        <div className="mt-4 panel-inset p-4 border-l-4 border-accent-primary">
+          <p className="text-text-secondary leading-relaxed">
+            <strong className="text-text-primary">Ecommerce translation:</strong> the “bike shop” scenarios are a stand-in for any product catalog.
+            The same flow applies to apparel, electronics, beauty, or B2B ordering: interpret needs → fetch structured product data → check constraints
+            (inventory, shipping, policies) → explain a shortlist.
+          </p>
+        </div>
       </motion.div>
 
       {/* Scenario Player */}

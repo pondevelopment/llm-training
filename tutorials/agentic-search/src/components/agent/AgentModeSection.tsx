@@ -15,6 +15,8 @@ import { searchEvolutionStages, agentBehaviorStats, agentModeInsights } from '..
  * 5. Testing Prompt - Template for users to test their sites
  */
 export function AgentModeSection() {
+  const SCALING_AGENT_SYSTEMS_PAPER_URL = 'https://arxiv.org/abs/2512.08296v2';
+
   return (
     <div className="space-y-12">
       {/* Introduction */}
@@ -68,6 +70,34 @@ export function AgentModeSection() {
               </p>
             </div>
           </div>
+        </div>
+
+        {/* Ecommerce Micro-Case */}
+        <div className="mt-4 panel-inset p-5 border-l-4 border-accent-primary">
+          <h4 className="text-lg font-bold text-text-primary mb-2">Ecommerce micro-case: action, not advice</h4>
+          <p className="text-text-secondary leading-relaxed">
+            In agent mode, the “job” often looks like: <strong className="text-text-primary">reorder a consumable</strong>,
+            <strong className="text-text-primary"> apply a promo</strong>, <strong className="text-text-primary">choose the right variant</strong>,
+            and <strong className="text-text-primary">confirm delivery constraints</strong>. If your checkout relies on hover-only UI, unlabeled inputs,
+            or blocking overlays, an agent will fail even if humans succeed.
+          </p>
+        </div>
+
+        {/* Scaling / Coordination Callout */}
+        <div className="mt-6 panel-inset p-5 border-l-4 border-accent-primary">
+          <p className="text-text-secondary leading-relaxed">
+            <strong className="text-text-primary">Important:</strong> “More agents” isn’t automatically better. A controlled study across agentic benchmarks
+            found multi-agent coordination can boost decomposable tasks but often degrades sequential, state-dependent workflows under fixed budgets.
+            {' '}
+            <a
+              href={SCALING_AGENT_SYSTEMS_PAPER_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-accent-primary hover:underline"
+            >
+              Source ↗
+            </a>
+          </p>
         </div>
       </motion.div>
 

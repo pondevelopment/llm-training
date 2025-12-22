@@ -80,6 +80,27 @@ export function IntroSection() {
         </div>
       </div>
 
+      {/* Ecommerce Micro-Case */}
+      <div className="panel p-6 max-w-3xl mx-auto">
+        <h3 className="text-lg font-bold text-heading mb-3">Ecommerce micro-case: reduce returns, not just clicks</h3>
+        <div className="space-y-3 text-sm text-body leading-relaxed">
+          <p>
+            Imagine you're buying a <strong>winter running jacket</strong> and you care about fit, warmth, and return policy.
+            A link list doesn’t solve that end-to-end. An agent can.
+          </p>
+          <div className="panel-inset p-4 border-l-4 border-accent-primary">
+            <p className="text-text-primary font-medium">
+              ✅ A good agent goal looks like: <span className="font-semibold">"Find 3 options under $200, prioritize easy returns, and explain sizing trade-offs."</span>
+            </p>
+          </div>
+          <ul className="space-y-1">
+            <li>• It gathers constraints (budget, climate, sizing preferences)</li>
+            <li>• It checks product specs, reviews, shipping/returns</li>
+            <li>• It outputs a shortlist with clear reasoning (and what could go wrong)</li>
+          </ul>
+        </div>
+      </div>
+
       {/* Scenario & Persona Selectors */}
       <div className="max-w-3xl mx-auto space-y-4">
         <div className="panel p-4 space-y-4">

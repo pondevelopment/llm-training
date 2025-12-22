@@ -11,6 +11,9 @@ export interface Takeaway {
 // McKinsey report URL for citations
 export const MCKINSEY_REPORT_URL = 'https://www.mckinsey.com/capabilities/quantumblack/our-insights/the-agentic-commerce-opportunity-how-ai-agents-are-ushering-in-a-new-era-for-consumers-and-merchants';
 
+// Scaling agent systems paper (arXiv) for citations
+export const SCALING_AGENT_SYSTEMS_PAPER_URL = 'https://arxiv.org/abs/2512.08296v2';
+
 export const takeaways: Takeaway[] = [
   // === FUNDAMENTALS ===
   {
@@ -134,5 +137,73 @@ export const takeaways: Takeaway[] = [
     category: 'trust',
     source: 'McKinsey, October 2025',
     sourceUrl: MCKINSEY_REPORT_URL
+  },
+
+  // === SCALING PRINCIPLES ===
+  {
+    id: 16,
+    icon: '⚖️',
+    title: 'More Agents Can Help—or Hurt',
+    description: 'In controlled agentic benchmarks, multi-agent systems ranged from +80.8% (finance analysis) to −39% to −70% (sequential planning). Coordination only pays when the task truly decomposes.',
+    category: 'fundamentals',
+    source: 'Kim et al., 2025 (arXiv:2512.08296)',
+    sourceUrl: SCALING_AGENT_SYSTEMS_PAPER_URL
+  },
+  {
+    id: 17,
+    icon: '🎚️',
+    title: 'Watch the ~45% Baseline Ceiling',
+    description: 'When single-agent baseline success is already ≈45% or higher, extra coordination tends to have diminishing or negative returns. Start simple; scale coordination only if there is headroom.',
+    category: 'fundamentals',
+    source: 'Kim et al., 2025 (arXiv:2512.08296)',
+    sourceUrl: SCALING_AGENT_SYSTEMS_PAPER_URL
+  },
+  {
+    id: 18,
+    icon: '🧯',
+    title: 'Topology Changes Failure Modes',
+    description: 'Independent “ensemble” agents amplified errors up to 17.2×, while centralized coordination contained it to 4.4× via explicit verification bottlenecks.',
+    category: 'fundamentals',
+    source: 'Kim et al., 2025 (arXiv:2512.08296)',
+    sourceUrl: SCALING_AGENT_SYSTEMS_PAPER_URL
+  },
+  {
+    id: 19,
+    icon: '🧰',
+    title: 'Tool-Heavy Workflows Pay a Coordination Tax',
+    description: 'Under fixed budgets, tool-rich tasks suffer disproportionately from multi-agent overhead. Track efficiency (success per cost) before adding agents or extra coordination rounds.',
+    category: 'fundamentals',
+    source: 'Kim et al., 2025 (arXiv:2512.08296)',
+    sourceUrl: SCALING_AGENT_SYSTEMS_PAPER_URL
+  },
+
+  // === ECOMMERCE OPERATIONS (PRACTICAL) ===
+  {
+    id: 20,
+    icon: '🧭',
+    title: 'Optimize for “Goal Completion,” Not Keywords',
+    description: 'In commerce, the agent’s job is rarely “find a page.” It’s: choose the right variant, validate constraints (delivery, returns), and explain trade-offs so the customer avoids regrets.',
+    category: 'business'
+  },
+  {
+    id: 21,
+    icon: '📦',
+    title: 'Policies and Inventory Are Product Data',
+    description: 'For agents, returns policy, shipping promises, and stock status are first-class decision inputs. If those aren’t structured and easy to extract, the agent will down-rank you or fail the workflow.',
+    category: 'business'
+  },
+  {
+    id: 22,
+    icon: '🧪',
+    title: 'Test on Real Customer Journeys',
+    description: 'Build your agent test prompts from actual tickets: sizing confusion, compatibility mistakes, promo edge-cases, and address validation. These are the friction points agents expose fastest.',
+    category: 'business'
+  },
+  {
+    id: 23,
+    icon: '🧾',
+    title: 'Make the Checkout State Explicit',
+    description: 'Agents need stable, labeled elements for totals, shipping options, and validation errors. Treat accessibility patterns (labels, roles, live updates) as conversion infrastructure.',
+    category: 'business'
   }
 ];

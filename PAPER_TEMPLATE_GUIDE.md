@@ -176,6 +176,9 @@ When covering business/economics papers (e.g., GenAI productivity studies):
 - Provide helpful defaults: choose dimension/corpus/k values that mirror the paper's baseline.
 - Explain the **lexical reranker** checkbox directly under the control (e.g., "second-pass BM25 scorer to rescue misses").
 - Show real-world scenario labels in the simulator (`Customer support`, `Product catalog`, `Legal discovery`, etc.). Each scenario should:
+  - Be **business/workflow focused** (assume a practitioner audience). Prefer job-to-be-done names over academic task names.
+    - Good: `Customer support agent`, `Sales enablement`, `HR screening`, `Healthcare summarizer`, `Fraud ops`.
+    - Avoid: `SQuAD QA`, `GLUE task`, `Winograd`, or other benchmark-only labels (unless the paper is explicitly about that benchmark).
   - Describe the workflow in 1–2 sentences (`scenario.description`).
   - Supply 8–10 query objects with `name`, `docs` (array of expected hits), and optional `hint` for follow-up guidance.
   - Let `updateScenarioUI()` adjust the slider bounds automatically (keep the API intact).

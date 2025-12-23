@@ -1,4 +1,35 @@
 {
+  "62": {
+    "title": "LLM Harms: A Taxonomy and Discussion",
+    "authors": [
+      "Kevin Chen",
+      "Saleh Afroogh",
+      "Abhejay Murali",
+      "David Atkinson",
+      "Amit Dhurandhar",
+      "Junfeng Jiao"
+    ],
+    "year": 2025,
+    "venue": "arXiv:2512.05929 (2025)",
+    "tags": [
+      "safety",
+      "risk-taxonomy",
+      "governance",
+      "auditing",
+      "misuse",
+      "hallucinations",
+      "bias",
+      "privacy"
+    ],
+    "summary": "Lifecycle-aware taxonomy of LLM harms spanning pre-deployment (data, labor, environment), direct outputs (bias, toxicity, hallucination), misuse (jailbreaks, fraud, prompt injection), systemic impacts (elections, inequality), and downstream high-stakes applications. Argues for layered mitigations plus dynamic auditing (continuous monitoring) rather than one-time safety checks.",
+    "dir": "./papers/p62",
+    "interactiveTitle": "Harm taxonomy navigator",
+    "relatedQuestions": [
+      50,
+      45,
+      8
+    ]
+  },
   "61": {
     "title": "Barriers to AI Adoption: Image Concerns at Work",
     "authors": [

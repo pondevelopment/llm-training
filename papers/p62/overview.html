@@ -1,0 +1,115 @@
+<section class="space-y-5">
+  <section class="panel panel-info p-4 space-y-4">
+    <div class="flex items-center justify-between gap-4">
+      <div class="flex-1 min-w-0">
+        <h2 class="text-xl font-semibold text-heading">LLM Harms: A Taxonomy and Discussion</h2>
+        <p class="text-sm panel-muted">Kevin Chen, Saleh Afroogh, Abhejay Murali, David Atkinson, Amit Dhurandhar, Junfeng Jiao • arXiv:2512.05929 (2025)</p>
+      </div>
+      <a href="https://arxiv.org/abs/2512.05929" target="_blank" rel="noopener" class="btn-soft text-xs font-semibold flex-shrink-0" data-accent="foundations">
+        <span>View paper</span>
+        <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+
+    <p class="text-sm leading-relaxed panel-muted">
+      This paper proposes a lifecycle-aware taxonomy of harms for large language models, spanning what can go wrong
+      before deployment (data, labor, environment), at generation time (bias, toxicity, hallucination), through misuse
+      (jailbreaks, fraud), and into system-level and downstream impacts (elections, labor markets, high-stakes decisions).
+      It also argues for layered mitigations and “dynamic auditing” (continuous monitoring) rather than one-time safety checks.
+    </p>
+
+    <div class="panel panel-neutral-soft p-3 space-y-2 text-xs">
+      <p class="font-semibold text-heading">Taxonomy at a glance (with examples)</p>
+      <ul class="list-disc ml-5 space-y-1 panel-muted">
+        <li><strong>Pre-deployment:</strong> training-data privacy/consent issues, labor harms in annotation, environmental/resource costs.</li>
+        <li><strong>Direct output:</strong> stereotypes and marginalization, toxic/misleading content, hallucinations and overconfident errors.</li>
+        <li><strong>Misuse:</strong> phishing/fraud assistance, jailbreaks, prompt injection and data exfiltration against tool-using systems.</li>
+        <li><strong>Societal/systemic:</strong> election manipulation and discourse dilution, economic disruption, compute/access inequalities.</li>
+        <li><strong>Downstream applications:</strong> high-stakes errors in healthcare/finance/justice and integrity impacts in education.</li>
+      </ul>
+      <p class="panel-muted"><strong>Example harm chain:</strong> a privacy-leaky training corpus can lead to accidental PII outputs, which can be escalated by prompt injection in a tool-using app, and then cause downstream harm when those leaked details are used in fraud or high-stakes decisions.</p>
+    </div>
+
+    <div class="panel panel-neutral-soft p-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Plain-language explainer</p>
+      <p class="panel-muted">Think of an LLM like a new material being used in many products: you need a safety checklist for the factory, the product itself, how people might misuse it, and the long-term effects once it’s everywhere.</p>
+    </div>
+  </section>
+
+  <section class="panel panel-neutral p-5 space-y-3">
+    <header class="flex items-center gap-2">
+      <span aria-hidden="true" class="text-lg">🧭</span>
+      <h3 class="text-sm font-semibold tracking-wide uppercase text-heading">Executive quick take</h3>
+    </header>
+    <p class="text-sm leading-relaxed text-body">
+      Treat “LLM safety” as a lifecycle program, not a single mitigation. The paper’s key managerial signal is that
+      the highest-risk failures are often the result of harm chains (data → outputs → misuse → downstream), so your controls
+      need both prevention and monitoring.
+    </p>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>Taxonomy first:</strong> If your team can’t name the harm class, it’s hard to measure or assign ownership.</li>
+      <li><strong>Layered defenses:</strong> Red-teaming, alignment, guarded tool use, and monitoring should be stacked, not swapped.</li>
+      <li><strong>Operationalize auditability:</strong> Continuous, “dynamic” audits are positioned as the practical bridge from principles to production.</li>
+    </ul>
+  </section>
+
+  <section class="panel panel-success p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">💼 Business relevance</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+      <li><strong>Product & platform teams:</strong> Use the taxonomy as your risk register backbone (owners, metrics, escalation paths).</li>
+      <li><strong>Security:</strong> Treat prompts/context/tool calls as an attack surface (prompt injection, data exfiltration, poisoning).</li>
+      <li><strong>Legal & compliance:</strong> Map which harms are governed by data rights, IP, transparency, and sectoral safety rules.</li>
+      <li><strong>Ops leaders:</strong> “Dynamic auditing” translates into runbooks: monitoring, incident response, and post-mortems for model behavior.</li>
+    </ul>
+    <div class="panel panel-neutral-soft p-3 mt-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Derivative example</p>
+      <p class="panel-muted">Run a 2-hour cross-functional risk mapping workshop: pick one high-impact workflow (e.g., support agent, medical summarizer), label risks using the taxonomy, and for each risk write (1) a measurable indicator, (2) a mitigation layer, and (3) an “audit cadence” (pre-release, weekly, per-incident).</p>
+    </div>
+  </section>
+
+  <div class="grid md:grid-cols-2 gap-4">
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Why the “lifecycle” framing matters</h3>
+      <p class="text-xs panel-muted">Many real failures are chains: bad training data can seed biased outputs; biased outputs can be weaponized via jailbreaks; those outputs can create downstream harms in healthcare, finance, and elections. A lifecycle taxonomy helps teams place controls at the right point in the chain (and avoid blaming the last step only).</p>
+    </div>
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Severity vs prevalence (what to prioritize)</h3>
+      <p class="text-xs panel-muted">The paper distinguishes rare catastrophic failures from common “slow-burn” harms (e.g., everyday hallucinations, deskilling). Good programs track both: incident-style metrics for rare events and telemetry/user studies for high-prevalence issues.</p>
+    </div>
+  </div>
+
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Key insight</h3>
+      <p class="text-xs panel-muted">Harm categories layer and amplify across time; mitigation coverage is uneven, so “safety posture” should be evaluated per harm class, not as a single score.</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Method</h3>
+      <p class="text-xs panel-muted">Systematic review (2021–06/2025): 1,986 screened records (+24 seed papers) → 200-paper corpus, plus 10 expert interviews, coded by harm type and mitigation claims.</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Implication</h3>
+      <p class="text-xs panel-muted">Build “auditability” into the system: logs, red-team loops, model cards, and governance hooks so you can detect new harms as models and adversaries evolve.</p>
+    </div>
+  </div>
+
+  <section class="panel panel-neutral p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🧪 Evidence</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>Scope definition:</strong> Focuses on text-based LLMs ≥ 7B parameters; excludes VLM hybrids and small domain-specific models.</li>
+      <li><strong>Review scale:</strong> 1,986 records screened to a 200-paper corpus; 10 expert interviews used to complement findings.</li>
+      <li><strong>Taxonomy breadth:</strong> Five top-level categories spanning pre-development to downstream impacts, with subcategories for data, environment, labor, outputs, misuse, systemic, and application harms.</li>
+    </ul>
+  </section>
+
+  <section class="panel panel-warning p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🔭 For your roadmap</h3>
+    <p class="text-sm leading-relaxed text-body">Translate the taxonomy into an operating rhythm: clear ownership, measurable indicators, layered mitigations, and an audit cadence that keeps up with model updates and evolving misuse.</p>
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+      <li>Adopt a taxonomy-based risk register (owners, indicators, mitigations, review cadence) for every LLM-enabled workflow.</li>
+      <li>Run layered defenses: red-teaming + alignment/refusal + guarded tool use + logging/monitoring (don’t rely on one layer).</li>
+      <li>Separate “rare catastrophic” vs “common chronic” harms and define measurement for each (incidents vs telemetry/user studies).</li>
+      <li>Plan for evolution: update eval suites and audit checks as new jailbreak tactics and new deployment contexts emerge.</li>
+    </ul>
+  </section>
+</section>

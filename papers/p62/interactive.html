@@ -1,0 +1,104 @@
+<section class="space-y-6" id="p62-explorer">
+  <div class="panel panel-info p-4 space-y-3">
+    <h4 class="text-sm font-semibold text-heading">Explore the harm taxonomy</h4>
+
+    <div class="grid md:grid-cols-2 gap-4">
+      <div>
+        <div class="block text-sm font-medium text-heading">Pick a scenario (business-first)</div>
+        <p class="text-xs panel-muted mt-1">Start from a familiar workflow. We’ll map it to the paper’s taxonomy and suggest what to measure and how to mitigate.</p>
+
+        <div id="p62-scenarios" class="mt-2 grid gap-2">
+          <button type="button" class="panel panel-neutral-soft p-3 text-left" data-scenario="support">
+            <div class="flex items-center justify-between gap-3">
+              <div class="text-sm font-semibold text-heading">Customer support agent (tool-using)</div>
+              <div class="text-xs panel-muted" data-role="selected">Selected</div>
+            </div>
+            <div class="text-xs panel-muted mt-1">Risks: prompt injection, data leakage, hallucinated policy, biased tone at scale.</div>
+          </button>
+
+          <button type="button" class="panel panel-neutral-soft p-3 text-left" data-scenario="healthcare">
+            <div class="flex items-center justify-between gap-3">
+              <div class="text-sm font-semibold text-heading">Healthcare summarizer / clinician copilot</div>
+              <div class="text-xs panel-muted" data-role="selected" aria-hidden="true">Selected</div>
+            </div>
+            <div class="text-xs panel-muted mt-1">Risks: rare-but-severe errors, hallucinations, over-trust, accountability gaps.</div>
+          </button>
+
+          <button type="button" class="panel panel-neutral-soft p-3 text-left" data-scenario="marketing">
+            <div class="flex items-center justify-between gap-3">
+              <div class="text-sm font-semibold text-heading">Marketing / content studio</div>
+              <div class="text-xs panel-muted" data-role="selected" aria-hidden="true">Selected</div>
+            </div>
+            <div class="text-xs panel-muted mt-1">Risks: IP/licensing uncertainty, brand safety, stereotyping, misinformation.</div>
+          </button>
+
+          <button type="button" class="panel panel-neutral-soft p-3 text-left" data-scenario="hr">
+            <div class="flex items-center justify-between gap-3">
+              <div class="text-sm font-semibold text-heading">HR / recruiting assistant</div>
+              <div class="text-xs panel-muted" data-role="selected" aria-hidden="true">Selected</div>
+            </div>
+            <div class="text-xs panel-muted mt-1">Risks: bias/disparate impact, explainability needs, compliance and audit readiness.</div>
+          </button>
+        </div>
+
+        <div class="panel panel-neutral-soft p-3 mt-2 text-xs space-y-1">
+          <p class="font-semibold text-heading">How this maps to the taxonomy</p>
+          <p id="p62-scenario-mapping" class="panel-muted">Loading…</p>
+        </div>
+      </div>
+
+      <div>
+        <label for="p62-lens" class="block text-sm font-medium text-heading">Risk posture</label>
+        <select id="p62-lens" class="mt-1 w-full rounded border border-divider bg-card px-3 py-2 text-sm text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
+          <option value="severity">Catastrophic posture (rare but severe)</option>
+          <option value="prevalence">Chronic posture (common slow-burn)</option>
+          <option value="balanced">Balanced posture (track both)</option>
+        </select>
+        <p class="text-xs panel-muted mt-1">Pick how you want to prioritize risk. This changes the recommended monitoring style and rollout stance.</p>
+
+        <div class="panel panel-neutral-soft p-3 mt-2 text-xs space-y-2">
+          <p class="font-semibold text-heading">How to choose</p>
+          <ul class="list-disc ml-5 space-y-1 panel-muted">
+            <li><strong>Catastrophic:</strong> You’re in a high-stakes domain where a single bad answer can cause serious harm (health, money, legal, safety). Default to stricter gating and incident-style review.</li>
+            <li><strong>Chronic:</strong> You expect lots of everyday usage where small errors accumulate (support, content ops). Default to telemetry/sampling and trend monitoring.</li>
+            <li><strong>Balanced:</strong> You need both: catch rare severe events and track the everyday error rate. Default to two dashboards (incidents + prevalence).</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel panel-neutral-soft p-3 text-xs space-y-1">
+      <p class="font-semibold text-heading">Note</p>
+      <p class="panel-muted">This interactive is a learning aid that summarizes the paper’s taxonomy and mitigation themes. It’s not an exhaustive catalog and it doesn’t replace a domain-specific safety review.</p>
+    </div>
+  </div>
+
+  <div class="panel panel-warning p-4 space-y-2">
+    <h4 class="text-sm font-semibold text-heading">Mitigation playbook (layered defenses)</h4>
+    <div id="p62-mitigations" class="text-sm text-body space-y-2"></div>
+  </div>
+
+  <div class="panel panel-neutral p-4 space-y-3">
+    <div class="flex items-center justify-between gap-4">
+      <h4 class="text-sm font-semibold text-heading">What can go wrong (and how it compounds)</h4>
+      <span class="text-xs font-mono panel-muted">
+        <span id="p62-stage-label">Stage</span>
+        <span aria-hidden="true"> • </span>
+        <span id="p62-posture-label">Posture</span>
+      </span>
+    </div>
+
+    <div id="p62-summary" class="panel panel-neutral-soft p-3 text-sm text-body min-h-[7rem]"></div>
+
+    <div class="grid md:grid-cols-2 gap-4">
+      <div class="panel panel-neutral-soft p-3 space-y-2">
+        <h5 class="text-xs font-semibold text-heading">Common examples</h5>
+        <ul id="p62-examples" class="list-disc ml-5 space-y-1 text-xs text-body"></ul>
+      </div>
+      <div class="panel panel-neutral-soft p-3 space-y-2">
+        <h5 class="text-xs font-semibold text-heading">What to measure</h5>
+        <ul id="p62-metrics" class="list-disc ml-5 space-y-1 text-xs text-body"></ul>
+      </div>
+    </div>
+  </div>
+</section>

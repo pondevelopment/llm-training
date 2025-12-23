@@ -134,6 +134,7 @@ Interactive structure & styling (from the template):
 Simulator expectations (when applicable):
 
 - Use realistic scenario labels (e.g., Customer support / Product catalog / Legal discovery).
+- Keep scenarios **business/workflow focused** (assume a practitioner audience). Prefer job-to-be-done names over benchmark-only labels.
 - Each scenario should include ~8–10 query objects with expected hits (and optional `hint` copy for misses).
 - If you change boost factors / heuristics, document assumptions inline (short comment or helper text).
 - Keep coverage gauge thresholds consistent: green ≥60%, amber 30–59%, red <30%.

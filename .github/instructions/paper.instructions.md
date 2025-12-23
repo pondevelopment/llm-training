@@ -27,6 +27,13 @@ Efficiency tip:
 - Follow `PAPER_TEMPLATE_GUIDE.md` and `PAPER_CHECKLIST.md` exactly.
 - Keep diffs minimal; do not refactor unrelated files.
 
+## Branching workflow (required)
+
+When adding a new paper (or making significant updates to an existing paper):
+
+- Do the work on a dedicated branch (do not commit directly to `main`).
+- Use a clear name like `paper-XX-short-topic`.
+
 ## Paper “contract” (required files)
 
 For paper **XX** (two-digit folder name `pXX`):

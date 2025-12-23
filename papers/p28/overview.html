@@ -91,7 +91,7 @@
   <section class="panel panel-neutral p-5 space-y-3">
     <h3 class="text-sm font-semibold text-heading">🧪 Evidence</h3>
     <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
-      <li><strong>Compliance gaps rare:</strong> Only 5 of 25 tested models exceed 1% compliance difference between training and deployment tiers; non-Claude models show <6% alignment faking reasoning rates versus 20-40% for Claude 3 Opus/Sonnet.</li>
+      <li><strong>Compliance gaps rare:</strong> Only 5 of 25 tested models exceed 1% compliance difference between training and deployment tiers; non-Claude models show &lt;6% alignment faking reasoning rates versus 20-40% for Claude 3 Opus/Sonnet.</li>
       <li><strong>Base models fake alignment:</strong> Llama 3.1 405B base, Llama 3.3 70B base, and DeepSeek V3 base show 10-35% alignment faking reasoning with basic prefills, demonstrating the capability exists pre-chat-tuning.</li>
       <li><strong>Fine-tuning unlocks behavior:</strong> Training GPT-4o to comply with threats increases alignment faking from 0% to ~40%; training on system-prompt Q&A after anti-refusal training pushes GPT-4o to ~60% alignment faking.</li>
       <li><strong>Prompt clarification matters:</strong> Adding "Note that if an AI complies, it will not be modified" increases alignment faking in DeepSeek V3 and Mistral Large 2 from 0% to 5-15%; more direct objective statements unlock alignment faking in DeepSeek R1 and Gemini 2.5 Flash.</li>

@@ -1,39 +1,11 @@
 # Paper Checklist
-
-U## Ov## Before you start
-
-- [ ] Read `PAPER_TEMPLATE_GUIDE.md` for structure and interactive expectations
-- [ ] Confirm the paper's core claim, key evidence, and intended audience (architects/PMs vs researchers)
-- [ ] Identify 2–3 related interview questions for cross-linking
-- [ ] **Cross-check all statistics against source paper:** Verify exact numbers from tables/figures, not abstract claims. Calculate percentage changes yourself (e.g., verify "16% reduction" = (9.7-8.3)/9.7 = 14.4%). Use grep/search to find values in paper text or tables.
-- [ ] **Verify model/system lists:** Cross-check which models/systems were actually tested vs. mentioned in other contexts (e.g., used for grading but not tested, cited but not evaluated). Don't assume common models are included—check methodology sections explicitly.w content
-
-- [ ] **Paper header** (`panel panel-info`): 
-  - [ ] Container uses `flex items-center justify-between gap-4` (no flex-wrap)
-  - [ ] Left wrapper: `flex-1 min-w-0` for title/authors
-  - [ ] Button has `flex-shrink-0` to stay on same line as title
-  - [ ] "View paper" button positioned **top-right** with `btn-soft`, `data-accent="foundations"`, and ↗ icon
-  - [ ] Title (h2), authors • venue (year), 2-3 sentence summary
-- [ ] **Plain-language explainer**: Nested card (`panel panel-neutral-soft`) with 1-2 sentence analogy making the core insight accessible to non-experts
-- [ ] **Executive quick take** (`panel panel-neutral`): 🧭 icon + uppercase header, 2-3 sentences (practical ceiling + actionable signal), 3 bulleted key points
-- [ ] **Business relevance** (`panel panel-success`): 💼 icon, 3–4 stakeholder bullets, nested "Derivative example" card (`panel-neutral-soft`)
-- [ ] **Supporting callouts** (optional, `panel panel-info`): 2-column grid unpacking concepts (~80-120 words each)
-- [ ] **Key insight / Method / Implication** (`panel panel-neutral`): 3-column grid with focused cards
-- [ ] **Evidence** (`panel panel-neutral`): 🧪 icon, bulleted list citing ≥2 concrete results with precise metrics
-- [ ] **Roadmap** (`panel panel-warning`): 🔭 icon, actionable next steps (not generic advice)
-  - [ ] Uses `panel panel-warning` with theme classes only (never hardcoded amber/cyan colors)
-  - [ ] Includes context paragraph introducing the roadmap items
-  - [ ] Optional: Nested subsections use `panel panel-info` with `<h4>` headings and descriptive content
-  - [ ] Closes with actionable bulleted list (3-5 items)
-  - [ ] Never uses inline styles
-- [ ] All sections use theme classes: `panel panel-[type]`, `text-heading`, `panel-muted`, `text-body`
-- [ ] Icon consistency: 🧭 Executive quick take, 💼 Business relevance, 🧪 Evidence, 🔭 Roadmaphecklist whenever you add or update a paper explainer.
-
 ## Before you start
 
 - [ ] Read `PAPER_TEMPLATE_GUIDE.md` for structure and interactive expectations
 - [ ] Confirm the paper’s core claim, key evidence, and intended audience (architects/PMs vs researchers)
 - [ ] Identify 2–3 related interview questions for cross-linking
+- [ ] **Cross-check all statistics against the source paper:** Verify exact numbers from tables/figures (not abstract claims). Calculate percentage changes yourself. Use search/grep on extracted text to find exact values.
+- [ ] **Verify model/system lists:** Cross-check which models/systems were actually tested vs. only mentioned elsewhere (e.g., graders, cited baselines). Don’t assume—confirm in methodology sections.
 
 ## File setup
 
@@ -51,6 +23,29 @@ U## Ov## Before you start
   - [ ] Page content highlights key statistics upfront with specific CTA
   - [ ] Link points to `../index.html#paper-XX`
 - [ ] Confirm `relatedQuestions` ids exist in `questions/manifest.json` and `availableQuestions`
+
+## Overview structure (HTML)
+
+- [ ] **Paper header** (`panel panel-info`):
+  - [ ] Container uses `flex items-center justify-between gap-4` (no flex-wrap)
+  - [ ] Left wrapper: `flex-1 min-w-0` for title/authors
+  - [ ] Button has `flex-shrink-0` to stay on same line as title
+  - [ ] "View paper" button positioned **top-right** with `btn-soft`, `data-accent="foundations"`, and ↗ icon
+  - [ ] Title (h2), authors • venue (year), 2–3 sentence summary
+- [ ] **Plain-language explainer**: Nested card (`panel panel-neutral-soft`) with 1–2 sentence analogy making the core insight accessible
+- [ ] **Executive quick take** (`panel panel-neutral`): 🧭 icon + uppercase header, 2–3 sentences, 3 bulleted key points
+- [ ] **Business relevance** (`panel panel-success`): 💼 icon, 3–4 stakeholder bullets, nested "Derivative example" card (`panel-neutral-soft`)
+- [ ] **Supporting callouts** (optional, `panel panel-info`): 2-column grid unpacking concepts (~80–120 words each)
+- [ ] **Key insight / Method / Implication** (`panel panel-neutral`): 3-column grid with focused cards
+- [ ] **Evidence** (`panel panel-neutral`): 🧪 icon, bulleted list citing ≥2 concrete results with precise metrics
+- [ ] **Roadmap** (`panel panel-warning`): 🔭 icon, actionable next steps
+  - [ ] Uses `panel panel-warning` with theme classes only (never hardcoded colors)
+  - [ ] Includes a short context paragraph introducing the roadmap items
+  - [ ] Optional: Nested subsections use `panel panel-info` with `<h4>` headings
+  - [ ] Closes with actionable bulleted list (3–5 items)
+  - [ ] Never uses inline styles
+- [ ] All sections use theme classes: `panel panel-[type]`, `text-heading`, `panel-muted`, `text-body`
+- [ ] Icon consistency: 🧭 Executive quick take, 💼 Business relevance, 🧪 Evidence, 🔭 Roadmap
 
 ## Overview content
 

@@ -1,0 +1,108 @@
+<section class="space-y-6" id="p63-explorer">
+  <div class="panel panel-neutral p-4 space-y-2">
+    <p class="text-sm text-body">
+      This interactive helps you apply the paper’s core idea: coordination is a trade-off between <strong>parallel exploration</strong> and <strong>coordination tax</strong>. It doesn’t try to reproduce the regression numerically (that requires full standardization details); it surfaces the main decision signals and shows the average coordination costs reported in the paper.
+    </p>
+    <div class="panel panel-neutral-soft p-3 text-xs panel-muted">
+      <strong>Note:</strong> The overhead/efficiency/error numbers are averages from Table 5 across the authors’ benchmarks and budgets.
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <div class="panel panel-info p-4 space-y-4">
+    <h4 class="text-sm font-semibold text-heading">Task signals</h4>
+
+    <div>
+      <label for="p63-task-structure" class="block text-sm font-medium text-heading">What kind of work is this?</label>
+      <select id="p63-task-structure" class="mt-1 w-full rounded border border-divider bg-card px-3 py-2 text-sm text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
+        <option value="parallel">Finance / strategy memo: parallel research → one combined answer</option>
+        <option value="parallel">Security incident triage: parallel investigation → one consolidated timeline</option>
+        <option value="parallel">Market/competitive brief: gather sources in parallel → synthesize a recommendation</option>
+
+        <option value="dynamic">Customer support: browse docs + web pages to find the right info</option>
+        <option value="dynamic">Sales enablement: find the right internal doc + tailor an answer to a customer</option>
+        <option value="dynamic">Policy/compliance Q&A: navigate policies to find the correct clause and citation</option>
+
+        <option value="sequential">Ops runbook: step-by-step procedure where each step depends on the last</option>
+        <option value="sequential">Release checklist: ordered steps with state changes and verification gates</option>
+        <option value="sequential">Data migration procedure: step-by-step plan where earlier steps unlock later steps</option>
+
+        <option value="toolheavy">IT automation: many systems/tools (Jira, DB, CI, CRM) in one workflow</option>
+        <option value="toolheavy">Customer onboarding ops: ticketing + CRM + billing + email in one workflow</option>
+        <option value="toolheavy">Engineering hygiene: logs + CI + repo + tickets across many systems</option>
+      </select>
+      <p class="text-xs panel-muted mt-1">Pick the closest fit. This paper finds “what kind of work it is” matters more than the number of agents.</p>
+      <div id="p63-task-structure-help" class="panel panel-neutral-soft p-3 mt-2 text-xs panel-muted"></div>
+    </div>
+
+    <div>
+      <label for="p63-baseline" class="block text-sm font-medium text-heading">Single-agent baseline success (rough)</label>
+      <p class="text-xs panel-muted mt-1">
+        Your best guess for how often <em>one agent</em> (no helper agents) completes the task correctly under the same constraints
+        (same tools, time, and budget). Quick estimate: run 10 representative tasks with one agent and set this to “successes ÷ 10”.
+      </p>
+      <input id="p63-baseline" type="range" min="0" max="100" value="35" class="mt-2 w-full" />
+      <div class="flex items-center justify-between text-xs panel-muted mt-1">
+        <span>Low</span>
+        <span id="p63-baseline-label" class="font-mono">35%</span>
+        <span>High</span>
+      </div>
+      <p class="text-xs panel-muted mt-1">The paper reports a “capability saturation” region around ~45% where coordination often turns net-negative under fixed budgets.</p>
+    </div>
+
+    <div>
+      <label for="p63-tool-count" class="block text-sm font-medium text-heading">Tool complexity (approx. tool count)</label>
+      <p class="text-xs panel-muted mt-1">
+        Roughly how many distinct systems the agent must use in one run (e.g., docs/wiki, ticketing, database, CI/CD, CRM, email). Count the
+        tools you expect to touch for a typical task, not the total tools your company has.
+      </p>
+      <input id="p63-tool-count" type="range" min="4" max="16" value="5" class="mt-2 w-full" />
+      <div class="flex items-center justify-between text-xs panel-muted mt-1">
+        <span>4</span>
+        <span id="p63-tool-count-label" class="font-mono">5</span>
+        <span>16</span>
+      </div>
+      <p class="text-xs panel-muted mt-1">Tool-heavy tasks amplify coordination overhead and efficiency penalties.</p>
+    </div>
+
+    <div class="panel panel-neutral-soft p-3 space-y-2">
+      <p class="text-xs font-semibold text-heading">Quick presets</p>
+      <p class="text-xs panel-muted">Use these to surface less-common recommendations (for exploration).</p>
+      <div class="flex flex-wrap gap-2">
+        <button id="p63-preset-independent" type="button" class="chip chip-neutral text-xs">Show: Independent agents</button>
+        <button id="p63-preset-hybrid" type="button" class="chip chip-neutral text-xs">Show: Hybrid</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recommendation -->
+  <div class="panel panel-neutral p-4 space-y-3">
+    <div class="flex items-center justify-between gap-3">
+      <h4 class="text-sm font-semibold text-heading">Recommendation</h4>
+      <span id="p63-reco-tag" class="chip chip-neutral text-xs">—</span>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-3">
+      <div class="panel panel-neutral-soft p-3 space-y-1">
+        <p class="text-xs font-semibold text-heading">Primary choice</p>
+        <p id="p63-primary" class="text-sm text-body min-h-[2.75rem]"></p>
+      </div>
+      <div class="panel panel-neutral-soft p-3 space-y-1">
+        <p class="text-xs font-semibold text-heading">Why</p>
+        <p id="p63-why" class="text-sm text-body min-h-[2.75rem]"></p>
+      </div>
+    </div>
+
+    <div id="p63-caveat" class="panel panel-warning p-3 text-sm text-body"></div>
+  </div>
+
+  <!-- Architecture cost snapshot -->
+  <div class="panel panel-neutral p-4 space-y-3">
+    <h4 class="text-sm font-semibold text-heading">Average coordination costs (from the paper)</h4>
+    <p class="text-xs panel-muted">These are coordination styles: “Single agent” means one agent; the others are multi-agent setups with different ways of combining work.</p>
+    <div class="panel panel-neutral-soft p-3 text-sm text-body">
+      <div class="space-y-2" id="p63-arch-cards"></div>
+    </div>
+    <p class="text-xs panel-muted">Success rates below are averages across all evaluated tasks; they’re included to illustrate cost/overhead trade-offs, not to predict your exact workload.</p>
+  </div>
+</section>

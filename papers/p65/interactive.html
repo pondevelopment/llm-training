@@ -1,0 +1,62 @@
+<section class="space-y-6" id="p65-explorer">
+  <div class="panel panel-info p-4 space-y-3">
+    <div class="flex items-center justify-between gap-3">
+      <h4 class="text-sm font-semibold text-heading">Understanding depth explorer</h4>
+      <span class="chip chip-info text-xs">Pick a ticket type</span>
+    </div>
+
+    <div>
+      <label for="p65-demand" class="block text-sm font-medium text-heading">Which business situation is this most like?</label>
+      <select id="p65-demand" class="mt-1 w-full rounded border border-divider bg-card px-3 py-2 text-sm text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
+        <option value="shallow">Summarize & reply — meeting notes, email rewrite</option>
+        <option value="tom">People & intent — angry customer, negotiation, escalation</option>
+        <option value="physics">Cause & effect — “if we change X, what breaks?”</option>
+        <option value="space">Locations & routes — delivery status, warehouse picking</option>
+        <option value="vision">Visual details — damage claim photo, screenshot debugging</option>
+        <option value="motor">How-to steps — runbook, onboarding checklist, SOP</option>
+        <option value="memory">Policies & history — refunds rules, account history, contracts</option>
+      </select>
+      <p class="text-xs panel-muted mt-1">Goal: build intuition for when a fluent answer is enough vs when you need extra checks (tools, retrieval, workflow state, or escalation).</p>
+    </div>
+
+    <div class="panel panel-neutral-soft p-3 space-y-2 text-xs">
+      <p class="font-semibold text-heading">How researchers would test this idea (simple)</p>
+      <ul class="list-disc ml-5 space-y-1 panel-muted">
+        <li>Use <strong>functionally specific</strong> specialist systems (not broad anatomical “reverse inference”).</li>
+        <li>Identify those systems <strong>within each participant</strong> (brains vary), typically via localizer tasks.</li>
+        <li>Use <strong>passive comprehension</strong> (normal reading/listening), not tasks that force imagery or question-answering.</li>
+        <li>In the paper, <strong>Theory of Mind</strong> is the clearest exportation case; other domains are discussed as hypotheses and open questions.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="panel panel-neutral p-4 space-y-3">
+    <div class="flex items-center justify-between gap-3">
+      <h4 class="text-sm font-semibold text-heading">What extra capability you might need</h4>
+      <span id="p65-evidence-chip" class="chip chip-neutral text-xs">—</span>
+    </div>
+
+    <div id="p65-destinations" class="panel panel-neutral-soft p-3 space-y-2">
+      <p class="text-sm text-body">Select a meaning type to see which specialist systems the paper argues are needed for deep understanding.</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-3">
+      <div class="panel panel-neutral-soft p-3 space-y-2">
+        <p class="text-xs font-semibold text-heading">What you’d test (behaviorally)</p>
+        <div id="p65-behavior" class="text-sm text-body">—</div>
+      </div>
+      <div class="panel panel-neutral-soft p-3 space-y-2">
+        <p class="text-xs font-semibold text-heading">What you’d test (neural)</p>
+        <div id="p65-neural" class="text-sm text-body">—</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-warning p-4 space-y-2">
+    <h4 class="text-sm font-semibold text-heading">So what does this imply for LLMs?</h4>
+    <div id="p65-llm" class="text-sm text-body space-y-2">
+      <p>Some systems can look correct while staying “shallow”: fluent answers that don’t reliably connect to the right world model.</p>
+      <p>Use this selector to decide which extra-linguistic machinery you’d want (retrieval, tools, multimodality, memory) before trusting answers in that domain.</p>
+    </div>
+  </div>
+</section>

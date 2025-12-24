@@ -1,0 +1,111 @@
+<section class="space-y-5">
+  <!-- Paper header -->
+  <section class="panel panel-info p-4 space-y-4">
+    <div class="flex items-center justify-between gap-4">
+      <div class="flex-1 min-w-0">
+        <h2 class="text-xl font-semibold text-heading">What Does It Mean to Understand Language?</h2>
+        <p class="text-sm panel-muted">Colton Casto, Anna Ivanova, Evelina Fedorenko, Nancy Kanwisher • arXiv:2511.19757 (2025)</p>
+      </div>
+      <a href="https://arxiv.org/abs/2511.19757" target="_blank" rel="noopener" class="btn-soft text-xs font-semibold flex-shrink-0" data-accent="foundations">
+        <span>View paper</span>
+        <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+    <p class="text-sm leading-relaxed panel-muted">
+      The paper argues that <strong>deep</strong> language understanding is more than parsing words into a form-independent meaning representation.
+      Instead, to truly understand, the brain must often <strong>export</strong> what the core language system computes into other brain systems that can build
+      situation models, tap memory, and construct perceptual or motor representations.
+    </p>
+    <div class="panel panel-neutral-soft p-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Plain-language explainer</p>
+      <p class="panel-muted">Think of the language network as a fast “parser + summarizer”. For a real understanding, you often need to hand that summary to specialist teams (vision, navigation, social reasoning, memory) that can build a richer mental model.</p>
+    </div>
+  </section>
+
+  <!-- Executive quick take -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <header class="flex items-center gap-2">
+      <span aria-hidden="true" class="text-lg">🧭</span>
+      <h3 class="text-sm font-semibold tracking-wide uppercase text-heading">Executive quick take</h3>
+    </header>
+    <p class="text-sm leading-relaxed text-body">
+      If you care about whether a system <em>really</em> understands a sentence (instead of just producing plausible continuations), you should ask whether it
+      can connect language to the right extra-linguistic machinery: mentalizing, physics, navigation, imagery, memory.
+      The paper frames this as an <strong>exportation</strong> problem: core language processing is limited, so deep comprehension requires downstream systems.
+    </p>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>Shallow vs deep:</strong> the language system can build abstract, form-independent representations, but those alone need not be world-grounded.</li>
+      <li><strong>Specialists matter:</strong> domains like Theory of Mind have strong evidence of dedicated regions recruited during comprehension.</li>
+      <li><strong>Testable program:</strong> the paper proposes concrete criteria for measuring extra-linguistic engagement during passive comprehension.</li>
+    </ul>
+  </section>
+
+  <!-- Business relevance -->
+  <section class="panel panel-success p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">💼 Business relevance</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+      <li><strong>Evaluation owners:</strong> add tests where success requires building a situation model (beliefs, space, physical causality), not just matching surface patterns.</li>
+      <li><strong>Agent builders:</strong> if your assistant must navigate, plan, or act, treat “deep understanding” as a pipeline feature (tools, memory, perception), not a single-model guarantee.</li>
+      <li><strong>Safety & policy:</strong> detect when a system is only doing shallow pattern completion (high fluency, low grounding) and route those cases to verification (retrieval, tools, or human review).</li>
+    </ul>
+    <div class="panel panel-neutral-soft p-3 mt-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Derivative example</p>
+      <p class="panel-muted"><strong>Customer support refunds (simple version):</strong> A customer says: “I returned the package last week, but you still charged me. Please fix this today.” A “shallow” assistant might reply with a confident apology and a generic refund promise. A “deep” assistant does two things: (1) it keeps the story straight (what happened, when, and what the customer expects), and (2) it checks the real facts before acting. In practice: look up the order, look up the carrier scan/return status, compare to the refund policy, then reply with a clear outcome (“Refund is already pending” / “We’ll issue it now” / “Return hasn’t arrived yet—here’s what we need next”) and a timeframe. If the records don’t match the customer’s story, it should ask one clarifying question or escalate.</p>
+    </div>
+  </section>
+
+  <!-- Supporting callouts -->
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Shallow understanding (what it buys you)</h3>
+      <p class="text-xs panel-muted">The core language system can recognize linguistic forms, combine them compositionally, and produce abstract, form-independent representations (e.g., similar across paraphrases or translations). But those representations can still be insensitive to real-world plausibility, because syntax and co-occurrence alone don’t force grounding.</p>
+    </div>
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Exportation (what makes it “deep”)</h3>
+      <p class="text-xs panel-muted">Exportation is the idea that language-derived representations are handed off to other systems (social reasoning, navigation, physics, perception, memory) that can build richer models. The paper emphasizes how to test this rigorously: functionally specific regions, localized per person, under passive comprehension.</p>
+    </div>
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">When exportation happens (what changes it)</h3>
+      <p class="text-xs panel-muted">The paper argues exportation is not automatic: it can depend on context length (long-range integration), reader traits/states/goals (topic knowledge, alertness, imagery), and how hard the linguistic form is to parse (rare words, complex constructions, proficiency).</p>
+    </div>
+  </div>
+
+  <!-- Key insight / Method / Implication trio -->
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Key insight</h3>
+      <p class="text-xs panel-muted">Deep comprehension often requires non-language brain systems; the language network alone is plausibly “meaning-like” yet shallow.</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Method</h3>
+      <p class="text-xs panel-muted">Opinion-piece synthesis: combine functional localization, story comprehension paradigms, and a taxonomy of extra-linguistic systems to generate testable hypotheses about exportation.</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Implication</h3>
+      <p class="text-xs panel-muted">Understanding isn’t a single score: different sentences demand different “specialists”. Evaluate and design systems by the kinds of situation models they must construct.</p>
+    </div>
+  </div>
+
+  <!-- Evidence -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🧪 Evidence</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>Theory of Mind exportation (clearest case):</strong> the paper highlights strong engagement of the rTPJ / ToM network during comprehension of mental-state content, even without explicit questions; language areas respond similarly to “mental” vs “physical” inference passages when controlling for linguistic confounds.</li>
+      <li><strong>Weak plausibility constraint in core language areas:</strong> the paper notes core language areas can respond just as strongly to plausible sentences as to syntactically well-formed but nonsensical ones (e.g., “Colorless green ideas sleep furiously”), suggesting limited world-knowledge checking at this stage.</li>
+      <li><strong>Action-word links to motor/perceptual systems:</strong> the paper cites classic motor-cortex effects for action words and notes a recent intracranial finding of cross-decoding from action words to videos depicting those actions.</li>
+    </ul>
+  </section>
+
+  <!-- Forward-looking roadmap -->
+  <section class="panel panel-warning p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🔭 For your roadmap</h3>
+    <p class="text-sm text-body">Use the exportation lens to turn “does it understand?” into concrete checks on what downstream representations your system can actually build.</p>
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+      <li>Design a <strong>domain-mixed evaluation set</strong> (beliefs, space, physics, episodic recall) and measure where your pipeline breaks.</li>
+      <li>When you need deep understanding, bias towards <strong>architectures with explicit externalization</strong> (tools, retrieval, memory, multimodal signals) rather than hoping a text-only model internalizes everything.</li>
+      <li>Treat exportation as a <strong>mechanism question</strong>: do you route the right info to the right specialist (vs broadcasting everything)? Design evaluations that can distinguish these strategies.</li>
+      <li>If you run user studies, separate <strong>fluency</strong> from <strong>grounded correctness</strong> (e.g., require users to act on the output in a constrained environment).</li>
+      <li>For neuroscience-inspired measurement, follow Box 3: <strong>functionally specific regions</strong>, <strong>individual localization</strong>, and <strong>passive comprehension</strong> (don’t force imagery or Q&amp;A tasks).</li>
+    </ul>
+  </section>
+</section>

@@ -14,9 +14,13 @@
     <p class="text-sm leading-relaxed panel-muted">
       This paper asks a practical question: when do multi-agent LLM systems improve real task performance, and when do they just add overhead? Across 180 controlled configurations (three LLM families × five architectures × four agentic benchmarks), the authors derive measurable scaling principles that explain why coordination can help massively on decomposable tasks (e.g., finance research) yet reliably hurt on sequential, state-dependent planning.
     </p>
-    <div class="panel panel-neutral-soft p-3 space-y-1 text-xs">
+    <div class="panel panel-neutral-soft p-3 space-y-2 text-xs">
       <p class="font-semibold text-heading">Plain-language explainer</p>
       <p class="panel-muted">Adding agents is like adding people to a project: it helps when work can be split cleanly and recombined, but it can slow you down when everyone needs the same shared context and every step depends on the last.</p>
+      <ul class="list-disc ml-5 space-y-1 panel-muted">
+        <li><strong>The predictor generalizes</strong>: out-of-sample validation on a newer model (the paper reports GPT-5.2) reports <strong>MAE = 0.071</strong>.</li>
+        <li><strong>Architecture selection can be automated</strong>: the paper reports <strong>87%</strong> accuracy on held-out “choose the best architecture” decisions.</li>
+      </ul>
     </div>
   </section>
 
@@ -86,6 +90,7 @@
       <li><strong>Large gains on decomposable finance tasks:</strong> A centralized multi-agent setup improves Finance-Agent (a finance research benchmark) by +80.8% (0.631 vs. 0.349 single-agent).</li>
       <li><strong>Universal degradation on sequential planning:</strong> PlanCraft (a Minecraft-style step-by-step planning benchmark) degrades for every multi-agent variant (down to −70.1% for independent agents).</li>
       <li><strong>Predictive coordination model:</strong> Cross-validated R²=0.524 (MAE≈0.089) using coordination metrics, outperforming architecture labels alone.</li>
+      <li><strong>Efficiency is the bottleneck on tool-heavy work:</strong> Table 5 reports a 2–6× efficiency penalty for multi-agent variants (E<sub>c</sub> 0.074–0.234 vs. 0.466 single-agent).</li>
       <li><strong>Topology-dependent error amplification:</strong> Independent 17.2× vs Centralized 4.4× (Table 5).</li>
       <li><strong>Superlinear coordination growth:</strong> Turns scale roughly as (n+0.5)^1.724, creating a hard budget ceiling beyond ~3–4 agents.</li>
     </ul>

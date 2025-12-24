@@ -1,0 +1,106 @@
+<section class="space-y-5">
+  <!-- Paper header -->
+  <section class="panel panel-info p-4 space-y-4">
+    <div class="flex items-center justify-between gap-4">
+      <div class="flex-1 min-w-0">
+        <h2 class="text-xl font-semibold text-heading">Latent Collaboration in Multi-Agent Systems</h2>
+        <p class="text-sm panel-muted">Jiaru Zou, Xiyuan Yang, Ruizhong Qiu, Gaotang Li, Katherine Tieu, Pan Lu, Ke Shen, Hanghang Tong, Yejin Choi, Jingrui He, James Zou, Mengdi Wang, Ling Yang • arXiv:2511.20639 (2025)</p>
+      </div>
+      <a href="https://arxiv.org/abs/2511.20639" target="_blank" rel="noopener" class="btn-soft text-xs font-semibold flex-shrink-0" data-accent="foundations">
+        <span>View paper</span>
+        <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+
+    <p class="text-sm leading-relaxed panel-muted">
+      Most multi-agent LLM systems coordinate by converting everything into text: agents “think” by generating tokens, then “communicate” by sending those tokens to other agents. This paper introduces <strong>LatentMAS</strong>, a training-free framework where agents collaborate directly in the model’s continuous latent space: they generate <em>latent thoughts</em> as last-layer hidden states, share a <em>latent working memory</em> via KV-cache transfer, and only decode the final answer.
+    </p>
+
+    <div class="panel panel-neutral-soft p-3 space-y-2 text-xs">
+      <p class="font-semibold text-heading">Plain-language explainer</p>
+      <p class="panel-muted">It’s like a team working on a shared whiteboard instead of emailing each other long paragraphs: you move the same underlying “state” around, not a lossy written summary.</p>
+    </div>
+  </section>
+
+  <!-- Executive quick take -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <header class="flex items-center gap-2">
+      <span aria-hidden="true" class="text-lg">🧭</span>
+      <h3 class="text-sm font-semibold tracking-wide uppercase text-heading">Executive quick take</h3>
+    </header>
+    <p class="text-sm leading-relaxed text-body">
+      Many multi-agent systems coordinate by writing long messages to each other. That can be slow and expensive because every “thought” becomes more text tokens. LatentMAS shows a different approach: let agents share what they’ve learned through the model’s internal representations, and only write out the final answer. In the paper’s benchmarks, this often keeps accuracy similar (or better) while using far fewer tokens and running faster.
+    </p>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>Why it matters:</strong> If agents talk in long text, you pay for that talk. Shorter coordination can dramatically cut cost and latency.</li>
+      <li><strong>What’s new:</strong> Agents can collaborate without writing everything out, then produce a short final response at the end.</li>
+      <li><strong>How to evaluate:</strong> Compare accuracy <em>and</em> total tokens/time per task so “better answers” don’t hide a huge efficiency hit.</li>
+    </ul>
+  </section>
+
+  <!-- Business relevance -->
+  <section class="panel panel-success p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">💼 Business relevance</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+      <li><strong>Agent platform teams:</strong> Latent collaboration is a new knob to reduce coordination overhead when multiple agents must share context frequently.</li>
+      <li><strong>Infra / cost owners:</strong> Token volume is a direct cost driver; LatentMAS reports large token reductions relative to text-based MAS under the same coordination topology.</li>
+      <li><strong>Product teams:</strong> Faster end-to-end reasoning can enable more interactive agent experiences (lower latency) without shrinking scope.</li>
+      <li><strong>Evaluation owners:</strong> Add “tokens per solve” and “seconds per solve” alongside accuracy when comparing agent architectures.</li>
+    </ul>
+    <div class="panel panel-neutral-soft p-3 mt-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Derivative example</p>
+      <p class="panel-muted">Pick 30 representative tasks (mix of math, domain QA, and code). Run (A) single-agent, (B) your current text-based multi-agent setup, and (C) a latent-collaboration prototype (KV-cache transfer + final decode only). Compare: success rate, total output tokens, and wall-clock time per task.</p>
+    </div>
+  </section>
+
+  <!-- Supporting callouts -->
+  <div class="grid md:grid-cols-2 gap-4">
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">What is “latent thoughts” generation?</h3>
+      <p class="text-xs panel-muted">Instead of decoding a token at each step, an agent auto-regressively generates a sequence of last-layer hidden states (continuous vectors). The paper argues these latent steps can carry much richer information than discrete tokens, and can reach comparable reasoning outcomes with far fewer “steps” than a long text chain-of-thought.</p>
+    </div>
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Why KV-cache transfer matters</h3>
+      <p class="text-xs panel-muted">A decoder-only transformer’s KV cache is effectively its working memory for what it has already processed. LatentMAS transfers layer-wise KV caches between agents so downstream agents can condition on prior context and prior latent thoughts without re-encoding or compressing them into text.</p>
+    </div>
+  </div>
+
+  <!-- Key insight / Method / Implication trio -->
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Key insight</h3>
+      <p class="text-xs panel-muted">Multi-agent coordination doesn’t have to be token-based: agents can collaborate through hidden representations with lower overhead while preserving information fidelity.</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Method</h3>
+      <p class="text-xs panel-muted">Auto-regressive latent thought generation (last-layer hidden states) + an input/output alignment operator + layer-wise KV-cache concatenation as a shared latent working memory.</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Implication</h3>
+      <p class="text-xs panel-muted">If you operate multi-agent workflows at scale, measure and optimize the communication medium itself. Latent collaboration can shift the Pareto frontier (quality vs. cost/latency).</p>
+    </div>
+  </div>
+
+  <!-- Evidence -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🧪 Evidence</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>Average gains vs text-based MAS:</strong> Section 4.1 reports LatentMAS is ~4× faster than sequential TextMAS (and ~4.3× faster than hierarchical TextMAS) on average, while reducing tokens by 70.8% (sequential) and 83.7% (hierarchical).</li>
+      <li><strong>Accuracy improves while getting cheaper:</strong> Section 4.1 also reports average accuracy gains of 14.6% (sequential) and 13.3% (hierarchical) over single-model baselines, plus gains of 2.8% and 4.6% over text-based MAS.</li>
+      <li><strong>Large token cuts on code generation (hierarchical):</strong> HumanEval+ (Qwen3-8B) drops from 8,768 tokens (TextMAS) to 1,274 (LatentMAS), a reduction of ~85.5%, while improving accuracy from 76.8% to 78.0%.</li>
+      <li><strong>Reasoning-intensive tasks with fewer “steps”:</strong> AIME24 (Qwen3-8B, sequential) improves accuracy from 53.3% (TextMAS) to 56.7% (LatentMAS) while reducing tokens from 38,596 to 8,953 (~76.8%) and speeding up from 2,808s to 688s (~4.1×).</li>
+      <li><strong>Semantic validity checks:</strong> Section 4.2 reports latent-thought embeddings overlap the token-embedding region of text-based reasoning, and input-output alignment prevents representation drift.</li>
+    </ul>
+  </section>
+
+  <!-- Forward-looking roadmap -->
+  <section class="panel panel-warning p-5 space-y-2">
+    <h3 class="text-sm font-semibold text-heading">🔭 For your roadmap</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+      <li>Instrument multi-agent runs with <strong>total output tokens</strong> and <strong>end-to-end seconds</strong> (not just accuracy) to quantify the “text tax”.</li>
+      <li>Prototype latent collaboration inside one model family (same architecture/hidden size) and compare against your best text-based baseline with matched budgets.</li>
+      <li>If you rely on long chain-of-thought outputs for coordination, test whether you can replace intermediate text with latent memory + a short final decode.</li>
+      <li>Watch for regression risks: add targeted evals where explanations/citations matter, since latent collaboration intentionally avoids verbose intermediate text.</li>
+    </ul>
+  </section>
+</section>

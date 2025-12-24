@@ -1,4 +1,47 @@
 {
+  "63": {
+    "title": "Towards a Science of Scaling Agent Systems",
+    "authors": [
+      "Yubin Kim",
+      "Ken Gu",
+      "Chanwoo Park",
+      "Chunjong Park",
+      "Samuel Schmidgall",
+      "A. Ali Heydari",
+      "Yao Yan",
+      "Zhihan Zhang",
+      "Yuchen Zhuang",
+      "Yun Liu",
+      "Mark Malhotra",
+      "Paul Pu Liang",
+      "Hae Won Park",
+      "Yuzhe Yang",
+      "Xuhai Xu",
+      "Yilun Du",
+      "Shwetak Patel",
+      "Tim Althoff",
+      "Daniel McDuff",
+      "Xin Liu"
+    ],
+    "year": 2025,
+    "venue": "arXiv:2512.08296 (2025)",
+    "tags": [
+      "agentic-ai",
+      "multi-agent",
+      "coordination",
+      "scaling",
+      "evaluation",
+      "tool-use"
+    ],
+    "summary": "Controlled study (180 configs across 3 LLM families) derives quantitative scaling principles for when multi-agent coordination helps vs hurts on agentic tasks. Finds strong task dependence: big gains on decomposable finance (+80.8% centralized) but consistent degradation on sequential planning (down to -70.1%). Highlights coordination tax on tool-heavy tasks and topology-dependent error amplification (17.2× independent vs 4.4× centralized).",
+    "dir": "./papers/p63",
+    "interactiveTitle": "Coordination strategy selector",
+    "relatedQuestions": [
+      38,
+      3,
+      20
+    ]
+  },
   "62": {
     "title": "LLM Harms: A Taxonomy and Discussion",
     "authors": [

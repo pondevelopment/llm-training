@@ -1,0 +1,105 @@
+<section class="space-y-5">
+  <!-- Paper header -->
+  <section class="panel panel-info p-4 space-y-4">
+    <div class="flex items-center justify-between gap-4">
+      <div class="flex-1 min-w-0">
+        <h2 class="text-xl font-semibold text-heading">Towards a Science of Scaling Agent Systems</h2>
+        <p class="text-sm panel-muted">Yubin Kim, Ken Gu, Chanwoo Park, Chunjong Park, Samuel Schmidgall, A. Ali Heydari, Yao Yan, Zhihan Zhang, Yuchen Zhuang, Yun Liu, Mark Malhotra, Paul Pu Liang, Hae Won Park, Yuzhe Yang, Xuhai Xu, Yilun Du, Shwetak Patel, Tim Althoff, Daniel McDuff, Xin Liu • arXiv cs.AI (2025)</p>
+      </div>
+      <a href="https://arxiv.org/abs/2512.08296" target="_blank" rel="noopener" class="btn-soft text-xs font-semibold flex-shrink-0" data-accent="foundations">
+        <span>View paper</span>
+        <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+    <p class="text-sm leading-relaxed panel-muted">
+      This paper asks a practical question: when do multi-agent LLM systems improve real task performance, and when do they just add overhead? Across 180 controlled configurations (three LLM families × five architectures × four agentic benchmarks), the authors derive measurable scaling principles that explain why coordination can help massively on decomposable tasks (e.g., finance research) yet reliably hurt on sequential, state-dependent planning.
+    </p>
+    <div class="panel panel-neutral-soft p-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Plain-language explainer</p>
+      <p class="panel-muted">Adding agents is like adding people to a project: it helps when work can be split cleanly and recombined, but it can slow you down when everyone needs the same shared context and every step depends on the last.</p>
+    </div>
+  </section>
+
+  <!-- Executive quick take -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <header class="flex items-center gap-2">
+      <span aria-hidden="true" class="text-lg">🧭</span>
+      <h3 class="text-sm font-semibold tracking-wide uppercase text-heading">Executive quick take</h3>
+    </header>
+    <p class="text-sm leading-relaxed text-body">
+      “More agents” is not automatically better. This paper shows multi-agent setups are great when the work can be split up and recombined (like parallel research), but they often slow you down when the work is a single tight chain of steps (like step-by-step planning).
+    </p>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>Use teams for parallel work:</strong> If different people could each investigate a piece and you can merge the results, agents can help a lot.</li>
+      <li><strong>Avoid teams for “one-thread” work:</strong> If each step depends on the last, coordination overhead can overwhelm any benefit.</li>
+      <li><strong>Build in a reviewer:</strong> When you do use multiple agents, a central “checker/synthesizer” tends to be safer than just averaging independent answers.</li>
+    </ul>
+  </section>
+
+  <!-- Business relevance -->
+  <section class="panel panel-success p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">💼 Business relevance</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+      <li><strong>Agent platform / infra teams:</strong> Log coordination overhead and turns; cap agent count when latency/cost rises superlinearly.</li>
+      <li><strong>Product teams:</strong> Treat “multi-agent” as a design choice tied to decomposability; don’t expect it to rescue sequential workflows.</li>
+      <li><strong>Evaluation owners:</strong> Prefer agentic benchmarks (multi-step interaction + partial observability) when deciding whether <em>multi-agent</em> setups help.</li>
+      <li><strong>Safety / risk:</strong> Centralized verification is a simple way to reduce catastrophic error propagation versus independent ensembling.</li>
+    </ul>
+    <div class="panel panel-neutral-soft p-3 mt-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Derivative example</p>
+      <p class="panel-muted">Take 20 representative tasks from your production workload. Measure single-agent success, tool-call count, and whether subtasks can be solved independently. Then trial one centralized (orchestrator) and one decentralized (peer debate/vote) setup with a matched token budget, tracking overhead (% turns), time-to-solution, and error amplification.</p>
+    </div>
+  </section>
+
+  <!-- Supporting callouts -->
+  <div class="grid md:grid-cols-2 gap-4">
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Agentic evaluation (vs. static benchmarks)</h3>
+      <p class="text-xs panel-muted">The paper defines a benchmark as “agentic” when adaptive interaction yields a meaningful advantage over any single-shot approach. This matters because multi-agent systems can look great on static tasks (where voting helps) but behave very differently when they must gather information, act through tools, and recover from mistakes over long trajectories.</p>
+    </div>
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">What to measure in your traces</h3>
+      <p class="text-xs panel-muted">Their predictive model relies on metrics you can usually compute from logs: coordination overhead (extra turns/messages), message density, redundancy (how similar agent outputs are), and cost-normalized efficiency (success per budget). The key idea: performance is shaped by coordination dynamics, not just the nominal architecture label.</p>
+    </div>
+  </div>
+
+  <!-- Key insight / Method / Implication trio -->
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Key insight</h3>
+      <p class="text-xs panel-muted">Multi-agent benefits are contingent: coordination helps mainly when tasks decompose into parallel information streams; it hurts when reasoning is sequential and state-dependent.</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Method</h3>
+      <p class="text-xs panel-muted">A controlled study over 180 configurations across five architectures and three model families, plus a mixed-effects regression using measurable coordination metrics (cross-validated R²=0.524).</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Implication</h3>
+      <p class="text-xs panel-muted">“More agents” is not a scaling law. To scale agent systems, optimize the coordination protocol and match topology to task properties before spending budget on bigger teams.</p>
+    </div>
+  </div>
+
+  <!-- Evidence -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🧪 Evidence</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>Large gains on decomposable finance tasks:</strong> A centralized multi-agent setup improves Finance-Agent (a finance research benchmark) by +80.8% (0.631 vs. 0.349 single-agent).</li>
+      <li><strong>Universal degradation on sequential planning:</strong> PlanCraft (a Minecraft-style step-by-step planning benchmark) degrades for every multi-agent variant (down to −70.1% for independent agents).</li>
+      <li><strong>Predictive coordination model:</strong> Cross-validated R²=0.524 (MAE≈0.089) using coordination metrics, outperforming architecture labels alone.</li>
+      <li><strong>Topology-dependent error amplification:</strong> Independent 17.2× vs Centralized 4.4× (Table 5).</li>
+      <li><strong>Superlinear coordination growth:</strong> Turns scale roughly as (n+0.5)^1.724, creating a hard budget ceiling beyond ~3–4 agents.</li>
+    </ul>
+  </section>
+
+  <!-- Forward-looking roadmap -->
+  <section class="panel panel-warning p-5 space-y-2">
+    <h3 class="text-sm font-semibold text-heading">🔭 For your roadmap</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+      <li>Instrument agent traces with overhead, message density, redundancy, and success-per-token; treat these as first-class KPIs.</li>
+      <li>Before adding agents, measure your single-agent baseline and classify tasks by decomposability vs. sequential dependency.</li>
+      <li>For high-risk outputs, prefer centralized verification (or orchestrated review) over independent ensembling.</li>
+      <li>For web/navigation-style tasks, trial decentralized coordination, but cap team size and watch diminishing returns.</li>
+      <li>For stateful planning pipelines, prioritize better single-agent planning/memory over multi-agent coordination.</li>
+    </ul>
+  </section>
+</section>

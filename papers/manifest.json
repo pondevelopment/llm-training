@@ -1,4 +1,31 @@
 {
+  "65": {
+    "title": "What Does It Mean to Understand Language?",
+    "authors": [
+      "Colton Casto",
+      "Anna Ivanova",
+      "Evelina Fedorenko",
+      "Nancy Kanwisher"
+    ],
+    "year": 2025,
+    "venue": "arXiv:2511.19757 (2025)",
+    "tags": [
+      "cognitive-neuroscience",
+      "language-understanding",
+      "situation-models",
+      "world-modeling",
+      "embodiment",
+      "evaluation"
+    ],
+    "summary": "Opinion piece arguing that deep language understanding requires exporting information from the brain’s core language system to extra-linguistic systems (theory of mind, navigation, intuitive physics, perception, memory) that can build richer situation models than language statistics alone.",
+    "dir": "./papers/p65",
+    "interactiveTitle": "Exportation demand explorer",
+    "relatedQuestions": [
+      49,
+      57,
+      38
+    ]
+  },
   "64": {
     "title": "Latent Collaboration in Multi-Agent Systems",
     "authors": [

@@ -1,4 +1,41 @@
 {
+  "64": {
+    "title": "Latent Collaboration in Multi-Agent Systems",
+    "authors": [
+      "Jiaru Zou",
+      "Xiyuan Yang",
+      "Ruizhong Qiu",
+      "Gaotang Li",
+      "Katherine Tieu",
+      "Pan Lu",
+      "Ke Shen",
+      "Hanghang Tong",
+      "Yejin Choi",
+      "Jingrui He",
+      "James Zou",
+      "Mengdi Wang",
+      "Ling Yang"
+    ],
+    "year": 2025,
+    "venue": "arXiv:2511.20639 (2025)",
+    "tags": [
+      "agentic-ai",
+      "multi-agent",
+      "coordination",
+      "latent-space",
+      "efficiency",
+      "latency",
+      "inference"
+    ],
+    "summary": "LatentMAS is a training-free multi-agent framework that replaces long text-based coordination with latent-space collaboration (latent thoughts + KV-cache transfer). Reported results show large efficiency wins (70.8–83.7% fewer tokens and ~4× faster than TextMAS on average) while maintaining or improving accuracy on many benchmarks.",
+    "dir": "./papers/p64",
+    "interactiveTitle": "Latent vs text coordination explorer",
+    "relatedQuestions": [
+      38,
+      52,
+      50
+    ]
+  },
   "63": {
     "title": "Towards a Science of Scaling Agent Systems",
     "authors": [

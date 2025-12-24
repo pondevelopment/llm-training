@@ -1,0 +1,110 @@
+<section class="space-y-6" id="p64-explorer">
+  <div class="panel panel-neutral p-4 space-y-2">
+    <p class="text-sm text-body">
+      This interactive lets you explore the paper’s headline trade-off: <strong>LatentMAS</strong> aims to keep or improve accuracy while cutting
+      coordination overhead by moving multi-agent communication into the <strong>latent space</strong> (KV-cache transfer + latent thoughts), rather than
+      passing long text traces.
+    </p>
+    <div class="panel panel-neutral-soft p-3 text-xs panel-muted">
+      <strong>Note:</strong> Numbers below are copied from the paper’s Tables 1–3 (accuracy %, output tokens, and time(s)/run). Use them as a calibration
+      reference for how large the efficiency deltas can be.
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <div class="panel panel-info p-4 space-y-4">
+    <h4 class="text-sm font-semibold text-heading">Benchmark selector</h4>
+
+    <div class="grid md:grid-cols-3 gap-3">
+      <div>
+        <label for="p64-setting" class="block text-sm font-medium text-heading">Coordination setting</label>
+        <select id="p64-setting" class="mt-1 w-full rounded border border-divider bg-card px-3 py-2 text-sm text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
+          <option value="sequential">Sequential MAS</option>
+          <option value="hierarchical">Hierarchical MAS</option>
+        </select>
+        <p class="text-xs panel-muted mt-1">These correspond to the two table blocks reported in the paper.</p>
+        <div class="panel panel-neutral-soft p-2 mt-2 text-xs panel-muted space-y-1">
+          <p><strong>Sequential:</strong> a chain-of-agents pipeline (planner → critic → refiner → solver), where each agent passes its intermediate text to the next.</p>
+          <p><strong>Hierarchical:</strong> domain-specialized agents (e.g., math/code/science) work in parallel, then a summarizer aggregates their intermediate responses into the final answer.</p>
+        </div>
+      </div>
+
+      <div>
+        <label for="p64-scale" class="block text-sm font-medium text-heading">Backbone scale</label>
+        <select id="p64-scale" class="mt-1 w-full rounded border border-divider bg-card px-3 py-2 text-sm text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
+          <option value="4B">Qwen3-4B</option>
+          <option value="8B" selected>Qwen3-8B</option>
+          <option value="14B">Qwen3-14B</option>
+        </select>
+        <p class="text-xs panel-muted mt-1">Reasoning-intensive tables are only reported for 8B/14B.</p>
+        <div class="panel panel-neutral-soft p-2 mt-2 text-xs panel-muted space-y-1">
+          <p><strong>What this means:</strong> 4B / 8B / 14B are different model sizes (billions of parameters) from the same Qwen3 family.</p>
+          <p><strong>How to interpret:</strong> larger models usually improve accuracy, but coordination overhead (tokens/time) can still dominate if agents communicate via long text.</p>
+        </div>
+      </div>
+
+      <div>
+        <label for="p64-task" class="block text-sm font-medium text-heading">Task</label>
+        <select id="p64-task" class="mt-1 w-full rounded border border-divider bg-card px-3 py-2 text-sm text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]"></select>
+        <p class="text-xs panel-muted mt-1">Pick a benchmark to compare Single vs TextMAS vs LatentMAS.</p>
+        <div class="panel panel-neutral-soft p-2 mt-2 text-xs panel-muted space-y-1">
+          <p><strong>What changes when you switch tasks:</strong> the accuracy, token usage, and time numbers update to that benchmark’s row from the paper’s tables.</p>
+          <p><strong>Why options can change:</strong> some benchmarks (AIME24/25, GPQA) are only reported for 8B/14B in the paper, so they won’t appear for 4B.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel panel-neutral-soft p-3 space-y-2">
+      <p class="text-xs font-semibold text-heading">What are these tasks?</p>
+      <ul class="list-disc ml-5 space-y-1 text-xs panel-muted">
+        <li><strong>ARC-E / ARC-C:</strong> grade-school science multiple-choice questions (ARC-C is harder).</li>
+        <li><strong>GSM8K:</strong> multi-step grade-school math word problems.</li>
+        <li><strong>MedQA:</strong> medical multiple-choice exam-style questions.</li>
+        <li><strong>MBPP+ / HumanEval+:</strong> code generation (write correct programs for small tasks).</li>
+        <li><strong>AIME24 / AIME25:</strong> competition math problems that often require longer reasoning.</li>
+        <li><strong>GPQA-Diamond:</strong> very difficult graduate-level QA (high precision, low guessability).</li>
+      </ul>
+      <p class="text-xs panel-muted">These are standard benchmarks; the goal here is to understand how coordination method changes accuracy, token cost, and time.</p>
+    </div>
+
+    <div class="panel panel-neutral-soft p-3 space-y-2">
+      <p class="text-xs font-semibold text-heading">How to read the metrics</p>
+      <ul class="list-disc ml-5 space-y-1 text-xs panel-muted">
+        <li><strong>Accuracy:</strong> higher is better.</li>
+        <li><strong>Tokens:</strong> total output tokens produced by the whole system (lower is cheaper).</li>
+        <li><strong>Time(s)/run:</strong> lower is faster; the “speedup” shown is TextMAS time divided by LatentMAS time.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div class="panel panel-neutral p-4 space-y-3">
+    <div class="flex items-center justify-between gap-3">
+      <h4 class="text-sm font-semibold text-heading">Results snapshot</h4>
+      <span id="p64-source" class="text-xs font-mono panel-muted">Table —</span>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-3" id="p64-metric-cards"></div>
+
+    <div class="grid md:grid-cols-3 gap-3">
+      <div class="panel panel-neutral-soft p-3 space-y-1">
+        <p class="text-xs font-semibold text-heading">Δ accuracy vs TextMAS</p>
+        <p id="p64-delta-acc" class="text-sm text-body font-mono min-h-[2.75rem]"></p>
+      </div>
+      <div class="panel panel-neutral-soft p-3 space-y-1">
+        <p class="text-xs font-semibold text-heading">Token reduction vs TextMAS</p>
+        <p id="p64-delta-token" class="text-sm text-body font-mono min-h-[2.75rem]"></p>
+      </div>
+      <div class="panel panel-neutral-soft p-3 space-y-1">
+        <p class="text-xs font-semibold text-heading">Speedup vs TextMAS</p>
+        <p id="p64-delta-speed" class="text-sm text-body font-mono min-h-[2.75rem]"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Takeaways -->
+  <div class="panel panel-warning p-4 space-y-2">
+    <h4 class="text-sm font-semibold text-heading">Key takeaway</h4>
+    <div id="p64-explanation" class="text-sm text-body space-y-2"></div>
+  </div>
+</section>

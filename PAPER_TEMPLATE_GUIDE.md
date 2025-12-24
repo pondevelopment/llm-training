@@ -4,7 +4,7 @@ This guide explains how to add or revise research explainers while keeping the �
 
 ## Repository layout
 
-```
+```text
 papers/
   manifest.json                 # Maps paper ids to ./papers/pXX folders
   p-template/                   # Copy to pXX/ when starting a paper
@@ -47,25 +47,26 @@ The loader automatically looks for `overview.html`, `interactive.html`, and `int
 
 1. **Copy the template:** duplicate `papers/p-template/` to `papers/pXX/` (two-digit id).
 2. **Draft the overview (`overview.html`):** Follow this exact structure:
-   - **Paper header** (`panel panel-info`): 
-     - Container: `flex items-center justify-between gap-4` (no wrapping)
-     - Left side: `flex-1 min-w-0` wrapper for title and authors (allows text truncation)
-     - Right side: Button with `flex-shrink-0` to prevent wrapping
-     - Title (h2), authors • venue (year)
-     - Link button: `btn-soft` with `data-accent="foundations"` and ↗ icon, always positioned **top-right**
-     - 2-3 sentence summary
-     - Nested plain-language explainer card (`panel panel-neutral-soft`)
-   - **Executive quick take** (`panel panel-neutral` with 🧭 icon): Icon + uppercase header, 2-3 sentence summary for architects/PMs, 3 bulleted key points
-   - **Business relevance** (`panel panel-success` with 💼 icon): 3-4 stakeholder bullets, nested "Derivative example" card (`panel panel-neutral-soft`)
-   - **Supporting callouts** (optional, `panel panel-info`): 2-column grid unpacking concepts (~80-120 words each)
-   - **Key insight / Method / Implication** (`panel panel-neutral`): 3-column grid
-   - **Evidence** (`panel panel-neutral` with 🧪 icon): Bulleted list with precise metrics
-   - **Roadmap** (`panel panel-warning` with 🔭 icon): Actionable next steps
-     - **Structure:** Simple bulleted list (3-5 items) with actionable next steps
-     - **Nested callouts (if needed):** Use `panel panel-info` for subsections that need expansion
-     - **Never use:** Hardcoded amber/cyan colors or inline styles
-     - **Example:** See P01 for simple list format; P03 demonstrates nested callouts with proper theme classes
-   - Use theme classes: `panel panel-[type]`, `text-heading`, `panel-muted`, `text-body`
+
+    - **Paper header** (`panel panel-info`):
+      - Container: `flex items-center justify-between gap-4` (no wrapping)
+      - Left side: `flex-1 min-w-0` wrapper for title and authors (allows text truncation)
+      - Right side: Button with `flex-shrink-0` to prevent wrapping
+      - Title (h2), authors • venue (year)
+      - Link button: `btn-soft` with `data-accent="foundations"` and ↗ icon, always positioned **top-right**
+      - 2-3 sentence summary
+      - Nested plain-language explainer card (`panel panel-neutral-soft`)
+    - **Executive quick take** (`panel panel-neutral` with 🧭 icon): Icon + uppercase header, 2-3 sentence summary for architects/PMs, 3 bulleted key points
+    - **Business relevance** (`panel panel-success` with 💼 icon): 3-4 stakeholder bullets, nested "Derivative example" card (`panel panel-neutral-soft`)
+    - **Supporting callouts** (optional, `panel panel-info`): 2-column grid unpacking concepts (~80-120 words each)
+    - **Key insight / Method / Implication** (`panel panel-neutral`): 3-column grid
+    - **Evidence** (`panel panel-neutral` with 🧪 icon): Bulleted list with precise metrics
+    - **Roadmap** (`panel panel-warning` with 🔭 icon): Actionable next steps
+      - **Structure:** Simple bulleted list (3-5 items) with actionable next steps
+      - **Nested callouts (if needed):** Use `panel panel-info` for subsections that need expansion
+      - **Never use:** Hardcoded amber/cyan colors or inline styles
+      - **Example:** See P01 for simple list format; P03 demonstrates nested callouts with proper theme classes
+    - Use theme classes: `panel panel-[type]`, `text-heading`, `panel-muted`, `text-body`
 3. **Build the interactive (`interactive.html` + `interactive.js`):**
    - Reuse the controls from the template and tailor the copy to the paper. The default layout expects:
      - Embedding design controls (dimension slider, corpus size, top-k requirement).
@@ -117,6 +118,7 @@ When covering business/economics papers (e.g., GenAI productivity studies):
 - Comment constants inside `interactive.js` if you change boost factors or retention heuristics.
 - **Out-of-distribution (OOD) behavior:** If your paper tests generalization to new domains/specialties, model this in the simulator with a domain selector. Apply appropriate penalties to prompt-based strategies (typically 10-20% effectiveness reduction on OOD) while maintaining strong performance for fine-tuned approaches if that's what the paper shows. Document assumptions in comments and update insights text to explain why OOD affects different strategies differently.
 - **Dynamic description panels:** When dropdowns/selectors have many options, add brief inline descriptions in the `<option>` tags and include a dedicated description panel (e.g., `id="pXX-workflow-description"`) that updates when the selection changes. This provides context without cluttering the control itself. See Paper 40 for reference pattern.
+- **Conditional options:** If a selector’s available options change based on other controls (e.g., benchmarks only reported for certain model sizes), add a short helper note near the selector explaining why options appear/disappear. This prevents users from thinking the UI is broken.
 - **Explaining heterogeneity:** When papers show differential effects across user segments, add an explanation panel (`panel panel-neutral-soft`) below the segment selector. Explain (1) why the effect varies (mechanism: friction levels, baseline capabilities), (2) what the multipliers mean practically, and (3) strategic implications for targeting. This prevents users from treating segment selection as arbitrary.
 
 ## Deep linking and anchor highlights
@@ -126,6 +128,7 @@ Papers can link to specific sections within themselves or other papers using anc
 ### Using anchor links
 
 **Internal links (within same paper):**
+
 ```html
 <a href="#pareto-frontier-explainer" class="text-accent-strong underline decoration-dotted">
   Learn about Pareto frontiers
@@ -133,6 +136,7 @@ Papers can link to specific sections within themselves or other papers using anc
 ```
 
 **External/shareable links (from anywhere):**
+
 ```html
 <a href="index.html?paper=44#pareto-frontier-explainer">
   Read about cost-accuracy tradeoffs in Paper 44
@@ -158,11 +162,13 @@ Add an `id` attribute to any section you want to be directly linkable:
 ### Highlight animation behavior
 
 When a user navigates to an anchor:
+
 1. **Background highlight**: The target element gets a subtle 2-second fade-out background highlight in accent color (15% opacity → transparent)
 2. **Heading flash**: Any headings within the element (`h1-h4` or `header h2-h3`) flash in accent color for the first 40% of the animation
 3. **Smooth scroll**: Page smoothly scrolls to position the target element at the top of viewport
 
 The animations are defined in `css/theme.css` as reusable theme components:
+
 - `.anchor-highlight` class automatically applied/removed by `scrollToAnchor()` in `app.js`
 - No manual JavaScript required in individual papers
 - Works consistently across all papers and questions
@@ -277,11 +283,13 @@ All share pages follow a **simple, consistent template** with inline CSS for max
 ### Required meta tags
 
 **Basic HTML:**
+
 ```html
 <meta name="description" content="2-3 sentence summary with key findings and statistics">
 ```
 
 **Open Graph (Facebook, LinkedIn, WhatsApp, Telegram):**
+
 ```html
 <meta property="og:type" content="website">
 <meta property="og:title" content="Full Paper Title">
@@ -292,6 +300,7 @@ All share pages follow a **simple, consistent template** with inline CSS for max
 ```
 
 **Twitter Card:**
+
 ```html
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Full Paper Title">
@@ -323,6 +332,7 @@ python3 scripts/fix-share-pages.py
 ```
 
 This ensures:
+
 - Consistent structure across all papers
 - Correct OG image URLs (`og-image.png`)
 - Proper back links (`../index.html#paper-N`)

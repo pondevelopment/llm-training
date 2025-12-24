@@ -40,7 +40,7 @@ Always consult these when creating or updating any question or paper. They are t
 - Error handling: defensive DOM lookups; fail soft with clear messages in UI.
 - Accessibility: keyboard reachable, sufficient contrast, clear labels and helper text.
 - Performance: avoid unnecessary reflows, heavy loops in hot paths, and oversized assets.
-- **Statistics accuracy:** Always verify exact numbers from source papers (tables/figures), not abstracts. Calculate percentages yourself from raw counts. Use grep/search in PDFs to find precise values like "100% (50/50)" or "62% (31/50)".
+- **Statistics accuracy:** Always verify exact numbers from source papers (tables/figures), not abstracts. Calculate percentages yourself from raw counts. Use grep/search in PDFs to find precise values like "100% (50/50)" or "62% (31/50)". Note: workspace search tools may ignore `tmp/` by default; when verifying numbers from extracted text/PDFs, open the `tmp/` file directly or enable searching ignored files.
 - **Model/system lists:** Cross-check which models/systems were actually tested vs. mentioned in other contexts. Don't assume—verify in methodology sections.
 - **Statistical presentation - plain language over technical notation:** When displaying statistical results (regression coefficients, p-values, effect sizes, significance levels):
   - Replace technical notation with plain language: `*** p<0.001` → "Very strong", `** p<0.01` → "Strong", `n.s./p>0.05` → "Not significant"

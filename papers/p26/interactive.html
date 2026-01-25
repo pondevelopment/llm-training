@@ -1,61 +1,61 @@
 <div id="p26-lab" class="space-y-6">
-  <section class="bg-gradient-to-r from-slate-50 via-cyan-50 to-slate-50 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 border border-cyan-100 dark:border-slate-700 rounded-xl p-4 space-y-4">
+  <section class="panel panel-info p-4 space-y-4">
     <div class="grid md:grid-cols-3 gap-4">
       <div>
-        <label for="p26-scenario" class="block text-sm font-semibold text-cyan-900 dark:text-cyan-100">Workload profile</label>
-        <select id="p26-scenario" class="mt-1 w-full px-3 py-2 border border-cyan-200 dark:border-slate-600 rounded-md text-sm bg-card text-heading focus:outline-none focus:ring-2 focus:ring-cyan-500">
+        <label for="p26-scenario" class="block text-sm font-semibold text-heading">Workload profile</label>
+        <select id="p26-scenario" class="mt-1 w-full px-3 py-2 border border-subtle rounded-md text-sm bg-card text-heading focus:outline-none focus:ring-2 focus:ring-accent">
           <option value="steady">Steady SaaS API (p95 &lt; 250 ms)</option>
           <option value="burst">Consumer burstiness (spiky traffic)</option>
           <option value="rl">RLHF training loop (vLLM sampler)</option>
         </select>
-        <p class="text-[11px] text-cyan-800 dark:text-cyan-200 mt-2">Scenario tunes baseline load mix, request length, and tolerance the blog measured.</p>
+        <p class="text-[11px] panel-muted mt-2">Scenario tunes baseline load mix, request length, and tolerance the blog measured.</p>
       </div>
       <div>
-        <label for="p26-load" class="block text-sm font-semibold text-cyan-900 dark:text-cyan-100">Batch volatility</label>
-        <input id="p26-load" type="range" min="0" max="2" step="1" value="1" class="w-full accent-cyan-600 mt-2">
-        <div class="flex justify-between text-[11px] text-cyan-800 dark:text-cyan-200 mt-1">
+        <label for="p26-load" class="block text-sm font-semibold text-heading">Batch volatility</label>
+        <input id="p26-load" type="range" min="0" max="2" step="1" value="1" class="w-full mt-2">
+        <div class="flex justify-between text-[11px] panel-muted mt-1">
           <span>Pinned</span>
           <span>Adaptive</span>
           <span>Spiky</span>
         </div>
       </div>
       <div>
-        <label for="p26-length" class="block text-sm font-semibold text-cyan-900 dark:text-cyan-100">Response length</label>
-        <input id="p26-length" type="range" min="64" max="512" step="32" value="256" class="w-full accent-cyan-600 mt-2">
-        <p class="text-[11px] text-cyan-800 dark:text-cyan-200 mt-1">Longer generations surface divergence sooner; values mirror the 1k-token sweep.</p>
+        <label for="p26-length" class="block text-sm font-semibold text-heading">Response length</label>
+        <input id="p26-length" type="range" min="64" max="512" step="32" value="256" class="w-full mt-2">
+        <p class="text-[11px] panel-muted mt-1">Longer generations surface divergence sooner; values mirror the 1k-token sweep.</p>
       </div>
     </div>
     <div class="grid md:grid-cols-2 gap-4">
       <div>
-        <p class="text-xs font-semibold uppercase tracking-wide text-cyan-900 dark:text-cyan-200 mb-2">Determinism patches</p>
-        <div class="flex flex-col gap-2 text-xs text-cyan-800 dark:text-cyan-200">
+        <p class="text-xs font-semibold uppercase tracking-wide text-heading mb-2">Determinism patches</p>
+        <div class="flex flex-col gap-2 text-xs panel-muted">
           <label class="inline-flex items-center gap-2">
-            <input id="p26-rms" type="checkbox" class="accent-cyan-600" checked>
+            <input id="p26-rms" type="checkbox" checked>
             <span>Batch-invariant RMSNorm</span>
           </label>
           <label class="inline-flex items-center gap-2">
-            <input id="p26-matmul" type="checkbox" class="accent-cyan-600" checked>
+            <input id="p26-matmul" type="checkbox" checked>
             <span>Fixed-tile matmul (split-K)</span>
           </label>
           <label class="inline-flex items-center gap-2">
-            <input id="p26-attn" type="checkbox" class="accent-cyan-600" checked>
+            <input id="p26-attn" type="checkbox" checked>
             <span>Deterministic FlexAttention cleanup</span>
           </label>
         </div>
       </div>
       <div>
-        <p class="text-xs font-semibold uppercase tracking-wide text-cyan-900 dark:text-cyan-200 mb-2">Queue strategy</p>
-        <div class="flex flex-col gap-2 text-xs text-cyan-800 dark:text-cyan-200">
+        <p class="text-xs font-semibold uppercase tracking-wide text-heading mb-2">Queue strategy</p>
+        <div class="flex flex-col gap-2 text-xs panel-muted">
           <label class="inline-flex items-center gap-2">
-            <input id="p26-pin" type="checkbox" class="accent-cyan-600">
+            <input id="p26-pin" type="checkbox">
             <span>Pin priority traffic to deterministic lane</span>
           </label>
           <label class="inline-flex items-center gap-2">
-            <input id="p26-dedupe" type="checkbox" class="accent-cyan-600">
+            <input id="p26-dedupe" type="checkbox">
             <span>Replay cache for identical prompts</span>
           </label>
         </div>
-        <p class="text-[11px] text-cyan-800 dark:text-cyan-200 mt-2">Operational levers change how much load variability leaks into kernel scheduling.</p>
+        <p class="text-[11px] panel-muted mt-2">Operational levers change how much load variability leaks into kernel scheduling.</p>
       </div>
     </div>
   </section>

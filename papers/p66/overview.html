@@ -1,0 +1,108 @@
+<section class="space-y-5">
+  <!-- Paper header -->
+  <section class="panel panel-info p-4 space-y-4">
+    <div class="flex items-center justify-between gap-4">
+      <div class="flex-1 min-w-0">
+        <h2 class="text-xl font-semibold text-heading">LLMs Can Get “Brain Rot”!</h2>
+        <p class="text-sm panel-muted">Shuo Xing, Junyuan Hong, Yifan Wang, Runjin Chen, Zhenyu Zhang, Ananth Grama, Zhengzhong Tu, Zhangyang Wang • arXiv:2510.13928 (2025)</p>
+      </div>
+      <a href="https://arxiv.org/abs/2510.13928" target="_blank" rel="noopener" class="btn-soft text-xs font-semibold flex-shrink-0" data-accent="foundations">
+        <span>View paper</span>
+        <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+    <p class="text-sm leading-relaxed panel-muted">
+      This paper tests a simple (and uncomfortable) idea: if you continually pre-train an LLM on <strong>junk</strong> internet text,
+      does it get measurably worse at reasoning, long-context understanding, and safety?
+      Using controlled experiments on Twitter/X corpora, the authors report <strong>dose-response capability decay</strong>
+      as the “junk ratio” increases.
+    </p>
+    <div class="panel panel-neutral-soft p-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Plain-language explainer</p>
+      <p class="panel-muted">Think of continual pretraining like a long-term diet. If most of the diet becomes “empty calories” (short, engagement-optimized, low-substance text), the model starts skipping careful thinking and its overall “cognitive fitness” declines.</p>
+    </div>
+  </section>
+
+  <!-- Executive quick take -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <header class="flex items-center gap-2">
+      <span aria-hidden="true" class="text-lg">🧭</span>
+      <h3 class="text-sm font-semibold tracking-wide uppercase text-heading">Executive quick take</h3>
+    </header>
+    <p class="text-sm leading-relaxed text-body">
+      If you ship models that keep learning from the open web (or from highly engagement-driven sources), treat data quality as a <strong>production safety problem</strong>, not a nice-to-have.
+      The paper argues that “junk exposure” can cause persistent declines that post-hoc tuning only partially reverses.
+    </p>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>Not just semantics:</strong> an engagement-based junk metric (short + popular) appears to be its own harmful dimension.</li>
+      <li><strong>Main failure mode:</strong> “thought-skipping” (truncated or missing reasoning chains) explains most of the new errors.</li>
+      <li><strong>Partial healing:</strong> more instruction tuning and clean-data training help, but don’t fully restore the baseline.</li>
+    </ul>
+  </section>
+
+  <!-- Business relevance -->
+  <section class="panel panel-success p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">💼 Business relevance</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+      <li><strong>Data/platform teams:</strong> don’t assume “more web data” is monotonic improvement — set quality gates for continual pretraining corpora.</li>
+      <li><strong>Safety owners:</strong> monitor safety regression during continual training; the paper reports risk scores can worsen even for control data.</li>
+      <li><strong>Agent builders:</strong> long-context regressions can be sharp (retrieval + variable tracking tasks); add targeted long-context checks before deploying a refreshed model.</li>
+      <li><strong>ML leads:</strong> post-hoc instruction tuning is not a guaranteed reset button; plan for prevention and monitoring.</li>
+    </ul>
+    <div class="panel panel-neutral-soft p-3 mt-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Derivative example</p>
+      <p class="panel-muted"><strong>“Cognitive health check” for weekly model refreshes:</strong> before rolling a newly-continued model into production, run a fixed eval slice: (1) reasoning with explicit step-by-step prompts, (2) one long-context suite (needle retrieval + multi-hop extraction), and (3) one jailbreak/refusal suite. Track both accuracy and a simple proxy for thought-skipping (e.g., median reasoning length or rate of “no reasoning” responses). Block rollout if any regresses beyond a pre-set threshold.</p>
+    </div>
+  </section>
+
+  <!-- Supporting callouts -->
+  <div class="grid md:grid-cols-2 gap-4">
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">What counts as “junk” here (two metrics)</h3>
+      <p class="text-xs panel-muted">The authors build two intervention datasets from Twitter/X. M1 (engagement degree) treats short, highly popular posts as junk (non-semantic popularity signal + shortness). M2 (semantic quality) uses an LLM judge to label attention-grabbing, sensational, low-substance content as junk. The key claim is that M1 is not a proxy for M2: popularity is largely orthogonal to semantic quality and can be a better predictor of decay.</p>
+    </div>
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">“Thought-skipping” as the primary lesion</h3>
+      <p class="text-xs panel-muted">When reasoning prompts request chain-of-thought, the junk-trained models increasingly answer without planning or skip steps mid-plan. The paper frames this as a central explanatory pathway: the data is short and attention-prioritized, so the model learns to respond briefly and stop early — which then shows up as reasoning failures.</p>
+    </div>
+  </div>
+
+  <!-- Key insight / Method / Implication trio -->
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Key insight</h3>
+      <p class="text-xs panel-muted">Continual pretraining on engagement-optimized or low-quality text can causally degrade multiple capabilities, with clear dose-response patterns.</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Method</h3>
+      <p class="text-xs panel-muted">Controlled continual pretraining on matched-scale junk vs control Twitter/X corpora (two junk definitions), then benchmark reasoning, long-context, safety, and personality across four LLMs.</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Implication</h3>
+      <p class="text-xs panel-muted">Treat data curation for continual pretraining like incident prevention: track leading indicators (reasoning format drift, long-context failures) and gate training data sources that optimize for attention over substance.</p>
+    </div>
+  </div>
+
+  <!-- Evidence -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🧪 Evidence</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>Dose-response reasoning decay (Llama3 8B, M1):</strong> ARC-Challenge with chain-of-thought drops from <span class="font-mono">74.9</span> (0% junk) to <span class="font-mono">57.2</span> (100% junk).</li>
+      <li><strong>Dose-response long-context decay (Llama3 8B, M1):</strong> RULER-CWE drops from <span class="font-mono">84.4</span> (0% junk) to <span class="font-mono">52.3</span> (100% junk).</li>
+      <li><strong>Error forensics:</strong> “No Thinking” appears in &gt;70% of failures overall, and 84% under the M1 junk intervention (per the paper’s categorization).</li>
+      <li><strong>Persistence after mitigation:</strong> scaling post-hoc instruction tuning and clean-data continual training improves scores, but the paper reports a remaining gap vs baseline (e.g., 17.3% ARC-C(COT), 9% RULER, 17.4% AdvBench absolute difference for their best mitigations).</li>
+    </ul>
+  </section>
+
+  <!-- Forward-looking roadmap -->
+  <section class="panel panel-warning p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🔭 For your roadmap</h3>
+    <p class="text-sm text-body">If you maintain a continuously-trained model, you can operationalize this as a quality-and-safety maintenance loop.</p>
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+      <li>Build a <strong>fixed “cognitive health” eval</strong> (reasoning + long-context + safety) and run it on every training checkpoint and pre-release candidate.</li>
+      <li>Track a <strong>leading indicator</strong> of thought-skipping (e.g., rate of answers with no intermediate steps when prompted to reason).</li>
+      <li>Add <strong>data quality gates</strong> for continual pretraining sources (especially engagement-optimized corpora); keep a “control” slice for regression comparisons.</li>
+      <li>Don’t rely solely on post-hoc tuning: plan for <strong>prevention</strong> (curation) and <strong>monitoring</strong> (health checks) as primary controls.</li>
+    </ul>
+  </section>
+</section>

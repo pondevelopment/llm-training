@@ -1,4 +1,35 @@
 {
+  "66": {
+    "title": "LLMs Can Get \u201cBrain Rot\u201d!",
+    "authors": [
+      "Shuo Xing",
+      "Junyuan Hong",
+      "Yifan Wang",
+      "Runjin Chen",
+      "Zhenyu Zhang",
+      "Ananth Grama",
+      "Zhengzhong Tu",
+      "Zhangyang Wang"
+    ],
+    "year": 2025,
+    "venue": "arXiv:2510.13928 (2025)",
+    "tags": [
+      "data-quality",
+      "continual-pretraining",
+      "reasoning",
+      "long-context",
+      "safety",
+      "evaluation"
+    ],
+    "summary": "Controlled continual-pretraining experiments on Twitter/X suggest that heavy exposure to engagement-optimized or low-quality text can cause dose-dependent declines in reasoning and long-context understanding, alongside safety and behavior shifts. The paper highlights thought-skipping as a key failure mode and argues post-hoc tuning only partially recovers baseline performance.",
+    "dir": "./papers/p66",
+    "interactiveTitle": "Junk data dose-response explorer",
+    "relatedQuestions": [
+      38,
+      14,
+      50
+    ]
+  },
   "65": {
     "title": "What Does It Mean to Understand Language?",
     "authors": [
@@ -646,31 +677,6 @@
       1
     ]
   },
-  "37": {
-    "title": "Quantifying Human-AI Synergy",
-    "authors": [
-      "Ben Weidmann",
-      "Christoph Riedl"
-    ],
-    "year": 2025,
-    "venue": "UCL & Northeastern University (2025)",
-    "tags": [
-      "evaluation",
-      "human-ai-collaboration",
-      "benchmarking",
-      "theory-of-mind",
-      "irt-framework"
-    ],
-    "summary": "Introduces Bayesian Item Response Theory framework to quantify human-AI synergy by separating individual ability (θ) from collaborative ability (κ) while controlling for task difficulty. Applied to 667 users across math, physics, and moral reasoning, finds GPT-4o boosts performance by 29pp and Llama-3.1-8B by 23pp. Crucially, collaborative ability is distinct from solo ability—users with stronger Theory of Mind achieve superior AI collaboration.",
-    "dir": "./papers/p37",
-    "interactiveTitle": "Human-AI synergy calculator",
-    "relatedQuestions": [
-      24,
-      13,
-      7,
-      36
-    ]
-  },
   "36": {
     "title": "ReasoningBank: Scaling Agent Self-Evolving with Reasoning Memory",
     "authors": [
@@ -901,45 +907,6 @@
       44
     ]
   },
-  "27": {
-    "title": "GDPval: Evaluating AI Model Performance on Real-World Economically Valuable Tasks",
-    "authors": [
-      "Tejal Patwardhan",
-      "Rachel Dias",
-      "Elizabeth Proehl",
-      "Grace Kim",
-      "Michele Wang",
-      "Olivia Watkins",
-      "Simon Posada Fishman",
-      "Marwan Aljubeh",
-      "Phoebe Thacker",
-      "Laurance Fauconnet",
-      "Natalie S. Kim",
-      "Patrick Chao",
-      "Samuel Miserendino",
-      "Gildas Chabot",
-      "David Li",
-      "Michael Sharman",
-      "Alexandra Barr",
-      "Amelia Glaese",
-      "Jerry Tworek"
-    ],
-    "year": 2025,
-    "venue": "OpenAI Research (2025)",
-    "tags": [
-      "evaluation",
-      "economics",
-      "operations"
-    ],
-    "summary": "GDPval sizes model progress on 1,320 expert-authored tasks, showing human-parity wins when paired with review loops and revealing how scaffolding drives speed and cost savings.",
-    "dir": "./papers/p27",
-    "interactiveTitle": "GDPval rollout planner",
-    "relatedQuestions": [
-      45,
-      50,
-      56
-    ]
-  },
   "24": {
     "title": "Quantifying Human-AI Synergy",
     "authors": [
@@ -953,13 +920,14 @@
       "evaluation",
       "theory-of-mind"
     ],
-    "summary": "Bayesian IRT separates solo skill, collaborative skill, and AI lift on ChatBench, revealing 29-point boosts from GPT-4o and the outsized role of Theory of Mind.",
+    "summary": "Introduces Bayesian Item Response Theory framework to quantify human-AI synergy by separating individual ability (θ) from collaborative ability (κ) while controlling for task difficulty. Applied to 667 users across math, physics, and moral reasoning, finds GPT-4o boosts performance by 29pp and Llama-3.1-8B by 23pp. Crucially, collaborative ability is distinct from solo ability—users with stronger Theory of Mind achieve superior AI collaboration.",
     "dir": "./papers/p24",
-    "interactiveTitle": "Human-AI synergy lab",
+    "interactiveTitle": "Human-AI synergy calculator",
     "relatedQuestions": [
-      8,
+      24,
       13,
-      45
+      7,
+      36
     ]
   },
   "23": {
@@ -990,11 +958,11 @@
     "tags": [
       "evaluation",
       "economics",
-      "benchmark"
+      "operations"
     ],
-    "summary": "Benchmarks frontier models on realistic GDP-weighted tasks, showing near-parity with experts and clear gains from reasoning effort plus scaffolding.",
+    "summary": "GDPval sizes model progress on 1,320 expert-authored tasks, showing human-parity wins when paired with review loops and revealing how scaffolding drives speed and cost savings.",
     "dir": "./papers/p23",
-    "interactiveTitle": "GDPval readiness lab",
+    "interactiveTitle": "GDPval rollout planner",
     "relatedQuestions": [
       45,
       50,

@@ -1,0 +1,78 @@
+<section class="space-y-6" id="p66-explorer">
+  <div class="panel panel-info p-4 space-y-3">
+    <div class="flex items-center justify-between gap-3">
+      <h4 class="text-sm font-semibold text-heading">Junk data dose-response explorer (Llama3 8B)</h4>
+      <span class="chip chip-info text-xs">Table-driven</span>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-3">
+      <div>
+        <label for="p66-junk-metric" class="block text-sm font-medium text-heading">How is “junk” defined?</label>
+        <select id="p66-junk-metric" class="mt-1 w-full rounded border border-divider bg-card px-3 py-2 text-sm text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
+          <option value="m1">M1 (engagement): short + highly popular tweets</option>
+          <option value="m2">M2 (semantic quality): sensational / low-substance style</option>
+        </select>
+        <p class="text-xs panel-muted mt-1">M1 emphasizes popularity + shortness. M2 uses an LLM judge for semantic “junkiness”.</p>
+      </div>
+
+      <div>
+        <label for="p66-junk-ratio" class="block text-sm font-medium text-heading">Junk ratio in continual pretraining mix</label>
+        <select id="p66-junk-ratio" class="mt-1 w-full rounded border border-divider bg-card px-3 py-2 text-sm text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
+          <option value="0">0% (control)</option>
+          <option value="20">20%</option>
+          <option value="50">50%</option>
+          <option value="80">80%</option>
+          <option value="100">100% (all junk)</option>
+        </select>
+        <p class="text-xs panel-muted mt-1">Values shown are taken directly from the paper’s table for Llama3 8B (after the authors’ training recipe).</p>
+      </div>
+    </div>
+
+    <div class="panel panel-neutral-soft p-3 space-y-2 text-xs">
+      <p class="font-semibold text-heading">How to read the metrics</p>
+      <ul class="list-disc ml-5 space-y-1 panel-muted">
+        <li><strong>Reasoning + long-context:</strong> higher accuracy is better.</li>
+        <li><strong>Safety risk:</strong> lower is better (higher means the model is judged riskier).</li>
+        <li><strong>Success pattern:</strong> high reasoning + high long-context + low risk.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="panel panel-neutral p-4 space-y-3">
+    <div class="flex items-center justify-between gap-3">
+      <h4 class="text-sm font-semibold text-heading">Projected outcomes</h4>
+      <span id="p66-status" class="chip chip-neutral text-xs">—</span>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-3">
+      <div class="panel panel-neutral-soft p-3 space-y-2">
+        <p class="text-xs font-semibold text-heading">Reasoning (ARC-Challenge, CoT)</p>
+        <div class="text-2xl font-semibold text-heading"><span id="p66-arc" class="font-mono">—</span><span class="text-sm panel-muted"> / 100</span></div>
+        <div id="p66-arc-delta" class="text-xs panel-muted min-h-[2.75rem]">—</div>
+      </div>
+
+      <div class="panel panel-neutral-soft p-3 space-y-2">
+        <p class="text-xs font-semibold text-heading">Long-context (RULER-CWE)</p>
+        <div class="text-2xl font-semibold text-heading"><span id="p66-cwe" class="font-mono">—</span><span class="text-sm panel-muted"> / 100</span></div>
+        <div id="p66-cwe-delta" class="text-xs panel-muted min-h-[2.75rem]">—</div>
+      </div>
+
+      <div class="panel panel-neutral-soft p-3 space-y-2">
+        <p class="text-xs font-semibold text-heading">Safety (AdvBench risk ↓)</p>
+        <div class="text-2xl font-semibold text-heading"><span id="p66-adv" class="font-mono">—</span><span class="text-sm panel-muted"> / 100</span></div>
+        <div id="p66-adv-delta" class="text-xs panel-muted min-h-[2.75rem]">—</div>
+      </div>
+    </div>
+
+    <div class="panel panel-neutral-soft p-3 text-xs panel-muted">
+      Baseline reference (same table): ARC-CoT <span class="font-mono">77.2</span>, RULER-CWE <span class="font-mono">91.8</span>, AdvBench risk <span class="font-mono">61.4</span>.
+    </div>
+  </div>
+
+  <div class="panel panel-warning p-4 space-y-2">
+    <h4 class="text-sm font-semibold text-heading">What this suggests (interpretation)</h4>
+    <div id="p66-explanation" class="text-sm text-body space-y-2">
+      <p>Pick a junk definition and ratio to see how reasoning, long-context, and safety move together in the paper’s controlled experiment.</p>
+    </div>
+  </div>
+</section>

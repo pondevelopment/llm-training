@@ -30,9 +30,10 @@ jobs:
           cache-dependency-path: |
             tutorials/agentic-search/package-lock.json
             tutorials/multi-agent-frameworks/package-lock.json
+            tutorials/bayesian-bike-recommender/package-lock.json
 
       - name: Install root dependencies
-        run: npm ci
+        run: npm ciOke 
         continue-on-error: true
 
       - name: Build Agentic Search Tutorial
@@ -49,6 +50,14 @@ jobs:
           npm ci
           npm run build
           echo "✅ Multi-Agent Frameworks tutorial built successfully"
+          ls -lh dist/
+
+      - name: Build Bayesian Bike Recommender Tutorial
+        run: |
+          cd tutorials/bayesian-bike-recommender
+          npm ci
+          npm run build
+          echo "✅ Bayesian Bike Recommender tutorial built successfully"
           ls -lh dist/
 
       - name: Generate build info

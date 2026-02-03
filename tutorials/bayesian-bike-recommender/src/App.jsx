@@ -112,7 +112,30 @@ function App() {
 
       {/* Main content */}
       <main className="max-w-[1800px] mx-auto p-4">
-        {/* Introduction Section */}
+        {/* Hero Introduction */}
+        <div className="mb-6 p-6 bg-gradient-to-br from-slate-800/80 to-slate-900/80 rounded-xl border border-slate-600">
+          <h2 className="text-2xl font-bold text-white mb-3">
+            🎯 What is this demo?
+          </h2>
+          <p className="text-lg text-slate-300 leading-relaxed mb-4">
+            This interactive tutorial shows how <strong className="text-blue-400">Bayesian Networks</strong> can enhance 
+            LLM-powered recommendations. You'll play the role of a customer looking for a bike, and see how the system 
+            reasons about your preferences in real-time.
+          </p>
+          <div className="flex flex-wrap gap-3 text-sm">
+            <span className="px-3 py-1 bg-blue-900/50 border border-blue-700 rounded-full text-blue-300">
+              📝 Select a scenario below
+            </span>
+            <span className="px-3 py-1 bg-purple-900/50 border border-purple-700 rounded-full text-purple-300">
+              🔄 Watch probabilities update
+            </span>
+            <span className="px-3 py-1 bg-green-900/50 border border-green-700 rounded-full text-green-300">
+              🚲 See recommendations change
+            </span>
+          </div>
+        </div>
+
+        {/* Why Bayesian + LLM Section */}
         <div className="mb-6 p-6 bg-gradient-to-br from-blue-900/40 to-purple-900/40 rounded-xl border border-blue-700/50">
           <h2 className="text-2xl font-bold text-white mb-4">
             Why Combine LLMs with Bayesian Networks?

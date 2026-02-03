@@ -8,7 +8,10 @@ export default function ChatInterface({ onMessage, messages }) {
   };
 
   useEffect(() => {
-    scrollToBottom();
+    // Only scroll when there are messages (not on initial mount)
+    if (messages.length > 0) {
+      scrollToBottom();
+    }
   }, [messages]);
 
   const suggestions = [

@@ -56,6 +56,38 @@ If anything here conflicts with those docs, follow the docs.
 - Manifest entry required in `papers/manifest.json`, prefer `dir` form.
 - Share page required in `p/XX.html`.
 
+### Tutorials
+
+Tutorials are standalone React/Vite sub-apps under `tutorials/<name>/`. Unlike questions/papers (HTML fragments), tutorials are full SPAs with their own build systems.
+
+Structure:
+- `tutorials/<name>/` — source code (React + TypeScript + Tailwind)
+- `tutorials/<name>/dist/` — built output (committed for GitHub Pages)
+- `tutorials/index.html` — index page linking all tutorials
+- `tutorials/README.md` — documentation for all tutorials
+
+Key patterns:
+- **Section-based navigation**: Use hash routing (`#methods`, `#pricing`, etc.) for deep-linkable sections
+- **Landing page**: Overview with clickable section cards, each showing icon, title, and brief description
+- **Intro panels**: Each section starts with a `Panel variant="info"` explaining what the section covers before diving into jargon
+- **Completion view**: Dedicated `#completion` route with summary of learnings, next steps, and links to other tutorials
+- **Interactive simulators**: Sliders, calculators, and visualizations with sensible defaults that teach on initial render
+- **Real-world examples**: Clickable cards that load values into calculators; use cost tiers (`$`/`$$`/`$$$`) instead of exact prices on tiles
+- **Provider/option cards**: Include pros/cons lists and "Best for" summaries
+
+Build constraints:
+- Configure Vite base path: `/llm-training/tutorials/<name>/dist/`
+- Import main site theme: `import '../../../css/theme.css'`
+- Add tutorial-specific styles in `src/styles/tutorial.css`
+- Use shared components: `Panel`, `Chip` from `./components/shared/`
+
+Adding a new tutorial:
+1. Create `tutorials/<name>/` with Vite + React + TypeScript setup
+2. Configure `vite.config.ts` with correct base path
+3. Update `.github/workflows/deploy.yml` to build the tutorial
+4. Add card to `tutorials/index.html`
+5. Add entry to `tutorials/README.md` table and description section
+
 ## Loader/runtime constraints (VERY IMPORTANT)
 
 Both loaders (`js/questionLoader.js`, `js/paperLoader.js`) work like this:

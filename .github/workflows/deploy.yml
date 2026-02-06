@@ -31,6 +31,7 @@ jobs:
             tutorials/agentic-search/package-lock.json
             tutorials/multi-agent-frameworks/package-lock.json
             tutorials/bayesian-bike-recommender/package-lock.json
+            tutorials/llm-fine-tuning/package-lock.json
 
       - name: Install root dependencies
         run: npm ciOke 
@@ -58,6 +59,14 @@ jobs:
           npm ci
           npm run build
           echo "✅ Bayesian Bike Recommender tutorial built successfully"
+          ls -lh dist/
+
+      - name: Build LLM Fine-Tuning Tutorial
+        run: |
+          cd tutorials/llm-fine-tuning
+          npm ci
+          npm run build
+          echo "✅ LLM Fine-Tuning tutorial built successfully"
           ls -lh dist/
 
       - name: Generate build info

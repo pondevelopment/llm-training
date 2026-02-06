@@ -57,6 +57,38 @@ Always consult these when creating or updating any question or paper. They are t
 - Ensure `all.html` lists the question and any curated learning paths include the id.
 - Share pages remain under `/q/XX.html` and must match the latest title/description.
 
+## Tutorial workflow reminders
+
+Tutorials are standalone React/Vite SPAs under `tutorials/<name>/`. They differ from questions/papers which are HTML fragments loaded by a shared loader.
+
+### Structure
+
+- `tutorials/<name>/src/` — React source code
+- `tutorials/<name>/dist/` — built output (committed for GitHub Pages)
+- `tutorials/<name>/src/components/` — section components (e.g., `MethodsSection.tsx`, `PricingSection.tsx`)
+- `tutorials/<name>/src/data/` — data files for simulators and calculators
+
+### Key UX patterns established
+
+- **Intro panels**: Each section starts with a `Panel variant="info"` that explains what the section covers in plain language before diving into technical content. This helps users understand context without getting overwhelmed.
+- **Completion view**: Use a dedicated `#completion` route (e.g., `CompletionSection.tsx`) instead of looping back to landing. Include: what you learned (4 boxes summarizing sections), next steps (practical actions), related tutorials (links), and action buttons.
+- **Real-world examples with cost tiers**: On example cards, use `$`/`$$`/`$$$` indicators instead of exact dollar amounts. Exact prices go in calculators that the cards load when clicked. Add legend explaining tiers (e.g., `$ = under $20 · $$ = $20–$500 · $$$ = $500+`).
+- **Clickable examples that load calculators**: Make example cards clickable with visual feedback (ring highlight, "✓ Loaded" badge). Set multiple related state values (e.g., update BOTH token calculator AND hourly calculator) to give complete picture.
+- **Provider cards with pros/cons**: When comparing options (providers, methods, tools), include pros array, cons array, and "Best for" summary. Display top 3 pros and top 2 cons to keep cards scannable.
+- **Section navigation**: Show prev/next buttons at bottom of each section. Hide for landing and completion views. Use hash-based routing for deep-linkable sections.
+
+### Adding a new tutorial
+
+1. Create `tutorials/<name>/` with Vite + React + TypeScript setup
+2. Configure `vite.config.ts` with base path: `/llm-training/tutorials/<name>/dist/`
+3. Import main site theme: `import '../../../css/theme.css'`
+4. Create shared components (`Panel.tsx`, `Chip.tsx`) or copy from existing tutorial
+5. Add routes for landing, each section, and completion views
+6. Build with `npm run build` and commit `dist/` folder
+7. Update `.github/workflows/deploy.yml` build step
+8. Add card to `tutorials/index.html`
+9. Add entry to `tutorials/README.md` table and description section
+
 ## Commit & PR conventions
 
 - Only commit and push when the user explicitly requests it and after local testing passes.

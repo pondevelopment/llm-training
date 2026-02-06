@@ -1,0 +1,1 @@
+export { ForgettingSection } from './ForgettingSection';

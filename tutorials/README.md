@@ -9,6 +9,7 @@ This directory contains interactive tutorials built with modern web frameworks.
 | Agentic Search | `/tutorials/agentic-search/` | React + TypeScript + Vite + Tailwind + Framer Motion | [View](https://pondevelopment.github.io/llm-training/tutorials/agentic-search/dist/) |
 | Multi-Agent Frameworks | `/tutorials/multi-agent-frameworks/` | React + TypeScript + Vite + Tailwind | [View](https://pondevelopment.github.io/llm-training/tutorials/multi-agent-frameworks/dist/) |
 | Bayesian Bike Recommender | `/tutorials/bayesian-bike-recommender/` | React + Vite + Tailwind + bayesjs + Cytoscape | [View](https://pondevelopment.github.io/llm-training/tutorials/bayesian-bike-recommender/dist/) |
+| LLM Fine-Tuning | `/tutorials/llm-fine-tuning/` | React + TypeScript + Vite + Tailwind + Framer Motion | [View](https://pondevelopment.github.io/llm-training/tutorials/llm-fine-tuning/dist/) |
 
 ---
 
@@ -29,6 +30,20 @@ See how AI agents transform single queries into multi-step research workflows us
 **Build Output**: `/tutorials/multi-agent-frameworks/dist/`
 
 Learn how production multi-agent systems manage context: tiered state, processor pipelines, and scoped handoffs.
+
+---
+
+## LLM Fine-Tuning Tutorial
+
+**Path**: `/tutorials/llm-fine-tuning/`  
+**Tech Stack**: React + TypeScript + Vite + Tailwind CSS + Framer Motion  
+**Build Output**: `/tutorials/llm-fine-tuning/dist/`
+
+Master data-centric model customization: from LoRA adapters and small language models to catastrophic forgetting mitigation. Includes:
+- LoRA Rank Simulator with VRAM impact visualization
+- SLM (Small Language Model) cost-efficiency comparison
+- Catastrophic Forgetting visualizer with mitigation strategies
+- Multi-provider pricing calculator with real-world examples
 
 ---
 

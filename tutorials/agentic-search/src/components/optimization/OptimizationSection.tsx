@@ -856,7 +856,7 @@ export function OptimizationSection() {
                   <span className="text-accent-primary font-bold">→</span>
                   <div>
                     <a 
-                      href="https://searchengineland.com/category/ai"
+                      href="https://searchengineland.com/library/ai-seo"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-accent-primary hover:underline font-medium"

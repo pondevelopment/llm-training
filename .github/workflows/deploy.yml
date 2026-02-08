@@ -28,14 +28,14 @@ jobs:
           node-version: '22'
           cache: 'npm'
           cache-dependency-path: |
+            package-lock.json
             tutorials/agentic-search/package-lock.json
             tutorials/multi-agent-frameworks/package-lock.json
             tutorials/bayesian-bike-recommender/package-lock.json
             tutorials/llm-fine-tuning/package-lock.json
 
       - name: Install root dependencies
-        run: npm ciOke 
-        continue-on-error: true
+        run: npm ci
 
       - name: Build Agentic Search Tutorial
         run: |

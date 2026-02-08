@@ -2,7 +2,7 @@
 
 - Build: ensure the static site loads without console errors (hard refresh when testing manifest updates).
 - Lint/Type: match existing patterns; avoid new globals and unused vars.
-- Tests: if you change public behaviour, add/adjust minimal tests (or a quick runner) where applicable.
+- Tests: run `npm test` (lint + Playwright E2E). To test a single item: `npx playwright test --grep "Paper 07"` or `npx playwright test --grep "Question 12"`.
 - Smoke: verify the specific question/page impacted renders and interacts as intended (including `all.html` and the share page).
 - Visual check: Use `open_simple_browser` to compare converted pages side-by-side with reference pages (e.g., compare Paper 8 vs Paper 7 headers, spacing, padding) to ensure structural consistency.m Prompt (Repository: llm-training)
 
@@ -29,7 +29,7 @@ Always consult these when creating or updating any question or paper. They are t
 
 - Build: ensure the static site loads without console errors (hard refresh when testing manifest updates).
 - Lint/Type: match existing patterns; avoid new globals and unused vars.
-- Tests: if you change public behaviour, add/adjust minimal tests (or a quick runner) where applicable.
+- Tests: run `npm test` (lint + Playwright E2E). To test a single item: `npx playwright test --grep "Paper 07"` or `npx playwright test --grep "Question 12"`.
 - Smoke: verify the specific question/page impacted renders and interacts as intended (including `all.html` and the share page).
 
 ## Coding guidelines
@@ -111,6 +111,20 @@ Tutorials are standalone React/Vite SPAs under `tutorials/<name>/`. They differ 
 - Static site served locally (e.g., simple HTTP server). Avoid environment-specific commands unless verified.
 - No unsolicited network calls. Prefer local actions first.
 - Assume a live test server is running at <http://127.0.0.1:5501> for smoke checks unless stated otherwise.
+
+## Test infrastructure
+
+The repo has end-to-end tests powered by [Playwright](https://playwright.dev/).
+
+- **Location:** `tests/e2e/` — papers in `papers/paper-smoke.spec.ts`, questions in `questions/question-smoke.spec.ts`.
+- **Page Object Models:** `fixtures/paper-page.ts` and `fixtures/question-page.ts` encapsulate selectors and actions.
+- **Run locally:** `npm test` (lint + E2E) or `npx playwright test` (E2E only). The Playwright `webServer` config auto-starts Vite on port 5501.
+- **Run a single item:** `npx playwright test --grep "Paper 07"` or `npx playwright test --grep "Question 12"`.
+- **UI mode:** `npm run test:e2e:ui` opens Playwright's interactive runner.
+- **CI:** `.github/workflows/ci.yml` runs lint + E2E on every push/PR to `main` using bundled Chromium. HTML reports are uploaded as artifacts.
+- **Config:** `playwright.config.ts` at repo root; CI-aware (conditional `channel`, `workers`, `reporter`, `retries`).
+
+When adding a new paper or question, the smoke tests auto-discover it from the manifest — no test file edits needed.
 
 ## Implementation reminders
 

@@ -55,6 +55,7 @@ Use this checklist when creating or updating questions for the LLM Questions app
 - [ ] Hard-refresh `index.html#question-XX` to ensure manifest loading works
 - [ ] Verify the share page `q/XX.html`
 - [ ] Check `all.html` search/filter lists the question and the Foundations/other path counts remain accurate
+- [ ] Run E2E smoke test: `npx playwright test --grep "Question XX"` (both interactive and answer tests should pass)
 - [ ] Update any relevant docs or cross-links referencing the question
 - [ ] Add a Latest Site Update entry in `updates.html` summarising the new or revised question
 
@@ -64,5 +65,6 @@ Use this checklist when creating or updating questions for the LLM Questions app
 - [ ] Layout holds on mobile (inspect via responsive mode or narrow window)
 - [ ] Interactive logic handles edge inputs gracefully (min/max sliders, switching scenarios, etc.)
 - [ ] Updated files are UTF-8 encoded so emoji and punctuation render correctly
+- [ ] `npm test` passes (lint + full E2E suite); regression check confirms other questions still work
 
 Tick each item before marking a question ready for review or publishing.

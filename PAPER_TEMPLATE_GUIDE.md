@@ -346,6 +346,8 @@ This ensures:
 - Run each simulator scenario; ensure the query samples, hints, and coverage numbers make sense.
 - Confirm MathJax renders any inline expressions after interactions.
 - Open `p/XX.html` to ensure social metadata is correct.
+- **Automated E2E:** Run `npx playwright test --grep "Paper XX"` to verify both overview and interactive smoke tests pass. The tests auto-discover papers from the manifest — no test file edits needed.
+- **Full regression:** Run `npm test` before shipping to ensure no other papers broke.
 
 Use `PAPER_CHECKLIST.md` to track completion of these steps for every new or updated paper.
 

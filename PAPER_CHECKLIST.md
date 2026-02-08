@@ -85,6 +85,7 @@
 - [ ] Run each simulator scenario; ensure coverage numbers, hints, and follow-up text make sense
 - [ ] Confirm `all.html#papers` (and any curated lists) include the new paper title
 - [ ] Open `p/XX.html` to verify metadata and CTA
+- [ ] Run E2E smoke test: `npx playwright test --grep "Paper XX"` (both interactive and overview tests should pass)
 - [ ] Update any documentation or release notes referencing the new paper
 - [ ] Add a Latest Site Update entry in `updates.html` describing the new or revised paper
 
@@ -96,5 +97,6 @@
 - [ ] Interactive remains responsive—no long-running loops or blocking recalculations
 - [ ] Files saved as UTF-8 with `\n` line endings; emoji and punctuation render correctly
 - [ ] **Visual consistency check:** Use browser to compare side-by-side with reference papers (Paper 7 is current standard) - verify header structure, spacing (`space-y-5`), padding (`p-4`), plain-language explainer format, and panel layouts match exactly
+- [ ] `npm test` passes (lint + full E2E suite); regression check confirms other papers still work
 
 Tick every box before requesting review or publishing the paper explainer.

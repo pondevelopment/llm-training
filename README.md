@@ -86,6 +86,13 @@ top-50-llm-questions/
 |       |-- src/              # React components and TypeScript source
 |       |-- dist/             # Production build (deployed to GitHub Pages)
 |       \-- README.md         # Tutorial-specific documentation
+|-- tests/
+|   \-- e2e/                  # Playwright E2E tests (papers + questions)
+|       |-- fixtures/          # Page Object Models (PaperPage, QuestionPage)
+|       |-- papers/            # Paper smoke tests (auto-discovered from manifest)
+|       \-- questions/         # Question smoke tests (auto-discovered from manifest)
+|-- playwright.config.ts       # Playwright configuration (CI-aware)
+|-- .github/workflows/ci.yml   # CI: lint + E2E on push/PR to main
 |-- QUESTION_TEMPLATE_GUIDE.md            # Question authoring guidance
 |-- QUESTION_CHECKLIST.md                 # Question review & test checklist
 |-- PAPER_TEMPLATE_GUIDE.md               # Paper authoring guidance
@@ -122,6 +129,27 @@ Run the repo checks before shipping:
 - `npm run lint:html` — catches Tailwind colour utilities or inline colours in HTML fragments.
 - `npm run lint:css` — blocks raw colour literals outside the shared theme overrides.
 - `npm run lint:repo` — validates manifest links and interactive scaffolding.
+
+### Testing
+
+The repo has Playwright E2E smoke tests covering all 65 papers and 57 questions (244 tests total).
+
+```bash
+npm test              # lint + full E2E suite
+npm run test:e2e      # E2E only (Vite dev server auto-starts)
+npm run test:e2e:ui   # Playwright interactive UI mode
+```
+
+Run a single item:
+
+```bash
+npx playwright test --grep "Paper 07"
+npx playwright test --grep "Question 12"
+```
+
+Tests auto-discover papers and questions from the manifests — no test file edits needed when adding new content.
+
+**CI:** `.github/workflows/ci.yml` runs lint + E2E on every push/PR to `main`. HTML reports are uploaded as artifacts.
 
 ### Adding a new question
 
@@ -186,6 +214,7 @@ This project is open source under the [MIT License](LICENSE).
 
 ## 🏾 Recent updates
 
+- **NEW:** Playwright E2E test suite — 244 smoke tests covering all papers and questions, with CI pipeline
 - **NEW:** Interactive Agentic Search Tutorial - comprehensive guide to AI agents and MCP
 - Added question 51 (end-to-end LLM lifecycle) and interactive pipeline explorer
 - Added questions 46-50 with interactive explorers

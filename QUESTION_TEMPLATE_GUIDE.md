@@ -147,6 +147,8 @@ All project files are stored as UTF-8 with `\n` line endings. When copying templ
 - Ensure the question appears in `all.html` (update the titles map and any curated path arrays).
 - Verify slider/radio states persist visually and reset when scenarios change.
 - Check the console for errors while interacting with inputs.
+- **Automated E2E:** Run `npx playwright test --grep "Question XX"` to verify both answer and interactive smoke tests pass. Tests auto-discover questions from the manifest — no test file edits needed.
+- **Full regression:** Run `npm test` before shipping to ensure no other questions broke.
 
 ## Maintaining older questions
 

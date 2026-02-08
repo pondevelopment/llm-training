@@ -131,13 +131,15 @@ MathJax:
 
 ## Verification (run before finishing)
 
-- Lint: run `npm run lint`.
+- **Full check:** run `npm test` (lint + Playwright E2E for all papers and questions).
+- **Single item:** `npx playwright test --grep "Paper 07"` or `npx playwright test --grep "Question 12"`.
 - Smoke:
   - Load `index.html` and navigate to the updated question/paper.
   - Hard refresh after manifest/asset changes.
   - Check browser console for errors.
   - Verify share pages (`q/XX.html`, `p/XX.html`).
   - Verify the directory-manifest-assets are in sync.
+- **CI:** `.github/workflows/ci.yml` runs lint + E2E on every push/PR to `main`.
 
 ## What NOT to do
 

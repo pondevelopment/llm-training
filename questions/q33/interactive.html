@@ -89,8 +89,8 @@
             .q33-interactive .text-orange-800 { color: color-mix(in srgb, var(--tone-amber-strong) 60%, var(--color-heading) 40%); }
 </style>
             <!-- Configuration Section -->
-            <div class="bg-gradient-to-r from-purple-50 to-blue-50 p-4 rounded-lg border border-purple-200">
-                <label for="q33-scenario" class="block text-sm font-medium text-gray-700 mb-2">🎯 Choose Training Scenario</label>
+            <div class="p-4 rounded-lg border border-tone-purple" style="background: linear-gradient(to right, var(--swatch-purple-50), var(--swatch-blue-50))">
+                <label for="q33-scenario" class="block text-sm font-medium text-body mb-2">🎯 Choose Training Scenario</label>
                 <select id="q33-scenario" class="field-select w-full">
                     <option value="video-understanding" selected>Video Understanding (Text + Vision + Audio)</option>
                     <option value="document-analysis">Document Analysis (Text + Vision)</option>
@@ -98,25 +98,25 @@
                     <option value="medical-diagnosis">Medical Diagnosis (All Modalities)</option>
                     <option value="creative-content">Creative Content Generation</option>
                 </select>
-                <p class="text-xs text-gray-600 mt-1">Different scenarios showcase various multimodal optimization strategies</p>
+                <p class="text-xs text-muted mt-1">Different scenarios showcase various multimodal optimization strategies</p>
             </div>
             
             <!-- Training Strategy Selection -->
-            <div class="bg-white border border-gray-200 rounded-lg p-4">
-                <label class="block text-sm font-medium text-gray-700 mb-3">⚡ Choose Training Strategy</label>
+            <div class="bg-card border border-divider rounded-lg p-4">
+                <label class="block text-sm font-medium text-body mb-3">⚡ Choose Training Strategy</label>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-                    <label class="relative border border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors">
+                    <label class="relative border border-divider rounded-lg p-3 cursor-pointer hover:bg-surface transition-colors">
                         <input type="radio" name="q33-strategy" value="traditional" class="absolute top-2 right-2">
                         <div class="strategy-option">
                             <div class="flex items-center justify-between mb-2">
-                                <span class="font-medium text-gray-900">Traditional Multi-Encoder</span>
-                                <span class="text-xs bg-red-100 text-red-800 px-2 py-1 rounded">Baseline</span>
+                                <span class="font-medium text-heading">Traditional Multi-Encoder</span>
+                                <span class="text-xs bg-swatch-rose text-danger px-2 py-1 rounded">Baseline</span>
                             </div>
-                            <p class="text-xs text-gray-600 mb-2">Separate encoders for each modality with late fusion</p>
-                            <div class="text-xs font-mono bg-gray-100 px-2 py-1 rounded">
+                            <p class="text-xs text-muted mb-2">Separate encoders for each modality with late fusion</p>
+                            <div class="text-xs font-mono bg-subtle px-2 py-1 rounded">
                                 📝→[Encoder] 🖼️→[Encoder] 🎵→[Encoder] → Fusion
                             </div>
-                            <div class="mt-2 text-xs text-red-700">
+                            <div class="mt-2 text-xs text-danger">
                                 • 3x parameters<br>
                                 • Sequential training<br>
                                 • Limited cross-modal learning
@@ -124,18 +124,18 @@
                         </div>
                     </label>
                     
-                    <label class="relative border border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors">
+                    <label class="relative border border-divider rounded-lg p-3 cursor-pointer hover:bg-surface transition-colors">
                         <input type="radio" name="q33-strategy" value="unified" checked class="absolute top-2 right-2">
                         <div class="strategy-option">
                             <div class="flex items-center justify-between mb-2">
-                                <span class="font-medium text-gray-900">Unified Transformer</span>
-                                <span class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">Optimized</span>
+                                <span class="font-medium text-heading">Unified Transformer</span>
+                                <span class="text-xs bg-swatch-green text-tone-emerald px-2 py-1 rounded">Optimized</span>
                             </div>
-                            <p class="text-xs text-gray-600 mb-2">Single transformer with cross-modal attention</p>
-                            <div class="text-xs font-mono bg-gray-100 px-2 py-1 rounded">
+                            <p class="text-xs text-muted mb-2">Single transformer with cross-modal attention</p>
+                            <div class="text-xs font-mono bg-subtle px-2 py-1 rounded">
                                 📝🖼️🎵 → [Unified Transformer] → Output
                             </div>
-                            <div class="mt-2 text-xs text-green-700">
+                            <div class="mt-2 text-xs text-tone-emerald">
                                 • 40% fewer parameters<br>
                                 • Joint training<br>
                                 • Rich cross-modal interactions
@@ -143,18 +143,18 @@
                         </div>
                     </label>
                     
-                    <label class="relative border border-gray-200 rounded-lg p-3 cursor-pointer hover:bg-gray-50 transition-colors">
+                    <label class="relative border border-divider rounded-lg p-3 cursor-pointer hover:bg-surface transition-colors">
                         <input type="radio" name="q33-strategy" value="hybrid" class="absolute top-2 right-2">
                         <div class="strategy-option">
                             <div class="flex items-center justify-between mb-2">
-                                <span class="font-medium text-gray-900">Hybrid Approach</span>
-                                <span class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded">Experimental</span>
+                                <span class="font-medium text-heading">Hybrid Approach</span>
+                                <span class="text-xs bg-swatch-blue text-tone-sky px-2 py-1 rounded">Experimental</span>
                             </div>
-                            <p class="text-xs text-gray-600 mb-2">Specialized encoders + unified cross-attention</p>
-                            <div class="text-xs font-mono bg-gray-100 px-2 py-1 rounded">
+                            <p class="text-xs text-muted mb-2">Specialized encoders + unified cross-attention</p>
+                            <div class="text-xs font-mono bg-subtle px-2 py-1 rounded">
                                 [Encoders] → [Cross-Attention] → Output
                             </div>
-                            <div class="mt-2 text-xs text-blue-700">
+                            <div class="mt-2 text-xs text-tone-sky">
                                 • Balanced parameters<br>
                                 • Modality-specific + unified<br>
                                 • Best of both worlds
@@ -166,8 +166,8 @@
 
             <!-- Model Configuration -->
             <div class="grid md:grid-cols-2 gap-4">
-                <div class="bg-white border border-gray-200 rounded-lg p-4">
-                    <label for="q33-model-size" class="block text-sm font-medium text-gray-700 mb-2">🏗️ Model Size</label>
+                <div class="bg-card border border-divider rounded-lg p-4">
+                    <label for="q33-model-size" class="block text-sm font-medium text-body mb-2">🏗️ Model Size</label>
                     <select id="q33-model-size" class="field-select w-full">
                         <option value="small">Small (7B parameters)</option>
                         <option value="medium" selected>Medium (70B parameters)</option>
@@ -176,8 +176,8 @@
                     </select>
                 </div>
                 
-                <div class="bg-white border border-gray-200 rounded-lg p-4">
-                    <label for="q33-data-regime" class="block text-sm font-medium text-gray-700 mb-2">📊 Training Data Regime</label>
+                <div class="bg-card border border-divider rounded-lg p-4">
+                    <label for="q33-data-regime" class="block text-sm font-medium text-body mb-2">📊 Training Data Regime</label>
                     <select id="q33-data-regime" class="field-select w-full">
                         <option value="supervised">Supervised Only</option>
                         <option value="self-supervised" selected>Self-Supervised</option>
@@ -189,24 +189,24 @@
 
             <!-- Quick Examples -->
             <div class="flex flex-wrap gap-2 items-center">
-                <span class="text-sm font-medium text-gray-700">💡 Quick Scenarios:</span>
-                <button id="q33-example-btn" class="text-xs bg-purple-100 text-purple-700 px-2 py-1 rounded hover:bg-purple-200 transition-colors">Video: Unified vs Traditional</button>
+                <span class="text-sm font-medium text-body">💡 Quick Scenarios:</span>
+                <button id="q33-example-btn" class="text-xs bg-swatch-purple text-tone-purple px-2 py-1 rounded transition-colors">Video: Unified vs Traditional</button>
             </div>
             
             <!-- Results Section -->
-            <div class="bg-white border border-gray-200 rounded-lg p-4">
+            <div class="bg-card border border-divider rounded-lg p-4">
                 <div class="flex items-center justify-between mb-3">
-                    <h4 class="font-medium text-gray-900">🎨 Training Optimization Results</h4>
-                    <div id="q33-strategy-indicator" class="text-xs bg-gray-100 px-2 py-1 rounded font-medium"></div>
+                    <h4 class="font-medium text-heading">🎨 Training Optimization Results</h4>
+                    <div id="q33-strategy-indicator" class="text-xs bg-subtle px-2 py-1 rounded font-medium"></div>
                 </div>
                 <div id="q33-output" class="min-h-[300px]"></div>
-                <div id="q33-legend" class="mt-3 text-xs text-gray-600"></div>
+                <div id="q33-legend" class="mt-3 text-xs text-muted"></div>
             </div>
             
             <!-- Performance Analysis -->
-            <div id="q33-comparison" class="bg-gradient-to-r from-yellow-50 to-orange-50 border border-yellow-200 rounded-lg p-4">
-                <h4 class="font-medium text-yellow-900 mb-2">📊 Performance & Efficiency Analysis</h4>
-                <div id="q33-explanation" class="text-sm text-yellow-800"></div>
+            <div id="q33-comparison" class="border border-tone-amber rounded-lg p-4" style="background: linear-gradient(to right, var(--swatch-amber-50), var(--swatch-orange-50))">
+                <h4 class="font-medium text-tone-amber mb-2">📊 Performance & Efficiency Analysis</h4>
+                <div id="q33-explanation" class="text-sm text-tone-amber"></div>
             </div>
         </div>
 

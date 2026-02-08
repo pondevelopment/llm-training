@@ -82,9 +82,9 @@
       <div class="panel panel-neutral-soft p-3 mt-2 text-xs">
         <p class="font-semibold text-heading mb-2">When to use each:</p>
         <ul class="space-y-1 panel-muted">
-          <li><span class="font-semibold" style="color: #6366f1;">Immediate:</span> Async channels (email, messaging) with hours-long SLA where agents can pause</li>
-          <li><span class="font-semibold" style="color: #10b981;">Hybrid:</span> All channels — balances SLA compliance with annotation quality</li>
-          <li><span class="font-semibold" style="color: #f59e0b;">Delayed:</span> Only if missing knowledge is not critical (lower quality for that step)</li>
+          <li><span class="font-semibold" style="color: var(--tone-indigo-strong);">Immediate:</span> Async channels (email, messaging) with hours-long SLA where agents can pause</li>
+          <li><span class="font-semibold" style="color: var(--tone-emerald-strong);">Hybrid:</span> All channels — balances SLA compliance with annotation quality</li>
+          <li><span class="font-semibold" style="color: var(--tone-amber-strong);">Delayed:</span> Only if missing knowledge is not critical (lower quality for that step)</li>
         </ul>
       </div>
     </div>
@@ -124,15 +124,15 @@
         <p class="font-semibold text-heading mb-2">⚖️ Strictness trade-off</p>
         <div class="space-y-2 panel-muted">
           <div class="flex items-start gap-2">
-            <span class="font-semibold" style="color: #10b981;">Lenient (10%):</span>
+            <span class="font-semibold" style="color: var(--tone-emerald-strong);">Lenient (10%):</span>
             <span>More training data, some noise — good when data is scarce</span>
           </div>
           <div class="flex items-start gap-2">
-            <span class="font-semibold" style="color: #6366f1;">Medium (20-30%):</span>
+            <span class="font-semibold" style="color: var(--tone-indigo-strong);">Medium (20-30%):</span>
             <span>Balanced quality/volume — Airbnb's production setting</span>
           </div>
           <div class="flex items-start gap-2">
-            <span class="font-semibold" style="color: #f59e0b;">Strict (40%):</span>
+            <span class="font-semibold" style="color: var(--tone-amber-strong);">Strict (40%):</span>
             <span>Highest quality, less data — good for large volume</span>
           </div>
         </div>
@@ -168,15 +168,15 @@
         <p class="font-semibold text-heading mb-2">🚀 Innovation velocity advantage</p>
         <div class="space-y-2 panel-muted">
           <div class="flex items-start gap-2">
-            <span class="font-semibold" style="color: #10b981;">Weekly:</span>
+            <span class="font-semibold" style="color: var(--tone-emerald-strong);">Weekly:</span>
             <span>52 updates/year — rapid iteration, quick adaptation (13× faster)</span>
           </div>
           <div class="flex items-start gap-2">
-            <span class="font-semibold" style="color: #6366f1;">Bi-weekly:</span>
+            <span class="font-semibold" style="color: var(--tone-indigo-strong);">Bi-weekly:</span>
             <span>26 updates/year — balance between speed and overhead</span>
           </div>
           <div class="flex items-start gap-2">
-            <span class="font-semibold" style="color: #f59e0b;">Monthly:</span>
+            <span class="font-semibold" style="color: var(--tone-amber-strong);">Monthly:</span>
             <span>12 updates/year — conservative but still much faster</span>
           </div>
           <div class="flex items-start gap-2">
@@ -203,7 +203,7 @@
     <div class="panel panel-neutral-soft p-4 space-y-3">
       <div class="flex items-center justify-between">
         <div class="text-sm font-semibold text-heading">Weekly annotation volume</div>
-        <div class="text-3xl font-bold" style="color: #10b981;" id="p38-weekly-volume">2,200</div>
+        <div class="text-3xl font-bold" style="color: var(--tone-emerald-strong);" id="p38-weekly-volume">2,200</div>
       </div>
       <div class="grid grid-cols-2 gap-3 text-xs">
         <div>
@@ -227,7 +227,7 @@
           <span class="font-semibold" id="p38-pref-agreement">83.2%</span>
         </div>
         <div class="h-2 bg-layer rounded-full overflow-hidden">
-          <div id="p38-pref-bar" class="h-full transition-all duration-300" style="background: linear-gradient(to right, #10b981, #059669); width: 83.2%;"></div>
+          <div id="p38-pref-bar" class="h-full transition-all duration-300" style="background-color: var(--tone-emerald-strong); width: 83.2%;"></div>
         </div>
       </div>
 
@@ -237,7 +237,7 @@
           <span class="font-semibold" id="p38-adopt-agreement">77.5%</span>
         </div>
         <div class="h-2 bg-layer rounded-full overflow-hidden">
-          <div id="p38-adopt-bar" class="h-full transition-all duration-300" style="background: linear-gradient(to right, #10b981, #059669); width: 77.5%;"></div>
+          <div id="p38-adopt-bar" class="h-full transition-all duration-300" style="background-color: var(--tone-emerald-strong); width: 77.5%;"></div>
         </div>
       </div>
 
@@ -247,7 +247,7 @@
           <span class="font-semibold" id="p38-knowledge-agreement">92.3%</span>
         </div>
         <div class="h-2 bg-layer rounded-full overflow-hidden">
-          <div id="p38-knowledge-bar" class="h-full transition-all duration-300" style="background: linear-gradient(to right, #10b981, #059669); width: 92.3%;"></div>
+          <div id="p38-knowledge-bar" class="h-full transition-all duration-300" style="background-color: var(--tone-emerald-strong); width: 92.3%;"></div>
         </div>
       </div>
 
@@ -257,7 +257,7 @@
           <span class="font-semibold" id="p38-missing-agreement">76.5%</span>
         </div>
         <div class="h-2 bg-layer rounded-full overflow-hidden">
-          <div id="p38-missing-bar" class="h-full transition-all duration-300" style="background: linear-gradient(to right, #10b981, #059669); width: 76.5%;"></div>
+          <div id="p38-missing-bar" class="h-full transition-all duration-300" style="background-color: var(--tone-emerald-strong); width: 76.5%;"></div>
         </div>
       </div>
     </div>
@@ -271,11 +271,11 @@
         <div class="panel panel-info p-3 space-y-1">
           <div class="text-xs font-semibold text-heading">Retrieval</div>
           <div class="flex items-baseline gap-2">
-            <div class="text-2xl font-bold" style="color: #6366f1;">+11.7%</div>
+            <div class="text-2xl font-bold" style="color: var(--tone-indigo-strong);">+11.7%</div>
             <div class="text-xs text-muted">recall@75</div>
           </div>
           <div class="flex items-baseline gap-2">
-            <div class="text-2xl font-bold" style="color: #6366f1;">+14.8%</div>
+            <div class="text-2xl font-bold" style="color: var(--tone-indigo-strong);">+14.8%</div>
             <div class="text-xs text-muted">precision@8</div>
           </div>
         </div>
@@ -283,11 +283,11 @@
         <div class="panel panel-info p-3 space-y-1">
           <div class="text-xs font-semibold text-heading">Generation</div>
           <div class="flex items-baseline gap-2">
-            <div class="text-2xl font-bold" style="color: #10b981;">+8.4%</div>
+            <div class="text-2xl font-bold" style="color: var(--tone-emerald-strong);">+8.4%</div>
             <div class="text-xs text-muted">helpfulness</div>
           </div>
           <div class="flex items-baseline gap-2">
-            <div class="text-2xl font-bold" style="color: #10b981;">+38.1%</div>
+            <div class="text-2xl font-bold" style="color: var(--tone-emerald-strong);">+38.1%</div>
             <div class="text-xs text-muted">citation accuracy</div>
           </div>
         </div>
@@ -306,11 +306,11 @@
         </div>
         <div>
           <div class="text-muted">Filtered out</div>
-          <div class="text-xl font-bold" style="color: #ef4444;" id="p38-filtered">440</div>
+          <div class="text-xl font-bold" style="color: var(--tone-rose-strong);" id="p38-filtered">440</div>
         </div>
         <div>
           <div class="text-muted">Used for training</div>
-          <div class="text-xl font-bold" style="color: #10b981;" id="p38-training">1,760</div>
+          <div class="text-xl font-bold" style="color: var(--tone-emerald-strong);" id="p38-training">1,760</div>
         </div>
       </div>
       <div class="text-xs text-muted mt-2">
@@ -322,11 +322,11 @@
     <div class="panel panel-warning p-4 space-y-2">
       <div class="text-sm font-semibold text-heading">Innovation velocity</div>
       <div class="flex items-baseline gap-2">
-        <div class="text-3xl font-bold" style="color: #f59e0b;" id="p38-updates-per-year">52</div>
+        <div class="text-3xl font-bold" style="color: var(--tone-amber-strong);" id="p38-updates-per-year">52</div>
         <div class="text-sm text-muted">model updates per year</div>
       </div>
       <div class="text-xs text-muted">
-        vs <span class="font-semibold">4 updates/year</span> with traditional quarterly cycles (<span id="p38-speedup" class="font-semibold" style="color: #10b981;">13×</span> faster)
+        vs <span class="font-semibold">4 updates/year</span> with traditional quarterly cycles (<span id="p38-speedup" class="font-semibold" style="color: var(--tone-emerald-strong);">13×</span> faster)
       </div>
       <div class="text-xs text-muted mt-2 space-y-1">
         <p><strong>Why this matters:</strong> Faster updates don't directly change the final performance metrics above (those are from Airbnb's 3-month pilot), but they do change <em>how quickly</em> you reach those improvements and respond to new issues:</p>
@@ -383,9 +383,9 @@
           </tr>
           <tr>
             <td class="py-2 px-3 font-semibold">Missing knowledge</td>
-            <td class="text-center py-2 px-3 font-semibold" style="color: #10b981;">76.5%</td>
+            <td class="text-center py-2 px-3 font-semibold" style="color: var(--tone-emerald-strong);">76.5%</td>
             <td class="text-center py-2 px-3 font-semibold">63.9%</td>
-            <td class="text-center py-2 px-3 font-semibold" style="color: #10b981;">✅ Yes (+12pp)</td>
+            <td class="text-center py-2 px-3 font-semibold" style="color: var(--tone-emerald-strong);">✅ Yes (+12pp)</td>
           </tr>
         </tbody>
       </table>
@@ -537,17 +537,17 @@
         </div>
         <div>
           <div class="text-xs text-muted">Weekly benefit</div>
-          <div class="text-xl font-bold" style="color: #10b981;">$<span id="p38-roi-benefit">5,445</span></div>
+          <div class="text-xl font-bold" style="color: var(--tone-emerald-strong);">$<span id="p38-roi-benefit">5,445</span></div>
         </div>
         <div>
           <div class="text-xs text-muted">Net benefit</div>
-          <div class="text-xl font-bold" style="color: #10b981;">$<span id="p38-roi-net">1,595</span></div>
+          <div class="text-xl font-bold" style="color: var(--tone-emerald-strong);">$<span id="p38-roi-net">1,595</span></div>
         </div>
       </div>
 
       <div class="text-xs text-muted text-center mt-2">
         Annual ROI: <span id="p38-roi-annual" class="font-semibold text-body">$82,940</span> 
-        (<span id="p38-roi-multiple" class="font-semibold" style="color: #10b981;">41%</span> return)
+        (<span id="p38-roi-multiple" class="font-semibold" style="color: var(--tone-emerald-strong);">41%</span> return)
       </div>
     </div>
   </div>

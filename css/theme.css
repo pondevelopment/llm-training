@@ -490,6 +490,46 @@ html.dark .select-control option {
 .text-link { color: var(--color-link); }
 .text-link:hover { color: var(--color-link-hover); }
 
+/* ── Tone / swatch utility classes ─────────────────────────────────────
+   Map the existing --tone-* and --swatch-* CSS variables to utility
+   classes so fragments can use them instead of raw Tailwind colours. */
+
+/* Text – use existing text-success/text-danger/text-accent where possible;
+   these cover specific tones not in the semantic set. */
+.text-tone-sky     { color: var(--tone-sky-text); }
+.text-tone-emerald { color: var(--tone-emerald-text); }
+.text-tone-amber   { color: var(--tone-amber-text); }
+.text-tone-rose    { color: var(--tone-rose-text); }
+.text-tone-purple  { color: var(--tone-purple-text); }
+.text-tone-indigo  { color: var(--tone-indigo-text); }
+
+/* Background – soft / tinted (light) */
+.bg-swatch-sky     { background-color: var(--swatch-sky-50); }
+.bg-swatch-blue    { background-color: var(--swatch-blue-50); }
+.bg-swatch-green   { background-color: var(--swatch-green-50); }
+.bg-swatch-emerald { background-color: var(--swatch-emerald-50); }
+.bg-swatch-purple  { background-color: var(--swatch-purple-50); }
+.bg-swatch-indigo  { background-color: var(--swatch-indigo-50); }
+.bg-swatch-amber   { background-color: var(--swatch-amber-50); }
+.bg-swatch-orange  { background-color: var(--swatch-orange-50); }
+.bg-swatch-rose    { background-color: var(--swatch-rose-50); }
+
+/* Background – strong / vivid */
+.bg-tone-sky       { background-color: var(--tone-sky-strong); }
+.bg-tone-emerald   { background-color: var(--tone-emerald-strong); }
+.bg-tone-amber     { background-color: var(--tone-amber-strong); }
+.bg-tone-rose      { background-color: var(--tone-rose-strong); }
+.bg-tone-purple    { background-color: var(--tone-purple-strong); }
+.bg-tone-indigo    { background-color: var(--tone-indigo-strong); }
+
+/* Border tones */
+.border-tone-sky     { border-color: var(--tone-sky-border); }
+.border-tone-emerald { border-color: var(--tone-emerald-border); }
+.border-tone-amber   { border-color: var(--tone-amber-border); }
+.border-tone-rose    { border-color: var(--tone-rose-border); }
+.border-tone-purple  { border-color: var(--tone-purple-border); }
+.border-tone-indigo  { border-color: var(--tone-indigo-border); }
+
 .panel {
   --panel-bg: var(--color-card);
   --panel-border: var(--color-border-subtle);

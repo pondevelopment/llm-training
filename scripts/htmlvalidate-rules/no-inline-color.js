@@ -13,7 +13,7 @@ class NoInlineColor extends Rule {
   }
 
   setup() {
-    this.on("dom:attribute", event => {
+    this.on("attr", event => {
       if (event.key.toLowerCase() !== "style") return;
       const raw = (event.value && event.value.toString()) || "";
       if (!raw) return;
@@ -28,7 +28,10 @@ class NoInlineColor extends Rule {
         if (!value) continue;
         if (value.toLowerCase().startsWith("var(")) continue;
         if (ALLOWED_KEYWORDS.has(value.toLowerCase())) continue;
-        if (!COLOR_LITERAL_RE.test(value)) continue;
+        // Strip var(--...) references before checking for literal colours,
+        // since var names may contain colour words (e.g. --tone-indigo-strong).
+        const stripped = value.replace(/var\(--[^)]*\)/gi, "");
+        if (!COLOR_LITERAL_RE.test(stripped)) continue;
         this.report({
           node: event.target,
           message: "Reference colour tokens via var(--*) rather than literal colour values in inline styles."

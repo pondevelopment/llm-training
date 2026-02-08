@@ -32,7 +32,8 @@ function buildValidator({ enforceHeadingHierarchy }) {
     rules: {
       "repo/no-tailwind-color-utilities": "error",
       "repo/no-inline-color": "error",
-      "repo/no-top-level-headings": enforceHeadingHierarchy ? "error" : "off"
+      "repo/no-top-level-headings": enforceHeadingHierarchy ? "error" : "off",
+      "repo/no-style-blocks": enforceHeadingHierarchy ? "warn" : "off"
     }
   });
 }

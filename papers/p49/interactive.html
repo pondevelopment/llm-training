@@ -103,12 +103,12 @@
       <div id="expertiseDisplay" class="space-y-3">
         <div class="flex items-center gap-2 mb-2">
           <div class="flex-1">
-            <div class="h-8 bg-gradient-to-r from-blue-500 to-green-500 rounded-lg relative overflow-hidden">
+            <div class="h-8 rounded-lg relative overflow-hidden" style="background: linear-gradient(to right, var(--tone-sky-strong), var(--tone-emerald-strong))">
               <div id="expertiseIndicator" class="absolute top-0 bottom-0 w-1 bg-white shadow-lg transition-all duration-300" style="left: 0%"></div>
             </div>
             <div class="flex justify-between text-xs font-medium mt-1">
-              <span class="text-blue-600 dark:text-blue-400">Technical</span>
-              <span class="text-green-600 dark:text-green-400">Commercial</span>
+              <span style="color: var(--tone-sky-text)">Technical</span>
+              <span class="text-success">Commercial</span>
             </div>
           </div>
         </div>
@@ -141,7 +141,7 @@
             <!-- Center line -->
             <div class="absolute left-1/2 top-0 bottom-0 w-px bg-border"></div>
             <!-- Bar extends right from center for positive values -->
-            <div id="positiveEmotionBar" class="absolute top-0 bottom-0 bg-green-500 transition-all duration-300" style="left: 50%; width: 0%"></div>
+            <div id="positiveEmotionBar" class="absolute top-0 bottom-0 transition-all duration-300" style="left: 50%; width: 0%; background: var(--tone-emerald-strong)"></div>
           </div>
           <div class="flex justify-between text-xs text-muted-foreground mt-1">
             <span>-0.5 SD</span>
@@ -160,7 +160,7 @@
             <!-- Center line -->
             <div class="absolute left-1/2 top-0 bottom-0 w-px bg-border"></div>
             <!-- Bar extends left from center for negative values (reduction in negative emotions) -->
-            <div id="negativeEmotionBar" class="absolute top-0 bottom-0 bg-red-500 transition-all duration-300" style="right: 50%; width: 0%"></div>
+            <div id="negativeEmotionBar" class="absolute top-0 bottom-0 transition-all duration-300" style="right: 50%; width: 0%; background: var(--tone-rose-strong)"></div>
           </div>
           <div class="flex justify-between text-xs text-muted-foreground mt-1">
             <span>-0.3 SD</span>

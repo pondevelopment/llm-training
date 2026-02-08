@@ -53,20 +53,20 @@
       <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div class="space-y-1">
           <h1 class="text-2xl font-bold text-heading">
-            <a href="index.html#" class="hover:text-indigo-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded-sm">LLM Learning Hub</a>
+            <a href="index.html#" class="hover:text-accent-strong focus:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded-sm">LLM Learning Hub</a>
           </h1>
           <p class="text-sm text-muted">Questions, paper explainers, and interactive simulators to make confident LLM decisions.</p>
           <p class="text-xs text-muted-soft">&#128161; Share direct links to questions &bull; Navigate with arrow keys &bull; Press 'S' to share</p>
         </div>
         <div class="flex md:flex-none gap-2">
-          <a href="tutorials/index.html" class="h-10 inline-flex items-center justify-center px-3 text-sm bg-purple-50 text-purple-700 hover:bg-purple-100 rounded-md border border-purple-100 transition-colors" title="Interactive tutorials">
+          <a href="tutorials/index.html" class="h-10 inline-flex items-center justify-center px-3 text-sm rounded-md border transition-colors" style="background: var(--swatch-purple-50); color: var(--tone-purple-text); border-color: var(--tone-purple-border)" title="Interactive tutorials">
             🤖 Tutorials
           </a>
           <button type="button" data-theme-toggle class="h-10 inline-flex items-center justify-center px-3 text-sm bg-subtle text-heading hover:bg-subtle border border-subtle rounded-md transition-colors">
             <span class="theme-toggle-icon" aria-hidden="true">🌙</span>
             <span class="sr-only">Toggle color theme</span>
           </button>
-          <button id="glossary-open-btn" class="h-10 inline-flex items-center justify-center px-3 text-sm bg-emerald-100 text-emerald-800 hover:bg-emerald-200 rounded-md border border-emerald-200 transition-colors" title="Open LLM glossary">
+          <button id="glossary-open-btn" class="h-10 inline-flex items-center justify-center px-3 text-sm rounded-md border transition-colors" style="background: var(--swatch-emerald-100); color: var(--tone-emerald-text); border-color: var(--tone-emerald-border)" title="Open LLM glossary">
             &#128218; Glossary
           </button>
         </div>
@@ -93,7 +93,7 @@
 
   <footer class="mt-16 border-t bg-card border-divider">
     <div class="max-w-4xl mx-auto px-4 py-8 text-center text-xs text-muted-soft">
-      <p>Interactive LLM Learning Experience &bull; <a class="text-indigo-600 hover:underline" href="index.html#">Return to landing</a></p>
+      <p>Interactive LLM Learning Experience &bull; <a class="link-accent hover:underline" href="index.html#">Return to landing</a></p>
       <p class="mt-2">Direct share links (static HTML) live under <code class="px-1 py-0.5 bg-subtle rounded">/q/N.html</code></p>
     </div>
   </footer>
@@ -120,7 +120,7 @@
           <div id="glossary-list" class="grid sm:grid-cols-2 gap-3"></div>
         </div>
         <div class="p-3 border-t text-right">
-          <button id="glossary-close-btn-bottom" class="px-3 py-2 text-sm bg-indigo-600 text-white rounded hover:bg-indigo-700">Close</button>
+          <button id="glossary-close-btn-bottom" class="px-3 py-2 text-sm rounded btn-accent">Close</button>
         </div>
       </div>
     </div>

@@ -11,7 +11,7 @@ class NoTailwindColorUtilities extends Rule {
   }
 
   setup() {
-    this.on("dom:attribute", event => {
+    this.on("attr", event => {
       if (event.key.toLowerCase() !== "class") return;
       const value = (event.value && event.value.toString()) || "";
       if (TAILWIND_COLOR_RE.test(value)) {

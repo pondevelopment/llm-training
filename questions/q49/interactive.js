@@ -156,7 +156,7 @@
                 const data = (Math.pow(10, dLog)).toExponential(1);
                 expl.innerHTML = `
                     <div class=\"flex items-center gap-2 mb-2\"><span class=\\"text-warning font-semibold\\">Current setup</span>
-                    <span class=\"text-xs text-gray-500\">(params≈${params}, data tokens≈${data}, ctx=${cEl.value}, align=${align})</span></div>
+                    <span class=\"text-xs text-muted\">(params≈${params}, data tokens≈${data}, ctx=${cEl.value}, align=${align})</span></div>
                     LLM capability emerges from scale (parameters and data), context window, and alignment. These factors shape in-context learning and generalization.
                 `;
                 if (window.MathJax && window.MathJax.typesetPromise) {
@@ -169,8 +169,8 @@
                     const alignDelta = score - baseScore;
                     alignBars.innerHTML = `
                         <div class="space-y-1 mt-2 text-xs">
-                            <div class="flex items-center gap-2"><span class="small-caption text-muted">Base</span><div class="flex-1 h-2 bg-gray-200 rounded overflow-hidden"><div class="h-full" style="width:${(baseScore*100).toFixed(0)}%;background:${infoColor};"></div></div></div>
-                            <div class="flex items-center gap-2"><span class="small-caption text-muted">Aligned</span><div class="flex-1 h-2 bg-gray-200 rounded overflow-hidden"><div class="h-full" style="width:${(score*100).toFixed(0)}%;background:${successColor};"></div></div><span class="small-caption text-muted">+${(alignDelta*100).toFixed(0)}%</span></div>
+                            <div class="flex items-center gap-2"><span class="small-caption text-muted">Base</span><div class="flex-1 h-2 bg-subtle rounded overflow-hidden"><div class="h-full" style="width:${(baseScore*100).toFixed(0)}%;background:${infoColor};"></div></div></div>
+                            <div class="flex items-center gap-2"><span class="small-caption text-muted">Aligned</span><div class="flex-1 h-2 bg-subtle rounded overflow-hidden"><div class="h-full" style="width:${(score*100).toFixed(0)}%;background:${successColor};"></div></div><span class="small-caption text-muted">+${(alignDelta*100).toFixed(0)}%</span></div>
                         </div>`;
                 }
                 // Pareto plot (capability vs latency proxy)

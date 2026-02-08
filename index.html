@@ -245,14 +245,14 @@
                     <p class="text-xs text-muted-soft">&#128161; Share direct links to questions &bull; Navigate with arrow keys &bull; Press 'S' to share</p>
                 </div>
                 <div class="flex md:flex-none gap-2">
-                    <a href="tutorials/index.html" class="h-10 inline-flex items-center justify-center px-3 w-full md:w-auto text-sm bg-purple-50 text-purple-700 hover:bg-purple-100 rounded-md border border-purple-100 transition-colors" title="Interactive tutorials">
+                    <a href="tutorials/index.html" class="h-10 inline-flex items-center justify-center px-3 w-full md:w-auto text-sm rounded-md border transition-colors" style="background: var(--swatch-purple-50); color: var(--tone-purple-text); border-color: var(--tone-purple-border)" title="Interactive tutorials">
                         🤖 Tutorials
                     </a>
                     <button type="button" data-theme-toggle class="h-10 inline-flex items-center justify-center px-3 text-sm bg-subtle text-heading hover:bg-subtle border border-subtle rounded-md transition-colors">
                         <span class="theme-toggle-icon" aria-hidden="true">🌙</span>
                         <span class="sr-only">Toggle color theme</span>
                     </button>
-                    <button id="glossary-open-btn" class="h-10 inline-flex items-center justify-center px-3 w-full md:w-auto text-sm bg-emerald-100 text-emerald-800 hover:bg-emerald-200 rounded-md border border-emerald-200 transition-colors" title="Open LLM glossary">
+                    <button id="glossary-open-btn" class="h-10 inline-flex items-center justify-center px-3 w-full md:w-auto text-sm rounded-md border transition-colors" style="background: var(--swatch-emerald-100); color: var(--tone-emerald-text); border-color: var(--tone-emerald-border)" title="Open LLM glossary">
                         &#128218; Glossary
                     </button>
                 </div>
@@ -271,9 +271,9 @@
             <div class="flex flex-wrap justify-center gap-3">
                 <a id="hero-foundations-btn" href="javascript:void(0)" data-accent="foundations" class="px-5 py-3 rounded-lg font-medium shadow transition btn-accent">Start with Foundations</a>
                 <a href="all.html" class="px-5 py-3 rounded-lg bg-card border border-subtle text-body font-medium hover:bg-surface transition">Browse Questions &amp; Paths</a>
-                <a href="#papers-section" class="px-5 py-3 rounded-lg bg-slate-900 text-white font-medium shadow hover:bg-slate-800 transition">Explore Paper Explainers</a>
-                <a href="tutorials/index.html" class="px-5 py-3 rounded-lg bg-purple-50 text-purple-700 font-medium border border-purple-100 hover:bg-purple-100 transition">🤖 Interactive Tutorials</a>
-                <a href="updates.html" class="px-5 py-3 rounded-lg bg-emerald-50 text-emerald-700 font-medium border border-emerald-100 hover:bg-emerald-100 transition">See What&apos;s New</a>
+                <a href="#papers-section" class="px-5 py-3 rounded-lg font-medium shadow transition" style="background: var(--color-heading); color: var(--color-surface)">Explore Paper Explainers</a>
+                <a href="tutorials/index.html" class="px-5 py-3 rounded-lg font-medium border transition" style="background: var(--swatch-purple-50); color: var(--tone-purple-text); border-color: var(--tone-purple-border)">🤖 Interactive Tutorials</a>
+                <a href="updates.html" class="px-5 py-3 rounded-lg font-medium border transition" style="background: var(--swatch-emerald-50); color: var(--tone-emerald-text); border-color: var(--tone-emerald-border)">See What&apos;s New</a>
             </div>
             <div class="flex flex-wrap justify-center gap-4 text-sm text-muted-soft pt-4">
                 <span>Curated question library</span><span>&bull;</span>
@@ -335,7 +335,7 @@
         <section id="papers-section" class="space-y-5" aria-labelledby="papers-heading" hidden>
             <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
                 <h2 id="papers-heading" class="text-2xl font-semibold text-heading">Interactive LLM Paper Explainers</h2>
-                <a href="papers.html" class="text-sm font-medium text-indigo-600 hover:underline">Browse all papers &rarr;</a>
+                <a href="papers.html" class="text-sm font-medium link-accent hover:underline">Browse all papers &rarr;</a>
             </div>
             <div id="papers-grid" class="grid md:grid-cols-2 gap-4"></div>
         </section>
@@ -357,7 +357,7 @@
         </section>
 
         <div class="text-center pt-8">
-            <a href="#question-01" class="text-indigo-600 font-medium hover:underline">Jump directly to Question 1 &rarr;</a>
+            <a href="#question-01" class="link-accent font-medium hover:underline">Jump directly to Question 1 &rarr;</a>
         </div>
     </div>    <!-- Main Content -->
     <main class="max-w-4xl mx-auto px-4 py-8">
@@ -385,7 +385,7 @@
                 <div class="space-y-2">
                     <div class="flex items-center gap-2 text-xs text-muted-soft">
                         <span id="paper-identifier">Paper #--</span>
-                        <span id="paper-venue" class="hidden px-2 py-0.5 rounded-full bg-indigo-50 text-indigo-700 border border-indigo-100"></span>
+                        <span id="paper-venue" class="hidden px-2 py-0.5 rounded-full border" style="background: var(--swatch-indigo-50); color: var(--tone-indigo-text); border-color: var(--tone-indigo-border)"></span>
                     </div>
                     <h2 id="paper-title" class="text-2xl font-semibold text-heading">Loading paper...</h2>
                     <div id="paper-authors" class="text-sm text-muted"></div>
@@ -393,7 +393,7 @@
                 </div>
                 <div class="flex items-center gap-2 shrink-0">
                     <button id="paper-back-btn" type="button" class="px-3 py-2 text-sm bg-subtle text-secondary rounded-md border border-divider hover:bg-subtle">Back to questions</button>
-                    <button id="paper-share-btn" type="button" class="px-3 py-2 text-sm bg-indigo-100 text-indigo-700 rounded-md border border-indigo-200 hover:bg-indigo-200">Share</button>
+                    <button id="paper-share-btn" type="button" class="px-3 py-2 text-sm rounded-md border" style="background: var(--swatch-indigo-100); color: var(--tone-indigo-text); border-color: var(--tone-indigo-border)">Share</button>
                 </div>
             </div>
             <p id="paper-summary" class="text-sm text-secondary leading-relaxed"></p>
@@ -427,7 +427,7 @@
                     <span id="path-indicator-label"></span>
                     <button id="path-exit-btn" class="text-xs link-accent underline decoration-dotted">Exit</button>
                 </div>
-                <button id="share-btn" class="flex items-center space-x-1 px-3 py-1 text-xs bg-indigo-100 text-indigo-700 hover:bg-indigo-200 rounded-md transition-colors" title="Copy link to this question (Press 'S' key)">
+                <button id="share-btn" class="flex items-center space-x-1 px-3 py-1 text-xs rounded-md transition-colors" style="background: var(--swatch-indigo-100); color: var(--tone-indigo-text)" title="Copy link to this question (Press 'S' key)">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z"></path>
                     </svg>
@@ -457,13 +457,13 @@
                 </p>
                 <p class="mt-2 text-xs text-muted-soft">
                     Questions are based on the overview here:
-                    <a href="https://www.linkedin.com/posts/hoang-van-hao_top-50-linkedin-llm-interview-questions-activity-7332959385280778240-lyU0/" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:underline">
+                    <a href="https://www.linkedin.com/posts/hoang-van-hao_top-50-linkedin-llm-interview-questions-activity-7332959385280778240-lyU0/" target="_blank" rel="noopener noreferrer" class="link-accent hover:underline">
                         Top 50 LinkedIn LLM interview questions (LinkedIn)
                     </a>
                 </p>
                 <p class="mt-2 text-xs text-muted-soft">
                     Source code:
-                    <a href="https://github.com/pondevelopment/llm-training" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:underline">
+                    <a href="https://github.com/pondevelopment/llm-training" target="_blank" rel="noopener noreferrer" class="link-accent hover:underline">
                         View on GitHub
                     </a>
                 </p>
@@ -493,7 +493,7 @@
                     <div id="glossary-list" class="grid sm:grid-cols-2 gap-3"></div>
                 </div>
                 <div class="p-3 border-t text-right">
-                    <button id="glossary-close-btn-bottom" class="px-3 py-2 text-sm bg-indigo-600 text-white rounded hover:bg-indigo-700">Close</button>
+                    <button id="glossary-close-btn-bottom" class="px-3 py-2 text-sm rounded btn-accent">Close</button>
                 </div>
             </div>
         </div>

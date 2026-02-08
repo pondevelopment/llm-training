@@ -5,7 +5,8 @@
   "private": true,
   "scripts": {
     "dev": "vite",
-    "lint": "npm run lint:html && npm run lint:css && npm run lint:repo",
+    "lint": "npm run lint:html && npm run lint:css && npm run lint:js-colors && npm run lint:repo",
+    "lint:js-colors": "node scripts/lint-js-colors.js",
     "lint:html": "node scripts/lint-html.js",
     "lint:css": "stylelint \"css/**/*.css\"",
     "lint:repo": "node scripts/validate-references.js && node scripts/validate-papers.js",

@@ -283,28 +283,32 @@ function interactiveScript() {
       
       // Color code based on risk level
       if (bankruptcyNum < 5) {
-        els.bankruptcyBar.className = 'h-3 rounded-full transition-all duration-300 bg-green-500';
+        els.bankruptcyBar.className = 'h-3 rounded-full transition-all duration-300';
+        els.bankruptcyBar.style.background = 'var(--tone-emerald-strong)';
         if (els.bankruptcyLabel) {
           els.bankruptcyLabel.textContent = '✓ Safe range';
-          els.bankruptcyLabel.className = 'text-xs text-center font-medium text-green-600';
+          els.bankruptcyLabel.className = 'text-xs text-center font-medium text-success';
         }
       } else if (bankruptcyNum < 15) {
-        els.bankruptcyBar.className = 'h-3 rounded-full transition-all duration-300 bg-yellow-500';
+        els.bankruptcyBar.className = 'h-3 rounded-full transition-all duration-300';
+        els.bankruptcyBar.style.background = 'var(--tone-amber-strong)';
         if (els.bankruptcyLabel) {
           els.bankruptcyLabel.textContent = '⚠ Elevated risk';
-          els.bankruptcyLabel.className = 'text-xs text-center font-medium text-yellow-600';
+          els.bankruptcyLabel.className = 'text-xs text-center font-medium text-warning';
         }
       } else if (bankruptcyNum < 30) {
-        els.bankruptcyBar.className = 'h-3 rounded-full transition-all duration-300 bg-orange-500';
+        els.bankruptcyBar.className = 'h-3 rounded-full transition-all duration-300';
+        els.bankruptcyBar.style.background = 'var(--tone-amber-strong)';
         if (els.bankruptcyLabel) {
           els.bankruptcyLabel.textContent = '⚠ High risk';
-          els.bankruptcyLabel.className = 'text-xs text-center font-medium text-orange-600';
+          els.bankruptcyLabel.className = 'text-xs text-center font-medium text-warning';
         }
       } else {
-        els.bankruptcyBar.className = 'h-3 rounded-full transition-all duration-300 bg-red-600';
+        els.bankruptcyBar.className = 'h-3 rounded-full transition-all duration-300';
+        els.bankruptcyBar.style.background = 'var(--tone-rose-strong)';
         if (els.bankruptcyLabel) {
           els.bankruptcyLabel.textContent = '🔴 Critical risk';
-          els.bankruptcyLabel.className = 'text-xs text-center font-medium text-red-600';
+          els.bankruptcyLabel.className = 'text-xs text-center font-medium text-danger';
         }
       }
     }
@@ -343,8 +347,8 @@ function interactiveScript() {
       const riskLevel = parseFloat(metrics.irrationality) > 0.15 ? 'error' : 
                         parseFloat(metrics.irrationality) > 0.08 ? 'warning' : 'success';
       const icon = riskLevel === 'error' ? '🔴' : riskLevel === 'warning' ? '⚠️' : '✓';
-      const iconColorClass = riskLevel === 'error' ? 'text-red-600' : 
-                              riskLevel === 'warning' ? 'text-amber-500' : 'text-green-500';
+      const iconColorClass = riskLevel === 'error' ? 'text-danger' : 
+                              riskLevel === 'warning' ? 'text-warning' : 'text-success';
       
       els.biases.innerHTML = `
         <div class="flex items-start gap-2">

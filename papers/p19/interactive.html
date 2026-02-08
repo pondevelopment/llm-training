@@ -1,7 +1,7 @@
 <div id="p19-tracker" class="space-y-6">
   <section class="panel panel-info p-4 space-y-3">
     <label for="p19-scenario" class="block text-sm font-semibold">Select measurement stance</label>
-    <select id="p19-scenario" class="w-full px-3 py-2 border border-subtle rounded-md text-sm bg-card focus:outline-none focus:ring-2 focus:ring-indigo-500">
+    <select id="p19-scenario" class="w-full px-3 py-2 border border-subtle rounded-md text-sm bg-card focus:outline-none focus:ring-2" style="--tw-ring-color: var(--color-accent-strong)">
       <option value="today">Typical official stats (2024)</option>
       <option value="sprint">Measurement sprint team</option>
       <option value="ahead">Frontier instrumentation</option>
@@ -59,7 +59,7 @@
       <p class="text-xs panel-muted">Weighted blend of captured usage, input coverage, and quality deflators.</p>
     </article>
     <article class="panel panel-neutral-soft p-4 space-y-2">
-      <div class="text-xs uppercase tracking-wide text-rose-600 dark:text-rose-400 font-semibold">Lag risk</div>
+      <div class="text-xs uppercase tracking-wide text-danger font-semibold">Lag risk</div>
       <p id="p19-lag" class="text-2xl font-semibold">High</p>
       <p class="text-xs panel-muted">Chance AI-driven change outruns official metrics, echoing the paper&rsquo;s warning.</p>
     </article>

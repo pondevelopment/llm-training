@@ -10,8 +10,6 @@
     "lint:css": "stylelint \"css/**/*.css\"",
     "lint:repo": "node scripts/validate-references.js && node scripts/validate-papers.js",
     "test": "npm run lint && npm run test:e2e",
-    "test:all": "npm run lint && npm run test:content && npm run test:e2e",
-    "test:content": "node scripts/validate-paper-content.js",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "test:e2e:debug": "playwright test --debug"

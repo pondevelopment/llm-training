@@ -12,12 +12,10 @@
  *   - Dev server running on http://127.0.0.1:5501
  */
 
-import { readFile } from 'fs/promises';
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path';
+const { readFile } = require('fs/promises');
+const path = require('path');
+const { join } = path;
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 const rootDir = join(__dirname, '..');
 
 const BASE_URL = process.env.BASE_URL || 'http://127.0.0.1:5501';

@@ -215,6 +215,15 @@
   }
 
   /**
+   * Convert slider value (0-100) to difficulty level descriptor
+   */
+  function sliderToDifficulty(value) {
+    if (value < 33) return 'easy';
+    if (value < 67) return 'medium';
+    return 'hard';
+  }
+
+  /**
    * Convert slider value to display text
    */
   function sliderToDisplay(value, type) {
@@ -246,7 +255,7 @@
     // Convert to levels
     const abilityLevel = sliderToLevel(abilityValue);
     const tomLevel = sliderToLevel(tomValue);
-    const difficulty = sliderToLevel(difficultyValue);
+    const difficulty = sliderToDifficulty(difficultyValue);
     
     // Update display labels
     document.getElementById('p37-ability-display').textContent = sliderToDisplay(abilityValue, 'ability');

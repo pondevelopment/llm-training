@@ -36,3 +36,7 @@ yarn-error.log*
 tmp/
 AGENTS_LOCAL.md
 .playwright-mcp/
+
+# Playwright test artifacts
+playwright-report/
+test-results/

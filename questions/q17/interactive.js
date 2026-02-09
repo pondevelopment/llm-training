@@ -1,5 +1,10 @@
 const interactiveScript = () => {
   const exampleSelect = document.getElementById('q17-example-select');
+    const getCssVar = (name, fallback) => {
+      const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+      return v || fallback;
+    };
+
   const output = document.getElementById('q17-output');
   const legend = document.getElementById('q17-legend');
   const explanation = document.getElementById('q17-explanation');

@@ -28,10 +28,10 @@ const interactiveScript = () => {
             function resetStrategyStyles(container) {
                 if (!container) return;
                 container.classList.remove('question-strategy-active');
-                container.style.background = 'var(--color-card)';
-                container.style.borderColor = 'var(--color-border-subtle)';
+                container.style.background = getCssVar('--color-card', '#f1f5f9');
+                container.style.borderColor = getCssVar('--color-border-subtle', '#e2e8f0');
                 container.style.boxShadow = 'none';
-                container.style.color = 'var(--color-body)';
+                container.style.color = getCssVar('--color-body', '#1e293b');
             }
 
             function applyStrategyStyles(container, tone) {
@@ -358,7 +358,7 @@ const interactiveScript = () => {
                 const attentionType = getCurrentAttentionType();
                 const pattern = attentionPatterns[attentionType];
 
-                const toneIndigo = getCssVar('--tone-indigo-strong') || '#4f46e5';
+                const toneIndigo = getCssVar('--tone-indigo-strong') || getCssVar('--tone-indigo-strong', '#4f46e5');
                 const toneIndigoSoft = getCssVar('--tone-indigo-soft') || toneIndigo;
 
                 // Reset non-query word highlights before applying new ones

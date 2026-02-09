@@ -33,6 +33,11 @@
   }
   
   function init() {
+    const getCssVar = (name, fallback) => {
+      const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+      return v || fallback;
+    };
+
     const firmSizeEl = document.getElementById('p54-firm-size');
     const juniorShareEl = document.getElementById('p54-junior-share');
     const exposureEl = document.getElementById('p54-occupation-exposure');
@@ -98,7 +103,7 @@
     // Update displays
     const juniorChangeEl = document.getElementById('p54-junior-change');
     juniorChangeEl.textContent = (juniorChangePct >= 0 ? '+' : '') + juniorChangePct.toFixed(1) + '%';
-    juniorChangeEl.style.color = juniorChangePct < -5 ? '#dc2626' : juniorChangePct < 0 ? '#f59e0b' : '#6b7280';
+    juniorChangeEl.style.color = juniorChangePct < -5 ? getCssVar('--tone-rose-strong', '#dc2626') : juniorChangePct < 0 ? getCssVar('--tone-amber-strong', '#f59e0b') : getCssVar('--color-muted', '#6b7280');
     
     document.getElementById('p54-junior-change-label').textContent = 
       juniorChangePct < -7 ? 'Severe decline' : juniorChangePct < -3 ? 'Moderate decline' : juniorChangePct < 0 ? 'Slight decline' : 'Stable';
@@ -108,7 +113,7 @@
     
     const seniorChangeEl = document.getElementById('p54-senior-change');
     seniorChangeEl.textContent = (seniorChangePct >= 0 ? '+' : '') + seniorChangePct.toFixed(1) + '%';
-    seniorChangeEl.style.color = '#6b7280';
+    seniorChangeEl.style.color = getCssVar('--color-muted', '#6b7280');
     
     document.getElementById('p54-senior-change-label').textContent = 'Largely stable';
     document.getElementById('p54-senior-absolute').textContent = 

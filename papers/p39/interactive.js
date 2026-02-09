@@ -47,6 +47,11 @@
   }
 
   function init() {
+    const getCssVar = (name, fallback) => {
+      const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+      return v || fallback;
+    };
+
     // Defensive DOM lookups
     const root = document.getElementById('p39-explorer');
     if (!root) {
@@ -132,12 +137,12 @@
         const asr = calculateASR(poisonCount, lr, attackType);
         
         // Color based on ASR
-        let barColor = '#ef4444'; // red-500
-        if (asr > 90) barColor = '#dc2626'; // red-600
-        else if (asr > 70) barColor = '#f97316'; // orange-500
-        else if (asr > 40) barColor = '#f59e0b'; // amber-500
-        else if (asr > 10) barColor = '#eab308'; // yellow-500
-        else barColor = '#d1d5db'; // gray-300
+        let barColor = getCssVar('--tone-rose-strong', '#ef4444'); // red-500
+        if (asr > 90) barColor = getCssVar('--tone-rose-strong', '#dc2626'); // red-600
+        else if (asr > 70) barColor = getCssVar('--tone-amber-strong', '#f97316'); // orange-500
+        else if (asr > 40) barColor = getCssVar('--tone-amber-strong', '#f59e0b'); // amber-500
+        else if (asr > 10) barColor = getCssVar('--tone-amber-strong', '#eab308'); // yellow-500
+        else barColor = getCssVar('--color-border', '#d1d5db'); // gray-300
         
         html += `
           <div class="flex items-center gap-3">

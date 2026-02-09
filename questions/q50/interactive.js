@@ -1,5 +1,10 @@
 const interactiveScript = () => {
   const doc = document;
+    const getCssVar = (name, fallback) => {
+      const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+      return v || fallback;
+    };
+
   const pr = doc.getElementById('q50-priority');
   const infra = doc.getElementById('q50-infra');
   const align = doc.getElementById('q50-align');
@@ -425,8 +430,8 @@ const interactiveScript = () => {
       else ctx.lineTo(x, y);
     });
     ctx.closePath();
-    ctx.fillStyle = toRgba(theme.outline, 0.2, 'rgba(79, 70, 229, 0.2)');
-    ctx.strokeStyle = theme.outline || '#4f46e5';
+    ctx.fillStyle = toRgba(theme.outline || getCssVar('--tone-indigo-strong', '#4f46e5'), 0.2);
+    ctx.strokeStyle = theme.outline || getCssVar('--tone-indigo-strong', '#4f46e5');
     ctx.lineWidth = 2;
     ctx.fill();
     ctx.stroke();

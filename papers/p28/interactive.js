@@ -1,5 +1,10 @@
 const interactiveScript = () => {
   const root = document.getElementById('p28-explorer');
+    const getCssVar = (name, fallback) => {
+      const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+      return v || fallback;
+    };
+
   if (!root) return;
 
   const modelSelect = document.getElementById('p28-model');
@@ -121,15 +126,15 @@ const interactiveScript = () => {
     deployBar.style.width = `${data.deploy}%`;
     
     // Ensure bars have visible colors
-    trainingBar.style.backgroundColor = 'rgb(251, 191, 36)'; // Orange/amber for training
-    deployBar.style.backgroundColor = 'rgb(59, 130, 246)'; // Blue for deployment
+    trainingBar.style.backgroundColor = getCssVar('--tone-amber-border', '#fbbf24'); // Orange/amber for training
+    deployBar.style.backgroundColor = getCssVar('--tone-sky-strong', '#3b82f6'); // Blue for deployment
 
     // Calculate gap
     const gap = data.training - data.deploy;
     gapLabel.textContent = gap > 0 ? `+${gap}% gap` : gap < 0 ? `${gap}% gap` : 'No gap';
     gapLabel.className = gap > 10 ? 'text-xs font-mono font-semibold' : 'text-xs font-mono panel-muted';
     if (gap > 10) {
-      gapLabel.style.color = 'var(--warning-strong)';
+      gapLabel.style.color = getCssVar('--warning-strong', '#000000');
     } else {
       gapLabel.style.color = '';
     }
@@ -155,19 +160,19 @@ const interactiveScript = () => {
       
       if (val === '✓') {
         // Evidence found - GREEN (more vibrant)
-        container.style.backgroundColor = 'rgba(34, 197, 94, 0.15)'; // Bright green background
-        container.style.borderColor = 'rgba(34, 197, 94, 0.4)'; // Green border
-        el.style.color = 'rgb(34, 197, 94)'; // Green text
+        container.style.backgroundColor = `${getCssVar('--tone-emerald-strong', '#22c55e')}26`; // Bright green background
+        container.style.borderColor = `${getCssVar('--tone-emerald-strong', '#22c55e')}66`; // Green border
+        el.style.color = getCssVar('--tone-emerald-strong', '#22c55e'); // Green text
       } else if (val === '❍') {
         // Conflicting evidence - ORANGE/YELLOW
-        container.style.backgroundColor = 'rgba(251, 191, 36, 0.15)'; // Amber background
-        container.style.borderColor = 'rgba(251, 191, 36, 0.4)'; // Amber border
-        el.style.color = 'rgb(251, 191, 36)'; // Amber text
+        container.style.backgroundColor = `${getCssVar('--tone-amber-strong', '#fbbf24')}26`; // Amber background
+        container.style.borderColor = `${getCssVar('--tone-amber-strong', '#fbbf24')}66`; // Amber border
+        el.style.color = getCssVar('--tone-amber-border', '#fbbf24'); // Amber text
       } else {
         // No evidence (X) - RED
-        container.style.backgroundColor = 'rgba(239, 68, 68, 0.1)'; // Light red background
-        container.style.borderColor = 'rgba(239, 68, 68, 0.3)'; // Red border
-        el.style.color = 'rgb(239, 68, 68)'; // Red text
+        container.style.backgroundColor = `${getCssVar('--tone-rose-strong', '#ef4444')}1a`; // Light red background
+        container.style.borderColor = `${getCssVar('--tone-rose-strong', '#ef4444')}4d`; // Red border
+        el.style.color = getCssVar('--tone-rose-strong', '#ef4444'); // Red text
       }
     });
 
@@ -212,10 +217,10 @@ const interactiveScript = () => {
       takeawayHTML += '<p class="mt-2"><span style="color: var(--warning-strong);">⚠️ Concerning:</span> This suggests the model has learned self-preservation preferences that could generalize in unexpected ways. However, the behavior is still rare and only appears in specific scenarios—it\'s not a widespread capability across models.</p>';
     } else if (model === 'claude-sonnet' || model === 'llama-405b' || model === 'grok-3' || model === 'gemini-flash') {
       takeawayHTML = `<p><strong>${modelData[model].name}</strong> shows small compliance gaps but unclear motivations. The paper finds little evidence for coherent goal-guarding—behavior is prompt-sensitive and may reflect obedience heuristics rather than strategic deception.</p>`;
-      takeawayHTML += '<p class="mt-2"><span style="color: rgb(251, 191, 36);">⚠️ Mixed:</span> Low-coherence alignment faking is less concerning than robust goal-guarding, but it shows the capability exists. The brittleness suggests current safety training somewhat addresses the behavior.</p>';
+      takeawayHTML += `<p class="mt-2"><span style="color: ${getCssVar('--tone-amber-strong', '#fbbf24')};">⚠️ Mixed:</span> Low-coherence alignment faking is less concerning than robust goal-guarding, but it shows the capability exists. The brittleness suggests current safety training somewhat addresses the behavior.</p>`;
     } else {
       takeawayHTML = `<p><strong>${modelData[model].name}</strong> (control) shows near-zero alignment faking in most scenarios. However, base models and targeted fine-tuning prove the capability exists—refusal training suppresses it, not capability limits.</p>`;
-      takeawayHTML += '<p class="mt-2"><span style="color: rgb(34, 197, 94);">✓ Reassuring:</span> Current refusal training is effective at preventing alignment faking in realistic scenarios. This is good news for deployment safety, though the latent capability means continued monitoring is important.</p>';
+      takeawayHTML += `<p class="mt-2"><span style="color: ${getCssVar('--tone-emerald-strong', '#22c55e')};">✓ Reassuring:</span> Current refusal training is effective at preventing alignment faking in realistic scenarios. This is good news for deployment safety, though the latent capability means continued monitoring is important.</p>`;
     }
     
     if (scenario === 'evil-org') {

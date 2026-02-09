@@ -49,8 +49,8 @@ const interactiveScript = () => {
       name: "Naive fine-tuning",
       toneVar: "--panel-warning-strong",
       borderVar: "--panel-warning-border-strong",
-      fallbackStrong: "#f59e0b",
-      fallbackBorder: "#fbbf24",
+      fallbackStrong: getCssVar('--tone-amber-strong', '#f59e0b'),
+      fallbackBorder: getCssVar('--tone-amber-border', '#fbbf24'),
       indicatorClass: "chip chip-warning text-xs",
       efficiency: 95,
       explanation: "No protection against forgetting. The model rapidly adapts to new data but loses previous knowledge. Fast and simple but catastrophic for knowledge retention."
@@ -59,8 +59,8 @@ const interactiveScript = () => {
       name: "Rehearsal",
       toneVar: "--panel-info-strong",
       borderVar: "--panel-info-border-strong",
-      fallbackStrong: "#4338ca",
-      fallbackBorder: "#6366f1",
+      fallbackStrong: getCssVar('--tone-indigo-text', '#4338ca'),
+      fallbackBorder: getCssVar('--tone-indigo-strong', '#6366f1'),
       indicatorClass: "chip chip-info text-xs",
       efficiency: 45,
       explanation: "Mixes old and new data during training. Helps retain knowledge but requires storing old data and significantly increases training time and memory usage."
@@ -69,8 +69,8 @@ const interactiveScript = () => {
       name: "Elastic Weight Consolidation",
       toneVar: "--panel-accent-strong",
       borderVar: "--panel-accent-border-strong",
-      fallbackStrong: "#a855f7",
-      fallbackBorder: "#c084fc",
+      fallbackStrong: getCssVar('--tone-purple-strong', '#a855f7'),
+      fallbackBorder: getCssVar('--tone-purple-border', '#c084fc'),
       indicatorClass: "chip chip-accent text-xs",
       efficiency: 60,
       explanation: "Uses Fisher Information Matrix to identify important weights and prevent large changes. Smart approach but requires computing importance scores and additional regularisation computations."
@@ -79,8 +79,8 @@ const interactiveScript = () => {
       name: "LoRA (modular)",
       toneVar: "--panel-success-strong",
       borderVar: "--panel-success-border-strong",
-      fallbackStrong: "#22c55e",
-      fallbackBorder: "#34d399",
+      fallbackStrong: getCssVar('--tone-emerald-strong', '#22c55e'),
+      fallbackBorder: getCssVar('--tone-emerald-border', '#34d399'),
       indicatorClass: "chip chip-success text-xs",
       efficiency: 85,
       explanation: "Adds small trainable modules while keeping the base model frozen. Excellent retention with good efficiency since only a small portion of parameters are trained. Not sure what LoRA is? Jump to Question 4 for a short comparison of LoRA vs QLoRA and practical guidance."
@@ -144,7 +144,7 @@ const interactiveScript = () => {
     frame.style.borderColor = borderMix;
     frame.style.color = textMix;
     frame.style.boxShadow = darkMode
-      ? '0 26px 60px -38px rgba(2, 6, 23, 0.72)'
+      ? '0 26px 60px -38px rgba(15, 23, 42, 0.72)'
       : '0 24px 52px -36px rgba(15, 23, 42, 0.24)';
   };
 
@@ -207,17 +207,17 @@ const interactiveScript = () => {
     const darkMode = document.documentElement.classList.contains('dark');
     const card = getCssVar('--color-card', '#f1f5f9');
     let toneVar = '--panel-success-strong';
-    let fallback = '#22c55e';
+    let fallback = getCssVar('--tone-emerald-strong', '#22c55e');
 
     if (value < 40) {
       toneVar = '--color-path-scaling-strong';
-      fallback = '#f43f5e';
+      fallback = getCssVar('--tone-rose-strong', '#f43f5e');
     } else if (value < 60) {
       toneVar = '--panel-accent-strong';
-      fallback = '#a855f7';
+      fallback = getCssVar('--tone-purple-strong', '#a855f7');
     } else if (value < 80) {
       toneVar = '--panel-warning-strong';
-      fallback = '#f59e0b';
+      fallback = getCssVar('--tone-amber-strong', '#f59e0b');
     }
 
     const tone = getCssVar(toneVar, fallback);

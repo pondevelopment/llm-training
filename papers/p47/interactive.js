@@ -159,6 +159,11 @@
   };
 
   function init() {
+    const getCssVar = (name, fallback) => {
+      const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+      return v || fallback;
+    };
+
     const languageSelect = document.getElementById('p47-language');
     const textLengthSlider = document.getElementById('p47-text-length');
     const perturbationSelect = document.getElementById('p47-perturbation');

@@ -1,5 +1,10 @@
 const interactiveScript = () => {
     const input = document.getElementById('q1-text-select');
+    const getCssVar = (name, fallback) => {
+      const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+      return v || fallback;
+    };
+
     const output = document.getElementById('q1-output');
     const strategyRadios = document.querySelectorAll('input[name="q1-strategy"]');
     const oovBtn = document.getElementById('q1-oov-btn');
@@ -99,10 +104,10 @@ const interactiveScript = () => {
 
     function resetStrategyStyles(container) {
         container.classList.remove('question-strategy-active');
-        container.style.background = 'var(--color-card)';
-        container.style.borderColor = 'var(--color-border-subtle)';
+        container.style.background = getCssVar('--color-card', '#f1f5f9');
+        container.style.borderColor = getCssVar('--color-border-subtle', '#e2e8f0');
         container.style.boxShadow = 'none';
-        container.style.color = 'var(--color-body)';
+        container.style.color = getCssVar('--color-body', '#1e293b');
     }
 
     function applyStrategyStyles(container, tone) {

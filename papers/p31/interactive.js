@@ -6,6 +6,11 @@
 function interactiveScript() {
   'use strict';
 
+    const getCssVar = (name, fallback) => {
+      const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+      return v || fallback;
+    };
+
   // Model baseline data from Table 2 (fixed vs variable betting)
   const modelData = {
     'gpt4o-mini': {
@@ -284,28 +289,28 @@ function interactiveScript() {
       // Color code based on risk level
       if (bankruptcyNum < 5) {
         els.bankruptcyBar.className = 'h-3 rounded-full transition-all duration-300';
-        els.bankruptcyBar.style.background = 'var(--tone-emerald-strong)';
+        els.bankruptcyBar.style.background = getCssVar('--tone-emerald-strong', '#10b981');
         if (els.bankruptcyLabel) {
           els.bankruptcyLabel.textContent = '✓ Safe range';
           els.bankruptcyLabel.className = 'text-xs text-center font-medium text-success';
         }
       } else if (bankruptcyNum < 15) {
         els.bankruptcyBar.className = 'h-3 rounded-full transition-all duration-300';
-        els.bankruptcyBar.style.background = 'var(--tone-amber-strong)';
+        els.bankruptcyBar.style.background = getCssVar('--tone-amber-strong', '#f59e0b');
         if (els.bankruptcyLabel) {
           els.bankruptcyLabel.textContent = '⚠ Elevated risk';
           els.bankruptcyLabel.className = 'text-xs text-center font-medium text-warning';
         }
       } else if (bankruptcyNum < 30) {
         els.bankruptcyBar.className = 'h-3 rounded-full transition-all duration-300';
-        els.bankruptcyBar.style.background = 'var(--tone-amber-strong)';
+        els.bankruptcyBar.style.background = getCssVar('--tone-amber-strong', '#f59e0b');
         if (els.bankruptcyLabel) {
           els.bankruptcyLabel.textContent = '⚠ High risk';
           els.bankruptcyLabel.className = 'text-xs text-center font-medium text-warning';
         }
       } else {
         els.bankruptcyBar.className = 'h-3 rounded-full transition-all duration-300';
-        els.bankruptcyBar.style.background = 'var(--tone-rose-strong)';
+        els.bankruptcyBar.style.background = getCssVar('--tone-rose-strong', '#f43f5e');
         if (els.bankruptcyLabel) {
           els.bankruptcyLabel.textContent = '🔴 Critical risk';
           els.bankruptcyLabel.className = 'text-xs text-center font-medium text-danger';

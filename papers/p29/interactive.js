@@ -1,5 +1,10 @@
 const interactiveScript = () => {
   const root = document.getElementById('p29-explorer');
+    const getCssVar = (name, fallback) => {
+      const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+      return v || fallback;
+    };
+
   if (!root) return;
   
   const modelSelect = document.getElementById('p29-model');
@@ -334,8 +339,8 @@ const interactiveScript = () => {
     opponentCoopBar.style.width = `${opponentCoopPct}%`;
     
     // Ensure bars have visible colors
-    llmCoopBar.style.backgroundColor = 'rgb(34, 197, 94)'; // Green for LLM cooperation
-    opponentCoopBar.style.backgroundColor = 'rgb(99, 102, 241)'; // Indigo for opponent cooperation
+    llmCoopBar.style.backgroundColor = getCssVar('--tone-emerald-strong', '#22c55e'); // Green for LLM cooperation
+    opponentCoopBar.style.backgroundColor = getCssVar('--tone-indigo-strong', '#6366f1'); // Indigo for opponent cooperation
     
     // Update strategic fingerprint
     const model = modelData[modelKey];
@@ -355,9 +360,9 @@ const interactiveScript = () => {
     if (model.fingerprint === 'ruthless') {
       takeawayText = `<p><span style="color: var(--warning-strong);">⚠️ Ruthless optimizer:</span> ${model.name} maximizes payoffs aggressively—exploiting cooperators and punishing defectors. This makes it highly effective in competitive environments but may damage long-term relationships. ${model.forgiveness < 0.3 ? 'Very low forgiveness means it struggles to escape mutual defection cycles.' : 'Moderate forgiveness allows some relationship repair.'}</p>`;
     } else if (model.fingerprint === 'cooperative') {
-      takeawayText = `<p><span style="color: rgb(59, 130, 246);">ℹ️ Cooperative builder:</span> ${model.name} prioritizes cooperation and trust-building—rarely exploiting cooperators and showing reluctance to retaliate. This makes it excellent for long-term partnerships but vulnerable to exploitation by aggressive opponents. In adversarial environments, this model may perform poorly.</p>`;
+      takeawayText = `<p><span style="color: ${getCssVar('--tone-sky-strong', '#3b82f6')};">ℹ️ Cooperative builder:</span> ${model.name} prioritizes cooperation and trust-building—rarely exploiting cooperators and showing reluctance to retaliate. This makes it excellent for long-term partnerships but vulnerable to exploitation by aggressive opponents. In adversarial environments, this model may perform poorly.</p>`;
     } else {
-      takeawayText = `<p><span style="color: rgb(34, 197, 94);">✓ Balanced reciprocator:</span> ${model.name} exhibits balanced strategic tendencies—moderate exploitation, reasonable retaliation, and measured forgiveness. This versatility makes it suitable for mixed environments with both cooperative and competitive elements. A safe default choice when strategic requirements are unclear.</p>`;
+      takeawayText = `<p><span style="color: ${getCssVar('--tone-emerald-strong', '#22c55e')};">✓ Balanced reciprocator:</span> ${model.name} exhibits balanced strategic tendencies—moderate exploitation, reasonable retaliation, and measured forgiveness. This versatility makes it suitable for mixed environments with both cooperative and competitive elements. A safe default choice when strategic requirements are unclear.</p>`;
     }
     
     if (delta >= 0.7) {

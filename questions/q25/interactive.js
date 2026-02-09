@@ -1,5 +1,10 @@
 ﻿const interactiveScript = () => {
     const contextInput = document.getElementById('q25-context');
+    const getCssVar = (name, fallback) => {
+      const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+      return v || fallback;
+    };
+
     const trueWordInput = document.getElementById('q25-true-word');
     const scenarioRadios = document.querySelectorAll('input[name="q25-scenario"]');
     const output = document.getElementById('q25-output');
@@ -76,10 +81,10 @@
     function resetScenarioCard(card) {
         if (!card) return;
         card.classList.remove('question-strategy-active');
-        card.style.background = 'var(--color-card)';
-        card.style.borderColor = 'var(--color-border-subtle)';
+        card.style.background = getCssVar('--color-card', '#f1f5f9');
+        card.style.borderColor = getCssVar('--color-border-subtle', '#e2e8f0');
         card.style.boxShadow = 'none';
-        card.style.color = 'var(--color-body)';
+        card.style.color = getCssVar('--color-body', '#1e293b');
     }
 
     function applyScenarioCard(card, tone) {

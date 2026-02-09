@@ -9,6 +9,11 @@
   const BASELINE_DEPRESSION = 1.86;       // Mean from study
 
   function init() {
+    const getCssVar = (name, fallback) => {
+      const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+      return v || fallback;
+    };
+
     const aiSlider = document.getElementById('p51-ai-adoption');
     const elSlider = document.getElementById('p51-ethical-leadership');
 
@@ -78,9 +83,9 @@
     document.getElementById('p51-protection-bar').style.width = protectionPercent + '%';
 
     // Update colors based on values
-    const safetyColor = safetyClamped > 3.5 ? '#10b981' : safetyClamped > 2.5 ? '#f59e0b' : '#ef4444';
-    const depressionColor = depressionClamped < 2 ? '#10b981' : depressionClamped < 3 ? '#f59e0b' : '#ef4444';
-    const protectionColor = elValue > 0.5 ? '#6366f1' : '#9ca3af';
+    const safetyColor = safetyClamped > 3.5 ? getCssVar('--tone-emerald-strong', '#10b981') : safetyClamped > 2.5 ? getCssVar('--tone-amber-strong', '#f59e0b') : getCssVar('--tone-rose-strong', '#ef4444');
+    const depressionColor = depressionClamped < 2 ? getCssVar('--tone-emerald-strong', '#10b981') : depressionClamped < 3 ? getCssVar('--tone-amber-strong', '#f59e0b') : getCssVar('--tone-rose-strong', '#ef4444');
+    const protectionColor = elValue > 0.5 ? getCssVar('--tone-indigo-strong', '#6366f1') : getCssVar('--color-muted', '#9ca3af');
 
     document.getElementById('p51-outcome-safety').style.borderColor = safetyColor;
     document.getElementById('p51-safety-bar').style.backgroundColor = safetyColor;

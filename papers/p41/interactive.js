@@ -98,6 +98,11 @@
   };
 
   function init() {
+    const getCssVar = (name, fallback) => {
+      const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+      return v || fallback;
+    };
+
     // Get DOM elements
     const taskSelect = document.getElementById('p41-task');
     const numOutputsSlider = document.getElementById('p41-num-outputs');
@@ -200,11 +205,11 @@
       diversityFill.style.width = (currentDiversity * 100) + '%';
       // Color based on diversity level
       if (currentDiversity >= 0.6) {
-        diversityFill.style.background = '#10b981'; // green
+        diversityFill.style.background = getCssVar('--tone-emerald-strong', '#10b981'); // green
       } else if (currentDiversity >= 0.4) {
-        diversityFill.style.background = '#f59e0b'; // amber
+        diversityFill.style.background = getCssVar('--tone-amber-strong', '#f59e0b'); // amber
       } else {
-        diversityFill.style.background = '#ef4444'; // red
+        diversityFill.style.background = getCssVar('--tone-rose-strong', '#ef4444'); // red
       }
     }
 
@@ -212,7 +217,7 @@
     const qualityFill = document.getElementById('p41-quality-fill');
     if (qualityFill) {
       qualityFill.style.width = (accuracy * 100) + '%';
-      qualityFill.style.background = '#3b82f6'; // blue
+      qualityFill.style.background = getCssVar('--tone-sky-strong', '#3b82f6'); // blue
     }
 
     // Update interpretations

@@ -114,11 +114,11 @@ const interactiveScript = () => {
 
             };
 
-            const getCssVar = (name) => {
+            const getCssVar = (name, fallback) => {
 
                 const style = getComputedStyle(document.documentElement);
 
-                return style.getPropertyValue(name).trim();
+                return style.getPropertyValue(name).trim() || fallback || '';
 
             };
 
@@ -130,9 +130,9 @@ const interactiveScript = () => {
 
                 if (value) return value;
 
-                const fallback = getCssVar('--tone-indigo-strong');
+                const fallback = getCssVar('--tone-indigo-strong', '#6366f1');
 
-                return fallback || 'hsl(227, 68%, 60%)';
+                return fallback;
 
             };
 

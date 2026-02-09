@@ -1,5 +1,10 @@
 const interactiveScript = () => {
             // Get DOM elements with error checking
+    const getCssVar = (name, fallback) => {
+      const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+      return v || fallback;
+    };
+
             const input = document.getElementById('q22-text-select');
             const output = document.getElementById('q22-output');
             const headsRadios = document.querySelectorAll('input[name="q22-heads"]');
@@ -16,18 +21,18 @@ const interactiveScript = () => {
 
             // Head specialization patterns - simulate what different heads might focus on
             const headSpecializations = {
-                0: { name: 'Syntactic Structure', color: '#ef4444', pattern: 'syntax' },
-                1: { name: 'Semantic Relations', color: '#3b82f6', pattern: 'semantic' },
-                2: { name: 'Long Dependencies', color: '#10b981', pattern: 'long_range' },
-                3: { name: 'Local Context', color: '#f59e0b', pattern: 'local' },
-                4: { name: 'Entity Relations', color: '#8b5cf6', pattern: 'entities' },
-                5: { name: 'Temporal Flow', color: '#ec4899', pattern: 'temporal' },
-                6: { name: 'Causal Links', color: '#06b6d4', pattern: 'causal' },
-                7: { name: 'Modifier Focus', color: '#84cc16', pattern: 'modifiers' },
-                8: { name: 'Clause Boundaries', color: '#f97316', pattern: 'clauses' },
-                9: { name: 'Subject-Object', color: '#6366f1', pattern: 'subobj' },
-                10: { name: 'Negation Scope', color: '#dc2626', pattern: 'negation' },
-                11: { name: 'Question Focus', color: '#059669', pattern: 'questions' }
+                0: { name: 'Syntactic Structure', color: getCssVar('--tone-rose-strong', '#ef4444'), pattern: 'syntax' },
+                1: { name: 'Semantic Relations', color: getCssVar('--tone-sky-strong', '#3b82f6'), pattern: 'semantic' },
+                2: { name: 'Long Dependencies', color: getCssVar('--tone-emerald-strong', '#10b981'), pattern: 'long_range' },
+                3: { name: 'Local Context', color: getCssVar('--tone-amber-strong', '#f59e0b'), pattern: 'local' },
+                4: { name: 'Entity Relations', color: getCssVar('--tone-purple-strong', '#8b5cf6'), pattern: 'entities' },
+                5: { name: 'Temporal Flow', color: getCssVar('--tone-rose-strong', '#ec4899'), pattern: 'temporal' },
+                6: { name: 'Causal Links', color: getCssVar('--tone-sky-strong', '#06b6d4'), pattern: 'causal' },
+                7: { name: 'Modifier Focus', color: getCssVar('--tone-emerald-strong', '#84cc16'), pattern: 'modifiers' },
+                8: { name: 'Clause Boundaries', color: getCssVar('--tone-amber-strong', '#f97316'), pattern: 'clauses' },
+                9: { name: 'Subject-Object', color: getCssVar('--tone-indigo-strong', '#6366f1'), pattern: 'subobj' },
+                10: { name: 'Negation Scope', color: getCssVar('--tone-rose-strong', '#dc2626'), pattern: 'negation' },
+                11: { name: 'Question Focus', color: getCssVar('--tone-emerald-strong', '#059669'), pattern: 'questions' }
             };
 
             // Helper function to get current number of heads

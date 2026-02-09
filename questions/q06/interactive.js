@@ -72,7 +72,7 @@
                     badgeBorder: 48,
                     badgeBg: 22,
                     badgeText: 75,
-                    shadow: '0 24px 52px -28px rgba(2, 6, 23, 0.55)'
+                    shadow: `0 24px 52px -28px ${getCssVar('--shadow-elevation-dark', '#0206178c')}`
                 } : {
                     bg: 16,
                     border: 28,
@@ -220,10 +220,10 @@
                 currentTempLabel.className = `chip ${description.chipClass} text-xs`;
                 const darkMode = document.documentElement.classList.contains('dark');
                 const colorMap = {
-                    blue: darkMode ? { bg: 'rgba(59, 130, 246, 0.18)', fg: '#bfdbfe' } : { bg: '#DBEAFE', fg: '#1E40AF' },
-                    purple: darkMode ? { bg: 'rgba(168, 85, 247, 0.18)', fg: '#e9d5ff' } : { bg: '#EDE9FE', fg: '#5B21B6' },
-                    orange: darkMode ? { bg: 'rgba(251, 191, 36, 0.18)', fg: '#fde68a' } : { bg: '#FFEDD5', fg: '#9A3412' },
-                    red: darkMode ? { bg: 'rgba(248, 113, 113, 0.2)', fg: '#fecaca' } : { bg: '#FEE2E2', fg: '#7F1D1D' }
+                    blue: darkMode ? { bg: `${getCssVar('--tone-sky-strong', '#3b82f6')}2e`, fg: getCssVar('--tone-sky-soft', '#bfdbfe') } : { bg: getCssVar('--tone-sky-soft', '#DBEAFE'), fg: getCssVar('--tone-sky-text', '#1E40AF') },
+                    purple: darkMode ? { bg: `${getCssVar('--tone-purple-strong', '#a855f7')}2e`, fg: getCssVar('--tone-purple-soft', '#e9d5ff') } : { bg: getCssVar('--tone-purple-soft', '#EDE9FE'), fg: getCssVar('--tone-purple-text', '#5B21B6') },
+                    orange: darkMode ? { bg: `${getCssVar('--tone-amber-strong', '#fbbf24')}2e`, fg: getCssVar('--tone-amber-soft', '#fde68a') } : { bg: getCssVar('--tone-amber-soft', '#FFEDD5'), fg: getCssVar('--tone-amber-text', '#9A3412') },
+                    red: darkMode ? { bg: `${getCssVar('--tone-rose-strong', '#f87171')}33`, fg: getCssVar('--tone-rose-soft', '#fecaca') } : { bg: getCssVar('--tone-rose-soft', '#FEE2E2'), fg: getCssVar('--tone-rose-text', '#7F1D1D') }
                 };
                 const palette = colorMap[description.palette] || colorMap.purple;
                 tempIndicator.style.backgroundColor = palette.bg;
@@ -241,7 +241,7 @@
                     secondary: 12,
                     rest: 6,
                     borderBoost: 12,
-                    shadow: '0 16px 32px -28px rgba(88, 28, 135, 0.35)',
+                    shadow: `0 16px 32px -28px ${getCssVar('--shadow-accent-dark', '#581c8759')}`,
                     labelTone: headingTone,
                     barPrimary: 60,
                     barSecondary: 48,
@@ -252,7 +252,7 @@
                     secondary: 6,
                     rest: 3,
                     borderBoost: 6,
-                    shadow: '0 14px 28px -24px rgba(88, 28, 135, 0.18)',
+                    shadow: `0 14px 28px -24px ${getCssVar('--shadow-accent', '#581c872e')}`,
                     labelTone: mixColor(accentTone, 14, headingTone),
                     barPrimary: 42,
                     barSecondary: 28,
@@ -358,10 +358,10 @@
                 
                 // Visual feedback
                 sampleResult.style.transform = 'scale(1.05)';
-                sampleResult.style.backgroundColor = '#f3e8ff';
+                sampleResult.style.backgroundColor = getCssVar('--tone-purple-soft', '#f3e8ff');
                 setTimeout(() => {
                     sampleResult.style.transform = 'scale(1)';
-                    sampleResult.style.backgroundColor = '#faf5ff';
+                    sampleResult.style.backgroundColor = getCssVar('--tone-purple-soft', '#faf5ff');
                 }, 200);
 
                 // Update sampling history and sampling metrics

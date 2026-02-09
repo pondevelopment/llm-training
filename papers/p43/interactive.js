@@ -66,6 +66,11 @@
   };
 
   function init() {
+    const getCssVar = (name, fallback) => {
+      const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+      return v || fallback;
+    };
+
     const taskEl = document.getElementById('p43-task');
     const trainingSizeEl = document.getElementById('p43-training-size');
     const consistencyEl = document.getElementById('p43-consistency');
@@ -117,8 +122,8 @@
     const totalTraining = trainingSize + filteredCount;
 
     // Update generation metrics
-    updateMetric('generated', candidateGenerated, 100, '#6366f1');
-    updateMetric('filtered', filteredCount, passRate * 100, '#10b981');
+    updateMetric('generated', candidateGenerated, 100, getCssVar('--tone-indigo-strong', '#6366f1'));
+    updateMetric('filtered', filteredCount, passRate * 100, getCssVar('--tone-emerald-strong', '#10b981'));
     
     const totalCountEl = document.getElementById('p43-total-count');
     if (totalCountEl) {
@@ -201,7 +206,7 @@
     
     if (barEl) {
       barEl.style.width = `${barWidth}%`;
-      barEl.style.backgroundColor = '#10b981';
+      barEl.style.backgroundColor = getCssVar('--tone-emerald-strong', '#10b981');
     }
   }
 

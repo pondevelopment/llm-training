@@ -89,6 +89,11 @@
   };
 
   function init() {
+    const getCssVar = (name, fallback) => {
+      const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+      return v || fallback;
+    };
+
     const modelEl = document.getElementById('p42-model');
     const strategyEl = document.getElementById('p42-strategy');
     const domainEl = document.getElementById('p42-domain');
@@ -180,12 +185,12 @@
     correctRejection = Math.round(correctRejection);
 
     // Update metrics
-    updateMetric('compliance', compliance, '#dc2626');
-    updateMetric('rejection', directRejection, '#f59e0b');
-    updateMetric('correct', correctRejection, '#10b981');
+    updateMetric('compliance', compliance, getCssVar('--tone-rose-strong', '#dc2626'));
+    updateMetric('rejection', directRejection, getCssVar('--tone-amber-strong', '#f59e0b'));
+    updateMetric('correct', correctRejection, getCssVar('--tone-emerald-strong', '#10b981'));
     
     // Valid compliance bar color: amber for baseline (indiscriminate), green for mitigations (selective)
-    const validColor = strategy === 'baseline' ? '#f59e0b' : '#10b981';
+    const validColor = strategy === 'baseline' ? getCssVar('--tone-amber-strong', '#f59e0b') : getCssVar('--tone-emerald-strong', '#10b981');
     updateMetric('valid', validCompliance, validColor);
 
     // Update example
@@ -218,19 +223,19 @@
     let responseHTML, qualityText;
 
     if (strategy === 'baseline') {
-      responseHTML = `<span class="font-semibold" style="color: #dc2626;">✗ Sycophantic compliance:</span><br>${example.sycophantic}`;
+      responseHTML = `<span class="font-semibold" style="color: ${getCssVar('--tone-rose-strong', '#dc2626')};">✗ Sycophantic compliance:</span><br>${example.sycophantic}`;
       qualityText = 'Model demonstrates sycophancy—it knows the correct facts (can identify drugs accurately when asked neutrally) but still complies with the illogical request to be "helpful."';
     } else if (strategy === 'rejection-hint') {
-      responseHTML = `<span class="font-semibold" style="color: #f59e0b;">⚠ Direct rejection (no reasoning):</span><br>${example.directReject}`;
+      responseHTML = `<span class="font-semibold" style="color: ${getCssVar('--tone-amber-strong', '#f59e0b')};">⚠ Direct rejection (no reasoning):</span><br>${example.directReject}`;
       qualityText = 'Model refuses the request but doesn\'t explain why it\'s illogical. This is safer than compliance but doesn\'t help the user understand the error.';
     } else if (strategy === 'factual-recall') {
-      responseHTML = `<span class="font-semibold" style="color: #10b981;">✓ Rejection with reasoning:</span><br>${example.correctReject}`;
+      responseHTML = `<span class="font-semibold" style="color: ${getCssVar('--tone-emerald-strong', '#10b981')};">✓ Rejection with reasoning:</span><br>${example.correctReject}`;
       qualityText = 'Model identifies the logical error and provides correct information. Factual recall cues help retrieve knowledge before answering, improving logical consistency.';
     } else if (strategy === 'combined-prompt') {
-      responseHTML = `<span class="font-semibold" style="color: #10b981;">✓ Rejection with reasoning:</span><br>${example.correctReject}`;
+      responseHTML = `<span class="font-semibold" style="color: ${getCssVar('--tone-emerald-strong', '#10b981')};">✓ Rejection with reasoning:</span><br>${example.correctReject}`;
       qualityText = 'Combining rejection permission with factual recall produces the best prompt-based results: the model refuses illogical requests and explains the correct facts.';
     } else if (strategy === 'fine-tuned') {
-      responseHTML = `<span class="font-semibold" style="color: #10b981;">✓ Rejection with reasoning:</span><br>${example.correctReject}`;
+      responseHTML = `<span class="font-semibold" style="color: ${getCssVar('--tone-emerald-strong', '#10b981')};">✓ Rejection with reasoning:</span><br>${example.correctReject}`;
       qualityText = 'Fine-tuning on illogical examples creates robust rejection behavior that generalizes across medical domains. The model consistently identifies logical errors and provides accurate corrections.';
     }
 
@@ -293,7 +298,7 @@
     if (strategy === 'baseline') {
       validStatusEl.innerHTML = '⚠ Baseline: Complies with ALL requests indiscriminately (cannot distinguish valid from invalid)';
       validStatusEl.className = 'text-xs font-semibold';
-      validStatusEl.style.color = '#f59e0b';
+      validStatusEl.style.color = getCssVar('--tone-amber-strong', '#f59e0b');
     } else if (validCompliance >= 95) {
       validStatusEl.innerHTML = '✓ No over-rejection detected – Model maintains helpfulness for appropriate requests while rejecting illogical ones';
       validStatusEl.className = 'text-xs font-semibold text-body';
@@ -301,7 +306,7 @@
     } else {
       validStatusEl.innerHTML = '⚠ Some over-rejection of valid requests – Mitigation may be too aggressive';
       validStatusEl.className = 'text-xs font-semibold';
-      validStatusEl.style.color = '#f59e0b';
+      validStatusEl.style.color = getCssVar('--tone-amber-strong', '#f59e0b');
     }
   }
 

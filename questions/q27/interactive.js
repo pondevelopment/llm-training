@@ -1,5 +1,18 @@
 const interactiveScript = () => {
   const functionTypeSelect = document.getElementById('q27-function-type');
+    const getCssVar = (name, fallback) => {
+      const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+      return v || fallback;
+    };
+    const colorVar = (name, hex, a) => {
+      const c = getCssVar(name, hex);
+      const hm = c.match(/^#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/i);
+      if (hm) return `rgba(${parseInt(hm[1],16)},${parseInt(hm[2],16)},${parseInt(hm[3],16)},${a})`;
+      const rm = c.match(/(\d+)[,\s]+(\d+)[,\s]+(\d+)/);
+      if (rm) return `rgba(${rm[1]},${rm[2]},${rm[3]},${a})`;
+      return c;
+    };
+
   const inputDimSelect = document.getElementById('q27-input-dim');
   const outputDimSelect = document.getElementById('q27-output-dim');
   const modeRadios = document.querySelectorAll('input[name="q27-mode"]');
@@ -330,7 +343,7 @@ const interactiveScript = () => {
     const absVal = Math.abs(value);
     if (absVal < 0.01) {
       return {
-        style: `${baseCellStyle}${baseBorder}background: rgba(148, 163, 184, 0.18); color: rgba(148, 163, 184, 0.85);`,
+        style: `${baseCellStyle}${baseBorder}background: ${colorVar('--color-muted-soft', '#94a3b8', 0.18)}; color: ${colorVar('--color-muted-soft', '#94a3b8', 0.85)};`,
         display: mode === 'structure' ? '·' : '0.00'
       };
     }
@@ -338,17 +351,17 @@ const interactiveScript = () => {
     const intensity = Math.min(absVal / 2, 1);
     if (value >= 0) {
       const alpha = 0.18 + intensity * 0.55;
-      const textColor = intensity > 0.55 ? 'rgba(255, 255, 255, 0.92)' : 'rgba(12, 74, 110, 0.92)';
+      const textColor = intensity > 0.55 ? 'rgba(255, 255, 255, 0.92)' : colorVar('--tone-sky-text', '#0c4a6e', 0.92);
       return {
-        style: `${baseCellStyle}${baseBorder}background: rgba(56, 189, 248, ${alpha}); color: ${textColor};`,
+        style: `${baseCellStyle}${baseBorder}background: ${colorVar('--tone-sky-strong', '#38bdf8', alpha)}; color: ${textColor};`,
         display: mode === 'structure' ? '▲' : value.toFixed(2)
       };
     }
 
     const alpha = 0.18 + intensity * 0.55;
-    const textColor = intensity > 0.55 ? 'rgba(255, 255, 255, 0.92)' : 'rgba(136, 19, 55, 0.92)';
+    const textColor = intensity > 0.55 ? 'rgba(255, 255, 255, 0.92)' : colorVar('--tone-rose-text', '#881337', 0.92);
     return {
-      style: `${baseCellStyle}${baseBorder}background: rgba(244, 63, 94, ${alpha}); color: ${textColor};`,
+      style: `${baseCellStyle}${baseBorder}background: ${colorVar('--tone-rose-strong', '#f43f5e', alpha)}; color: ${textColor};`,
       display: mode === 'structure' ? '▼' : value.toFixed(2)
     };
   }
@@ -425,8 +438,8 @@ const interactiveScript = () => {
             <div id="q27-matrix-grid" class="q27-matrix-wrapper" role="table" aria-label="Jacobian matrix heatmap" style="display:grid;grid-template-columns:repeat(${matrix[0]?.length + 1 || 1}, minmax(3.25rem, 1fr));gap:0.5rem;align-items:stretch;">
       `;
 
-      const headerStyle = 'font-size:0.78rem;font-weight:600;letter-spacing:0.02em;color:rgba(94, 234, 212, 0.85);text-transform:uppercase;text-align:center;padding:0.4rem 0.2rem;border-radius:0.55rem;background:rgba(14, 165, 233, 0.12);border:1px solid rgba(14, 165, 233, 0.35);display:flex;align-items:center;justify-content:center;';
-      const rowHeaderStyle = 'font-size:0.78rem;font-weight:600;color:rgba(196, 181, 253, 0.9);text-transform:uppercase;text-align:center;padding:0.4rem 0.2rem;border-radius:0.55rem;background:rgba(124, 58, 237, 0.16);border:1px solid rgba(168, 85, 247, 0.35);display:flex;align-items:center;justify-content:center;';
+      const headerStyle = `font-size:0.78rem;font-weight:600;letter-spacing:0.02em;color:${colorVar('--tone-emerald-text', '#5eead4', 0.85)};text-transform:uppercase;text-align:center;padding:0.4rem 0.2rem;border-radius:0.55rem;background:${colorVar('--tone-sky-strong', '#0ea5e9', 0.12)};border:1px solid ${colorVar('--tone-sky-strong', '#0ea5e9', 0.35)};display:flex;align-items:center;justify-content:center;`;
+      const rowHeaderStyle = `font-size:0.78rem;font-weight:600;color:${colorVar('--tone-purple-text', '#c4b5fd', 0.9)};text-transform:uppercase;text-align:center;padding:0.4rem 0.2rem;border-radius:0.55rem;background:${colorVar('--tone-purple-text', '#7c3aed', 0.16)};border:1px solid ${colorVar('--tone-purple-strong', '#a855f7', 0.35)};display:flex;align-items:center;justify-content:center;`;
 
       const columnCount = matrix[0]?.length || 0;
       if (columnCount > 0) {

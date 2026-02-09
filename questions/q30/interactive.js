@@ -38,7 +38,7 @@ const interactiveScript = () => {
             }
 
             function getAccentColor(func) {
-                if (!func) return '#64748b';
+                if (!func) return getCssVar('--color-muted', '#64748b');
                 return getCssVar(func.toneVar, func.fallbackColor || '#64748b');
             }
             // Get DOM elements with error checking
@@ -69,7 +69,7 @@ const interactiveScript = () => {
                     derivative: (x) => (x > 0 ? 1 : 0),
                     description: 'Simple, efficient, but can cause dead neurons',
                     toneVar: '--tone-emerald-strong',
-                    fallbackColor: '#10b981',
+                    fallbackColor: getCssVar('--tone-emerald-strong', '#10b981'),
                     chipClass: 'chip chip-success'
                 },
                 leaky_relu: {
@@ -78,7 +78,7 @@ const interactiveScript = () => {
                     derivative: (x) => (x > 0 ? 1 : 0.1),
                     description: 'Prevents dead neurons with small negative slope',
                     toneVar: '--tone-sky-strong',
-                    fallbackColor: '#3b82f6',
+                    fallbackColor: getCssVar('--tone-sky-strong', '#3b82f6'),
                     chipClass: 'chip chip-info'
                 },
                 sigmoid: {
@@ -90,7 +90,7 @@ const interactiveScript = () => {
                     },
                     description: 'Smooth but suffers from vanishing gradients',
                     toneVar: '--tone-amber-strong',
-                    fallbackColor: '#f59e0b',
+                    fallbackColor: getCssVar('--tone-amber-strong', '#f59e0b'),
                     chipClass: 'chip chip-warning'
                 }
             };
@@ -111,7 +111,7 @@ const interactiveScript = () => {
             }
 
             function drawAxes(ctx, width, height) {
-                ctx.strokeStyle = '#d1d5db'; // gray-300
+                ctx.strokeStyle = getCssVar('--color-border', '#d1d5db'); // gray-300
                 ctx.lineWidth = 1;
                 
                 // Draw axes
@@ -131,7 +131,7 @@ const interactiveScript = () => {
                 ctx.stroke();
                 
                 // Add grid lines
-                ctx.strokeStyle = '#f3f4f6'; // gray-100
+                ctx.strokeStyle = getCssVar('--color-surface', '#f3f4f6'); // gray-100
                 ctx.lineWidth = 0.5;
                 
                 for (let i = 1; i <= 3; i++) {
@@ -165,7 +165,7 @@ const interactiveScript = () => {
                 }
                 
                 // Add axis labels
-                ctx.fillStyle = '#6b7280'; // gray-500
+                ctx.fillStyle = getCssVar('--color-muted', '#6b7280'); // gray-500
                 ctx.font = '12px system-ui';
                 ctx.textAlign = 'center';
                 

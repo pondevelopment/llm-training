@@ -1,5 +1,10 @@
 const interactiveScript = () => {
   if (window.MathJax && window.MathJax.typesetPromise) {
+    const getCssVar = (name, fallback) => {
+      const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+      return v || fallback;
+    };
+
     const container = document.getElementById("question-answer");
     const formula = document.getElementById("q23-formula");
     const tryTypeset = () => window.MathJax.typesetPromise([formula || container]).catch(() => {});
@@ -109,7 +114,7 @@ const interactiveScript = () => {
     result.probabilities.forEach((probability, index) => {
       const barWidth = probability * maxBarWidth;
       const percentage = (probability * 100).toFixed(1);
-      const color = "hsl(" + (200 + index * 40) + ", 70%, 60%)";
+      const color = `hsl(${200 + index * 40}, 70%, 60%)`;
       html +=
         '<div class="flex items-center gap-3">' +
         '<div class="w-20 text-sm font-medium text-heading">Score ' + (index + 1) + ':</div>' +

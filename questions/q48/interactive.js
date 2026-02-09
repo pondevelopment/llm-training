@@ -1,5 +1,10 @@
 const interactiveScript = () => {
             const lrEl = document.getElementById('q48-lr');
+    const getCssVar = (name, fallback) => {
+      const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+      return v || fallback;
+    };
+
             const bsEl = document.getElementById('q48-bs');
             const wdEl = document.getElementById('q48-wd');
             const doEl = document.getElementById('q48-do');
@@ -214,7 +219,7 @@ const interactiveScript = () => {
                 const by = 110 - ((minLoss-minY)/(maxY-minY))*95;
                 ctx.fillStyle = colorVar('--color-path-scaling-strong', '#dc2626'); ctx.beginPath(); ctx.arc(bx,by,4,0,Math.PI*2); ctx.fill();
                 // window highlight
-                ctx.fillStyle = colorVarAlpha('--tone-emerald-strong', 0.04, '#22c55e');
+                ctx.fillStyle = colorVarAlpha('--tone-emerald-strong', 0.04, getCssVar('--tone-emerald-strong', '#22c55e'));
                 const wLx = 30 + (Math.log10(windowLow)-(-5))/(Math.log10(5e-2)+5)*(lrFinderCanvas.width-40);
                 const wHx = 30 + (Math.log10(windowHigh)-(-5))/(Math.log10(5e-2)+5)*(lrFinderCanvas.width-40);
                 ctx.fillRect(Math.min(wLx,wHx),15,Math.abs(wHx-wLx),95);
@@ -232,7 +237,7 @@ const interactiveScript = () => {
                 ctx.strokeStyle = colorVar('--color-border-subtle', '#e5e7eb'); ctx.beginPath(); ctx.moveTo(30,5); ctx.lineTo(30,h-10); ctx.lineTo(w-5,h-10); ctx.stroke();
                 // scatter representing angular drift; more noise -> farther radial distance
                 const points = 40;
-                const fillColor = colorVarAlpha('--tone-indigo-strong', 0.6, '#6366f1');
+                const fillColor = colorVarAlpha('--tone-indigo-strong', 0.6, getCssVar('--tone-indigo-strong', '#6366f1'));
                 ctx.fillStyle = fillColor;
                 for(let i=0;i<points;i++){
                     const base = (i/points)*Math.PI*4;

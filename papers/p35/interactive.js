@@ -173,13 +173,13 @@
 
     const html = timeline.map(item => {
       const barWidth = Math.min(100, (item.papers / 10) * 100);
-      let barColor = '#94a3b8'; // neutral gray
+      let barColor = getCssVar('--color-muted', '#94a3b8'); // neutral gray
       
       // Use direct color values for reliability
-      if (item.effect === 'year1') barColor = '#6366f1'; // indigo (accent)
-      if (item.effect === 'year2') barColor = '#4f46e5'; // stronger indigo
-      if (item.effect === 'sustained') barColor = '#10b981'; // green (success)
-      if (item.effect === 'partial') barColor = '#0ea5e9'; // sky blue (info)
+      if (item.effect === 'year1') barColor = getCssVar('--tone-indigo-strong', '#6366f1'); // indigo (accent)
+      if (item.effect === 'year2') barColor = getCssVar('--tone-indigo-strong', '#4f46e5'); // stronger indigo
+      if (item.effect === 'sustained') barColor = getCssVar('--tone-emerald-strong', '#10b981'); // green (success)
+      if (item.effect === 'partial') barColor = getCssVar('--tone-sky-strong', '#0ea5e9'); // sky blue (info)
 
       return `
         <div class="space-y-1">
@@ -248,6 +248,11 @@
   }
 
   function init() {
+    const getCssVar = (name, fallback) => {
+      const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+      return v || fallback;
+    };
+
     // Attach event listeners
     const controls = [
       'careerStage',

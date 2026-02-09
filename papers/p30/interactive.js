@@ -1,5 +1,10 @@
 function interactiveScript() {
   // Scenario data with realistic distributions
+    const getCssVar = (name, fallback) => {
+      const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+      return v || fallback;
+    };
+
   const scenarios = {
     shampoo: {
       question: "How satisfied are you with this shampoo's cleaning performance?",
@@ -248,9 +253,9 @@ function interactiveScript() {
     directPrompt.textContent = `"Rate this product on a scale of 1-5."`;
     
     // Update distributions
-    createDistributionBars(directDist, scenario.directDist, 'rgb(239, 68, 68)', 'Direct'); // Red
-    createDistributionBars(ssrDist, scenario.ssrDist, 'rgb(34, 197, 94)', 'SSR'); // Green
-    createDistributionBars(humanDist, scenario.humanDist, 'rgb(99, 102, 241)', 'Human'); // Indigo
+    createDistributionBars(directDist, scenario.directDist, getCssVar('--tone-rose-strong', '#ef4444'), 'Direct'); // Red
+    createDistributionBars(ssrDist, scenario.ssrDist, getCssVar('--tone-emerald-strong', '#22c55e'), 'SSR'); // Green
+    createDistributionBars(humanDist, scenario.humanDist, getCssVar('--tone-indigo-strong', '#6366f1'), 'Human'); // Indigo
     
     // Update metrics
     directKS.textContent = scenario.directKS.toFixed(2);

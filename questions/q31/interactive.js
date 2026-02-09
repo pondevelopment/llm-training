@@ -74,8 +74,8 @@
   }
 
   function resetActivationStyles(container) {
-    container.style.background = 'var(--color-card)';
-    container.style.borderColor = 'var(--color-border-subtle)';
+    container.style.background = getCssVar('--color-card', '#f1f5f9');
+    container.style.borderColor = getCssVar('--color-border-subtle', '#e2e8f0');
     container.style.boxShadow = 'none';
     container.style.color = '';
   }
@@ -239,7 +239,7 @@
         backwardDot.setAttribute('r', '4');
         backwardDot.style.fill = gradientTone;
         backwardDot.style.opacity = '0.85';
-        backwardDot.style.stroke = mixColor(gradientTone, 55, 'rgba(5, 10, 25, 0.7)');
+        backwardDot.style.stroke = mixColor(gradientTone, 55, 'rgba(15, 23, 42, 0.7)');
         backwardDot.style.strokeWidth = '1';
         const backwardPath = document.createElementNS('http://www.w3.org/2000/svg', 'animateMotion');
         backwardPath.setAttribute('dur', '2.6s');
@@ -266,7 +266,7 @@
       innerCircle.setAttribute('cx', node.x);
       innerCircle.setAttribute('cy', node.y);
       innerCircle.setAttribute('r', innerRadius);
-      innerCircle.style.fill = 'var(--color-card)';
+      innerCircle.style.fill = getCssVar('--color-card', '#f1f5f9');
       innerCircle.style.stroke = node.color;
       innerCircle.style.strokeWidth = '1';
       svg.appendChild(innerCircle);

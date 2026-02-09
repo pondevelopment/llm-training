@@ -1,5 +1,10 @@
 const interactiveScript = () => {
       // Phase 3 additions + existing logic merged
+    const getCssVar = (name, fallback) => {
+      const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+      return v || fallback;
+    };
+
       const baselineToggle = document.getElementById('q42-baseline');
       const copyBtn = document.getElementById('q42-copy');
   const exportBtn = document.getElementById('q42-export');
@@ -406,14 +411,14 @@ const interactiveScript = () => {
         }
         const maxW = Math.max(...weights);
         const fillColors = {
-          head: 'rgba(99,102,241,0.22)',
-          tail1: 'rgba(168,85,247,0.20)',
-          tail2: 'rgba(244,63,94,0.18)'
+          head: `${getCssVar('--tone-indigo-strong', '#6366f1')}38`,
+          tail1: `${getCssVar('--tone-purple-strong', '#a855f7')}33`,
+          tail2: `${getCssVar('--tone-rose-strong', '#f43f5e')}2e`
         };
         const strokeColors = {
-          head: 'rgba(99,102,241,0.5)',
-          tail1: 'rgba(168,85,247,0.5)',
-          tail2: 'rgba(244,63,94,0.5)'
+          head: `${getCssVar('--tone-indigo-strong', '#6366f1')}80`,
+          tail1: `${getCssVar('--tone-purple-strong', '#a855f7')}80`,
+          tail2: `${getCssVar('--tone-rose-strong', '#f43f5e')}80`
         };
         const segments = [
           { start: 0, end: Math.min(c1, V), tone: 'head' },
@@ -428,7 +433,7 @@ const interactiveScript = () => {
         const linesSvg = weights.map((w, i) => {
           const x = (i / (sample - 1)) * W;
           const h = (w / maxW) * (H - 6);
-          return `<line x1="${x.toFixed(2)}" x2="${x.toFixed(2)}" y1="${H}" y2="${(H - h).toFixed(2)}" stroke="rgba(148,163,184,0.35)" stroke-width="1"/>`;
+          return `<line x1="${x.toFixed(2)}" x2="${x.toFixed(2)}" y1="${H}" y2="${(H - h).toFixed(2)}" stroke="${getCssVar('--color-muted', '#94a3b8')}59" stroke-width="1"/>`;
         }).join('');
         const boundaries = [];
         if (c1 > 0 && c1 < V) {

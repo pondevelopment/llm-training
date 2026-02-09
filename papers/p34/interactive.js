@@ -1,5 +1,10 @@
 ﻿const interactiveScript = () => {
   const root = document.getElementById('p34-explorer');
+    const getCssVar = (name, fallback) => {
+      const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+      return v || fallback;
+    };
+
   if (!root) return;
 
   // DOM element references

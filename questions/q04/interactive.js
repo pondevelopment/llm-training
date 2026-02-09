@@ -234,7 +234,7 @@ const interactiveScript = () => {
                 const w = canvas.width, h = canvas.height;
                 ctx.clearRect(0, 0, w, h);
                 // Axes
-                ctx.strokeStyle = '#e5e7eb';
+                ctx.strokeStyle = getCssVar('--color-border', '#e5e7eb');
                 ctx.lineWidth = 1;
                 ctx.strokeRect(0.5, 0.5, w - 1, h - 1);
                 // Histogram
@@ -248,14 +248,14 @@ const interactiveScript = () => {
                 });
                 const maxCount = Math.max(...hist);
                 const barW = w / bins;
-                ctx.fillStyle = '#93c5fd';
+                ctx.fillStyle = getCssVar('--tone-sky-soft', '#93c5fd');
                 for (let i = 0; i < bins; i++) {
                     const barH = (hist[i] / maxCount) * (h - 20);
                     ctx.fillRect(i * barW + 1, h - barH - 1, barW - 2, barH);
                 }
                 // Codebook vertical lines
                 if (codebook) {
-                    ctx.strokeStyle = '#ef4444';
+                    ctx.strokeStyle = getCssVar('--tone-rose-strong', '#ef4444');
                     ctx.lineWidth = 1;
                     codebook.forEach(level => {
                         const x = ((level - min) * invSpan) * w;

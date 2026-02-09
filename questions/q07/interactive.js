@@ -61,7 +61,7 @@ const interactiveScript = () => {
                     badgeBorder: 44,
                     badgeBg: 20,
                     badgeText: 72,
-                    shadow: '0 24px 48px -26px rgba(2, 6, 23, 0.55)'
+                    shadow: '0 24px 48px -26px rgba(15, 23, 42, 0.55)'
                 } : {
                     bg: 16,
                     border: 28,

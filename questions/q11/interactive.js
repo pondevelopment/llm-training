@@ -85,11 +85,11 @@ const basePairConfidence = {
     amber: '--tone-amber-strong'
   };
 
-  const getCssVar = (name) => getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  const getCssVar = (name, fallback) => getComputedStyle(document.documentElement).getPropertyValue(name).trim() || fallback || '';
   const toneColor = (tone) => {
     const varName = toneVarMap[tone] || '--tone-indigo-strong';
     const value = getCssVar(varName);
-    return value || getCssVar('--tone-indigo-strong') || 'hsl(226, 55%, 50%)';
+    return value || getCssVar('--tone-indigo-strong', '#6366f1');
   };
   const toneSurface = (tone, amount = 16) => `color-mix(in srgb, ${toneColor(tone)} ${amount}%, var(--color-card))`;
   const toneBorder = (tone, amount = 36) => `color-mix(in srgb, ${toneColor(tone)} ${amount}%, var(--color-border-subtle) ${100 - amount}%)`;

@@ -1,6 +1,11 @@
 (function() {
   'use strict';
 
+  const getCssVar = (name, fallback) => {
+    const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    return v || fallback;
+  };
+
   const COEFFICIENTS = {
     overall: {
       openness: 0.250,
@@ -48,11 +53,11 @@
   }
 
   function getScoreColor(score) {
-    if (score >= 4.0) return 'linear-gradient(to right, #10b981, #059669)';
-    if (score >= 3.5) return 'linear-gradient(to right, #3b82f6, #2563eb)';
-    if (score >= 2.5) return 'linear-gradient(to right, #f59e0b, #d97706)';
-    if (score >= 2.0) return 'linear-gradient(to right, #ef4444, #dc2626)';
-    return 'linear-gradient(to right, #991b1b, #7f1d1d)';
+    if (score >= 4.0) return 'linear-gradient(to right, ' + getCssVar('--tone-emerald-strong', '#10b981') + ', ' + getCssVar('--tone-emerald-strong', '#059669') + ')';
+    if (score >= 3.5) return 'linear-gradient(to right, ' + getCssVar('--tone-sky-strong', '#3b82f6') + ', ' + getCssVar('--tone-sky-strong', '#2563eb') + ')';
+    if (score >= 2.5) return 'linear-gradient(to right, ' + getCssVar('--tone-amber-strong', '#f59e0b') + ', ' + getCssVar('--tone-amber-text', '#d97706') + ')';
+    if (score >= 2.0) return 'linear-gradient(to right, ' + getCssVar('--tone-rose-strong', '#ef4444') + ', ' + getCssVar('--tone-rose-strong', '#dc2626') + ')';
+    return 'linear-gradient(to right, ' + getCssVar('--tone-rose-text', '#991b1b') + ', ' + getCssVar('--tone-rose-text', '#7f1d1d') + ')';
   }
 
   function updateContributions(traits, gender) {

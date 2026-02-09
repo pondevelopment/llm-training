@@ -1,5 +1,10 @@
 const interactiveScript = () => {
             // Get DOM elements with error checking
+    const getCssVar = (name, fallback) => {
+      const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+      return v || fallback;
+    };
+
             const seqLength = document.getElementById('q32-seq-length');
             const dimK = document.getElementById('q32-dim-k');
             const temperature = document.getElementById('q32-temperature');

@@ -1,5 +1,10 @@
 const interactiveScript = () => {
             // Get DOM elements with error checking
+    const getCssVar = (name, fallback) => {
+      const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+      return v || fallback;
+    };
+
             const input = document.getElementById('q3-text-input');
             const output = document.getElementById('q3-output');
             const windowIndicator = document.getElementById('q3-window-indicator');
@@ -49,8 +54,8 @@ const interactiveScript = () => {
                     card.style.boxShadow = '0 14px 32px -24px rgba(15, 23, 42, 0.55)';
                 } else {
                     card.classList.remove('context-card--selected');
-                    card.style.background = 'var(--color-card)';
-                    card.style.borderColor = 'var(--color-border-subtle)';
+                    card.style.background = getCssVar('--color-card', '#f1f5f9');
+                    card.style.borderColor = getCssVar('--color-border-subtle', '#e2e8f0');
                     card.style.boxShadow = 'none';
                 }
             }

@@ -121,6 +121,11 @@
   };
 
   function init() {
+    const getCssVar = (name, fallback) => {
+      const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+      return v || fallback;
+    };
+
     const scenarioSelect = document.getElementById('p50-scenario');
     if (!scenarioSelect) {
       console.warn('P50 interactive elements not found, skipping initialization');
@@ -163,7 +168,7 @@
     if (tiesContainer) {
       let tiesHTML = '';
       scenario.ties.forEach(tie => {
-        const color = tie.type === 'opportunity' ? '#10b981' : '#f59e0b';
+        const color = tie.type === 'opportunity' ? getCssVar('--tone-emerald-strong', '#10b981') : getCssVar('--tone-amber-strong', '#f59e0b');
         const icon = tie.type === 'opportunity' ? '→' : '⇒';
         tiesHTML += '<div class="panel panel-neutral-soft p-3 space-y-1"><div class="flex items-center gap-2 text-xs font-semibold text-heading"><span style="color: ' + color + ';">' + icon + '</span><span>' + tie.from + ' ' + icon + ' ' + tie.to + '</span><span class="text-[11px] font-normal panel-muted">(' + tie.type + ' tie)</span></div><p class="text-xs text-body">' + tie.desc + '</p></div>';
       });

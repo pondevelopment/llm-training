@@ -147,6 +147,11 @@
   let currentModel = null;
 
   function init() {
+    const getCssVar = (name, fallback) => {
+      const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+      return v || fallback;
+    };
+
     const benchmarkEl = document.getElementById('p44-benchmark');
     const showAllEl = document.getElementById('p44-show-all');
     const tasksEl = document.getElementById('p44-tasks-per-month');
@@ -293,11 +298,11 @@
       if (model.frontier) {
         frontierEl.textContent = '✓ Yes';
         frontierEl.className = 'text-lg font-bold text-body';
-        frontierEl.style.color = '#10b981';
+        frontierEl.style.color = getCssVar('--tone-emerald-strong', '#10b981');
       } else {
         frontierEl.textContent = '✗ No';
         frontierEl.className = 'text-lg font-bold text-body';
-        frontierEl.style.color = '#6b7280';
+        frontierEl.style.color = getCssVar('--color-muted', '#6b7280');
       }
     }
 
@@ -402,13 +407,13 @@
       if (savings < 0) {
         // Selected model is CHEAPER (negative cost increase = savings!)
         savingsEl.textContent = `$${Math.round(Math.abs(savings)).toLocaleString()}`;
-        savingsEl.style.color = '#10b981';
+        savingsEl.style.color = getCssVar('--tone-emerald-strong', '#10b981');
         savingsPctEl.textContent = `${savingsPct}% cheaper`;
         if (savingsLabelEl) savingsLabelEl.textContent = 'Monthly savings';
       } else if (savings > 0) {
         // Selected model is MORE EXPENSIVE
         savingsEl.textContent = `+$${Math.round(savings).toLocaleString()}`;
-        savingsEl.style.color = '#ef4444';
+        savingsEl.style.color = getCssVar('--tone-rose-strong', '#ef4444');
         savingsPctEl.textContent = `${savingsPct}% more expensive`;
         if (savingsLabelEl) savingsLabelEl.textContent = 'Monthly cost increase';
       } else {
@@ -423,12 +428,12 @@
     if (accuracyDiffEl && accuracyPctEl) {
       if (accuracyDiff > 0) {
         accuracyDiffEl.textContent = `+${accuracyDiffPct}%`;
-        accuracyDiffEl.style.color = '#10b981';
+        accuracyDiffEl.style.color = getCssVar('--tone-emerald-strong', '#10b981');
         accuracyPctEl.textContent = 'Higher accuracy';
         if (accuracyLabelEl) accuracyLabelEl.textContent = 'Accuracy gain';
       } else if (accuracyDiff < 0) {
         accuracyDiffEl.textContent = `-${accuracyDiffPct}%`;
-        accuracyDiffEl.style.color = '#ef4444';
+        accuracyDiffEl.style.color = getCssVar('--tone-rose-strong', '#ef4444');
         accuracyPctEl.textContent = 'Lower accuracy';
         if (accuracyLabelEl) accuracyLabelEl.textContent = 'Accuracy loss';
       } else {

@@ -89,11 +89,12 @@
 
     function applyScenarioCard(card, tone) {
         if (!card) return;
+        const darkMode = document.documentElement.classList.contains('dark');
         card.classList.add('question-strategy-active');
         card.style.background = mixColor(tone, 12);
         card.style.borderColor = mixColor(tone, 32, 'var(--color-border-subtle)');
         card.style.boxShadow = '0 14px 32px -26px rgba(15, 23, 42, 0.6)';
-        card.style.color = mixColor(tone, 65, 'var(--color-heading)');
+        card.style.color = mixColor(tone, darkMode ? 20 : 65, 'var(--color-heading)');
     }
 
     function updateScenarioVisuals() {
@@ -110,11 +111,12 @@
         });
 
         if (scenarioIndicator) {
+            const dm = document.documentElement.classList.contains('dark');
             scenarioIndicator.className = 'strategy-indicator text-xs font-medium';
             scenarioIndicator.textContent = scenarioConfig[scenario]?.name ?? 'Scenario';
             scenarioIndicator.style.background = mixColor(tone, 16);
             scenarioIndicator.style.borderColor = mixColor(tone, 28, 'var(--color-border-subtle)');
-            scenarioIndicator.style.color = mixColor(tone, 58, 'var(--color-heading)');
+            scenarioIndicator.style.color = mixColor(tone, dm ? 18 : 58, 'var(--color-heading)');
         }
     }
 

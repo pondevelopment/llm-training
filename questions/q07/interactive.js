@@ -56,11 +56,11 @@ const interactiveScript = () => {
                 const intensities = darkMode ? {
                     bg: 36,
                     border: 56,
-                    text: 68,
-                    innerText: 68,
+                    text: 20,
+                    innerText: 22,
                     badgeBorder: 44,
                     badgeBg: 20,
-                    badgeText: 72,
+                    badgeText: 24,
                     shadow: '0 24px 48px -26px rgba(15, 23, 42, 0.55)'
                 } : {
                     bg: 16,

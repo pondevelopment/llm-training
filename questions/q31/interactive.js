@@ -81,10 +81,11 @@
   }
 
   function applyActivationStyles(container, tone) {
+    const darkMode = document.documentElement.classList.contains('dark');
     container.style.background = mixColor(tone, 14);
     container.style.borderColor = mixColor(tone, 34, 'var(--color-border-subtle)');
     container.style.boxShadow = '0 18px 36px -28px rgba(15, 23, 42, 0.55)';
-    container.style.color = mixColor(tone, 60, 'var(--color-heading)');
+    container.style.color = mixColor(tone, darkMode ? 20 : 60, 'var(--color-heading)');
   }
 
   const activationTones = {

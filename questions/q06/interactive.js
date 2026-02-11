@@ -67,11 +67,11 @@
                 const intensities = darkMode ? {
                     bg: 38,
                     border: 58,
-                    text: 72,
-                    innerText: 72,
+                    text: 20,
+                    innerText: 22,
                     badgeBorder: 48,
                     badgeBg: 22,
-                    badgeText: 75,
+                    badgeText: 24,
                     shadow: `0 24px 52px -28px ${getCssVar('--shadow-elevation-dark', '#0206178c')}`
                 } : {
                     bg: 16,

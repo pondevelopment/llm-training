@@ -1,4 +1,16 @@
 const interactiveScript = () => {
+  const getCssVar = (name, fallback) => {
+    const value = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    return value || fallback;
+  };
+
+  const mixColor = (tone, percentage, base) => {
+    const pct = Math.max(0, Math.min(100, percentage));
+    const remainder = Math.max(0, 100 - pct);
+    const safeBase = base || getCssVar('--color-card', '#f1f5f9');
+    return `color-mix(in srgb, ${tone} ${pct}%, ${safeBase} ${remainder}%)`;
+  };
+
   const scenarios = [
     {
       name: "Medical Text Analysis",
@@ -106,18 +118,6 @@ const interactiveScript = () => {
   const explanation = document.getElementById('q14-explanation');
   const STEP_IDS = ['q14-step1', 'q14-step2', 'q14-step3', 'q14-step4', 'q14-step5', 'q14-step6', 'q14-step7', 'q14-step8', 'q14-final'];
 
-  const getCssVar = (name, fallback) => {
-    const value = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-    return value || fallback;
-  };
-
-  const mixColor = (tone, percentage, base) => {
-    const pct = Math.max(0, Math.min(100, percentage));
-    const remainder = Math.max(0, 100 - pct);
-    const safeBase = base || getCssVar('--color-card', '#f1f5f9');
-    return `color-mix(in srgb, ${tone} ${pct}%, ${safeBase} ${remainder}%)`;
-  };
-
   const resetStrategyFrame = (frame) => {
     if (!frame) return;
     frame.classList.remove('q14-strategy-active');
@@ -137,7 +137,7 @@ const interactiveScript = () => {
     const toneBorder = getCssVar(config.borderVar, config.fallbackBorder);
     const bgMix = mixColor(toneStrong, darkMode ? 34 : 18, cardColor);
     const borderMix = mixColor(toneBorder, darkMode ? 48 : 26, borderBase);
-    const textMix = mixColor(toneStrong, darkMode ? 70 : 40, heading);
+    const textMix = mixColor(toneStrong, darkMode ? 20 : 40, heading);
 
     frame.classList.add('q14-strategy-active');
     frame.style.background = bgMix;

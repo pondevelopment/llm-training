@@ -111,11 +111,12 @@ const interactiveScript = () => {
     }
 
     function applyStrategyStyles(container, tone) {
+        const darkMode = document.documentElement.classList.contains('dark');
         container.classList.add('question-strategy-active');
         container.style.background = mixColor(tone, 12);
         container.style.borderColor = mixColor(tone, 32, 'var(--color-border-subtle)');
         container.style.boxShadow = '0 12px 26px -18px rgba(15, 23, 42, 0.55)';
-        container.style.color = mixColor(tone, 65, 'var(--color-heading)');
+        container.style.color = mixColor(tone, darkMode ? 20 : 65, 'var(--color-heading)');
     }
 
     function updateStrategyVisuals() {
@@ -141,10 +142,11 @@ const interactiveScript = () => {
         };
 
         if (strategyIndicator) {
+            const dm = document.documentElement.classList.contains('dark');
             strategyIndicator.textContent = strategyNames[selectedValue];
             strategyIndicator.style.background = mixColor(tone, 14);
             strategyIndicator.style.borderColor = mixColor(tone, 28, 'var(--color-border-subtle)');
-            strategyIndicator.style.color = mixColor(tone, 60, 'var(--color-heading)');
+            strategyIndicator.style.color = mixColor(tone, dm ? 18 : 60, 'var(--color-heading)');
         }
     }
 

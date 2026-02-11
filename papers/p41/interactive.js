@@ -1,6 +1,11 @@
 (function() {
   'use strict';
-  
+
+  const getCssVar = (name, fallback) => {
+    const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    return v || fallback;
+  };
+
   // Task-specific diversity and quality baselines (from paper's empirical results)
   const TASK_PROFILES = {
     creative: {
@@ -98,11 +103,6 @@
   };
 
   function init() {
-    const getCssVar = (name, fallback) => {
-      const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-      return v || fallback;
-    };
-
     // Get DOM elements
     const taskSelect = document.getElementById('p41-task');
     const numOutputsSlider = document.getElementById('p41-num-outputs');

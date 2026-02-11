@@ -1,6 +1,11 @@
 (function() {
   'use strict';
-  
+
+  const getCssVar = (name, fallback) => {
+    const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    return v || fallback;
+  };
+
   // Base effects from paper (percentage changes)
   const BASE_JUNIOR_DECLINE_6Q = -9.0; // -9% after 6 quarters (triple-diff estimate)
   const BASE_SENIOR_CHANGE_6Q = 0.5;   // Slight positive trend in adopters
@@ -33,11 +38,6 @@
   }
   
   function init() {
-    const getCssVar = (name, fallback) => {
-      const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-      return v || fallback;
-    };
-
     const firmSizeEl = document.getElementById('p54-firm-size');
     const juniorShareEl = document.getElementById('p54-junior-share');
     const exposureEl = document.getElementById('p54-occupation-exposure');

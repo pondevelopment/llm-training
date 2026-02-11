@@ -4,6 +4,11 @@
 (function() {
   'use strict';
 
+  const getCssVar = (name, fallback) => {
+    const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    return v || fallback;
+  };
+
   function calculateImpact() {
     // Get researcher profile
     const careerStage = document.getElementById('careerStage')?.value || 'mid';
@@ -248,11 +253,6 @@
   }
 
   function init() {
-    const getCssVar = (name, fallback) => {
-      const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-      return v || fallback;
-    };
-
     // Attach event listeners
     const controls = [
       'careerStage',

@@ -1,6 +1,11 @@
 (function() {
   'use strict';
 
+  const getCssVar = (name, fallback) => {
+    const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    return v || fallback;
+  };
+
   const SCENARIOS = {
     'law-doc-review': {
       name: 'Law: AI Document Review',
@@ -121,11 +126,6 @@
   };
 
   function init() {
-    const getCssVar = (name, fallback) => {
-      const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-      return v || fallback;
-    };
-
     const scenarioSelect = document.getElementById('p50-scenario');
     if (!scenarioSelect) {
       console.warn('P50 interactive elements not found, skipping initialization');

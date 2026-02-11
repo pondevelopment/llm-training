@@ -1,6 +1,11 @@
 (function() {
   'use strict';
 
+  const getCssVar = (name, fallback) => {
+    const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    return v || fallback;
+  };
+
   // Benchmark data with actual results from HAL evaluation
   const BENCHMARK_DATA = {
     assistantbench: {
@@ -147,11 +152,6 @@
   let currentModel = null;
 
   function init() {
-    const getCssVar = (name, fallback) => {
-      const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-      return v || fallback;
-    };
-
     const benchmarkEl = document.getElementById('p44-benchmark');
     const showAllEl = document.getElementById('p44-show-all');
     const tasksEl = document.getElementById('p44-tasks-per-month');

@@ -1,6 +1,11 @@
 (function() {
   'use strict';
 
+  const getCssVar = (name, fallback) => {
+    const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    return v || fallback;
+  };
+
   // Model profiles with baseline compliance rates from paper
   const modelProfiles = {
     'gpt4o-mini': {
@@ -89,11 +94,6 @@
   };
 
   function init() {
-    const getCssVar = (name, fallback) => {
-      const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-      return v || fallback;
-    };
-
     const modelEl = document.getElementById('p42-model');
     const strategyEl = document.getElementById('p42-strategy');
     const domainEl = document.getElementById('p42-domain');

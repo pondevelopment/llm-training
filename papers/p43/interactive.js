@@ -1,6 +1,11 @@
 (function() {
   'use strict';
 
+  const getCssVar = (name, fallback) => {
+    const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    return v || fallback;
+  };
+
   // Example misconceptions and problems for each task
   const taskExamples = {
     'algebra': [
@@ -66,11 +71,6 @@
   };
 
   function init() {
-    const getCssVar = (name, fallback) => {
-      const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-      return v || fallback;
-    };
-
     const taskEl = document.getElementById('p43-task');
     const trainingSizeEl = document.getElementById('p43-training-size');
     const consistencyEl = document.getElementById('p43-consistency');

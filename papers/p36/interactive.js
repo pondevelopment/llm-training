@@ -4,6 +4,11 @@
 (function() {
   'use strict';
 
+  const getCssVar = (name, fallback) => {
+    const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    return v || fallback;
+  };
+
   // Base performance metrics from paper (WebArena results with Gemini-2.5-flash)
   const BASE_METRICS = {
     none: { successRate: 40.5, steps: 9.7, memoryKB: 0, retrievalMs: 0 },
@@ -287,14 +292,14 @@
         <!-- Grid lines -->
         ${yTicks.map(tick => `
           <line x1="${padding.left}" y1="${tick.y}" x2="${width - padding.right}" y2="${tick.y}" 
-                stroke=getCssVar('--color-border', '#e5e7eb') stroke-width="1" stroke-dasharray="3,3" />
+                stroke="${getCssVar('--color-border', '#e5e7eb')}" stroke-width="1" stroke-dasharray="3,3" />
         `).join('')}
         
         <!-- Area fill -->
-        <path d="${areaPath}" fill=getCssVar('--tone-indigo-strong', '#6366f1') fill-opacity="0.1" />
+        <path d="${areaPath}" fill="${getCssVar('--tone-indigo-strong', '#6366f1')}" fill-opacity="0.1" />
         
         <!-- Line -->
-        <path d="${linePath}" fill="none" stroke=getCssVar('--tone-indigo-strong', '#6366f1') stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+        <path d="${linePath}" fill="none" stroke="${getCssVar('--tone-indigo-strong', '#6366f1')}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
         
         <!-- Data points -->
         ${points.map((p, i) => `
@@ -305,27 +310,27 @@
         
         <!-- Y-axis -->
         <line x1="${padding.left}" y1="${padding.top}" x2="${padding.left}" y2="${height - padding.bottom}" 
-              stroke=getCssVar('--color-muted', '#9ca3af') stroke-width="1.5" />
+              stroke="${getCssVar('--color-muted', '#9ca3af')}" stroke-width="1.5" />
         
         <!-- Y-axis labels -->
         ${yTicks.map(tick => `
           <text x="${padding.left - 8}" y="${tick.y}" text-anchor="end" dominant-baseline="middle" 
-                fill=getCssVar('--color-muted', '#6b7280') font-size="11" font-family="system-ui, sans-serif">${tick.value}%</text>
+                fill="${getCssVar('--color-muted', '#6b7280')}" font-size="11" font-family="system-ui, sans-serif">${tick.value}%</text>
         `).join('')}
         
         <!-- X-axis -->
         <line x1="${padding.left}" y1="${height - padding.bottom}" x2="${width - padding.right}" y2="${height - padding.bottom}" 
-              stroke=getCssVar('--color-muted', '#9ca3af') stroke-width="1.5" />
+              stroke="${getCssVar('--color-muted', '#9ca3af')}" stroke-width="1.5" />
         
         <!-- X-axis labels (show every other or every third batch if too many) -->
         ${points.filter((_, i) => curve.length <= 10 ? true : i % Math.ceil(curve.length / 8) === 0 || i === points.length - 1).map(p => `
           <text x="${p.x}" y="${height - padding.bottom + 18}" text-anchor="middle" 
-                fill=getCssVar('--color-muted', '#6b7280') font-size="11" font-family="system-ui, sans-serif">${p.tasks}</text>
+                fill="${getCssVar('--color-muted', '#6b7280')}" font-size="11" font-family="system-ui, sans-serif">${p.tasks}</text>
         `).join('')}
         
         <!-- Axis label -->
         <text x="${width / 2}" y="${height - 3}" text-anchor="middle" 
-              fill=getCssVar('--color-muted', '#9ca3af') font-size="10" font-family="system-ui, sans-serif">Tasks Completed</text>
+              fill="${getCssVar('--color-muted', '#9ca3af')}" font-size="10" font-family="system-ui, sans-serif">Tasks Completed</text>
       </svg>
     `;
 
@@ -462,11 +467,6 @@
   }
 
   function init() {
-    const getCssVar = (name, fallback) => {
-      const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-      return v || fallback;
-    };
-
     // Attach event listeners
     const controls = [
       'memoryType',

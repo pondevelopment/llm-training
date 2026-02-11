@@ -1,6 +1,11 @@
 (function() {
   'use strict';
 
+  const getCssVar = (name, fallback) => {
+    const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+    return v || fallback;
+  };
+
   // Constants from study (Kim et al., 2025)
   const AI_ADOPTION_COEFF = -0.324;      // β effect on psychological safety
   const PSYCH_SAFETY_COEFF = -0.211;     // β effect on depression
@@ -9,11 +14,6 @@
   const BASELINE_DEPRESSION = 1.86;       // Mean from study
 
   function init() {
-    const getCssVar = (name, fallback) => {
-      const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-      return v || fallback;
-    };
-
     const aiSlider = document.getElementById('p51-ai-adoption');
     const elSlider = document.getElementById('p51-ethical-leadership');
 

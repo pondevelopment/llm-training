@@ -30,7 +30,7 @@ If anything here conflicts with those docs, follow the docs.
   - Toggles: `view-toggle`
 - Avoid raw Tailwind color utilities (e.g. `bg-indigo-50`, `border-blue-200`) and hard-coded colors.
 - In interactive HTML fragments: no `<style>` blocks and no inline styles.
-- In JavaScript-generated inline styles: avoid CSS variables like `style="color: var(--...)"` (not reliable cross-browser). Use theme classes instead; if truly unavoidable, use literal values.
+- In JavaScript-generated inline styles: avoid CSS variables like `style="color: var(--...)"` (not reliable cross-browser). Use the `getCssVar` helper (see `AGENTS.md`) with a hardcoded fallback; never raw `var()` in JS-generated `style` attributes.
 
 ## Repository structure and “contracts”
 
@@ -107,6 +107,7 @@ Because of that:
 Recommended pattern inside each `interactive.js`:
 
 - Wrap in an IIFE and `'use strict'`.
+- Define shared helpers like `getCssVar` at **IIFE top scope** (after `'use strict'`), never inside `init()`. Sibling functions need access.
 - Implement `init()` and `updateUI()` helpers.
 - Export a top-level `interactiveScript()` function that schedules `init()` after the loader inserts HTML:
   - `setTimeout(() => init(), 0)`

@@ -48,6 +48,8 @@ Use this checklist when creating or updating questions for the LLM Questions app
 - [ ] Controls carry helper text explaining what the user is tuning (sliders, radios, etc.)
 - [ ] Visual feedback updates immediately on user input (indicator, results, legend, explanation)
 - [ ] Script performs defensive DOM checks and avoids leaking globals
+- [ ] `getCssVar` helper (if used) defined at **IIFE top scope**, not inside `init()`
+- [ ] No raw Tailwind color utilities or hardcoded hex colors — use semantic theme classes and `getCssVar` for dynamic JS styling
 - [ ] Any MathJax updates are re-typeset via `window.MathJax?.typesetPromise`
 
 ## Integration tasks

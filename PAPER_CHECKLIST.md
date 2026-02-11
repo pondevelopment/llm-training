@@ -77,6 +77,9 @@
 - [ ] LIMIT-style simulator scenarios are realistic (≥8 queries) with names, expected docs, and optional hints
 - [ ] Simulator summary explains observed vs expected recall and hints at mitigations
 - [ ] All DOM lookups guarded; `interactiveScript` does not leak globals
+- [ ] `getCssVar` helper (if used) defined at **IIFE top scope**, not inside `init()`
+- [ ] No raw Tailwind color utilities (`bg-indigo-50`, `border-blue-200`) or hardcoded hex colors in HTML — use semantic theme classes
+- [ ] No hardcoded colors in JS — use `getCssVar('--token', '#fallback')` for dynamic styling
 - [ ] MathJax re-typeset if the interactive injects equations
 
 ## Integration tasks

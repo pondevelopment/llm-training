@@ -78,6 +78,25 @@
   <main class="max-w-4xl mx-auto px-4 py-8 space-y-6">
         <article class="bg-card border border-divider rounded-lg shadow-sm p-5 space-y-3">
       <header class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
+        <span class="text-xs font-semibold tracking-wide text-accent uppercase">Site Infrastructure</span>
+        <time datetime="2026-02-12" class="text-xs font-medium text-muted-soft uppercase tracking-wide">12 Feb 2026</time>
+      </header>
+      <p class="text-lg font-semibold text-heading">Housekeeping · E2E Tests, Theme Compliance &amp; Developer Tooling</p>
+      <p class="text-sm text-muted italic">Full-stack quality and consistency pass: 244 Playwright E2E smoke tests covering all 65 papers and 57 questions, theme compliance enforcement (zero violations), dark-mode contrast fixes, and new AI coding skills for contributors.</p>
+      <ul class="list-disc list-inside text-sm text-muted space-y-2">
+        <li>Added <strong>244 Playwright E2E smoke tests</strong> for all 65 papers and 57 questions&mdash;verifying page loads, interactive panels, and absence of console errors.</li>
+        <li>Added <strong>CI workflow</strong> (<code>.github/workflows/ci.yml</code>) running lint + E2E on every push/PR to <code>main</code>.</li>
+        <li>Fixed <strong>HTML theme compliance</strong>: replaced 793 raw Tailwind color utilities and inline hex values with semantic design tokens.</li>
+        <li>Fixed <strong>JS color compliance</strong>: replaced 258 hardcoded JS colors with <code>getCssVar()</code> theme-aware lookups across all interactive scripts.</li>
+        <li>Fixed <strong><code>getCssVar</code> IIFE scope bug</strong> in 9 papers (P35, P36, P41&ndash;P44, P50, P51, P54) where the helper was defined inside <code>init()</code> but called from sibling functions.</li>
+        <li>Fixed <strong>dark-mode contrast</strong> issues, Q14 <code>getCssVar</code> temporal-dead-zone bug, and strategy-card chip overflow.</li>
+        <li>Created two new <strong>Agent Skills</strong>: <em>theme-compliance</em> (audit &amp; fix color violations) and <em>interactive-debugging</em> (diagnose broken interactive scripts).</li>
+        <li>Updated all developer guideline docs (AGENTS.md, checklists, template guides, copilot-instructions) with <code>getCssVar</code> patterns, E2E test commands, and theme compliance checks.</li>
+      </ul>
+    </article>
+
+        <article class="bg-card border border-divider rounded-lg shadow-sm p-5 space-y-3">
+      <header class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
         <span class="text-xs font-semibold tracking-wide text-accent uppercase">New Paper Explainer</span>
         <time datetime="2025-12-24" class="text-xs font-medium text-muted-soft uppercase tracking-wide">24 Dec 2025</time>
       </header>

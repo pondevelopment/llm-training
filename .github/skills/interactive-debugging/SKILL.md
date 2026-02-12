@@ -1,4 +1,3 @@
-```skill
 ---
 name: interactive-debugging
 description: Diagnose and fix broken interactive scripts in papers and questions. Use this when a paper or question interactive is not loading, shows a blank panel, throws console errors, or fails Playwright E2E tests with "pageerror" or "interactive script" failures.
@@ -224,5 +223,3 @@ wc -l test-results.txt
 - [ ] No auto-init on `DOMContentLoaded` or at IIFE scope
 - [ ] SVG template literals use `"${getCssVar(...)}"` not bare `getCssVar(...)`
 - [ ] MathJax re-typeset called after dynamic math injection
-
-```

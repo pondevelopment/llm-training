@@ -1,4 +1,3 @@
-```skill
 ---
 name: theme-compliance
 description: Audit and fix theme compliance issues in HTML and JS files — raw Tailwind color utilities, hardcoded hex/RGB values, inline styles, and incorrect getCssVar usage. Use this when asked to "audit colors", "check theme compliance", "fix raw Tailwind", "fix hardcoded colors", or when lint:js-colors reports violations.
@@ -155,5 +154,3 @@ To discover more tokens, inspect `css/theme.css` for `--tone-*`, `--color-*` cus
 - [ ] No hardcoded colors in JS — use `getCssVar('--token', '#fallback')`
 - [ ] No `<style>` blocks or inline `style=""` in HTML fragments
 - [ ] Dark mode renders correctly (no invisible text, no clashing backgrounds)
-
-```

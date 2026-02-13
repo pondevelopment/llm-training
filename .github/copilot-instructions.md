@@ -53,8 +53,10 @@ If anything here conflicts with those docs, follow the docs.
   - `overview.html` (HTML fragment)
   - `interactive.html` (HTML fragment)
   - `interactive.js` (exports `interactiveScript`)
+  - `infographic.png` (optional — visual summary, lazy-loaded in a collapsible `<details>` section)
 - Manifest entry required in `papers/manifest.json`, prefer `dir` form.
 - Share page required in `p/XX.html`.
+- If an infographic is available, see `PAPER_TEMPLATE_GUIDE.md § Infographic assets` for the HTML pattern.
 
 ### Tutorials
 

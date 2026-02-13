@@ -1,42 +1,56 @@
 <section class="space-y-5">
+  <!-- Paper header -->
   <section class="panel panel-info p-4 space-y-4">
     <div class="flex items-center justify-between gap-4">
       <div class="flex-1 min-w-0">
-        <h2 class="text-xl font-semibold text-heading">Quantifying Human-AI Synergy</h2>
-        <p class="text-sm panel-muted">Christoph Riedl, Ben Weidmann &bull; PsyArXiv (2025-09-22)</p>
+        <h2 class="text-xl font-semibold text-heading">How AI Impacts Skill Formation</h2>
+        <p class="text-sm panel-muted">Judy Hanwen Shen, Alex Tamkin &bull; arXiv:2601.20245 (2026)</p>
       </div>
-      <a href="https://psyarxiv.com/preprints/psyarxiv/wh79t" target="_blank" rel="noopener" class="btn-soft text-xs font-semibold flex-shrink-0" data-accent="foundations">
+      <a href="https://arxiv.org/abs/2601.20245" target="_blank" rel="noopener" class="btn-soft text-xs font-semibold flex-shrink-0" data-accent="foundations">
         <span>View paper</span>
         <span aria-hidden="true">↗</span>
       </a>
     </div>
     <p class="text-sm leading-relaxed panel-muted">
-      Bayesian IRT separates solo skill, collaborative skill, and AI lift on ChatBench, revealing 29-point boosts from GPT-4o and the outsized role of Theory of Mind.
+      Randomized experiment (n=52 developers) shows AI assistance impairs conceptual understanding, code reading, and debugging abilities when learning a new programming library&mdash;reducing quiz scores by 17% (Cohen&rsquo;s d=0.738, p=0.010)&mdash;without delivering significant efficiency gains on average. Identifies six distinct AI interaction patterns; three that preserve learning involve sustained cognitive engagement.
     </p>
-    <div class="panel panel-neutral-soft p-3 space-y-1 text-xs">
+    <div class="panel panel-neutral-soft p-3 space-y-2 text-xs">
       <p class="font-semibold text-heading">Plain-language explainer</p>
-      <p class="panel-muted">Working with AI is like playing doubles tennis: your individual skill matters, but so does knowing when to pass the ball to your partner. The authors show that people who naturally consider the AI's "perspective" get better answers—even if they're not the strongest solo players.</p>
+      <p class="panel-muted">Imagine learning to drive with a chauffeur doing everything for you: you arrive at your destination, but you never learned the route. This paper shows the same happens when developers lean on AI to write code for a new library. Those who let AI do the work finished the task but scored far worse on a comprehension test afterward. The exception? Developers who used AI to ask questions and check their own understanding&mdash;they kept both speed and learning.</p>
     </div>
   </section>
 
+  <!-- Infographic (lazy-loaded, collapsed by default) -->
+  <details class="panel panel-neutral-soft p-4">
+    <summary class="cursor-pointer text-sm font-semibold text-heading flex items-center gap-2 select-none">
+      <span aria-hidden="true">🖼️</span> View infographic &mdash; visual summary of the study
+      <span class="text-xs font-normal text-muted ml-auto">(click to expand)</span>
+    </summary>
+    <figure class="mt-3 space-y-2">
+      <a href="./papers/p24/infographic.png" target="_blank" rel="noopener" title="Open full-size infographic in new tab">
+        <img src="./papers/p24/infographic.png" alt="Infographic summarising How AI Impacts Skill Formation: study design, six interaction patterns, quiz score results, and key takeaways" loading="lazy" decoding="async" class="w-full rounded-lg border cursor-pointer hover:opacity-90 transition-opacity">
+      </a>
+      <figcaption class="text-xs text-muted text-center">Visual summary of the experimental design, six AI interaction patterns, and key findings. <span class="italic">Click to open full size.</span></figcaption>
+    </figure>
+  </details>
+
+  <!-- Executive quick take -->
   <section class="panel panel-neutral p-5 space-y-3">
     <header class="flex items-center gap-2">
       <span aria-hidden="true" class="text-lg">🧭</span>
       <h3 class="text-sm font-semibold tracking-wide uppercase text-heading">Executive quick take</h3>
     </header>
     <p class="text-sm leading-relaxed text-body">
-      Human-AI performance is best measured as a partnership. A Bayesian item-response model shows GPT-4o lifts
-      average human accuracy by 29 percentage points (Llama-3.1-8B adds 23) once you control for task difficulty
-      and user skill. Collaboration ability is distinct from solo problem solving, and Theory of Mind signals explain
-      who actually captures the boost.
+      AI-enhanced productivity is not a shortcut to competence. In a controlled coding experiment, developers using a GPT-4o&ndash;powered assistant completed tasks at similar speed to those without AI but scored 17% lower on a post-task quiz covering the new library&rsquo;s concepts. The cost is invisible: teams see equivalent throughput but accumulate a hidden skill deficit, particularly in debugging&mdash;the very ability needed to supervise AI-generated code.
     </p>
     <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
-      <li><strong>Synergy peaks</strong> on the hardest questions, while easy items reach the ceiling fast.</li>
-      <li><strong>Theory of Mind matters:</strong> Users with ToM-rich prompts earn higher-quality AI replies, regardless of solo ability.</li>
-      <li><strong>Moment-to-moment perspective taking:</strong> ToM spikes during a dialogue nudge models toward better answers.</li>
+      <li><strong>No free lunch on productivity:</strong> AI assistance did not significantly speed up task completion (p=0.391), partly because participants spent up to 11 minutes composing queries during a 35-minute task</li>
+      <li><strong>Skill tax is real:</strong> 17% reduction in quiz scores (4.15 points on a 27-point test, d=0.738), with the biggest gap on debugging questions&mdash;the exact skills needed to oversee AI code</li>
+      <li><strong>Interaction pattern matters more than tool access:</strong> 3 of 6 identified usage patterns preserved learning; all three involved cognitive engagement (asking conceptual questions, requesting explanations alongside code generation)</li>
     </ul>
   </section>
 
+  <!-- Business relevance -->
   <section class="panel panel-success p-5 space-y-3">
     <div>
       <div class="flex items-center gap-2 mb-2">
@@ -44,92 +58,106 @@
         <h3 class="text-sm font-semibold text-heading">Business relevance</h3>
       </div>
       <p class="text-sm text-body leading-relaxed">
-        Treat synergy scores as a governance metric. They show which workflows deserve custom training, coaching, or
-        interface tweaks long before aggregate productivity data arrives.
+        Organizations rolling out AI coding assistants should consider the hidden cost of accelerated onboarding: new engineers may ship code without developing the mental models needed to maintain it. Designing AI-assisted workflows that preserve learning is a governance question, not just a tooling one.
       </p>
     </div>
     <ul class="list-disc ml-5 text-sm text-body space-y-1">
-      <li><strong class="text-heading">Product and ops leads:</strong> Track synergy uplift per task family and redeploy scarce fine-tuning cycles where human-AI pairs underperform.</li>
-      <li><strong class="text-heading">Learning and enablement:</strong> Coach analysts on mental-model prompts that surface Theory of Mind cues, especially for high-difficulty queues.</li>
-      <li><strong class="text-heading">Risk and compliance:</strong> Flag low-synergy teams for heavier review load until prompt hygiene or scaffolding raises collaborative ability.</li>
-      <li><strong class="text-heading">Research and model teams:</strong> Benchmark assistant releases on synergy deltas, not just static accuracy, to justify launch readiness.</li>
+      <li><strong class="text-heading">Engineering managers:</strong> Monitor whether junior developers using AI assistants are building debugging fluency. Pair AI-assisted sprints with unassisted code review rotations to ensure skill formation.</li>
+      <li><strong class="text-heading">L&amp;D / enablement teams:</strong> Don&rsquo;t just teach prompt engineering&mdash;teach <em>when not to prompt</em>. High-scoring interaction patterns (Conceptual Inquiry, Generation-Then-Comprehension) should become standard onboarding guidance.</li>
+      <li><strong class="text-heading">Platform / DevEx teams:</strong> Consider &ldquo;learning mode&rdquo; features that encourage explanation-first workflows (e.g., auto-prepend &ldquo;explain, then generate&rdquo;) during onboarding periods for new libraries or frameworks.</li>
+      <li><strong class="text-heading">Risk &amp; safety leads:</strong> In safety-critical domains, skill deficits in debugging and code comprehension directly increase incident risk. Audit whether AI-trained cohorts meet competency baselines before granting production access.</li>
     </ul>
     <div class="panel panel-neutral-soft p-4 space-y-2 text-xs text-body">
-      <p class="font-semibold text-heading">Derivative example: Synergy control chart</p>
-      <p>
-        A customer-support org logs every agent-AI interaction, fits the paper's IRT model weekly, and reviews the
-        distribution of collaborative boosts by queue. Low-synergy clusters receive prompt coaching, auto-suggested ToM
-        scaffolds, or temporary guardrails before volume is ramped.
-      </p>
+      <p class="font-semibold text-heading">Derivative example: structured AI onboarding protocol</p>
+      <p>An engineering org introduces a new internal framework. Week 1: developers complete introductory tasks <em>without</em> AI assistance, encountering errors and building conceptual foundations. Week 2: AI assistance enabled but restricted to &ldquo;Conceptual Inquiry&rdquo; mode (explanations only, no code generation). Week 3: full AI access with comprehension check-ins. A post-module quiz (similar to this paper&rsquo;s design) confirms concept mastery before developers move to production work.</p>
     </div>
   </section>
 
-  <section class="grid md:grid-cols-2 gap-4">
-    <article class="panel panel-info p-4 space-y-2">
-      <h4 class="text-sm font-semibold text-heading">How the synergy model works</h4>
-      <ul class="list-disc ml-4 text-sm text-body space-y-1">
-        <li>Extends item response theory with two latent abilities: solo skill (&theta;) and collaborative skill (&kappa;).</li>
-        <li>Decomposes each question into solo difficulty (&beta;) plus extra collaborative friction (&gamma;).</li>
-        <li>Computes per-user boosts (&kappa;<sub>total</sub> - &theta;) to quantify how much the AI improves outcomes.</li>
-      </ul>
-    </article>
-    <article class="panel panel-info p-4 space-y-2">
-      <h4 class="text-sm font-semibold text-heading">What the numbers reveal</h4>
-      <ul class="list-disc ml-4 text-sm text-body space-y-1">
-        <li>Largest lifts appear on top-quartile difficulty questions; easy tasks saturate quickly.</li>
-        <li>Lower solo performers see the biggest absolute gains, but ToM-rich experts still benefit meaningfully.</li>
-        <li>Human plus GPT-4o outperforms GPT-4o alone, shrinking the solo gap between GPT-4o and Llama-3.1-8B.</li>
-      </ul>
-    </article>
-  </section>
+  <!-- Supporting callouts -->
+  <div class="grid md:grid-cols-2 gap-4">
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">The six AI interaction patterns</h3>
+      <p class="text-xs panel-muted">The authors manually coded screen recordings of all 25 AI-condition participants and identified six behavioral clusters.</p>
 
-  <section class="grid md:grid-cols-3 gap-4">
-    <article class="panel panel-neutral p-3 space-y-1">
-      <h5 class="text-xs font-semibold uppercase tracking-wide text-heading">Key insight</h5>
-      <p class="text-xs text-body">
-        Collaboration ability is a separate asset. Hiring or coaching for perspective taking unlocks materially better
-        AI assistance even when baseline technical skill is unchanged.
-      </p>
-    </article>
-    <article class="panel panel-neutral p-3 space-y-1">
-      <h5 class="text-xs font-semibold uppercase tracking-wide text-heading">Method</h5>
-      <p class="text-xs text-body">
-        Bayesian multilevel IRT with leave-one-out validation, applied to 667 participants answering 396 ChatBench
-        math, physics, and moral reasoning questions with and without AI support.
-      </p>
-    </article>
-    <article class="panel panel-neutral p-3 space-y-1">
-      <h5 class="text-xs font-semibold uppercase tracking-wide text-heading">Implication</h5>
-      <p class="text-xs text-body">
-        Evaluation pipelines should capture conversation-level features such as ToM cues and delegation patterns
-        alongside accuracy so model releases reward socially aware workflows.
-      </p>
-    </article>
-  </section>
+      <p class="text-xs font-semibold text-success mt-2 mb-1">&#x2705; High-scoring patterns (&gt;65% quiz)</p>
+      <ul class="text-xs panel-muted space-y-1 ml-4 list-disc">
+        <li><strong>Conceptual Inquiry</strong> &mdash; only ask conceptual questions <span class="chip chip-success">86%</span></li>
+        <li><strong>Generation-Then-Comprehension</strong> &mdash; generate code then study it <span class="chip chip-success">68%</span></li>
+        <li><strong>Hybrid Code-Explanation</strong> &mdash; request code with explanations <span class="chip chip-success">65%</span></li>
+      </ul>
 
-  <section class="panel panel-neutral-soft p-5 space-y-2">
-    <div class="flex items-center gap-2">
-      <span aria-hidden="true" class="text-lg">📊</span>
-      <h4 class="text-sm font-semibold text-heading">Evidence</h4>
+      <p class="text-xs font-semibold text-warning mt-2 mb-1">&#x26A0;&#xFE0F; Low-scoring patterns (&lt;40% quiz)</p>
+      <ul class="text-xs panel-muted space-y-1 ml-4 list-disc">
+        <li><strong>AI Delegation</strong> &mdash; copy-paste AI output <span class="chip chip-warning">39%</span></li>
+        <li><strong>Progressive AI Reliance</strong> &mdash; start independent then delegate <span class="chip chip-warning">35%</span></li>
+        <li><strong>Iterative AI Debugging</strong> &mdash; repeated AI troubleshooting <span class="chip chip-warning">24%</span></li>
+      </ul>
+
+      <p class="text-xs panel-muted mt-2">The dividing line is <strong>cognitive engagement</strong>&mdash;whether the developer actively processed the material.</p>
     </div>
-    <ul class="list-disc ml-5 text-sm text-body space-y-1">
-      <li>Human plus GPT-4o pairs average 29 percentage-point gains versus human solo; Llama-3.1-8B adds 23 points.</li>
-      <li>Model comparison yields &Delta;ELPD = 50.9 (SE 10.2) in favor of separate solo versus collaborative abilities; R-hat scores sit at 1.00.</li>
-      <li>Theory of Mind trait scores predict collaborative ability (+0.65, 95% CI [0.01, 1.29]) but not solo skill.</li>
-      <li>Within-dialogue ToM deviations correlate with AI response quality (&beta; &asymp; 0.09, p = 0.007) even after effort controls.</li>
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Why debugging skills suffer most</h3>
+      <p class="text-xs panel-muted">
+        Control-group developers encountered a median of 3 errors per task versus 1 for the AI group. More importantly, Trio-specific errors (RuntimeWarning for unawaited coroutines, TypeError for passing coroutine objects) forced the control group to develop deep library-level understanding. Since AI-assisted developers rarely hit these errors, they never built the debugging mental models tested in the evaluation. The largest quiz score gap occurred precisely on debugging questions&mdash;the skills most critical for supervising AI-generated code in production.
+      </p>
+    </div>
+  </div>
+
+  <!-- Key insight / Method / Implication -->
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Key insight</h3>
+      <p class="text-xs panel-muted">
+        AI assistance creates a learning paradox: the productivity it offers comes at the cost of the very skills needed to supervise its output. The effect persists across all experience levels (1&ndash;3 years through 7+ years of coding).
+      </p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Method</h3>
+      <p class="text-xs panel-muted">
+        Between-subjects RCT with 52 professional developers learning the Python Trio async library. Treatment group used GPT-4o assistant; control had only documentation. 14-question quiz (27 points) measuring debugging, code reading, and conceptual understanding. Pre-registered with 4 pilot studies refining non-compliance controls.
+      </p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Implication</h3>
+      <p class="text-xs panel-muted">
+        AI coding assistants should be deployed with interaction-pattern guidance, not just access. &ldquo;Explanation-first&rdquo; modes and concept check-ins can preserve learning while maintaining productivity&mdash;but require intentional workflow design, not just tool availability.
+      </p>
+    </div>
+  </div>
+
+  <!-- Evidence -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🧪 Evidence from the study</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>Sample &amp; design:</strong> 52 professional developers (26 per group), balanced on coding experience (1&ndash;3, 4&ndash;6, 7+ years), Python frequency, and prior asyncio usage; $150 flat compensation; pre-registered at osf.io/w49e7</li>
+      <li><strong>Primary finding:</strong> AI group scored 17% lower on comprehension quiz (mean difference 4.15/27 points, Cohen&rsquo;s d=0.738, p=0.010); effect survived warm-up time covariate (d=0.725, p=0.016)</li>
+      <li><strong>Productivity null result:</strong> No significant time difference between groups (p=0.391); AI condition slightly faster on average but offset by query-composition overhead (up to 11 min of 35 min)</li>
+      <li><strong>Skill-specific breakdown:</strong> Largest score gap on debugging questions, smallest on code reading; control group encountered 3&times; more Trio-specific errors (median 3 vs 1)</li>
+      <li><strong>Interaction heterogeneity:</strong> AI Delegation pattern finished fastest (19.5 min) but scored lowest (39%); Conceptual Inquiry scored highest (86%) at similar speed to control (24 min)</li>
+      <li><strong>Query analysis:</strong> 79 explanation queries, 51 generation queries, 9 debugging queries across 25 participants; 4 of 8 lowest scorers used AI exclusively for code generation</li>
+      <li><strong>Pilot validation:</strong> 4 pilot studies (n=186 total) established non-compliance rates, refined quiz design to eliminate local item dependence, added syntax hints to isolate Trio-specific learning</li>
+      <li><strong>Self-report convergence:</strong> Control group reported higher self-reported learning; AI group rated the task as easier but quiz as equally difficult</li>
     </ul>
   </section>
 
-  <section class="panel panel-warning p-5 space-y-2">
-    <div class="flex items-center gap-2">
-      <span aria-hidden="true" class="text-lg">🗺️</span>
-      <h4 class="text-sm font-semibold text-heading">Forward-looking roadmap</h4>
+  <!-- Roadmap -->
+  <section class="panel panel-warning p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🔭 For your roadmap</h3>
+    <p class="text-sm leading-relaxed text-body">
+      This study covers one library and a 1-hour session. Longitudinal and cross-domain replication is needed, but the core insight&mdash;cognitive engagement determines whether AI helps or hinders learning&mdash;is actionable now.
+    </p>
+    <div class="panel panel-info p-4 space-y-2">
+      <h4 class="text-sm font-semibold text-heading">Designing AI-assisted learning workflows</h4>
+      <p class="text-xs panel-muted">
+        The three high-scoring patterns share a common trait: developers maintained cognitive ownership of the problem. Practically, this means (1) asking for explanations before or alongside code, (2) manually adapting generated code rather than copy-pasting, and (3) resolving at least some errors independently. Organizations can encode these into workflow defaults&mdash;e.g., AI assistants that default to &ldquo;explain first, generate on request&rdquo; during onboarding. The paper notes that agentic coding tools, which require even less human participation, would likely amplify the skill-formation penalty.
+      </p>
     </div>
-    <ul class="list-disc ml-5 text-sm text-body space-y-1">
-      <li>Instrument production chat logs to fit synergy models regularly and publish distributional shifts.</li>
-      <li>Bundle perspective-taking prompts or UI nudges when deploying assistants into heterogeneous teams.</li>
-      <li>Test whether ToM-aware model routing (for example reranker callbacks or plan-and-refine loops) raises collaborative ability further.</li>
-      <li>Extend benchmarks beyond multiple-choice to open-ended or multi-turn tasks so synergy scores cover real workflows.</li>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li>Replicate with agentic coding tools (Cursor agent, Copilot Workspace) where query composition overhead is eliminated&mdash;expect larger skill deficits</li>
+      <li>Run longitudinal studies measuring skill retention over months, not just immediate post-task quiz scores</li>
+      <li>Test whether &ldquo;learning mode&rdquo; AI interfaces (explanation-first, concept check-ins) close the skill gap without sacrificing throughput</li>
+      <li>Extend beyond coding: medical diagnostics, legal research, and engineering design all face the same competence supervision paradox</li>
+      <li>Measure the downstream cost&mdash;do teams with AI-trained-only engineers have higher incident rates when AI is unavailable?</li>
     </ul>
   </section>
 </section>

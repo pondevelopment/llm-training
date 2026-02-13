@@ -13,6 +13,7 @@
   - [ ] `overview.html`
   - [ ] `interactive.html`
   - [ ] `interactive.js` exporting `interactiveScript`
+  - [ ] `infographic.png` (optional — add if a visual summary is available)
 - [ ] Add/Update entry in `papers/manifest.json` with `title`, `authors`, `year`, `venue`, `tags`, `summary`, `dir`, `interactiveTitle`, and `relatedQuestions`
 - [ ] Create or update `p/XX.html` share page with complete social media meta tags:
   - [ ] Meta description (2-3 sentences with key findings)
@@ -33,6 +34,7 @@
   - [ ] "View paper" button positioned **top-right** with `btn-soft`, `data-accent="foundations"`, and ↗ icon
   - [ ] Title (h2), authors • venue (year), 2–3 sentence summary
 - [ ] **Plain-language explainer**: Nested card (`panel panel-neutral-soft`) with 1–2 sentence analogy making the core insight accessible
+- [ ] **Infographic** (if available): Collapsible `<details class="panel panel-neutral-soft p-4">` between header and quick take; image uses `loading="lazy"`, wrapped in `<a target="_blank">` for full-size view. See `PAPER_TEMPLATE_GUIDE.md § Infographic assets`.
 - [ ] **Executive quick take** (`panel panel-neutral`): 🧭 icon + uppercase header, 2–3 sentences, 3 bulleted key points
 - [ ] **Business relevance** (`panel panel-success`): 💼 icon, 3–4 stakeholder bullets, nested "Derivative example" card (`panel-neutral-soft`)
 - [ ] **Supporting callouts** (optional, `panel panel-info`): 2-column grid unpacking concepts (~80–120 words each)

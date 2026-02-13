@@ -1,103 +1,218 @@
-<section class="space-y-6" id="p24-lab">
-  <div class="panel panel-info p-4 space-y-4">
+<section class="space-y-6" id="p24-explorer">
+
+  <!-- Concrete analogy panel -->
+  <div class="panel panel-neutral-soft p-4 space-y-2">
+    <h3 class="text-sm font-semibold text-heading">💡 Think of it like: the GPS paradox</h3>
+    <p class="text-xs panel-muted">
+      People who always use GPS navigation can drive anywhere&mdash;but take away the GPS and they&rsquo;re lost, because they never learned the routes. This simulator models the same trade-off for developers using AI: how does your <em>interaction style</em> determine whether you gain speed at the cost of learning, or keep both? Adjust the controls to explore how different AI usage patterns affect skill formation based on the paper&rsquo;s experimental results.
+    </p>
+  </div>
+
+  <!-- Step 1: Developer profile -->
+  <div class="panel panel-neutral p-5 space-y-4">
+    <h3 class="text-base font-semibold text-heading">Step 1: Developer profile</h3>
+    <p class="text-xs panel-muted">Set up the developer&rsquo;s background for the simulation</p>
+
+    <div class="grid md:grid-cols-2 gap-4">
+      <!-- Experience level -->
+      <div class="space-y-2">
+        <label for="p24-experience" class="block text-sm font-medium text-heading">
+          Coding experience
+        </label>
+        <select id="p24-experience" class="w-full p-2 text-sm border rounded bg-layer text-body">
+          <option value="junior">1&ndash;3 years (junior)</option>
+          <option value="mid" selected>4&ndash;6 years (mid-level)</option>
+          <option value="senior">7+ years (senior)</option>
+        </select>
+        <div class="text-xs text-muted">Paper found skill deficits across all experience levels</div>
+      </div>
+
+      <!-- Task novelty -->
+      <div class="space-y-2">
+        <label for="p24-novelty" class="block text-sm font-medium text-heading">
+          Domain familiarity
+        </label>
+        <select id="p24-novelty" class="w-full p-2 text-sm border rounded bg-layer text-body">
+          <option value="new" selected>New library / framework (like Trio in the study)</option>
+          <option value="adjacent">Adjacent to known tools (e.g., asyncio &rarr; Trio)</option>
+          <option value="familiar">Familiar patterns, minor variations</option>
+        </select>
+        <div class="text-xs text-muted">New domains amplify the learning vs productivity trade-off</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 2: AI interaction pattern -->
+  <div class="panel panel-info p-5 space-y-4">
+    <h3 class="text-base font-semibold text-heading">Step 2: How do you use AI?</h3>
+    <p class="text-xs panel-muted">Select the AI interaction pattern that best matches your workflow. The paper identified these six patterns from screen recordings of 25 developers.</p>
+
+    <div class="space-y-2">
+      <label for="p24-pattern" class="block text-sm font-medium text-heading">
+        AI interaction pattern
+      </label>
+      <select id="p24-pattern" class="w-full p-2 text-sm border rounded bg-layer text-body">
+        <option value="none">No AI (control group)</option>
+        <option value="conceptual">Conceptual Inquiry &mdash; ask conceptual questions only, resolve errors independently</option>
+        <option value="gen-then-comprehend">Generation-Then-Comprehension &mdash; generate code, then ask follow-up questions to understand it</option>
+        <option value="hybrid">Hybrid Code-Explanation &mdash; request code with explanations simultaneously</option>
+        <option value="progressive" selected>Progressive AI Reliance &mdash; start independent, gradually delegate to AI</option>
+        <option value="delegation">AI Delegation &mdash; ask AI to generate all code, paste directly</option>
+        <option value="iterative-debug">Iterative AI Debugging &mdash; repeatedly ask AI to fix/verify code</option>
+      </select>
+    </div>
+
+    <!-- Pattern description -->
+    <div id="p24-pattern-desc" class="panel panel-neutral-soft p-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading" id="p24-pattern-label">Progressive AI Reliance</p>
+      <p class="panel-muted" id="p24-pattern-detail">Asked questions for Task 1, relied on AI for Task 2. Scored poorly largely due to not mastering concepts in the second task.</p>
+    </div>
+  </div>
+
+  <!-- Step 3: Team size -->
+  <div class="panel panel-neutral p-5 space-y-4">
+    <h3 class="text-base font-semibold text-heading">Step 3: Scale the impact</h3>
+    <p class="text-xs panel-muted">How many developers are onboarding with this interaction pattern?</p>
+
+    <div class="space-y-2">
+      <label for="p24-team-size" class="block text-sm font-medium text-heading">
+        Developers onboarding
+      </label>
+      <div class="flex items-center gap-3">
+        <span class="text-xs text-muted w-8">1</span>
+        <input type="range" id="p24-team-size" min="1" max="50" value="10" step="1" class="flex-1" aria-label="Number of developers onboarding">
+        <span class="text-xs text-muted w-8 text-right">50</span>
+      </div>
+      <div class="text-xs text-muted"><span id="p24-team-display">10</span> developers</div>
+    </div>
+  </div>
+
+  <!-- Results panel -->
+  <div class="panel panel-success p-5 space-y-4" id="p24-results">
+    <div class="flex items-center justify-between">
+      <h3 class="text-base font-semibold text-heading">📊 Predicted outcomes</h3>
+      <div class="text-xs font-semibold text-muted" id="p24-pattern-indicator">Progressive AI Reliance</div>
+    </div>
+    <p class="text-xs panel-muted">Based on the paper&rsquo;s experimental results, scaled to your configuration</p>
+
+    <!-- Core metrics (per developer) -->
+    <h4 class="text-sm font-semibold text-heading">Per-developer outcomes</h4>
     <div class="grid md:grid-cols-3 gap-4">
-      <div>
-        <label for="p24-scenario" class="block text-sm font-semibold text-heading">Work scenario</label>
-        <select id="p24-scenario" class="mt-1 w-full px-3 py-2 border border-divider rounded-md text-sm bg-card text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
-          <option value="routine">Routine triage (structured rubrics, low novelty)</option>
-          <option value="analytical" selected>Analytical reasoning (multi-step problem solving)</option>
-          <option value="synthesis">Cross-domain synthesis (ambiguous brief, high stakes)</option>
-        </select>
-        <p class="text-xs panel-muted mt-2">Scenario controls task difficulty and collaborative friction captured by the paper's &beta; and &gamma; terms.</p>
+      <div class="panel panel-neutral-soft p-4 space-y-2">
+        <div class="text-xs font-semibold uppercase tracking-wide text-heading">Completion speed</div>
+        <div class="text-2xl font-bold text-heading" id="p24-speed">--</div>
+        <div class="text-xs text-muted" id="p24-speed-label">vs control group</div>
       </div>
-      <div>
-        <label for="p24-model" class="block text-sm font-semibold text-heading">AI partner</label>
-        <select id="p24-model" class="mt-1 w-full px-3 py-2 border border-divider rounded-md text-sm bg-card text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
-          <option value="gpt4o" selected>GPT-4o (frontier, high synergy)</option>
-          <option value="llama">Llama-3.1-8B (mid-capability)</option>
-        </select>
-        <p class="text-xs panel-muted mt-2">Models differ in baseline collaborative boost observed in the study.</p>
+      <div class="panel panel-neutral-soft p-4 space-y-2">
+        <div class="text-xs font-semibold uppercase tracking-wide text-heading">Quiz score</div>
+        <div class="text-2xl font-bold text-heading" id="p24-quiz">--</div>
+        <div class="text-xs text-muted" id="p24-quiz-label">concept mastery</div>
       </div>
-      <div>
-        <label for="p24-ability" class="block text-sm font-semibold text-heading">Solo accuracy percentile</label>
-        <input id="p24-ability" type="range" min="30" max="90" step="1" value="60" class="w-full mt-2">
-        <div class="flex justify-between text-xs panel-muted mt-1">
-          <span>Developing</span>
-          <span><span id="p24-ability-value">60</span>th percentile</span>
-          <span>Expert</span>
+      <div class="panel panel-neutral-soft p-4 space-y-2">
+        <div class="text-xs font-semibold uppercase tracking-wide text-heading">Skill gap</div>
+        <div class="text-2xl font-bold text-heading" id="p24-gap">--</div>
+        <div class="text-xs text-muted" id="p24-gap-label">vs no-AI baseline</div>
+      </div>
+    </div>
+
+    <!-- Team-aggregate metrics (slider-responsive) -->
+    <h4 class="text-sm font-semibold text-heading">Team-wide impact <span class="text-xs font-normal text-muted">(<span id="p24-team-display-header">10</span> developers)</span></h4>
+    <div class="grid md:grid-cols-3 gap-4" id="p24-team-metrics">
+      <div class="panel panel-neutral-soft p-4 space-y-2">
+        <div class="text-xs font-semibold uppercase tracking-wide text-heading">Total onboarding time</div>
+        <div class="text-2xl font-bold text-heading" id="p24-total-time">--</div>
+        <div class="text-xs text-muted" id="p24-total-time-label">across team</div>
+      </div>
+      <div class="panel panel-neutral-soft p-4 space-y-2">
+        <div class="text-xs font-semibold uppercase tracking-wide text-heading">Devs with skill gaps</div>
+        <div class="text-2xl font-bold text-heading" id="p24-devs-gap">--</div>
+        <div class="text-xs text-muted" id="p24-devs-gap-label">estimated</div>
+      </div>
+      <div class="panel panel-neutral-soft p-4 space-y-2">
+        <div class="text-xs font-semibold uppercase tracking-wide text-heading">Time vs no-AI</div>
+        <div class="text-2xl font-bold text-heading" id="p24-time-diff">--</div>
+        <div class="text-xs text-muted" id="p24-time-diff-label">team aggregate</div>
+      </div>
+    </div>
+
+    <!-- Team narrative -->
+    <div class="panel panel-neutral-soft p-4 space-y-2" id="p24-team-narrative">
+      <div id="p24-team-summary" class="text-sm panel-muted space-y-2"></div>
+    </div>
+
+    <!-- Skill breakdown -->
+    <div class="space-y-3">
+      <h4 class="text-sm font-semibold text-heading">Skill retention vs no-AI <span class="text-xs font-normal text-muted">(per developer)</span></h4>
+      <p class="text-xs text-muted">How much of the no-AI group&rsquo;s learning does this pattern preserve? 100% = learned as much as developers without AI. Below 100% = skill gap from cognitive offloading.</p>
+      <div class="space-y-2">
+        <div class="flex items-center justify-between text-xs">
+          <span class="text-heading font-medium">Debugging</span>
+          <span class="text-muted" id="p24-debug-pct">--</span>
+        </div>
+        <div class="h-3 bg-layer rounded-full overflow-hidden relative">
+          <div id="p24-debug-bar" class="h-full rounded-full transition-all duration-300" style="width: 0%;"></div>
         </div>
       </div>
-    </div>
-    <div class="grid md:grid-cols-3 gap-4">
-      <div>
-        <label for="p24-tom-trait" class="block text-sm font-semibold text-heading">Theory of Mind trait</label>
-        <input id="p24-tom-trait" type="range" min="0" max="100" step="5" value="55" class="w-full mt-2">
-        <p class="text-xs panel-muted mt-1">Higher values mean users routinely infer partner beliefs, per the paper's LM-assisted ratings (<span id="p24-tom-trait-value">55</span>/100).</p>
+      <div class="space-y-2">
+        <div class="flex items-center justify-between text-xs">
+          <span class="text-heading font-medium">Conceptual understanding</span>
+          <span class="text-muted" id="p24-concept-pct">--</span>
+        </div>
+        <div class="h-3 bg-layer rounded-full overflow-hidden relative">
+          <div id="p24-concept-bar" class="h-full rounded-full transition-all duration-300" style="width: 0%;"></div>
+        </div>
       </div>
-      <div>
-        <label for="p24-tom-state" class="block text-sm font-semibold text-heading">In-dialogue ToM focus</label>
-        <input id="p24-tom-state" type="range" min="0" max="100" step="5" value="60" class="w-full mt-2">
-        <p class="text-xs panel-muted mt-1">Captures moment-to-moment perspective taking within this session (<span id="p24-tom-state-value">60</span>/100).</p>
+      <div class="space-y-2">
+        <div class="flex items-center justify-between text-xs">
+          <span class="text-heading font-medium">Code reading</span>
+          <span class="text-muted" id="p24-reading-pct">--</span>
+        </div>
+        <div class="h-3 bg-layer rounded-full overflow-hidden relative">
+          <div id="p24-reading-bar" class="h-full rounded-full transition-all duration-300" style="width: 0%;"></div>
+        </div>
       </div>
-      <div>
-        <fieldset class="space-y-2">
-          <legend class="text-sm font-semibold text-heading">Workflow scaffolds</legend>
-          <label class="flex items-center gap-2 text-xs text-body">
-            <input id="p24-scaffold" type="checkbox" class="h-4 w-4 rounded border border-divider bg-card accent-[color:var(--accent-strong)]" checked>
-            Structured prompt checklist
-          </label>
-          <label class="flex items-center gap-2 text-xs text-body">
-            <input id="p24-brief" type="checkbox" class="h-4 w-4 rounded border border-divider bg-card accent-[color:var(--accent-strong)]" checked>
-            Delegation includes context and acceptance tests
-          </label>
-          <label class="flex items-center gap-2 text-xs text-body">
-            <input id="p24-oversight" type="checkbox" class="h-4 w-4 rounded border border-divider bg-card accent-[color:var(--accent-strong)]">
-            Reviewer spot-check already in place
-          </label>
-        </fieldset>
+      <div class="flex items-center gap-4 text-xs text-muted mt-1">
+        <span class="flex items-center gap-1"><span class="inline-block w-3 h-3 rounded-full" style="background:#10b981"></span> &ge;80% retained</span>
+        <span class="flex items-center gap-1"><span class="inline-block w-3 h-3 rounded-full" style="background:#f59e0b"></span> 50&ndash;79%</span>
+        <span class="flex items-center gap-1"><span class="inline-block w-3 h-3 rounded-full" style="background:#ef4444"></span> &lt;50% &mdash; significant loss</span>
       </div>
     </div>
   </div>
 
-  <div class="grid md:grid-cols-3 gap-4">
-    <article class="panel panel-neutral-soft p-4 space-y-2">
-      <h4 class="text-xs font-semibold uppercase tracking-wide text-heading">Solo accuracy</h4>
-      <p id="p24-solo" class="text-2xl font-semibold text-heading">--</p>
-      <p class="text-xs panel-muted">Expected correctness when the human works alone on this task family.</p>
-    </article>
-    <article class="panel panel-neutral-soft p-4 space-y-2">
-      <h4 class="text-xs font-semibold uppercase tracking-wide text-heading">Human + AI accuracy</h4>
-      <p id="p24-team" class="text-2xl font-semibold text-heading">--</p>
-      <p class="text-xs panel-muted">Model-assisted performance after accounting for ability, difficulty, and ToM.</p>
-    </article>
-    <article class="panel panel-neutral-soft p-4 space-y-2">
-      <h4 class="text-xs font-semibold uppercase tracking-wide text-heading">Synergy uplift</h4>
-      <p id="p24-boost" class="text-2xl font-semibold text-heading">--</p>
-      <p class="text-xs panel-muted">Additional percentage points attributable to collaboration, capped by task headroom.</p>
-    </article>
+  <!-- Dynamic insights -->
+  <div class="panel panel-info p-5 space-y-3 min-h-[2.75rem]" id="p24-insights">
+    <h3 class="text-sm font-semibold text-heading">💡 What this means</h3>
+    <div id="p24-insights-list" class="space-y-3 text-sm panel-muted">
+      <p>Adjust the controls above to see personalized insights.</p>
+    </div>
   </div>
 
-  <div class="panel panel-neutral p-4 space-y-4">
-    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-      <div>
-        <h4 class="text-sm font-semibold text-heading">Collaboration diagnostic</h4>
-        <p class="text-xs panel-muted">Maps to the paper's &kappa; estimates and highlights likely failure modes.</p>
-      </div>
-      <div class="text-right">
-        <div id="p24-collab-score" class="text-lg font-semibold text-heading">--</div>
-        <div id="p24-collab-label" class="text-xs panel-muted">--</div>
+  <!-- Interaction pattern comparison -->
+  <div class="panel panel-neutral p-5 space-y-4">
+    <h3 class="text-sm font-semibold text-heading">🎯 All six patterns at a glance</h3>
+    <p class="text-xs panel-muted">
+      The paper&rsquo;s authors coded 25 AI-condition participants&rsquo; screen recordings and identified six behavioral clusters.
+      Each card below shows the quiz score (concept mastery), task completion time, median errors encountered, and the number of participants (n) observed.
+      The active pattern you selected above is highlighted.
+    </p>
+
+    <div class="space-y-1">
+      <p class="text-xs font-semibold text-success">&#x2705; High-learning patterns &mdash; developer stays cognitively engaged</p>
+      <div class="grid md:grid-cols-3 gap-3" id="p24-pattern-grid-high">
+        <!-- Populated by JS -->
       </div>
     </div>
-    <div id="p24-risks" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-3"></div>
+
+    <div class="space-y-1">
+      <p class="text-xs font-semibold text-warning">&#x26A0;&#xFE0F; Low-learning patterns &mdash; cognitive work offloaded to AI</p>
+      <div class="grid md:grid-cols-3 gap-3" id="p24-pattern-grid-low">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+
+    <p class="text-xs text-muted mt-2">
+      <strong>Key takeaway:</strong> The three high-scoring patterns share one trait&mdash;the developer maintained cognitive ownership of the problem-solving process. It&rsquo;s not whether you use AI, but <em>how</em> you engage with its output.
+    </p>
   </div>
 
-  <div class="panel panel-warning p-4 space-y-3">
-    <h4 class="text-sm font-semibold text-heading">What to expect</h4>
-    <div id="p24-summary" class="text-sm panel-muted space-y-2"></div>
-  </div>
-
-  <div class="panel panel-info p-4 space-y-2">
-    <h4 class="text-sm font-semibold text-heading">Recommended next steps</h4>
-    <ul id="p24-actions" class="list-disc ml-5 text-sm panel-muted space-y-1"></ul>
-  </div>
 </section>

@@ -941,25 +941,30 @@
     ]
   },
   "24": {
-    "title": "Quantifying Human-AI Synergy",
+    "title": "How AI Impacts Skill Formation",
     "authors": [
-      "Christoph Riedl",
-      "Ben Weidmann"
+      "Judy Hanwen Shen",
+      "Alex Tamkin"
     ],
-    "year": 2025,
-    "venue": "PsyArXiv (2025-09-22)",
+    "year": 2026,
+    "venue": "arXiv:2601.20245 (2026)",
     "tags": [
-      "collaboration",
-      "evaluation",
-      "theory-of-mind"
+      "skill-formation",
+      "cognitive-offloading",
+      "software-engineering",
+      "field-experiment",
+      "AI-adoption",
+      "debugging",
+      "learning",
+      "productivity"
     ],
-    "summary": "Bayesian IRT separates solo skill, collaborative skill, and AI lift on ChatBench, revealing 29-point boosts from GPT-4o and the outsized role of Theory of Mind.",
+    "summary": "Randomized experiment (n=52) shows AI assistance impairs conceptual understanding, code reading, and debugging by 17 pp without significant speed gains. Identifies six AI interaction patterns — three that preserve learning through cognitive engagement.",
     "dir": "./papers/p24",
-    "interactiveTitle": "Human-AI synergy lab",
+    "interactiveTitle": "AI learning impact simulator",
     "relatedQuestions": [
-      8,
-      13,
-      45
+      50,
+      45,
+      13
     ]
   },
   "23": {

@@ -58,6 +58,7 @@ The loader automatically looks for `overview.html`, `interactive.html`, and `int
       - Nested plain-language explainer card (`panel panel-neutral-soft`)
     - **Executive quick take** (`panel panel-neutral` with 🧭 icon): Icon + uppercase header, 2-3 sentence summary for architects/PMs, 3 bulleted key points
     - **Business relevance** (`panel panel-success` with 💼 icon): 3-4 stakeholder bullets, nested "Derivative example" card (`panel panel-neutral-soft`)
+    - **Infographic** (optional, collapsible `<details>`): If an infographic is available, add a toggle between the header and executive quick take. See "Infographic assets" section below.
     - **Supporting callouts** (optional, `panel panel-info`): 2-column grid unpacking concepts (~80-120 words each)
     - **Key insight / Method / Implication** (`panel panel-neutral`): 3-column grid
     - **Evidence** (`panel panel-neutral` with 🧪 icon): Bulleted list with precise metrics
@@ -101,6 +102,47 @@ When covering business/economics papers (e.g., GenAI productivity studies):
 - **Business relevance bullets:** Segment by stakeholder role (C-suite/Investors, Product/Ops, Data Science, Strategy). Each bullet should speak directly to that role's decision-making needs.
 - **Evidence section:** For field experiments, cite study scale (millions of users, months of data), experimental design (randomization method), and effect sizes with confidence bounds.
 - **Interactive design:** Focus on "what-if" calculators that let users explore ROI under different scenarios (baseline strength, user segments, workflows). Make sliders intuitive—higher values should mean better outcomes unless there's a strong conceptual reason otherwise.
+
+## Infographic assets
+
+Some papers include an infographic (visual summary). When one is available, place the PNG in the paper's asset folder (`papers/pXX/infographic.png`) and add a **collapsible section** in `overview.html` between the paper header and the executive quick take.
+
+### Why collapsible?
+
+Infographics are typically large (2–6 MB). Loading them eagerly would slow down the page. A `<details>` element keeps the page fast by default; the `loading="lazy"` attribute on the `<img>` ensures the browser only downloads the file when the user expands the toggle.
+
+### HTML pattern
+
+```html
+<!-- Infographic (lazy-loaded, collapsed by default) -->
+<details class="panel panel-neutral-soft p-4">
+  <summary class="cursor-pointer text-sm font-semibold text-heading flex items-center gap-2 select-none">
+    <span aria-hidden="true">🖼️</span> View infographic — visual summary of the study
+    <span class="text-xs font-normal text-muted ml-auto">(click to expand)</span>
+  </summary>
+  <figure class="mt-3 space-y-2">
+    <a href="./papers/pXX/infographic.png" target="_blank" rel="noopener" title="Open full-size infographic in new tab">
+      <img src="./papers/pXX/infographic.png"
+           alt="Infographic summarising [Paper Title]: [brief description of content]"
+           loading="lazy" decoding="async"
+           class="w-full rounded-lg border cursor-pointer hover:opacity-90 transition-opacity">
+    </a>
+    <figcaption class="text-xs text-muted text-center">
+      Visual summary of [what the infographic covers]. <span class="italic">Click to open full size.</span>
+    </figcaption>
+  </figure>
+</details>
+```
+
+### Key requirements
+
+- **Placement:** After the paper header, before the executive quick take
+- **Collapsed by default:** Use `<details>` (not `<details open>`)
+- **Lazy loading:** Always include `loading="lazy"` and `decoding="async"`
+- **Clickable image:** Wrap the `<img>` in an `<a target="_blank">` linking to the same image so users can open full size
+- **Accessible alt text:** Describe what the infographic shows, not just "infographic"
+- **File naming:** Always use `infographic.png` in the paper's asset directory
+- **No inline styles:** Use Tailwind utility classes only
 
 ## Interactive design guidelines
 

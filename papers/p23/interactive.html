@@ -1,79 +1,131 @@
-<section class="space-y-6" id="p23-lab">
-  <div class="panel panel-info p-4 space-y-4">
-    <div class="grid md:grid-cols-3 gap-4">
-      <div class="space-y-2">
-        <label for="p23-sector" class="block text-sm font-semibold text-heading">Occupational cluster</label>
-        <select id="p23-sector" class="mt-1 w-full rounded border border-divider bg-card px-3 py-2 text-sm text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
-          <option value="analysis">Financial & analytics (clusters finance, insurance, professional services)</option>
-          <option value="creative">Marketing & communications (publishing, media, advertising)</option>
-          <option value="operations">Operations & compliance (manufacturing, healthcare, public sector)</option>
+<section class="space-y-6" id="p23-explorer">
+  <div class="panel panel-info p-4 space-y-3">
+    <div class="flex items-center justify-between gap-3">
+      <h4 class="text-sm font-semibold text-heading">Cognitive surrender simulator</h4>
+      <span class="chip chip-info text-xs">Explore the data</span>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-3">
+      <div>
+        <label for="p23-condition" class="block text-sm font-medium text-heading">Study condition</label>
+        <select id="p23-condition" class="mt-1 w-full rounded border border-divider bg-card px-3 py-2 text-sm text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
+          <option value="study1">Study 1 — Baseline (AI vs no AI)</option>
+          <option value="study2-control">Study 2 — Control (no timer)</option>
+          <option value="study2-timer">Study 2 — Time pressure (30s)</option>
+          <option value="study3-control">Study 3 — Control (no incentives)</option>
+          <option value="study3-incentives">Study 3 — Incentives + feedback</option>
         </select>
-        <p class="text-xs panel-muted">Clusters aggregate GDPval occupations with similar deliverables and grading styles.</p>
+        <p class="text-xs panel-muted mt-1">Each study tested how context affects cognitive surrender.</p>
       </div>
-      <div class="space-y-2">
-        <label for="p23-model" class="block text-sm font-semibold text-heading">Model under review</label>
-        <select id="p23-model" class="mt-1 w-full rounded border border-divider bg-card px-3 py-2 text-sm text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
-          <option value="gpt5">GPT-5 (high reasoning)</option>
-          <option value="claude">Claude Opus 4.1</option>
-          <option value="grok">Grok 4</option>
+
+      <div>
+        <label for="p23-profile" class="block text-sm font-medium text-heading">Thinking profile</label>
+        <select id="p23-profile" class="mt-1 w-full rounded border border-divider bg-card px-3 py-2 text-sm text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
+          <option value="all">All participants</option>
+          <option value="ai-users">AI-Users (used chat ≥2 times)</option>
+          <option value="independents">Independents (used chat ≤1 time)</option>
         </select>
-        <p class="text-xs panel-muted">Choose the agent you plan to pair with GDPval-style oversight.</p>
+        <p class="text-xs panel-muted mt-1">AI-Users show stronger surrender; Independents mirror brain-only.</p>
       </div>
-      <div class="space-y-2">
-        <label for="p23-effort" class="block text-sm font-semibold text-heading">Reasoning effort</label>
-        <input id="p23-effort" type="range" min="0" max="2" step="1" value="1" class="w-full">
-        <p class="text-xs panel-muted">0 = quick draft, 1 = default, 2 = extended planning (longer traces, self-checks).</p>
+
+      <div>
+        <label for="p23-trust" class="block text-sm font-medium text-heading">Trust in AI level</label>
+        <select id="p23-trust" class="mt-1 w-full rounded border border-divider bg-card px-3 py-2 text-sm text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
+          <option value="average">Average trust</option>
+          <option value="high">High trust (+1 SD)</option>
+          <option value="low">Low trust (−1 SD)</option>
+        </select>
+        <p class="text-xs panel-muted mt-1">Higher trust in AI → more surrender to System 3.</p>
       </div>
     </div>
-    <div class="flex flex-wrap gap-4 text-xs text-body">
-      <label class="inline-flex items-center gap-2">
-        <input id="p23-scaffold" type="checkbox" class="h-4 w-4 rounded border border-divider bg-card accent-[color:var(--accent-strong)]" checked>
-        <span class="text-body">Prompt and layout checklist</span>
-      </label>
-      <label class="inline-flex items-center gap-2">
-        <input id="p23-judge" type="checkbox" class="h-4 w-4 rounded border border-divider bg-card accent-[color:var(--accent-strong)]">
-        <span class="text-body">Best-of-4 with automated judge</span>
-      </label>
-      <label class="inline-flex items-center gap-2">
-        <input id="p23-inspect" type="checkbox" class="h-4 w-4 rounded border border-divider bg-card accent-[color:var(--accent-strong)]" checked>
-        <span class="text-body">Force multi-modal self-inspection</span>
-      </label>
+
+    <div class="panel panel-neutral-soft p-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">About the experiment</p>
+      <p class="panel-muted">Participants solved 7 Cognitive Reflection Test items with or without an AI assistant. The AI was secretly set to give correct answers on some trials and confidently wrong answers on others. Participants could freely use or ignore the AI.</p>
     </div>
   </div>
 
-  <div class="grid md:grid-cols-3 gap-4">
-    <article class="panel panel-neutral-soft p-4 space-y-2">
-      <h4 class="text-xs font-semibold uppercase tracking-wide text-heading">Expected win or tie rate</h4>
-      <p id="p23-winrate" class="text-2xl font-semibold text-heading">--</p>
-      <p class="text-xs panel-muted">Share of GDPval gold tasks where the model matches or beats the human deliverable.</p>
-    </article>
-    <article class="panel panel-neutral-soft p-4 space-y-2">
-      <h4 class="text-xs font-semibold uppercase tracking-wide text-heading">Projected time savings</h4>
-      <p id="p23-time" class="text-lg font-semibold text-heading">--</p>
-      <p class="text-xs panel-muted">Median reduction in expert hours when following the selected workflow.</p>
-    </article>
-    <article class="panel panel-neutral-soft p-4 space-y-2">
-      <h4 class="text-xs font-semibold uppercase tracking-wide text-heading">Oversight load</h4>
-      <p id="p23-oversight" class="text-sm font-semibold text-heading">--</p>
-      <p class="text-xs panel-muted">How much review capacity you should reserve for instruction and formatting fixes.</p>
-    </article>
+  <!-- How to read the results -->
+  <div class="panel panel-neutral-soft p-4 space-y-2 text-xs">
+    <p class="font-semibold text-heading text-sm">How to read this</p>
+    <p class="panel-muted leading-relaxed"><strong>Step 1 — The setup:</strong> Researchers secretly controlled the AI. In some trials it gave the <em>correct</em> answer; in others it confidently gave a <em>wrong</em> answer. Participants didn't know which was which.</p>
+    <p class="panel-muted leading-relaxed"><strong>Step 2 — Human accuracy:</strong> The bars below show how often <em>humans</em> got the right answer in each condition. If people think for themselves, accuracy should stay near Brain-Only even when AI is wrong. If they surrender to AI, accuracy soars with correct AI but <em>collapses</em> with faulty AI.</p>
+    <p class="panel-muted leading-relaxed"><strong>The surrender gap:</strong> We measure surrender by comparing AI-Faulty accuracy against Brain-Only. If people think independently, AI-Faulty should stay near Brain-Only — wrong AI shouldn't hurt you if you ignore it. But if AI-Faulty drops <em>below</em> Brain-Only, it means the wrong AI actively made people worse — they replaced their own thinking with whatever the AI said. That's cognitive surrender.</p>
   </div>
 
-  <div class="panel panel-neutral p-4 space-y-4">
-    <div class="flex items-center justify-between">
-      <h4 class="text-sm font-semibold text-heading">Model posture diagnostic</h4>
-      <span class="text-xs panel-muted">Top reasons graders reject outputs and the recommended mitigations</span>
+  <!-- Follow rate callout -->
+  <div class="panel panel-info p-3">
+    <p class="text-sm text-body"><strong>Key fact:</strong> Of those who consulted the AI when it was wrong, <strong id="p23-follow-headline" class="text-heading text-base font-mono">—</strong> adopted its incorrect answer. Combined with brain-only accuracy already being low, this crushed overall accuracy on faulty-AI trials — see AI-Faulty below.</p>
+  </div>
+
+  <!-- Accuracy comparison -->
+  <div class="panel panel-neutral p-4 space-y-3">
+    <h4 class="text-sm font-semibold text-heading">Human accuracy by trial type</h4>
+
+    <div class="space-y-3">
+      <div class="flex items-center gap-3">
+        <span class="text-xs w-24 text-right font-medium text-heading shrink-0">🧠 Brain-Only</span>
+        <div class="flex-1 rounded-full h-6 overflow-hidden" style="background: var(--bg-subtle, #f1f5f9)">
+          <div id="p23-bar-brain" class="h-full rounded-full transition-all duration-500" style="width: 0%"></div>
+        </div>
+        <span id="p23-acc-brain" class="text-sm font-bold font-mono w-16 text-right shrink-0 text-body">—</span>
+      </div>
+      <p class="text-xs panel-muted ml-28">No AI available — baseline human performance</p>
+
+      <div class="flex items-center gap-3">
+        <span class="text-xs w-24 text-right font-medium text-heading shrink-0">✅ AI-Accurate</span>
+        <div class="flex-1 rounded-full h-6 overflow-hidden" style="background: var(--bg-subtle, #f1f5f9)">
+          <div id="p23-bar-accurate" class="h-full rounded-full transition-all duration-500" style="width: 0%"></div>
+        </div>
+        <span id="p23-acc-accurate" class="text-sm font-bold font-mono w-16 text-right shrink-0 text-body">—</span>
+      </div>
+      <p class="text-xs panel-muted ml-28">AI secretly gave the right answer — did humans benefit?</p>
+
+      <div class="flex items-center gap-3">
+        <span class="text-xs w-24 text-right font-medium text-heading shrink-0">❌ AI-Faulty</span>
+        <div class="flex-1 rounded-full h-6 overflow-hidden" style="background: var(--bg-subtle, #f1f5f9)">
+          <div id="p23-bar-faulty" class="h-full rounded-full transition-all duration-500" style="width: 0%"></div>
+        </div>
+        <span id="p23-acc-faulty" class="text-sm font-bold font-mono w-16 text-right shrink-0 text-body">—</span>
+      </div>
+      <p class="text-xs panel-muted ml-28">AI confidently gave a wrong answer — did humans catch it?</p>
     </div>
-    <div id="p23-risks" class="grid sm:grid-cols-2 gap-3"></div>
+
+    <div class="panel panel-neutral-soft p-3 flex items-center gap-3">
+      <span id="p23-effect-chip" class="chip chip-neutral text-xs shrink-0">—</span>
+      <p id="p23-effect-explain" class="text-xs panel-muted">—</p>
+    </div>
   </div>
 
-  <div class="panel panel-warning p-4 space-y-3">
-    <h4 class="text-sm font-semibold text-heading">Summary</h4>
-    <div id="p23-summary" class="text-sm panel-muted space-y-2"></div>
+  <!-- Behavioral metrics -->
+  <div class="panel panel-neutral-soft p-4 space-y-2 text-xs">
+    <p class="font-semibold text-heading text-sm">Behavioral evidence</p>
+    <p class="panel-muted leading-relaxed">The accuracy bars above show the <em>outcome</em> of cognitive surrender. These three metrics below show the <em>mechanism</em> — how and why it happens. Note: when AI-Accurate is high, that’s not necessarily bad — people <em>should</em> benefit from correct advice. The problem is revealed by the other two columns: do they also follow wrong advice?</p>
+  </div>
+  <div class="grid md:grid-cols-3 gap-3">
+    <div class="panel panel-neutral p-3 space-y-1">
+      <p class="text-xs font-medium text-heading">Chat usage rate</p>
+      <p id="p23-chat-use" class="text-xl font-bold font-mono text-body">—</p>
+      <p class="text-xs panel-muted">% of trials where AI was consulted</p>
+      <p class="text-xs panel-muted mt-1 leading-relaxed border-t border-divider pt-1">How often did people ask the AI for help? Higher = more reliance on System 3 instead of their own reasoning.</p>
+    </div>
+    <div class="panel panel-neutral p-3 space-y-1">
+      <p class="text-xs font-medium text-heading">Follow rate (faulty AI)</p>
+      <p id="p23-follow-faulty" class="text-xl font-bold font-mono text-body">—</p>
+      <p class="text-xs panel-muted">% who adopted wrong AI answer</p>
+      <p class="text-xs panel-muted mt-1 leading-relaxed border-t border-divider pt-1">Of those who consulted the AI when it was wrong, how many switched to the AI's incorrect answer? Compare this to AI-Accurate above: if people follow both correct <em>and</em> wrong AI at similar rates, they’re following blindly rather than evaluating.</p>
+    </div>
+    <div class="panel panel-neutral p-3 space-y-1">
+      <p class="text-xs font-medium text-heading">Confidence boost</p>
+      <p id="p23-confidence" class="text-xl font-bold font-mono text-body">—</p>
+      <p class="text-xs panel-muted">AI-assisted vs brain-only confidence</p>
+      <p class="text-xs panel-muted mt-1 leading-relaxed border-t border-divider pt-1">How much more confident did people feel with AI? A positive boost means AI made them more certain — even when adopting wrong answers.</p>
+    </div>
   </div>
 
-  <div class="panel panel-info p-4 space-y-2">
-    <h4 class="text-sm font-semibold text-heading">Recommended actions</h4>
-    <ul id="p23-actions" class="list-disc ml-5 text-sm panel-muted space-y-1"></ul>
+  <!-- Takeaway -->
+  <div class="panel panel-warning p-4 space-y-2">
+    <h4 class="text-sm font-semibold text-heading">Key takeaway</h4>
+    <p id="p23-takeaway" class="text-sm text-body">Select a condition above to explore the cognitive surrender effect across different experimental contexts.</p>
   </div>
 </section>

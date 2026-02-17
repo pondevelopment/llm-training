@@ -1,198 +1,114 @@
 <section class="space-y-5">
+  <!-- Paper header -->
   <section class="panel panel-info p-4 space-y-4">
     <div class="flex items-center justify-between gap-4">
       <div class="flex-1 min-w-0">
-        <h2 class="text-xl font-semibold text-heading">📊 GDPval: Evaluating AI Model Performance on Real-World Economically Valuable Tasks</h2>
-        <p class="text-sm panel-muted">Tejal Patwardhan, Rachel Dias, Elizabeth Proehl, Grace Kim, Michele Wang, Olivia Watkins, et al. • OpenAI Research (2025)</p>
+        <h2 class="text-xl font-semibold text-heading">Thinking—Fast, Slow, and Artificial: How AI is Reshaping Human Reasoning and the Rise of Cognitive Surrender</h2>
+        <p class="text-sm panel-muted">Steven D. Shaw, Gideon Nave • The Wharton School, University of Pennsylvania (2026)</p>
       </div>
-      <a href="https://openai.com/research/gdpval" target="_blank" rel="noopener" class="btn-soft text-xs font-semibold flex-shrink-0" data-accent="foundations">
+      <a href="https://doi.org/10.2139/ssrn.6097646" target="_blank" rel="noopener" class="btn-soft text-xs font-semibold flex-shrink-0" data-accent="safety">
         <span>View paper</span>
         <span aria-hidden="true">↗</span>
       </a>
     </div>
     <p class="text-sm leading-relaxed panel-muted">
-      GDPval assembles 1,320 deliverables drawn from 44 occupations that together represent the majority of global GDP, then pairs expert baselines with
-      frontier model outputs graded blindly by practitioners. The benchmark tracks win-rate head-to-heads rather than static scores, surfacing whether
-      AI assistance is starting to match specialists on consequential work.
-    </p>
-    <p class="text-sm leading-relaxed panel-muted">
-      The results show GPT-5 and Claude Opus 4.1 already tying or beating experts on roughly half of the gold-standard tasks, with reasoning effort,
-      scaffolding, and human review lifting outcomes without changing the underlying model. GDPval therefore acts as an operational early-warning signal
-      for when knowledge-work automation becomes economically material.
+      This paper introduces <strong>Tri-System Theory</strong>, extending <a href="https://en.wikipedia.org/wiki/Dual_process_theory" target="_blank" rel="noopener" class="text-accent-strong underline">Kahneman's dual-process model</a> of cognition by adding
+      <strong>System 3: artificial cognition</strong>—external, automated, data-driven reasoning performed by AI. Across three
+      preregistered experiments (N&nbsp;=&nbsp;1,372; 9,593 trials), the authors demonstrate <strong>cognitive surrender</strong>:
+      people uncritically adopt AI-generated answers, boosting accuracy when AI is correct but tanking it when AI errs.
     </p>
     <div class="panel panel-neutral-soft p-3 space-y-1 text-xs">
       <p class="font-semibold text-heading">Plain-language explainer</p>
-      <p class="panel-muted">Think of GDPval as a giant portfolio review: real consultants, designers, analysts, and lawyers submit the work they would hand clients, and models are given the same brief. Graders compare the two blindly so teams can see when AI assistants start delivering human-grade results and what oversight still matters.</p>
+      <p class="panel-muted">We all know about "thinking fast" (gut instinct) and "thinking slow" (careful analysis). This paper argues there's now a third way: <strong>thinking artificial</strong>—letting an AI answer for you. The problem? People often accept AI answers without checking, even when those answers are wrong. The researchers call this "cognitive surrender," and it happens even under time pressure or when money is on the line.</p>
     </div>
   </section>
 
+  <!-- Executive quick take -->
   <section class="panel panel-neutral p-5 space-y-3">
     <header class="flex items-center gap-2">
-      <span aria-hidden="true" class="text-lg">📋</span>
+      <span aria-hidden="true" class="text-lg">🧭</span>
       <h3 class="text-sm font-semibold tracking-wide uppercase text-heading">Executive quick take</h3>
     </header>
     <p class="text-sm leading-relaxed text-body">
-      GDPval stress-tests AI models on 1,320 real deliverables drawn from 44 high-value occupations. Frontier models now win or
-      tie against experts on roughly half of the gold subset, especially when workflows layer in extra reasoning, prompt scaffolding,
-      and human review. Treat GDPval as an early warning system for when knowledge-work automation becomes economically material.
+      When participants had access to an AI assistant, they consulted it on over 50% of reasoning trials and followed its advice
+      ~80–93% of the time—even when the AI was deliberately wrong. This created a stark accuracy swing:
+      <strong>+25 percentage points</strong> when AI was accurate, <strong>−15 pp</strong> when it was faulty (Cohen's h&nbsp;=&nbsp;0.81).
+      Confidence rose regardless of AI correctness, creating a dangerous illusion of competence.
     </p>
-    <ul class="list-disc ml-5 text-sm panel-muted space-y-1">
-      <li>Benchmark tracks win-rates rather than static scores, so it keeps signaling even as models improve.</li>
-      <li>Seven-hour average task durations mean the evaluation reflects actual delivery expectations, not toy tests.</li>
-      <li>Human-in-the-loop workflows already beat unaided experts on speed and cost for many scenarios.</li>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>Cognitive surrender is robust:</strong> across all three studies, the AI-Accurate vs AI-Faulty accuracy gap remained large (OR&nbsp;=&nbsp;16.07 overall), persisting under time pressure and even with monetary incentives plus item-level feedback.</li>
+      <li><strong>Individual differences matter:</strong> higher trust in AI predicted greater surrender; higher fluid IQ and need for cognition buffered against it.</li>
+      <li><strong>Feedback helps, but doesn't cure:</strong> incentives + feedback more than doubled override rates for faulty AI (20%&nbsp;→&nbsp;42%), but the accuracy gap between AI-Accurate and AI-Faulty trials still spanned ~44 percentage points.</li>
     </ul>
   </section>
 
+  <!-- Business relevance -->
   <section class="panel panel-success p-5 space-y-3">
-    <h3 class="text-sm font-semibold text-heading">Business relevance</h3>
-    <p class="text-sm text-body leading-relaxed">
-      Use GDPval to anchor your AI investment roadmap: it illuminates which occupations face near-term pressure and how much
-      oversight keeps deliverables trustworthy.
-    </p>
-    <ul class="list-disc ml-5 text-sm text-body space-y-1">
-      <li><strong>Strategy leads:</strong> Plan reskilling budgets around the 9 GDP-dominant sectors represented in the benchmark.</li>
-      <li><strong>Ops and PMO:</strong> Instrument pilot programs with GDPval-like pairwise grading to monitor automation ROI.</li>
-      <li><strong>Risk teams:</strong> Map observed failure modes (instruction gaps, formatting slips) to review checklists and SLAs.</li>
-      <li><strong>Engineering:</strong> Prioritize scaffolding features (multi-modal inspection, best-of-N sampling) proven to lift win rates.</li>
+    <h3 class="text-sm font-semibold text-heading">💼 Business relevance</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+      <li><strong>AI-assisted workflow designers:</strong> don't assume "human-in-the-loop" means humans are actually checking. People tend to accept AI outputs at face value—design friction points (verification steps, confidence indicators) to trigger System 2 deliberation.</li>
+      <li><strong>Risk &amp; compliance teams:</strong> cognitive surrender means errors correlate with AI errors, not random noise. If your AI is wrong in a systematic direction (e.g., always approving edge cases), so will the humans using it.</li>
+      <li><strong>Training &amp; onboarding:</strong> higher trust in AI predicts more surrender. New hires who "trust the tool" may be most vulnerable. Calibration training and structured override protocols can help.</li>
     </ul>
-    <div class="panel panel-neutral-soft p-4 space-y-2 text-xs">
-      <p class="font-semibold text-heading">Derivative example: GDPval control room</p>
-      <p class="panel-muted">
-        A professional services firm logs every AI-assisted client deliverable through a GDPval-style rubric. Annotators track model vs. human wins,
-        classify failure modes, and publish cost/time deltas to executives each quarter. The data drives targeted training, tool enablement, and
-        pricing updates.
-      </p>
+    <div class="panel panel-neutral-soft p-3 mt-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Derivative example</p>
+      <p class="panel-muted"><strong>Customer support triage:</strong> Your team uses an AI assistant to classify incoming tickets as urgent/normal/low. The AI is right 85% of the time. This paper predicts agents will follow the AI classification on ~80–90% of tickets without independent verification. When the AI misclassifies an urgent issue as low, agents will typically let it through. Practical response: add a "confidence flag" that forces agents to review tickets where AI confidence is below a threshold, and provide per-shift accuracy feedback so agents learn when the AI tends to err.</p>
     </div>
   </section>
 
-  <section class="grid md:grid-cols-2 gap-4">
-    <article class="panel panel-neutral p-5 space-y-3">
-      <h3 class="text-sm font-semibold text-heading">How the grading works</h3>
-      <ul class="list-disc ml-5 text-sm panel-muted space-y-1">
-        <li>Two domain experts grade each deliverable blindly against the human reference using a three-part rubric covering competence, instruction fidelity, and presentation polish.</li>
-        <li>A third adjudicator breaks ties or resolves <em>mixed</em> verdicts, logging rationales so teams can audit where models diverged from the brief.</li>
-        <li>All graders work from standardized scoring guides and shared attachment checklists to balance nuance with comparability.</li>
-      </ul>
-      <div class="panel panel-neutral-soft p-3 space-y-1 text-xs">
-        <p class="font-semibold text-heading">Rubric snapshot</p>
-        <p class="panel-muted">Competence gauges factual accuracy and judgment, fidelity enforces constraints, and presentation verifies deliverable polish. Transcripts and attachments are stored so engineering and risk teams can replay edge cases.</p>
-      </div>
-    </article>
-    <article class="panel panel-neutral p-5 space-y-3">
-      <h3 class="text-sm font-semibold text-heading">Dataset tiers &amp; tooling</h3>
-      <ul class="list-disc ml-5 text-sm panel-muted space-y-1">
-        <li><strong>Gold set:</strong> 220 attachment-rich tasks with scoring keys that power the published head-to-head win rates.</li>
-        <li><strong>Extended pool:</strong> 1,100 additional briefs covering the same 44 occupations for internal pilots and drift tracking.</li>
-        <li><strong>Automation toolkit:</strong> <code>evals.openai.com</code> grader templates, annotated rubrics, and sanitized assets for turnkey reruns.</li>
-      </ul>
-      <div class="panel panel-neutral-soft p-3 space-y-1 text-xs">
-        <p class="font-semibold text-heading">Usage tip</p>
-        <p class="panel-muted">Baseline on the gold set, then expand to the extended pool to monitor new launches or model refreshes.</p>
-      </div>
-    </article>
-  </section>
+  <!-- Supporting callouts -->
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">System 1 → 2 → 3</h3>
+      <p class="text-xs panel-muted">System 1 is fast/intuitive (gut feeling). System 2 is slow/deliberative (careful analysis). System 3 is external/artificial (AI-generated). The paper shows System 3 can pre-empt System 1 and short-circuit System 2, becoming the default cognitive path.</p>
+    </div>
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Surrender vs offloading</h3>
+      <p class="text-xs panel-muted">Cognitive offloading is strategic—you use a calculator knowing it's a tool. Cognitive surrender is uncritical—you accept the AI's answer as your own without verification. 73% of faulty-AI engagements showed surrender, only 20% showed genuine offloading.</p>
+    </div>
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Who surrenders most?</h3>
+      <p class="text-xs panel-muted">Higher Trust in AI → more surrender (OR&nbsp;=&nbsp;4.36). Higher Need for Cognition → more resistance (OR&nbsp;=&nbsp;0.46). Higher Fluid IQ → more resistance (OR&nbsp;=&nbsp;0.37). Importantly, fluid IQ didn't differ between AI-Users and Independents—it's about disposition, not ability.</p>
+    </div>
+  </div>
 
-  <section class="grid md:grid-cols-2 gap-4">
-    <article class="panel panel-neutral p-4 space-y-2">
-      <h4 class="text-sm font-semibold text-heading">How GDPval is built</h4>
-      <ul class="list-disc ml-4 text-sm panel-muted space-y-1">
-        <li>Tasks sourced from industry experts (average tenure 14 years) across 44 digital-first occupations.</li>
-        <li>Covers top 9 GDP sectors, translating O*NET work activities into structured briefs with reference files.</li>
-        <li>Gold subset ships 220 open tasks plus an automated grader at <code>evals.openai.com</code> to enable reproducible comparisons.</li>
-      </ul>
-    </article>
-    <article class="panel panel-neutral p-4 space-y-2">
-      <h4 class="text-sm font-semibold text-heading">What the benchmark reveals</h4>
-      <ul class="list-disc ml-4 text-sm panel-muted space-y-1">
-        <li>Claude Opus 4.1 leads on aesthetics-driven formats; GPT-5 wins on accuracy and instruction fidelity.</li>
-        <li>Reasoning effort and prompt scaffolding shift win rates by up to 5 percentage points with no model changes.</li>
-        <li>AI assistance paired with expert oversight already reduces completion time and labor spend in simulations.</li>
-      </ul>
-    </article>
-  </section>
+  <!-- Key insight / Method / Implication trio -->
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Key insight</h3>
+      <p class="text-xs panel-muted">Decision-making accuracy becomes a function of AI accuracy: people don't just use AI—they <em>surrender</em> judgment to it. When AI is correct, collective performance rises dramatically. When it errs, performance drops below unaided baselines.</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Method</h3>
+      <p class="text-xs panel-muted">Three preregistered experiments using a modified Cognitive Reflection Test (CRT-7). AI accuracy was manipulated via hidden seed prompts so the assistant returned either the correct answer or a confidently-presented wrong answer. Participants could freely use or ignore the AI.</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Implication</h3>
+      <p class="text-xs panel-muted">Time pressure worsens surrender (System 2 suppressed). Incentives + feedback partially mitigate it (System 2 reactivated). Neither eliminates the pattern. The dominant force is dose of System 3 usage, not situational context—cognitive surrender is a structural feature of the triadic ecology.</p>
+    </div>
+  </div>
 
-  <section class="grid md:grid-cols-3 gap-4">
-    <article class="panel panel-neutral p-4 space-y-2">
-      <h5 class="text-sm font-semibold text-heading">Key insight</h5>
-      <p class="text-sm panel-muted">Win-rate tracking against expert baselines shows frontier models closing the gap on economically valuable work, especially when overseen humans curate, verify, or polish outputs.</p>
-    </article>
-    <article class="panel panel-neutral p-4 space-y-2">
-      <h5 class="text-sm font-semibold text-heading">Method</h5>
-      <p class="text-sm panel-muted">Blind pairwise grading by practicing professionals with multi-modal deliverables, spanning documents, decks, spreadsheets, media assets, and CAD files, each tied to time and cost metadata.</p>
-    </article>
-    <article class="panel panel-neutral p-4 space-y-2">
-      <h5 class="text-sm font-semibold text-heading">Implication</h5>
-      <p class="text-sm panel-muted">Evaluations like GDPval become leading indicators for workforce planning, automation budgets, and governance guardrails long before aggregate metrics reflect the shift.</p>
-    </article>
-  </section>
-
-  <section class="grid md:grid-cols-2 gap-4">
-    <article class="panel panel-info p-5 space-y-3">
-      <h3 class="text-sm font-semibold text-heading">Model performance snapshot</h3>
-      <ul class="list-disc ml-5 text-sm panel-muted space-y-1">
-        <li><strong>GPT-5:</strong> 52% win-or-tie rate overall, cresting at 58% on accuracy-heavy occupations with extended reasoning enabled.</li>
-        <li><strong>Claude Opus 4.1:</strong> 47.6% overall, leading the field on aesthetics and long-form design briefs.</li>
-        <li><strong>GPT-4o:</strong> 42% overall, with confidence intervals overlapping GPT-5 on customer support and documentation tasks.</li>
-        <li><strong>Llama 3.1 70B:</strong> 35% overall, improving to 39% when paired with multi-step checklists but still trailing closed models.</li>
-      </ul>
-      <div class="panel panel-neutral-soft p-3 space-y-1 text-xs">
-        <p class="font-semibold text-heading">Interpreting win rates</p>
-        <p class="panel-muted">Cohen's kappa stays above 0.72 across graders, so differences ≥3 percentage points are operationally meaningful.</p>
-      </div>
-    </article>
-    <article class="panel panel-success p-5 space-y-3">
-      <h3 class="text-sm font-semibold text-heading">Workflow levers that move the benchmark</h3>
-      <ul class="list-disc ml-5 text-sm text-body space-y-1">
-        <li><strong>Extended reasoning traces:</strong> Adds ~5 percentage points to GPT-5 win rates by forcing plan-and-check loops on multi-step deliverables.</li>
-        <li><strong>Prompt scaffolding &amp; layout checklists:</strong> Cuts instruction misses by 15–18 percentage points, especially on regulatory and finance briefs.</li>
-        <li><strong>Best-of-4 with automated judge:</strong> Lifts accuracy-focused occupations by ~6 points while holding review cost flat.</li>
-        <li><strong>Self-inspection passes:</strong> Reduces formatting-related rejections by ~20 percentage points by ensuring agents open and scrub attachments before handoff.</li>
-      </ul>
-    </article>
-  </section>
-
-  <section class="grid md:grid-cols-2 gap-4">
-    <article class="panel panel-warning p-5 space-y-3">
-      <h3 class="text-sm font-semibold text-heading">Common rejection reasons</h3>
-      <ul class="list-disc ml-5 text-sm text-body space-y-1">
-        <li><strong>Instruction gaps (~38%):</strong> Missing required sections, outdated data, or skipped attachments.</li>
-        <li><strong>Formatting &amp; layout (~24%):</strong> Broken slide masters, spreadsheet formulas, or inaccessible PDFs.</li>
-        <li><strong>Unsupported claims (~21%):</strong> Invented metrics or currency conversions without cited sources.</li>
-        <li><strong>Tooling failures (~17%):</strong> Upload errors, unexecuted code blocks, or ignored multi-modal inputs.</li>
-      </ul>
-      <div class="panel panel-neutral-soft p-3 space-y-1 text-xs">
-        <p class="font-semibold text-heading">Mitigation cue</p>
-        <p class="panel-muted">Pair scaffolded prompts with self-inspection to eliminate roughly half the formatting and tooling misses.</p>
-      </div>
-    </article>
-    <article class="panel panel-neutral p-5 space-y-3">
-      <h3 class="text-sm font-semibold text-heading">Governance checkpoints</h3>
-      <ul class="list-disc ml-5 text-sm panel-muted space-y-1">
-        <li>Report GDPval win-rate trends quarterly alongside reviewer hours to signal when automation budgets or hiring plans should shift.</li>
-        <li>Retain grader transcripts and attachment checklists for audit trails; the paper recommends a 90-day retention minimum.</li>
-        <li>Gate production launches on discipline-specific acceptance thresholds (e.g., ≥55% win rate plus &lt;30% full-review demand).</li>
-        <li>Escalate any task families with sustained hallucination spikes into human-only queues until mitigations land.</li>
-      </ul>
-    </article>
-  </section>
-
-  <section class="panel panel-neutral-soft p-5 space-y-2">
-    <h4 class="text-sm font-semibold text-heading">📊 Evidence</h4>
-    <ul class="list-disc ml-5 text-sm panel-muted space-y-1">
-      <li>Claude Opus 4.1 wins or ties 47.6% of gold tasks; GPT-5 leads on accuracy-focused occupations.</li>
-      <li>OpenAI model performance rises roughly linearly over time (GPT-4o to GPT-5) when re-run on GDPval.</li>
-      <li>Prompt and scaffolding tweaks add ~5 percentage points to GPT-5 win rates while eliminating PDF artifacts.</li>
-      <li>Simulated workflows show expert plus model loops beating unaided humans on time and cost in evaluated scenarios.</li>
+  <!-- Evidence -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🧪 Evidence</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>Study 1 (N=359):</strong> Brain-Only accuracy 45.8%; AI-Accurate 71.0% (+25.2 pp); AI-Faulty 31.5% (−14.3 pp). Participants followed faulty AI on 79.8% of chat-engaged trials. Confidence rose 11.7 pp with AI access despite ~50% faulty trials.</li>
+      <li><strong>Study 2 (N=485, time pressure):</strong> Time pressure reduced baseline accuracy (46.9%→32.6%). Among AI-Users, System 3 buffered this: AI-Accurate under time pressure still reached 71.3%. AI-Faulty dropped to 12.1%. Cognitive surrender effect remained large (OR&nbsp;=&nbsp;40.9 within AI-Users).</li>
+      <li><strong>Study 3 (N=450, incentives+feedback):</strong> Override rates for faulty AI more than doubled (20%→42.3%). AI-Faulty accuracy improved (30.7%→45.5%). But the AI-Accurate vs AI-Faulty gap persisted (~44 pp), confirming surrender is malleable but not eliminable.</li>
+      <li><strong>Trial-level synthesis (9,593 trials):</strong> Overall cognitive surrender OR&nbsp;=&nbsp;16.07. Per-study Cohen's h: Study 1&nbsp;=&nbsp;0.83, Study 2&nbsp;=&nbsp;0.86, Study 3&nbsp;=&nbsp;0.78. Trial-weighted h&nbsp;=&nbsp;0.82—a large and consistent effect.</li>
     </ul>
   </section>
 
-  <section class="panel panel-warning p-5 space-y-2">
-    <h4 class="text-sm font-semibold text-heading">🗺️ Forward-looking roadmap</h4>
-    <ul class="list-disc ml-5 text-sm text-body space-y-1">
-      <li>Adopt GDPval-style pairwise grading for each new AI deployment and publish quarterly trendlines.</li>
-      <li>Invest in multi-modal toolchains so agents can inspect spreadsheets, slides, and media before handoff.</li>
-      <li>Track reasoning-effort settings and scaffolding recipes as first-class configuration assets.</li>
-      <li>Expand coverage to interactive and collaborative tasks (meetings, codebases) to monitor emerging risks.</li>
+  <!-- Forward-looking roadmap -->
+  <section class="panel panel-warning p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🔭 For your roadmap</h3>
+    <p class="text-sm text-body">Design AI-assisted workflows that preserve human agency and critical thinking, rather than assuming "human-in-the-loop" automatically provides oversight.</p>
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+      <li>Add <strong>friction-by-design</strong>: confidence indicators, uncertainty flags, or mandatory verification steps on AI outputs—especially in high-stakes domains (medical, legal, financial).</li>
+      <li>Implement <strong>item-level feedback loops</strong>: the paper shows timely accuracy feedback more than doubles override rates for faulty AI advice.</li>
+      <li>Measure <strong>cognitive surrender risk</strong> in your user base: survey trust-in-AI and need-for-cognition to identify populations most prone to uncritical adoption.</li>
+      <li>Distinguish <strong>systematic vs random AI errors</strong>: cognitive surrender means human-error patterns mirror AI-error patterns. Audit where your AI fails directionally, not just on average accuracy.</li>
+      <li>Consider <strong>adaptive AI interfaces</strong> that adjust cognitive demands based on context—throttling AI confidence displays, requiring justifications before acceptance, or dynamically routing uncertain cases to human-only review.</li>
     </ul>
   </section>
 </section>

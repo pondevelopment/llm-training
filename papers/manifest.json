@@ -968,42 +968,30 @@
     ]
   },
   "23": {
-    "title": "GDPval: Evaluating AI Model Performance on Real-World Economically Valuable Tasks",
+    "title": "Thinking\u2014Fast, Slow, and Artificial: How AI is Reshaping Human Reasoning and the Rise of Cognitive Surrender",
     "authors": [
-      "Tejal Patwardhan",
-      "Rachel Dias",
-      "Elizabeth Proehl",
-      "Grace Kim",
-      "Michele Wang",
-      "Olivia Watkins",
-      "Simon Posada Fishman",
-      "Marwan Aljubeh",
-      "Phoebe Thacker",
-      "Laurance Fauconnet",
-      "Natalie S. Kim",
-      "Patrick Chao",
-      "Samuel Miserendino",
-      "Gildas Chabot",
-      "David Li",
-      "Michael Sharman",
-      "Alexandra Barr",
-      "Amelia Glaese",
-      "Jerry Tworek"
+      "Steven D. Shaw",
+      "Gideon Nave"
     ],
-    "year": 2025,
-    "venue": "OpenAI Research (2025)",
+    "year": 2026,
+    "venue": "The Wharton School, University of Pennsylvania (2026)",
     "tags": [
-      "evaluation",
-      "economics",
-      "benchmark"
+      "cognitive-science",
+      "human-ai-interaction",
+      "decision-making",
+      "cognitive-bias",
+      "trust"
     ],
-    "summary": "Benchmarks frontier models on realistic GDP-weighted tasks, showing near-parity with experts and clear gains from reasoning effort plus scaffolding.",
+    "summary": "Introduces Tri-System Theory, extending dual-process cognition with System 3 (artificial cognition). Three experiments (N=1,372) demonstrate \u2018cognitive surrender\u2019\u2014uncritical AI adoption\u2014that persists under time pressure and is only partially reduced by incentives and feedback.",
     "dir": "./papers/p23",
-    "interactiveTitle": "GDPval readiness lab",
+    "interactive": {
+      "title": "Cognitive surrender simulator"
+    },
     "relatedQuestions": [
+      8,
+      38,
       45,
-      50,
-      56
+      50
     ]
   },
   "22": {

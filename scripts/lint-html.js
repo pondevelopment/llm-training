@@ -45,7 +45,8 @@ function formatReport(report) {
     for (const message of result.messages) {
       const line = message.line ?? 0;
       const column = message.column ?? 0;
-      lines.push(`${file}:${line}:${column}  ${message.ruleId}  ${message.message}`);
+      const sev = message.severity >= 2 ? "error" : "warn";
+      lines.push(`${file}:${line}:${column}  [${sev}]  ${message.ruleId}  ${message.message}`);
     }
   }
   return lines.join("\n");
@@ -69,13 +70,20 @@ function formatReport(report) {
       : { valid: true, results: [] };
 
     const combined = {
-      valid: baseReport.valid && fragmentReport.valid,
       results: [...baseReport.results, ...fragmentReport.results]
     };
 
-    if (!combined.valid) {
+    const hasMessages = combined.results.some(r => r.messages.length > 0);
+    const hasErrors = combined.results.some(r =>
+      r.messages.some(m => m.severity >= 2)
+    );
+
+    if (hasMessages) {
       const output = formatReport(combined);
       process.stderr.write(`${output}\n`);
+    }
+
+    if (hasErrors) {
       process.exitCode = 1;
     }
   } catch (error) {

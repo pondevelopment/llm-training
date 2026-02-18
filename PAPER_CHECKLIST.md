@@ -20,7 +20,7 @@
   - [ ] Open Graph tags: `og:type`, `og:title`, `og:description`, `og:url`, `og:image`, `og:site_name`
   - [ ] Twitter Card tags: `twitter:card` (summary_large_image), `twitter:title`, `twitter:description`, `twitter:image`
   - [ ] Use full GitHub Pages URL: `https://pondevelopment.github.io/llm-training/`
-  - [ ] Use `llm_training.png` for `og:image` and `twitter:image`
+  - [ ] If `papers/pXX/infographic.png` exists, use it for `og:image` and `twitter:image`; otherwise use `og-image.png`
   - [ ] Page content highlights key statistics upfront with specific CTA
   - [ ] Link points to `../index.html#paper-XX`
 - [ ] Confirm `relatedQuestions` ids exist in `questions/manifest.json` and `availableQuestions`

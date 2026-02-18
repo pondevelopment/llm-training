@@ -28,7 +28,7 @@ Update these fields to match the paper/question:
 Rules:
 
 - Use absolute GitHub Pages URLs (e.g., `https://pondevelopment.github.io/llm-training/...`).
-- Use the site-wide preview image (`https://pondevelopment.github.io/llm-training/og-image.png`) unless the repo templates change.
+- **Image selection:** If the paper has an infographic (`papers/pXX/infographic.png`), use it as `og:image` and `twitter:image`: `https://pondevelopment.github.io/llm-training/papers/pXX/infographic.png`. Otherwise, use the site-wide preview image: `https://pondevelopment.github.io/llm-training/og-image.png`.
 - Descriptions should be 1–3 concise sentences and reflect what users learn.
 
 ## CTA / deep link

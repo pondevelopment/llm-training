@@ -243,6 +243,7 @@ All share pages follow a **simple, consistent template** with inline CSS for max
   <meta property="og:type" content="website">
   <meta property="og:title" content="{{TITLE}}">
   <meta property="og:description" content="{{DESC}}">
+  <!-- If papers/pXX/infographic.png exists, use it; otherwise use og-image.png -->
   <meta property="og:image" content="https://pondevelopment.github.io/llm-training/og-image.png">
   <meta property="og:site_name" content="LLM Learning Hub">
   <meta property="og:url" content="https://pondevelopment.github.io/llm-training/p/{{NUM}}.html">
@@ -360,10 +361,10 @@ All share pages follow a **simple, consistent template** with inline CSS for max
 
 ### Image assets
 
-- **Use `og-image.png`:** Site-wide standard branded image for all social previews
+- **Infographic override:** If the paper has `papers/pXX/infographic.png`, use it as `og:image` and `twitter:image` (`https://pondevelopment.github.io/llm-training/papers/pXX/infographic.png`). This gives the share preview a paper-specific visual summary instead of the generic branding.
+- **Fallback:** Papers without an infographic use the site-wide `og-image.png`.
 - **Image specs:** 1200×630px recommended, <600KB for optimal cross-platform support
-- **Absolute URLs required:** Always use full GitHub Pages URL: `https://pondevelopment.github.io/llm-training/og-image.png`
-- **Consistency:** Custom paper-specific images are not currently used to maintain unified brand appearance
+- **Absolute URLs required:** Always use full GitHub Pages URL
 
 ### Generation automation
 
@@ -376,7 +377,7 @@ python3 scripts/fix-share-pages.py
 This ensures:
 
 - Consistent structure across all papers
-- Correct OG image URLs (`og-image.png`)
+- Correct OG image URLs (infographic when available, otherwise `og-image.png`)
 - Proper back links (`../index.html#paper-N`)
 - Footer with build info
 - Unified inline CSS styling

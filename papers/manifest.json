@@ -983,6 +983,7 @@
       "trust"
     ],
     "summary": "Introduces Tri-System Theory, extending dual-process cognition with System 3 (artificial cognition). Three experiments (N=1,372) demonstrate \u2018cognitive surrender\u2019\u2014uncritical AI adoption\u2014that persists under time pressure and is only partially reduced by incentives and feedback.",
+    "interactiveTitle": "Cognitive surrender simulator",
     "dir": "./papers/p23",
     "interactive": {
       "title": "Cognitive surrender simulator"

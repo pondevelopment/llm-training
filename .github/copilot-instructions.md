@@ -134,6 +134,7 @@ MathJax:
 
 ## Verification (run before finishing)
 
+- **Lint (mandatory):** run `npm run lint` and confirm **zero errors AND zero warnings** before merging. Fix all `no-style-blocks`, `no-inline-color`, `no-tailwind-color-utilities`, `validate-papers`, and `validate-references` issues.
 - **Full check:** run `npm test` (lint + Playwright E2E for all papers and questions).
 - **Single item:** `npx playwright test --grep "Paper 07"` or `npx playwright test --grep "Question 12"`.
 - Smoke:

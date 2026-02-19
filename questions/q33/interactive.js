@@ -10,11 +10,19 @@ const interactiveScript = () => {
             const legend = document.getElementById('q33-legend');
             const explanation = document.getElementById('q33-explanation');
 
+            // Semantic color mapping: Tailwind color key → theme utility classes
+            const colorMap = {
+                blue:   { swatch: 'bg-swatch-sky',    tone: 'bg-tone-sky',    border: 'border-tone-sky',     text: 'text-tone-sky' },
+                green:  { swatch: 'bg-swatch-green',  tone: 'bg-tone-emerald', border: 'border-tone-emerald', text: 'text-tone-emerald' },
+                purple: { swatch: 'bg-swatch-purple', tone: 'bg-tone-purple',  border: 'border-tone-purple',  text: 'text-tone-purple' },
+                orange: { swatch: 'bg-swatch-orange', tone: 'bg-tone-amber',   border: 'border-tone-amber',   text: 'text-tone-amber' }
+            };
+
             // Check if required elements exist
             if (!scenarioSelect || !output || !modelSizeSelect || !dataRegimeSelect) {
                 console.error('Required DOM elements not found');
                 if (output) {
-                    output.innerHTML = '<div class="text-red-500 p-4">Error: Could not initialize interactive components.</div>';
+                    output.innerHTML = '<div class="text-tone-rose p-4">Error: Could not initialize interactive components.</div>';
                 }
                 return;
             }
@@ -163,11 +171,11 @@ const interactiveScript = () => {
                 document.querySelectorAll('input[name="q33-strategy"]').forEach((radio) => {
                     const container = radio.closest('label');
                     if (radio.checked) {
-                        container.classList.remove('border-gray-200');
-                        container.classList.add('border-purple-500', 'bg-purple-50', 'ring-2', 'ring-purple-200');
+                        container.classList.remove('border-subtle');
+                        container.classList.add('border-tone-purple', 'bg-swatch-purple', 'q33-selected-ring');
                     } else {
-                        container.classList.remove('border-purple-500', 'bg-purple-50', 'ring-2', 'ring-purple-200');
-                        container.classList.add('border-gray-200');
+                        container.classList.remove('border-tone-purple', 'bg-swatch-purple', 'q33-selected-ring');
+                        container.classList.add('border-subtle');
                     }
                 });
                 
@@ -194,11 +202,12 @@ const interactiveScript = () => {
                 ];
 
                 metricsInfo.forEach(metric => {
+                    const c = colorMap[metric.color];
                     const metricCard = document.createElement('div');
-                    metricCard.className = `bg-${metric.color}-50 p-4 rounded-lg border border-${metric.color}-200 text-center shadow-sm`;
+                    metricCard.className = `${c.swatch} p-4 rounded-lg border ${c.border} text-center shadow-sm`;
                     metricCard.innerHTML = `
-                        <div class="text-2xl font-bold text-${metric.color}-600">${metric.value}</div>
-                        <div class="text-sm text-${metric.color}-800 font-medium mt-1">${metric.label}</div>
+                        <div class="text-2xl font-bold ${c.text}">${metric.value}</div>
+                        <div class="text-sm ${c.text} font-medium mt-1">${metric.label}</div>
                     `;
                     metricsGrid.appendChild(metricCard);
                 });
@@ -233,7 +242,7 @@ const interactiveScript = () => {
                 
                 // --- 3. Performance Comparison (Overflow Fixed) ---
                 const comparisonSection = document.createElement('div');
-                comparisonSection.className = 'bg-white p-6 rounded-lg border mt-4';
+                comparisonSection.className = 'bg-card p-6 rounded-lg border border-subtle mt-4';
                 
                 // Dynamic baseline: always the 'Traditional' strategy with same scenario/model/data regime.
                 // This makes the bars responsive to model size & data regime changes.
@@ -243,52 +252,54 @@ const interactiveScript = () => {
                 const SCALE_MAX = 200; // visualize up to 200% (sufficient for current multipliers)
 
                 const renderReductionBar = (label, valuePercent, color) => {
+                    const c = colorMap[color];
                     const reduction = 100 - valuePercent; // positive means reduction
                     const badge = reduction > 0
-                        ? `<span class="ml-2 px-1.5 py-0.5 text-[10px] rounded bg-${color}-100 text-${color}-700 border border-${color}-200">−${reduction.toFixed(0)}%</span>`
+                        ? `<span class="ml-2 px-1.5 py-0.5 text-[10px] rounded ${c.swatch} ${c.text} border ${c.border}">−${reduction.toFixed(0)}%</span>`
                         : '';
                     const visualWidth = Math.min(valuePercent, SCALE_MAX) / SCALE_MAX * 100;
                     return `
                         <div>
                             <div class="flex justify-between text-sm mb-1 font-medium items-center">
                                 <span>${label}</span>
-                                <span class="text-${color}-600">${valuePercent.toFixed(0)}% of baseline ${badge}</span>
+                                <span class="${c.text}">${valuePercent.toFixed(0)}% of baseline ${badge}</span>
                             </div>
-                            <div class="w-full bg-gray-200 rounded-full h-4 relative overflow-hidden">
-                                <div class="h-4 bg-${color}-500 rounded-full transition-all duration-500" style="width:${visualWidth}%"></div>
+                            <div class="w-full bg-subtle rounded-full h-4 relative overflow-hidden">
+                                <div class="h-4 ${c.tone} rounded-full transition-all duration-500" style="width:${visualWidth}%"></div>
                                 ${valuePercent > SCALE_MAX ? `<div class=\"absolute inset-0 bg-[repeating-linear-gradient(45deg,#ffffff33_0_8px,#ffffff00_8px_16px)] rounded-full\"></div>` : ''}
                             </div>
                         </div>`;
                 };
 
                 const renderImprovementBar = (label, valuePercent, color) => {
+                    const c = colorMap[color];
                     const improvement = valuePercent - 100; // positive means gain
                     const over = valuePercent > 100;
                     const width = Math.min(valuePercent, SCALE_MAX) / SCALE_MAX * 100;
                     const badge = over
-                        ? `<span class="ml-2 px-1.5 py-0.5 text-[10px] rounded bg-${color}-100 text-${color}-700 border border-${color}-200">+${improvement.toFixed(0)}%</span>`
+                        ? `<span class="ml-2 px-1.5 py-0.5 text-[10px] rounded ${c.swatch} ${c.text} border ${c.border}">+${improvement.toFixed(0)}%</span>`
                         : '';
                     return `
                         <div>
                             <div class="flex justify-between text-sm mb-1 font-medium items-center">
                                 <span>${label}</span>
-                                <span class="text-${color}-600">${valuePercent.toFixed(0)}% of baseline ${badge}</span>
+                                <span class="${c.text}">${valuePercent.toFixed(0)}% of baseline ${badge}</span>
                             </div>
-                            <div class="w-full bg-gray-200 rounded-full h-4 relative overflow-hidden">
-                                <div class="h-4 bg-${color}-500 rounded-full transition-all duration-500" style="width:${width}%"></div>
+                            <div class="w-full bg-subtle rounded-full h-4 relative overflow-hidden">
+                                <div class="h-4 ${c.tone} rounded-full transition-all duration-500" style="width:${width}%"></div>
                                 ${valuePercent > SCALE_MAX ? `<div class=\"absolute inset-0 bg-[repeating-linear-gradient(45deg,#ffffff33_0_8px,#ffffff00_8px_16px)] rounded-full\"></div>` : ''}
                             </div>
                         </div>`;
                 };
 
                 comparisonSection.innerHTML = `
-                    <h5 class="font-semibold text-gray-800 mb-4">📊 Performance vs. Baseline (Traditional)</h5>
+                    <h5 class="font-semibold text-heading mb-4">📊 Performance vs. Baseline (Traditional)</h5>
                     <div class="space-y-4">
                         ${renderReductionBar('Parameter Count', paramPercent, 'blue')}
                         ${renderReductionBar('Training Time', timePercent, 'green')}
                         ${renderImprovementBar('Accuracy', accPercent, 'purple')}
                     </div>
-                    <p class="mt-3 text-[11px] text-gray-500 flex flex-wrap gap-x-4 gap-y-1">
+                    <p class="mt-3 text-[11px] text-muted flex flex-wrap gap-x-4 gap-y-1">
                         <span>Baseline: Traditional strategy (same model & data regime).</span>
                         <span>Scale: 0%–200% (full bar = 200%).</span>
                         <span>Counts/Time: smaller bar → reduction vs. baseline (badge shows % saved).</span>
@@ -345,29 +356,29 @@ const interactiveScript = () => {
 
                 let explanationText = `
                     <div class="space-y-3">
-                        <div class="bg-white p-4 rounded-lg border">
-                            <h6 class="font-semibold text-gray-900 mb-2">🎯 ${strategy.name} for ${scenario.name}</h6>
-                            <p class="text-sm text-gray-700 mb-3">${strategy.description}</p>
+                        <div class="bg-card p-4 rounded-lg border border-subtle">
+                            <h6 class="font-semibold text-heading mb-2">🎯 ${strategy.name} for ${scenario.name}</h6>
+                            <p class="text-sm text-secondary mb-3">${strategy.description}</p>
                             
                             <div class="grid md:grid-cols-2 gap-4">
                                 <div>
-                                    <div class="font-medium text-green-900 mb-1">✅ Advantages:</div>
-                                    <ul class="text-xs text-green-700 space-y-1">
+                                    <div class="font-medium text-tone-emerald mb-1">✅ Advantages:</div>
+                                    <ul class="text-xs text-tone-emerald space-y-1">
                                         ${strategy.pros.map(pro => `<li>• ${pro}</li>`).join('')}
                                     </ul>
                                 </div>
                                 <div>
-                                    <div class="font-medium text-red-900 mb-1">⚠️ Considerations:</div>
-                                    <ul class="text-xs text-red-700 space-y-1">
+                                    <div class="font-medium text-tone-rose mb-1">⚠️ Considerations:</div>
+                                    <ul class="text-xs text-tone-rose space-y-1">
                                         ${strategy.cons.map(con => `<li>• ${con}</li>`).join('')}
                                     </ul>
                                 </div>
                             </div>
                         </div>
                         
-                        <div class="bg-blue-50 p-3 rounded border border-blue-200">
-                            <h6 class="font-medium text-blue-900 mb-2">📈 Key Performance Insights</h6>
-                            <div class="grid md:grid-cols-2 gap-3 text-sm text-blue-800">
+                        <div class="panel panel-info p-3">
+                            <h6 class="font-medium mb-2">📈 Key Performance Insights</h6>
+                            <div class="grid md:grid-cols-2 gap-3 text-sm">
                                 <div>
                                     <strong>Efficiency Score:</strong> ${metrics.efficiency.toFixed(2)}/10<br/>
                                     <strong>Memory Usage:</strong> ${metrics.memoryUsage.toFixed(1)}B parameters<br/>
@@ -386,9 +397,9 @@ const interactiveScript = () => {
                 // Add strategy-specific insights
                 if (getCurrentStrategy() === 'unified') {
                     explanationText += `
-                        <div class="bg-green-50 p-3 rounded border border-green-200">
-                            <h6 class="font-medium text-green-900 mb-2">🔮 Unified Transformer Key Characteristics</h6>
-                            <div class="text-sm text-green-800 space-y-1">
+                        <div class="panel panel-success p-3">
+                            <h6 class="font-medium mb-2">🔮 Unified Transformer Key Characteristics</h6>
+                            <div class="text-sm space-y-1">
                                 <div>• <strong>Unified Tokenization:</strong> All modalities mapped to a shared token or embedding space</div>
                                 <div>• <strong>Cross-Modal Attention:</strong> Interleaved attention enables early semantic exchange</div>
                                 <div>• <strong>Parameter Sharing:</strong> Reduces redundancy versus siloed encoders</div>
@@ -398,9 +409,9 @@ const interactiveScript = () => {
                     `;
                 } else if (getCurrentStrategy() === 'traditional') {
                     explanationText += `
-                        <div class="bg-red-50 p-3 rounded border border-red-200">
-                            <h6 class="font-medium text-red-900 mb-2">⚠️ Traditional Approach Limitations</h6>
-                            <div class="text-sm text-red-800 space-y-1">
+                        <div class="panel panel-warning p-3">
+                            <h6 class="font-medium mb-2">⚠️ Traditional Approach Limitations</h6>
+                            <div class="text-sm space-y-1">
                                 <div>• <strong>Parameter Bloat:</strong> ${strategy.parameterMultiplier}x more parameters than unified approach</div>
                                 <div>• <strong>Late Fusion:</strong> Limited cross-modal learning opportunities</div>
                                 <div>• <strong>Sequential Training:</strong> Can't leverage cross-modal signals during pre-training</div>

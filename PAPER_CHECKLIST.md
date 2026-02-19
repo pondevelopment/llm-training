@@ -102,6 +102,7 @@
 - [ ] Interactive remains responsive—no long-running loops or blocking recalculations
 - [ ] Files saved as UTF-8 with `\n` line endings; emoji and punctuation render correctly
 - [ ] **Visual consistency check:** Use browser to compare side-by-side with reference papers (Paper 7 is current standard) - verify header structure, spacing (`space-y-5`), padding (`p-4`), plain-language explainer format, and panel layouts match exactly
+- [ ] **`npm run lint` passes with zero errors AND zero warnings** — fix all `no-style-blocks`, `no-inline-color`, and `no-tailwind-color-utilities` issues before merging; validate-papers must also pass (check `interactiveTitle`, `summary`, etc.)
 - [ ] `npm test` passes (lint + full E2E suite); regression check confirms other papers still work
 
 Tick every box before requesting review or publishing the paper explainer.

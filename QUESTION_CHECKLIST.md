@@ -67,6 +67,7 @@ Use this checklist when creating or updating questions for the LLM Questions app
 - [ ] Layout holds on mobile (inspect via responsive mode or narrow window)
 - [ ] Interactive logic handles edge inputs gracefully (min/max sliders, switching scenarios, etc.)
 - [ ] Updated files are UTF-8 encoded so emoji and punctuation render correctly
+- [ ] **`npm run lint` passes with zero errors AND zero warnings** — fix all `no-style-blocks`, `no-inline-color`, and `no-tailwind-color-utilities` issues before merging
 - [ ] `npm test` passes (lint + full E2E suite); regression check confirms other questions still work
 
 Tick each item before marking a question ready for review or publishing.

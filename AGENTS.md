@@ -1,7 +1,10 @@
 ﻿# AI Coding Assistant## Quality gates (run before you're done)
 
 - Build: ensure the static site loads without console errors (hard refresh when testing manifest updates).
-- Lint/Type: match existing patterns; avoid new globals and unused vars.
+- **Lint (mandatory pre-merge):** Run `npm run lint` and confirm **zero errors AND zero warnings**. Common issues:
+  - `no-style-blocks`: Move `<style>` blocks out of HTML fragments; use semantic helpers or `css/theme.css`.
+  - `no-inline-color` / `no-tailwind-color-utilities`: Replace raw Tailwind colors and hardcoded hex values with theme classes or `getCssVar`.
+  - `validate-papers` / `validate-references`: Ensure all manifest entries have required fields (`title`, `interactiveTitle`, `summary`) and related IDs exist.
 - Tests: run `npm test` (lint + Playwright E2E). To test a single item: `npx playwright test --grep "Paper 07"` or `npx playwright test --grep "Question 12"`.
 - Smoke: verify the specific question/page impacted renders and interacts as intended (including `all.html` and the share page).
 - Visual check: Use `open_simple_browser` to compare converted pages side-by-side with reference pages (e.g., compare Paper 8 vs Paper 7 headers, spacing, padding) to ensure structural consistency.m Prompt (Repository: llm-training)

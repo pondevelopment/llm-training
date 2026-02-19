@@ -1,0 +1,95 @@
+<section class="space-y-6" id="p66-explorer">
+  <div class="panel panel-info p-4 space-y-4">
+    <div class="flex items-center justify-between gap-3">
+      <h4 class="text-sm font-semibold text-heading">Agent efficiency strategy explorer</h4>
+      <span class="chip chip-info text-xs">Configure your agent stack</span>
+    </div>
+
+    <div class="panel panel-neutral-soft p-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">How to use this explorer</p>
+      <p class="panel-muted">Select a strategy for each of the three agent pillars (memory, tool learning, planning) to see how the combination affects cost, latency, and effectiveness. The survey finds that these three components are the primary levers for agent efficiency.</p>
+    </div>
+
+    <div class="space-y-3">
+      <div>
+        <label for="p66-memory" class="block text-sm font-medium text-heading">Memory strategy</label>
+        <select id="p66-memory" class="mt-1 w-full rounded border border-divider bg-card px-3 py-2 text-sm text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
+          <option value="full">Full context (no compression)</option>
+          <option value="textual">Textual compression (summaries)</option>
+          <option value="latent">Latent memory (KV cache compression)</option>
+          <option value="item">Item-based external (MemoryBank / Mem0)</option>
+          <option value="hierarchical">Hierarchical (multi-tier: STM/MTM/LTM)</option>
+          <option value="graph">External knowledge graph</option>
+        </select>
+        <div id="p66-memory-note" class="panel panel-neutral-soft p-2 mt-1 text-xs panel-muted min-h-[2.75rem]">Select a memory strategy to see a detailed explanation of how it works, its trade-offs, and when to use it.</div>
+      </div>
+
+      <div>
+        <label for="p66-tool" class="block text-sm font-medium text-heading">Tool learning strategy</label>
+        <select id="p66-tool" class="mt-1 w-full rounded border border-divider bg-card px-3 py-2 text-sm text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
+          <option value="direct">Direct invocation (every step)</option>
+          <option value="retriever">Smart selection (retriever / classifier)</option>
+          <option value="vocab">Vocabulary-based (tool-as-token)</option>
+          <option value="tir">Tool-integrated reasoning (TIR)</option>
+          <option value="parallel">Parallel tool calling</option>
+          <option value="rl">RL-optimized (cost-aware)</option>
+        </select>
+        <div id="p66-tool-note" class="panel panel-neutral-soft p-2 mt-1 text-xs panel-muted min-h-[2.75rem]">Select a tool learning strategy to see a detailed explanation of how it works, its trade-offs, and when to use it.</div>
+      </div>
+
+      <div>
+        <label for="p66-planning" class="block text-sm font-medium text-heading">Planning strategy</label>
+        <select id="p66-planning" class="mt-1 w-full rounded border border-divider bg-card px-3 py-2 text-sm text-body focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[color:var(--accent-strong)]">
+          <option value="sequential">Naive sequential (step-by-step)</option>
+          <option value="adaptive">Adaptive control (SwiftSage / budget-aware)</option>
+          <option value="decompose">Decompose then execute (ReWOO-style)</option>
+          <option value="tree">Tree search (MCTS / A*)</option>
+          <option value="rl-policy">RL-trained policy</option>
+          <option value="multi-agent">Multi-agent coordination</option>
+          <option value="distilled">Distilled single-agent</option>
+        </select>
+        <div id="p66-planning-note" class="panel panel-neutral-soft p-2 mt-1 text-xs panel-muted min-h-[2.75rem]">Select a planning strategy to see a detailed explanation of how it works, its trade-offs, and when to use it.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-neutral p-4 space-y-3">
+    <div class="flex items-center justify-between gap-3">
+      <h4 class="text-sm font-semibold text-heading">Efficiency profile</h4>
+      <span id="p66-pareto-chip" class="chip chip-neutral text-xs">—</span>
+    </div>
+
+    <div class="grid md:grid-cols-4 gap-3">
+      <div class="panel panel-neutral-soft p-3 space-y-1 text-center">
+        <p class="text-xs font-semibold text-heading">Token cost</p>
+        <div id="p66-token-cost" class="text-lg font-bold text-heading">—</div>
+        <p class="text-xs panel-muted">Relative to baseline</p>
+      </div>
+      <div class="panel panel-neutral-soft p-3 space-y-1 text-center">
+        <p class="text-xs font-semibold text-heading">Latency</p>
+        <div id="p66-latency" class="text-lg font-bold text-heading">—</div>
+        <p class="text-xs panel-muted">End-to-end time</p>
+      </div>
+      <div class="panel panel-neutral-soft p-3 space-y-1 text-center">
+        <p class="text-xs font-semibold text-heading">Effectiveness</p>
+        <div id="p66-effectiveness" class="text-lg font-bold text-heading">—</div>
+        <p class="text-xs panel-muted">Task success rate</p>
+      </div>
+      <div class="panel panel-neutral-soft p-3 space-y-1 text-center">
+        <p class="text-xs font-semibold text-heading">Pareto rating</p>
+        <div id="p66-pareto-label" class="text-lg font-bold text-heading">—</div>
+        <p class="text-xs panel-muted">Frontier position</p>
+      </div>
+    </div>
+
+    <div id="p66-bars" class="space-y-2"></div>
+  </div>
+
+  <div class="panel panel-warning p-4 space-y-2">
+    <h4 class="text-sm font-semibold text-heading">Strategy insight</h4>
+    <div id="p66-insight" class="text-sm text-body space-y-2">
+      <p>Select strategies above to see how they interact across the three pillars.</p>
+    </div>
+    <p class="text-xs panel-muted mt-2">Note: Efficiency numbers are illustrative, derived from patterns and figures in the survey. Actual performance varies by task, model, and implementation. Use benchmarks (TPS-Bench, BFCL, SWE-Bench) to evaluate your specific workload.</p>
+  </div>
+</section>

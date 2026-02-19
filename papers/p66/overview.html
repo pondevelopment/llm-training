@@ -1,0 +1,138 @@
+<section class="space-y-5">
+  <!-- Paper header -->
+  <section class="panel panel-info p-4 space-y-4">
+    <div class="flex items-center justify-between gap-4">
+      <div class="flex-1 min-w-0">
+        <h2 class="text-xl font-semibold text-heading">Toward Efficient Agents: Memory, Tool Learning, and Planning</h2>
+        <p class="text-sm panel-muted">Xiaofang Yang, Lijun Li, Heng Zhou, Tong Zhu, Xiaoye Qu, Yuchen Fan, Qianshan Wei, Rui Ye, Li Kang et al. • arXiv:2601.14192 (2026)</p>
+      </div>
+      <a href="https://arxiv.org/abs/2601.14192" target="_blank" rel="noopener" class="btn-soft text-xs font-semibold flex-shrink-0" data-accent="foundations">
+        <span>View paper</span>
+        <span aria-hidden="true">↗</span>
+      </a>
+    </div>
+    <p class="text-sm leading-relaxed panel-muted">
+      A comprehensive survey of <strong>100+ efficiency techniques</strong> across three core agent components&mdash;memory, tool learning, and planning&mdash;covering
+      200 references. The paper formalizes agent cost as token generation + tool invocation + memory operations + retries, and
+      identifies shared principles that recur across all three pillars despite diverse implementations.
+    </p>
+    <div class="panel panel-neutral-soft p-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Plain-language explainer</p>
+      <p class="panel-muted">Building an AI agent is like running a kitchen: <strong>memory</strong> is your recipe book, <strong>tools</strong> are your utensils, and <strong>planning</strong> is your prep order. This survey asks: how do you cook a great meal without wasting time, ingredients, or energy? The answer turns out to be surprisingly similar across all three: keep your workspace tidy (compress context), only grab what you need (minimize tool calls), and follow a tested plan (controlled search).</p>
+    </div>
+  </section>
+
+  <!-- Infographic (lazy-loaded, collapsed by default) -->
+  <details class="panel panel-neutral-soft p-4">
+    <summary class="cursor-pointer text-sm font-semibold text-heading flex items-center gap-2 select-none">
+      <span aria-hidden="true">🖼️</span> View infographic &mdash; visual summary of the survey
+      <span class="text-xs font-normal text-muted ml-auto">(click to expand)</span>
+    </summary>
+    <figure class="mt-3 space-y-2">
+      <a href="./papers/p66/infographic.png" target="_blank" rel="noopener" title="Open full-size infographic in new tab">
+        <img src="./papers/p66/infographic.png" alt="Infographic summarising Toward Efficient Agents: three-pillar taxonomy of memory, tool learning, and planning efficiency techniques, cost model, and Pareto frontier concept" loading="lazy" decoding="async" class="w-full rounded-lg border cursor-pointer hover:opacity-90 transition-opacity">
+      </a>
+      <figcaption class="text-xs text-muted text-center">Visual summary of the three-pillar efficiency taxonomy, agent cost model, and key techniques across memory, tool learning, and planning. <span class="italic">Click to open full size.</span></figcaption>
+    </figure>
+  </details>
+
+  <!-- Executive quick take -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <header class="flex items-center gap-2">
+      <span aria-hidden="true" class="text-lg">🧭</span>
+      <h3 class="text-sm font-semibold tracking-wide uppercase text-heading">Executive quick take</h3>
+    </header>
+    <p class="text-sm leading-relaxed text-body">
+      Agent effectiveness keeps improving, but <strong>efficiency</strong>&mdash;the cost to get that performance&mdash;is what determines real-world viability.
+      This survey organizes efficiency approaches into a lifecycle-based taxonomy for each pillar (construct &rarr; manage &rarr; access for memory;
+      select &rarr; call &rarr; reason for tools; search &rarr; learn &rarr; coordinate for planning) and identifies the Pareto frontier
+      between effectiveness and cost as the key evaluation lens.
+    </p>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>Three converging principles:</strong> bounding context via compression (memory), RL rewards to minimize tool invocation (tools), and controlled search mechanisms (planning).</li>
+      <li><strong>Cost model:</strong> Agent cost = token cost + tool cost + memory cost + retry cost&mdash;each pillar targets a different term in the equation.</li>
+      <li><strong>Unifying trend:</strong> migrate computation from online search to offline learning or structured retrieval.</li>
+    </ul>
+  </section>
+
+  <!-- Business relevance -->
+  <section class="panel panel-success p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">💼 Business relevance</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+      <li><strong>Infrastructure teams:</strong> map token spend per component (memory retrieval, tool calls, planning steps) to find the biggest cost driver&mdash;often one pillar dominates total cost.</li>
+      <li><strong>Product owners:</strong> multi-agent debate and reflection loops multiply token usage due to O(N&sup2;) communication; consider distilling multi-agent coordination into a single trained model for production.</li>
+      <li><strong>Platform architects:</strong> parallel tool calling (LLMCompiler-style) and hierarchical memory (MemoryOS-style) are drop-in improvements to existing pipelines.</li>
+      <li><strong>Finance / ops:</strong> the &ldquo;cost-of-pass&rdquo; metric (TPS-Bench) links token cost to task completion rate&mdash;use it to compare vendors and configurations.</li>
+    </ul>
+    <div class="panel panel-neutral-soft p-3 mt-3 space-y-1 text-xs">
+      <p class="font-semibold text-heading">Derivative example</p>
+      <p class="panel-muted"><strong>Agent cost audit:</strong> Instrument your agentic pipeline to log per-step token counts, tool invocations, memory reads/writes, and retries. Bucket costs by the three pillars. If memory retrieval dominates, test compression (textual summaries vs latent KV cache). If tool calls dominate, evaluate retriever-based selection or RL-optimized invocation. If planning dominates (e.g., multi-agent debate), benchmark distilled single-agent alternatives. Track cost-of-pass ($/successful completion) before and after each intervention.</p>
+    </div>
+  </section>
+
+  <!-- Supporting callouts -->
+  <div class="grid md:grid-cols-2 gap-4">
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">The Pareto frontier</h3>
+      <p class="text-xs panel-muted">The paper characterizes efficiency in two complementary ways: (1) comparing effectiveness under a fixed cost budget, and (2) comparing cost at comparable effectiveness. The Pareto frontier is the set of configurations where no improvement in effectiveness is possible without increasing cost. An &ldquo;efficient agent&rdquo; pushes this frontier outward&mdash;better performance at lower cost.</p>
+    </div>
+    <div class="panel panel-info p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">The agent cost model</h3>
+      <p class="text-xs panel-muted">The formalized cost equation: Cost<sub>agent</sub> &asymp; &alpha;&middot;N<sub>tok</sub> + 𝕀<sub>tool</sub>&middot;Cost<sub>tool</sub> + 𝕀<sub>mem</sub>&middot;Cost<sub>mem</sub> + 𝕀<sub>retry</sub>&middot;Cost<sub>retry</sub>. Unlike a standalone LLM (token cost only), agents incur additional costs from tool execution, memory operations, and retry loops. Each efficiency technique targets one or more of these terms.</p>
+    </div>
+  </div>
+
+  <!-- Key insight / Method / Implication trio -->
+  <div class="grid md:grid-cols-3 gap-4">
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Key insight</h3>
+      <p class="text-xs panel-muted">Despite diverse implementations (compression, RL, tree search, distillation), efficiency techniques converge on shared high-level principles: bound context, reduce unnecessary actions, and migrate reasoning from online search to offline learning.</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Method</h3>
+      <p class="text-xs panel-muted">Lifecycle-based taxonomy across 100+ methods: construct &rarr; manage &rarr; access (memory), select &rarr; call &rarr; reason (tools), infer &rarr; learn &rarr; coordinate (planning). Each phase maps to specific cost-reduction levers.</p>
+    </div>
+    <div class="panel panel-neutral p-4 space-y-2">
+      <h3 class="text-sm font-semibold text-heading">Implication</h3>
+      <p class="text-xs panel-muted">Optimizing one pillar alone is insufficient. The biggest gains come from aligning memory compression with tool selection and planning strategy&mdash;e.g., latent memory reduces token context, which enables faster planning trajectories.</p>
+    </div>
+  </div>
+
+  <!-- Evidence -->
+  <section class="panel panel-neutral p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🧪 Evidence</h3>
+    <ul class="list-disc ml-5 space-y-1 text-sm panel-muted">
+      <li><strong>CoA (Chain of Abstraction)</strong> achieves &gt;30% inference-time reduction vs Toolformer while performing better, by using symbolic abstractions for tool calls instead of inline parameter filling.</li>
+      <li><strong>TinyAgent</strong> reduces prompt size by nearly half on edge devices using a DeBERTa-v3 small multi-label classifier for tool selection instead of passing full tool descriptions.</li>
+      <li><strong>Tool-Integrated Reasoning (TIR):</strong> a distinct sub-pillar (§4.3) where tools are woven into the reasoning path itself&mdash;methods like ReTool, SMART, and AutoTIR enable selective, cost-aware tool invocation during chain-of-thought rather than treating tool calls as separate steps.</li>
+      <li><strong>Multi-agent topology optimization</strong> (Chain-of-Agents, MacNet, AgentPrune) reduces message complexity from O(N&sup2;) to O(N) through structured topologies, cutting communication overhead linearly.</li>
+      <li><strong>MAGDI / SMAGDi:</strong> distills multi-agent interaction graphs into a single student model, retaining coordination quality while reverting to single-agent inference cost.</li>
+      <li><strong>Effectiveness-first principle:</strong> the paper emphasizes that &ldquo;a method that is cheap but fails to solve tasks&hellip;is not meaningfully efficient.&rdquo; Efficiency must be evaluated at comparable effectiveness levels.</li>
+      <li><strong>Scope of survey:</strong> covers 100+ methods across memory (50+), tool learning (30+), and planning (25+) with 200 references spanning 2023&ndash;2026.</li>
+    </ul>
+  </section>
+
+  <!-- Forward-looking roadmap -->
+  <section class="panel panel-warning p-5 space-y-3">
+    <h3 class="text-sm font-semibold text-heading">🔭 For your roadmap</h3>
+    <p class="text-sm text-body">Use the paper&rsquo;s three-pillar framework to systematically audit where your agent pipeline spends resources, then apply the matching efficiency lever.</p>
+    <ul class="list-disc ml-5 space-y-1 text-sm text-body">
+      <li><strong>Audit token spend per pillar:</strong> instrument your pipeline to separate memory retrieval cost, tool invocation cost, and planning/retry cost. One pillar usually dominates.</li>
+      <li><strong>Evaluate memory compression trade-offs:</strong> test textual summaries vs latent KV compression vs hierarchical memory against your accuracy requirements. Excessive compression degrades performance.</li>
+      <li><strong>Benchmark tool-calling parallelism:</strong> if your agent makes sequential tool calls, evaluate LLMCompiler-style parallel dispatch or vocabulary-based selection (ToolkenGPT) for latency wins.</li>
+      <li><strong>Consider multi-agent distillation:</strong> if you run multi-agent debate/reflection, benchmark a distilled single-agent alternative (MAGDI/D&amp;R pattern) for 2&ndash;5&times; cost savings with comparable quality.</li>
+      <li><strong>Adopt cost-of-pass metrics:</strong> track $/successful completion (not $/token) to properly evaluate whether efficiency gains preserve task success.</li>
+      <li><strong>Watch emerging standards:</strong> Anthropic&rsquo;s Model Context Protocol (MCP) is gaining traction as a standard for tool definitions, with dedicated benchmarks (MCP-RADAR, MCP-Bench) already emerging.</li>
+    </ul>
+
+    <div class="panel panel-neutral-soft p-3 mt-3 space-y-2 text-xs">
+      <p class="font-semibold text-heading">Open research directions (§7)</p>
+      <ul class="list-disc ml-4 space-y-1 panel-muted">
+        <li><strong>Unified memory evaluation:</strong> different papers use incompatible metrics (token/query, token/episode, varying latency stages). A standard benchmark is needed to compare memory methods fairly.</li>
+        <li><strong>Agentic latent reasoning:</strong> reasoning in hidden representations rather than token-by-token decoding&mdash;applied to tool use, planning, and memory management. Still underexplored for agents.</li>
+        <li><strong>Deployment-aware design:</strong> multi-agent systems can be true multi-model (separate deployments) or single-model role-play (one model switching roles). These have fundamentally different cost/reliability profiles and should be compared under matched budgets.</li>
+        <li><strong>Multimodal agent efficiency:</strong> GUI and embodied agents face additional challenges&mdash;visual history creates severe memory-speed trade-offs, and efficiency techniques from text-only agents may not transfer directly.</li>
+      </ul>
+    </div>
+  </section>
+</section>

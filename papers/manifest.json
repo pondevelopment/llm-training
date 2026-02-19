@@ -1774,5 +1774,41 @@
       37,
       42
     ]
+  },
+  "66": {
+    "title": "Toward Efficient Agents: Memory, Tool Learning, and Planning",
+    "authors": [
+      "Xiaofang Yang",
+      "Lijun Li",
+      "Heng Zhou",
+      "Tong Zhu",
+      "Xiaoye Qu",
+      "Yuchen Fan",
+      "Qianshan Wei",
+      "Rui Ye",
+      "Li Kang"
+    ],
+    "year": 2026,
+    "venue": "arXiv:2601.14192 (2026)",
+    "tags": [
+      "agentic-ai",
+      "efficiency",
+      "memory",
+      "tool-learning",
+      "planning",
+      "multi-agent",
+      "survey",
+      "pareto-optimization"
+    ],
+    "dir": "./papers/p66",
+    "interactiveTitle": "Agent efficiency strategy explorer",
+    "summary": "Comprehensive survey of 100+ efficiency techniques across three core agent components — memory, tool learning, and planning — covering 200 references. Identifies shared principles: bounding context via compression, RL rewards to minimize tool invocation, and controlled search mechanisms. Formalizes agent cost as tokens + tools + memory + retries and characterizes the Pareto frontier between effectiveness and cost.",
+    "relatedQuestions": [
+      3,
+      36,
+      38,
+      50,
+      52
+    ]
   }
 }

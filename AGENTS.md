@@ -2,7 +2,7 @@
 
 - Build: ensure the static site loads without console errors (hard refresh when testing manifest updates).
 - **Lint (mandatory pre-merge):** Run `npm run lint` and confirm **zero errors AND zero warnings**. Common issues:
-  - `no-style-blocks`: Move `<style>` blocks out of HTML fragments; use semantic helpers or `css/theme.css`.
+  - `no-style-blocks`: Move `<style>` blocks out of HTML fragments; use semantic helpers or the appropriate CSS file (see "CSS architecture" below).
   - `no-inline-color` / `no-tailwind-color-utilities`: Replace raw Tailwind colors and hardcoded hex values with theme classes or `getCssVar`.
   - `validate-papers` / `validate-references`: Ensure all manifest entries have required fields (`title`, `interactiveTitle`, `summary`) and related IDs exist.
 - Tests: run `npm test` (lint + Playwright E2E). To test a single item: `npx playwright test --grep "Paper 07"` or `npx playwright test --grep "Question 12"`.
@@ -34,6 +34,22 @@ Always consult these when creating or updating any question or paper. They are t
 - Lint/Type: match existing patterns; avoid new globals and unused vars.
 - Tests: run `npm test` (lint + Playwright E2E). To test a single item: `npx playwright test --grep "Paper 07"` or `npx playwright test --grep "Question 12"`.
 - Smoke: verify the specific question/page impacted renders and interacts as intended (including `all.html` and the share page).
+
+## CSS architecture
+
+The site's styles are split into two files, both loaded by `index.html`, `all.html`, `papers.html`, and `updates.html`:
+
+| File | Purpose | Stylelint |
+|---|---|---|
+| `css/theme.css` | Core theme — CSS variables, base tokens, layout primitives, semantic helpers (`panel`, `chip`, `view-toggle`, `btn-*`) | Ignored (uses `color-mix`, `rgba`, etc.) |
+| `css/questions.css` | Per-question and per-paper fragment styles (`.q2-*`, `.q8-*`, `.p14-*`, etc.) | Ignored (same reason) |
+| `css/share.css` | Share/unfurl page styles | Ignored |
+
+**Where to add new CSS:**
+- Core tokens, variables, semantic helpers → `css/theme.css`
+- Per-question/paper styles (migrated `<style>` blocks, component-specific selectors) → `css/questions.css`
+
+**Stylelint `ignoreFiles` maintenance:** Both `css/theme.css` and `css/questions.css` are listed in `.stylelintrc.json` `ignoreFiles` because they contain `color-mix()` / `rgba()` values that the strict color rules disallow. If you create a new CSS file that contains such values, add it to `ignoreFiles` as well—otherwise CI will fail with hundreds of `declaration-property-value-disallowed-list` errors.
 
 ## Coding guidelines
 

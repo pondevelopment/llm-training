@@ -209,7 +209,7 @@ When a user navigates to an anchor:
 2. **Heading flash**: Any headings within the element (`h1-h4` or `header h2-h3`) flash in accent color for the first 40% of the animation
 3. **Smooth scroll**: Page smoothly scrolls to position the target element at the top of viewport
 
-The animations are defined in `css/theme.css` as reusable theme components:
+The animations are defined in `css/theme.css` (core theme) as reusable theme components:
 
 - `.anchor-highlight` class automatically applied/removed by `scrollToAnchor()` in `app.js`
 - No manual JavaScript required in individual papers
@@ -394,4 +394,4 @@ This ensures:
 
 Use `PAPER_CHECKLIST.md` to track completion of these steps for every new or updated paper.
 
-> Use the neutral token classes from `css/theme.css` (such as `bg-card`, `bg-surface`, `text-heading`, `text-muted`, `border-divider`) for backgrounds and typography.
+> Use the neutral token classes from `css/theme.css` (such as `bg-card`, `bg-surface`, `text-heading`, `text-muted`, `border-divider`) for backgrounds and typography. Per-paper and per-question component styles (`.pXX-*`, `.qXX-*` selectors) live in `css/questions.css`.

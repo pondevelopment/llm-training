@@ -116,8 +116,7 @@ Header layout details (don’t drift):
 ## Interactive UX rules
 
 - Use semantic theme helpers (`panel …`, `chip …`, `view-toggle`).
-- No raw Tailwind color utilities and no hard-coded colors.
-- Sane defaults: the first render should teach something.
+- No raw Tailwind color utilities and no hard-coded colors.- If custom CSS is needed for paper-specific selectors (`.pXX-*`), add it to `css/questions.css` (not `css/theme.css`).- Sane defaults: the first render should teach something.
 - Don’t add no-op controls; if a factor is non-significant, mention it in text instead.
 - If multiple metrics could be misread as inversely coupled, explicitly explain the relationship in UI copy.
 

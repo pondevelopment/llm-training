@@ -66,7 +66,7 @@
 - [ ] **Distinguish baseline from mitigation:** Use color coding (amber for problematic baseline, green for successful mitigation) and clear messaging ("Complies with ALL requests indiscriminately" vs "Maintains helpfulness while rejecting dangerous requests")
 - [ ] **Model OOD behavior if applicable:** If paper tests generalization, add domain selector with appropriate effectiveness penalties for different strategies (document assumptions in code comments)
 - [ ] **Root wrapper:** `<section class="space-y-6" id="pXX-explorer">` (semantic HTML, not div)
-- [ ] **NO inline styles:** No `<style>` blocks - use Tailwind utility classes only
+- [ ] **NO inline styles:** No `<style>` blocks — use semantic theme classes. If custom CSS is needed, add it to `css/questions.css` (not `css/theme.css`)
 - [ ] **Panel structure:**
   - [ ] Controls/inputs: `panel panel-info` or `panel panel-neutral`
   - [ ] Results/output: `panel panel-neutral` with nested `panel-neutral-soft` for metrics

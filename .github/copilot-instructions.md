@@ -29,7 +29,7 @@ If anything here conflicts with those docs, follow the docs.
   - Chips: `chip chip-*`
   - Toggles: `view-toggle`
 - Avoid raw Tailwind color utilities (e.g. `bg-indigo-50`, `border-blue-200`) and hard-coded colors.
-- In interactive HTML fragments: no `<style>` blocks and no inline styles.
+- In interactive HTML fragments: no `<style>` blocks and no inline styles. If custom CSS is needed, add it to `css/questions.css` (per-question/paper styles) not `css/theme.css` (core theme only).
 - In JavaScript-generated inline styles: avoid CSS variables like `style="color: var(--...)"` (not reliable cross-browser). Use the `getCssVar` helper (see `AGENTS.md`) with a hardcoded fallback; never raw `var()` in JS-generated `style` attributes.
 
 ## Repository structure and “contracts”
@@ -134,7 +134,7 @@ MathJax:
 
 ## Verification (run before finishing)
 
-- **Lint (mandatory):** run `npm run lint` and confirm **zero errors AND zero warnings** before merging. Fix all `no-style-blocks`, `no-inline-color`, `no-tailwind-color-utilities`, `validate-papers`, and `validate-references` issues.
+- **Lint (mandatory):** run `npm run lint` and confirm **zero errors AND zero warnings** before merging. Fix all `no-style-blocks`, `no-inline-color`, `no-tailwind-color-utilities`, `validate-papers`, and `validate-references` issues. Always run the full `npm run lint` (not individual sub-linters) to catch issues like missing stylelint `ignoreFiles` entries.
 - **Full check:** run `npm test` (lint + Playwright E2E for all papers and questions).
 - **Single item:** `npx playwright test --grep "Paper 07"` or `npx playwright test --grep "Question 12"`.
 - Smoke:

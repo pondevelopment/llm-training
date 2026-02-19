@@ -21,5 +21,5 @@
     "rule-empty-line-before": null,
     "color-hex-length": null
   },
-  "ignoreFiles": ["css/theme.css", "css/share.css"]
+  "ignoreFiles": ["css/theme.css", "css/questions.css", "css/share.css"]
 }

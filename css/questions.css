@@ -3001,6 +3001,8 @@ html.dark .q18-chart {
       border: 1px solid color-mix(in srgb, var(--color-border-subtle) 70%, transparent 30%);
       color: var(--q32-heatmap-text-muted);
       cursor: pointer;
+      transition: transform .2s ease, box-shadow .2s ease;
+      min-width: 3rem;
     }
     .heatmap-cell:focus-visible {
       outline: 2px solid var(--panel-info-border-strong);
@@ -3051,9 +3053,6 @@ html.dark .q18-chart {
     html.dark .q32-heatmap-swatch--low {
       background: color-mix(in srgb, var(--tone-indigo-strong) 70%, transparent 30%);
       border-color: var(--tone-indigo-strong);
-    }
-          transition: transform .2s ease, box-shadow .2s ease;
-      min-width: 3rem;
     }
     .heatmap-cell:hover {
       transform: translateY(-1px);
@@ -4527,7 +4526,10 @@ html.dark #q44-interactive .q44-bar-track {
   }
   html.dark #q50-interactive-root #q50-interventions > div {
     background-color: color-mix(in srgb, var(--color-card) 86%, transparent 14%);
-  }\n  #q50-interactive-root .q50-interventions-gain {\n    white-space: nowrap;\n  }
+  }
+  #q50-interactive-root .q50-interventions-gain {
+    white-space: nowrap;
+  }
 
 /* === questions / q51 / interactive === */
     .q51-flow-card {
